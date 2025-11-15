@@ -66,7 +66,9 @@ func (i *InputSyslogConnection2) GetOutput() string {
 type InputSyslogMode2 string
 
 const (
-	InputSyslogMode2Smart  InputSyslogMode2 = "smart"
+	// InputSyslogMode2Smart Smart
+	InputSyslogMode2Smart InputSyslogMode2 = "smart"
+	// InputSyslogMode2Always Always On
 	InputSyslogMode2Always InputSyslogMode2 = "always"
 )
 
@@ -78,7 +80,9 @@ func (e InputSyslogMode2) ToPointer() *InputSyslogMode2 {
 type InputSyslogCompression2 string
 
 const (
+	// InputSyslogCompression2None None
 	InputSyslogCompression2None InputSyslogCompression2 = "none"
+	// InputSyslogCompression2Gzip Gzip
 	InputSyslogCompression2Gzip InputSyslogCompression2 = "gzip"
 )
 
@@ -213,6 +217,12 @@ func (e InputSyslogMaximumTLSVersion2) ToPointer() *InputSyslogMaximumTLSVersion
 
 type InputSyslogTLSSettingsServerSide2 struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -222,13 +232,9 @@ type InputSyslogTLSSettingsServerSide2 struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                          `default:"false" json:"requestCert"`
-	RejectUnauthorized any                            `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                            `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputSyslogMinimumTLSVersion2 `json:"minVersion,omitempty"`
-	MaxVersion         *InputSyslogMaximumTLSVersion2 `json:"maxVersion,omitempty"`
+	CaPath     *string                        `json:"caPath,omitempty"`
+	MinVersion *InputSyslogMinimumTLSVersion2 `json:"minVersion,omitempty"`
+	MaxVersion *InputSyslogMaximumTLSVersion2 `json:"maxVersion,omitempty"`
 }
 
 func (i InputSyslogTLSSettingsServerSide2) MarshalJSON() ([]byte, error) {
@@ -247,6 +253,27 @@ func (i *InputSyslogTLSSettingsServerSide2) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputSyslogTLSSettingsServerSide2) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputSyslogTLSSettingsServerSide2) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSyslogTLSSettingsServerSide2) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputSyslogTLSSettingsServerSide2) GetCertificateName() *string {
@@ -282,27 +309,6 @@ func (i *InputSyslogTLSSettingsServerSide2) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputSyslogTLSSettingsServerSide2) GetMinVersion() *InputSyslogMinimumTLSVersion2 {
@@ -713,7 +719,9 @@ func (i *InputSyslogConnection1) GetOutput() string {
 type InputSyslogMode1 string
 
 const (
-	InputSyslogMode1Smart  InputSyslogMode1 = "smart"
+	// InputSyslogMode1Smart Smart
+	InputSyslogMode1Smart InputSyslogMode1 = "smart"
+	// InputSyslogMode1Always Always On
 	InputSyslogMode1Always InputSyslogMode1 = "always"
 )
 
@@ -725,7 +733,9 @@ func (e InputSyslogMode1) ToPointer() *InputSyslogMode1 {
 type InputSyslogCompression1 string
 
 const (
+	// InputSyslogCompression1None None
 	InputSyslogCompression1None InputSyslogCompression1 = "none"
+	// InputSyslogCompression1Gzip Gzip
 	InputSyslogCompression1Gzip InputSyslogCompression1 = "gzip"
 )
 
@@ -860,6 +870,12 @@ func (e InputSyslogMaximumTLSVersion1) ToPointer() *InputSyslogMaximumTLSVersion
 
 type InputSyslogTLSSettingsServerSide1 struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -869,13 +885,9 @@ type InputSyslogTLSSettingsServerSide1 struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                          `default:"false" json:"requestCert"`
-	RejectUnauthorized any                            `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                            `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputSyslogMinimumTLSVersion1 `json:"minVersion,omitempty"`
-	MaxVersion         *InputSyslogMaximumTLSVersion1 `json:"maxVersion,omitempty"`
+	CaPath     *string                        `json:"caPath,omitempty"`
+	MinVersion *InputSyslogMinimumTLSVersion1 `json:"minVersion,omitempty"`
+	MaxVersion *InputSyslogMaximumTLSVersion1 `json:"maxVersion,omitempty"`
 }
 
 func (i InputSyslogTLSSettingsServerSide1) MarshalJSON() ([]byte, error) {
@@ -894,6 +906,27 @@ func (i *InputSyslogTLSSettingsServerSide1) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputSyslogTLSSettingsServerSide1) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputSyslogTLSSettingsServerSide1) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSyslogTLSSettingsServerSide1) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputSyslogTLSSettingsServerSide1) GetCertificateName() *string {
@@ -929,27 +962,6 @@ func (i *InputSyslogTLSSettingsServerSide1) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputSyslogTLSSettingsServerSide1) GetMinVersion() *InputSyslogMinimumTLSVersion1 {

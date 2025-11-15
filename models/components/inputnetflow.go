@@ -65,7 +65,9 @@ func (i *InputNetflowConnection) GetOutput() string {
 type InputNetflowMode string
 
 const (
-	InputNetflowModeSmart  InputNetflowMode = "smart"
+	// InputNetflowModeSmart Smart
+	InputNetflowModeSmart InputNetflowMode = "smart"
+	// InputNetflowModeAlways Always On
 	InputNetflowModeAlways InputNetflowMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputNetflowMode) ToPointer() *InputNetflowMode {
 type InputNetflowCompression string
 
 const (
+	// InputNetflowCompressionNone None
 	InputNetflowCompressionNone InputNetflowCompression = "none"
+	// InputNetflowCompressionGzip Gzip
 	InputNetflowCompressionGzip InputNetflowCompression = "gzip"
 )
 

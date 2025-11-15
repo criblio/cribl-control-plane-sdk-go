@@ -35,8 +35,10 @@ func (e *OutputSumoLogicType) UnmarshalJSON(data []byte) error {
 type OutputSumoLogicDataFormat string
 
 const (
+	// OutputSumoLogicDataFormatJSON JSON
 	OutputSumoLogicDataFormatJSON OutputSumoLogicDataFormat = "json"
-	OutputSumoLogicDataFormatRaw  OutputSumoLogicDataFormat = "raw"
+	// OutputSumoLogicDataFormatRaw Raw
+	OutputSumoLogicDataFormatRaw OutputSumoLogicDataFormat = "raw"
 )
 
 func (e OutputSumoLogicDataFormat) ToPointer() *OutputSumoLogicDataFormat {
@@ -77,9 +79,12 @@ func (o *OutputSumoLogicExtraHTTPHeader) GetValue() string {
 type OutputSumoLogicFailedRequestLoggingMode string
 
 const (
-	OutputSumoLogicFailedRequestLoggingModePayload           OutputSumoLogicFailedRequestLoggingMode = "payload"
+	// OutputSumoLogicFailedRequestLoggingModePayload Payload
+	OutputSumoLogicFailedRequestLoggingModePayload OutputSumoLogicFailedRequestLoggingMode = "payload"
+	// OutputSumoLogicFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSumoLogicFailedRequestLoggingModePayloadAndHeaders OutputSumoLogicFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSumoLogicFailedRequestLoggingModeNone              OutputSumoLogicFailedRequestLoggingMode = "none"
+	// OutputSumoLogicFailedRequestLoggingModeNone None
+	OutputSumoLogicFailedRequestLoggingModeNone OutputSumoLogicFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSumoLogicFailedRequestLoggingMode) ToPointer() *OutputSumoLogicFailedRequestLoggingMode {
@@ -189,8 +194,11 @@ func (o *OutputSumoLogicTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSumoLogicBackpressureBehavior string
 
 const (
+	// OutputSumoLogicBackpressureBehaviorBlock Block
 	OutputSumoLogicBackpressureBehaviorBlock OutputSumoLogicBackpressureBehavior = "block"
-	OutputSumoLogicBackpressureBehaviorDrop  OutputSumoLogicBackpressureBehavior = "drop"
+	// OutputSumoLogicBackpressureBehaviorDrop Drop
+	OutputSumoLogicBackpressureBehaviorDrop OutputSumoLogicBackpressureBehavior = "drop"
+	// OutputSumoLogicBackpressureBehaviorQueue Persistent Queue
 	OutputSumoLogicBackpressureBehaviorQueue OutputSumoLogicBackpressureBehavior = "queue"
 )
 
@@ -198,11 +206,29 @@ func (e OutputSumoLogicBackpressureBehavior) ToPointer() *OutputSumoLogicBackpre
 	return &e
 }
 
+// OutputSumoLogicMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputSumoLogicMode string
+
+const (
+	// OutputSumoLogicModeError Error
+	OutputSumoLogicModeError OutputSumoLogicMode = "error"
+	// OutputSumoLogicModeAlways Backpressure
+	OutputSumoLogicModeAlways OutputSumoLogicMode = "always"
+	// OutputSumoLogicModeBackpressure Always On
+	OutputSumoLogicModeBackpressure OutputSumoLogicMode = "backpressure"
+)
+
+func (e OutputSumoLogicMode) ToPointer() *OutputSumoLogicMode {
+	return &e
+}
+
 // OutputSumoLogicCompression - Codec to use to compress the persisted data
 type OutputSumoLogicCompression string
 
 const (
+	// OutputSumoLogicCompressionNone None
 	OutputSumoLogicCompressionNone OutputSumoLogicCompression = "none"
+	// OutputSumoLogicCompressionGzip Gzip
 	OutputSumoLogicCompressionGzip OutputSumoLogicCompression = "gzip"
 )
 
@@ -214,24 +240,13 @@ func (e OutputSumoLogicCompression) ToPointer() *OutputSumoLogicCompression {
 type OutputSumoLogicQueueFullBehavior string
 
 const (
+	// OutputSumoLogicQueueFullBehaviorBlock Block
 	OutputSumoLogicQueueFullBehaviorBlock OutputSumoLogicQueueFullBehavior = "block"
-	OutputSumoLogicQueueFullBehaviorDrop  OutputSumoLogicQueueFullBehavior = "drop"
+	// OutputSumoLogicQueueFullBehaviorDrop Drop new data
+	OutputSumoLogicQueueFullBehaviorDrop OutputSumoLogicQueueFullBehavior = "drop"
 )
 
 func (e OutputSumoLogicQueueFullBehavior) ToPointer() *OutputSumoLogicQueueFullBehavior {
-	return &e
-}
-
-// OutputSumoLogicMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSumoLogicMode string
-
-const (
-	OutputSumoLogicModeError        OutputSumoLogicMode = "error"
-	OutputSumoLogicModeBackpressure OutputSumoLogicMode = "backpressure"
-	OutputSumoLogicModeAlways       OutputSumoLogicMode = "always"
-)
-
-func (e OutputSumoLogicMode) ToPointer() *OutputSumoLogicMode {
 	return &e
 }
 
@@ -303,6 +318,16 @@ type OutputSumoLogic struct {
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputSumoLogicMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -313,9 +338,7 @@ type OutputSumoLogic struct {
 	PqCompress *OutputSumoLogicCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputSumoLogicQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSumoLogicMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSumoLogicPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputSumoLogicPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputSumoLogic) MarshalJSON() ([]byte, error) {
@@ -518,6 +541,41 @@ func (o *OutputSumoLogic) GetDescription() *string {
 	return o.Description
 }
 
+func (o *OutputSumoLogic) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSumoLogic) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSumoLogic) GetPqMode() *OutputSumoLogicMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSumoLogic) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSumoLogic) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputSumoLogic) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -551,13 +609,6 @@ func (o *OutputSumoLogic) GetPqOnBackpressure() *OutputSumoLogicQueueFullBehavio
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputSumoLogic) GetPqMode() *OutputSumoLogicMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputSumoLogic) GetPqControls() *OutputSumoLogicPqControls {

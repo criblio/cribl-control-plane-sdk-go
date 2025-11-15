@@ -35,8 +35,11 @@ func (e *OutputDlS3Type) UnmarshalJSON(data []byte) error {
 type OutputDlS3AuthenticationMethod string
 
 const (
-	OutputDlS3AuthenticationMethodAuto   OutputDlS3AuthenticationMethod = "auto"
+	// OutputDlS3AuthenticationMethodAuto Auto
+	OutputDlS3AuthenticationMethodAuto OutputDlS3AuthenticationMethod = "auto"
+	// OutputDlS3AuthenticationMethodManual Manual
 	OutputDlS3AuthenticationMethodManual OutputDlS3AuthenticationMethod = "manual"
+	// OutputDlS3AuthenticationMethodSecret Secret Key pair
 	OutputDlS3AuthenticationMethodSecret OutputDlS3AuthenticationMethod = "secret"
 )
 
@@ -60,12 +63,19 @@ func (e OutputDlS3SignatureVersion) ToPointer() *OutputDlS3SignatureVersion {
 type OutputDlS3ObjectACL string
 
 const (
-	OutputDlS3ObjectACLPrivate                OutputDlS3ObjectACL = "private"
-	OutputDlS3ObjectACLPublicRead             OutputDlS3ObjectACL = "public-read"
-	OutputDlS3ObjectACLPublicReadWrite        OutputDlS3ObjectACL = "public-read-write"
-	OutputDlS3ObjectACLAuthenticatedRead      OutputDlS3ObjectACL = "authenticated-read"
-	OutputDlS3ObjectACLAwsExecRead            OutputDlS3ObjectACL = "aws-exec-read"
-	OutputDlS3ObjectACLBucketOwnerRead        OutputDlS3ObjectACL = "bucket-owner-read"
+	// OutputDlS3ObjectACLPrivate Private
+	OutputDlS3ObjectACLPrivate OutputDlS3ObjectACL = "private"
+	// OutputDlS3ObjectACLPublicRead Public Read Only
+	OutputDlS3ObjectACLPublicRead OutputDlS3ObjectACL = "public-read"
+	// OutputDlS3ObjectACLPublicReadWrite Public Read/Write
+	OutputDlS3ObjectACLPublicReadWrite OutputDlS3ObjectACL = "public-read-write"
+	// OutputDlS3ObjectACLAuthenticatedRead Authenticated Read Only
+	OutputDlS3ObjectACLAuthenticatedRead OutputDlS3ObjectACL = "authenticated-read"
+	// OutputDlS3ObjectACLAwsExecRead AWS EC2 AMI Read Only
+	OutputDlS3ObjectACLAwsExecRead OutputDlS3ObjectACL = "aws-exec-read"
+	// OutputDlS3ObjectACLBucketOwnerRead Bucket Owner Read Only
+	OutputDlS3ObjectACLBucketOwnerRead OutputDlS3ObjectACL = "bucket-owner-read"
+	// OutputDlS3ObjectACLBucketOwnerFullControl Bucket Owner Full Control
 	OutputDlS3ObjectACLBucketOwnerFullControl OutputDlS3ObjectACL = "bucket-owner-full-control"
 )
 
@@ -77,14 +87,22 @@ func (e OutputDlS3ObjectACL) ToPointer() *OutputDlS3ObjectACL {
 type OutputDlS3StorageClass string
 
 const (
-	OutputDlS3StorageClassStandard           OutputDlS3StorageClass = "STANDARD"
-	OutputDlS3StorageClassReducedRedundancy  OutputDlS3StorageClass = "REDUCED_REDUNDANCY"
-	OutputDlS3StorageClassStandardIa         OutputDlS3StorageClass = "STANDARD_IA"
-	OutputDlS3StorageClassOnezoneIa          OutputDlS3StorageClass = "ONEZONE_IA"
+	// OutputDlS3StorageClassStandard Standard
+	OutputDlS3StorageClassStandard OutputDlS3StorageClass = "STANDARD"
+	// OutputDlS3StorageClassReducedRedundancy Reduced Redundancy Storage
+	OutputDlS3StorageClassReducedRedundancy OutputDlS3StorageClass = "REDUCED_REDUNDANCY"
+	// OutputDlS3StorageClassStandardIa Standard, Infrequent Access
+	OutputDlS3StorageClassStandardIa OutputDlS3StorageClass = "STANDARD_IA"
+	// OutputDlS3StorageClassOnezoneIa One Zone, Infrequent Access
+	OutputDlS3StorageClassOnezoneIa OutputDlS3StorageClass = "ONEZONE_IA"
+	// OutputDlS3StorageClassIntelligentTiering Intelligent Tiering
 	OutputDlS3StorageClassIntelligentTiering OutputDlS3StorageClass = "INTELLIGENT_TIERING"
-	OutputDlS3StorageClassGlacier            OutputDlS3StorageClass = "GLACIER"
-	OutputDlS3StorageClassGlacierIr          OutputDlS3StorageClass = "GLACIER_IR"
-	OutputDlS3StorageClassDeepArchive        OutputDlS3StorageClass = "DEEP_ARCHIVE"
+	// OutputDlS3StorageClassGlacier Glacier Flexible Retrieval
+	OutputDlS3StorageClassGlacier OutputDlS3StorageClass = "GLACIER"
+	// OutputDlS3StorageClassGlacierIr Glacier Instant Retrieval
+	OutputDlS3StorageClassGlacierIr OutputDlS3StorageClass = "GLACIER_IR"
+	// OutputDlS3StorageClassDeepArchive Glacier Deep Archive
+	OutputDlS3StorageClassDeepArchive OutputDlS3StorageClass = "DEEP_ARCHIVE"
 )
 
 func (e OutputDlS3StorageClass) ToPointer() *OutputDlS3StorageClass {
@@ -94,7 +112,9 @@ func (e OutputDlS3StorageClass) ToPointer() *OutputDlS3StorageClass {
 type OutputDlS3ServerSideEncryptionForUploadedObjects string
 
 const (
+	// OutputDlS3ServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
 	OutputDlS3ServerSideEncryptionForUploadedObjectsAes256 OutputDlS3ServerSideEncryptionForUploadedObjects = "AES256"
+	// OutputDlS3ServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
 	OutputDlS3ServerSideEncryptionForUploadedObjectsAwsKms OutputDlS3ServerSideEncryptionForUploadedObjects = "aws:kms"
 )
 
@@ -106,8 +126,11 @@ func (e OutputDlS3ServerSideEncryptionForUploadedObjects) ToPointer() *OutputDlS
 type OutputDlS3DataFormat string
 
 const (
-	OutputDlS3DataFormatJSON    OutputDlS3DataFormat = "json"
-	OutputDlS3DataFormatRaw     OutputDlS3DataFormat = "raw"
+	// OutputDlS3DataFormatJSON JSON
+	OutputDlS3DataFormatJSON OutputDlS3DataFormat = "json"
+	// OutputDlS3DataFormatRaw Raw
+	OutputDlS3DataFormatRaw OutputDlS3DataFormat = "raw"
+	// OutputDlS3DataFormatParquet Parquet
 	OutputDlS3DataFormatParquet OutputDlS3DataFormat = "parquet"
 )
 
@@ -119,8 +142,10 @@ func (e OutputDlS3DataFormat) ToPointer() *OutputDlS3DataFormat {
 type OutputDlS3BackpressureBehavior string
 
 const (
+	// OutputDlS3BackpressureBehaviorBlock Block
 	OutputDlS3BackpressureBehaviorBlock OutputDlS3BackpressureBehavior = "block"
-	OutputDlS3BackpressureBehaviorDrop  OutputDlS3BackpressureBehavior = "drop"
+	// OutputDlS3BackpressureBehaviorDrop Drop
+	OutputDlS3BackpressureBehaviorDrop OutputDlS3BackpressureBehavior = "drop"
 )
 
 func (e OutputDlS3BackpressureBehavior) ToPointer() *OutputDlS3BackpressureBehavior {
@@ -131,8 +156,10 @@ func (e OutputDlS3BackpressureBehavior) ToPointer() *OutputDlS3BackpressureBehav
 type OutputDlS3DiskSpaceProtection string
 
 const (
+	// OutputDlS3DiskSpaceProtectionBlock Block
 	OutputDlS3DiskSpaceProtectionBlock OutputDlS3DiskSpaceProtection = "block"
-	OutputDlS3DiskSpaceProtectionDrop  OutputDlS3DiskSpaceProtection = "drop"
+	// OutputDlS3DiskSpaceProtectionDrop Drop
+	OutputDlS3DiskSpaceProtectionDrop OutputDlS3DiskSpaceProtection = "drop"
 )
 
 func (e OutputDlS3DiskSpaceProtection) ToPointer() *OutputDlS3DiskSpaceProtection {
@@ -155,8 +182,11 @@ func (e OutputDlS3Compression) ToPointer() *OutputDlS3Compression {
 type OutputDlS3CompressionLevel string
 
 const (
-	OutputDlS3CompressionLevelBestSpeed       OutputDlS3CompressionLevel = "best_speed"
-	OutputDlS3CompressionLevelNormal          OutputDlS3CompressionLevel = "normal"
+	// OutputDlS3CompressionLevelBestSpeed Best Speed
+	OutputDlS3CompressionLevelBestSpeed OutputDlS3CompressionLevel = "best_speed"
+	// OutputDlS3CompressionLevelNormal Normal
+	OutputDlS3CompressionLevelNormal OutputDlS3CompressionLevel = "normal"
+	// OutputDlS3CompressionLevelBestCompression Best Compression
 	OutputDlS3CompressionLevelBestCompression OutputDlS3CompressionLevel = "best_compression"
 )
 
@@ -168,8 +198,11 @@ func (e OutputDlS3CompressionLevel) ToPointer() *OutputDlS3CompressionLevel {
 type OutputDlS3ParquetVersion string
 
 const (
+	// OutputDlS3ParquetVersionParquet10 1.0
 	OutputDlS3ParquetVersionParquet10 OutputDlS3ParquetVersion = "PARQUET_1_0"
+	// OutputDlS3ParquetVersionParquet24 2.4
 	OutputDlS3ParquetVersionParquet24 OutputDlS3ParquetVersion = "PARQUET_2_4"
+	// OutputDlS3ParquetVersionParquet26 2.6
 	OutputDlS3ParquetVersionParquet26 OutputDlS3ParquetVersion = "PARQUET_2_6"
 )
 
@@ -181,7 +214,9 @@ func (e OutputDlS3ParquetVersion) ToPointer() *OutputDlS3ParquetVersion {
 type OutputDlS3DataPageVersion string
 
 const (
+	// OutputDlS3DataPageVersionDataPageV1 V1
 	OutputDlS3DataPageVersionDataPageV1 OutputDlS3DataPageVersion = "DATA_PAGE_V1"
+	// OutputDlS3DataPageVersionDataPageV2 V2
 	OutputDlS3DataPageVersionDataPageV2 OutputDlS3DataPageVersion = "DATA_PAGE_V2"
 )
 
@@ -290,6 +325,8 @@ type OutputDlS3 struct {
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *OutputDlS3DiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -313,6 +350,8 @@ type OutputDlS3 struct {
 	CompressionLevel *OutputDlS3CompressionLevel `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
 	ParquetVersion *OutputDlS3ParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
@@ -333,6 +372,8 @@ type OutputDlS3 struct {
 	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
 	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
@@ -602,6 +643,13 @@ func (o *OutputDlS3) GetOnDiskFullBackpressure() *OutputDlS3DiskSpaceProtection 
 	return o.OnDiskFullBackpressure
 }
 
+func (o *OutputDlS3) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
+}
+
 func (o *OutputDlS3) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
@@ -686,6 +734,13 @@ func (o *OutputDlS3) GetAutomaticSchema() *bool {
 	return o.AutomaticSchema
 }
 
+func (o *OutputDlS3) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
 func (o *OutputDlS3) GetParquetVersion() *OutputDlS3ParquetVersion {
 	if o == nil {
 		return nil
@@ -754,6 +809,13 @@ func (o *OutputDlS3) GetEmptyDirCleanupSec() *float64 {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputDlS3) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
 }
 
 func (o *OutputDlS3) GetDeadletterPath() *string {

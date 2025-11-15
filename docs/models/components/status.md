@@ -5,6 +5,6 @@
 
 | Name                 | Value                |
 | -------------------- | -------------------- |
-| `StatusHealthy`      | healthy              |
 | `StatusShuttingDown` | shutting down        |
+| `StatusHealthy`      | healthy              |
 | `StatusStandby`      | standby              |

@@ -35,8 +35,11 @@ func (e *OutputFilesystemType) UnmarshalJSON(data []byte) error {
 type OutputFilesystemDataFormat string
 
 const (
-	OutputFilesystemDataFormatJSON    OutputFilesystemDataFormat = "json"
-	OutputFilesystemDataFormatRaw     OutputFilesystemDataFormat = "raw"
+	// OutputFilesystemDataFormatJSON JSON
+	OutputFilesystemDataFormatJSON OutputFilesystemDataFormat = "json"
+	// OutputFilesystemDataFormatRaw Raw
+	OutputFilesystemDataFormatRaw OutputFilesystemDataFormat = "raw"
+	// OutputFilesystemDataFormatParquet Parquet
 	OutputFilesystemDataFormatParquet OutputFilesystemDataFormat = "parquet"
 )
 
@@ -48,8 +51,10 @@ func (e OutputFilesystemDataFormat) ToPointer() *OutputFilesystemDataFormat {
 type OutputFilesystemBackpressureBehavior string
 
 const (
+	// OutputFilesystemBackpressureBehaviorBlock Block
 	OutputFilesystemBackpressureBehaviorBlock OutputFilesystemBackpressureBehavior = "block"
-	OutputFilesystemBackpressureBehaviorDrop  OutputFilesystemBackpressureBehavior = "drop"
+	// OutputFilesystemBackpressureBehaviorDrop Drop
+	OutputFilesystemBackpressureBehaviorDrop OutputFilesystemBackpressureBehavior = "drop"
 )
 
 func (e OutputFilesystemBackpressureBehavior) ToPointer() *OutputFilesystemBackpressureBehavior {
@@ -60,8 +65,10 @@ func (e OutputFilesystemBackpressureBehavior) ToPointer() *OutputFilesystemBackp
 type OutputFilesystemDiskSpaceProtection string
 
 const (
+	// OutputFilesystemDiskSpaceProtectionBlock Block
 	OutputFilesystemDiskSpaceProtectionBlock OutputFilesystemDiskSpaceProtection = "block"
-	OutputFilesystemDiskSpaceProtectionDrop  OutputFilesystemDiskSpaceProtection = "drop"
+	// OutputFilesystemDiskSpaceProtectionDrop Drop
+	OutputFilesystemDiskSpaceProtectionDrop OutputFilesystemDiskSpaceProtection = "drop"
 )
 
 func (e OutputFilesystemDiskSpaceProtection) ToPointer() *OutputFilesystemDiskSpaceProtection {
@@ -84,8 +91,11 @@ func (e OutputFilesystemCompression) ToPointer() *OutputFilesystemCompression {
 type OutputFilesystemCompressionLevel string
 
 const (
-	OutputFilesystemCompressionLevelBestSpeed       OutputFilesystemCompressionLevel = "best_speed"
-	OutputFilesystemCompressionLevelNormal          OutputFilesystemCompressionLevel = "normal"
+	// OutputFilesystemCompressionLevelBestSpeed Best Speed
+	OutputFilesystemCompressionLevelBestSpeed OutputFilesystemCompressionLevel = "best_speed"
+	// OutputFilesystemCompressionLevelNormal Normal
+	OutputFilesystemCompressionLevelNormal OutputFilesystemCompressionLevel = "normal"
+	// OutputFilesystemCompressionLevelBestCompression Best Compression
 	OutputFilesystemCompressionLevelBestCompression OutputFilesystemCompressionLevel = "best_compression"
 )
 
@@ -97,8 +107,11 @@ func (e OutputFilesystemCompressionLevel) ToPointer() *OutputFilesystemCompressi
 type OutputFilesystemParquetVersion string
 
 const (
+	// OutputFilesystemParquetVersionParquet10 1.0
 	OutputFilesystemParquetVersionParquet10 OutputFilesystemParquetVersion = "PARQUET_1_0"
+	// OutputFilesystemParquetVersionParquet24 2.4
 	OutputFilesystemParquetVersionParquet24 OutputFilesystemParquetVersion = "PARQUET_2_4"
+	// OutputFilesystemParquetVersionParquet26 2.6
 	OutputFilesystemParquetVersionParquet26 OutputFilesystemParquetVersion = "PARQUET_2_6"
 )
 
@@ -110,7 +123,9 @@ func (e OutputFilesystemParquetVersion) ToPointer() *OutputFilesystemParquetVers
 type OutputFilesystemDataPageVersion string
 
 const (
+	// OutputFilesystemDataPageVersionDataPageV1 V1
 	OutputFilesystemDataPageVersionDataPageV1 OutputFilesystemDataPageVersion = "DATA_PAGE_V1"
+	// OutputFilesystemDataPageVersionDataPageV2 V2
 	OutputFilesystemDataPageVersionDataPageV2 OutputFilesystemDataPageVersion = "DATA_PAGE_V2"
 )
 
@@ -194,13 +209,17 @@ type OutputFilesystem struct {
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *OutputFilesystemDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
-	Description            *string                              `json:"description,omitempty"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool   `default:"false" json:"forceCloseOnShutdown"`
+	Description          *string `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *OutputFilesystemCompression `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *OutputFilesystemCompressionLevel `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
 	ParquetVersion *OutputFilesystemParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
@@ -221,6 +240,8 @@ type OutputFilesystem struct {
 	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
 	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
@@ -399,6 +420,13 @@ func (o *OutputFilesystem) GetOnDiskFullBackpressure() *OutputFilesystemDiskSpac
 	return o.OnDiskFullBackpressure
 }
 
+func (o *OutputFilesystem) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
+}
+
 func (o *OutputFilesystem) GetDescription() *string {
 	if o == nil {
 		return nil
@@ -425,6 +453,13 @@ func (o *OutputFilesystem) GetAutomaticSchema() *bool {
 		return nil
 	}
 	return o.AutomaticSchema
+}
+
+func (o *OutputFilesystem) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
 }
 
 func (o *OutputFilesystem) GetParquetVersion() *OutputFilesystemParquetVersion {
@@ -495,6 +530,13 @@ func (o *OutputFilesystem) GetEmptyDirCleanupSec() *float64 {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputFilesystem) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
 }
 
 func (o *OutputFilesystem) GetDeadletterPath() *string {

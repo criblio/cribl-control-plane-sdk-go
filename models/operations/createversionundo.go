@@ -21,8 +21,8 @@ func (c *CreateVersionUndoRequest) GetGroupID() *string {
 // CreateVersionUndoResponseBody - a list of object objects
 type CreateVersionUndoResponseBody struct {
 	// number of items present in the items array
-	Count *int64   `json:"count,omitempty"`
-	Items []string `json:"items,omitempty"`
+	Count *int64           `json:"count,omitempty"`
+	Items []map[string]any `json:"items,omitempty"`
 }
 
 func (c *CreateVersionUndoResponseBody) GetCount() *int64 {
@@ -32,7 +32,7 @@ func (c *CreateVersionUndoResponseBody) GetCount() *int64 {
 	return c.Count
 }
 
-func (c *CreateVersionUndoResponseBody) GetItems() []string {
+func (c *CreateVersionUndoResponseBody) GetItems() []map[string]any {
 	if c == nil {
 		return nil
 	}

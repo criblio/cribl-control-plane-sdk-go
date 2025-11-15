@@ -34,7 +34,9 @@ func (e *OutputAzureDataExplorerType) UnmarshalJSON(data []byte) error {
 type IngestionMode string
 
 const (
-	IngestionModeBatching  IngestionMode = "batching"
+	// IngestionModeBatching Batching
+	IngestionModeBatching IngestionMode = "batching"
+	// IngestionModeStreaming Streaming
 	IngestionModeStreaming IngestionMode = "streaming"
 )
 
@@ -42,16 +44,16 @@ func (e IngestionMode) ToPointer() *IngestionMode {
 	return &e
 }
 
-// MicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
-type MicrosoftEntraIDAuthenticationEndpoint string
+// OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
+type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint string
 
 const (
-	MicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineCom       MicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.com"
-	MicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineUs        MicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.us"
-	MicrosoftEntraIDAuthenticationEndpointHTTPSLoginPartnerMicrosoftonlineCn MicrosoftEntraIDAuthenticationEndpoint = "https://login.partner.microsoftonline.cn"
+	OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineCom       OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.com"
+	OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineUs        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.us"
+	OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpointHTTPSLoginPartnerMicrosoftonlineCn OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint = "https://login.partner.microsoftonline.cn"
 )
 
-func (e MicrosoftEntraIDAuthenticationEndpoint) ToPointer() *MicrosoftEntraIDAuthenticationEndpoint {
+func (e OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint {
 	return &e
 }
 
@@ -59,9 +61,12 @@ func (e MicrosoftEntraIDAuthenticationEndpoint) ToPointer() *MicrosoftEntraIDAut
 type OutputAzureDataExplorerAuthenticationMethod string
 
 const (
-	OutputAzureDataExplorerAuthenticationMethodClientSecret     OutputAzureDataExplorerAuthenticationMethod = "clientSecret"
+	// OutputAzureDataExplorerAuthenticationMethodClientSecret Client secret
+	OutputAzureDataExplorerAuthenticationMethodClientSecret OutputAzureDataExplorerAuthenticationMethod = "clientSecret"
+	// OutputAzureDataExplorerAuthenticationMethodClientTextSecret Client secret (text secret)
 	OutputAzureDataExplorerAuthenticationMethodClientTextSecret OutputAzureDataExplorerAuthenticationMethod = "clientTextSecret"
-	OutputAzureDataExplorerAuthenticationMethodCertificate      OutputAzureDataExplorerAuthenticationMethod = "certificate"
+	// OutputAzureDataExplorerAuthenticationMethodCertificate Certificate
+	OutputAzureDataExplorerAuthenticationMethodCertificate OutputAzureDataExplorerAuthenticationMethod = "certificate"
 )
 
 func (e OutputAzureDataExplorerAuthenticationMethod) ToPointer() *OutputAzureDataExplorerAuthenticationMethod {
@@ -91,25 +96,15 @@ func (o *OutputAzureDataExplorerCertificate) GetCertificateName() *string {
 	return o.CertificateName
 }
 
-// OutputAzureDataExplorerBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputAzureDataExplorerBackpressureBehavior string
-
-const (
-	OutputAzureDataExplorerBackpressureBehaviorBlock OutputAzureDataExplorerBackpressureBehavior = "block"
-	OutputAzureDataExplorerBackpressureBehaviorDrop  OutputAzureDataExplorerBackpressureBehavior = "drop"
-	OutputAzureDataExplorerBackpressureBehaviorQueue OutputAzureDataExplorerBackpressureBehavior = "queue"
-)
-
-func (e OutputAzureDataExplorerBackpressureBehavior) ToPointer() *OutputAzureDataExplorerBackpressureBehavior {
-	return &e
-}
-
 // OutputAzureDataExplorerDataFormat - Format of the output data
 type OutputAzureDataExplorerDataFormat string
 
 const (
-	OutputAzureDataExplorerDataFormatJSON    OutputAzureDataExplorerDataFormat = "json"
-	OutputAzureDataExplorerDataFormatRaw     OutputAzureDataExplorerDataFormat = "raw"
+	// OutputAzureDataExplorerDataFormatJSON JSON
+	OutputAzureDataExplorerDataFormatJSON OutputAzureDataExplorerDataFormat = "json"
+	// OutputAzureDataExplorerDataFormatRaw Raw
+	OutputAzureDataExplorerDataFormatRaw OutputAzureDataExplorerDataFormat = "raw"
+	// OutputAzureDataExplorerDataFormatParquet Parquet
 	OutputAzureDataExplorerDataFormatParquet OutputAzureDataExplorerDataFormat = "parquet"
 )
 
@@ -117,12 +112,118 @@ func (e OutputAzureDataExplorerDataFormat) ToPointer() *OutputAzureDataExplorerD
 	return &e
 }
 
+// OutputAzureDataExplorerCompressCompression - Data compression format to apply to HTTP content before it is delivered
+type OutputAzureDataExplorerCompressCompression string
+
+const (
+	OutputAzureDataExplorerCompressCompressionNone OutputAzureDataExplorerCompressCompression = "none"
+	OutputAzureDataExplorerCompressCompressionGzip OutputAzureDataExplorerCompressCompression = "gzip"
+)
+
+func (e OutputAzureDataExplorerCompressCompression) ToPointer() *OutputAzureDataExplorerCompressCompression {
+	return &e
+}
+
+// OutputAzureDataExplorerCompressionLevel - Compression level to apply before moving files to final destination
+type OutputAzureDataExplorerCompressionLevel string
+
+const (
+	// OutputAzureDataExplorerCompressionLevelBestSpeed Best Speed
+	OutputAzureDataExplorerCompressionLevelBestSpeed OutputAzureDataExplorerCompressionLevel = "best_speed"
+	// OutputAzureDataExplorerCompressionLevelNormal Normal
+	OutputAzureDataExplorerCompressionLevelNormal OutputAzureDataExplorerCompressionLevel = "normal"
+	// OutputAzureDataExplorerCompressionLevelBestCompression Best Compression
+	OutputAzureDataExplorerCompressionLevelBestCompression OutputAzureDataExplorerCompressionLevel = "best_compression"
+)
+
+func (e OutputAzureDataExplorerCompressionLevel) ToPointer() *OutputAzureDataExplorerCompressionLevel {
+	return &e
+}
+
+// OutputAzureDataExplorerParquetVersion - Determines which data types are supported and how they are represented
+type OutputAzureDataExplorerParquetVersion string
+
+const (
+	// OutputAzureDataExplorerParquetVersionParquet10 1.0
+	OutputAzureDataExplorerParquetVersionParquet10 OutputAzureDataExplorerParquetVersion = "PARQUET_1_0"
+	// OutputAzureDataExplorerParquetVersionParquet24 2.4
+	OutputAzureDataExplorerParquetVersionParquet24 OutputAzureDataExplorerParquetVersion = "PARQUET_2_4"
+	// OutputAzureDataExplorerParquetVersionParquet26 2.6
+	OutputAzureDataExplorerParquetVersionParquet26 OutputAzureDataExplorerParquetVersion = "PARQUET_2_6"
+)
+
+func (e OutputAzureDataExplorerParquetVersion) ToPointer() *OutputAzureDataExplorerParquetVersion {
+	return &e
+}
+
+// OutputAzureDataExplorerDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+type OutputAzureDataExplorerDataPageVersion string
+
+const (
+	// OutputAzureDataExplorerDataPageVersionDataPageV1 V1
+	OutputAzureDataExplorerDataPageVersionDataPageV1 OutputAzureDataExplorerDataPageVersion = "DATA_PAGE_V1"
+	// OutputAzureDataExplorerDataPageVersionDataPageV2 V2
+	OutputAzureDataExplorerDataPageVersionDataPageV2 OutputAzureDataExplorerDataPageVersion = "DATA_PAGE_V2"
+)
+
+func (e OutputAzureDataExplorerDataPageVersion) ToPointer() *OutputAzureDataExplorerDataPageVersion {
+	return &e
+}
+
+type OutputAzureDataExplorerKeyValueMetadatum struct {
+	Key   *string `default:"" json:"key"`
+	Value string  `json:"value"`
+}
+
+func (o OutputAzureDataExplorerKeyValueMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputAzureDataExplorerKeyValueMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputAzureDataExplorerKeyValueMetadatum) GetKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Key
+}
+
+func (o *OutputAzureDataExplorerKeyValueMetadatum) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+// OutputAzureDataExplorerBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputAzureDataExplorerBackpressureBehavior string
+
+const (
+	// OutputAzureDataExplorerBackpressureBehaviorBlock Block
+	OutputAzureDataExplorerBackpressureBehaviorBlock OutputAzureDataExplorerBackpressureBehavior = "block"
+	// OutputAzureDataExplorerBackpressureBehaviorDrop Drop
+	OutputAzureDataExplorerBackpressureBehaviorDrop OutputAzureDataExplorerBackpressureBehavior = "drop"
+	// OutputAzureDataExplorerBackpressureBehaviorQueue Persistent Queue
+	OutputAzureDataExplorerBackpressureBehaviorQueue OutputAzureDataExplorerBackpressureBehavior = "queue"
+)
+
+func (e OutputAzureDataExplorerBackpressureBehavior) ToPointer() *OutputAzureDataExplorerBackpressureBehavior {
+	return &e
+}
+
 // OutputAzureDataExplorerDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputAzureDataExplorerDiskSpaceProtection string
 
 const (
+	// OutputAzureDataExplorerDiskSpaceProtectionBlock Block
 	OutputAzureDataExplorerDiskSpaceProtectionBlock OutputAzureDataExplorerDiskSpaceProtection = "block"
-	OutputAzureDataExplorerDiskSpaceProtectionDrop  OutputAzureDataExplorerDiskSpaceProtection = "drop"
+	// OutputAzureDataExplorerDiskSpaceProtectionDrop Drop
+	OutputAzureDataExplorerDiskSpaceProtectionDrop OutputAzureDataExplorerDiskSpaceProtection = "drop"
 )
 
 func (e OutputAzureDataExplorerDiskSpaceProtection) ToPointer() *OutputAzureDataExplorerDiskSpaceProtection {
@@ -132,7 +233,9 @@ func (e OutputAzureDataExplorerDiskSpaceProtection) ToPointer() *OutputAzureData
 type PrefixOptional string
 
 const (
-	PrefixOptionalDropBy   PrefixOptional = "dropBy"
+	// PrefixOptionalDropBy drop-by
+	PrefixOptionalDropBy PrefixOptional = "dropBy"
+	// PrefixOptionalIngestBy ingest-by
 	PrefixOptionalIngestBy PrefixOptional = "ingestBy"
 )
 
@@ -196,8 +299,11 @@ func (i *IngestIfNotExist) GetValue() string {
 type ReportLevel string
 
 const (
-	ReportLevelFailuresOnly         ReportLevel = "failuresOnly"
-	ReportLevelDoNotReport          ReportLevel = "doNotReport"
+	// ReportLevelFailuresOnly FailuresOnly
+	ReportLevelFailuresOnly ReportLevel = "failuresOnly"
+	// ReportLevelDoNotReport DoNotReport
+	ReportLevelDoNotReport ReportLevel = "doNotReport"
+	// ReportLevelFailuresAndSuccesses FailuresAndSuccesses
 	ReportLevelFailuresAndSuccesses ReportLevel = "failuresAndSuccesses"
 )
 
@@ -209,8 +315,11 @@ func (e ReportLevel) ToPointer() *ReportLevel {
 type ReportMethod string
 
 const (
-	ReportMethodQueue         ReportMethod = "queue"
-	ReportMethodTable         ReportMethod = "table"
+	// ReportMethodQueue Queue
+	ReportMethodQueue ReportMethod = "queue"
+	// ReportMethodTable Table
+	ReportMethodTable ReportMethod = "table"
+	// ReportMethodQueueAndTable QueueAndTable
 	ReportMethodQueueAndTable ReportMethod = "queueAndTable"
 )
 
@@ -347,15 +456,19 @@ func (o *OutputAzureDataExplorerTimeoutRetrySettings) GetMaxBackoff() *float64 {
 	return o.MaxBackoff
 }
 
-// OutputAzureDataExplorerCompressCompression - Data compression format to apply to HTTP content before it is delivered
-type OutputAzureDataExplorerCompressCompression string
+// OutputAzureDataExplorerMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputAzureDataExplorerMode string
 
 const (
-	OutputAzureDataExplorerCompressCompressionNone OutputAzureDataExplorerCompressCompression = "none"
-	OutputAzureDataExplorerCompressCompressionGzip OutputAzureDataExplorerCompressCompression = "gzip"
+	// OutputAzureDataExplorerModeError Error
+	OutputAzureDataExplorerModeError OutputAzureDataExplorerMode = "error"
+	// OutputAzureDataExplorerModeAlways Backpressure
+	OutputAzureDataExplorerModeAlways OutputAzureDataExplorerMode = "always"
+	// OutputAzureDataExplorerModeBackpressure Always On
+	OutputAzureDataExplorerModeBackpressure OutputAzureDataExplorerMode = "backpressure"
 )
 
-func (e OutputAzureDataExplorerCompressCompression) ToPointer() *OutputAzureDataExplorerCompressCompression {
+func (e OutputAzureDataExplorerMode) ToPointer() *OutputAzureDataExplorerMode {
 	return &e
 }
 
@@ -363,7 +476,9 @@ func (e OutputAzureDataExplorerCompressCompression) ToPointer() *OutputAzureData
 type OutputAzureDataExplorerPqCompressCompression string
 
 const (
+	// OutputAzureDataExplorerPqCompressCompressionNone None
 	OutputAzureDataExplorerPqCompressCompressionNone OutputAzureDataExplorerPqCompressCompression = "none"
+	// OutputAzureDataExplorerPqCompressCompressionGzip Gzip
 	OutputAzureDataExplorerPqCompressCompressionGzip OutputAzureDataExplorerPqCompressCompression = "gzip"
 )
 
@@ -375,24 +490,13 @@ func (e OutputAzureDataExplorerPqCompressCompression) ToPointer() *OutputAzureDa
 type OutputAzureDataExplorerQueueFullBehavior string
 
 const (
+	// OutputAzureDataExplorerQueueFullBehaviorBlock Block
 	OutputAzureDataExplorerQueueFullBehaviorBlock OutputAzureDataExplorerQueueFullBehavior = "block"
-	OutputAzureDataExplorerQueueFullBehaviorDrop  OutputAzureDataExplorerQueueFullBehavior = "drop"
+	// OutputAzureDataExplorerQueueFullBehaviorDrop Drop new data
+	OutputAzureDataExplorerQueueFullBehaviorDrop OutputAzureDataExplorerQueueFullBehavior = "drop"
 )
 
 func (e OutputAzureDataExplorerQueueFullBehavior) ToPointer() *OutputAzureDataExplorerQueueFullBehavior {
-	return &e
-}
-
-// OutputAzureDataExplorerMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputAzureDataExplorerMode string
-
-const (
-	OutputAzureDataExplorerModeError        OutputAzureDataExplorerMode = "error"
-	OutputAzureDataExplorerModeBackpressure OutputAzureDataExplorerMode = "backpressure"
-	OutputAzureDataExplorerModeAlways       OutputAzureDataExplorerMode = "always"
-)
-
-func (e OutputAzureDataExplorerMode) ToPointer() *OutputAzureDataExplorerMode {
 	return &e
 }
 
@@ -432,7 +536,7 @@ type OutputAzureDataExplorer struct {
 	ValidateDatabaseSettings *bool          `default:"true" json:"validateDatabaseSettings"`
 	IngestMode               *IngestionMode `default:"batching" json:"ingestMode"`
 	// Endpoint used to acquire authentication tokens from Azure
-	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpoint `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
+	OauthEndpoint *OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
 	// Directory ID (tenant identifier) in Azure Active Directory
 	TenantID string `json:"tenantId"`
 	// client_id to pass in the OAuth request parameter
@@ -447,14 +551,56 @@ type OutputAzureDataExplorer struct {
 	// Select or create a stored text secret
 	TextSecret  *string                             `json:"textSecret,omitempty"`
 	Certificate *OutputAzureDataExplorerCertificate `json:"certificate,omitempty"`
+	// Format of the output data
+	Format *OutputAzureDataExplorerDataFormat `default:"json" json:"format"`
+	// Data compression format to apply to HTTP content before it is delivered
+	Compress *OutputAzureDataExplorerCompressCompression `default:"gzip" json:"compress"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *OutputAzureDataExplorerCompressionLevel `default:"best_speed" json:"compressionLevel"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *OutputAzureDataExplorerParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *OutputAzureDataExplorerDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `default:"1MB" json:"parquetPageSize"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []OutputAzureDataExplorerKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `default:"true" json:"enableStatistics"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `default:"true" json:"enableWritePageIndex"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	// Send a JSON mapping object instead of specifying an existing named data mapping
+	IsMappingObj *bool `default:"false" json:"isMappingObj"`
+	// Enter a JSON object that defines your desired data mapping
+	MappingObj *string `json:"mappingObj,omitempty"`
+	// Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+	MappingRef *string `json:"mappingRef,omitempty"`
 	// The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
 	IngestURL *string `json:"ingestUrl,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputAzureDataExplorerBackpressureBehavior `default:"block" json:"onBackpressure"`
-	// Send a JSON mapping object instead of specifying an existing named data mapping
-	IsMappingObj *bool `default:"false" json:"isMappingObj"`
-	// Format of the output data
-	Format *OutputAzureDataExplorerDataFormat `default:"json" json:"format"`
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
@@ -473,10 +619,6 @@ type OutputAzureDataExplorer struct {
 	OnDiskFullBackpressure *OutputAzureDataExplorerDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
-	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
-	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
 	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
 	// Bypass the data management service's aggregation mechanism
@@ -498,10 +640,6 @@ type OutputAzureDataExplorer struct {
 	TimeoutRetrySettings  *OutputAzureDataExplorerTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
-	// Data compression format to apply to HTTP content before it is delivered
-	Compress *OutputAzureDataExplorerCompressCompression `default:"gzip" json:"compress"`
-	// Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
-	MappingRef *string `json:"mappingRef,omitempty"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
@@ -518,6 +656,16 @@ type OutputAzureDataExplorer struct {
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `default:"true" json:"keepAlive"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputAzureDataExplorerMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -528,11 +676,7 @@ type OutputAzureDataExplorer struct {
 	PqCompress *OutputAzureDataExplorerPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputAzureDataExplorerQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputAzureDataExplorerMode       `default:"error" json:"pqMode"`
-	PqControls *OutputAzureDataExplorerPqControls `json:"pqControls,omitempty"`
-	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	PqControls       *OutputAzureDataExplorerPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -623,7 +767,7 @@ func (o *OutputAzureDataExplorer) GetIngestMode() *IngestionMode {
 	return o.IngestMode
 }
 
-func (o *OutputAzureDataExplorer) GetOauthEndpoint() *MicrosoftEntraIDAuthenticationEndpoint {
+func (o *OutputAzureDataExplorer) GetOauthEndpoint() *OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint {
 	if o == nil {
 		return nil
 	}
@@ -686,6 +830,167 @@ func (o *OutputAzureDataExplorer) GetCertificate() *OutputAzureDataExplorerCerti
 	return o.Certificate
 }
 
+func (o *OutputAzureDataExplorer) GetFormat() *OutputAzureDataExplorerDataFormat {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputAzureDataExplorer) GetCompress() *OutputAzureDataExplorerCompressCompression {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputAzureDataExplorer) GetCompressionLevel() *OutputAzureDataExplorerCompressionLevel {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputAzureDataExplorer) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputAzureDataExplorer) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputAzureDataExplorer) GetParquetVersion() *OutputAzureDataExplorerParquetVersion {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputAzureDataExplorer) GetParquetDataPageVersion() *OutputAzureDataExplorerDataPageVersion {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputAzureDataExplorer) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputAzureDataExplorer) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputAzureDataExplorer) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputAzureDataExplorer) GetKeyValueMetadata() []OutputAzureDataExplorerKeyValueMetadatum {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputAzureDataExplorer) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputAzureDataExplorer) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputAzureDataExplorer) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
+}
+
+func (o *OutputAzureDataExplorer) GetRemoveEmptyDirs() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RemoveEmptyDirs
+}
+
+func (o *OutputAzureDataExplorer) GetEmptyDirCleanupSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputAzureDataExplorer) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
+}
+
+func (o *OutputAzureDataExplorer) GetDeadletterEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterEnabled
+}
+
+func (o *OutputAzureDataExplorer) GetDeadletterPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DeadletterPath
+}
+
+func (o *OutputAzureDataExplorer) GetMaxRetryNum() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetryNum
+}
+
+func (o *OutputAzureDataExplorer) GetIsMappingObj() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IsMappingObj
+}
+
+func (o *OutputAzureDataExplorer) GetMappingObj() *string {
+	if o == nil {
+		return nil
+	}
+	return o.MappingObj
+}
+
+func (o *OutputAzureDataExplorer) GetMappingRef() *string {
+	if o == nil {
+		return nil
+	}
+	return o.MappingRef
+}
+
 func (o *OutputAzureDataExplorer) GetIngestURL() *string {
 	if o == nil {
 		return nil
@@ -698,20 +1003,6 @@ func (o *OutputAzureDataExplorer) GetOnBackpressure() *OutputAzureDataExplorerBa
 		return nil
 	}
 	return o.OnBackpressure
-}
-
-func (o *OutputAzureDataExplorer) GetIsMappingObj() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.IsMappingObj
-}
-
-func (o *OutputAzureDataExplorer) GetFormat() *OutputAzureDataExplorerDataFormat {
-	if o == nil {
-		return nil
-	}
-	return o.Format
 }
 
 func (o *OutputAzureDataExplorer) GetStagePath() *string {
@@ -775,20 +1066,6 @@ func (o *OutputAzureDataExplorer) GetAddIDToStagePath() *bool {
 		return nil
 	}
 	return o.AddIDToStagePath
-}
-
-func (o *OutputAzureDataExplorer) GetRemoveEmptyDirs() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RemoveEmptyDirs
-}
-
-func (o *OutputAzureDataExplorer) GetDeadletterEnabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.DeadletterEnabled
 }
 
 func (o *OutputAzureDataExplorer) GetTimeoutSec() *float64 {
@@ -868,20 +1145,6 @@ func (o *OutputAzureDataExplorer) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputAzureDataExplorer) GetCompress() *OutputAzureDataExplorerCompressCompression {
-	if o == nil {
-		return nil
-	}
-	return o.Compress
-}
-
-func (o *OutputAzureDataExplorer) GetMappingRef() *string {
-	if o == nil {
-		return nil
-	}
-	return o.MappingRef
-}
-
 func (o *OutputAzureDataExplorer) GetConcurrency() *float64 {
 	if o == nil {
 		return nil
@@ -931,6 +1194,41 @@ func (o *OutputAzureDataExplorer) GetKeepAlive() *bool {
 	return o.KeepAlive
 }
 
+func (o *OutputAzureDataExplorer) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputAzureDataExplorer) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputAzureDataExplorer) GetPqMode() *OutputAzureDataExplorerMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputAzureDataExplorer) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputAzureDataExplorer) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputAzureDataExplorer) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -966,23 +1264,9 @@ func (o *OutputAzureDataExplorer) GetPqOnBackpressure() *OutputAzureDataExplorer
 	return o.PqOnBackpressure
 }
 
-func (o *OutputAzureDataExplorer) GetPqMode() *OutputAzureDataExplorerMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
-}
-
 func (o *OutputAzureDataExplorer) GetPqControls() *OutputAzureDataExplorerPqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputAzureDataExplorer) GetEmptyDirCleanupSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.EmptyDirCleanupSec
 }

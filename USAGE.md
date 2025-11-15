@@ -38,11 +38,15 @@ func main() {
 			MigrationQueryID:        criblcontrolplanesdkgo.Pointer("<id>"),
 			RetentionInDays:         1466.58,
 		},
-		DeletionStartedAt:     criblcontrolplanesdkgo.Pointer[float64](8310.58),
-		Description:           criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:                components.CriblLakeDatasetFormatDdss.ToPointer(),
-		HTTPDAUsed:            criblcontrolplanesdkgo.Pointer(true),
-		ID:                    "<id>",
+		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
+		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
+		Format:            components.CriblLakeDatasetFormatDdss.ToPointer(),
+		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
+		ID:                "<id>",
+		Metrics: &components.LakeDatasetMetrics{
+			CurrentSizeBytes: 6170.04,
+			MetricsDate:      "<value>",
+		},
 		RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](456.37),
 		SearchConfig: &components.LakeDatasetSearchConfig{
 			Datatypes: []string{

@@ -7,5 +7,5 @@ Choose how to discover files to monitor
 
 | Name                  | Value                 |
 | --------------------- | --------------------- |
-| `InputFileModeAuto`   | auto                  |
 | `InputFileModeManual` | manual                |
+| `InputFileModeAuto`   | auto                  |

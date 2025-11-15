@@ -67,13 +67,13 @@ func main() {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Using existing group.\n", WORKER_GROUP_ID)
 	} else {
 		// Create Worker Group
-		myWorkerGroup := components.ConfigGroup{
+		myWorkerGroupCreateRequest := components.GroupCreateRequest{
 			ID:          WORKER_GROUP_ID,
 			Description: criblcontrolplanesdkgo.String("My Worker Group"),
 			OnPrem:      criblcontrolplanesdkgo.Bool(true),
 		}
 
-		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, myWorkerGroup)
+		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, myWorkerGroupCreateRequest)
 		if err != nil {
 			log.Printf("Error creating Worker Group: %v", err)
 		} else if createResponse != nil && createResponse.Object != nil {

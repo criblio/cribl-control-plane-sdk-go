@@ -65,7 +65,9 @@ func (i *InputConfluentCloudConnection) GetOutput() string {
 type InputConfluentCloudMode string
 
 const (
-	InputConfluentCloudModeSmart  InputConfluentCloudMode = "smart"
+	// InputConfluentCloudModeSmart Smart
+	InputConfluentCloudModeSmart InputConfluentCloudMode = "smart"
+	// InputConfluentCloudModeAlways Always On
 	InputConfluentCloudModeAlways InputConfluentCloudMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputConfluentCloudMode) ToPointer() *InputConfluentCloudMode {
 type InputConfluentCloudCompression string
 
 const (
+	// InputConfluentCloudCompressionNone None
 	InputConfluentCloudCompressionNone InputConfluentCloudCompression = "none"
+	// InputConfluentCloudCompressionGzip Gzip
 	InputConfluentCloudCompressionGzip InputConfluentCloudCompression = "gzip"
 )
 
@@ -312,18 +316,6 @@ func (i *InputConfluentCloudTLSSettingsClientSide) GetMaxVersion() *InputConflue
 	return i.MaxVersion
 }
 
-// InputConfluentCloudSchemaType - The schema format used to encode and decode event data
-type InputConfluentCloudSchemaType string
-
-const (
-	InputConfluentCloudSchemaTypeAvro InputConfluentCloudSchemaType = "avro"
-	InputConfluentCloudSchemaTypeJSON InputConfluentCloudSchemaType = "json"
-)
-
-func (e InputConfluentCloudSchemaType) ToPointer() *InputConfluentCloudSchemaType {
-	return &e
-}
-
 // InputConfluentCloudAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
 type InputConfluentCloudAuth struct {
 	Disabled *bool `default:"true" json:"disabled"`
@@ -488,8 +480,6 @@ type InputConfluentCloudKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *InputConfluentCloudSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -524,13 +514,6 @@ func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetSchemaRegistry
 		return nil
 	}
 	return i.SchemaRegistryURL
-}
-
-func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetSchemaType() *InputConfluentCloudSchemaType {
-	if i == nil {
-		return nil
-	}
-	return i.SchemaType
 }
 
 func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -568,25 +551,124 @@ func (i *InputConfluentCloudKafkaSchemaRegistryAuthentication) GetTLS() *InputCo
 	return i.TLS
 }
 
+// InputConfluentCloudAuthenticationMethod - Enter credentials directly, or select a stored secret
+type InputConfluentCloudAuthenticationMethod string
+
+const (
+	InputConfluentCloudAuthenticationMethodManual InputConfluentCloudAuthenticationMethod = "manual"
+	InputConfluentCloudAuthenticationMethodSecret InputConfluentCloudAuthenticationMethod = "secret"
+)
+
+func (e InputConfluentCloudAuthenticationMethod) ToPointer() *InputConfluentCloudAuthenticationMethod {
+	return &e
+}
+
 type InputConfluentCloudSASLMechanism string
 
 const (
-	InputConfluentCloudSASLMechanismPlain       InputConfluentCloudSASLMechanism = "plain"
+	// InputConfluentCloudSASLMechanismPlain PLAIN
+	InputConfluentCloudSASLMechanismPlain InputConfluentCloudSASLMechanism = "plain"
+	// InputConfluentCloudSASLMechanismScramSha256 SCRAM-SHA-256
 	InputConfluentCloudSASLMechanismScramSha256 InputConfluentCloudSASLMechanism = "scram-sha-256"
+	// InputConfluentCloudSASLMechanismScramSha512 SCRAM-SHA-512
 	InputConfluentCloudSASLMechanismScramSha512 InputConfluentCloudSASLMechanism = "scram-sha-512"
-	InputConfluentCloudSASLMechanismKerberos    InputConfluentCloudSASLMechanism = "kerberos"
+	// InputConfluentCloudSASLMechanismKerberos GSSAPI/Kerberos
+	InputConfluentCloudSASLMechanismKerberos InputConfluentCloudSASLMechanism = "kerberos"
 )
 
 func (e InputConfluentCloudSASLMechanism) ToPointer() *InputConfluentCloudSASLMechanism {
 	return &e
 }
 
+type InputConfluentCloudOauthParam struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func (i InputConfluentCloudOauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputConfluentCloudOauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputConfluentCloudOauthParam) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputConfluentCloudOauthParam) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type InputConfluentCloudSaslExtension struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func (i InputConfluentCloudSaslExtension) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputConfluentCloudSaslExtension) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputConfluentCloudSaslExtension) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputConfluentCloudSaslExtension) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 // InputConfluentCloudAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type InputConfluentCloudAuthentication struct {
-	Disabled  *bool                             `default:"true" json:"disabled"`
-	Mechanism *InputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
+	Disabled *bool   `default:"true" json:"disabled"`
+	Username *string `json:"username,omitempty"`
+	Password *string `json:"password,omitempty"`
+	// Enter credentials directly, or select a stored secret
+	AuthType *InputConfluentCloudAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string                           `json:"credentialsSecret,omitempty"`
+	Mechanism         *InputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
+	// Location of keytab file for authentication principal
+	KeytabLocation *string `json:"keytabLocation,omitempty"`
+	// Authentication principal, such as `kafka_user@example.com`
+	Principal *string `json:"principal,omitempty"`
+	// Kerberos service class for Kafka brokers, such as `kafka`
+	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
 	// Enable OAuth authentication
 	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
+	// URL of the token endpoint to use for OAuth authentication
+	TokenURL *string `json:"tokenUrl,omitempty"`
+	// Client ID to use for OAuth authentication
+	ClientID        *string `json:"clientId,omitempty"`
+	OauthSecretType *string `default:"secret" json:"oauthSecretType"`
+	// Select or create a stored text secret
+	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	// Additional fields to send to the token endpoint, such as scope or audience
+	OauthParams []InputConfluentCloudOauthParam `json:"oauthParams,omitempty"`
+	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+	SaslExtensions []InputConfluentCloudSaslExtension `json:"saslExtensions,omitempty"`
 }
 
 func (i InputConfluentCloudAuthentication) MarshalJSON() ([]byte, error) {
@@ -607,6 +689,34 @@ func (i *InputConfluentCloudAuthentication) GetDisabled() *bool {
 	return i.Disabled
 }
 
+func (i *InputConfluentCloudAuthentication) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputConfluentCloudAuthentication) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputConfluentCloudAuthentication) GetAuthType() *InputConfluentCloudAuthenticationMethod {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputConfluentCloudAuthentication) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
 func (i *InputConfluentCloudAuthentication) GetMechanism() *InputConfluentCloudSASLMechanism {
 	if i == nil {
 		return nil
@@ -614,11 +724,74 @@ func (i *InputConfluentCloudAuthentication) GetMechanism() *InputConfluentCloudS
 	return i.Mechanism
 }
 
+func (i *InputConfluentCloudAuthentication) GetKeytabLocation() *string {
+	if i == nil {
+		return nil
+	}
+	return i.KeytabLocation
+}
+
+func (i *InputConfluentCloudAuthentication) GetPrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Principal
+}
+
+func (i *InputConfluentCloudAuthentication) GetBrokerServiceClass() *string {
+	if i == nil {
+		return nil
+	}
+	return i.BrokerServiceClass
+}
+
 func (i *InputConfluentCloudAuthentication) GetOauthEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.OauthEnabled
+}
+
+func (i *InputConfluentCloudAuthentication) GetTokenURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenURL
+}
+
+func (i *InputConfluentCloudAuthentication) GetClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientID
+}
+
+func (i *InputConfluentCloudAuthentication) GetOauthSecretType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.OauthSecretType
+}
+
+func (i *InputConfluentCloudAuthentication) GetClientTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientTextSecret
+}
+
+func (i *InputConfluentCloudAuthentication) GetOauthParams() []InputConfluentCloudOauthParam {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputConfluentCloudAuthentication) GetSaslExtensions() []InputConfluentCloudSaslExtension {
+	if i == nil {
+		return nil
+	}
+	return i.SaslExtensions
 }
 
 type InputConfluentCloudMetadatum struct {
