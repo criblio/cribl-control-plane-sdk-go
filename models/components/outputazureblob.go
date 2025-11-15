@@ -35,8 +35,11 @@ func (e *OutputAzureBlobType) UnmarshalJSON(data []byte) error {
 type OutputAzureBlobDataFormat string
 
 const (
-	OutputAzureBlobDataFormatJSON    OutputAzureBlobDataFormat = "json"
-	OutputAzureBlobDataFormatRaw     OutputAzureBlobDataFormat = "raw"
+	// OutputAzureBlobDataFormatJSON JSON
+	OutputAzureBlobDataFormatJSON OutputAzureBlobDataFormat = "json"
+	// OutputAzureBlobDataFormatRaw Raw
+	OutputAzureBlobDataFormatRaw OutputAzureBlobDataFormat = "raw"
+	// OutputAzureBlobDataFormatParquet Parquet
 	OutputAzureBlobDataFormatParquet OutputAzureBlobDataFormat = "parquet"
 )
 
@@ -48,8 +51,10 @@ func (e OutputAzureBlobDataFormat) ToPointer() *OutputAzureBlobDataFormat {
 type OutputAzureBlobBackpressureBehavior string
 
 const (
+	// OutputAzureBlobBackpressureBehaviorBlock Block
 	OutputAzureBlobBackpressureBehaviorBlock OutputAzureBlobBackpressureBehavior = "block"
-	OutputAzureBlobBackpressureBehaviorDrop  OutputAzureBlobBackpressureBehavior = "drop"
+	// OutputAzureBlobBackpressureBehaviorDrop Drop
+	OutputAzureBlobBackpressureBehaviorDrop OutputAzureBlobBackpressureBehavior = "drop"
 )
 
 func (e OutputAzureBlobBackpressureBehavior) ToPointer() *OutputAzureBlobBackpressureBehavior {
@@ -60,8 +65,10 @@ func (e OutputAzureBlobBackpressureBehavior) ToPointer() *OutputAzureBlobBackpre
 type OutputAzureBlobDiskSpaceProtection string
 
 const (
+	// OutputAzureBlobDiskSpaceProtectionBlock Block
 	OutputAzureBlobDiskSpaceProtectionBlock OutputAzureBlobDiskSpaceProtection = "block"
-	OutputAzureBlobDiskSpaceProtectionDrop  OutputAzureBlobDiskSpaceProtection = "drop"
+	// OutputAzureBlobDiskSpaceProtectionDrop Drop
+	OutputAzureBlobDiskSpaceProtectionDrop OutputAzureBlobDiskSpaceProtection = "drop"
 )
 
 func (e OutputAzureBlobDiskSpaceProtection) ToPointer() *OutputAzureBlobDiskSpaceProtection {
@@ -84,11 +91,16 @@ func (e OutputAzureBlobAuthenticationMethod) ToPointer() *OutputAzureBlobAuthent
 type BlobAccessTier string
 
 const (
+	// BlobAccessTierInferred Default account access tier
 	BlobAccessTierInferred BlobAccessTier = "Inferred"
-	BlobAccessTierHot      BlobAccessTier = "Hot"
-	BlobAccessTierCool     BlobAccessTier = "Cool"
-	BlobAccessTierCold     BlobAccessTier = "Cold"
-	BlobAccessTierArchive  BlobAccessTier = "Archive"
+	// BlobAccessTierHot Hot tier
+	BlobAccessTierHot BlobAccessTier = "Hot"
+	// BlobAccessTierCool Cool tier
+	BlobAccessTierCool BlobAccessTier = "Cool"
+	// BlobAccessTierCold Cold tier
+	BlobAccessTierCold BlobAccessTier = "Cold"
+	// BlobAccessTierArchive Archive tier
+	BlobAccessTierArchive BlobAccessTier = "Archive"
 )
 
 func (e BlobAccessTier) ToPointer() *BlobAccessTier {
@@ -111,8 +123,11 @@ func (e OutputAzureBlobCompression) ToPointer() *OutputAzureBlobCompression {
 type OutputAzureBlobCompressionLevel string
 
 const (
-	OutputAzureBlobCompressionLevelBestSpeed       OutputAzureBlobCompressionLevel = "best_speed"
-	OutputAzureBlobCompressionLevelNormal          OutputAzureBlobCompressionLevel = "normal"
+	// OutputAzureBlobCompressionLevelBestSpeed Best Speed
+	OutputAzureBlobCompressionLevelBestSpeed OutputAzureBlobCompressionLevel = "best_speed"
+	// OutputAzureBlobCompressionLevelNormal Normal
+	OutputAzureBlobCompressionLevelNormal OutputAzureBlobCompressionLevel = "normal"
+	// OutputAzureBlobCompressionLevelBestCompression Best Compression
 	OutputAzureBlobCompressionLevelBestCompression OutputAzureBlobCompressionLevel = "best_compression"
 )
 
@@ -124,8 +139,11 @@ func (e OutputAzureBlobCompressionLevel) ToPointer() *OutputAzureBlobCompression
 type OutputAzureBlobParquetVersion string
 
 const (
+	// OutputAzureBlobParquetVersionParquet10 1.0
 	OutputAzureBlobParquetVersionParquet10 OutputAzureBlobParquetVersion = "PARQUET_1_0"
+	// OutputAzureBlobParquetVersionParquet24 2.4
 	OutputAzureBlobParquetVersionParquet24 OutputAzureBlobParquetVersion = "PARQUET_2_4"
+	// OutputAzureBlobParquetVersionParquet26 2.6
 	OutputAzureBlobParquetVersionParquet26 OutputAzureBlobParquetVersion = "PARQUET_2_6"
 )
 
@@ -137,7 +155,9 @@ func (e OutputAzureBlobParquetVersion) ToPointer() *OutputAzureBlobParquetVersio
 type OutputAzureBlobDataPageVersion string
 
 const (
+	// OutputAzureBlobDataPageVersionDataPageV1 V1
 	OutputAzureBlobDataPageVersionDataPageV1 OutputAzureBlobDataPageVersion = "DATA_PAGE_V1"
+	// OutputAzureBlobDataPageVersionDataPageV2 V2
 	OutputAzureBlobDataPageVersionDataPageV2 OutputAzureBlobDataPageVersion = "DATA_PAGE_V2"
 )
 
@@ -249,16 +269,20 @@ type OutputAzureBlob struct {
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputAzureBlobDiskSpaceProtection  `default:"block" json:"onDiskFullBackpressure"`
-	AuthType               *OutputAzureBlobAuthenticationMethod `default:"manual" json:"authType"`
-	StorageClass           *BlobAccessTier                      `default:"Inferred" json:"storageClass"`
-	Description            *string                              `json:"description,omitempty"`
+	OnDiskFullBackpressure *OutputAzureBlobDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool                                `default:"false" json:"forceCloseOnShutdown"`
+	AuthType             *OutputAzureBlobAuthenticationMethod `default:"manual" json:"authType"`
+	StorageClass         *BlobAccessTier                      `default:"Inferred" json:"storageClass"`
+	Description          *string                              `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *OutputAzureBlobCompression `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *OutputAzureBlobCompressionLevel `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
 	ParquetVersion *OutputAzureBlobParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
@@ -279,6 +303,8 @@ type OutputAzureBlob struct {
 	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
 	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
@@ -495,6 +521,13 @@ func (o *OutputAzureBlob) GetOnDiskFullBackpressure() *OutputAzureBlobDiskSpaceP
 	return o.OnDiskFullBackpressure
 }
 
+func (o *OutputAzureBlob) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
+}
+
 func (o *OutputAzureBlob) GetAuthType() *OutputAzureBlobAuthenticationMethod {
 	if o == nil {
 		return nil
@@ -535,6 +568,13 @@ func (o *OutputAzureBlob) GetAutomaticSchema() *bool {
 		return nil
 	}
 	return o.AutomaticSchema
+}
+
+func (o *OutputAzureBlob) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
 }
 
 func (o *OutputAzureBlob) GetParquetVersion() *OutputAzureBlobParquetVersion {
@@ -605,6 +645,13 @@ func (o *OutputAzureBlob) GetEmptyDirCleanupSec() *float64 {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputAzureBlob) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
 }
 
 func (o *OutputAzureBlob) GetDeadletterPath() *string {

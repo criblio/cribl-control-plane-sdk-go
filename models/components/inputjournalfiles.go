@@ -65,7 +65,9 @@ func (i *InputJournalFilesConnection) GetOutput() string {
 type InputJournalFilesMode string
 
 const (
-	InputJournalFilesModeSmart  InputJournalFilesMode = "smart"
+	// InputJournalFilesModeSmart Smart
+	InputJournalFilesModeSmart InputJournalFilesMode = "smart"
+	// InputJournalFilesModeAlways Always On
 	InputJournalFilesModeAlways InputJournalFilesMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputJournalFilesMode) ToPointer() *InputJournalFilesMode {
 type InputJournalFilesCompression string
 
 const (
+	// InputJournalFilesCompressionNone None
 	InputJournalFilesCompressionNone InputJournalFilesCompression = "none"
+	// InputJournalFilesCompressionGzip Gzip
 	InputJournalFilesCompressionGzip InputJournalFilesCompression = "gzip"
 )
 

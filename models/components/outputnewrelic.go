@@ -35,8 +35,11 @@ func (e *OutputNewrelicType) UnmarshalJSON(data []byte) error {
 type OutputNewrelicRegion string
 
 const (
-	OutputNewrelicRegionUs     OutputNewrelicRegion = "US"
-	OutputNewrelicRegionEu     OutputNewrelicRegion = "EU"
+	// OutputNewrelicRegionUs US
+	OutputNewrelicRegionUs OutputNewrelicRegion = "US"
+	// OutputNewrelicRegionEu Europe
+	OutputNewrelicRegionEu OutputNewrelicRegion = "EU"
+	// OutputNewrelicRegionCustom Custom
 	OutputNewrelicRegionCustom OutputNewrelicRegion = "Custom"
 )
 
@@ -122,9 +125,12 @@ func (o *OutputNewrelicExtraHTTPHeader) GetValue() string {
 type OutputNewrelicFailedRequestLoggingMode string
 
 const (
-	OutputNewrelicFailedRequestLoggingModePayload           OutputNewrelicFailedRequestLoggingMode = "payload"
+	// OutputNewrelicFailedRequestLoggingModePayload Payload
+	OutputNewrelicFailedRequestLoggingModePayload OutputNewrelicFailedRequestLoggingMode = "payload"
+	// OutputNewrelicFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputNewrelicFailedRequestLoggingModePayloadAndHeaders OutputNewrelicFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputNewrelicFailedRequestLoggingModeNone              OutputNewrelicFailedRequestLoggingMode = "none"
+	// OutputNewrelicFailedRequestLoggingModeNone None
+	OutputNewrelicFailedRequestLoggingModeNone OutputNewrelicFailedRequestLoggingMode = "none"
 )
 
 func (e OutputNewrelicFailedRequestLoggingMode) ToPointer() *OutputNewrelicFailedRequestLoggingMode {
@@ -234,8 +240,11 @@ func (o *OutputNewrelicTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputNewrelicBackpressureBehavior string
 
 const (
+	// OutputNewrelicBackpressureBehaviorBlock Block
 	OutputNewrelicBackpressureBehaviorBlock OutputNewrelicBackpressureBehavior = "block"
-	OutputNewrelicBackpressureBehaviorDrop  OutputNewrelicBackpressureBehavior = "drop"
+	// OutputNewrelicBackpressureBehaviorDrop Drop
+	OutputNewrelicBackpressureBehaviorDrop OutputNewrelicBackpressureBehavior = "drop"
+	// OutputNewrelicBackpressureBehaviorQueue Persistent Queue
 	OutputNewrelicBackpressureBehaviorQueue OutputNewrelicBackpressureBehavior = "queue"
 )
 
@@ -255,11 +264,29 @@ func (e OutputNewrelicAuthenticationMethod) ToPointer() *OutputNewrelicAuthentic
 	return &e
 }
 
+// OutputNewrelicMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputNewrelicMode string
+
+const (
+	// OutputNewrelicModeError Error
+	OutputNewrelicModeError OutputNewrelicMode = "error"
+	// OutputNewrelicModeAlways Backpressure
+	OutputNewrelicModeAlways OutputNewrelicMode = "always"
+	// OutputNewrelicModeBackpressure Always On
+	OutputNewrelicModeBackpressure OutputNewrelicMode = "backpressure"
+)
+
+func (e OutputNewrelicMode) ToPointer() *OutputNewrelicMode {
+	return &e
+}
+
 // OutputNewrelicCompression - Codec to use to compress the persisted data
 type OutputNewrelicCompression string
 
 const (
+	// OutputNewrelicCompressionNone None
 	OutputNewrelicCompressionNone OutputNewrelicCompression = "none"
+	// OutputNewrelicCompressionGzip Gzip
 	OutputNewrelicCompressionGzip OutputNewrelicCompression = "gzip"
 )
 
@@ -271,24 +298,13 @@ func (e OutputNewrelicCompression) ToPointer() *OutputNewrelicCompression {
 type OutputNewrelicQueueFullBehavior string
 
 const (
+	// OutputNewrelicQueueFullBehaviorBlock Block
 	OutputNewrelicQueueFullBehaviorBlock OutputNewrelicQueueFullBehavior = "block"
-	OutputNewrelicQueueFullBehaviorDrop  OutputNewrelicQueueFullBehavior = "drop"
+	// OutputNewrelicQueueFullBehaviorDrop Drop new data
+	OutputNewrelicQueueFullBehaviorDrop OutputNewrelicQueueFullBehavior = "drop"
 )
 
 func (e OutputNewrelicQueueFullBehavior) ToPointer() *OutputNewrelicQueueFullBehavior {
-	return &e
-}
-
-// OutputNewrelicMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputNewrelicMode string
-
-const (
-	OutputNewrelicModeError        OutputNewrelicMode = "error"
-	OutputNewrelicModeBackpressure OutputNewrelicMode = "backpressure"
-	OutputNewrelicModeAlways       OutputNewrelicMode = "always"
-)
-
-func (e OutputNewrelicMode) ToPointer() *OutputNewrelicMode {
 	return &e
 }
 
@@ -363,6 +379,16 @@ type OutputNewrelic struct {
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
 	CustomURL          *string  `json:"customUrl,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputNewrelicMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -373,9 +399,7 @@ type OutputNewrelic struct {
 	PqCompress *OutputNewrelicCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputNewrelicQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputNewrelicMode       `default:"error" json:"pqMode"`
-	PqControls *OutputNewrelicPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputNewrelicPqControls        `json:"pqControls,omitempty"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
@@ -596,6 +620,41 @@ func (o *OutputNewrelic) GetCustomURL() *string {
 	return o.CustomURL
 }
 
+func (o *OutputNewrelic) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputNewrelic) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputNewrelic) GetPqMode() *OutputNewrelicMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputNewrelic) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputNewrelic) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputNewrelic) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -629,13 +688,6 @@ func (o *OutputNewrelic) GetPqOnBackpressure() *OutputNewrelicQueueFullBehavior 
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputNewrelic) GetPqMode() *OutputNewrelicMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputNewrelic) GetPqControls() *OutputNewrelicPqControls {

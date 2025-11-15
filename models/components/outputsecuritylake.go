@@ -35,8 +35,11 @@ func (e *OutputSecurityLakeType) UnmarshalJSON(data []byte) error {
 type OutputSecurityLakeAuthenticationMethod string
 
 const (
-	OutputSecurityLakeAuthenticationMethodAuto   OutputSecurityLakeAuthenticationMethod = "auto"
+	// OutputSecurityLakeAuthenticationMethodAuto Auto
+	OutputSecurityLakeAuthenticationMethodAuto OutputSecurityLakeAuthenticationMethod = "auto"
+	// OutputSecurityLakeAuthenticationMethodManual Manual
 	OutputSecurityLakeAuthenticationMethodManual OutputSecurityLakeAuthenticationMethod = "manual"
+	// OutputSecurityLakeAuthenticationMethodSecret Secret Key pair
 	OutputSecurityLakeAuthenticationMethodSecret OutputSecurityLakeAuthenticationMethod = "secret"
 )
 
@@ -60,12 +63,19 @@ func (e OutputSecurityLakeSignatureVersion) ToPointer() *OutputSecurityLakeSigna
 type OutputSecurityLakeObjectACL string
 
 const (
-	OutputSecurityLakeObjectACLPrivate                OutputSecurityLakeObjectACL = "private"
-	OutputSecurityLakeObjectACLPublicRead             OutputSecurityLakeObjectACL = "public-read"
-	OutputSecurityLakeObjectACLPublicReadWrite        OutputSecurityLakeObjectACL = "public-read-write"
-	OutputSecurityLakeObjectACLAuthenticatedRead      OutputSecurityLakeObjectACL = "authenticated-read"
-	OutputSecurityLakeObjectACLAwsExecRead            OutputSecurityLakeObjectACL = "aws-exec-read"
-	OutputSecurityLakeObjectACLBucketOwnerRead        OutputSecurityLakeObjectACL = "bucket-owner-read"
+	// OutputSecurityLakeObjectACLPrivate Private
+	OutputSecurityLakeObjectACLPrivate OutputSecurityLakeObjectACL = "private"
+	// OutputSecurityLakeObjectACLPublicRead Public Read Only
+	OutputSecurityLakeObjectACLPublicRead OutputSecurityLakeObjectACL = "public-read"
+	// OutputSecurityLakeObjectACLPublicReadWrite Public Read/Write
+	OutputSecurityLakeObjectACLPublicReadWrite OutputSecurityLakeObjectACL = "public-read-write"
+	// OutputSecurityLakeObjectACLAuthenticatedRead Authenticated Read Only
+	OutputSecurityLakeObjectACLAuthenticatedRead OutputSecurityLakeObjectACL = "authenticated-read"
+	// OutputSecurityLakeObjectACLAwsExecRead AWS EC2 AMI Read Only
+	OutputSecurityLakeObjectACLAwsExecRead OutputSecurityLakeObjectACL = "aws-exec-read"
+	// OutputSecurityLakeObjectACLBucketOwnerRead Bucket Owner Read Only
+	OutputSecurityLakeObjectACLBucketOwnerRead OutputSecurityLakeObjectACL = "bucket-owner-read"
+	// OutputSecurityLakeObjectACLBucketOwnerFullControl Bucket Owner Full Control
 	OutputSecurityLakeObjectACLBucketOwnerFullControl OutputSecurityLakeObjectACL = "bucket-owner-full-control"
 )
 
@@ -77,14 +87,22 @@ func (e OutputSecurityLakeObjectACL) ToPointer() *OutputSecurityLakeObjectACL {
 type OutputSecurityLakeStorageClass string
 
 const (
-	OutputSecurityLakeStorageClassStandard           OutputSecurityLakeStorageClass = "STANDARD"
-	OutputSecurityLakeStorageClassReducedRedundancy  OutputSecurityLakeStorageClass = "REDUCED_REDUNDANCY"
-	OutputSecurityLakeStorageClassStandardIa         OutputSecurityLakeStorageClass = "STANDARD_IA"
-	OutputSecurityLakeStorageClassOnezoneIa          OutputSecurityLakeStorageClass = "ONEZONE_IA"
+	// OutputSecurityLakeStorageClassStandard Standard
+	OutputSecurityLakeStorageClassStandard OutputSecurityLakeStorageClass = "STANDARD"
+	// OutputSecurityLakeStorageClassReducedRedundancy Reduced Redundancy Storage
+	OutputSecurityLakeStorageClassReducedRedundancy OutputSecurityLakeStorageClass = "REDUCED_REDUNDANCY"
+	// OutputSecurityLakeStorageClassStandardIa Standard, Infrequent Access
+	OutputSecurityLakeStorageClassStandardIa OutputSecurityLakeStorageClass = "STANDARD_IA"
+	// OutputSecurityLakeStorageClassOnezoneIa One Zone, Infrequent Access
+	OutputSecurityLakeStorageClassOnezoneIa OutputSecurityLakeStorageClass = "ONEZONE_IA"
+	// OutputSecurityLakeStorageClassIntelligentTiering Intelligent Tiering
 	OutputSecurityLakeStorageClassIntelligentTiering OutputSecurityLakeStorageClass = "INTELLIGENT_TIERING"
-	OutputSecurityLakeStorageClassGlacier            OutputSecurityLakeStorageClass = "GLACIER"
-	OutputSecurityLakeStorageClassGlacierIr          OutputSecurityLakeStorageClass = "GLACIER_IR"
-	OutputSecurityLakeStorageClassDeepArchive        OutputSecurityLakeStorageClass = "DEEP_ARCHIVE"
+	// OutputSecurityLakeStorageClassGlacier Glacier Flexible Retrieval
+	OutputSecurityLakeStorageClassGlacier OutputSecurityLakeStorageClass = "GLACIER"
+	// OutputSecurityLakeStorageClassGlacierIr Glacier Instant Retrieval
+	OutputSecurityLakeStorageClassGlacierIr OutputSecurityLakeStorageClass = "GLACIER_IR"
+	// OutputSecurityLakeStorageClassDeepArchive Glacier Deep Archive
+	OutputSecurityLakeStorageClassDeepArchive OutputSecurityLakeStorageClass = "DEEP_ARCHIVE"
 )
 
 func (e OutputSecurityLakeStorageClass) ToPointer() *OutputSecurityLakeStorageClass {
@@ -94,7 +112,9 @@ func (e OutputSecurityLakeStorageClass) ToPointer() *OutputSecurityLakeStorageCl
 type OutputSecurityLakeServerSideEncryptionForUploadedObjects string
 
 const (
+	// OutputSecurityLakeServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
 	OutputSecurityLakeServerSideEncryptionForUploadedObjectsAes256 OutputSecurityLakeServerSideEncryptionForUploadedObjects = "AES256"
+	// OutputSecurityLakeServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
 	OutputSecurityLakeServerSideEncryptionForUploadedObjectsAwsKms OutputSecurityLakeServerSideEncryptionForUploadedObjects = "aws:kms"
 )
 
@@ -106,8 +126,10 @@ func (e OutputSecurityLakeServerSideEncryptionForUploadedObjects) ToPointer() *O
 type OutputSecurityLakeBackpressureBehavior string
 
 const (
+	// OutputSecurityLakeBackpressureBehaviorBlock Block
 	OutputSecurityLakeBackpressureBehaviorBlock OutputSecurityLakeBackpressureBehavior = "block"
-	OutputSecurityLakeBackpressureBehaviorDrop  OutputSecurityLakeBackpressureBehavior = "drop"
+	// OutputSecurityLakeBackpressureBehaviorDrop Drop
+	OutputSecurityLakeBackpressureBehaviorDrop OutputSecurityLakeBackpressureBehavior = "drop"
 )
 
 func (e OutputSecurityLakeBackpressureBehavior) ToPointer() *OutputSecurityLakeBackpressureBehavior {
@@ -118,8 +140,10 @@ func (e OutputSecurityLakeBackpressureBehavior) ToPointer() *OutputSecurityLakeB
 type OutputSecurityLakeDiskSpaceProtection string
 
 const (
+	// OutputSecurityLakeDiskSpaceProtectionBlock Block
 	OutputSecurityLakeDiskSpaceProtectionBlock OutputSecurityLakeDiskSpaceProtection = "block"
-	OutputSecurityLakeDiskSpaceProtectionDrop  OutputSecurityLakeDiskSpaceProtection = "drop"
+	// OutputSecurityLakeDiskSpaceProtectionDrop Drop
+	OutputSecurityLakeDiskSpaceProtectionDrop OutputSecurityLakeDiskSpaceProtection = "drop"
 )
 
 func (e OutputSecurityLakeDiskSpaceProtection) ToPointer() *OutputSecurityLakeDiskSpaceProtection {
@@ -130,8 +154,11 @@ func (e OutputSecurityLakeDiskSpaceProtection) ToPointer() *OutputSecurityLakeDi
 type OutputSecurityLakeParquetVersion string
 
 const (
+	// OutputSecurityLakeParquetVersionParquet10 1.0
 	OutputSecurityLakeParquetVersionParquet10 OutputSecurityLakeParquetVersion = "PARQUET_1_0"
+	// OutputSecurityLakeParquetVersionParquet24 2.4
 	OutputSecurityLakeParquetVersionParquet24 OutputSecurityLakeParquetVersion = "PARQUET_2_4"
+	// OutputSecurityLakeParquetVersionParquet26 2.6
 	OutputSecurityLakeParquetVersionParquet26 OutputSecurityLakeParquetVersion = "PARQUET_2_6"
 )
 
@@ -143,7 +170,9 @@ func (e OutputSecurityLakeParquetVersion) ToPointer() *OutputSecurityLakeParquet
 type OutputSecurityLakeDataPageVersion string
 
 const (
+	// OutputSecurityLakeDataPageVersionDataPageV1 V1
 	OutputSecurityLakeDataPageVersionDataPageV1 OutputSecurityLakeDataPageVersion = "DATA_PAGE_V1"
+	// OutputSecurityLakeDataPageVersionDataPageV2 V2
 	OutputSecurityLakeDataPageVersionDataPageV2 OutputSecurityLakeDataPageVersion = "DATA_PAGE_V2"
 )
 
@@ -245,6 +274,8 @@ type OutputSecurityLake struct {
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *OutputSecurityLakeDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -286,6 +317,8 @@ type OutputSecurityLake struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
 	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
@@ -536,6 +569,13 @@ func (o *OutputSecurityLake) GetOnDiskFullBackpressure() *OutputSecurityLakeDisk
 	return o.OnDiskFullBackpressure
 }
 
+func (o *OutputSecurityLake) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
+}
+
 func (o *OutputSecurityLake) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
@@ -681,6 +721,13 @@ func (o *OutputSecurityLake) GetEmptyDirCleanupSec() *float64 {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputSecurityLake) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
 }
 
 func (o *OutputSecurityLake) GetParquetSchema() *string {

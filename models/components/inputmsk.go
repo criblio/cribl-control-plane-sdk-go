@@ -65,7 +65,9 @@ func (i *InputMskConnection) GetOutput() string {
 type InputMskMode string
 
 const (
-	InputMskModeSmart  InputMskMode = "smart"
+	// InputMskModeSmart Smart
+	InputMskModeSmart InputMskMode = "smart"
+	// InputMskModeAlways Always On
 	InputMskModeAlways InputMskMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputMskMode) ToPointer() *InputMskMode {
 type InputMskCompression string
 
 const (
+	// InputMskCompressionNone None
 	InputMskCompressionNone InputMskCompression = "none"
+	// InputMskCompressionGzip Gzip
 	InputMskCompressionGzip InputMskCompression = "gzip"
 )
 
@@ -213,18 +217,6 @@ func (i *InputMskMetadatum) GetValue() string {
 		return ""
 	}
 	return i.Value
-}
-
-// InputMskSchemaType - The schema format used to encode and decode event data
-type InputMskSchemaType string
-
-const (
-	InputMskSchemaTypeAvro InputMskSchemaType = "avro"
-	InputMskSchemaTypeJSON InputMskSchemaType = "json"
-)
-
-func (e InputMskSchemaType) ToPointer() *InputMskSchemaType {
-	return &e
 }
 
 // InputMskAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -391,8 +383,6 @@ type InputMskKafkaSchemaRegistryAuthentication struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// The schema format used to encode and decode event data
-	SchemaType *InputMskSchemaType `default:"avro" json:"schemaType"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
 	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
 	// Maximum time to wait for the Schema Registry to respond to a request
@@ -427,13 +417,6 @@ func (i *InputMskKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *stri
 		return nil
 	}
 	return i.SchemaRegistryURL
-}
-
-func (i *InputMskKafkaSchemaRegistryAuthentication) GetSchemaType() *InputMskSchemaType {
-	if i == nil {
-		return nil
-	}
-	return i.SchemaType
 }
 
 func (i *InputMskKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
@@ -475,8 +458,11 @@ func (i *InputMskKafkaSchemaRegistryAuthentication) GetTLS() *InputMskKafkaSchem
 type InputMskAuthenticationMethod string
 
 const (
-	InputMskAuthenticationMethodAuto   InputMskAuthenticationMethod = "auto"
+	// InputMskAuthenticationMethodAuto Auto
+	InputMskAuthenticationMethodAuto InputMskAuthenticationMethod = "auto"
+	// InputMskAuthenticationMethodManual Manual
 	InputMskAuthenticationMethodManual InputMskAuthenticationMethod = "manual"
+	// InputMskAuthenticationMethodSecret Secret Key pair
 	InputMskAuthenticationMethodSecret InputMskAuthenticationMethod = "secret"
 )
 

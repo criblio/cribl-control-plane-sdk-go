@@ -94,9 +94,12 @@ func (o *OutputSentinelOneAiSiemExtraHTTPHeader) GetValue() string {
 type OutputSentinelOneAiSiemFailedRequestLoggingMode string
 
 const (
-	OutputSentinelOneAiSiemFailedRequestLoggingModePayload           OutputSentinelOneAiSiemFailedRequestLoggingMode = "payload"
+	// OutputSentinelOneAiSiemFailedRequestLoggingModePayload Payload
+	OutputSentinelOneAiSiemFailedRequestLoggingModePayload OutputSentinelOneAiSiemFailedRequestLoggingMode = "payload"
+	// OutputSentinelOneAiSiemFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputSentinelOneAiSiemFailedRequestLoggingModePayloadAndHeaders OutputSentinelOneAiSiemFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputSentinelOneAiSiemFailedRequestLoggingModeNone              OutputSentinelOneAiSiemFailedRequestLoggingMode = "none"
+	// OutputSentinelOneAiSiemFailedRequestLoggingModeNone None
+	OutputSentinelOneAiSiemFailedRequestLoggingModeNone OutputSentinelOneAiSiemFailedRequestLoggingMode = "none"
 )
 
 func (e OutputSentinelOneAiSiemFailedRequestLoggingMode) ToPointer() *OutputSentinelOneAiSiemFailedRequestLoggingMode {
@@ -218,8 +221,11 @@ func (o *OutputSentinelOneAiSiemTimeoutRetrySettings) GetMaxBackoff() *float64 {
 type OutputSentinelOneAiSiemBackpressureBehavior string
 
 const (
+	// OutputSentinelOneAiSiemBackpressureBehaviorBlock Block
 	OutputSentinelOneAiSiemBackpressureBehaviorBlock OutputSentinelOneAiSiemBackpressureBehavior = "block"
-	OutputSentinelOneAiSiemBackpressureBehaviorDrop  OutputSentinelOneAiSiemBackpressureBehavior = "drop"
+	// OutputSentinelOneAiSiemBackpressureBehaviorDrop Drop
+	OutputSentinelOneAiSiemBackpressureBehaviorDrop OutputSentinelOneAiSiemBackpressureBehavior = "drop"
+	// OutputSentinelOneAiSiemBackpressureBehaviorQueue Persistent Queue
 	OutputSentinelOneAiSiemBackpressureBehaviorQueue OutputSentinelOneAiSiemBackpressureBehavior = "queue"
 )
 
@@ -227,11 +233,29 @@ func (e OutputSentinelOneAiSiemBackpressureBehavior) ToPointer() *OutputSentinel
 	return &e
 }
 
+// OutputSentinelOneAiSiemMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputSentinelOneAiSiemMode string
+
+const (
+	// OutputSentinelOneAiSiemModeError Error
+	OutputSentinelOneAiSiemModeError OutputSentinelOneAiSiemMode = "error"
+	// OutputSentinelOneAiSiemModeAlways Backpressure
+	OutputSentinelOneAiSiemModeAlways OutputSentinelOneAiSiemMode = "always"
+	// OutputSentinelOneAiSiemModeBackpressure Always On
+	OutputSentinelOneAiSiemModeBackpressure OutputSentinelOneAiSiemMode = "backpressure"
+)
+
+func (e OutputSentinelOneAiSiemMode) ToPointer() *OutputSentinelOneAiSiemMode {
+	return &e
+}
+
 // OutputSentinelOneAiSiemCompression - Codec to use to compress the persisted data
 type OutputSentinelOneAiSiemCompression string
 
 const (
+	// OutputSentinelOneAiSiemCompressionNone None
 	OutputSentinelOneAiSiemCompressionNone OutputSentinelOneAiSiemCompression = "none"
+	// OutputSentinelOneAiSiemCompressionGzip Gzip
 	OutputSentinelOneAiSiemCompressionGzip OutputSentinelOneAiSiemCompression = "gzip"
 )
 
@@ -243,24 +267,13 @@ func (e OutputSentinelOneAiSiemCompression) ToPointer() *OutputSentinelOneAiSiem
 type OutputSentinelOneAiSiemQueueFullBehavior string
 
 const (
+	// OutputSentinelOneAiSiemQueueFullBehaviorBlock Block
 	OutputSentinelOneAiSiemQueueFullBehaviorBlock OutputSentinelOneAiSiemQueueFullBehavior = "block"
-	OutputSentinelOneAiSiemQueueFullBehaviorDrop  OutputSentinelOneAiSiemQueueFullBehavior = "drop"
+	// OutputSentinelOneAiSiemQueueFullBehaviorDrop Drop new data
+	OutputSentinelOneAiSiemQueueFullBehaviorDrop OutputSentinelOneAiSiemQueueFullBehavior = "drop"
 )
 
 func (e OutputSentinelOneAiSiemQueueFullBehavior) ToPointer() *OutputSentinelOneAiSiemQueueFullBehavior {
-	return &e
-}
-
-// OutputSentinelOneAiSiemMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSentinelOneAiSiemMode string
-
-const (
-	OutputSentinelOneAiSiemModeError        OutputSentinelOneAiSiemMode = "error"
-	OutputSentinelOneAiSiemModeBackpressure OutputSentinelOneAiSiemMode = "backpressure"
-	OutputSentinelOneAiSiemModeAlways       OutputSentinelOneAiSiemMode = "always"
-)
-
-func (e OutputSentinelOneAiSiemMode) ToPointer() *OutputSentinelOneAiSiemMode {
 	return &e
 }
 
@@ -360,6 +373,16 @@ type OutputSentinelOneAiSiem struct {
 	DataSourceVendor *string `default:"cribl" json:"dataSourceVendor"`
 	// Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
 	EventType *string `default:"" json:"eventType"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputSentinelOneAiSiemMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -370,9 +393,7 @@ type OutputSentinelOneAiSiem struct {
 	PqCompress *OutputSentinelOneAiSiemCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputSentinelOneAiSiemQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputSentinelOneAiSiemMode       `default:"error" json:"pqMode"`
-	PqControls *OutputSentinelOneAiSiemPqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputSentinelOneAiSiemPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
@@ -673,6 +694,41 @@ func (o *OutputSentinelOneAiSiem) GetEventType() *string {
 	return o.EventType
 }
 
+func (o *OutputSentinelOneAiSiem) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputSentinelOneAiSiem) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputSentinelOneAiSiem) GetPqMode() *OutputSentinelOneAiSiemMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputSentinelOneAiSiem) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputSentinelOneAiSiem) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputSentinelOneAiSiem) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -706,13 +762,6 @@ func (o *OutputSentinelOneAiSiem) GetPqOnBackpressure() *OutputSentinelOneAiSiem
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputSentinelOneAiSiem) GetPqMode() *OutputSentinelOneAiSiemMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputSentinelOneAiSiem) GetPqControls() *OutputSentinelOneAiSiemPqControls {

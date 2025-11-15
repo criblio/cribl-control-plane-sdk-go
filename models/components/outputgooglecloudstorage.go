@@ -46,8 +46,11 @@ func (e OutputGoogleCloudStorageSignatureVersion) ToPointer() *OutputGoogleCloud
 type OutputGoogleCloudStorageAuthenticationMethod string
 
 const (
-	OutputGoogleCloudStorageAuthenticationMethodAuto   OutputGoogleCloudStorageAuthenticationMethod = "auto"
+	// OutputGoogleCloudStorageAuthenticationMethodAuto auto
+	OutputGoogleCloudStorageAuthenticationMethodAuto OutputGoogleCloudStorageAuthenticationMethod = "auto"
+	// OutputGoogleCloudStorageAuthenticationMethodManual manual
 	OutputGoogleCloudStorageAuthenticationMethodManual OutputGoogleCloudStorageAuthenticationMethod = "manual"
+	// OutputGoogleCloudStorageAuthenticationMethodSecret Secret Key pair
 	OutputGoogleCloudStorageAuthenticationMethodSecret OutputGoogleCloudStorageAuthenticationMethod = "secret"
 )
 
@@ -59,12 +62,18 @@ func (e OutputGoogleCloudStorageAuthenticationMethod) ToPointer() *OutputGoogleC
 type OutputGoogleCloudStorageObjectACL string
 
 const (
-	OutputGoogleCloudStorageObjectACLPrivate                OutputGoogleCloudStorageObjectACL = "private"
-	OutputGoogleCloudStorageObjectACLBucketOwnerRead        OutputGoogleCloudStorageObjectACL = "bucket-owner-read"
+	// OutputGoogleCloudStorageObjectACLPrivate private
+	OutputGoogleCloudStorageObjectACLPrivate OutputGoogleCloudStorageObjectACL = "private"
+	// OutputGoogleCloudStorageObjectACLBucketOwnerRead bucket-owner-read
+	OutputGoogleCloudStorageObjectACLBucketOwnerRead OutputGoogleCloudStorageObjectACL = "bucket-owner-read"
+	// OutputGoogleCloudStorageObjectACLBucketOwnerFullControl bucket-owner-full-control
 	OutputGoogleCloudStorageObjectACLBucketOwnerFullControl OutputGoogleCloudStorageObjectACL = "bucket-owner-full-control"
-	OutputGoogleCloudStorageObjectACLProjectPrivate         OutputGoogleCloudStorageObjectACL = "project-private"
-	OutputGoogleCloudStorageObjectACLAuthenticatedRead      OutputGoogleCloudStorageObjectACL = "authenticated-read"
-	OutputGoogleCloudStorageObjectACLPublicRead             OutputGoogleCloudStorageObjectACL = "public-read"
+	// OutputGoogleCloudStorageObjectACLProjectPrivate project-private
+	OutputGoogleCloudStorageObjectACLProjectPrivate OutputGoogleCloudStorageObjectACL = "project-private"
+	// OutputGoogleCloudStorageObjectACLAuthenticatedRead authenticated-read
+	OutputGoogleCloudStorageObjectACLAuthenticatedRead OutputGoogleCloudStorageObjectACL = "authenticated-read"
+	// OutputGoogleCloudStorageObjectACLPublicRead public-read
+	OutputGoogleCloudStorageObjectACLPublicRead OutputGoogleCloudStorageObjectACL = "public-read"
 )
 
 func (e OutputGoogleCloudStorageObjectACL) ToPointer() *OutputGoogleCloudStorageObjectACL {
@@ -75,10 +84,14 @@ func (e OutputGoogleCloudStorageObjectACL) ToPointer() *OutputGoogleCloudStorage
 type OutputGoogleCloudStorageStorageClass string
 
 const (
+	// OutputGoogleCloudStorageStorageClassStandard Standard Storage
 	OutputGoogleCloudStorageStorageClassStandard OutputGoogleCloudStorageStorageClass = "STANDARD"
+	// OutputGoogleCloudStorageStorageClassNearline Nearline Storage
 	OutputGoogleCloudStorageStorageClassNearline OutputGoogleCloudStorageStorageClass = "NEARLINE"
+	// OutputGoogleCloudStorageStorageClassColdline Coldline Storage
 	OutputGoogleCloudStorageStorageClassColdline OutputGoogleCloudStorageStorageClass = "COLDLINE"
-	OutputGoogleCloudStorageStorageClassArchive  OutputGoogleCloudStorageStorageClass = "ARCHIVE"
+	// OutputGoogleCloudStorageStorageClassArchive Archive Storage
+	OutputGoogleCloudStorageStorageClassArchive OutputGoogleCloudStorageStorageClass = "ARCHIVE"
 )
 
 func (e OutputGoogleCloudStorageStorageClass) ToPointer() *OutputGoogleCloudStorageStorageClass {
@@ -89,8 +102,11 @@ func (e OutputGoogleCloudStorageStorageClass) ToPointer() *OutputGoogleCloudStor
 type OutputGoogleCloudStorageDataFormat string
 
 const (
-	OutputGoogleCloudStorageDataFormatJSON    OutputGoogleCloudStorageDataFormat = "json"
-	OutputGoogleCloudStorageDataFormatRaw     OutputGoogleCloudStorageDataFormat = "raw"
+	// OutputGoogleCloudStorageDataFormatJSON JSON
+	OutputGoogleCloudStorageDataFormatJSON OutputGoogleCloudStorageDataFormat = "json"
+	// OutputGoogleCloudStorageDataFormatRaw Raw
+	OutputGoogleCloudStorageDataFormatRaw OutputGoogleCloudStorageDataFormat = "raw"
+	// OutputGoogleCloudStorageDataFormatParquet Parquet
 	OutputGoogleCloudStorageDataFormatParquet OutputGoogleCloudStorageDataFormat = "parquet"
 )
 
@@ -102,8 +118,10 @@ func (e OutputGoogleCloudStorageDataFormat) ToPointer() *OutputGoogleCloudStorag
 type OutputGoogleCloudStorageBackpressureBehavior string
 
 const (
+	// OutputGoogleCloudStorageBackpressureBehaviorBlock Block
 	OutputGoogleCloudStorageBackpressureBehaviorBlock OutputGoogleCloudStorageBackpressureBehavior = "block"
-	OutputGoogleCloudStorageBackpressureBehaviorDrop  OutputGoogleCloudStorageBackpressureBehavior = "drop"
+	// OutputGoogleCloudStorageBackpressureBehaviorDrop Drop
+	OutputGoogleCloudStorageBackpressureBehaviorDrop OutputGoogleCloudStorageBackpressureBehavior = "drop"
 )
 
 func (e OutputGoogleCloudStorageBackpressureBehavior) ToPointer() *OutputGoogleCloudStorageBackpressureBehavior {
@@ -114,8 +132,10 @@ func (e OutputGoogleCloudStorageBackpressureBehavior) ToPointer() *OutputGoogleC
 type OutputGoogleCloudStorageDiskSpaceProtection string
 
 const (
+	// OutputGoogleCloudStorageDiskSpaceProtectionBlock Block
 	OutputGoogleCloudStorageDiskSpaceProtectionBlock OutputGoogleCloudStorageDiskSpaceProtection = "block"
-	OutputGoogleCloudStorageDiskSpaceProtectionDrop  OutputGoogleCloudStorageDiskSpaceProtection = "drop"
+	// OutputGoogleCloudStorageDiskSpaceProtectionDrop Drop
+	OutputGoogleCloudStorageDiskSpaceProtectionDrop OutputGoogleCloudStorageDiskSpaceProtection = "drop"
 )
 
 func (e OutputGoogleCloudStorageDiskSpaceProtection) ToPointer() *OutputGoogleCloudStorageDiskSpaceProtection {
@@ -138,8 +158,11 @@ func (e OutputGoogleCloudStorageCompression) ToPointer() *OutputGoogleCloudStora
 type OutputGoogleCloudStorageCompressionLevel string
 
 const (
-	OutputGoogleCloudStorageCompressionLevelBestSpeed       OutputGoogleCloudStorageCompressionLevel = "best_speed"
-	OutputGoogleCloudStorageCompressionLevelNormal          OutputGoogleCloudStorageCompressionLevel = "normal"
+	// OutputGoogleCloudStorageCompressionLevelBestSpeed Best Speed
+	OutputGoogleCloudStorageCompressionLevelBestSpeed OutputGoogleCloudStorageCompressionLevel = "best_speed"
+	// OutputGoogleCloudStorageCompressionLevelNormal Normal
+	OutputGoogleCloudStorageCompressionLevelNormal OutputGoogleCloudStorageCompressionLevel = "normal"
+	// OutputGoogleCloudStorageCompressionLevelBestCompression Best Compression
 	OutputGoogleCloudStorageCompressionLevelBestCompression OutputGoogleCloudStorageCompressionLevel = "best_compression"
 )
 
@@ -151,8 +174,11 @@ func (e OutputGoogleCloudStorageCompressionLevel) ToPointer() *OutputGoogleCloud
 type OutputGoogleCloudStorageParquetVersion string
 
 const (
+	// OutputGoogleCloudStorageParquetVersionParquet10 1.0
 	OutputGoogleCloudStorageParquetVersionParquet10 OutputGoogleCloudStorageParquetVersion = "PARQUET_1_0"
+	// OutputGoogleCloudStorageParquetVersionParquet24 2.4
 	OutputGoogleCloudStorageParquetVersionParquet24 OutputGoogleCloudStorageParquetVersion = "PARQUET_2_4"
+	// OutputGoogleCloudStorageParquetVersionParquet26 2.6
 	OutputGoogleCloudStorageParquetVersionParquet26 OutputGoogleCloudStorageParquetVersion = "PARQUET_2_6"
 )
 
@@ -164,7 +190,9 @@ func (e OutputGoogleCloudStorageParquetVersion) ToPointer() *OutputGoogleCloudSt
 type OutputGoogleCloudStorageDataPageVersion string
 
 const (
+	// OutputGoogleCloudStorageDataPageVersionDataPageV1 V1
 	OutputGoogleCloudStorageDataPageVersionDataPageV1 OutputGoogleCloudStorageDataPageVersion = "DATA_PAGE_V1"
+	// OutputGoogleCloudStorageDataPageVersionDataPageV2 V2
 	OutputGoogleCloudStorageDataPageVersionDataPageV2 OutputGoogleCloudStorageDataPageVersion = "DATA_PAGE_V2"
 )
 
@@ -267,13 +295,17 @@ type OutputGoogleCloudStorage struct {
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *OutputGoogleCloudStorageDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
-	Description            *string                                      `json:"description,omitempty"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool   `default:"false" json:"forceCloseOnShutdown"`
+	Description          *string `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *OutputGoogleCloudStorageCompression `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *OutputGoogleCloudStorageCompressionLevel `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
 	ParquetVersion *OutputGoogleCloudStorageParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
@@ -294,6 +326,8 @@ type OutputGoogleCloudStorage struct {
 	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
 	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
@@ -548,6 +582,13 @@ func (o *OutputGoogleCloudStorage) GetOnDiskFullBackpressure() *OutputGoogleClou
 	return o.OnDiskFullBackpressure
 }
 
+func (o *OutputGoogleCloudStorage) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
+}
+
 func (o *OutputGoogleCloudStorage) GetDescription() *string {
 	if o == nil {
 		return nil
@@ -574,6 +615,13 @@ func (o *OutputGoogleCloudStorage) GetAutomaticSchema() *bool {
 		return nil
 	}
 	return o.AutomaticSchema
+}
+
+func (o *OutputGoogleCloudStorage) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
 }
 
 func (o *OutputGoogleCloudStorage) GetParquetVersion() *OutputGoogleCloudStorageParquetVersion {
@@ -644,6 +692,13 @@ func (o *OutputGoogleCloudStorage) GetEmptyDirCleanupSec() *float64 {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputGoogleCloudStorage) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
 }
 
 func (o *OutputGoogleCloudStorage) GetDeadletterPath() *string {
