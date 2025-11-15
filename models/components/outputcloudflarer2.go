@@ -319,6 +319,8 @@ type OutputCloudflareR2 struct {
 	EnablePageChecksum *bool `default:"false" json:"enablePageChecksum"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
 	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
@@ -712,6 +714,13 @@ func (o *OutputCloudflareR2) GetEmptyDirCleanupSec() *float64 {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputCloudflareR2) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
 }
 
 func (o *OutputCloudflareR2) GetDeadletterPath() *string {
