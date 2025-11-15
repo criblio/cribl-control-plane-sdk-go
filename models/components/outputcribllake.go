@@ -47,12 +47,19 @@ func (e OutputCriblLakeSignatureVersion) ToPointer() *OutputCriblLakeSignatureVe
 type OutputCriblLakeObjectACL string
 
 const (
-	OutputCriblLakeObjectACLPrivate                OutputCriblLakeObjectACL = "private"
-	OutputCriblLakeObjectACLPublicRead             OutputCriblLakeObjectACL = "public-read"
-	OutputCriblLakeObjectACLPublicReadWrite        OutputCriblLakeObjectACL = "public-read-write"
-	OutputCriblLakeObjectACLAuthenticatedRead      OutputCriblLakeObjectACL = "authenticated-read"
-	OutputCriblLakeObjectACLAwsExecRead            OutputCriblLakeObjectACL = "aws-exec-read"
-	OutputCriblLakeObjectACLBucketOwnerRead        OutputCriblLakeObjectACL = "bucket-owner-read"
+	// OutputCriblLakeObjectACLPrivate Private
+	OutputCriblLakeObjectACLPrivate OutputCriblLakeObjectACL = "private"
+	// OutputCriblLakeObjectACLPublicRead Public Read Only
+	OutputCriblLakeObjectACLPublicRead OutputCriblLakeObjectACL = "public-read"
+	// OutputCriblLakeObjectACLPublicReadWrite Public Read/Write
+	OutputCriblLakeObjectACLPublicReadWrite OutputCriblLakeObjectACL = "public-read-write"
+	// OutputCriblLakeObjectACLAuthenticatedRead Authenticated Read Only
+	OutputCriblLakeObjectACLAuthenticatedRead OutputCriblLakeObjectACL = "authenticated-read"
+	// OutputCriblLakeObjectACLAwsExecRead AWS EC2 AMI Read Only
+	OutputCriblLakeObjectACLAwsExecRead OutputCriblLakeObjectACL = "aws-exec-read"
+	// OutputCriblLakeObjectACLBucketOwnerRead Bucket Owner Read Only
+	OutputCriblLakeObjectACLBucketOwnerRead OutputCriblLakeObjectACL = "bucket-owner-read"
+	// OutputCriblLakeObjectACLBucketOwnerFullControl Bucket Owner Full Control
 	OutputCriblLakeObjectACLBucketOwnerFullControl OutputCriblLakeObjectACL = "bucket-owner-full-control"
 )
 
@@ -64,14 +71,22 @@ func (e OutputCriblLakeObjectACL) ToPointer() *OutputCriblLakeObjectACL {
 type OutputCriblLakeStorageClass string
 
 const (
-	OutputCriblLakeStorageClassStandard           OutputCriblLakeStorageClass = "STANDARD"
-	OutputCriblLakeStorageClassReducedRedundancy  OutputCriblLakeStorageClass = "REDUCED_REDUNDANCY"
-	OutputCriblLakeStorageClassStandardIa         OutputCriblLakeStorageClass = "STANDARD_IA"
-	OutputCriblLakeStorageClassOnezoneIa          OutputCriblLakeStorageClass = "ONEZONE_IA"
+	// OutputCriblLakeStorageClassStandard Standard
+	OutputCriblLakeStorageClassStandard OutputCriblLakeStorageClass = "STANDARD"
+	// OutputCriblLakeStorageClassReducedRedundancy Reduced Redundancy Storage
+	OutputCriblLakeStorageClassReducedRedundancy OutputCriblLakeStorageClass = "REDUCED_REDUNDANCY"
+	// OutputCriblLakeStorageClassStandardIa Standard, Infrequent Access
+	OutputCriblLakeStorageClassStandardIa OutputCriblLakeStorageClass = "STANDARD_IA"
+	// OutputCriblLakeStorageClassOnezoneIa One Zone, Infrequent Access
+	OutputCriblLakeStorageClassOnezoneIa OutputCriblLakeStorageClass = "ONEZONE_IA"
+	// OutputCriblLakeStorageClassIntelligentTiering Intelligent Tiering
 	OutputCriblLakeStorageClassIntelligentTiering OutputCriblLakeStorageClass = "INTELLIGENT_TIERING"
-	OutputCriblLakeStorageClassGlacier            OutputCriblLakeStorageClass = "GLACIER"
-	OutputCriblLakeStorageClassGlacierIr          OutputCriblLakeStorageClass = "GLACIER_IR"
-	OutputCriblLakeStorageClassDeepArchive        OutputCriblLakeStorageClass = "DEEP_ARCHIVE"
+	// OutputCriblLakeStorageClassGlacier Glacier Flexible Retrieval
+	OutputCriblLakeStorageClassGlacier OutputCriblLakeStorageClass = "GLACIER"
+	// OutputCriblLakeStorageClassGlacierIr Glacier Instant Retrieval
+	OutputCriblLakeStorageClassGlacierIr OutputCriblLakeStorageClass = "GLACIER_IR"
+	// OutputCriblLakeStorageClassDeepArchive Glacier Deep Archive
+	OutputCriblLakeStorageClassDeepArchive OutputCriblLakeStorageClass = "DEEP_ARCHIVE"
 )
 
 func (e OutputCriblLakeStorageClass) ToPointer() *OutputCriblLakeStorageClass {
@@ -81,7 +96,9 @@ func (e OutputCriblLakeStorageClass) ToPointer() *OutputCriblLakeStorageClass {
 type OutputCriblLakeServerSideEncryptionForUploadedObjects string
 
 const (
+	// OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
 	OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 OutputCriblLakeServerSideEncryptionForUploadedObjects = "AES256"
+	// OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
 	OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms OutputCriblLakeServerSideEncryptionForUploadedObjects = "aws:kms"
 )
 
@@ -93,8 +110,10 @@ func (e OutputCriblLakeServerSideEncryptionForUploadedObjects) ToPointer() *Outp
 type OutputCriblLakeBackpressureBehavior string
 
 const (
+	// OutputCriblLakeBackpressureBehaviorBlock Block
 	OutputCriblLakeBackpressureBehaviorBlock OutputCriblLakeBackpressureBehavior = "block"
-	OutputCriblLakeBackpressureBehaviorDrop  OutputCriblLakeBackpressureBehavior = "drop"
+	// OutputCriblLakeBackpressureBehaviorDrop Drop
+	OutputCriblLakeBackpressureBehaviorDrop OutputCriblLakeBackpressureBehavior = "drop"
 )
 
 func (e OutputCriblLakeBackpressureBehavior) ToPointer() *OutputCriblLakeBackpressureBehavior {
@@ -105,8 +124,10 @@ func (e OutputCriblLakeBackpressureBehavior) ToPointer() *OutputCriblLakeBackpre
 type OutputCriblLakeDiskSpaceProtection string
 
 const (
+	// OutputCriblLakeDiskSpaceProtectionBlock Block
 	OutputCriblLakeDiskSpaceProtectionBlock OutputCriblLakeDiskSpaceProtection = "block"
-	OutputCriblLakeDiskSpaceProtectionDrop  OutputCriblLakeDiskSpaceProtection = "drop"
+	// OutputCriblLakeDiskSpaceProtectionDrop Drop
+	OutputCriblLakeDiskSpaceProtectionDrop OutputCriblLakeDiskSpaceProtection = "drop"
 )
 
 func (e OutputCriblLakeDiskSpaceProtection) ToPointer() *OutputCriblLakeDiskSpaceProtection {
@@ -204,6 +225,8 @@ type OutputCriblLake struct {
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *OutputCriblLakeDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -219,6 +242,8 @@ type OutputCriblLake struct {
 	Description            *string  `json:"description,omitempty"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
 	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
@@ -474,6 +499,13 @@ func (o *OutputCriblLake) GetOnDiskFullBackpressure() *OutputCriblLakeDiskSpaceP
 	return o.OnDiskFullBackpressure
 }
 
+func (o *OutputCriblLake) GetForceCloseOnShutdown() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ForceCloseOnShutdown
+}
+
 func (o *OutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
@@ -535,6 +567,13 @@ func (o *OutputCriblLake) GetEmptyDirCleanupSec() *float64 {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputCriblLake) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
 }
 
 func (o *OutputCriblLake) GetDeadletterPath() *string {

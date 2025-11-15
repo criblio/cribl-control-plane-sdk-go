@@ -108,13 +108,21 @@ func replicateWorkerGroup(ctx context.Context, client *criblcontrolplanesdkgo.Cr
 	fmt.Printf("Creating replica with ID: %s\n", replicaID)
 
 	// Create the replica Worker Group by copying configuration from source
-	replicaGroup := source
-	replicaGroup.ID = replicaID
-	replicaGroup.Name = criblcontrolplanesdkgo.String(replicaName)
-	replicaGroup.Description = criblcontrolplanesdkgo.String(replicaDescription)
+	replicaGroupCreateRequest := components.GroupCreateRequest{
+		ID:                 replicaID,
+		Name:               criblcontrolplanesdkgo.String(replicaName),
+		Description:        criblcontrolplanesdkgo.String(replicaDescription),
+		OnPrem:             source.OnPrem,
+		IsFleet:            source.IsFleet,
+		IsSearch:           source.IsSearch,
+		Cloud:              source.Cloud,
+		Provisioned:        source.Provisioned,
+		WorkerRemoteAccess: source.WorkerRemoteAccess,
+		SourceGroupID:      &sourceID,
+	}
 
 	// Create the replica Worker Group
-	result, err := client.Groups.Create(ctx, components.ProductsCoreStream, replicaGroup)
+	result, err := client.Groups.Create(ctx, components.ProductsCoreStream, replicaGroupCreateRequest)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create replica Worker Group: %w", err)
 	}

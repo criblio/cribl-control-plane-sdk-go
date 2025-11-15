@@ -175,9 +175,12 @@ func (o *OutputChronicleExtraHTTPHeader) GetValue() string {
 type OutputChronicleFailedRequestLoggingMode string
 
 const (
-	OutputChronicleFailedRequestLoggingModePayload           OutputChronicleFailedRequestLoggingMode = "payload"
+	// OutputChronicleFailedRequestLoggingModePayload Payload
+	OutputChronicleFailedRequestLoggingModePayload OutputChronicleFailedRequestLoggingMode = "payload"
+	// OutputChronicleFailedRequestLoggingModePayloadAndHeaders Payload + Headers
 	OutputChronicleFailedRequestLoggingModePayloadAndHeaders OutputChronicleFailedRequestLoggingMode = "payloadAndHeaders"
-	OutputChronicleFailedRequestLoggingModeNone              OutputChronicleFailedRequestLoggingMode = "none"
+	// OutputChronicleFailedRequestLoggingModeNone None
+	OutputChronicleFailedRequestLoggingModeNone OutputChronicleFailedRequestLoggingMode = "none"
 )
 
 func (e OutputChronicleFailedRequestLoggingMode) ToPointer() *OutputChronicleFailedRequestLoggingMode {
@@ -188,8 +191,11 @@ func (e OutputChronicleFailedRequestLoggingMode) ToPointer() *OutputChronicleFai
 type OutputChronicleBackpressureBehavior string
 
 const (
+	// OutputChronicleBackpressureBehaviorBlock Block
 	OutputChronicleBackpressureBehaviorBlock OutputChronicleBackpressureBehavior = "block"
-	OutputChronicleBackpressureBehaviorDrop  OutputChronicleBackpressureBehavior = "drop"
+	// OutputChronicleBackpressureBehaviorDrop Drop
+	OutputChronicleBackpressureBehaviorDrop OutputChronicleBackpressureBehavior = "drop"
+	// OutputChronicleBackpressureBehaviorQueue Persistent Queue
 	OutputChronicleBackpressureBehaviorQueue OutputChronicleBackpressureBehavior = "queue"
 )
 
@@ -200,6 +206,8 @@ func (e OutputChronicleBackpressureBehavior) ToPointer() *OutputChronicleBackpre
 type OutputChronicleCustomLabel struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
+	// Designate this label for role-based access control and filtering
+	RbacEnabled *bool `default:"false" json:"rbacEnabled"`
 }
 
 func (o OutputChronicleCustomLabel) MarshalJSON() ([]byte, error) {
@@ -227,11 +235,36 @@ func (o *OutputChronicleCustomLabel) GetValue() string {
 	return o.Value
 }
 
+func (o *OutputChronicleCustomLabel) GetRbacEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RbacEnabled
+}
+
+// OutputChronicleMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputChronicleMode string
+
+const (
+	// OutputChronicleModeError Error
+	OutputChronicleModeError OutputChronicleMode = "error"
+	// OutputChronicleModeAlways Backpressure
+	OutputChronicleModeAlways OutputChronicleMode = "always"
+	// OutputChronicleModeBackpressure Always On
+	OutputChronicleModeBackpressure OutputChronicleMode = "backpressure"
+)
+
+func (e OutputChronicleMode) ToPointer() *OutputChronicleMode {
+	return &e
+}
+
 // OutputChronicleCompression - Codec to use to compress the persisted data
 type OutputChronicleCompression string
 
 const (
+	// OutputChronicleCompressionNone None
 	OutputChronicleCompressionNone OutputChronicleCompression = "none"
+	// OutputChronicleCompressionGzip Gzip
 	OutputChronicleCompressionGzip OutputChronicleCompression = "gzip"
 )
 
@@ -243,24 +276,13 @@ func (e OutputChronicleCompression) ToPointer() *OutputChronicleCompression {
 type OutputChronicleQueueFullBehavior string
 
 const (
+	// OutputChronicleQueueFullBehaviorBlock Block
 	OutputChronicleQueueFullBehaviorBlock OutputChronicleQueueFullBehavior = "block"
-	OutputChronicleQueueFullBehaviorDrop  OutputChronicleQueueFullBehavior = "drop"
+	// OutputChronicleQueueFullBehaviorDrop Drop new data
+	OutputChronicleQueueFullBehaviorDrop OutputChronicleQueueFullBehavior = "drop"
 )
 
 func (e OutputChronicleQueueFullBehavior) ToPointer() *OutputChronicleQueueFullBehavior {
-	return &e
-}
-
-// OutputChronicleMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputChronicleMode string
-
-const (
-	OutputChronicleModeError        OutputChronicleMode = "error"
-	OutputChronicleModeBackpressure OutputChronicleMode = "backpressure"
-	OutputChronicleModeAlways       OutputChronicleMode = "always"
-)
-
-func (e OutputChronicleMode) ToPointer() *OutputChronicleMode {
 	return &e
 }
 
@@ -345,6 +367,16 @@ type OutputChronicle struct {
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
 	ServiceAccountCredentialsSecret *string `json:"serviceAccountCredentialsSecret,omitempty"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *OutputChronicleMode `default:"error" json:"pqMode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
 	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
@@ -355,9 +387,7 @@ type OutputChronicle struct {
 	PqCompress *OutputChronicleCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *OutputChronicleQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode     *OutputChronicleMode       `default:"error" json:"pqMode"`
-	PqControls *OutputChroniclePqControls `json:"pqControls,omitempty"`
+	PqControls       *OutputChroniclePqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputChronicle) MarshalJSON() ([]byte, error) {
@@ -616,6 +646,41 @@ func (o *OutputChronicle) GetServiceAccountCredentialsSecret() *string {
 	return o.ServiceAccountCredentialsSecret
 }
 
+func (o *OutputChronicle) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputChronicle) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputChronicle) GetPqMode() *OutputChronicleMode {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputChronicle) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputChronicle) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
 func (o *OutputChronicle) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
@@ -649,13 +714,6 @@ func (o *OutputChronicle) GetPqOnBackpressure() *OutputChronicleQueueFullBehavio
 		return nil
 	}
 	return o.PqOnBackpressure
-}
-
-func (o *OutputChronicle) GetPqMode() *OutputChronicleMode {
-	if o == nil {
-		return nil
-	}
-	return o.PqMode
 }
 
 func (o *OutputChronicle) GetPqControls() *OutputChroniclePqControls {

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 694b3139fa2fcf580ac96918588dce70
-  docVersion: 4.14.1-68918e2c
-  speakeasyVersion: 1.639.3
-  generationVersion: 2.730.5
-  releaseVersion: 0.2.1
-  configChecksum: eee810d23987488ffa248898fd1e8888
+  docChecksum: b3c14327d9a385447f9f14e06790fbc5
+  docVersion: 4.15.0-7d8cd109
+  speakeasyVersion: 1.650.0
+  generationVersion: 2.743.2
+  releaseVersion: 0.3.0-rc.1
+  configChecksum: 713ec77ddb81ea3adaf59d4c5ae5bf72
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -14,14 +14,15 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.12.0
+    core: 3.13.1
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
+    enums: 2.82.0
     envVarSecurityUsage: 0.3.2
     flattening: 2.81.1
     globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
-    globalServerURLs: 2.82.3
+    globalServerURLs: 2.83.0
     groups: 2.81.3
     intellisenseMarkdownSupport: 0.1.0
     nameOverrides: 2.81.2
@@ -32,15 +33,15 @@ features:
     retries: 2.84.2
     sdkHooks: 0.2.0
     unions: 2.87.0
+    uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
   - .devcontainer/setup.sh
   - .gitattributes
   - /models/apierrors/error.go
-  - /models/apierrors/healthstatuserror.go
+  - /models/apierrors/healthserverstatuserror.go
   - /models/components/addhectokenrequest.go
-  - /models/components/appmode.go
   - /models/components/authtoken.go
   - /models/components/branchinfo.go
   - /models/components/cacheconnection.go
@@ -60,7 +61,6 @@ generatedFiles:
   - /models/components/deployrequestlookups.go
   - /models/components/difffiles.go
   - /models/components/distributedsummary.go
-  - /models/components/error.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
   - /models/components/gitcountresult.go
@@ -73,14 +73,16 @@ generatedFiles:
   - /models/components/gitrevertresult.go
   - /models/components/gitshowresult.go
   - /models/components/gitstatusresult.go
+  - /models/components/groupcreaterequest.go
   - /models/components/hbcriblinfo.go
   - /models/components/hbleaderinfo.go
-  - /models/components/healthstatus.go
+  - /models/components/healthserverstatus.go
   - /models/components/heartbeatmetadata.go
   - /models/components/httpmetadata.go
   - /models/components/input.go
   - /models/components/inputappscope.go
   - /models/components/inputazureblob.go
+  - /models/components/inputcloudflarehec.go
   - /models/components/inputcollection.go
   - /models/components/inputconfluentcloud.go
   - /models/components/inputcribl.go
@@ -140,6 +142,7 @@ generatedFiles:
   - /models/components/inputzscalerhec.go
   - /models/components/jobinfo.go
   - /models/components/jobstatus.go
+  - /models/components/lakedatasetmetrics.go
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
@@ -151,6 +154,7 @@ generatedFiles:
   - /models/components/nodeskippedupgradestatus.go
   - /models/components/nodeupgradestate.go
   - /models/components/nodeupgradestatus.go
+  - /models/components/outpostnodeinfo.go
   - /models/components/output.go
   - /models/components/outputazureblob.go
   - /models/components/outputazuredataexplorer.go
@@ -158,12 +162,14 @@ generatedFiles:
   - /models/components/outputazurelogs.go
   - /models/components/outputchronicle.go
   - /models/components/outputclickhouse.go
+  - /models/components/outputcloudflarer2.go
   - /models/components/outputcloudwatch.go
   - /models/components/outputconfluentcloud.go
   - /models/components/outputcriblhttp.go
   - /models/components/outputcribllake.go
   - /models/components/outputcribltcp.go
   - /models/components/outputcrowdstrikenextgensiem.go
+  - /models/components/outputdatabricks.go
   - /models/components/outputdatadog.go
   - /models/components/outputdataset.go
   - /models/components/outputdefault.go
@@ -188,6 +194,7 @@ generatedFiles:
   - /models/components/outputkafka.go
   - /models/components/outputkinesis.go
   - /models/components/outputloki.go
+  - /models/components/outputmicrosoftfabric.go
   - /models/components/outputminio.go
   - /models/components/outputmsk.go
   - /models/components/outputnetflow.go
@@ -229,7 +236,6 @@ generatedFiles:
   - /models/components/productscore.go
   - /models/components/rbacresource.go
   - /models/components/resourcepolicy.go
-  - /models/components/routecloneconf.go
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
@@ -241,8 +247,10 @@ generatedFiles:
   - /models/components/security.go
   - /models/components/teamaccesscontrollist.go
   - /models/components/updatehectokenrequest.go
+  - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workertypes.go
+  - /models/operations/createauthlogin.go
   - /models/operations/createconfiggroupbyproduct.go
   - /models/operations/createcribllakedatasetbylakeid.go
   - /models/operations/createinput.go
@@ -269,7 +277,7 @@ generatedFiles:
   - /models/operations/getconfiggroupconfigversionbyproductandid.go
   - /models/operations/getcribllakedatasetbylakeid.go
   - /models/operations/getcribllakedatasetbylakeidandid.go
-  - /models/operations/gethealthinfo.go
+  - /models/operations/gethealth.go
   - /models/operations/getinputbyid.go
   - /models/operations/getmasterworkerentry.go
   - /models/operations/getoutputbyid.go
@@ -295,13 +303,13 @@ generatedFiles:
   - /models/operations/listoutput.go
   - /models/operations/listpipeline.go
   - /models/operations/listroutes.go
-  - /models/operations/login.go
   - /models/operations/updateconfiggroupbyproductandid.go
   - /models/operations/updateconfiggroupdeploybyproductandid.go
   - /models/operations/updatecribllakedatasetbylakeidandid.go
   - /models/operations/updateinputbyid.go
   - /models/operations/updateinputhectokenbyidandtoken.go
   - /models/operations/updateoutputbyid.go
+  - /models/operations/updatepacks.go
   - /models/operations/updatepacksbyid.go
   - /models/operations/updatepipelinebyid.go
   - /models/operations/updateroutesbyid.go
@@ -314,13 +322,12 @@ generatedFiles:
   - criblcontrolplane.go
   - destinations.go
   - docs/models/apierrors/error.md
-  - docs/models/apierrors/healthstatuserror.md
+  - docs/models/apierrors/healthserverstatuserror.md
   - docs/models/components/addhectokenrequest.md
   - docs/models/components/addhectokenrequestmetadatum.md
   - docs/models/components/additionalproperty.md
   - docs/models/components/aisiemendpointpath.md
   - docs/models/components/allow.md
-  - docs/models/components/appmode.md
   - docs/models/components/audit.md
   - docs/models/components/authenticationprotocol.md
   - docs/models/components/author.md
@@ -346,6 +353,8 @@ generatedFiles:
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
   - docs/models/components/configgroupcloud.md
+  - docs/models/components/configgroupestimatedingestrate.md
+  - docs/models/components/configgroupgit.md
   - docs/models/components/configgrouplookups.md
   - docs/models/components/configgrouplookupslookup.md
   - docs/models/components/configgrouptype.md
@@ -366,6 +375,7 @@ generatedFiles:
   - docs/models/components/deployrequestlookupslookup.md
   - docs/models/components/difffiles.md
   - docs/models/components/disksandfilesystems.md
+  - docs/models/components/distmode.md
   - docs/models/components/distributedsummary.md
   - docs/models/components/distributedsummarygroups.md
   - docs/models/components/distributedsummaryworkers.md
@@ -377,7 +387,6 @@ generatedFiles:
   - docs/models/components/endpointheader.md
   - docs/models/components/endpointparam.md
   - docs/models/components/endpointtype.md
-  - docs/models/components/error.md
   - docs/models/components/eventformat.md
   - docs/models/components/executor.md
   - docs/models/components/executorspecificsettings.md
@@ -388,7 +397,6 @@ generatedFiles:
   - docs/models/components/file.md
   - docs/models/components/firewall.md
   - docs/models/components/functionspecificconfigs.md
-  - docs/models/components/git.md
   - docs/models/components/gitcommitparams.md
   - docs/models/components/gitcommitsummary.md
   - docs/models/components/gitcommitsummaryfiles.md
@@ -403,9 +411,13 @@ generatedFiles:
   - docs/models/components/gitrevertresultfiles.md
   - docs/models/components/gitshowresult.md
   - docs/models/components/gitstatusresult.md
+  - docs/models/components/groupcreaterequest.md
+  - docs/models/components/groupcreaterequestestimatedingestrate.md
+  - docs/models/components/groupcreaterequestgit.md
+  - docs/models/components/groupcreaterequesttype.md
   - docs/models/components/hbcriblinfo.md
   - docs/models/components/hbleaderinfo.md
-  - docs/models/components/healthstatus.md
+  - docs/models/components/healthserverstatus.md
   - docs/models/components/heartbeatmetadata.md
   - docs/models/components/heartbeatmetadataaws.md
   - docs/models/components/heartbeatmetadatahostos.md
@@ -447,6 +459,20 @@ generatedFiles:
   - docs/models/components/inputazureblobpq.md
   - docs/models/components/inputazureblobpqcontrols.md
   - docs/models/components/inputazureblobtype.md
+  - docs/models/components/inputcloudflarehec.md
+  - docs/models/components/inputcloudflarehecauthenticationmethod.md
+  - docs/models/components/inputcloudflarehecauthtoken.md
+  - docs/models/components/inputcloudflarehecauthtokenmetadatum.md
+  - docs/models/components/inputcloudflareheccompression.md
+  - docs/models/components/inputcloudflarehecconnection.md
+  - docs/models/components/inputcloudflarehecmaximumtlsversion.md
+  - docs/models/components/inputcloudflarehecmetadatum.md
+  - docs/models/components/inputcloudflarehecminimumtlsversion.md
+  - docs/models/components/inputcloudflarehecmode.md
+  - docs/models/components/inputcloudflarehecpq.md
+  - docs/models/components/inputcloudflarehecpqcontrols.md
+  - docs/models/components/inputcloudflarehectlssettingsserverside.md
+  - docs/models/components/inputcloudflarehectype.md
   - docs/models/components/inputcollection.md
   - docs/models/components/inputcollectioncompression.md
   - docs/models/components/inputcollectionconnection.md
@@ -459,6 +485,7 @@ generatedFiles:
   - docs/models/components/inputconfluentcloud.md
   - docs/models/components/inputconfluentcloudauth.md
   - docs/models/components/inputconfluentcloudauthentication.md
+  - docs/models/components/inputconfluentcloudauthenticationmethod.md
   - docs/models/components/inputconfluentcloudcompression.md
   - docs/models/components/inputconfluentcloudconnection.md
   - docs/models/components/inputconfluentcloudkafkaschemaregistryauthentication.md
@@ -469,16 +496,18 @@ generatedFiles:
   - docs/models/components/inputconfluentcloudmetadatum.md
   - docs/models/components/inputconfluentcloudminimumtlsversion.md
   - docs/models/components/inputconfluentcloudmode.md
+  - docs/models/components/inputconfluentcloudoauthparam.md
   - docs/models/components/inputconfluentcloudpq.md
   - docs/models/components/inputconfluentcloudpqcontrols.md
+  - docs/models/components/inputconfluentcloudsaslextension.md
   - docs/models/components/inputconfluentcloudsaslmechanism.md
-  - docs/models/components/inputconfluentcloudschematype.md
   - docs/models/components/inputconfluentcloudtlssettingsclientside.md
   - docs/models/components/inputconfluentcloudtype.md
   - docs/models/components/inputcribl.md
   - docs/models/components/inputcriblcompression.md
   - docs/models/components/inputcriblconnection.md
   - docs/models/components/inputcriblhttp.md
+  - docs/models/components/inputcriblhttpauthtoken.md
   - docs/models/components/inputcriblhttpcompression.md
   - docs/models/components/inputcriblhttpconnection.md
   - docs/models/components/inputcriblhttpmaximumtlsversion.md
@@ -515,6 +544,7 @@ generatedFiles:
   - docs/models/components/inputcriblpq.md
   - docs/models/components/inputcriblpqcontrols.md
   - docs/models/components/inputcribltcp.md
+  - docs/models/components/inputcribltcpauthtoken.md
   - docs/models/components/inputcribltcpcompression.md
   - docs/models/components/inputcribltcpconnection.md
   - docs/models/components/inputcribltcpmaximumtlsversion.md
@@ -593,9 +623,12 @@ generatedFiles:
   - docs/models/components/inputelastictype.md
   - docs/models/components/inputeventhub.md
   - docs/models/components/inputeventhubauthentication.md
+  - docs/models/components/inputeventhubauthtypeauthenticationmethod.md
+  - docs/models/components/inputeventhubclientsecretauthtypeauthenticationmethod.md
   - docs/models/components/inputeventhubcompression.md
   - docs/models/components/inputeventhubconnection.md
   - docs/models/components/inputeventhubmetadatum.md
+  - docs/models/components/inputeventhubmicrosoftentraidauthenticationendpoint.md
   - docs/models/components/inputeventhubmode.md
   - docs/models/components/inputeventhubpq.md
   - docs/models/components/inputeventhubpqcontrols.md
@@ -708,6 +741,7 @@ generatedFiles:
   - docs/models/components/inputkafka.md
   - docs/models/components/inputkafkaauth.md
   - docs/models/components/inputkafkaauthentication.md
+  - docs/models/components/inputkafkaauthenticationmethod.md
   - docs/models/components/inputkafkacompression.md
   - docs/models/components/inputkafkaconnection.md
   - docs/models/components/inputkafkakafkaschemaregistryauthentication.md
@@ -718,10 +752,11 @@ generatedFiles:
   - docs/models/components/inputkafkametadatum.md
   - docs/models/components/inputkafkaminimumtlsversion.md
   - docs/models/components/inputkafkamode.md
+  - docs/models/components/inputkafkaoauthparam.md
   - docs/models/components/inputkafkapq.md
   - docs/models/components/inputkafkapqcontrols.md
+  - docs/models/components/inputkafkasaslextension.md
   - docs/models/components/inputkafkasaslmechanism.md
-  - docs/models/components/inputkafkaschematype.md
   - docs/models/components/inputkafkatlssettingsclientside.md
   - docs/models/components/inputkafkatype.md
   - docs/models/components/inputkinesis.md
@@ -817,7 +852,6 @@ generatedFiles:
   - docs/models/components/inputmskmode.md
   - docs/models/components/inputmskpq.md
   - docs/models/components/inputmskpqcontrols.md
-  - docs/models/components/inputmskschematype.md
   - docs/models/components/inputmsksignatureversion.md
   - docs/models/components/inputmsktlssettingsclientside.md
   - docs/models/components/inputmsktype.md
@@ -1195,6 +1229,7 @@ generatedFiles:
   - docs/models/components/interfaces.md
   - docs/models/components/jobinfo.md
   - docs/models/components/jobstatus.md
+  - docs/models/components/lakedatasetmetrics.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
   - docs/models/components/lastmetrics.md
@@ -1217,7 +1252,6 @@ generatedFiles:
   - docs/models/components/masterworkerentrytype.md
   - docs/models/components/masterworkerentryworkers.md
   - docs/models/components/metricsprotocol.md
-  - docs/models/components/microsoftentraidauthenticationendpoint.md
   - docs/models/components/mtlssettings.md
   - docs/models/components/nodeactiveupgradestatus.md
   - docs/models/components/nodefailedupgradestatus.md
@@ -1234,6 +1268,7 @@ generatedFiles:
   - docs/models/components/nodeupgradestatus.md
   - docs/models/components/oldmode.md
   - docs/models/components/os.md
+  - docs/models/components/outpostnodeinfo.md
   - docs/models/components/output.md
   - docs/models/components/outputazureblob.md
   - docs/models/components/outputazureblobauthenticationmethod.md
@@ -1252,9 +1287,14 @@ generatedFiles:
   - docs/models/components/outputazuredataexplorerbackpressurebehavior.md
   - docs/models/components/outputazuredataexplorercertificate.md
   - docs/models/components/outputazuredataexplorercompresscompression.md
+  - docs/models/components/outputazuredataexplorercompressionlevel.md
   - docs/models/components/outputazuredataexplorerdataformat.md
+  - docs/models/components/outputazuredataexplorerdatapageversion.md
   - docs/models/components/outputazuredataexplorerdiskspaceprotection.md
+  - docs/models/components/outputazuredataexplorerkeyvaluemetadatum.md
+  - docs/models/components/outputazuredataexplorermicrosoftentraidauthenticationendpoint.md
   - docs/models/components/outputazuredataexplorermode.md
+  - docs/models/components/outputazuredataexplorerparquetversion.md
   - docs/models/components/outputazuredataexplorerpqcompresscompression.md
   - docs/models/components/outputazuredataexplorerpqcontrols.md
   - docs/models/components/outputazuredataexplorerqueuefullbehavior.md
@@ -1264,8 +1304,11 @@ generatedFiles:
   - docs/models/components/outputazureeventhub.md
   - docs/models/components/outputazureeventhubacknowledgments.md
   - docs/models/components/outputazureeventhubauthentication.md
+  - docs/models/components/outputazureeventhubauthtypeauthenticationmethod.md
   - docs/models/components/outputazureeventhubbackpressurebehavior.md
+  - docs/models/components/outputazureeventhubclientsecretauthtypeauthenticationmethod.md
   - docs/models/components/outputazureeventhubcompression.md
+  - docs/models/components/outputazureeventhubmicrosoftentraidauthenticationendpoint.md
   - docs/models/components/outputazureeventhubmode.md
   - docs/models/components/outputazureeventhubpqcontrols.md
   - docs/models/components/outputazureeventhubqueuefullbehavior.md
@@ -1316,6 +1359,20 @@ generatedFiles:
   - docs/models/components/outputclickhousetimeoutretrysettings.md
   - docs/models/components/outputclickhousetlssettingsclientside.md
   - docs/models/components/outputclickhousetype.md
+  - docs/models/components/outputcloudflarer2.md
+  - docs/models/components/outputcloudflarer2authenticationmethod.md
+  - docs/models/components/outputcloudflarer2backpressurebehavior.md
+  - docs/models/components/outputcloudflarer2compression.md
+  - docs/models/components/outputcloudflarer2compressionlevel.md
+  - docs/models/components/outputcloudflarer2dataformat.md
+  - docs/models/components/outputcloudflarer2datapageversion.md
+  - docs/models/components/outputcloudflarer2diskspaceprotection.md
+  - docs/models/components/outputcloudflarer2keyvaluemetadatum.md
+  - docs/models/components/outputcloudflarer2parquetversion.md
+  - docs/models/components/outputcloudflarer2serversideencryption.md
+  - docs/models/components/outputcloudflarer2signatureversion.md
+  - docs/models/components/outputcloudflarer2storageclass.md
+  - docs/models/components/outputcloudflarer2type.md
   - docs/models/components/outputcloudwatch.md
   - docs/models/components/outputcloudwatchauthenticationmethod.md
   - docs/models/components/outputcloudwatchbackpressurebehavior.md
@@ -1328,6 +1385,7 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudacknowledgments.md
   - docs/models/components/outputconfluentcloudauth.md
   - docs/models/components/outputconfluentcloudauthentication.md
+  - docs/models/components/outputconfluentcloudauthenticationmethod.md
   - docs/models/components/outputconfluentcloudbackpressurebehavior.md
   - docs/models/components/outputconfluentcloudcompression.md
   - docs/models/components/outputconfluentcloudkafkaschemaregistryauthentication.md
@@ -1337,15 +1395,17 @@ generatedFiles:
   - docs/models/components/outputconfluentcloudmaximumtlsversion.md
   - docs/models/components/outputconfluentcloudminimumtlsversion.md
   - docs/models/components/outputconfluentcloudmode.md
+  - docs/models/components/outputconfluentcloudoauthparam.md
   - docs/models/components/outputconfluentcloudpqcompresscompression.md
   - docs/models/components/outputconfluentcloudpqcontrols.md
   - docs/models/components/outputconfluentcloudqueuefullbehavior.md
   - docs/models/components/outputconfluentcloudrecorddataformat.md
+  - docs/models/components/outputconfluentcloudsaslextension.md
   - docs/models/components/outputconfluentcloudsaslmechanism.md
-  - docs/models/components/outputconfluentcloudschematype.md
   - docs/models/components/outputconfluentcloudtlssettingsclientside.md
   - docs/models/components/outputconfluentcloudtype.md
   - docs/models/components/outputcriblhttp.md
+  - docs/models/components/outputcriblhttpauthtoken.md
   - docs/models/components/outputcriblhttpbackpressurebehavior.md
   - docs/models/components/outputcriblhttpcompression.md
   - docs/models/components/outputcriblhttpextrahttpheader.md
@@ -1371,6 +1431,7 @@ generatedFiles:
   - docs/models/components/outputcribllakestorageclass.md
   - docs/models/components/outputcribllaketype.md
   - docs/models/components/outputcribltcp.md
+  - docs/models/components/outputcribltcpauthtoken.md
   - docs/models/components/outputcribltcpbackpressurebehavior.md
   - docs/models/components/outputcribltcpcompression.md
   - docs/models/components/outputcribltcphost.md
@@ -1396,6 +1457,16 @@ generatedFiles:
   - docs/models/components/outputcrowdstrikenextgensiemresponseretrysetting.md
   - docs/models/components/outputcrowdstrikenextgensiemtimeoutretrysettings.md
   - docs/models/components/outputcrowdstrikenextgensiemtype.md
+  - docs/models/components/outputdatabricks.md
+  - docs/models/components/outputdatabricksbackpressurebehavior.md
+  - docs/models/components/outputdatabrickscompression.md
+  - docs/models/components/outputdatabrickscompressionlevel.md
+  - docs/models/components/outputdatabricksdataformat.md
+  - docs/models/components/outputdatabricksdatapageversion.md
+  - docs/models/components/outputdatabricksdiskspaceprotection.md
+  - docs/models/components/outputdatabrickskeyvaluemetadatum.md
+  - docs/models/components/outputdatabricksparquetversion.md
+  - docs/models/components/outputdatabrickstype.md
   - docs/models/components/outputdatadog.md
   - docs/models/components/outputdatadogauthenticationmethod.md
   - docs/models/components/outputdatadogbackpressurebehavior.md
@@ -1650,6 +1721,7 @@ generatedFiles:
   - docs/models/components/outputkafkaacknowledgments.md
   - docs/models/components/outputkafkaauth.md
   - docs/models/components/outputkafkaauthentication.md
+  - docs/models/components/outputkafkaauthenticationmethod.md
   - docs/models/components/outputkafkabackpressurebehavior.md
   - docs/models/components/outputkafkacompression.md
   - docs/models/components/outputkafkakafkaschemaregistryauthentication.md
@@ -1659,12 +1731,13 @@ generatedFiles:
   - docs/models/components/outputkafkamaximumtlsversion.md
   - docs/models/components/outputkafkaminimumtlsversion.md
   - docs/models/components/outputkafkamode.md
+  - docs/models/components/outputkafkaoauthparam.md
   - docs/models/components/outputkafkapqcompresscompression.md
   - docs/models/components/outputkafkapqcontrols.md
   - docs/models/components/outputkafkaqueuefullbehavior.md
   - docs/models/components/outputkafkarecorddataformat.md
+  - docs/models/components/outputkafkasaslextension.md
   - docs/models/components/outputkafkasaslmechanism.md
-  - docs/models/components/outputkafkaschematype.md
   - docs/models/components/outputkafkatlssettingsclientside.md
   - docs/models/components/outputkafkatype.md
   - docs/models/components/outputkinesis.md
@@ -1691,6 +1764,20 @@ generatedFiles:
   - docs/models/components/outputlokiresponseretrysetting.md
   - docs/models/components/outputlokitimeoutretrysettings.md
   - docs/models/components/outputlokitype.md
+  - docs/models/components/outputmicrosoftfabric.md
+  - docs/models/components/outputmicrosoftfabricacknowledgments.md
+  - docs/models/components/outputmicrosoftfabricauthentication.md
+  - docs/models/components/outputmicrosoftfabricauthenticationmethod.md
+  - docs/models/components/outputmicrosoftfabricbackpressurebehavior.md
+  - docs/models/components/outputmicrosoftfabriccompression.md
+  - docs/models/components/outputmicrosoftfabricmicrosoftentraidauthenticationendpoint.md
+  - docs/models/components/outputmicrosoftfabricmode.md
+  - docs/models/components/outputmicrosoftfabricpqcontrols.md
+  - docs/models/components/outputmicrosoftfabricqueuefullbehavior.md
+  - docs/models/components/outputmicrosoftfabricrecorddataformat.md
+  - docs/models/components/outputmicrosoftfabricsaslmechanism.md
+  - docs/models/components/outputmicrosoftfabrictlssettingsclientside.md
+  - docs/models/components/outputmicrosoftfabrictype.md
   - docs/models/components/outputminio.md
   - docs/models/components/outputminioauthenticationmethod.md
   - docs/models/components/outputminiobackpressurebehavior.md
@@ -1702,6 +1789,7 @@ generatedFiles:
   - docs/models/components/outputminiokeyvaluemetadatum.md
   - docs/models/components/outputminioobjectacl.md
   - docs/models/components/outputminioparquetversion.md
+  - docs/models/components/outputminioserversideencryption.md
   - docs/models/components/outputminiosignatureversion.md
   - docs/models/components/outputminiostorageclass.md
   - docs/models/components/outputminiotype.md
@@ -1723,7 +1811,6 @@ generatedFiles:
   - docs/models/components/outputmskpqcontrols.md
   - docs/models/components/outputmskqueuefullbehavior.md
   - docs/models/components/outputmskrecorddataformat.md
-  - docs/models/components/outputmskschematype.md
   - docs/models/components/outputmsksignatureversion.md
   - docs/models/components/outputmsktlssettingsclientside.md
   - docs/models/components/outputmsktype.md
@@ -1907,11 +1994,14 @@ generatedFiles:
   - docs/models/components/outputsplunkheccompression.md
   - docs/models/components/outputsplunkhecextrahttpheader.md
   - docs/models/components/outputsplunkhecfailedrequestloggingmode.md
+  - docs/models/components/outputsplunkhecmaximumtlsversion.md
+  - docs/models/components/outputsplunkhecminimumtlsversion.md
   - docs/models/components/outputsplunkhecmode.md
   - docs/models/components/outputsplunkhecpqcontrols.md
   - docs/models/components/outputsplunkhecqueuefullbehavior.md
   - docs/models/components/outputsplunkhecresponseretrysetting.md
   - docs/models/components/outputsplunkhectimeoutretrysettings.md
+  - docs/models/components/outputsplunkhectlssettingsclientside.md
   - docs/models/components/outputsplunkhectype.md
   - docs/models/components/outputsplunkhecurl.md
   - docs/models/components/outputsplunklb.md
@@ -2087,7 +2177,6 @@ generatedFiles:
   - docs/models/components/resourcepolicy.md
   - docs/models/components/resourcetypelabel.md
   - docs/models/components/role.md
-  - docs/models/components/routecloneconf.md
   - docs/models/components/routeconf.md
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
@@ -2131,12 +2220,13 @@ generatedFiles:
   - docs/models/components/security.md
   - docs/models/components/sendeventsas.md
   - docs/models/components/sendlogsas.md
-  - docs/models/components/serversideencryption.md
   - docs/models/components/services.md
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
   - docs/models/components/snmpv3authentication.md
   - docs/models/components/splunkhecmetadata.md
+  - docs/models/components/state.md
+  - docs/models/components/stats.md
   - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
@@ -2148,14 +2238,17 @@ generatedFiles:
   - docs/models/components/timerange.md
   - docs/models/components/timestampformat.md
   - docs/models/components/timestampprecision.md
+  - docs/models/components/udmtype.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
+  - docs/models/components/uploadpackresponse.md
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
+  - docs/models/operations/createauthloginresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createconfiggroupbyproductresponsebody.md
@@ -2229,7 +2322,7 @@ generatedFiles:
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidresponsebody.md
-  - docs/models/operations/gethealthinforesponse.md
+  - docs/models/operations/gethealthresponse.md
   - docs/models/operations/getinputbyidrequest.md
   - docs/models/operations/getinputbyidresponse.md
   - docs/models/operations/getinputbyidresponsebody.md
@@ -2297,7 +2390,6 @@ generatedFiles:
   - docs/models/operations/listpipelineresponsebody.md
   - docs/models/operations/listroutesresponse.md
   - docs/models/operations/listroutesresponsebody.md
-  - docs/models/operations/loginresponse.md
   - docs/models/operations/option.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
@@ -2320,6 +2412,8 @@ generatedFiles:
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
   - docs/models/operations/updatepacksbyidresponsebody.md
+  - docs/models/operations/updatepacksrequest.md
+  - docs/models/operations/updatepacksresponse.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updatepipelinebyidresponsebody.md
@@ -2420,7 +2514,7 @@ examples:
   createInput:
     speakeasy-default-create-input:
       requestBody:
-        application/json: {"id": "<id>", "type": "tcp", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 301.76, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "enableHeader": false, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "description": "classic pish supposing misguided carefully fen", "authType": "manual"}
+        application/json: {"id": "<id>", "type": "tcp", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 301.76, "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "enableHeader": false, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "description": "classic pish supposing misguided carefully fen", "authToken": "", "authType": "manual", "textSecret": "<value>"}
       responses:
         "200":
           application/json: {"count": 422422, "items": [{"id": "<id>", "type": "kube_metrics", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 15, "rules": [{"filter": "<value>", "description": "now forenenst circumference as up volunteer"}], "metadata": [{"name": "<value>", "value": "<value>"}], "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "destPath": "$CRIBL_HOME/state/kube_metrics"}, "description": "hmph blank unless huzzah however"}]}
@@ -2433,7 +2527,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": ["<value 1>", "<value 2>"], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
+          application/json: {"count": 893499, "items": [{"id": "<id>", "type": "cribl_http", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 407.44, "authTokens": [{"tokenSecret": "<value>", "enabled": true, "description": "uncork promptly confound shinny hygienic ack consequently which besides mould"}, {"tokenSecret": "<value>", "enabled": true, "description": "finished middle glimmer between times orange poorly"}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": false, "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "metadata": [{"name": "<value>", "value": "<value>"}], "description": "promptly confound shinny hygienic ack consequently which besides mould spectate"}]}
         "500":
           application/json: {"message": "<value>"}
   updateInputById:
@@ -2445,7 +2539,7 @@ examples:
         application/json: {"id": "<id>", "type": "kube_events", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "rules": [{"filter": "<value>", "description": "invite meh corny incidentally down"}], "metadata": [{"name": "<value>", "value": "<value>"}], "description": "gown deployment portray gah mindless carp stabilise"}
       responses:
         "200":
-          application/json: {"count": 454374, "items": [{"id": "<id>", "type": "syslog", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "udpPort": 4567.57, "tcpPort": 671.14, "maxBufferSize": 1000, "ipWhitelistRegex": "/.*/", "timestampTimezone": "local", "singleMsgUdpPackets": false, "enableProxyHeader": false, "keepFieldsList": ["<value 1>"], "octetCounting": false, "inferFraming": true, "strictlyInferOctetCounting": true, "allowNonStandardAppName": false, "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1"}, "metadata": [{"name": "<value>", "value": "<value>"}], "udpSocketRxBufSize": 5485.92, "enableLoadBalancing": false, "description": "once curly finally mentor stormy usually understated", "enableEnhancedProxyHeaderParsing": false}]}
+          application/json: {"count": 454374, "items": [{"id": "<id>", "type": "syslog", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "udpPort": 4793.55, "tcpPort": 9959.95, "maxBufferSize": 1000, "ipWhitelistRegex": "/.*/", "timestampTimezone": "local", "singleMsgUdpPackets": false, "enableProxyHeader": false, "keepFieldsList": ["<value 1>", "<value 2>"], "octetCounting": false, "inferFraming": true, "strictlyInferOctetCounting": true, "allowNonStandardAppName": false, "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "/.*/", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1.3", "maxVersion": "TLSv1.2"}, "metadata": [{"name": "<value>", "value": "<value>"}], "udpSocketRxBufSize": 3417.54, "enableLoadBalancing": false, "description": "meh corny incidentally down versus blah", "enableEnhancedProxyHeaderParsing": true}]}
         "500":
           application/json: {"message": "<value>"}
   deleteInputById:
@@ -2467,7 +2561,7 @@ examples:
         application/json: {"description": "bah ick stingy", "enabled": false, "metadata": [{"name": "<value>", "value": "<value>"}], "token": "<value>"}
       responses:
         "200":
-          application/json: {"count": 827610, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8836.4, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>"], "emitTokenMetrics": false, "description": "boohoo uh-huh buzzing"}, {"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8957.05, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>", "<value 2>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>", "<value 3>"], "emitTokenMetrics": false, "description": "beyond and whopping brief zowie icy meanwhile"}]}
+          application/json: {"count": 827610, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8836.4, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>"], "emitTokenMetrics": false, "description": "boohoo uh-huh buzzing"}, {"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8957.05, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": false, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>", "<value 2>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>", "<value 3>"], "emitTokenMetrics": false, "description": "beyond and whopping brief zowie icy meanwhile"}]}
         "500":
           application/json: {"message": "<value>"}
   updateInputHecTokenByIdAndToken:
@@ -2480,23 +2574,23 @@ examples:
         application/json: {"description": "by bleakly fortunately phew barring", "enabled": false, "metadata": [{"name": "<value>", "value": "<value>"}]}
       responses:
         "200":
-          application/json: {"count": 116091, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 9953.77, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "bowler reproachfully blossom junior whoa yuck", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>"], "emitTokenMetrics": false, "description": "sermon circulate grouper doing"}]}
+          application/json: {"count": 116091, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 9953.77, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "bowler reproachfully blossom junior whoa yuck", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "<value>", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>"], "emitTokenMetrics": false, "description": "sermon circulate grouper doing"}]}
         "500":
           application/json: {"message": "<value>"}
   listOutput:
     speakeasy-default-list-output:
       responses:
         "200":
-          application/json: {"count": 167668, "items": [{"id": "<id>", "type": "statsd", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "protocol": "udp", "host": "ill-baritone.net", "port": 8125, "mtu": 512, "flushPeriodSec": 1, "dnsResolvePeriodSec": 0, "description": "till advocate impish exotic", "throttleRatePerSec": "0", "connectionTimeout": 10000, "writeTimeout": 60000, "onBackpressure": "block", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
+          application/json: {"count": 167668, "items": [{"id": "<id>", "type": "statsd", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "protocol": "udp", "host": "ill-baritone.net", "port": 8125, "mtu": 512, "flushPeriodSec": 1, "dnsResolvePeriodSec": 0, "description": "till advocate impish exotic", "throttleRatePerSec": "0", "connectionTimeout": 10000, "writeTimeout": 60000, "onBackpressure": "block", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
   createOutput:
     speakeasy-default-create-output:
       requestBody:
-        application/json: {"id": "<id>", "type": "elastic_cloud", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "url": "https://probable-rationale.com/", "index": "<value>", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>"], "extraParams": [{"name": "<value>", "value": "<value>"}], "auth": {"disabled": false, "authType": "manual"}, "elasticPipeline": "<value>", "includeDocId": true, "responseRetrySettings": [{"httpStatus": 7295.73, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "hourly about into", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}
+        application/json: {"id": "<id>", "type": "elastic_cloud", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "url": "https://probable-rationale.com/", "index": "<value>", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>", "<value 2>"], "extraParams": [{"name": "<value>", "value": "<value>"}], "auth": {"disabled": false, "username": "Imogene1", "password": "tA9DUjJtHSnXqh9", "authType": "manual", "credentialsSecret": "<value>", "manualAPIKey": "<value>", "textSecret": "<value>"}, "elasticPipeline": "<value>", "includeDocId": true, "responseRetrySettings": [{"httpStatus": 7295.73, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "hourly about into", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 111721, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "COLDLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "declaration on that onto flickering equally defensive worth miserably", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 111721, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "COLDLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "declaration on that onto flickering equally defensive worth miserably", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputById:
@@ -2506,7 +2600,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 651644, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "NEARLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "to pish oof boohoo", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 651644, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "NEARLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "to pish oof boohoo", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updateOutputById:
@@ -2515,10 +2609,10 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}
+        application/json: {"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 2924.72, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "phooey positively a consequently meh until", "token": "<value>", "textSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
       responses:
         "200":
-          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 4562.74, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "veto oddball evenly partially unique", "token": "<value>", "textSecret": "<value>", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error", "pqControls": {}}]}
+          application/json: {"count": 194446, "items": [{"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "responseRetrySettings": [{"httpStatus": 4562.74, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "veto oddball evenly partially unique", "token": "<value>", "textSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputById:
@@ -2528,7 +2622,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 920100, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "description": "casement encode hmph owlishly", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 920100, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "casement encode hmph owlishly", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputPqById:
@@ -2550,7 +2644,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 4}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 4}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 4828.35}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 7}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -2795,7 +2889,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 219852, "items": ["<value 1>", "<value 2>"]}
+          application/json: {"count": 219852, "items": [{}, {"key": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   createCriblLakeDatasetByLakeId:
@@ -2804,10 +2898,10 @@ examples:
         path:
           lakeId: "<id>"
       requestBody:
-        application/json: {"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "pending", "cacheRef": "<value>", "createdAt": 7795.06, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 1466.58}, "deletionStartedAt": 8310.58, "description": "pleased toothbrush long brush smooth swiftly rightfully phooey chapel", "format": "ddss", "httpDAUsed": true, "id": "<id>", "retentionPeriodInDays": 456.37, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4334.7, "finishedAt": 6811.22, "latestScannedTime": 5303.3, "objectCount": 9489.04}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}
+        application/json: {"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "pending", "cacheRef": "<value>", "createdAt": 7795.06, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 1466.58}, "deletionStartedAt": 8310.58, "description": "pleased toothbrush long brush smooth swiftly rightfully phooey chapel", "format": "ddss", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 6170.04, "metricsDate": "<value>"}, "retentionPeriodInDays": 456.37, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4334.7, "finishedAt": 6811.22, "latestScannedTime": 5303.3, "objectCount": 9489.04}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}
       responses:
         "200":
-          application/json: {"count": 428443, "items": [{"acceleratedFields": ["<value 1>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "pending", "cacheRef": "<value>", "createdAt": 7795.06, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 1466.58}, "deletionStartedAt": 6211.27, "description": "ick napkin lamp save yearly though barring", "format": "ddss", "httpDAUsed": false, "id": "<id>", "retentionPeriodInDays": 4605.98, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4334.7, "finishedAt": 6811.22, "latestScannedTime": 5303.3, "objectCount": 9489.04}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 428443, "items": [{"acceleratedFields": ["<value 1>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "pending", "cacheRef": "<value>", "createdAt": 7795.06, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 1466.58}, "deletionStartedAt": 6211.27, "description": "ick napkin lamp save yearly though barring", "format": "ddss", "httpDAUsed": false, "id": "<id>", "metrics": {"currentSizeBytes": 6170.04, "metricsDate": "<value>"}, "retentionPeriodInDays": 4605.98, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4334.7, "finishedAt": 6811.22, "latestScannedTime": 5303.3, "objectCount": 9489.04}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getCriblLakeDatasetByLakeId:
@@ -2817,7 +2911,7 @@ examples:
           lakeId: "<id>"
       responses:
         "200":
-          application/json: {"count": 3101, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 6343.67, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 6213}, "deletionStartedAt": 581.96, "description": "remarkable meh whoever ha crossly", "format": "json", "httpDAUsed": true, "id": "<id>", "retentionPeriodInDays": 2829.32, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4800.7, "finishedAt": 8646.6, "latestScannedTime": 5697.01, "objectCount": 4527.63}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 3101, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 6343.67, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 6213}, "deletionStartedAt": 581.96, "description": "remarkable meh whoever ha crossly", "format": "json", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 31.01, "metricsDate": "<value>"}, "retentionPeriodInDays": 2829.32, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4800.7, "finishedAt": 8646.6, "latestScannedTime": 5697.01, "objectCount": 4527.63}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getSummaryWorkers:
@@ -2859,7 +2953,7 @@ examples:
           mode: "worker"
       responses:
         "200":
-          application/json: {"count": 364904, "items": [{"groups": {"count": 8128.38, "destinations": 4945.73, "pipelines": 6352.87, "routes": 7792.08, "sources": 6593.6}, "workers": {"alive": 2322.36, "confVersions": 8794.87, "count": 2533.57, "disconnectedCount": 4548.69, "groups": 9336.99, "softwareVersions": 2351.1, "unhealthy": 8264.2}}]}
+          application/json: {"count": 364904, "items": [{"groups": {"count": 8128.38, "destinations": 4945.73, "packs": 798.01, "pipelines": 6352.87, "quickConnects": 3649.04, "routes": 7792.08, "sources": 6593.6}, "workers": {"alive": 2322.36, "confVersions": 8794.87, "count": 2533.57, "disconnectedCount": 4548.69, "groups": 9336.99, "softwareVersions": 2351.1, "unhealthy": 8264.2}}]}
         "500":
           application/json: {"message": "<value>"}
   createPacks:
@@ -2871,6 +2965,46 @@ examples:
           application/json: {"count": 182030, "items": [{"author": "<value>", "description": "card fen soon inquisitively anti oddly winged", "displayName": "Leila.Nikolaus29", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 5672.33, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 8346.66, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["decimal"], "domain": ["lawful-flu.net", "royal-litter.org", "submissive-pantyhose.org"], "streamtags": [], "technology": []}, "version": "<value>", "warnings": ["<value>"]}]}
         "500":
           application/json: {"message": "<value>"}
+    PackInstallExamplesPackDispensary:
+      requestBody:
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "June30", "author": "<value>", "description": "and banish crossly abacus", "source": "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl", "tags": {"dataType": ["double", "boolean"], "domain": ["delectable-transom.com", "radiant-sightseeing.info"], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"]}, "allowCustomFunctions": true, "force": true}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackInstallExamplesEmptyPack:
+      requestBody:
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Amely_Gusikowski", "author": "<value>", "description": "crowded that truly sideboard ample yahoo gracious enraged", "source": "<value>", "tags": {"dataType": ["double", "boolean"], "domain": ["delectable-transom.com", "radiant-sightseeing.info"], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"]}, "allowCustomFunctions": false, "force": true}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackInstallExamplesUploadedFile:
+      requestBody:
+        application/json: {"id": "cribl-search-missing-logs", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Onie_Miller", "author": "<value>", "description": "than eek before fledgling absent astride depart till", "source": "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl", "tags": {"dataType": ["point", "smallint"], "domain": ["kosher-barracks.biz", "mushy-prohibition.org", "wordy-peony.com"], "technology": ["<value 1>", "<value 2>", "<value 3>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": true}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackInstallExamplesURL:
+      requestBody:
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Lavon.Russel", "author": "<value>", "description": "ferociously haunting meh into instantly", "source": "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl", "tags": {"dataType": ["double", "boolean"], "domain": ["delectable-transom.com", "radiant-sightseeing.info"], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"]}, "allowCustomFunctions": false, "force": false}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackInstallExamplesGitRepository:
+      requestBody:
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Jennyfer.Bogan", "author": "<value>", "description": "ack that sparkling if blah bourgeoisie or phooey", "source": "git+https://github.com/criblio/cribl_ocsf_postprocessing", "tags": {"dataType": ["double", "boolean"], "domain": ["delectable-transom.com", "radiant-sightseeing.info"], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"]}, "allowCustomFunctions": false, "force": true}
+      responses:
+        "200":
+          application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
+        "500":
+          application/json: {"message": "<value>"}
   getPacks:
     speakeasy-default-get-packs:
       parameters:
@@ -2878,7 +3012,7 @@ examples:
           with: "<value>"
       responses:
         "200":
-          application/json: {"count": 77148, "items": [{"author": "<value>", "description": "dearly astride that augment interchange", "displayName": "Diego.Heller64", "exports": ["<value 1>"], "id": "<id>", "inputs": 6114.86, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5459.84, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["timestamp", "double", "varchar"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>", "<value 3>"]}, "version": "<value>"}]}
+          application/json: {"count": 77148, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "dearly astride that augment interchange", "displayName": "Diego.Heller64", "exports": ["<value 1>"], "id": "<id>", "inputs": 6114.86, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5459.84, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["timestamp", "double", "varchar"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>", "<value 3>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updatePacks:
@@ -2886,9 +3020,11 @@ examples:
       parameters:
         query:
           filename: "example.file"
+      requestBody:
+        application/octet-stream: "x-file: example.file"
       responses:
         "200":
-          application/json: {"count": 779474, "items": [{}, {"key": "<value>"}]}
+          application/json: {"source": "<value>"}
         "500":
           application/json: {"message": "<value>"}
   getGroupsConfigVersionById:
@@ -2982,7 +3118,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 954603, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 4670.23, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 4383.9}, "deletionStartedAt": 8741.5, "description": "twine unabashedly within hm whoever duh swift which likewise", "format": "parquet", "httpDAUsed": false, "id": "<id>", "retentionPeriodInDays": 9101.58, "searchConfig": {"datatypes": ["<value 1>", "<value 2>", "<value 3>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": [], "latestRunInfo": {"earliestScannedTime": 5372.22, "finishedAt": 2530.33, "latestScannedTime": 3122.34, "objectCount": 5459.74}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 954603, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 4670.23, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 4383.9}, "deletionStartedAt": 8741.5, "description": "twine unabashedly within hm whoever duh swift which likewise", "format": "parquet", "httpDAUsed": false, "id": "<id>", "metrics": {"currentSizeBytes": 9546.03, "metricsDate": "<value>"}, "retentionPeriodInDays": 9101.58, "searchConfig": {"datatypes": ["<value 1>", "<value 2>", "<value 3>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": [], "latestRunInfo": {"earliestScannedTime": 5372.22, "finishedAt": 2530.33, "latestScannedTime": 3122.34, "objectCount": 5459.74}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getCriblLakeDatasetByLakeIdAndId:
@@ -2993,7 +3129,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 488520, "items": [{"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "started", "cacheRef": "<value>", "createdAt": 4162.03, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 3505.26}, "deletionStartedAt": 9483.64, "description": "towards as separate yum approximate than napkin over but tame", "format": "json", "httpDAUsed": true, "id": "<id>", "retentionPeriodInDays": 4689.34, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": [], "latestRunInfo": {"earliestScannedTime": 6809.96, "finishedAt": 8790.42, "latestScannedTime": 5054.03, "objectCount": 6377.75}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 488520, "items": [{"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "started", "cacheRef": "<value>", "createdAt": 4162.03, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 3505.26}, "deletionStartedAt": 9483.64, "description": "towards as separate yum approximate than napkin over but tame", "format": "json", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 4885.2, "metricsDate": "<value>"}, "retentionPeriodInDays": 4689.34, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": [], "latestRunInfo": {"earliestScannedTime": 6809.96, "finishedAt": 8790.42, "latestScannedTime": 5054.03, "objectCount": 6377.75}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updateCriblLakeDatasetByLakeIdAndId:
@@ -3003,10 +3139,10 @@ examples:
           lakeId: "<id>"
           id: "<id>"
       requestBody:
-        application/json: {"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "incomplete", "cacheRef": "<value>", "createdAt": 267.92, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 3769.62}, "deletionStartedAt": 836.59, "description": "highlight phew ponder but winding", "format": "json", "httpDAUsed": true, "id": "<id>", "retentionPeriodInDays": 602.09, "searchConfig": {"datatypes": ["<value 1>", "<value 2>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": ["<value 1>"], "latestRunInfo": {"earliestScannedTime": 7659.78, "finishedAt": 6404.38, "latestScannedTime": 4426.77, "objectCount": 8849.28}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}
+        application/json: {"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "incomplete", "cacheRef": "<value>", "createdAt": 267.92, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 3769.62}, "deletionStartedAt": 836.59, "description": "highlight phew ponder but winding", "format": "json", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 6237.74, "metricsDate": "<value>"}, "retentionPeriodInDays": 602.09, "searchConfig": {"datatypes": ["<value 1>", "<value 2>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": ["<value 1>"], "latestRunInfo": {"earliestScannedTime": 7659.78, "finishedAt": 6404.38, "latestScannedTime": 4426.77, "objectCount": 8849.28}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}
       responses:
         "200":
-          application/json: {"count": 592322, "items": [{"acceleratedFields": ["<value 1>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "incomplete", "cacheRef": "<value>", "createdAt": 267.92, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 3769.62}, "deletionStartedAt": 9654.8, "description": "murky out cone hm sophisticated whoa frightfully unimpressively since", "format": "ddss", "httpDAUsed": false, "id": "<id>", "retentionPeriodInDays": 6639.66, "searchConfig": {"datatypes": ["<value 1>", "<value 2>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": ["<value 1>"], "latestRunInfo": {"earliestScannedTime": 7659.78, "finishedAt": 6404.38, "latestScannedTime": 4426.77, "objectCount": 8849.28}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
+          application/json: {"count": 592322, "items": [{"acceleratedFields": ["<value 1>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>", "<value 3>"], "backfillStatus": "incomplete", "cacheRef": "<value>", "createdAt": 267.92, "lakehouseConnectionType": "zeroPoint", "migrationQueryId": "<id>", "retentionInDays": 3769.62}, "deletionStartedAt": 9654.8, "description": "murky out cone hm sophisticated whoa frightfully unimpressively since", "format": "ddss", "httpDAUsed": false, "id": "<id>", "metrics": {"currentSizeBytes": 6237.74, "metricsDate": "<value>"}, "retentionPeriodInDays": 6639.66, "searchConfig": {"datatypes": ["<value 1>", "<value 2>"], "metadata": {"earliest": "<value>", "enableAcceleration": false, "fieldList": ["<value 1>"], "latestRunInfo": {"earliestScannedTime": 7659.78, "finishedAt": 6404.38, "latestScannedTime": 4426.77, "objectCount": 8849.28}, "scanMode": "detailed"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deletePacksById:
@@ -3016,7 +3152,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 248535, "items": [{"author": "<value>", "description": "pace forsaken why mom fooey", "displayName": "Joelle.Murray", "exports": ["<value 1>"], "id": "<id>", "inputs": 1143.81, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 7704.62, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": ["soggy-coliseum.com", "nice-footrest.biz", "well-to-do-massage.org"], "streamtags": ["<value 1>"], "technology": ["<value 1>"]}, "version": "<value>", "warnings": ["<value>"]}]}
+          application/json: {"count": 248535, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "pace forsaken why mom fooey", "displayName": "Joelle.Murray", "exports": ["<value 1>"], "id": "<id>", "inputs": 1143.81, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 7704.62, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": ["soggy-coliseum.com", "nice-footrest.biz", "well-to-do-massage.org"], "streamtags": ["<value 1>"], "technology": ["<value 1>"]}, "version": "<value>", "warnings": ["<value>"]}]}
         "500":
           application/json: {"message": "<value>"}
   updatePacksById:
@@ -3033,6 +3169,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 338042, "items": [{"author": "<value>", "description": "squirm mentor amid reluctantly case valiantly clonk satirise", "displayName": "Osbaldo_Murphy", "exports": ["<value 1>", "<value 2>"], "id": "<id>", "inputs": 4495.78, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 4165.86, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["float"], "domain": ["able-strait.info", "whimsical-marimba.info", "chilly-instance.com"], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PackUpgradeExamplesUpgradeFromURL:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"allowCustomFunctions": true, "minor": "<value>", "source": "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl", "spec": "<value>"}
+      responses:
+        "200":
+          application/json: {"count": 645237, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "description": "gosh but pretend fooey whose along", "displayName": "Angelita_Cummerata", "exports": ["<value 1>"], "id": "<id>", "inputs": 8287.99, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5016.43, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["smallint", "binary", "real"], "domain": ["terrible-nudge.name", "knotty-collaboration.info"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteGroupsById:
@@ -3069,7 +3216,7 @@ examples:
           filter: "<value>"
       responses:
         "200":
-          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
+          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "env": {"key": "<value>", "key1": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "outpost": {"guid": "<id>", "host": "intelligent-license.info"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
         "500":
           application/json: {"message": "<value>"}
   getMasterWorkerEntry:
@@ -3091,7 +3238,7 @@ examples:
           fields: "<value>"
       responses:
         "200":
-          application/json: {"count": 790422, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7819.54, "description": "finally exaggerate coolly grade", "estimatedIngestRate": 5993.3, "git": {"commit": "<value>", "localChanges": 7873.79, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-08", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2891.32, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 2257.24, "workerRemoteAccess": false}]}
+          application/json: {"count": 790422, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7819.54, "description": "finally exaggerate coolly grade", "estimatedIngestRate": 10240, "git": {"commit": "<value>", "localChanges": 7873.79, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-08", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2891.32, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 2257.24, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   createConfigGroupByProduct:
@@ -3106,6 +3253,50 @@ examples:
           application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 7643.22, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
+    CreateGroupExamplesCloudWg:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "us-west-2"}, "deployingWorkerCount": 5631.58, "description": "ack resort boohoo", "estimatedIngestRate": 2048, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatCloudIanWg", "incompatibleWorkerCount": 7174.43, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatCloudIanWg", "onPrem": false, "provisioned": true, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4980.41, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesOnPremWg:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9081.3, "description": "Worker group in customer-managed deployment", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatOnPremIanWg", "incompatibleWorkerCount": 7060.3, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatOnPremIanWg", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1230.11, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesCloneWg:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 2591.38, "description": "Worker Group cloned from goatOnPremIanWg with identical configuration", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatOnPremDollyWg", "incompatibleWorkerCount": 1660.08, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatOnPremDollyWg", "onPrem": true, "provisioned": true, "sourceGroupId": "goatOnPremIanWg", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 5075.63, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesEdgeFleet:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9605.18, "description": "Create a new Edge Fleet", "estimatedIngestRate": 7168, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatIanEdgeFleet", "incompatibleWorkerCount": 9429.96, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatIanEdgeFleet", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3096.3, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
   getConfigGroupByProductAndId:
     speakeasy-default-get-config-group-by-product-and-id:
       parameters:
@@ -3116,7 +3307,7 @@ examples:
           fields: "<value>"
       responses:
         "200":
-          application/json: {"count": 847568, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 9897.69, "description": "inure hope kissingly why", "estimatedIngestRate": 3832.46, "git": {"commit": "<value>", "localChanges": 3058.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-02-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 9309.45, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7512.21, "workerRemoteAccess": true}]}
+          application/json: {"count": 847568, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 9897.69, "description": "inure hope kissingly why", "estimatedIngestRate": 13312, "git": {"commit": "<value>", "localChanges": 3058.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-02-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 9309.45, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7512.21, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
   updateConfigGroupByProductAndId:
@@ -3132,6 +3323,18 @@ examples:
           application/json: {"count": 231540, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6457.67, "description": "who lace supposing gosh rout since horn provided bah categorise", "estimatedIngestRate": 3702.49, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 1689.16, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 6988.23, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
+    UpdateGroupExamplesScaleCloudWorkerGroup:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "us-west-2"}, "configVersion": "<value>", "deployingWorkerCount": 7786.61, "description": "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatCloudIanWg", "incompatibleWorkerCount": 2874.65, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "goatCloudIanWg", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 835.08, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 214805, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6038.43, "description": "pants sugary tricky drat", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 5750.42, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
   deleteConfigGroupByProductAndId:
     speakeasy-default-delete-config-group-by-product-and-id:
       parameters:
@@ -3140,7 +3343,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 581023, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8537.63, "description": "after jealous revitalise noxious whenever intervention over now upwardly sailor", "estimatedIngestRate": 9667.42, "git": {"commit": "<value>", "localChanges": 3514.19, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 409.64, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 298.57, "workerRemoteAccess": false}]}
+          application/json: {"count": 581023, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8537.63, "description": "after jealous revitalise noxious whenever intervention over now upwardly sailor", "estimatedIngestRate": 15360, "git": {"commit": "<value>", "localChanges": 3514.19, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 409.64, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 298.57, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   updateConfigGroupDeployByProductAndId:
@@ -3153,7 +3356,7 @@ examples:
         application/json: {"lookups": [{"context": "<value>", "lookups": []}], "version": "<value>"}
       responses:
         "200":
-          application/json: {"count": 274503, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 3445.97, "description": "while ad tune", "estimatedIngestRate": 6207.5, "git": {"commit": "<value>", "localChanges": 8464.16, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-07-23", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 4511.88, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7143.25, "workerRemoteAccess": false}]}
+          application/json: {"count": 274503, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 3445.97, "description": "while ad tune", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 8464.16, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-07-23", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 4511.88, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7143.25, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   getConfigGroupConfigVersionByProductAndId:
@@ -3256,7 +3459,25 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 163235, "items": [{"author": "<value>", "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
+          application/json: {"count": 163235, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createAuthLogin:
+    speakeasy-default-create-auth-login:
+      requestBody:
+        application/json: {"password": "6j50J9421x29IhO", "username": "Lilly_Weissnat"}
+      responses:
+        "200":
+          application/json: {"forcePasswordChange": true, "token": "<value>"}
+        "500":
+          application/json: {"message": "<value>"}
+  getHealth:
+    speakeasy-default-get-health:
+      responses:
+        "200":
+          application/json: {"role": "standby", "startTime": 1037.51, "status": "healthy"}
+        "420":
+          application/json: {"role": "standby", "startTime": 7966.74, "status": "healthy"}
         "500":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
@@ -3324,3 +3545,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Delete()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.EstimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Get()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Groups.Create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Groups.List()`:  `response.Items.[].EstimatedIngestRate` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Undo()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].Tls` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].Tls` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Health.Get()`: \n  *  `response.status[default]` **Removed** **Breaking** :warning:\n  *  `error.status[500]` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Auth.Tokens.Get()`: \n  *  `response.ForcePasswordChange` **Added**\n  *  `error` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[].Clones.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.LakeDatasets.Create()`: \n  *  `request.CriblLakeDataset.Metrics` **Added**\n  *  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.Packs.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].Info` **Changed**\n* `CriblControlPlane.Nodes.Summaries.Get()`:  `response.Items.[].Groups` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Install()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Update()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Packs.Upload()`: **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.LakeDatasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate.Metrics` **Added**\n  *  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.Get()`:  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.Delete()`:  `response.Items.[].Metrics` **Added**\n* `CriblControlPlane.LakeDatasets.List()`:  `response.Items.[].Metrics` **Added**\n"

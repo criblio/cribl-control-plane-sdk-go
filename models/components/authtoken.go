@@ -3,7 +3,15 @@
 package components
 
 type AuthToken struct {
-	Token string `json:"token"`
+	ForcePasswordChange bool   `json:"forcePasswordChange"`
+	Token               string `json:"token"`
+}
+
+func (a *AuthToken) GetForcePasswordChange() bool {
+	if a == nil {
+		return false
+	}
+	return a.ForcePasswordChange
 }
 
 func (a *AuthToken) GetToken() string {

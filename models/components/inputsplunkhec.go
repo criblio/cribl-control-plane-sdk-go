@@ -65,7 +65,9 @@ func (i *InputSplunkHecConnection) GetOutput() string {
 type InputSplunkHecMode string
 
 const (
-	InputSplunkHecModeSmart  InputSplunkHecMode = "smart"
+	// InputSplunkHecModeSmart Smart
+	InputSplunkHecModeSmart InputSplunkHecMode = "smart"
+	// InputSplunkHecModeAlways Always On
 	InputSplunkHecModeAlways InputSplunkHecMode = "always"
 )
 
@@ -77,7 +79,9 @@ func (e InputSplunkHecMode) ToPointer() *InputSplunkHecMode {
 type InputSplunkHecCompression string
 
 const (
+	// InputSplunkHecCompressionNone None
 	InputSplunkHecCompressionNone InputSplunkHecCompression = "none"
+	// InputSplunkHecCompressionGzip Gzip
 	InputSplunkHecCompressionGzip InputSplunkHecCompression = "gzip"
 )
 
@@ -329,6 +333,12 @@ func (e InputSplunkHecMaximumTLSVersion) ToPointer() *InputSplunkHecMaximumTLSVe
 
 type InputSplunkHecTLSSettingsServerSide struct {
 	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -338,13 +348,9 @@ type InputSplunkHecTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitempty"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert        *bool                            `default:"false" json:"requestCert"`
-	RejectUnauthorized any                              `json:"rejectUnauthorized,omitempty"`
-	CommonNameRegex    any                              `json:"commonNameRegex,omitempty"`
-	MinVersion         *InputSplunkHecMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion         *InputSplunkHecMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CaPath     *string                          `json:"caPath,omitempty"`
+	MinVersion *InputSplunkHecMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputSplunkHecMaximumTLSVersion `json:"maxVersion,omitempty"`
 }
 
 func (i InputSplunkHecTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
@@ -363,6 +369,27 @@ func (i *InputSplunkHecTLSSettingsServerSide) GetDisabled() *bool {
 		return nil
 	}
 	return i.Disabled
+}
+
+func (i *InputSplunkHecTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputSplunkHecTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputSplunkHecTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
 }
 
 func (i *InputSplunkHecTLSSettingsServerSide) GetCertificateName() *string {
@@ -398,27 +425,6 @@ func (i *InputSplunkHecTLSSettingsServerSide) GetCaPath() *string {
 		return nil
 	}
 	return i.CaPath
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetRejectUnauthorized() any {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetCommonNameRegex() any {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
 }
 
 func (i *InputSplunkHecTLSSettingsServerSide) GetMinVersion() *InputSplunkHecMinimumTLSVersion {
