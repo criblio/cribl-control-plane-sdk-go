@@ -583,6 +583,8 @@ type OutputAzureDataExplorer struct {
 	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
@@ -938,6 +940,13 @@ func (o *OutputAzureDataExplorer) GetEmptyDirCleanupSec() *float64 {
 		return nil
 	}
 	return o.EmptyDirCleanupSec
+}
+
+func (o *OutputAzureDataExplorer) GetDirectoryBatchSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DirectoryBatchSize
 }
 
 func (o *OutputAzureDataExplorer) GetDeadletterEnabled() *bool {
