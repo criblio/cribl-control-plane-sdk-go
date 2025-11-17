@@ -27,31 +27,10 @@ func (g *GetVersionCountRequest) GetID() *string {
 	return g.ID
 }
 
-// GetVersionCountResponseBody - a list of GitCountResult objects
-type GetVersionCountResponseBody struct {
-	// number of items present in the items array
-	Count *int64                      `json:"count,omitempty"`
-	Items []components.GitCountResult `json:"items,omitempty"`
-}
-
-func (g *GetVersionCountResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetVersionCountResponseBody) GetItems() []components.GitCountResult {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetVersionCountResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of GitCountResult objects
-	Object *GetVersionCountResponseBody
+	CountedGitCountResult *components.CountedGitCountResult
 }
 
 func (g *GetVersionCountResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (g *GetVersionCountResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetVersionCountResponse) GetObject() *GetVersionCountResponseBody {
+func (g *GetVersionCountResponse) GetCountedGitCountResult() *components.CountedGitCountResult {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedGitCountResult
 }

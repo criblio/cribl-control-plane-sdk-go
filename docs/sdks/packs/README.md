@@ -77,7 +77,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInstallInfo != nil {
         // handle response
     }
 }
@@ -134,7 +134,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInfo != nil {
         // handle response
     }
 }
@@ -254,7 +254,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInstallInfo != nil {
         // handle response
     }
 }
@@ -311,7 +311,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInfo != nil {
         // handle response
     }
 }
@@ -373,7 +373,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPackInfo != nil {
         // handle response
     }
 }

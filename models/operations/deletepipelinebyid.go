@@ -18,31 +18,10 @@ func (d *DeletePipelineByIDRequest) GetID() string {
 	return d.ID
 }
 
-// DeletePipelineByIDResponseBody - a list of Pipeline objects
-type DeletePipelineByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                `json:"count,omitempty"`
-	Items []components.Pipeline `json:"items,omitempty"`
-}
-
-func (d *DeletePipelineByIDResponseBody) GetCount() *int64 {
-	if d == nil {
-		return nil
-	}
-	return d.Count
-}
-
-func (d *DeletePipelineByIDResponseBody) GetItems() []components.Pipeline {
-	if d == nil {
-		return nil
-	}
-	return d.Items
-}
-
 type DeletePipelineByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Pipeline objects
-	Object *DeletePipelineByIDResponseBody
+	CountedPipeline *components.CountedPipeline
 }
 
 func (d *DeletePipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (d *DeletePipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return d.HTTPMeta
 }
 
-func (d *DeletePipelineByIDResponse) GetObject() *DeletePipelineByIDResponseBody {
+func (d *DeletePipelineByIDResponse) GetCountedPipeline() *components.CountedPipeline {
 	if d == nil {
 		return nil
 	}
-	return d.Object
+	return d.CountedPipeline
 }

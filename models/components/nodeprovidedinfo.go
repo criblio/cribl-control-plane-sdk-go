@@ -8,16 +8,13 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type NodeProvidedInfoTags struct {
-}
-
 type NodeProvidedInfoAws struct {
-	Enabled    bool                  `json:"enabled"`
-	InstanceID string                `json:"instanceId"`
-	Region     string                `json:"region"`
-	Tags       *NodeProvidedInfoTags `json:"tags,omitempty"`
-	Type       string                `json:"type"`
-	Zone       string                `json:"zone"`
+	Enabled    bool              `json:"enabled"`
+	InstanceID string            `json:"instanceId"`
+	Region     string            `json:"region"`
+	Tags       map[string]string `json:"tags,omitempty"`
+	Type       string            `json:"type"`
+	Zone       string            `json:"zone"`
 }
 
 func (n *NodeProvidedInfoAws) GetEnabled() bool {
@@ -41,7 +38,7 @@ func (n *NodeProvidedInfoAws) GetRegion() string {
 	return n.Region
 }
 
-func (n *NodeProvidedInfoAws) GetTags() *NodeProvidedInfoTags {
+func (n *NodeProvidedInfoAws) GetTags() map[string]string {
 	if n == nil {
 		return nil
 	}
