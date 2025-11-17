@@ -3,200 +3,132 @@
 package components
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type Line3 struct {
-	Content   string  `json:"content"`
-	NewNumber float64 `json:"newNumber"`
-	OldNumber float64 `json:"oldNumber"`
-}
-
-func (l Line3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *Line3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "newNumber", "oldNumber"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *Line3) GetContent() string {
-	if l == nil {
-		return ""
-	}
-	return l.Content
-}
-
-func (l *Line3) GetNewNumber() float64 {
-	if l == nil {
-		return 0.0
-	}
-	return l.NewNumber
-}
-
-func (l *Line3) GetOldNumber() float64 {
-	if l == nil {
-		return 0.0
-	}
-	return l.OldNumber
-}
-
-type Line2 struct {
-	Content   string  `json:"content"`
-	NewNumber float64 `json:"newNumber"`
-}
-
-func (l Line2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *Line2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "newNumber"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *Line2) GetContent() string {
-	if l == nil {
-		return ""
-	}
-	return l.Content
-}
-
-func (l *Line2) GetNewNumber() float64 {
-	if l == nil {
-		return 0.0
-	}
-	return l.NewNumber
-}
-
-type Line1 struct {
-	Content   string  `json:"content"`
-	OldNumber float64 `json:"oldNumber"`
-}
-
-func (l Line1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *Line1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"content", "oldNumber"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *Line1) GetContent() string {
-	if l == nil {
-		return ""
-	}
-	return l.Content
-}
-
-func (l *Line1) GetOldNumber() float64 {
-	if l == nil {
-		return 0.0
-	}
-	return l.OldNumber
-}
-
-type LineUnionType string
+type LinesType string
 
 const (
-	LineUnionTypeLine1 LineUnionType = "line_1"
-	LineUnionTypeLine2 LineUnionType = "line_2"
-	LineUnionTypeLine3 LineUnionType = "line_3"
+	LinesTypeDelete  LinesType = "delete"
+	LinesTypeInsert  LinesType = "insert"
+	LinesTypeContext LinesType = "context"
 )
 
-type LineUnion struct {
-	Line1 *Line1 `queryParam:"inline,name=line"`
-	Line2 *Line2 `queryParam:"inline,name=line"`
-	Line3 *Line3 `queryParam:"inline,name=line"`
+// Lines - Diff Line
+type Lines struct {
+	DiffLineDelete  *DiffLineDelete  `queryParam:"inline,name=lines"`
+	DiffLineInsert  *DiffLineInsert  `queryParam:"inline,name=lines"`
+	DiffLineContext *DiffLineContext `queryParam:"inline,name=lines"`
 
-	Type LineUnionType
+	Type LinesType
 }
 
-func CreateLineUnionLine1(line1 Line1) LineUnion {
-	typ := LineUnionTypeLine1
+func CreateLinesDelete(delete DiffLineDelete) Lines {
+	typ := LinesTypeDelete
 
-	return LineUnion{
-		Line1: &line1,
-		Type:  typ,
+	typStr := DiffLineDeleteType(typ)
+	delete.Type = typStr
+
+	return Lines{
+		DiffLineDelete: &delete,
+		Type:           typ,
 	}
 }
 
-func CreateLineUnionLine2(line2 Line2) LineUnion {
-	typ := LineUnionTypeLine2
+func CreateLinesInsert(insert DiffLineInsert) Lines {
+	typ := LinesTypeInsert
 
-	return LineUnion{
-		Line2: &line2,
-		Type:  typ,
+	typStr := DiffLineInsertType(typ)
+	insert.Type = typStr
+
+	return Lines{
+		DiffLineInsert: &insert,
+		Type:           typ,
 	}
 }
 
-func CreateLineUnionLine3(line3 Line3) LineUnion {
-	typ := LineUnionTypeLine3
+func CreateLinesContext(contextT DiffLineContext) Lines {
+	typ := LinesTypeContext
 
-	return LineUnion{
-		Line3: &line3,
-		Type:  typ,
+	typStr := DiffLineContextType(typ)
+	contextT.Type = typStr
+
+	return Lines{
+		DiffLineContext: &contextT,
+		Type:            typ,
 	}
 }
 
-func (u *LineUnion) UnmarshalJSON(data []byte) error {
+func (u *Lines) UnmarshalJSON(data []byte) error {
 
-	var line3 Line3 = Line3{}
-	if err := utils.UnmarshalJSON(data, &line3, "", true, nil); err == nil {
-		u.Line3 = &line3
-		u.Type = LineUnionTypeLine3
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.Type {
+	case "delete":
+		diffLineDelete := new(DiffLineDelete)
+		if err := utils.UnmarshalJSON(data, &diffLineDelete, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == delete) type DiffLineDelete within Lines: %w", string(data), err)
+		}
+
+		u.DiffLineDelete = diffLineDelete
+		u.Type = LinesTypeDelete
+		return nil
+	case "insert":
+		diffLineInsert := new(DiffLineInsert)
+		if err := utils.UnmarshalJSON(data, &diffLineInsert, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == insert) type DiffLineInsert within Lines: %w", string(data), err)
+		}
+
+		u.DiffLineInsert = diffLineInsert
+		u.Type = LinesTypeInsert
+		return nil
+	case "context":
+		diffLineContext := new(DiffLineContext)
+		if err := utils.UnmarshalJSON(data, &diffLineContext, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == context) type DiffLineContext within Lines: %w", string(data), err)
+		}
+
+		u.DiffLineContext = diffLineContext
+		u.Type = LinesTypeContext
 		return nil
 	}
 
-	var line1 Line1 = Line1{}
-	if err := utils.UnmarshalJSON(data, &line1, "", true, nil); err == nil {
-		u.Line1 = &line1
-		u.Type = LineUnionTypeLine1
-		return nil
-	}
-
-	var line2 Line2 = Line2{}
-	if err := utils.UnmarshalJSON(data, &line2, "", true, nil); err == nil {
-		u.Line2 = &line2
-		u.Type = LineUnionTypeLine2
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for LineUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Lines", string(data))
 }
 
-func (u LineUnion) MarshalJSON() ([]byte, error) {
-	if u.Line1 != nil {
-		return utils.MarshalJSON(u.Line1, "", true)
+func (u Lines) MarshalJSON() ([]byte, error) {
+	if u.DiffLineDelete != nil {
+		return utils.MarshalJSON(u.DiffLineDelete, "", true)
 	}
 
-	if u.Line2 != nil {
-		return utils.MarshalJSON(u.Line2, "", true)
+	if u.DiffLineInsert != nil {
+		return utils.MarshalJSON(u.DiffLineInsert, "", true)
 	}
 
-	if u.Line3 != nil {
-		return utils.MarshalJSON(u.Line3, "", true)
+	if u.DiffLineContext != nil {
+		return utils.MarshalJSON(u.DiffLineContext, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type LineUnion: all fields are null")
+	return nil, errors.New("could not marshal union type Lines: all fields are null")
 }
 
 type Block struct {
-	Header        string      `json:"header"`
-	Lines         []LineUnion `json:"lines"`
-	NewStartLine  float64     `json:"newStartLine"`
-	OldStartLine  float64     `json:"oldStartLine"`
-	OldStartLine2 *float64    `json:"oldStartLine2,omitempty"`
+	Header string `json:"header"`
+	// Diff Line
+	Lines         Lines    `json:"lines"`
+	NewStartLine  float64  `json:"newStartLine"`
+	OldStartLine  float64  `json:"oldStartLine"`
+	OldStartLine2 *float64 `json:"oldStartLine2,omitempty"`
 }
 
 func (b *Block) GetHeader() string {
@@ -206,11 +138,23 @@ func (b *Block) GetHeader() string {
 	return b.Header
 }
 
-func (b *Block) GetLines() []LineUnion {
+func (b *Block) GetLines() Lines {
 	if b == nil {
-		return []LineUnion{}
+		return Lines{}
 	}
 	return b.Lines
+}
+
+func (b *Block) GetLinesDelete() *DiffLineDelete {
+	return b.GetLines().DiffLineDelete
+}
+
+func (b *Block) GetLinesInsert() *DiffLineInsert {
+	return b.GetLines().DiffLineInsert
+}
+
+func (b *Block) GetLinesContext() *DiffLineContext {
+	return b.GetLines().DiffLineContext
 }
 
 func (b *Block) GetNewStartLine() float64 {
