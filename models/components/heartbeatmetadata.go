@@ -2,16 +2,13 @@
 
 package components
 
-type HeartbeatMetadataTags struct {
-}
-
 type HeartbeatMetadataAws struct {
-	Enabled    bool                   `json:"enabled"`
-	InstanceID string                 `json:"instanceId"`
-	Region     string                 `json:"region"`
-	Tags       *HeartbeatMetadataTags `json:"tags,omitempty"`
-	Type       string                 `json:"type"`
-	Zone       string                 `json:"zone"`
+	Enabled    bool              `json:"enabled"`
+	InstanceID string            `json:"instanceId"`
+	Region     string            `json:"region"`
+	Tags       map[string]string `json:"tags,omitempty"`
+	Type       string            `json:"type"`
+	Zone       string            `json:"zone"`
 }
 
 func (h *HeartbeatMetadataAws) GetEnabled() bool {
@@ -35,7 +32,7 @@ func (h *HeartbeatMetadataAws) GetRegion() string {
 	return h.Region
 }
 
-func (h *HeartbeatMetadataAws) GetTags() *HeartbeatMetadataTags {
+func (h *HeartbeatMetadataAws) GetTags() map[string]string {
 	if h == nil {
 		return nil
 	}

@@ -209,12 +209,12 @@ func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id str
 				return nil, err
 			}
 
-			var out operations.GetConfigGroupACLTeamsByProductAndIDResponseBody
+			var out components.CountedTeamAccessControlList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedTeamAccessControlList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

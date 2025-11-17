@@ -63,31 +63,10 @@ func (l *ListMasterWorkerEntryRequest) GetOffset() *int64 {
 	return l.Offset
 }
 
-// ListMasterWorkerEntryResponseBody - a list of MasterWorkerEntry objects
-type ListMasterWorkerEntryResponseBody struct {
-	// number of items present in the items array
-	Count *int64                         `json:"count,omitempty"`
-	Items []components.MasterWorkerEntry `json:"items,omitempty"`
-}
-
-func (l *ListMasterWorkerEntryResponseBody) GetCount() *int64 {
-	if l == nil {
-		return nil
-	}
-	return l.Count
-}
-
-func (l *ListMasterWorkerEntryResponseBody) GetItems() []components.MasterWorkerEntry {
-	if l == nil {
-		return nil
-	}
-	return l.Items
-}
-
 type ListMasterWorkerEntryResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of MasterWorkerEntry objects
-	Object *ListMasterWorkerEntryResponseBody
+	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
 }
 
 func (l *ListMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -97,9 +76,9 @@ func (l *ListMasterWorkerEntryResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListMasterWorkerEntryResponse) GetObject() *ListMasterWorkerEntryResponseBody {
+func (l *ListMasterWorkerEntryResponse) GetCountedMasterWorkerEntry() *components.CountedMasterWorkerEntry {
 	if l == nil {
 		return nil
 	}
-	return l.Object
+	return l.CountedMasterWorkerEntry
 }

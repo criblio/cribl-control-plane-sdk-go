@@ -36,31 +36,10 @@ func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetCriblLakeDatasetUpdate()
 	return u.CriblLakeDatasetUpdate
 }
 
-// UpdateCriblLakeDatasetByLakeIDAndIDResponseBody - a list of CriblLakeDataset objects
-type UpdateCriblLakeDatasetByLakeIDAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                        `json:"count,omitempty"`
-	Items []components.CriblLakeDataset `json:"items,omitempty"`
-}
-
-func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody) GetItems() []components.CriblLakeDataset {
-	if u == nil {
-		return nil
-	}
-	return u.Items
-}
-
 type UpdateCriblLakeDatasetByLakeIDAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of CriblLakeDataset objects
-	Object *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody
+	CountedCriblLakeDataset *components.CountedCriblLakeDataset
 }
 
 func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -70,9 +49,9 @@ func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponse) GetHTTPMeta() components.H
 	return u.HTTPMeta
 }
 
-func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponse) GetObject() *UpdateCriblLakeDatasetByLakeIDAndIDResponseBody {
+func (u *UpdateCriblLakeDatasetByLakeIDAndIDResponse) GetCountedCriblLakeDataset() *components.CountedCriblLakeDataset {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedCriblLakeDataset
 }
