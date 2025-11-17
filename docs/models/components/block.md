@@ -6,7 +6,7 @@
 | Field                                                | Type                                                 | Required                                             | Description                                          |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | `Header`                                             | *string*                                             | :heavy_check_mark:                                   | N/A                                                  |
-| `Lines`                                              | [components.Lines](../../models/components/lines.md) | :heavy_check_mark:                                   | Diff Line                                            |
+| `Lines`                                              | [][components.Line](../../models/components/line.md) | :heavy_check_mark:                                   | Diff Line                                            |
 | `NewStartLine`                                       | *float64*                                            | :heavy_check_mark:                                   | N/A                                                  |
 | `OldStartLine`                                       | *float64*                                            | :heavy_check_mark:                                   | N/A                                                  |
 | `OldStartLine2`                                      | **float64*                                           | :heavy_minus_sign:                                   | N/A                                                  |
