@@ -8,18 +8,18 @@ Diff Line
 ### DiffLineDelete
 
 ```go
-lines := components.CreateLinesDelete(components.DiffLineDelete{/* values here */})
+lines := components.CreateLinesDiffLineDelete(components.DiffLineDelete{/* values here */})
 ```
 
 ### DiffLineInsert
 
 ```go
-lines := components.CreateLinesInsert(components.DiffLineInsert{/* values here */})
+lines := components.CreateLinesDiffLineInsert(components.DiffLineInsert{/* values here */})
 ```
 
 ### DiffLineContext
 
 ```go
-lines := components.CreateLinesContext(components.DiffLineContext{/* values here */})
+lines := components.CreateLinesDiffLineContext(components.DiffLineContext{/* values here */})
 ```
 
