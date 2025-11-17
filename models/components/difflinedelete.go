@@ -33,7 +33,6 @@ func (e *DiffLineDeleteType) UnmarshalJSON(data []byte) error {
 
 type DiffLineDelete struct {
 	Type      DiffLineDeleteType `json:"type"`
-	NewNumber *float64           `json:"newNumber"`
 	OldNumber float64            `json:"oldNumber"`
 	Content   string             `json:"content"`
 }
@@ -54,13 +53,6 @@ func (d *DiffLineDelete) GetType() DiffLineDeleteType {
 		return DiffLineDeleteType("")
 	}
 	return d.Type
-}
-
-func (d *DiffLineDelete) GetNewNumber() *float64 {
-	if d == nil {
-		return nil
-	}
-	return d.NewNumber
 }
 
 func (d *DiffLineDelete) GetOldNumber() float64 {

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: d77a722992a2993734111c73bdd527d5
-  docVersion: 4.16.0-alpha.1763385600706-7963999d
+  docChecksum: b5e91e92b658304d55ce8f85700b485a
+  docVersion: 4.16.0-alpha.1763389255632-6abe197e
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-rc.4
-  configChecksum: 52a54576cee59d220969fe2973d89cc7
+  releaseVersion: 0.3.0-rc.5
+  configChecksum: 0076d211c474123159bfbfd58bcc0d1b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -2807,7 +2807,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 236125, "items": [{"diffJson": [{"addedLines": 2361.25, "blocks": [{"header": "<value>", "lines": [{"type": "insert", "newNumber": 2361.25, "oldNumber": 4941.69, "content": "<value>"}], "newStartLine": 6726.7, "oldStartLine": 645.87, "oldStartLine2": 5821.43}], "changedPercentage": 9419.83, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 6123.7, "isBinary": false, "isCombined": false, "isCopy": true, "isDeleted": true, "isGitDiff": false, "isNew": true, "isRename": true, "isTooBig": true, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": "<value>", "oldName": "<value>", "unchangedPercentage": 4730.65}]}, {"diffJson": []}, {"diffJson": []}]}
+          application/json: {"count": 236125, "items": [{"diffJson": [{"addedLines": 2361.25, "blocks": [{"header": "<value>", "lines": [{"type": "insert", "newNumber": 2361.25, "content": "<value>"}], "newStartLine": 6726.7, "oldStartLine": 645.87, "oldStartLine2": 5821.43}], "changedPercentage": 9419.83, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 6123.7, "isBinary": false, "isCombined": false, "isCopy": true, "isDeleted": true, "isGitDiff": false, "isNew": true, "isRename": true, "isTooBig": true, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": "<value>", "oldName": "<value>", "unchangedPercentage": 4730.65}]}, {"diffJson": []}, {"diffJson": []}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionFiles:
@@ -3547,5 +3547,5 @@ generatedTests:
   updateGroupsById: "2025-08-01T19:57:10Z"
 releaseNotes: |
   ## Go SDK Changes Detected:
-  * `CriblControlPlane.Versions.Commits.Diff()`:  `response.Items.[].DiffJson.[].Blocks.[].Lines` **Changed** **Breaking** :warning:
-  * `CriblControlPlane.Versions.Commits.Get()`:  `response.Items.[].DiffJson.[].Blocks.[].Lines` **Changed** **Breaking** :warning:
+  * `CriblControlPlane.Versions.Commits.Diff()`:  `response.Items.[].DiffJson.[].Blocks.[].Lines.[]` **Changed** **Breaking** :warning:
+  * `CriblControlPlane.Versions.Commits.Get()`:  `response.Items.[].DiffJson.[].Blocks.[].Lines.[]` **Changed** **Breaking** :warning:

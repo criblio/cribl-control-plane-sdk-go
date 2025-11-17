@@ -34,7 +34,6 @@ func (e *DiffLineInsertType) UnmarshalJSON(data []byte) error {
 type DiffLineInsert struct {
 	Type      DiffLineInsertType `json:"type"`
 	NewNumber float64            `json:"newNumber"`
-	OldNumber *float64           `json:"oldNumber"`
 	Content   string             `json:"content"`
 }
 
@@ -61,13 +60,6 @@ func (d *DiffLineInsert) GetNewNumber() float64 {
 		return 0.0
 	}
 	return d.NewNumber
-}
-
-func (d *DiffLineInsert) GetOldNumber() *float64 {
-	if d == nil {
-		return nil
-	}
-	return d.OldNumber
 }
 
 func (d *DiffLineInsert) GetContent() string {
