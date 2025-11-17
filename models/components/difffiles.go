@@ -3,7 +3,6 @@
 package components
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
@@ -12,9 +11,9 @@ import (
 type LinesType string
 
 const (
-	LinesTypeDelete  LinesType = "delete"
-	LinesTypeInsert  LinesType = "insert"
-	LinesTypeContext LinesType = "context"
+	LinesTypeDiffLineDelete  LinesType = "DiffLineDelete"
+	LinesTypeDiffLineInsert  LinesType = "DiffLineInsert"
+	LinesTypeDiffLineContext LinesType = "DiffLineContext"
 )
 
 // Lines - Diff Line
@@ -26,80 +25,53 @@ type Lines struct {
 	Type LinesType
 }
 
-func CreateLinesDelete(delete DiffLineDelete) Lines {
-	typ := LinesTypeDelete
-
-	typStr := DiffLineDeleteType(typ)
-	delete.Type = typStr
+func CreateLinesDiffLineDelete(diffLineDelete DiffLineDelete) Lines {
+	typ := LinesTypeDiffLineDelete
 
 	return Lines{
-		DiffLineDelete: &delete,
+		DiffLineDelete: &diffLineDelete,
 		Type:           typ,
 	}
 }
 
-func CreateLinesInsert(insert DiffLineInsert) Lines {
-	typ := LinesTypeInsert
-
-	typStr := DiffLineInsertType(typ)
-	insert.Type = typStr
+func CreateLinesDiffLineInsert(diffLineInsert DiffLineInsert) Lines {
+	typ := LinesTypeDiffLineInsert
 
 	return Lines{
-		DiffLineInsert: &insert,
+		DiffLineInsert: &diffLineInsert,
 		Type:           typ,
 	}
 }
 
-func CreateLinesContext(contextT DiffLineContext) Lines {
-	typ := LinesTypeContext
-
-	typStr := DiffLineContextType(typ)
-	contextT.Type = typStr
+func CreateLinesDiffLineContext(diffLineContext DiffLineContext) Lines {
+	typ := LinesTypeDiffLineContext
 
 	return Lines{
-		DiffLineContext: &contextT,
+		DiffLineContext: &diffLineContext,
 		Type:            typ,
 	}
 }
 
 func (u *Lines) UnmarshalJSON(data []byte) error {
 
-	type discriminator struct {
-		Type string `json:"type"`
+	var diffLineDelete DiffLineDelete = DiffLineDelete{}
+	if err := utils.UnmarshalJSON(data, &diffLineDelete, "", true, nil); err == nil {
+		u.DiffLineDelete = &diffLineDelete
+		u.Type = LinesTypeDiffLineDelete
+		return nil
 	}
 
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	var diffLineInsert DiffLineInsert = DiffLineInsert{}
+	if err := utils.UnmarshalJSON(data, &diffLineInsert, "", true, nil); err == nil {
+		u.DiffLineInsert = &diffLineInsert
+		u.Type = LinesTypeDiffLineInsert
+		return nil
 	}
 
-	switch dis.Type {
-	case "delete":
-		diffLineDelete := new(DiffLineDelete)
-		if err := utils.UnmarshalJSON(data, &diffLineDelete, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == delete) type DiffLineDelete within Lines: %w", string(data), err)
-		}
-
-		u.DiffLineDelete = diffLineDelete
-		u.Type = LinesTypeDelete
-		return nil
-	case "insert":
-		diffLineInsert := new(DiffLineInsert)
-		if err := utils.UnmarshalJSON(data, &diffLineInsert, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == insert) type DiffLineInsert within Lines: %w", string(data), err)
-		}
-
-		u.DiffLineInsert = diffLineInsert
-		u.Type = LinesTypeInsert
-		return nil
-	case "context":
-		diffLineContext := new(DiffLineContext)
-		if err := utils.UnmarshalJSON(data, &diffLineContext, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == context) type DiffLineContext within Lines: %w", string(data), err)
-		}
-
-		u.DiffLineContext = diffLineContext
-		u.Type = LinesTypeContext
+	var diffLineContext DiffLineContext = DiffLineContext{}
+	if err := utils.UnmarshalJSON(data, &diffLineContext, "", true, nil); err == nil {
+		u.DiffLineContext = &diffLineContext
+		u.Type = LinesTypeDiffLineContext
 		return nil
 	}
 
@@ -143,18 +115,6 @@ func (b *Block) GetLines() Lines {
 		return Lines{}
 	}
 	return b.Lines
-}
-
-func (b *Block) GetLinesDelete() *DiffLineDelete {
-	return b.GetLines().DiffLineDelete
-}
-
-func (b *Block) GetLinesInsert() *DiffLineInsert {
-	return b.GetLines().DiffLineInsert
-}
-
-func (b *Block) GetLinesContext() *DiffLineContext {
-	return b.GetLines().DiffLineContext
 }
 
 func (b *Block) GetNewStartLine() float64 {
