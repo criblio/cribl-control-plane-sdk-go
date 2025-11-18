@@ -384,13 +384,13 @@ func (c *Collector) GetEncoding() *string {
 	return c.Encoding
 }
 
-type InputType string
+type RunnableJobCollectionInputType string
 
 const (
-	InputTypeCollection InputType = "collection"
+	RunnableJobCollectionInputTypeCollection RunnableJobCollectionInputType = "collection"
 )
 
-func (e InputType) ToPointer() *InputType {
+func (e RunnableJobCollectionInputType) ToPointer() *RunnableJobCollectionInputType {
 	return &e
 }
 
@@ -466,7 +466,7 @@ func (r *RunnableJobCollectionMetadatum) GetValue() string {
 }
 
 type RunnableJobCollectionInput struct {
-	Type *InputType `default:"collection" json:"type"`
+	Type *RunnableJobCollectionInputType `default:"collection" json:"type"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -495,7 +495,7 @@ func (r *RunnableJobCollectionInput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *RunnableJobCollectionInput) GetType() *InputType {
+func (r *RunnableJobCollectionInput) GetType() *RunnableJobCollectionInputType {
 	if r == nil {
 		return nil
 	}

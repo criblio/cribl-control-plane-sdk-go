@@ -100,7 +100,7 @@ func main() {
     res, err := s.Sources.Create(ctx, components.CreateInputTCP(
         components.InputTCP{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.InputTCPTypeTCP,
+            Type: components.TypeTCPTCP,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
@@ -108,17 +108,17 @@ func main() {
                 "<value 2>",
                 "<value 3>",
             },
-            Connections: []components.InputTCPConnection{
-                components.InputTCPConnection{
+            Connections: []components.ConnectionTCP{
+                components.ConnectionTCP{
                     Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
-            Pq: &components.InputTCPPq{
-                PqControls: &components.InputTCPPqControls{},
+            Pq: &components.PqTCP{
+                PqControls: &components.PqControlsTCP{},
             },
             Port: 301.76,
-            TLS: &components.InputTCPTLSSettingsServerSide{
+            TLS: &components.TLSSettingsServerSideTCP{
                 RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
                 CommonNameRegex: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -126,11 +126,11 @@ func main() {
                 Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                MinVersion: components.InputTCPMinimumTLSVersionTlSv1.ToPointer(),
-                MaxVersion: components.InputTCPMaximumTLSVersionTlSv11.ToPointer(),
+                MinVersion: components.MinimumTLSVersionTCPTlSv1.ToPointer(),
+                MaxVersion: components.MaximumTLSVersionTCPTlSv11.ToPointer(),
             },
-            Metadata: []components.InputTCPMetadatum{
-                components.InputTCPMetadatum{
+            Metadata: []components.MetadatumTCP{
+                components.MetadatumTCP{
                     Name: "<value>",
                     Value: "<value>",
                 },
@@ -138,7 +138,7 @@ func main() {
             BreakerRulesets: []string{
                 "<value 1>",
             },
-            Preprocess: &components.InputTCPPreprocess{
+            Preprocess: &components.PreprocessTCP{
                 Command: criblcontrolplanesdkgo.Pointer("<value>"),
                 Args: []string{
                     "<value 1>",
@@ -266,30 +266,30 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeEvents(
         components.InputKubeEvents{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.InputKubeEventsTypeKubeEvents,
+            Type: components.TypeKubeEventsKubeEvents,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
                 "<value 1>",
                 "<value 2>",
             },
-            Connections: []components.InputKubeEventsConnection{
-                components.InputKubeEventsConnection{
+            Connections: []components.ConnectionKubeEvents{
+                components.ConnectionKubeEvents{
                     Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
-            Pq: &components.InputKubeEventsPq{
-                PqControls: &components.InputKubeEventsPqControls{},
+            Pq: &components.PqKubeEvents{
+                PqControls: &components.PqControlsKubeEvents{},
             },
-            Rules: []components.InputKubeEventsRule{
-                components.InputKubeEventsRule{
+            Rules: []components.RuleKubeEvents{
+                components.RuleKubeEvents{
                     Filter: "<value>",
                     Description: criblcontrolplanesdkgo.Pointer("invite meh corny incidentally down"),
                 },
             },
-            Metadata: []components.InputKubeEventsMetadatum{
-                components.InputKubeEventsMetadatum{
+            Metadata: []components.MetadatumKubeEvents{
+                components.MetadatumKubeEvents{
                     Name: "<value>",
                     Value: "<value>",
                 },

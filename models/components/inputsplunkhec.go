@@ -36,17 +36,6 @@ type InputSplunkHecConnection struct {
 	Output   string  `json:"output"`
 }
 
-func (i InputSplunkHecConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (i *InputSplunkHecConnection) GetPipeline() *string {
 	if i == nil {
 		return nil
@@ -90,17 +79,6 @@ func (e InputSplunkHecCompression) ToPointer() *InputSplunkHecCompression {
 }
 
 type InputSplunkHecPqControls struct {
-}
-
-func (i InputSplunkHecPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
 }
 
 type InputSplunkHecPq struct {
@@ -204,17 +182,6 @@ type InputSplunkHecAuthTokenMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
-}
-
-func (i InputSplunkHecAuthTokenMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecAuthTokenMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (i *InputSplunkHecAuthTokenMetadatum) GetName() string {
@@ -445,17 +412,6 @@ type InputSplunkHecMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
-}
-
-func (i InputSplunkHecMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (i *InputSplunkHecMetadatum) GetName() string {
