@@ -1,11 +1,12 @@
 /**
  * On-Prem Authentication Example
  *
- * This example demonstrates the authentication process for an on-prem Cribl
- * instance using username and password credentials.
+ * This example demonstrates how to configure authentication for an on-prem 
+ * Cribl instance using username and password credentials.
  *
- * 1. Authenticate with your username and password to obtain a Bearer token.
- * 2. Create an SDK client that uses the Bearer token for API calls.
+ * 1. Create an SDK client with username and password credentials using the 
+ * BearerAuth security scheme.
+ * 2. Automatically handle token exchange and refresh using a callback function.
  * 3. Validate the connection by checking the server health status and listing
  * all git branches.
  *
@@ -21,10 +22,14 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/apierrors"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
@@ -35,55 +40,119 @@ const (
 	ONPREM_PASSWORD   = "admin"                 // Replace with your password
 )
 
+// Token cache
+var (
+	cachedToken    string
+	tokenExpiresAt time.Time
+)
+
+// getJWTExp extracts the expiration time from a JWT token
+func getJWTExp(token string) (time.Time, error) {
+	parts := strings.Split(token, ".")
+	if len(parts) < 2 {
+		return time.Time{}, fmt.Errorf("invalid JWT token format")
+	}
+
+	// Decode the payload (second part)
+	payloadB64 := parts[1]
+	// Add padding if needed
+	padding := (4 - len(payloadB64)%4) % 4
+	payloadB64 += strings.Repeat("=", padding)
+
+	payload, err := base64.URLEncoding.DecodeString(payloadB64)
+	if err != nil {
+		return time.Time{}, fmt.Errorf("failed to decode JWT payload: %w", err)
+	}
+
+	// Parse the JSON payload
+	var claims map[string]interface{}
+	if err := json.Unmarshal(payload, &claims); err != nil {
+		return time.Time{}, fmt.Errorf("failed to parse JWT payload: %w", err)
+	}
+
+	// Extract the exp field
+	exp, ok := claims["exp"]
+	if !ok {
+		return time.Time{}, fmt.Errorf("token missing 'exp' field")
+	}
+
+	// Convert to int64 (exp is typically a float64 from JSON)
+	expFloat, ok := exp.(float64)
+	if !ok {
+		return time.Time{}, fmt.Errorf("exp field is not a number")
+	}
+
+	return time.Unix(int64(expFloat), 0), nil
+}
+
 func main() {
 	ctx := context.Background()
 	baseURL := fmt.Sprintf("%s/api/v1", ONPREM_SERVER_URL)
 
-	// Retrieve Bearer token for authentication
+	// Create client for retrieving Bearer token
 	tokenClient := criblcontrolplanesdkgo.New(baseURL)
 
-	loginInfo := components.LoginInfo{
-		Username: ONPREM_USERNAME,
-		Password: ONPREM_PASSWORD,
-	}
+	// Create callback function for automatic token refresh
+	securityCallback := func() (components.Security, error) {
+		// Check cache - use token if it's still valid (with 3-second buffer)
+		now := time.Now()
+		if cachedToken != "" && now.Add(3*time.Second).Before(tokenExpiresAt) {
+			return components.Security{
+				BearerAuth: &cachedToken,
+			}, nil
+		}
 
-	response, err := tokenClient.Auth.Tokens.Get(ctx, loginInfo)
-	if err != nil {
-		handleError(err)
-		return
-	}
+		// Retrieve Bearer token initially and refresh automatically when it expires
+		loginInfo := components.LoginInfo{
+			Username: ONPREM_USERNAME,
+			Password: ONPREM_PASSWORD,
+		}
 
-	if response.AuthToken == nil || response.AuthToken.Token == "" {
-		fmt.Println("❌ No token received from authentication response")
-		return
-	}
+		response, err := tokenClient.Auth.Tokens.Get(ctx, loginInfo)
+		if err != nil {
+			return components.Security{}, err
+		}
 
-	token := response.AuthToken.Token
-	fmt.Printf("✅ Authenticated with on-prem server, Token: %s\n", token)
+		if response.AuthToken == nil || response.AuthToken.Token == "" {
+			return components.Security{}, fmt.Errorf("no token received from authentication response")
+		}
+
+		token := response.AuthToken.Token
+		exp, err := getJWTExp(token)
+		if err != nil {
+			return components.Security{}, fmt.Errorf("failed to parse token expiration: %w", err)
+		}
+
+		// Update cache
+		cachedToken = token
+		tokenExpiresAt = exp
+
+		return components.Security{
+			BearerAuth: &token,
+		}, nil
+	}
 
 	// Create authenticated SDK client
 	client := criblcontrolplanesdkgo.New(
 		baseURL,
-		criblcontrolplanesdkgo.WithSecurity(components.Security{
-			BearerAuth: &token,
-		}),
+		criblcontrolplanesdkgo.WithSecurity(securityCallback),
 	)
-	fmt.Println("✅ Cribl SDK client created for on-prem server")
+	fmt.Println("✅ Authenticated SDK client created for on-prem server")
 
 	// Validate connection and list all git branches
-	branchResponse, err := client.Versions.Branches.List(ctx)
+	response, err := client.Versions.Branches.List(ctx)
 	if err != nil {
 		handleError(err)
 		return
 	}
 
-	if branchResponse.Object == nil || branchResponse.Object.Items == nil {
+	if response.Object == nil || response.Object.Items == nil {
 		fmt.Println("⚠️ No branches found")
 		return
 	}
 
 	var branches []string
-	for _, branch := range branchResponse.Object.Items {
+	for _, branch := range response.Object.Items {
 		if branch.ID != "" {
 			branches = append(branches, branch.ID)
 		}
@@ -93,10 +162,22 @@ func main() {
 }
 
 func handleError(err error) {
-	errStr := err.Error()
-	if strings.Contains(errStr, "429") || strings.Contains(errStr, "rate limit") {
-		fmt.Println("⚠️ Uh oh, you've reached the rate limit! Try again in a few seconds.")
-	} else {
-		fmt.Printf("❌ Something went wrong: %v\n", err)
+	// Check if it's an APIError with a status code
+	var apiErr *apierrors.APIError
+	if e, ok := err.(*apierrors.APIError); ok {
+		apiErr = e
 	}
+
+	if apiErr != nil {
+		switch apiErr.StatusCode {
+		case 401:
+			fmt.Println("⚠️ Authentication failed! Check your USERNAME and PASSWORD.")
+			return
+		case 429:
+			fmt.Println("⚠️ Uh oh, you've reached the rate limit! Try again in a few seconds.")
+			return
+		}
+	}
+
+	fmt.Printf("❌ Something went wrong: %v\n", err)
 }
