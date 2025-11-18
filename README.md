@@ -144,7 +144,11 @@ To configure authentication on Cribl.Cloud and in hybrid deployments, use the `C
 
 In on-prem deployments, use the `BearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the authentication example.
 
-Set the security scheme through the `WithSecurity` optional parameter when initializing the SDK client instance. The SDK uses the selected scheme by default to authenticate with the API for all operations that support it, as shown in the [SDK Example Usage](#sdk-example-usage) code example.
+Set the security scheme when initializing the SDK client instance using one of these optional parameters:
+- `WithSecurity`: Use for static security values (OAuth2 credentials that the SDK will manage automatically)
+- `WithSecuritySource`: Use for dynamic security with a callback function (automatic Bearer token refresh in on-prem deployments)
+
+The SDK uses the selected scheme by default to authenticate with the API for all operations that support it, as shown in the [SDK Example Usage](#sdk-example-usage) code example, which uses the `WithSecurity` parameter.
 
 ### Authentication Examples
 

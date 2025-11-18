@@ -93,7 +93,7 @@ func main() {
 	tokenClient := criblcontrolplanesdkgo.New(baseURL)
 
 	// Create callback function for automatic token refresh
-	securityCallback := func() (components.Security, error) {
+	securityCallback := func(ctx context.Context) (components.Security, error) {
 		// Check cache - use token if it's still valid (with 3-second buffer)
 		now := time.Now()
 		if cachedToken != "" && now.Add(3*time.Second).Before(tokenExpiresAt) {
@@ -135,7 +135,7 @@ func main() {
 	// Create authenticated SDK client
 	client := criblcontrolplanesdkgo.New(
 		baseURL,
-		criblcontrolplanesdkgo.WithSecurity(securityCallback),
+		criblcontrolplanesdkgo.WithSecuritySource(securityCallback),
 	)
 	fmt.Println("✅ Authenticated SDK client created for on-prem server")
 
