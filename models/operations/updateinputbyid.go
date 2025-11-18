@@ -51,8 +51,8 @@ func (u *UpdateInputByIDRequest) GetInputSplunkSearch() *components.InputSplunkS
 	return u.GetInput().InputSplunkSearch
 }
 
-func (u *UpdateInputByIDRequest) GetInputSplunkHec() *components.InputSplunkHec {
-	return u.GetInput().InputSplunkHec
+func (u *UpdateInputByIDRequest) GetInputSplunkHec() *components.InputInputSplunkHec {
+	return u.GetInput().InputInputSplunkHec
 }
 
 func (u *UpdateInputByIDRequest) GetInputAzureBlob() *components.InputAzureBlob {

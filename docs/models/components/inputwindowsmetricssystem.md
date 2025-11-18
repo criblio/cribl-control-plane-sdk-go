@@ -1,9 +1,0 @@
-# InputWindowsMetricsSystem
-
-
-## Fields
-
-| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
-| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `Mode`                                                                                                | [*components.InputWindowsMetricsSystemMode](../../models/components/inputwindowsmetricssystemmode.md) | :heavy_minus_sign:                                                                                    | Select the level of details for system metrics                                                        |
-| `Detail`                                                                                              | **bool*                                                                                               | :heavy_minus_sign:                                                                                    | Generate metrics for all system information                                                           |

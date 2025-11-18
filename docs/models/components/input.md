@@ -39,10 +39,10 @@ input := components.CreateInputSplunk(components.InputSplunk{/* values here */})
 input := components.CreateInputSplunkSearch(components.InputSplunkSearch{/* values here */})
 ```
 
-### InputSplunkHec
+### InputInputSplunkHec
 
 ```go
-input := components.CreateInputSplunkHec(components.InputSplunkHec{/* values here */})
+input := components.CreateInputSplunkHec(components.InputInputSplunkHec{/* values here */})
 ```
 
 ### InputAzureBlob
