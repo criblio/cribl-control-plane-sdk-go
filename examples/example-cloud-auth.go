@@ -1,23 +1,22 @@
 /**
- * Cribl.Cloud Authentication Example
+ * Cribl.Cloud and Hybrid Authentication Example
  *
- * This example demonstrates the Cribl.Cloud authentication process using
- * OAuth2 credentials.
+ * This example demonstrates how to configure authentication on Cribl.Cloud
+ * and in hybrid deployments using OAuth2 credentials.
  *
- * 1. Create an SDK client with OAuth2 client credentials.
+ * 1. Create an SDK client with OAuth2 client credentials using the 
+ * ClientOauth security scheme.
  * 2. Automatically handle token exchange and refresh.
- * 3. Validate the connection by checking the server health status and listing
- * all git branches.
+ * 3. Validate the connection by listing all git branches.
  *
  * Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID,
  * CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and
- * Secret, and Workspace name. To get your CLIENT_ID and CLIENT_SECRET values,
- * follow the steps at
- * https://docs.cribl.io/cribl-as-code/authentication/#cloud-auth.
+ * Secret, and Workspace name. To get your Client ID and Secret, follow the 
+ * steps at https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud. 
  * Your Client ID and Secret are sensitive information and should be kept private.
  *
- * NOTE: This example is for Cribl.Cloud deployments only. It does not require
- * .env file configuration.
+ * NOTE: This example is for Cribl.Cloud and hybrid deployments only. 
+ * It does not require .env file configuration.
  */
 
 package main
@@ -31,11 +30,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// Cribl.Cloud configuration: Replace the placeholder values
+// Cribl.Cloud and hybrid configuration: Replace the placeholder values
 const (
-	ORG_ID         = "your-org-id"        // Replace with your Organization ID
 	CLIENT_ID      = "your-client-id"     // Replace with your OAuth2 Client ID
 	CLIENT_SECRET  = "your-client-secret" // Replace with your OAuth2 Client Secret
+	ORG_ID         = "your-org-id"        // Replace with your Organization ID
 	WORKSPACE_NAME = "main"               // Replace with your Workspace name
 )
 
