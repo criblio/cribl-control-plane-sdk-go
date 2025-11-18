@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: d4b65932284f6c53ee9309e16f8ba11b
+  docChecksum: d6203a7fcdec2e7028416eacc5329885
   docVersion: 4.16.0-alpha.1763470649884-7b409591
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-rc.6
-  configChecksum: 48f1d543c5c76901e7426bdf27e50c0a
+  releaseVersion: 0.3.0-rc.7
+  configChecksum: b187e066a80bbbee30aee52c32f9d172
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -109,6 +109,7 @@ generatedFiles:
   - /models/components/heartbeatmetadata.go
   - /models/components/httpmetadata.go
   - /models/components/input.go
+  - /models/components/inputhttp.go
   - /models/components/inputsplunkhec.go
   - /models/components/jobinfo.go
   - /models/components/jobstatus.go
@@ -293,10 +294,8 @@ generatedFiles:
   - docs/models/components/authtokenmetadatumsplunkhec.md
   - docs/models/components/authtokenmetadatumzscalerhec.md
   - docs/models/components/authtokensextcribllakehttp.md
-  - docs/models/components/authtokensexthttp.md
   - docs/models/components/authtokensexthttpraw.md
   - docs/models/components/authtokensextmetadatumcribllakehttp.md
-  - docs/models/components/authtokensextmetadatumhttp.md
   - docs/models/components/authtokensextmetadatumhttpraw.md
   - docs/models/components/authtokensextmetadatumwizwebhook.md
   - docs/models/components/authtokensextwizwebhook.md
@@ -429,7 +428,6 @@ generatedFiles:
   - docs/models/components/compressiongooglecloudstorage.md
   - docs/models/components/compressiongraphite.md
   - docs/models/components/compressionhoneycomb.md
-  - docs/models/components/compressionhttp.md
   - docs/models/components/compressionhttpraw.md
   - docs/models/components/compressionhumiohec.md
   - docs/models/components/compressioninfluxdb.md
@@ -507,7 +505,6 @@ generatedFiles:
   - docs/models/components/connectioneventhub.md
   - docs/models/components/connectionfirehose.md
   - docs/models/components/connectiongooglepubsub.md
-  - docs/models/components/connectionhttp.md
   - docs/models/components/connectionhttpraw.md
   - docs/models/components/connectionkafka.md
   - docs/models/components/connectionkinesis.md
@@ -877,7 +874,19 @@ generatedFiles:
   - docs/models/components/inputgrafanatype1.md
   - docs/models/components/inputgrafanatype2.md
   - docs/models/components/inputhttp.md
+  - docs/models/components/inputhttpauthtokensext.md
+  - docs/models/components/inputhttpauthtokensextmetadatum.md
+  - docs/models/components/inputhttpcompression.md
+  - docs/models/components/inputhttpconnection.md
+  - docs/models/components/inputhttpmaximumtlsversion.md
+  - docs/models/components/inputhttpmetadatum.md
+  - docs/models/components/inputhttpminimumtlsversion.md
+  - docs/models/components/inputhttpmode.md
+  - docs/models/components/inputhttppq.md
+  - docs/models/components/inputhttppqcontrols.md
   - docs/models/components/inputhttpraw.md
+  - docs/models/components/inputhttptlssettingsserverside.md
+  - docs/models/components/inputhttptype.md
   - docs/models/components/inputinputsplunkhec.md
   - docs/models/components/inputjournalfiles.md
   - docs/models/components/inputjournalfilescompression.md
@@ -1099,7 +1108,6 @@ generatedFiles:
   - docs/models/components/maximumtlsversiondatadogagent.md
   - docs/models/components/maximumtlsversionelastic.md
   - docs/models/components/maximumtlsversionfirehose.md
-  - docs/models/components/maximumtlsversionhttp.md
   - docs/models/components/maximumtlsversionhttpraw.md
   - docs/models/components/maximumtlsversionloki.md
   - docs/models/components/maximumtlsversionmetrics.md
@@ -1139,7 +1147,6 @@ generatedFiles:
   - docs/models/components/metadatumeventhub.md
   - docs/models/components/metadatumfirehose.md
   - docs/models/components/metadatumgooglepubsub.md
-  - docs/models/components/metadatumhttp.md
   - docs/models/components/metadatumhttpraw.md
   - docs/models/components/metadatumkafka.md
   - docs/models/components/metadatumkinesis.md
@@ -1190,7 +1197,6 @@ generatedFiles:
   - docs/models/components/minimumtlsversiondatadogagent.md
   - docs/models/components/minimumtlsversionelastic.md
   - docs/models/components/minimumtlsversionfirehose.md
-  - docs/models/components/minimumtlsversionhttp.md
   - docs/models/components/minimumtlsversionhttpraw.md
   - docs/models/components/minimumtlsversionloki.md
   - docs/models/components/minimumtlsversionmetrics.md
@@ -1233,7 +1239,6 @@ generatedFiles:
   - docs/models/components/modegooglecloudlogging.md
   - docs/models/components/modegraphite.md
   - docs/models/components/modehoneycomb.md
-  - docs/models/components/modehttp.md
   - docs/models/components/modehttpraw.md
   - docs/models/components/modehumiohec.md
   - docs/models/components/modeinfluxdb.md
@@ -1671,7 +1676,6 @@ generatedFiles:
   - docs/models/components/pqcontrolsgooglecloudlogging.md
   - docs/models/components/pqcontrolsgraphite.md
   - docs/models/components/pqcontrolshoneycomb.md
-  - docs/models/components/pqcontrolshttp.md
   - docs/models/components/pqcontrolshttpraw.md
   - docs/models/components/pqcontrolshumiohec.md
   - docs/models/components/pqcontrolsinfluxdb.md
@@ -1729,7 +1733,6 @@ generatedFiles:
   - docs/models/components/pqeventhub.md
   - docs/models/components/pqfirehose.md
   - docs/models/components/pqgooglepubsub.md
-  - docs/models/components/pqhttp.md
   - docs/models/components/pqhttpraw.md
   - docs/models/components/pqkafka.md
   - docs/models/components/pqkinesis.md
@@ -2077,7 +2080,6 @@ generatedFiles:
   - docs/models/components/tlssettingsserversidedatadogagent.md
   - docs/models/components/tlssettingsserversideelastic.md
   - docs/models/components/tlssettingsserversidefirehose.md
-  - docs/models/components/tlssettingsserversidehttp.md
   - docs/models/components/tlssettingsserversidehttpraw.md
   - docs/models/components/tlssettingsserversideloki.md
   - docs/models/components/tlssettingsserversidemetrics.md
@@ -2130,7 +2132,6 @@ generatedFiles:
   - docs/models/components/typegooglecloudstorage.md
   - docs/models/components/typegraphite.md
   - docs/models/components/typehoneycomb.md
-  - docs/models/components/typehttp.md
   - docs/models/components/typehttpraw.md
   - docs/models/components/typehumiohec.md
   - docs/models/components/typeinfluxdb.md
@@ -3426,4 +3427,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Samples.Create()`: \n  *  `request.OutputTestRequest.Events.[].AdditionalProperties` **Removed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Diff()`:  `response.Items.[].DiffJson.[].Blocks.[].Lines.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Get()`:  `response.Items.[].DiffJson.[].Blocks.[].Lines.[]` **Changed**\n"
