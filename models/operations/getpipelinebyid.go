@@ -18,31 +18,10 @@ func (g *GetPipelineByIDRequest) GetID() string {
 	return g.ID
 }
 
-// GetPipelineByIDResponseBody - a list of Pipeline objects
-type GetPipelineByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                `json:"count,omitempty"`
-	Items []components.Pipeline `json:"items,omitempty"`
-}
-
-func (g *GetPipelineByIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetPipelineByIDResponseBody) GetItems() []components.Pipeline {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetPipelineByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Pipeline objects
-	Object *GetPipelineByIDResponseBody
+	CountedPipeline *components.CountedPipeline
 }
 
 func (g *GetPipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (g *GetPipelineByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetPipelineByIDResponse) GetObject() *GetPipelineByIDResponseBody {
+func (g *GetPipelineByIDResponse) GetCountedPipeline() *components.CountedPipeline {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedPipeline
 }

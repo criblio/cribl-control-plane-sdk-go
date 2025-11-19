@@ -61,6 +61,7 @@ type ConfigGroupType string
 
 const (
 	ConfigGroupTypeLakeAccess ConfigGroupType = "lake_access"
+	ConfigGroupTypeRiptide    ConfigGroupType = "riptide"
 )
 
 func (e ConfigGroupType) ToPointer() *ConfigGroupType {

@@ -233,10 +233,12 @@ func (i *InputSplunkHecAuthTokenMetadatum) GetValue() string {
 
 type InputSplunkHecAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *InputSplunkHecAuthenticationMethod `default:"manual" json:"authType"`
-	TokenSecret any                                 `json:"tokenSecret,omitempty"`
-	Token       any                                 `json:"token"`
-	Enabled     *bool                               `default:"true" json:"enabled"`
+	AuthType *InputSplunkHecAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token   string `json:"token"`
+	Enabled *bool  `default:"true" json:"enabled"`
 	// Optional token description
 	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -263,16 +265,16 @@ func (i *InputSplunkHecAuthToken) GetAuthType() *InputSplunkHecAuthenticationMet
 	return i.AuthType
 }
 
-func (i *InputSplunkHecAuthToken) GetTokenSecret() any {
+func (i *InputSplunkHecAuthToken) GetTokenSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenSecret
 }
 
-func (i *InputSplunkHecAuthToken) GetToken() any {
+func (i *InputSplunkHecAuthToken) GetToken() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Token
 }
