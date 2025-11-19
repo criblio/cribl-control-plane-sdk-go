@@ -5,8 +5,8 @@ management:
   docVersion: 4.16.0-alpha.1763546908276-fb594515
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-rc.9
-  configChecksum: 8b880cd78bae51c7c864daf1087830b5
+  releaseVersion: 0.3.0-rc.10
+  configChecksum: eaf842b619655f73242178b97bbb92c9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3543,4 +3543,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n"
