@@ -27,31 +27,10 @@ func (d *DeleteConfigGroupByProductAndIDRequest) GetID() string {
 	return d.ID
 }
 
-// DeleteConfigGroupByProductAndIDResponseBody - a list of ConfigGroup objects
-type DeleteConfigGroupByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                   `json:"count,omitempty"`
-	Items []components.ConfigGroup `json:"items,omitempty"`
-}
-
-func (d *DeleteConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
-	if d == nil {
-		return nil
-	}
-	return d.Count
-}
-
-func (d *DeleteConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if d == nil {
-		return nil
-	}
-	return d.Items
-}
-
 type DeleteConfigGroupByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
-	Object *DeleteConfigGroupByProductAndIDResponseBody
+	CountedConfigGroup *components.CountedConfigGroup
 }
 
 func (d *DeleteConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (d *DeleteConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPM
 	return d.HTTPMeta
 }
 
-func (d *DeleteConfigGroupByProductAndIDResponse) GetObject() *DeleteConfigGroupByProductAndIDResponseBody {
+func (d *DeleteConfigGroupByProductAndIDResponse) GetCountedConfigGroup() *components.CountedConfigGroup {
 	if d == nil {
 		return nil
 	}
-	return d.Object
+	return d.CountedConfigGroup
 }

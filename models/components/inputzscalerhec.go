@@ -233,11 +233,13 @@ func (i *InputZscalerHecAuthTokenMetadatum) GetValue() string {
 
 type InputZscalerHecAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *InputZscalerHecAuthenticationMethod `default:"manual" json:"authType"`
-	TokenSecret any                                  `json:"tokenSecret,omitempty"`
-	Token       any                                  `json:"token"`
-	Enabled     *bool                                `default:"true" json:"enabled"`
-	Description *string                              `json:"description,omitempty"`
+	AuthType *InputZscalerHecAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       string  `json:"token"`
+	Enabled     *bool   `default:"true" json:"enabled"`
+	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
@@ -262,16 +264,16 @@ func (i *InputZscalerHecAuthToken) GetAuthType() *InputZscalerHecAuthenticationM
 	return i.AuthType
 }
 
-func (i *InputZscalerHecAuthToken) GetTokenSecret() any {
+func (i *InputZscalerHecAuthToken) GetTokenSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenSecret
 }
 
-func (i *InputZscalerHecAuthToken) GetToken() any {
+func (i *InputZscalerHecAuthToken) GetToken() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Token
 }
