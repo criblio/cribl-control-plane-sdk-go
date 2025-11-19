@@ -62,21 +62,21 @@ func (e DistMode) ToPointer() *DistMode {
 }
 
 type HBCriblInfo struct {
-	Config            Config          `json:"config"`
-	DeploymentID      *string         `json:"deploymentId,omitempty"`
-	DisableSNIRouting *bool           `json:"disableSNIRouting,omitempty"`
-	DistMode          DistMode        `json:"distMode"`
-	EdgeNodes         *float64        `json:"edgeNodes,omitempty"`
-	Group             string          `json:"group"`
-	GUID              string          `json:"guid"`
-	InstallType       *string         `json:"installType,omitempty"`
-	LookupVersions    *LookupVersions `json:"lookupVersions,omitempty"`
-	Master            *HBLeaderInfo   `json:"master,omitempty"`
-	Pid               *float64        `json:"pid,omitempty"`
-	SocksEnabled      *bool           `json:"socksEnabled,omitempty"`
-	StartTime         float64         `json:"startTime"`
-	Tags              []string        `json:"tags"`
-	Version           *string         `json:"version,omitempty"`
+	Config            Config                       `json:"config"`
+	DeploymentID      *string                      `json:"deploymentId,omitempty"`
+	DisableSNIRouting *bool                        `json:"disableSNIRouting,omitempty"`
+	DistMode          DistMode                     `json:"distMode"`
+	EdgeNodes         *float64                     `json:"edgeNodes,omitempty"`
+	Group             string                       `json:"group"`
+	GUID              string                       `json:"guid"`
+	InstallType       *string                      `json:"installType,omitempty"`
+	LookupVersions    map[string]map[string]string `json:"lookupVersions,omitempty"`
+	Master            *HBLeaderInfo                `json:"master,omitempty"`
+	Pid               *float64                     `json:"pid,omitempty"`
+	SocksEnabled      *bool                        `json:"socksEnabled,omitempty"`
+	StartTime         float64                      `json:"startTime"`
+	Tags              []string                     `json:"tags"`
+	Version           *string                      `json:"version,omitempty"`
 }
 
 func (h *HBCriblInfo) GetConfig() Config {
@@ -135,7 +135,7 @@ func (h *HBCriblInfo) GetInstallType() *string {
 	return h.InstallType
 }
 
-func (h *HBCriblInfo) GetLookupVersions() *LookupVersions {
+func (h *HBCriblInfo) GetLookupVersions() map[string]map[string]string {
 	if h == nil {
 		return nil
 	}

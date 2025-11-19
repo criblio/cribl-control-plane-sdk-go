@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: ae8c55091e5afdc7ade0ebab9dd4727b
-  docVersion: 4.15.0-f275b803
+  docChecksum: cd3529b733b18b2e3863dc83231059c8
+  docVersion: 4.16.0-alpha.1763546908276-fb594515
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0
-  configChecksum: 49d9bb2c95a4ce7baf7ad9f414c9d00d
+  releaseVersion: 0.4.0-rc.1
+  configChecksum: 47bfeb5b09e9fe387ac30ffe99087652
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -51,6 +51,35 @@ generatedFiles:
   - /models/components/configgroup.go
   - /models/components/configgroupcloud.go
   - /models/components/configgrouplookups.go
+  - /models/components/countedbranchinfo.go
+  - /models/components/countedconfiggroup.go
+  - /models/components/countedcribllakedataset.go
+  - /models/components/counteddistributedsummary.go
+  - /models/components/countedgitcommitsummary.go
+  - /models/components/countedgitcountresult.go
+  - /models/components/countedgitdiffresult.go
+  - /models/components/countedgitfilesresponse.go
+  - /models/components/countedgitinfo.go
+  - /models/components/countedgitlogresult.go
+  - /models/components/countedgitrevertresult.go
+  - /models/components/countedgitshowresult.go
+  - /models/components/countedgitstatusresult.go
+  - /models/components/countedinput.go
+  - /models/components/countedinputsplunkhec.go
+  - /models/components/countedjobinfo.go
+  - /models/components/countedmasterworkerentry.go
+  - /models/components/countednumber.go
+  - /models/components/countedobject.go
+  - /models/components/countedoutput.go
+  - /models/components/countedoutputsamplesresponse.go
+  - /models/components/countedoutputtestresponse.go
+  - /models/components/countedpackinfo.go
+  - /models/components/countedpackinstallinfo.go
+  - /models/components/countedpipeline.go
+  - /models/components/countedroutes.go
+  - /models/components/countedstring.go
+  - /models/components/countedteamaccesscontrollist.go
+  - /models/components/counteduseraccesscontrollist.go
   - /models/components/criblevent.go
   - /models/components/cribllakedataset.go
   - /models/components/cribllakedatasetupdate.go
@@ -146,7 +175,6 @@ generatedFiles:
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
   - /models/components/logininfo.go
-  - /models/components/lookupversions.go
   - /models/components/masterworkerentry.go
   - /models/components/nodeactiveupgradestatus.go
   - /models/components/nodefailedupgradestatus.go
@@ -360,6 +388,35 @@ generatedFiles:
   - docs/models/components/configgrouptype.md
   - docs/models/components/container.md
   - docs/models/components/containermode.md
+  - docs/models/components/countedbranchinfo.md
+  - docs/models/components/countedconfiggroup.md
+  - docs/models/components/countedcribllakedataset.md
+  - docs/models/components/counteddistributedsummary.md
+  - docs/models/components/countedgitcommitsummary.md
+  - docs/models/components/countedgitcountresult.md
+  - docs/models/components/countedgitdiffresult.md
+  - docs/models/components/countedgitfilesresponse.md
+  - docs/models/components/countedgitinfo.md
+  - docs/models/components/countedgitlogresult.md
+  - docs/models/components/countedgitrevertresult.md
+  - docs/models/components/countedgitshowresult.md
+  - docs/models/components/countedgitstatusresult.md
+  - docs/models/components/countedinput.md
+  - docs/models/components/countedinputsplunkhec.md
+  - docs/models/components/countedjobinfo.md
+  - docs/models/components/countedmasterworkerentry.md
+  - docs/models/components/countednumber.md
+  - docs/models/components/countedobject.md
+  - docs/models/components/countedoutput.md
+  - docs/models/components/countedoutputsamplesresponse.md
+  - docs/models/components/countedoutputtestresponse.md
+  - docs/models/components/countedpackinfo.md
+  - docs/models/components/countedpackinstallinfo.md
+  - docs/models/components/countedpipeline.md
+  - docs/models/components/countedroutes.md
+  - docs/models/components/countedstring.md
+  - docs/models/components/countedteamaccesscontrollist.md
+  - docs/models/components/counteduseraccesscontrollist.md
   - docs/models/components/criblevent.md
   - docs/models/components/cribllakedataset.md
   - docs/models/components/cribllakedatasetformat.md
@@ -424,7 +481,6 @@ generatedFiles:
   - docs/models/components/heartbeatmetadatakube.md
   - docs/models/components/heartbeatmetadataos.md
   - docs/models/components/heartbeatmetadataowner.md
-  - docs/models/components/heartbeatmetadatatags.md
   - docs/models/components/hostinfo.md
   - docs/models/components/hostsfile.md
   - docs/models/components/httpmetadata.md
@@ -1192,6 +1248,7 @@ generatedFiles:
   - docs/models/components/inputwizcompression.md
   - docs/models/components/inputwizconnection.md
   - docs/models/components/inputwizcontentconfig.md
+  - docs/models/components/inputwizloglevel.md
   - docs/models/components/inputwizmetadatum.md
   - docs/models/components/inputwizmode.md
   - docs/models/components/inputwizpq.md
@@ -1232,7 +1289,6 @@ generatedFiles:
   - docs/models/components/lakedatasetmetrics.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
-  - docs/models/components/lastmetrics.md
   - docs/models/components/line1.md
   - docs/models/components/line2.md
   - docs/models/components/line3.md
@@ -1246,7 +1302,7 @@ generatedFiles:
   - docs/models/components/lokiauthoauthheader2.md
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
-  - docs/models/components/lookupversions.md
+  - docs/models/components/managestate.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
@@ -1262,7 +1318,6 @@ generatedFiles:
   - docs/models/components/nodeprovidedinfoos1.md
   - docs/models/components/nodeprovidedinfoos2.md
   - docs/models/components/nodeprovidedinfoowner.md
-  - docs/models/components/nodeprovidedinfotags.md
   - docs/models/components/nodeskippedupgradestatus.md
   - docs/models/components/nodeupgradestate.md
   - docs/models/components/nodeupgradestatus.md
@@ -2161,11 +2216,13 @@ generatedFiles:
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
   - docs/models/components/prefixoptional.md
+  - docs/models/components/privacyprotocol.md
   - docs/models/components/productscore.md
   - docs/models/components/prometheusauthoauthheader1.md
   - docs/models/components/prometheusauthoauthheader2.md
   - docs/models/components/prometheusauthoauthparam1.md
   - docs/models/components/prometheusauthoauthparam2.md
+  - docs/models/components/query.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
@@ -2251,175 +2308,116 @@ generatedFiles:
   - docs/models/operations/createauthloginresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
-  - docs/models/operations/createconfiggroupbyproductresponsebody.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
   - docs/models/operations/createcribllakedatasetbylakeidresponse.md
-  - docs/models/operations/createcribllakedatasetbylakeidresponsebody.md
   - docs/models/operations/createinputhectokenbyidrequest.md
   - docs/models/operations/createinputhectokenbyidresponse.md
-  - docs/models/operations/createinputhectokenbyidresponsebody.md
   - docs/models/operations/createinputresponse.md
-  - docs/models/operations/createinputresponsebody.md
   - docs/models/operations/createoutputresponse.md
-  - docs/models/operations/createoutputresponsebody.md
   - docs/models/operations/createoutputtestbyidrequest.md
   - docs/models/operations/createoutputtestbyidresponse.md
-  - docs/models/operations/createoutputtestbyidresponsebody.md
   - docs/models/operations/createpacksresponse.md
-  - docs/models/operations/createpacksresponsebody.md
   - docs/models/operations/createpipelineresponse.md
-  - docs/models/operations/createpipelineresponsebody.md
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
-  - docs/models/operations/createroutesappendbyidresponsebody.md
   - docs/models/operations/createversioncommitrequest.md
   - docs/models/operations/createversioncommitresponse.md
-  - docs/models/operations/createversioncommitresponsebody.md
   - docs/models/operations/createversionpushresponse.md
-  - docs/models/operations/createversionpushresponsebody.md
   - docs/models/operations/createversionrevertrequest.md
   - docs/models/operations/createversionrevertresponse.md
-  - docs/models/operations/createversionrevertresponsebody.md
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
-  - docs/models/operations/createversionundoresponsebody.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
-  - docs/models/operations/deleteconfiggroupbyproductandidresponsebody.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidresponse.md
-  - docs/models/operations/deletecribllakedatasetbylakeidandidresponsebody.md
   - docs/models/operations/deleteinputbyidrequest.md
   - docs/models/operations/deleteinputbyidresponse.md
-  - docs/models/operations/deleteinputbyidresponsebody.md
   - docs/models/operations/deleteoutputbyidrequest.md
   - docs/models/operations/deleteoutputbyidresponse.md
-  - docs/models/operations/deleteoutputbyidresponsebody.md
   - docs/models/operations/deleteoutputpqbyidrequest.md
   - docs/models/operations/deleteoutputpqbyidresponse.md
-  - docs/models/operations/deleteoutputpqbyidresponsebody.md
   - docs/models/operations/deletepacksbyidrequest.md
   - docs/models/operations/deletepacksbyidresponse.md
-  - docs/models/operations/deletepacksbyidresponsebody.md
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
-  - docs/models/operations/deletepipelinebyidresponsebody.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupaclbyproductandidresponsebody.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupaclteamsbyproductandidresponsebody.md
   - docs/models/operations/getconfiggroupbyproductandidrequest.md
   - docs/models/operations/getconfiggroupbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupbyproductandidresponsebody.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidrequest.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupconfigversionbyproductandidresponsebody.md
   - docs/models/operations/getcribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidandidresponse.md
-  - docs/models/operations/getcribllakedatasetbylakeidandidresponsebody.md
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidresponse.md
-  - docs/models/operations/getcribllakedatasetbylakeidresponsebody.md
   - docs/models/operations/gethealthresponse.md
   - docs/models/operations/getinputbyidrequest.md
   - docs/models/operations/getinputbyidresponse.md
-  - docs/models/operations/getinputbyidresponsebody.md
   - docs/models/operations/getmasterworkerentryrequest.md
   - docs/models/operations/getmasterworkerentryresponse.md
-  - docs/models/operations/getmasterworkerentryresponsebody.md
   - docs/models/operations/getoutputbyidrequest.md
   - docs/models/operations/getoutputbyidresponse.md
-  - docs/models/operations/getoutputbyidresponsebody.md
   - docs/models/operations/getoutputpqbyidrequest.md
   - docs/models/operations/getoutputpqbyidresponse.md
-  - docs/models/operations/getoutputpqbyidresponsebody.md
   - docs/models/operations/getoutputsamplesbyidrequest.md
   - docs/models/operations/getoutputsamplesbyidresponse.md
-  - docs/models/operations/getoutputsamplesbyidresponsebody.md
   - docs/models/operations/getpacksbyidrequest.md
   - docs/models/operations/getpacksbyidresponse.md
-  - docs/models/operations/getpacksbyidresponsebody.md
   - docs/models/operations/getpacksrequest.md
   - docs/models/operations/getpacksresponse.md
-  - docs/models/operations/getpacksresponsebody.md
   - docs/models/operations/getpipelinebyidrequest.md
   - docs/models/operations/getpipelinebyidresponse.md
-  - docs/models/operations/getpipelinebyidresponsebody.md
   - docs/models/operations/getroutesbyidrequest.md
   - docs/models/operations/getroutesbyidresponse.md
-  - docs/models/operations/getroutesbyidresponsebody.md
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
-  - docs/models/operations/getsummaryresponsebody.md
   - docs/models/operations/getversionbranchresponse.md
-  - docs/models/operations/getversionbranchresponsebody.md
   - docs/models/operations/getversioncountrequest.md
   - docs/models/operations/getversioncountresponse.md
-  - docs/models/operations/getversioncountresponsebody.md
   - docs/models/operations/getversioncurrentbranchresponse.md
   - docs/models/operations/getversiondiffrequest.md
   - docs/models/operations/getversiondiffresponse.md
-  - docs/models/operations/getversiondiffresponsebody.md
   - docs/models/operations/getversionfilesrequest.md
   - docs/models/operations/getversionfilesresponse.md
-  - docs/models/operations/getversionfilesresponsebody.md
   - docs/models/operations/getversioninforesponse.md
-  - docs/models/operations/getversioninforesponsebody.md
   - docs/models/operations/getversionrequest.md
   - docs/models/operations/getversionresponse.md
-  - docs/models/operations/getversionresponsebody.md
   - docs/models/operations/getversionshowrequest.md
   - docs/models/operations/getversionshowresponse.md
-  - docs/models/operations/getversionshowresponsebody.md
   - docs/models/operations/getversionstatusrequest.md
   - docs/models/operations/getversionstatusresponse.md
-  - docs/models/operations/getversionstatusresponsebody.md
   - docs/models/operations/listconfiggroupbyproductrequest.md
   - docs/models/operations/listconfiggroupbyproductresponse.md
-  - docs/models/operations/listconfiggroupbyproductresponsebody.md
   - docs/models/operations/listinputresponse.md
-  - docs/models/operations/listinputresponsebody.md
   - docs/models/operations/listmasterworkerentryrequest.md
   - docs/models/operations/listmasterworkerentryresponse.md
-  - docs/models/operations/listmasterworkerentryresponsebody.md
   - docs/models/operations/listoutputresponse.md
-  - docs/models/operations/listoutputresponsebody.md
   - docs/models/operations/listpipelineresponse.md
-  - docs/models/operations/listpipelineresponsebody.md
   - docs/models/operations/listroutesresponse.md
-  - docs/models/operations/listroutesresponsebody.md
   - docs/models/operations/option.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
-  - docs/models/operations/updateconfiggroupbyproductandidresponsebody.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidresponse.md
-  - docs/models/operations/updateconfiggroupdeploybyproductandidresponsebody.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidrequest.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidresponse.md
-  - docs/models/operations/updatecribllakedatasetbylakeidandidresponsebody.md
   - docs/models/operations/updateinputbyidrequest.md
   - docs/models/operations/updateinputbyidresponse.md
-  - docs/models/operations/updateinputbyidresponsebody.md
   - docs/models/operations/updateinputhectokenbyidandtokenrequest.md
   - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
-  - docs/models/operations/updateinputhectokenbyidandtokenresponsebody.md
   - docs/models/operations/updateoutputbyidrequest.md
   - docs/models/operations/updateoutputbyidresponse.md
-  - docs/models/operations/updateoutputbyidresponsebody.md
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
-  - docs/models/operations/updatepacksbyidresponsebody.md
   - docs/models/operations/updatepacksrequest.md
   - docs/models/operations/updatepacksresponse.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
-  - docs/models/operations/updatepipelinebyidresponsebody.md
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
-  - docs/models/operations/updateroutesbyidresponsebody.md
   - docs/sdks/acl/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
@@ -3545,3 +3543,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n"

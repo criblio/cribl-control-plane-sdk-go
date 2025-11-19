@@ -40,7 +40,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutputSamplesResponse != nil {
         // handle response
     }
 }
@@ -103,7 +103,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutputTestResponse != nil {
         // handle response
     }
 }
