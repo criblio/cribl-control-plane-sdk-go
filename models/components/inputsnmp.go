@@ -211,11 +211,31 @@ func (e AuthenticationProtocol) ToPointer() *AuthenticationProtocol {
 	return &e
 }
 
+type PrivacyProtocol string
+
+const (
+	// PrivacyProtocolNone None
+	PrivacyProtocolNone PrivacyProtocol = "none"
+	// PrivacyProtocolDes DES
+	PrivacyProtocolDes PrivacyProtocol = "des"
+	// PrivacyProtocolAes AES128
+	PrivacyProtocolAes PrivacyProtocol = "aes"
+	// PrivacyProtocolAes256b AES256b (Blumenthal)
+	PrivacyProtocolAes256b PrivacyProtocol = "aes256b"
+	// PrivacyProtocolAes256r AES256r (Reeder)
+	PrivacyProtocolAes256r PrivacyProtocol = "aes256r"
+)
+
+func (e PrivacyProtocol) ToPointer() *PrivacyProtocol {
+	return &e
+}
+
 type V3User struct {
 	Name         string                  `json:"name"`
 	AuthProtocol *AuthenticationProtocol `default:"none" json:"authProtocol"`
-	AuthKey      any                     `json:"authKey,omitempty"`
-	PrivProtocol *string                 `default:"none" json:"privProtocol"`
+	AuthKey      *string                 `json:"authKey,omitempty"`
+	PrivProtocol *PrivacyProtocol        `default:"none" json:"privProtocol"`
+	PrivKey      *string                 `json:"privKey,omitempty"`
 }
 
 func (v V3User) MarshalJSON() ([]byte, error) {
@@ -243,18 +263,25 @@ func (v *V3User) GetAuthProtocol() *AuthenticationProtocol {
 	return v.AuthProtocol
 }
 
-func (v *V3User) GetAuthKey() any {
+func (v *V3User) GetAuthKey() *string {
 	if v == nil {
 		return nil
 	}
 	return v.AuthKey
 }
 
-func (v *V3User) GetPrivProtocol() *string {
+func (v *V3User) GetPrivProtocol() *PrivacyProtocol {
 	if v == nil {
 		return nil
 	}
 	return v.PrivProtocol
+}
+
+func (v *V3User) GetPrivKey() *string {
+	if v == nil {
+		return nil
+	}
+	return v.PrivKey
 }
 
 // SNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.

@@ -6,31 +6,10 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-// CreatePacksResponseBody - a list of PackInstallInfo objects
-type CreatePacksResponseBody struct {
-	// number of items present in the items array
-	Count *int64                       `json:"count,omitempty"`
-	Items []components.PackInstallInfo `json:"items,omitempty"`
-}
-
-func (c *CreatePacksResponseBody) GetCount() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.Count
-}
-
-func (c *CreatePacksResponseBody) GetItems() []components.PackInstallInfo {
-	if c == nil {
-		return nil
-	}
-	return c.Items
-}
-
 type CreatePacksResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of PackInstallInfo objects
-	Object *CreatePacksResponseBody
+	CountedPackInstallInfo *components.CountedPackInstallInfo
 }
 
 func (c *CreatePacksResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -40,9 +19,9 @@ func (c *CreatePacksResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreatePacksResponse) GetObject() *CreatePacksResponseBody {
+func (c *CreatePacksResponse) GetCountedPackInstallInfo() *components.CountedPackInstallInfo {
 	if c == nil {
 		return nil
 	}
-	return c.Object
+	return c.CountedPackInstallInfo
 }

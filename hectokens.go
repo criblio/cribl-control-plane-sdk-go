@@ -211,12 +211,12 @@ func (s *HecTokens) Create(ctx context.Context, id string, addHecTokenRequest co
 				return nil, err
 			}
 
-			var out operations.CreateInputHecTokenByIDResponseBody
+			var out components.CountedInputSplunkHec
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedInputSplunkHec = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -457,12 +457,12 @@ func (s *HecTokens) Update(ctx context.Context, id string, token string, updateH
 				return nil, err
 			}
 
-			var out operations.UpdateInputHecTokenByIDAndTokenResponseBody
+			var out components.CountedInputSplunkHec
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedInputSplunkHec = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

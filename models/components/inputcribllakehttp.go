@@ -387,7 +387,9 @@ func (i *InputCriblLakeHTTPAuthTokensExtMetadatum) GetValue() string {
 }
 
 type SplunkHecMetadata struct {
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled               *bool    `json:"enabled,omitempty"`
+	DefaultDataset        *string  `json:"defaultDataset,omitempty"`
+	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 }
 
 func (s SplunkHecMetadata) MarshalJSON() ([]byte, error) {
@@ -408,8 +410,23 @@ func (s *SplunkHecMetadata) GetEnabled() *bool {
 	return s.Enabled
 }
 
+func (s *SplunkHecMetadata) GetDefaultDataset() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DefaultDataset
+}
+
+func (s *SplunkHecMetadata) GetAllowedIndexesAtToken() []string {
+	if s == nil {
+		return nil
+	}
+	return s.AllowedIndexesAtToken
+}
+
 type ElasticsearchMetadata struct {
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled        *bool   `json:"enabled,omitempty"`
+	DefaultDataset *string `json:"defaultDataset,omitempty"`
 }
 
 func (e ElasticsearchMetadata) MarshalJSON() ([]byte, error) {
@@ -428,6 +445,13 @@ func (e *ElasticsearchMetadata) GetEnabled() *bool {
 		return nil
 	}
 	return e.Enabled
+}
+
+func (e *ElasticsearchMetadata) GetDefaultDataset() *string {
+	if e == nil {
+		return nil
+	}
+	return e.DefaultDataset
 }
 
 type InputCriblLakeHTTPAuthTokensExt struct {
