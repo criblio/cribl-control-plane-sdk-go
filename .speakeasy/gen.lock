@@ -5,8 +5,8 @@ management:
   docVersion: 4.15.0-f275b803
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-rc.8
-  configChecksum: b97cdea0fe892925546252a5657b46bc
+  releaseVersion: 0.3.0
+  configChecksum: 49d9bb2c95a4ce7baf7ad9f414c9d00d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
