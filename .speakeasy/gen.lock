@@ -5,8 +5,8 @@ management:
   docVersion: 4.16.0-alpha.1763161384714-3f229248
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-beta.17
-  configChecksum: a604542ab2bd5f38644c909108227700
+  releaseVersion: 0.4.0-beta.1
+  configChecksum: 77f2c5be9aa96fd9e1c9c4594c0088fb
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3539,4 +3539,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"
