@@ -4,18 +4,18 @@
  * This example demonstrates how to configure authentication on Cribl.Cloud
  * and in hybrid deployments using OAuth2 credentials.
  *
- * 1. Create an SDK client with OAuth2 client credentials using the 
+ * 1. Create an SDK client with OAuth2 client credentials using the
  * ClientOauth security scheme.
  * 2. Automatically handle token exchange and refresh.
  * 3. Validate the connection by listing all git branches.
  *
  * Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID,
  * CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and
- * Secret, and Workspace name. To get your Client ID and Secret, follow the 
- * steps at https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud. 
+ * Secret, and Workspace name. To get your Client ID and Secret, follow the
+ * steps at https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud.
  * Your Client ID and Secret are sensitive information and should be kept private.
  *
- * NOTE: This example is for Cribl.Cloud and hybrid deployments only. 
+ * NOTE: This example is for Cribl.Cloud and hybrid deployments only.
  * It does not require .env file configuration.
  */
 
@@ -63,13 +63,13 @@ func main() {
 		return
 	}
 
-	if response.Object == nil || response.Object.Items == nil {
+	if response.CountedBranchInfo == nil || response.CountedBranchInfo.Items == nil {
 		fmt.Println("⚠️ No branches found")
 		return
 	}
 
 	var branches []string
-	for _, branch := range response.Object.Items {
+	for _, branch := range response.CountedBranchInfo.Items {
 		if branch.ID != "" {
 			branches = append(branches, branch.ID)
 		}
