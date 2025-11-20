@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: cd3529b733b18b2e3863dc83231059c8
-  docVersion: 4.16.0-alpha.1763546908276-fb594515
+  docChecksum: 30b6ead4c81d520480f31eac5d9c7951
+  docVersion: 4.16.0-alpha.1763640448660-89844071
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.4.0-rc.1
-  configChecksum: 47bfeb5b09e9fe387ac30ffe99087652
+  releaseVersion: 0.4.0-rc.2
+  configChecksum: 9c422fab0a99ec7a3a631a8c70e121d6
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -89,6 +89,10 @@ generatedFiles:
   - /models/components/deployrequest.go
   - /models/components/deployrequestlookups.go
   - /models/components/difffiles.go
+  - /models/components/diffline.go
+  - /models/components/difflinecontext.go
+  - /models/components/difflinedelete.go
+  - /models/components/difflineinsert.go
   - /models/components/distributedsummary.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
@@ -431,6 +435,13 @@ generatedFiles:
   - docs/models/components/deployrequestlookups.md
   - docs/models/components/deployrequestlookupslookup.md
   - docs/models/components/difffiles.md
+  - docs/models/components/diffline.md
+  - docs/models/components/difflinecontext.md
+  - docs/models/components/difflinecontexttype.md
+  - docs/models/components/difflinedelete.md
+  - docs/models/components/difflinedeletetype.md
+  - docs/models/components/difflineinsert.md
+  - docs/models/components/difflineinserttype.md
   - docs/models/components/disksandfilesystems.md
   - docs/models/components/distmode.md
   - docs/models/components/distributedsummary.md
@@ -1248,7 +1259,6 @@ generatedFiles:
   - docs/models/components/inputwizcompression.md
   - docs/models/components/inputwizconnection.md
   - docs/models/components/inputwizcontentconfig.md
-  - docs/models/components/inputwizloglevel.md
   - docs/models/components/inputwizmetadatum.md
   - docs/models/components/inputwizmode.md
   - docs/models/components/inputwizpq.md
@@ -1289,10 +1299,6 @@ generatedFiles:
   - docs/models/components/lakedatasetmetrics.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
-  - docs/models/components/line1.md
-  - docs/models/components/line2.md
-  - docs/models/components/line3.md
-  - docs/models/components/lineunion.md
   - docs/models/components/listeningports.md
   - docs/models/components/loggedinusers.md
   - docs/models/components/logininfo.md
@@ -1302,7 +1308,6 @@ generatedFiles:
   - docs/models/components/lokiauthoauthheader2.md
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
-  - docs/models/components/managestate.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
@@ -2216,13 +2221,11 @@ generatedFiles:
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
   - docs/models/components/prefixoptional.md
-  - docs/models/components/privacyprotocol.md
   - docs/models/components/productscore.md
   - docs/models/components/prometheusauthoauthheader1.md
   - docs/models/components/prometheusauthoauthheader2.md
   - docs/models/components/prometheusauthoauthparam1.md
   - docs/models/components/prometheusauthoauthparam2.md
-  - docs/models/components/query.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
@@ -2858,7 +2861,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 969040, "items": [{"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"content": "<value>", "oldNumber": 3887.81}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}, {"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"content": "<value>", "oldNumber": 3887.81}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}]}
+          application/json: {"count": 969040, "items": [{"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"type": "context", "newNumber": 9690.4, "oldNumber": 6372.82, "content": "<value>"}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}, {"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"type": "context", "newNumber": 349.88, "oldNumber": 3887.81, "content": "<value>"}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionStatus:
@@ -3543,4 +3546,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Versions.Commits.Diff()`:  `response.Items.[].DiffJson.[].Blocks.[].Lines.[]` **Changed**\n* `CriblControlPlane.Versions.Commits.Get()`:  `response.Items.[].DiffJson.[].Blocks.[].Lines.[]` **Changed**\n"

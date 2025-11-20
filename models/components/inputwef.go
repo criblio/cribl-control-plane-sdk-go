@@ -427,38 +427,6 @@ func (s *SubscriptionMetadatum) GetValue() string {
 	return s.Value
 }
 
-type Query struct {
-	// The Path attribute from the relevant XML Select element
-	Path string `json:"path"`
-	// The XPath query inside the relevant XML Select element
-	QueryExpression string `json:"queryExpression"`
-}
-
-func (q Query) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(q, "", false)
-}
-
-func (q *Query) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &q, "", false, []string{"path", "queryExpression"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (q *Query) GetPath() string {
-	if q == nil {
-		return ""
-	}
-	return q.Path
-}
-
-func (q *Query) GetQueryExpression() string {
-	if q == nil {
-		return ""
-	}
-	return q.QueryExpression
-}
-
 type Subscription struct {
 	SubscriptionName string `json:"subscriptionName"`
 	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
@@ -482,9 +450,6 @@ type Subscription struct {
 	QuerySelector *QueryBuilderMode `default:"simple" json:"querySelector"`
 	// Fields to add to events ingested under this subscription
 	Metadata []SubscriptionMetadatum `json:"metadata,omitempty"`
-	Queries  []Query                 `json:"queries,omitempty"`
-	// The XPath query to use for selecting events
-	XMLQuery *string `json:"xmlQuery,omitempty"`
 }
 
 func (s Subscription) MarshalJSON() ([]byte, error) {
@@ -580,20 +545,6 @@ func (s *Subscription) GetMetadata() []SubscriptionMetadatum {
 		return nil
 	}
 	return s.Metadata
-}
-
-func (s *Subscription) GetQueries() []Query {
-	if s == nil {
-		return nil
-	}
-	return s.Queries
-}
-
-func (s *Subscription) GetXMLQuery() *string {
-	if s == nil {
-		return nil
-	}
-	return s.XMLQuery
 }
 
 type InputWefMetadatum struct {
