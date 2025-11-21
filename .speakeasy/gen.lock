@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: f1c5b868eba17867d20c401546aec187
-  docVersion: 4.16.0-alpha.1763161384714-3f229248
+  docChecksum: 2a45ff0f169a944da986fae2d62956b9
+  docVersion: 4.16.0-alpha.1763717483983-bf4ec3a8
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.4.0-beta.1
-  configChecksum: 77f2c5be9aa96fd9e1c9c4594c0088fb
+  releaseVersion: 0.4.0-beta.2
+  configChecksum: b0f753583f8f87750a3bcf40edc29068
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -1248,6 +1248,7 @@ generatedFiles:
   - docs/models/components/inputwizcompression.md
   - docs/models/components/inputwizconnection.md
   - docs/models/components/inputwizcontentconfig.md
+  - docs/models/components/inputwizloglevel.md
   - docs/models/components/inputwizmetadatum.md
   - docs/models/components/inputwizmode.md
   - docs/models/components/inputwizpq.md
@@ -1301,6 +1302,7 @@ generatedFiles:
   - docs/models/components/lokiauthoauthheader2.md
   - docs/models/components/lokiauthoauthparam1.md
   - docs/models/components/lokiauthoauthparam2.md
+  - docs/models/components/managestate.md
   - docs/models/components/mappingtype.md
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
@@ -2214,11 +2216,13 @@ generatedFiles:
   - docs/models/components/pipelinegroups.md
   - docs/models/components/podfilter.md
   - docs/models/components/prefixoptional.md
+  - docs/models/components/privacyprotocol.md
   - docs/models/components/productscore.md
   - docs/models/components/prometheusauthoauthheader1.md
   - docs/models/components/prometheusauthoauthheader2.md
   - docs/models/components/prometheusauthoauthparam1.md
   - docs/models/components/prometheusauthoauthparam2.md
+  - docs/models/components/query.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
@@ -3539,3 +3543,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n"
