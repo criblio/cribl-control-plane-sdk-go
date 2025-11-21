@@ -3,10 +3,10 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: 2a45ff0f169a944da986fae2d62956b9
   docVersion: 4.16.0-alpha.1763717483983-bf4ec3a8
-  speakeasyVersion: 1.650.0
-  generationVersion: 2.743.2
-  releaseVersion: 0.4.0-beta.2
-  configChecksum: b0f753583f8f87750a3bcf40edc29068
+  speakeasyVersion: 1.659.0
+  generationVersion: 2.755.9
+  releaseVersion: 0.4.0-beta.3
+  configChecksum: d1c99ddc8e5c69ff66618cf01e708423
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.13.1
+    core: 3.13.2
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     enums: 2.82.0
@@ -32,7 +32,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
-    unions: 2.87.0
+    unions: 2.87.1
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -3543,4 +3543,3 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[].AuthTokens.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n  *  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[splunkLb].IndexerDiscoveryConfigs.AuthTokens.[]` **Changed**\n"
