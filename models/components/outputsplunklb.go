@@ -244,6 +244,10 @@ func (e IndexerDiscoveryConfigsAuthTokenAuthenticationMethod) ToPointer() *Index
 type OutputSplunkLbAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *IndexerDiscoveryConfigsAuthTokenAuthenticationMethod `default:"manual" json:"authType"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
 }
 
 func (o OutputSplunkLbAuthToken) MarshalJSON() ([]byte, error) {
@@ -262,6 +266,20 @@ func (o *OutputSplunkLbAuthToken) GetAuthType() *IndexerDiscoveryConfigsAuthToke
 		return nil
 	}
 	return o.AuthType
+}
+
+func (o *OutputSplunkLbAuthToken) GetAuthToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthToken
+}
+
+func (o *OutputSplunkLbAuthToken) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
 }
 
 // IndexerDiscoveryConfigsAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate

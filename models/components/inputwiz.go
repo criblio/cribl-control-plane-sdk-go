@@ -188,11 +188,59 @@ func (i *InputWizPq) GetPqControls() *InputWizPqControls {
 	return i.PqControls
 }
 
+type ManageState struct {
+}
+
+func (m ManageState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *ManageState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+// InputWizLogLevel - Collector runtime log level
+type InputWizLogLevel string
+
+const (
+	InputWizLogLevelError InputWizLogLevel = "error"
+	InputWizLogLevelWarn  InputWizLogLevel = "warn"
+	InputWizLogLevelInfo  InputWizLogLevel = "info"
+	InputWizLogLevelDebug InputWizLogLevel = "debug"
+	InputWizLogLevelSilly InputWizLogLevel = "silly"
+)
+
+func (e InputWizLogLevel) ToPointer() *InputWizLogLevel {
+	return &e
+}
+
 type InputWizContentConfig struct {
 	// The name of the Wiz query
 	ContentType        string  `json:"contentType"`
 	ContentDescription *string `json:"contentDescription,omitempty"`
 	Enabled            *bool   `default:"false" json:"enabled"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `default:"false" json:"stateTracking"`
+	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+	StateUpdateExpression *string `default:"__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}" json:"stateUpdateExpression"`
+	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+	StateMergeExpression *string      `default:"prevState.latestTime > newState.latestTime ? prevState : newState" json:"stateMergeExpression"`
+	ManageState          *ManageState `json:"manageState,omitempty"`
+	// Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
+	ContentQuery string `json:"contentQuery"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"0 */12 * * *" json:"cronSchedule"`
+	// Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+	Earliest *string `default:"-12h@h" json:"earliest"`
+	// Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+	Latest *string `default:"now" json:"latest"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Units default to seconds if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// Collector runtime log level
+	LogLevel *InputWizLogLevel `default:"info" json:"logLevel"`
 }
 
 func (i InputWizContentConfig) MarshalJSON() ([]byte, error) {
@@ -200,7 +248,7 @@ func (i InputWizContentConfig) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizContentConfig) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"contentType"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"contentType", "contentQuery"}); err != nil {
 		return err
 	}
 	return nil
@@ -225,6 +273,76 @@ func (i *InputWizContentConfig) GetEnabled() *bool {
 		return nil
 	}
 	return i.Enabled
+}
+
+func (i *InputWizContentConfig) GetStateTracking() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StateTracking
+}
+
+func (i *InputWizContentConfig) GetStateUpdateExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateUpdateExpression
+}
+
+func (i *InputWizContentConfig) GetStateMergeExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateMergeExpression
+}
+
+func (i *InputWizContentConfig) GetManageState() *ManageState {
+	if i == nil {
+		return nil
+	}
+	return i.ManageState
+}
+
+func (i *InputWizContentConfig) GetContentQuery() string {
+	if i == nil {
+		return ""
+	}
+	return i.ContentQuery
+}
+
+func (i *InputWizContentConfig) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputWizContentConfig) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputWizContentConfig) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputWizContentConfig) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputWizContentConfig) GetLogLevel() *InputWizLogLevel {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
 }
 
 type InputWizMetadatum struct {

@@ -193,6 +193,7 @@ type InputCloudflareHecAuthenticationMethod string
 
 const (
 	InputCloudflareHecAuthenticationMethodSecret InputCloudflareHecAuthenticationMethod = "secret"
+	InputCloudflareHecAuthenticationMethodManual InputCloudflareHecAuthenticationMethod = "manual"
 )
 
 func (e InputCloudflareHecAuthenticationMethod) ToPointer() *InputCloudflareHecAuthenticationMethod {
@@ -232,11 +233,13 @@ func (i *InputCloudflareHecAuthTokenMetadatum) GetValue() string {
 
 type InputCloudflareHecAuthToken struct {
 	// Select Secret to use a text secret to authenticate
-	AuthType    *InputCloudflareHecAuthenticationMethod `default:"secret" json:"authType"`
-	TokenSecret any                                     `json:"tokenSecret,omitempty"`
-	Token       any                                     `json:"token,omitempty"`
-	Enabled     *bool                                   `default:"true" json:"enabled"`
-	Description *string                                 `json:"description,omitempty"`
+	AuthType *InputCloudflareHecAuthenticationMethod `default:"secret" json:"authType"`
+	// Select or create a stored text secret
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       *string `json:"token,omitempty"`
+	Enabled     *bool   `default:"true" json:"enabled"`
+	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
@@ -261,14 +264,14 @@ func (i *InputCloudflareHecAuthToken) GetAuthType() *InputCloudflareHecAuthentic
 	return i.AuthType
 }
 
-func (i *InputCloudflareHecAuthToken) GetTokenSecret() any {
+func (i *InputCloudflareHecAuthToken) GetTokenSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenSecret
 }
 
-func (i *InputCloudflareHecAuthToken) GetToken() any {
+func (i *InputCloudflareHecAuthToken) GetToken() *string {
 	if i == nil {
 		return nil
 	}
