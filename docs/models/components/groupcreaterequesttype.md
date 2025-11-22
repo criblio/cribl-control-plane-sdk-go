@@ -3,7 +3,7 @@
 
 ## Values
 
-| Name                               | Value                              |
-| ---------------------------------- | ---------------------------------- |
-| `GroupCreateRequestTypeLakeAccess` | lake_access                        |
-| `GroupCreateRequestTypeRiptide`    | riptide                            |
+| Name                                | Value                               |
+| ----------------------------------- | ----------------------------------- |
+| `GroupCreateRequestTypeLakeAccess`  | lake_access                         |
+| `GroupCreateRequestTypeLocalSearch` | local_search                        |

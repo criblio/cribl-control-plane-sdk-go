@@ -60,8 +60,8 @@ func (c *ConfigGroupGit) GetLog() []Commit {
 type ConfigGroupType string
 
 const (
-	ConfigGroupTypeLakeAccess ConfigGroupType = "lake_access"
-	ConfigGroupTypeRiptide    ConfigGroupType = "riptide"
+	ConfigGroupTypeLakeAccess  ConfigGroupType = "lake_access"
+	ConfigGroupTypeLocalSearch ConfigGroupType = "local_search"
 )
 
 func (e ConfigGroupType) ToPointer() *ConfigGroupType {

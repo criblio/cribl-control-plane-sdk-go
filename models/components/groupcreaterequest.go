@@ -60,8 +60,8 @@ func (g *GroupCreateRequestGit) GetLog() []Commit {
 type GroupCreateRequestType string
 
 const (
-	GroupCreateRequestTypeLakeAccess GroupCreateRequestType = "lake_access"
-	GroupCreateRequestTypeRiptide    GroupCreateRequestType = "riptide"
+	GroupCreateRequestTypeLakeAccess  GroupCreateRequestType = "lake_access"
+	GroupCreateRequestTypeLocalSearch GroupCreateRequestType = "local_search"
 )
 
 func (e GroupCreateRequestType) ToPointer() *GroupCreateRequestType {
