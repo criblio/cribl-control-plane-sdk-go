@@ -201,12 +201,12 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 				return nil, err
 			}
 
-			var out operations.ListPipelineResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -441,12 +441,12 @@ func (s *Pipelines) Create(ctx context.Context, request components.Pipeline, opt
 				return nil, err
 			}
 
-			var out operations.CreatePipelineResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -678,12 +678,12 @@ func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Optio
 				return nil, err
 			}
 
-			var out operations.GetPipelineByIDResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -923,12 +923,12 @@ func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.P
 				return nil, err
 			}
 
-			var out operations.UpdatePipelineByIDResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1160,12 +1160,12 @@ func (s *Pipelines) Delete(ctx context.Context, id string, opts ...operations.Op
 				return nil, err
 			}
 
-			var out operations.DeletePipelineByIDResponseBody
+			var out components.CountedPipeline
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedPipeline = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
