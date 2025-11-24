@@ -204,12 +204,12 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 				return nil, err
 			}
 
-			var out operations.GetConfigGroupConfigVersionByProductAndIDResponseBody
+			var out components.CountedString
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedString = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

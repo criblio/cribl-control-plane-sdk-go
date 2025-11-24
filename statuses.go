@@ -208,12 +208,12 @@ func (s *Statuses) Get(ctx context.Context, groupID *string, opts ...operations.
 				return nil, err
 			}
 
-			var out operations.GetVersionStatusResponseBody
+			var out components.CountedGitStatusResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitStatusResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
