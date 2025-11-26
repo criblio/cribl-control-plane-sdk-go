@@ -32,7 +32,7 @@ type MasterWorkerEntry struct {
 	Group             string                    `json:"group"`
 	ID                string                    `json:"id"`
 	Info              NodeProvidedInfo          `json:"info"`
-	LastMetrics       map[string]map[string]any `json:"lastMetrics,omitempty"`
+	LastMetrics       map[string]any            `json:"lastMetrics,omitempty"`
 	LastMsgTime       float64                   `json:"lastMsgTime"`
 	Metadata          *HeartbeatMetadata        `json:"metadata,omitempty"`
 	NodeUpgradeStatus *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitempty"`
@@ -84,7 +84,7 @@ func (m *MasterWorkerEntry) GetInfo() NodeProvidedInfo {
 	return m.Info
 }
 
-func (m *MasterWorkerEntry) GetLastMetrics() map[string]map[string]any {
+func (m *MasterWorkerEntry) GetLastMetrics() map[string]any {
 	if m == nil {
 		return nil
 	}
