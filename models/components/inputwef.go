@@ -75,6 +75,17 @@ func (e InputWefMode) ToPointer() *InputWefMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputWefCompression - Codec to use to compress the persisted data
 type InputWefCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputWefCompression) ToPointer() *InputWefCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWefPqControls struct {
@@ -202,6 +224,17 @@ func (e InputWefAuthenticationMethod) ToPointer() *InputWefAuthenticationMethod 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "clientCert", "kerberos":
+			return true
+		}
+	}
+	return false
+}
+
 type InputWefMinimumTLSVersion string
 
 const (
@@ -215,6 +248,17 @@ func (e InputWefMinimumTLSVersion) ToPointer() *InputWefMinimumTLSVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputWefMaximumTLSVersion string
 
 const (
@@ -226,6 +270,17 @@ const (
 
 func (e InputWefMaximumTLSVersion) ToPointer() *InputWefMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type MTLSSettings struct {
@@ -385,6 +440,17 @@ func (e InputWefFormat) ToPointer() *InputWefFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "Raw", "RenderedText":
+			return true
+		}
+	}
+	return false
+}
+
 type QueryBuilderMode string
 
 const (
@@ -394,6 +460,17 @@ const (
 
 func (e QueryBuilderMode) ToPointer() *QueryBuilderMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *QueryBuilderMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "simple", "xml":
+			return true
+		}
+	}
+	return false
 }
 
 type SubscriptionMetadatum struct {
@@ -427,6 +504,38 @@ func (s *SubscriptionMetadatum) GetValue() string {
 	return s.Value
 }
 
+type Query struct {
+	// The Path attribute from the relevant XML Select element
+	Path string `json:"path"`
+	// The XPath query inside the relevant XML Select element
+	QueryExpression string `json:"queryExpression"`
+}
+
+func (q Query) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(q, "", false)
+}
+
+func (q *Query) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &q, "", false, []string{"path", "queryExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (q *Query) GetPath() string {
+	if q == nil {
+		return ""
+	}
+	return q.Path
+}
+
+func (q *Query) GetQueryExpression() string {
+	if q == nil {
+		return ""
+	}
+	return q.QueryExpression
+}
+
 type Subscription struct {
 	SubscriptionName string `json:"subscriptionName"`
 	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
@@ -450,6 +559,9 @@ type Subscription struct {
 	QuerySelector *QueryBuilderMode `default:"simple" json:"querySelector"`
 	// Fields to add to events ingested under this subscription
 	Metadata []SubscriptionMetadatum `json:"metadata,omitempty"`
+	Queries  []Query                 `json:"queries,omitempty"`
+	// The XPath query to use for selecting events
+	XMLQuery *string `json:"xmlQuery,omitempty"`
 }
 
 func (s Subscription) MarshalJSON() ([]byte, error) {
@@ -545,6 +657,20 @@ func (s *Subscription) GetMetadata() []SubscriptionMetadatum {
 		return nil
 	}
 	return s.Metadata
+}
+
+func (s *Subscription) GetQueries() []Query {
+	if s == nil {
+		return nil
+	}
+	return s.Queries
+}
+
+func (s *Subscription) GetXMLQuery() *string {
+	if s == nil {
+		return nil
+	}
+	return s.XMLQuery
 }
 
 type InputWefMetadatum struct {

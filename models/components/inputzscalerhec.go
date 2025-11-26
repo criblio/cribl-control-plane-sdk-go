@@ -75,6 +75,17 @@ func (e InputZscalerHecMode) ToPointer() *InputZscalerHecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputZscalerHecCompression - Codec to use to compress the persisted data
 type InputZscalerHecCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputZscalerHecCompression) ToPointer() *InputZscalerHecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputZscalerHecPqControls struct {
@@ -200,6 +222,17 @@ func (e InputZscalerHecAuthenticationMethod) ToPointer() *InputZscalerHecAuthent
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type InputZscalerHecAuthTokenMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -233,11 +266,13 @@ func (i *InputZscalerHecAuthTokenMetadatum) GetValue() string {
 
 type InputZscalerHecAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *InputZscalerHecAuthenticationMethod `default:"manual" json:"authType"`
-	TokenSecret any                                  `json:"tokenSecret,omitempty"`
-	Token       any                                  `json:"token"`
-	Enabled     *bool                                `default:"true" json:"enabled"`
-	Description *string                              `json:"description,omitempty"`
+	AuthType *InputZscalerHecAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       string  `json:"token"`
+	Enabled     *bool   `default:"true" json:"enabled"`
+	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
@@ -262,16 +297,16 @@ func (i *InputZscalerHecAuthToken) GetAuthType() *InputZscalerHecAuthenticationM
 	return i.AuthType
 }
 
-func (i *InputZscalerHecAuthToken) GetTokenSecret() any {
+func (i *InputZscalerHecAuthToken) GetTokenSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenSecret
 }
 
-func (i *InputZscalerHecAuthToken) GetToken() any {
+func (i *InputZscalerHecAuthToken) GetToken() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Token
 }
@@ -317,6 +352,17 @@ func (e InputZscalerHecMinimumTLSVersion) ToPointer() *InputZscalerHecMinimumTLS
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputZscalerHecMaximumTLSVersion string
 
 const (
@@ -328,6 +374,17 @@ const (
 
 func (e InputZscalerHecMaximumTLSVersion) ToPointer() *InputZscalerHecMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputZscalerHecTLSSettingsServerSide struct {

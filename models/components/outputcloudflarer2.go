@@ -44,6 +44,17 @@ func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2A
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2AuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "secret", "manual":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCloudflareR2SignatureVersion - Signature version to use for signing MinIO requests
 type OutputCloudflareR2SignatureVersion string
 
@@ -54,6 +65,17 @@ const (
 
 func (e OutputCloudflareR2SignatureVersion) ToPointer() *OutputCloudflareR2SignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2SignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputCloudflareR2StorageClass - Storage class to select for uploaded objects
@@ -70,6 +92,17 @@ func (e OutputCloudflareR2StorageClass) ToPointer() *OutputCloudflareR2StorageCl
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2StorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "REDUCED_REDUNDANCY":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCloudflareR2ServerSideEncryption - Server-side encryption for uploaded objects
 type OutputCloudflareR2ServerSideEncryption string
 
@@ -80,6 +113,17 @@ const (
 
 func (e OutputCloudflareR2ServerSideEncryption) ToPointer() *OutputCloudflareR2ServerSideEncryption {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2ServerSideEncryption) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "AES256":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputCloudflareR2DataFormat - Format of the output data
@@ -98,6 +142,17 @@ func (e OutputCloudflareR2DataFormat) ToPointer() *OutputCloudflareR2DataFormat 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2DataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCloudflareR2BackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputCloudflareR2BackpressureBehavior string
 
@@ -110,6 +165,17 @@ const (
 
 func (e OutputCloudflareR2BackpressureBehavior) ToPointer() *OutputCloudflareR2BackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2BackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputCloudflareR2DiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
@@ -126,6 +192,17 @@ func (e OutputCloudflareR2DiskSpaceProtection) ToPointer() *OutputCloudflareR2Di
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2DiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCloudflareR2Compression - Data compression format to apply to HTTP content before it is delivered
 type OutputCloudflareR2Compression string
 
@@ -136,6 +213,17 @@ const (
 
 func (e OutputCloudflareR2Compression) ToPointer() *OutputCloudflareR2Compression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2Compression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputCloudflareR2CompressionLevel - Compression level to apply before moving files to final destination
@@ -154,6 +242,17 @@ func (e OutputCloudflareR2CompressionLevel) ToPointer() *OutputCloudflareR2Compr
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2CompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCloudflareR2ParquetVersion - Determines which data types are supported and how they are represented
 type OutputCloudflareR2ParquetVersion string
 
@@ -170,6 +269,17 @@ func (e OutputCloudflareR2ParquetVersion) ToPointer() *OutputCloudflareR2Parquet
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2ParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCloudflareR2DataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputCloudflareR2DataPageVersion string
 
@@ -182,6 +292,17 @@ const (
 
 func (e OutputCloudflareR2DataPageVersion) ToPointer() *OutputCloudflareR2DataPageVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCloudflareR2DataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputCloudflareR2KeyValueMetadatum struct {

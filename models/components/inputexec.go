@@ -75,6 +75,17 @@ func (e InputExecMode) ToPointer() *InputExecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputExecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputExecCompression - Codec to use to compress the persisted data
 type InputExecCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputExecCompression) ToPointer() *InputExecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputExecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputExecPqControls struct {
@@ -198,6 +220,17 @@ const (
 
 func (e ScheduleType) ToPointer() *ScheduleType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ScheduleType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "interval", "cronSchedule":
+			return true
+		}
+	}
+	return false
 }
 
 type InputExecMetadatum struct {

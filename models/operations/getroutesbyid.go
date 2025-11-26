@@ -18,31 +18,10 @@ func (g *GetRoutesByIDRequest) GetID() string {
 	return g.ID
 }
 
-// GetRoutesByIDResponseBody - a list of Routes objects
-type GetRoutesByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64              `json:"count,omitempty"`
-	Items []components.Routes `json:"items,omitempty"`
-}
-
-func (g *GetRoutesByIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetRoutesByIDResponseBody) GetItems() []components.Routes {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetRoutesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Routes objects
-	Object *GetRoutesByIDResponseBody
+	CountedRoutes *components.CountedRoutes
 }
 
 func (g *GetRoutesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (g *GetRoutesByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetRoutesByIDResponse) GetObject() *GetRoutesByIDResponseBody {
+func (g *GetRoutesByIDResponse) GetCountedRoutes() *components.CountedRoutes {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedRoutes
 }

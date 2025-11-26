@@ -46,6 +46,17 @@ func (e OutputGrafanaCloudMessageFormat2) ToPointer() *OutputGrafanaCloudMessage
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudMessageFormat2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "protobuf", "json":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputGrafanaCloudLabel2 struct {
 	Name  *string `default:"" json:"name"`
 	Value string  `json:"value"`
@@ -93,6 +104,17 @@ const (
 
 func (e OutputGrafanaCloudPrometheusAuthAuthenticationType2) ToPointer() *OutputGrafanaCloudPrometheusAuthAuthenticationType2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudPrometheusAuthAuthenticationType2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "token", "textSecret", "basic", "credentialsSecret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGrafanaCloudPrometheusAuth2 struct {
@@ -179,6 +201,17 @@ const (
 
 func (e OutputGrafanaCloudLokiAuthAuthenticationType2) ToPointer() *OutputGrafanaCloudLokiAuthAuthenticationType2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudLokiAuthAuthenticationType2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "token", "textSecret", "basic", "credentialsSecret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGrafanaCloudLokiAuth2 struct {
@@ -292,6 +325,17 @@ const (
 
 func (e OutputGrafanaCloudFailedRequestLoggingMode2) ToPointer() *OutputGrafanaCloudFailedRequestLoggingMode2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudFailedRequestLoggingMode2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGrafanaCloudResponseRetrySetting2 struct {
@@ -409,6 +453,17 @@ func (e OutputGrafanaCloudBackpressureBehavior2) ToPointer() *OutputGrafanaCloud
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudBackpressureBehavior2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGrafanaCloudMode2 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputGrafanaCloudMode2 string
 
@@ -425,6 +480,17 @@ func (e OutputGrafanaCloudMode2) ToPointer() *OutputGrafanaCloudMode2 {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudMode2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGrafanaCloudCompression2 - Codec to use to compress the persisted data
 type OutputGrafanaCloudCompression2 string
 
@@ -439,6 +505,17 @@ func (e OutputGrafanaCloudCompression2) ToPointer() *OutputGrafanaCloudCompressi
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudCompression2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGrafanaCloudQueueFullBehavior2 - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputGrafanaCloudQueueFullBehavior2 string
 
@@ -451,6 +528,17 @@ const (
 
 func (e OutputGrafanaCloudQueueFullBehavior2) ToPointer() *OutputGrafanaCloudQueueFullBehavior2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudQueueFullBehavior2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGrafanaCloudPqControls2 struct {
@@ -883,6 +971,17 @@ func (e OutputGrafanaCloudMessageFormat1) ToPointer() *OutputGrafanaCloudMessage
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudMessageFormat1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "protobuf", "json":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputGrafanaCloudLabel1 struct {
 	Name  *string `default:"" json:"name"`
 	Value string  `json:"value"`
@@ -930,6 +1029,17 @@ const (
 
 func (e OutputGrafanaCloudPrometheusAuthAuthenticationType1) ToPointer() *OutputGrafanaCloudPrometheusAuthAuthenticationType1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudPrometheusAuthAuthenticationType1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "token", "textSecret", "basic", "credentialsSecret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGrafanaCloudPrometheusAuth1 struct {
@@ -1016,6 +1126,17 @@ const (
 
 func (e OutputGrafanaCloudLokiAuthAuthenticationType1) ToPointer() *OutputGrafanaCloudLokiAuthAuthenticationType1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudLokiAuthAuthenticationType1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "token", "textSecret", "basic", "credentialsSecret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGrafanaCloudLokiAuth1 struct {
@@ -1129,6 +1250,17 @@ const (
 
 func (e OutputGrafanaCloudFailedRequestLoggingMode1) ToPointer() *OutputGrafanaCloudFailedRequestLoggingMode1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudFailedRequestLoggingMode1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGrafanaCloudResponseRetrySetting1 struct {
@@ -1246,6 +1378,17 @@ func (e OutputGrafanaCloudBackpressureBehavior1) ToPointer() *OutputGrafanaCloud
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudBackpressureBehavior1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGrafanaCloudMode1 - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputGrafanaCloudMode1 string
 
@@ -1262,6 +1405,17 @@ func (e OutputGrafanaCloudMode1) ToPointer() *OutputGrafanaCloudMode1 {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudMode1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGrafanaCloudCompression1 - Codec to use to compress the persisted data
 type OutputGrafanaCloudCompression1 string
 
@@ -1276,6 +1430,17 @@ func (e OutputGrafanaCloudCompression1) ToPointer() *OutputGrafanaCloudCompressi
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudCompression1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGrafanaCloudQueueFullBehavior1 - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputGrafanaCloudQueueFullBehavior1 string
 
@@ -1288,6 +1453,17 @@ const (
 
 func (e OutputGrafanaCloudQueueFullBehavior1) ToPointer() *OutputGrafanaCloudQueueFullBehavior1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGrafanaCloudQueueFullBehavior1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGrafanaCloudPqControls1 struct {

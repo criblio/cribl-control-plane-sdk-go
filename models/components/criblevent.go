@@ -2,8 +2,24 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type CriblEvent struct {
-	Raw string `json:"_raw"`
+	Raw                  string         `json:"_raw"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+}
+
+func (c CriblEvent) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CriblEvent) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"_raw"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CriblEvent) GetRaw() string {
@@ -11,4 +27,11 @@ func (c *CriblEvent) GetRaw() string {
 		return ""
 	}
 	return c.Raw
+}
+
+func (c *CriblEvent) GetAdditionalProperties() map[string]any {
+	if c == nil {
+		return nil
+	}
+	return c.AdditionalProperties
 }

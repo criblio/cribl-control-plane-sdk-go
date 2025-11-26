@@ -30,6 +30,17 @@ func (e ConfigGroupEstimatedIngestRate) ToPointer() *ConfigGroupEstimatedIngestR
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ConfigGroupEstimatedIngestRate) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 1024, 2048, 3072, 4096, 5120, 7168, 10240, 13312, 15360:
+			return true
+		}
+	}
+	return false
+}
+
 type ConfigGroupGit struct {
 	Commit       *string  `json:"commit,omitempty"`
 	LocalChanges *float64 `json:"localChanges,omitempty"`
@@ -60,11 +71,23 @@ func (c *ConfigGroupGit) GetLog() []Commit {
 type ConfigGroupType string
 
 const (
-	ConfigGroupTypeLakeAccess ConfigGroupType = "lake_access"
+	ConfigGroupTypeLakeAccess  ConfigGroupType = "lake_access"
+	ConfigGroupTypeLocalSearch ConfigGroupType = "local_search"
 )
 
 func (e ConfigGroupType) ToPointer() *ConfigGroupType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ConfigGroupType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "lake_access", "local_search":
+			return true
+		}
+	}
+	return false
 }
 
 type ConfigGroup struct {

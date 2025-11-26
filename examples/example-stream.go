@@ -61,9 +61,9 @@ func main() {
 		log.Printf("Worker Group doesn't exist yet, will create: %v", err)
 	}
 
-	if getResponse != nil && getResponse.Object != nil &&
-		getResponse.Object.Items != nil &&
-		len(getResponse.Object.Items) > 0 {
+	if getResponse != nil && getResponse.CountedConfigGroup != nil &&
+		getResponse.CountedConfigGroup.Items != nil &&
+		len(getResponse.CountedConfigGroup.Items) > 0 {
 		fmt.Printf("⚠️ Worker Group already exists: %s. Using existing group.\n", WORKER_GROUP_ID)
 	} else {
 		// Create Worker Group
@@ -76,7 +76,7 @@ func main() {
 		createResponse, err := client.Groups.Create(ctx, components.ProductsCoreStream, myWorkerGroupCreateRequest)
 		if err != nil {
 			log.Printf("Error creating Worker Group: %v", err)
-		} else if createResponse != nil && createResponse.Object != nil {
+		} else if createResponse != nil && createResponse.CountedConfigGroup != nil {
 			fmt.Printf("✅ Worker Group created: %s\n", WORKER_GROUP_ID)
 		}
 	}
@@ -180,9 +180,9 @@ func main() {
 	routesListResponse, err := client.Routes.List(ctx, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error listing routes: %v", err)
-	} else if routesListResponse.Object != nil && routesListResponse.Object.Items != nil && len(routesListResponse.Object.Items) > 0 {
+	} else if routesListResponse.CountedRoutes != nil && routesListResponse.CountedRoutes.Items != nil && len(routesListResponse.CountedRoutes.Items) > 0 {
 		// Get the first Routes configuration
-		existingRoutes := routesListResponse.Object.Items[0]
+		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route
 		newRoute := components.RoutesRoute{
@@ -226,8 +226,8 @@ func main() {
 	commitResponse, err := client.Versions.Commits.Create(ctx, commitParams, &workerGroupID)
 	if err != nil {
 		log.Printf("Error creating commit: %v", err)
-	} else if commitResponse.Object != nil && commitResponse.Object.Items != nil && len(commitResponse.Object.Items) > 0 {
-		version := commitResponse.Object.Items[0].Commit
+	} else if commitResponse.CountedGitCommitSummary != nil && commitResponse.CountedGitCommitSummary.Items != nil && len(commitResponse.CountedGitCommitSummary.Items) > 0 {
+		version := commitResponse.CountedGitCommitSummary.Items[0].Commit
 		fmt.Printf("✅ Committed configuration changes to the group: %s, commit ID: %s\n", WORKER_GROUP_ID, version)
 
 		// Deploy the configuration using DeployRequest

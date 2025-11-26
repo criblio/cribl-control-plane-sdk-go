@@ -76,6 +76,17 @@ func (e InputSyslogMode2) ToPointer() *InputSyslogMode2 {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMode2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSyslogCompression2 - Codec to use to compress the persisted data
 type InputSyslogCompression2 string
 
@@ -88,6 +99,17 @@ const (
 
 func (e InputSyslogCompression2) ToPointer() *InputSyslogCompression2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogCompression2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSyslogPqControls2 struct {
@@ -202,6 +224,17 @@ func (e InputSyslogMinimumTLSVersion2) ToPointer() *InputSyslogMinimumTLSVersion
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMinimumTLSVersion2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSyslogMaximumTLSVersion2 string
 
 const (
@@ -213,6 +246,17 @@ const (
 
 func (e InputSyslogMaximumTLSVersion2) ToPointer() *InputSyslogMaximumTLSVersion2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMaximumTLSVersion2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSyslogTLSSettingsServerSide2 struct {
@@ -729,6 +773,17 @@ func (e InputSyslogMode1) ToPointer() *InputSyslogMode1 {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMode1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSyslogCompression1 - Codec to use to compress the persisted data
 type InputSyslogCompression1 string
 
@@ -741,6 +796,17 @@ const (
 
 func (e InputSyslogCompression1) ToPointer() *InputSyslogCompression1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogCompression1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSyslogPqControls1 struct {
@@ -855,6 +921,17 @@ func (e InputSyslogMinimumTLSVersion1) ToPointer() *InputSyslogMinimumTLSVersion
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMinimumTLSVersion1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSyslogMaximumTLSVersion1 string
 
 const (
@@ -866,6 +943,17 @@ const (
 
 func (e InputSyslogMaximumTLSVersion1) ToPointer() *InputSyslogMaximumTLSVersion1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMaximumTLSVersion1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSyslogTLSSettingsServerSide1 struct {
