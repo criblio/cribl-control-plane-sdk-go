@@ -12,3 +12,14 @@ const (
 func (e CloudProvider) ToPointer() *CloudProvider {
 	return &e
 }
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CloudProvider) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "aws", "azure":
+			return true
+		}
+	}
+	return false
+}

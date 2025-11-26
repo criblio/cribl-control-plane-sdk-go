@@ -219,12 +219,12 @@ func (s *Commits) Create(ctx context.Context, gitCommitParams components.GitComm
 				return nil, err
 			}
 
-			var out operations.CreateVersionCommitResponseBody
+			var out components.CountedGitCommitSummary
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitCommitSummary = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -463,12 +463,12 @@ func (s *Commits) Diff(ctx context.Context, commit *string, groupID *string, fil
 				return nil, err
 			}
 
-			var out operations.GetVersionDiffResponseBody
+			var out components.CountedGitDiffResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitDiffResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -705,12 +705,12 @@ func (s *Commits) List(ctx context.Context, groupID *string, count *float64, opt
 				return nil, err
 			}
 
-			var out operations.GetVersionResponseBody
+			var out components.CountedGitLogResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitLogResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -938,12 +938,12 @@ func (s *Commits) Push(ctx context.Context, opts ...operations.Option) (*operati
 				return nil, err
 			}
 
-			var out operations.CreateVersionPushResponseBody
+			var out components.CountedString
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedString = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1187,12 +1187,12 @@ func (s *Commits) Revert(ctx context.Context, gitRevertParams components.GitReve
 				return nil, err
 			}
 
-			var out operations.CreateVersionRevertResponseBody
+			var out components.CountedGitRevertResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitRevertResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1431,12 +1431,12 @@ func (s *Commits) Get(ctx context.Context, commit *string, groupID *string, file
 				return nil, err
 			}
 
-			var out operations.GetVersionShowResponseBody
+			var out components.CountedGitShowResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedGitShowResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1672,12 +1672,12 @@ func (s *Commits) Undo(ctx context.Context, groupID *string, opts ...operations.
 				return nil, err
 			}
 
-			var out operations.CreateVersionUndoResponseBody
+			var out components.CountedObject
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedObject = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

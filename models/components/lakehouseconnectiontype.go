@@ -12,3 +12,14 @@ const (
 func (e LakehouseConnectionType) ToPointer() *LakehouseConnectionType {
 	return &e
 }
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *LakehouseConnectionType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "cache", "zeroPoint":
+			return true
+		}
+	}
+	return false
+}

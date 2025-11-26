@@ -75,6 +75,17 @@ func (e InputOpenTelemetryMode) ToPointer() *InputOpenTelemetryMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputOpenTelemetryCompression - Codec to use to compress the persisted data
 type InputOpenTelemetryCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputOpenTelemetryCompression) ToPointer() *InputOpenTelemetryCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOpenTelemetryPqControls struct {
@@ -201,6 +223,17 @@ func (e InputOpenTelemetryMinimumTLSVersion) ToPointer() *InputOpenTelemetryMini
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputOpenTelemetryMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputOpenTelemetryMaximumTLSVersion) ToPointer() *InputOpenTelemetryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOpenTelemetryTLSSettingsServerSide struct {
@@ -338,6 +382,17 @@ func (e InputOpenTelemetryProtocol) ToPointer() *InputOpenTelemetryProtocol {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "grpc", "http":
+			return true
+		}
+	}
+	return false
+}
+
 // InputOpenTelemetryOTLPVersion - The version of OTLP Protobuf definitions to use when interpreting received data
 type InputOpenTelemetryOTLPVersion string
 
@@ -350,6 +405,17 @@ const (
 
 func (e InputOpenTelemetryOTLPVersion) ToPointer() *InputOpenTelemetryOTLPVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryOTLPVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "0.10.0", "1.3.1":
+			return true
+		}
+	}
+	return false
 }
 
 // InputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
@@ -366,6 +432,17 @@ const (
 
 func (e InputOpenTelemetryAuthenticationType) ToPointer() *InputOpenTelemetryAuthenticationType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOpenTelemetryAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOpenTelemetryMetadatum struct {

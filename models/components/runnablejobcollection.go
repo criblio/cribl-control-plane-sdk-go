@@ -20,6 +20,17 @@ func (e RunnableJobCollectionJobType) ToPointer() *RunnableJobCollectionJobType 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobCollectionJobType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection", "executor", "scheduledSearch":
+			return true
+		}
+	}
+	return false
+}
+
 type RunnableJobCollectionRunType string
 
 const (
@@ -118,23 +129,9 @@ type RunnableJobCollectionRunSettings struct {
 	//
 	//
 	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
-	//
-	//
-	//
-	//
-	//
-	//
 	//
 	//
 	//
@@ -392,6 +389,17 @@ func (e InputType) ToPointer() *InputType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection":
+			return true
+		}
+	}
+	return false
+}
+
 type RunnableJobCollectionPreprocess struct {
 	Disabled *bool `default:"true" json:"disabled"`
 	// Command to feed the data through (via stdin) and process its output (stdout)
@@ -571,6 +579,17 @@ func (e RunnableJobCollectionLogLevel) ToPointer() *RunnableJobCollectionLogLeve
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobCollectionLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug", "silly":
+			return true
+		}
+	}
+	return false
+}
+
 // RunnableJobCollectionMode - Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
 type RunnableJobCollectionMode string
 
@@ -584,6 +603,17 @@ func (e RunnableJobCollectionMode) ToPointer() *RunnableJobCollectionMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobCollectionMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "list", "preview", "run":
+			return true
+		}
+	}
+	return false
+}
+
 type TimeRange string
 
 const (
@@ -593,6 +623,17 @@ const (
 
 func (e TimeRange) ToPointer() *TimeRange {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TimeRange) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "absolute", "relative":
+			return true
+		}
+	}
+	return false
 }
 
 type RunnableJobCollectionTimeWarning struct {
@@ -624,6 +665,17 @@ const (
 
 func (e WhereToCapture) ToPointer() *WhereToCapture {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *WhereToCapture) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 0, 1, 2, 3:
+			return true
+		}
+	}
+	return false
 }
 
 type CaptureSettings struct {
@@ -690,23 +742,9 @@ type RunnableJobCollectionRun struct {
 	// Limits the bundle size for small tasks. For example,
 	//
 	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
-	//
-	//
-	//
-	//
-	//
-	//
 	//
 	//
 	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.

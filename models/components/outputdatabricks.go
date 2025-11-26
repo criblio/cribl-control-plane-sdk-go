@@ -47,6 +47,17 @@ func (e OutputDatabricksDataFormat) ToPointer() *OutputDatabricksDataFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDatabricksBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputDatabricksBackpressureBehavior string
 
@@ -59,6 +70,17 @@ const (
 
 func (e OutputDatabricksBackpressureBehavior) ToPointer() *OutputDatabricksBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputDatabricksDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
@@ -75,6 +97,17 @@ func (e OutputDatabricksDiskSpaceProtection) ToPointer() *OutputDatabricksDiskSp
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDatabricksCompression - Data compression format to apply to HTTP content before it is delivered
 type OutputDatabricksCompression string
 
@@ -85,6 +118,17 @@ const (
 
 func (e OutputDatabricksCompression) ToPointer() *OutputDatabricksCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputDatabricksCompressionLevel - Compression level to apply before moving files to final destination
@@ -103,6 +147,17 @@ func (e OutputDatabricksCompressionLevel) ToPointer() *OutputDatabricksCompressi
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksCompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDatabricksParquetVersion - Determines which data types are supported and how they are represented
 type OutputDatabricksParquetVersion string
 
@@ -119,6 +174,17 @@ func (e OutputDatabricksParquetVersion) ToPointer() *OutputDatabricksParquetVers
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDatabricksDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputDatabricksDataPageVersion string
 
@@ -131,6 +197,17 @@ const (
 
 func (e OutputDatabricksDataPageVersion) ToPointer() *OutputDatabricksDataPageVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksDataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDatabricksKeyValueMetadatum struct {
