@@ -44,6 +44,17 @@ func (e OutputDynatraceHTTPMethod) ToPointer() *OutputDynatraceHTTPMethod {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceHTTPMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "POST", "PUT", "PATCH":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputDynatraceHTTPExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
 	Value string  `json:"value"`
@@ -88,6 +99,17 @@ const (
 
 func (e OutputDynatraceHTTPFailedRequestLoggingMode) ToPointer() *OutputDynatraceHTTPFailedRequestLoggingMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceHTTPFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDynatraceHTTPResponseRetrySetting struct {
@@ -205,6 +227,17 @@ func (e OutputDynatraceHTTPBackpressureBehavior) ToPointer() *OutputDynatraceHTT
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceHTTPBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputDynatraceHTTPAuthenticationType string
 
 const (
@@ -216,6 +249,17 @@ const (
 
 func (e OutputDynatraceHTTPAuthenticationType) ToPointer() *OutputDynatraceHTTPAuthenticationType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceHTTPAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "token", "textSecret":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputDynatraceHTTPFormat - How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
@@ -230,6 +274,17 @@ const (
 
 func (e OutputDynatraceHTTPFormat) ToPointer() *OutputDynatraceHTTPFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceHTTPFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json_array", "plaintext":
+			return true
+		}
+	}
+	return false
 }
 
 type Endpoint string
@@ -247,6 +302,17 @@ func (e Endpoint) ToPointer() *Endpoint {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Endpoint) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "cloud", "activeGate", "manual":
+			return true
+		}
+	}
+	return false
+}
+
 type TelemetryType string
 
 const (
@@ -258,6 +324,17 @@ const (
 
 func (e TelemetryType) ToPointer() *TelemetryType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TelemetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "logs", "metrics":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputDynatraceHTTPMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -276,6 +353,17 @@ func (e OutputDynatraceHTTPMode) ToPointer() *OutputDynatraceHTTPMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceHTTPMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDynatraceHTTPCompression - Codec to use to compress the persisted data
 type OutputDynatraceHTTPCompression string
 
@@ -290,6 +378,17 @@ func (e OutputDynatraceHTTPCompression) ToPointer() *OutputDynatraceHTTPCompress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceHTTPCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDynatraceHTTPQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputDynatraceHTTPQueueFullBehavior string
 
@@ -302,6 +401,17 @@ const (
 
 func (e OutputDynatraceHTTPQueueFullBehavior) ToPointer() *OutputDynatraceHTTPQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceHTTPQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDynatraceHTTPPqControls struct {

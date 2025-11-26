@@ -18,6 +18,17 @@ func (e RemoteEnum) ToPointer() *RemoteEnum {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RemoteEnum) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "false":
+			return true
+		}
+	}
+	return false
+}
+
 type RemoteType string
 
 const (

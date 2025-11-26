@@ -75,6 +75,17 @@ func (e InputTcpjsonMode) ToPointer() *InputTcpjsonMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTcpjsonMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputTcpjsonCompression - Codec to use to compress the persisted data
 type InputTcpjsonCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputTcpjsonCompression) ToPointer() *InputTcpjsonCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTcpjsonCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputTcpjsonPqControls struct {
@@ -201,6 +223,17 @@ func (e InputTcpjsonMinimumTLSVersion) ToPointer() *InputTcpjsonMinimumTLSVersio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTcpjsonMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputTcpjsonMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputTcpjsonMaximumTLSVersion) ToPointer() *InputTcpjsonMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTcpjsonMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputTcpjsonTLSSettingsServerSide struct {
@@ -365,6 +409,17 @@ const (
 
 func (e InputTcpjsonAuthenticationMethod) ToPointer() *InputTcpjsonAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTcpjsonAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputTcpjson struct {

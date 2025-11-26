@@ -75,6 +75,17 @@ func (e InputSqsMode) ToPointer() *InputSqsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSqsCompression - Codec to use to compress the persisted data
 type InputSqsCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputSqsCompression) ToPointer() *InputSqsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSqsPqControls struct {
@@ -202,6 +224,17 @@ func (e InputSqsQueueType) ToPointer() *InputSqsQueueType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsQueueType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "standard", "fifo":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSqsAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
 type InputSqsAuthenticationMethod string
 
@@ -218,6 +251,17 @@ func (e InputSqsAuthenticationMethod) ToPointer() *InputSqsAuthenticationMethod 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSqsSignatureVersion - Signature version to use for signing SQS requests
 type InputSqsSignatureVersion string
 
@@ -228,6 +272,17 @@ const (
 
 func (e InputSqsSignatureVersion) ToPointer() *InputSqsSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSqsMetadatum struct {

@@ -77,6 +77,17 @@ func (e OutputElasticFailedRequestLoggingMode) ToPointer() *OutputElasticFailedR
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputElasticResponseRetrySetting struct {
 	// The HTTP response status code that will trigger retries
 	HTTPStatus float64 `json:"httpStatus"`
@@ -220,6 +231,17 @@ func (e OutputElasticAuthenticationMethod) ToPointer() *OutputElasticAuthenticat
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "manualAPIKey", "textSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputElasticAuth struct {
 	Disabled *bool   `default:"true" json:"disabled"`
 	Username *string `json:"username,omitempty"`
@@ -310,6 +332,17 @@ func (e ElasticVersion) ToPointer() *ElasticVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ElasticVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "6", "7":
+			return true
+		}
+	}
+	return false
+}
+
 // WriteAction - Action to use when writing events. Must be set to `Create` when writing to a data stream.
 type WriteAction string
 
@@ -322,6 +355,17 @@ const (
 
 func (e WriteAction) ToPointer() *WriteAction {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *WriteAction) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "index", "create":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputElasticBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -338,6 +382,17 @@ const (
 
 func (e OutputElasticBackpressureBehavior) ToPointer() *OutputElasticBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputElasticURL struct {
@@ -388,6 +443,17 @@ func (e OutputElasticMode) ToPointer() *OutputElasticMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputElasticCompression - Codec to use to compress the persisted data
 type OutputElasticCompression string
 
@@ -402,6 +468,17 @@ func (e OutputElasticCompression) ToPointer() *OutputElasticCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputElasticQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputElasticQueueFullBehavior string
 
@@ -414,6 +491,17 @@ const (
 
 func (e OutputElasticQueueFullBehavior) ToPointer() *OutputElasticQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputElasticPqControls struct {

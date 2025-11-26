@@ -45,6 +45,17 @@ func (e OutputTcpjsonCompression) ToPointer() *OutputTcpjsonCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputTcpjsonMinimumTLSVersion string
 
 const (
@@ -58,6 +69,17 @@ func (e OutputTcpjsonMinimumTLSVersion) ToPointer() *OutputTcpjsonMinimumTLSVers
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputTcpjsonMaximumTLSVersion string
 
 const (
@@ -69,6 +91,17 @@ const (
 
 func (e OutputTcpjsonMaximumTLSVersion) ToPointer() *OutputTcpjsonMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputTcpjsonTLSSettingsClientSide struct {
@@ -189,6 +222,17 @@ func (e OutputTcpjsonBackpressureBehavior) ToPointer() *OutputTcpjsonBackpressur
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputTcpjsonAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type OutputTcpjsonAuthenticationMethod string
 
@@ -201,6 +245,17 @@ func (e OutputTcpjsonAuthenticationMethod) ToPointer() *OutputTcpjsonAuthenticat
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputTcpjsonTLS - Whether to inherit TLS configs from group setting or disable TLS
 type OutputTcpjsonTLS string
 
@@ -211,6 +266,17 @@ const (
 
 func (e OutputTcpjsonTLS) ToPointer() *OutputTcpjsonTLS {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonTLS) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "inherit", "off":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputTcpjsonHost struct {
@@ -288,6 +354,17 @@ func (e OutputTcpjsonMode) ToPointer() *OutputTcpjsonMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputTcpjsonPqCompressCompression - Codec to use to compress the persisted data
 type OutputTcpjsonPqCompressCompression string
 
@@ -302,6 +379,17 @@ func (e OutputTcpjsonPqCompressCompression) ToPointer() *OutputTcpjsonPqCompress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputTcpjsonQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputTcpjsonQueueFullBehavior string
 
@@ -314,6 +402,17 @@ const (
 
 func (e OutputTcpjsonQueueFullBehavior) ToPointer() *OutputTcpjsonQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputTcpjsonQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputTcpjsonPqControls struct {

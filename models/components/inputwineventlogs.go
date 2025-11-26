@@ -75,6 +75,17 @@ func (e InputWinEventLogsMode) ToPointer() *InputWinEventLogsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWinEventLogsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputWinEventLogsCompression - Codec to use to compress the persisted data
 type InputWinEventLogsCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputWinEventLogsCompression) ToPointer() *InputWinEventLogsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWinEventLogsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWinEventLogsPqControls struct {
@@ -202,6 +224,17 @@ func (e ReadMode) ToPointer() *ReadMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ReadMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "oldest", "newest":
+			return true
+		}
+	}
+	return false
+}
+
 // EventFormat - Format of individual events
 type EventFormat string
 
@@ -214,6 +247,17 @@ const (
 
 func (e EventFormat) ToPointer() *EventFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EventFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "xml":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWinEventLogsMetadatum struct {

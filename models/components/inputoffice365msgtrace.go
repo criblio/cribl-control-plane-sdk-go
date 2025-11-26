@@ -75,6 +75,17 @@ func (e InputOffice365MsgTraceMode) ToPointer() *InputOffice365MsgTraceMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MsgTraceMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputOffice365MsgTraceCompression - Codec to use to compress the persisted data
 type InputOffice365MsgTraceCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputOffice365MsgTraceCompression) ToPointer() *InputOffice365MsgTraceCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MsgTraceCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365MsgTracePqControls struct {
@@ -203,6 +225,17 @@ func (e InputOffice365MsgTraceAuthenticationMethod) ToPointer() *InputOffice365M
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MsgTraceAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "oauth", "oauthSecret", "oauthCert":
+			return true
+		}
+	}
+	return false
+}
+
 // InputOffice365MsgTraceLogLevel - Log Level (verbosity) for collection runtime behavior.
 type InputOffice365MsgTraceLogLevel string
 
@@ -216,6 +249,17 @@ const (
 
 func (e InputOffice365MsgTraceLogLevel) ToPointer() *InputOffice365MsgTraceLogLevel {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MsgTraceLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug", "silly":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365MsgTraceMetadatum struct {
@@ -263,6 +307,17 @@ const (
 
 func (e InputOffice365MsgTraceRetryType) ToPointer() *InputOffice365MsgTraceRetryType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MsgTraceRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365MsgTraceRetryRules struct {
@@ -367,6 +422,17 @@ const (
 
 func (e InputOffice365MsgTraceSubscriptionPlan) ToPointer() *InputOffice365MsgTraceSubscriptionPlan {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MsgTraceSubscriptionPlan) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "enterprise_gcc", "gcc", "gcc_high", "dod":
+			return true
+		}
+	}
+	return false
 }
 
 type CertOptions struct {

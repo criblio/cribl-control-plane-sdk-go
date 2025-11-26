@@ -3,10 +3,10 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: 90171872a47fb36497680bb638644eef
   docVersion: 4.15.0-alpha.1763072414698-97546d75
-  speakeasyVersion: 1.659.0
-  generationVersion: 2.755.9
-  releaseVersion: 0.4.0-alpha.2
-  configChecksum: 40ccfd148564cff1bc3c56868abb03a7
+  speakeasyVersion: 1.661.2
+  generationVersion: 2.763.3
+  releaseVersion: 0.4.0-alpha.3
+  configChecksum: 815d00d63006834dfcd821e078487a99
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.13.2
+    core: 3.13.3
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     enums: 2.82.0
@@ -32,7 +32,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
-    unions: 2.87.1
+    unions: 2.87.2
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md

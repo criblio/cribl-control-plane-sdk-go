@@ -53,6 +53,17 @@ func (e TimestampPrecision) ToPointer() *TimestampPrecision {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TimestampPrecision) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ns", "u", "ms", "s", "m", "h":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputInfluxdbExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
 	Value string  `json:"value"`
@@ -97,6 +108,17 @@ const (
 
 func (e OutputInfluxdbFailedRequestLoggingMode) ToPointer() *OutputInfluxdbFailedRequestLoggingMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputInfluxdbResponseRetrySetting struct {
@@ -214,6 +236,17 @@ func (e OutputInfluxdbBackpressureBehavior) ToPointer() *OutputInfluxdbBackpress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputInfluxdbAuthenticationType - InfluxDB authentication type
 type OutputInfluxdbAuthenticationType string
 
@@ -228,6 +261,17 @@ const (
 
 func (e OutputInfluxdbAuthenticationType) ToPointer() *OutputInfluxdbAuthenticationType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputInfluxdbMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -246,6 +290,17 @@ func (e OutputInfluxdbMode) ToPointer() *OutputInfluxdbMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputInfluxdbCompression - Codec to use to compress the persisted data
 type OutputInfluxdbCompression string
 
@@ -260,6 +315,17 @@ func (e OutputInfluxdbCompression) ToPointer() *OutputInfluxdbCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputInfluxdbQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputInfluxdbQueueFullBehavior string
 
@@ -272,6 +338,17 @@ const (
 
 func (e OutputInfluxdbQueueFullBehavior) ToPointer() *OutputInfluxdbQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputInfluxdbPqControls struct {
