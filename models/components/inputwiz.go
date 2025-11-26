@@ -75,6 +75,17 @@ func (e InputWizMode) ToPointer() *InputWizMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputWizCompression - Codec to use to compress the persisted data
 type InputWizCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputWizCompression) ToPointer() *InputWizCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWizPqControls struct {
@@ -217,6 +239,17 @@ func (e InputWizLogLevel) ToPointer() *InputWizLogLevel {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug", "silly":
+			return true
+		}
+	}
+	return false
+}
+
 type InputWizContentConfig struct {
 	// The name of the Wiz query
 	ContentType        string  `json:"contentType"`
@@ -241,6 +274,8 @@ type InputWizContentConfig struct {
 	JobTimeout *string `default:"0" json:"jobTimeout"`
 	// Collector runtime log level
 	LogLevel *InputWizLogLevel `default:"info" json:"logLevel"`
+	// Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
+	MaxPages *float64 `default:"0" json:"maxPages"`
 }
 
 func (i InputWizContentConfig) MarshalJSON() ([]byte, error) {
@@ -345,6 +380,13 @@ func (i *InputWizContentConfig) GetLogLevel() *InputWizLogLevel {
 	return i.LogLevel
 }
 
+func (i *InputWizContentConfig) GetMaxPages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxPages
+}
+
 type InputWizMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -390,6 +432,17 @@ const (
 
 func (e InputWizRetryType) ToPointer() *InputWizRetryType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWizRetryRules struct {
@@ -488,6 +541,17 @@ const (
 
 func (e InputWizAuthenticationMethod) ToPointer() *InputWizAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWiz struct {

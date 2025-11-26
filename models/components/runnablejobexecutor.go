@@ -20,6 +20,17 @@ func (e RunnableJobExecutorJobType) ToPointer() *RunnableJobExecutorJobType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobExecutorJobType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection", "executor", "scheduledSearch":
+			return true
+		}
+	}
+	return false
+}
+
 type RunnableJobExecutorType string
 
 const (
@@ -388,6 +399,17 @@ const (
 
 func (e RunnableJobExecutorLogLevel) ToPointer() *RunnableJobExecutorLogLevel {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobExecutorLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug", "silly":
+			return true
+		}
+	}
+	return false
 }
 
 type RunnableJobExecutorRun struct {

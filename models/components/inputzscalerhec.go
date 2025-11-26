@@ -75,6 +75,17 @@ func (e InputZscalerHecMode) ToPointer() *InputZscalerHecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputZscalerHecCompression - Codec to use to compress the persisted data
 type InputZscalerHecCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputZscalerHecCompression) ToPointer() *InputZscalerHecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputZscalerHecPqControls struct {
@@ -198,6 +220,17 @@ const (
 
 func (e InputZscalerHecAuthenticationMethod) ToPointer() *InputZscalerHecAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputZscalerHecAuthTokenMetadatum struct {
@@ -319,6 +352,17 @@ func (e InputZscalerHecMinimumTLSVersion) ToPointer() *InputZscalerHecMinimumTLS
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputZscalerHecMaximumTLSVersion string
 
 const (
@@ -330,6 +374,17 @@ const (
 
 func (e InputZscalerHecMaximumTLSVersion) ToPointer() *InputZscalerHecMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputZscalerHecTLSSettingsServerSide struct {

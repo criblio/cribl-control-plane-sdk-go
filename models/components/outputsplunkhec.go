@@ -44,6 +44,17 @@ func (e OutputSplunkHecMinimumTLSVersion) ToPointer() *OutputSplunkHecMinimumTLS
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkHecMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSplunkHecMaximumTLSVersion string
 
 const (
@@ -55,6 +66,17 @@ const (
 
 func (e OutputSplunkHecMaximumTLSVersion) ToPointer() *OutputSplunkHecMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkHecMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSplunkHecTLSSettingsClientSide struct {
@@ -195,6 +217,17 @@ func (e OutputSplunkHecFailedRequestLoggingMode) ToPointer() *OutputSplunkHecFai
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkHecFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkHecAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type OutputSplunkHecAuthenticationMethod string
 
@@ -205,6 +238,17 @@ const (
 
 func (e OutputSplunkHecAuthenticationMethod) ToPointer() *OutputSplunkHecAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSplunkHecResponseRetrySetting struct {
@@ -322,6 +366,17 @@ func (e OutputSplunkHecBackpressureBehavior) ToPointer() *OutputSplunkHecBackpre
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkHecBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSplunkHecURL struct {
 	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
 	URL *string `default:"http://localhost:8088/services/collector/event" json:"url"`
@@ -370,6 +425,17 @@ func (e OutputSplunkHecMode) ToPointer() *OutputSplunkHecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkHecCompression - Codec to use to compress the persisted data
 type OutputSplunkHecCompression string
 
@@ -384,6 +450,17 @@ func (e OutputSplunkHecCompression) ToPointer() *OutputSplunkHecCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkHecQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSplunkHecQueueFullBehavior string
 
@@ -396,6 +473,17 @@ const (
 
 func (e OutputSplunkHecQueueFullBehavior) ToPointer() *OutputSplunkHecQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkHecQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSplunkHecPqControls struct {

@@ -61,6 +61,17 @@ func (e DistMode) ToPointer() *DistMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DistMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "edge", "worker", "single", "master", "managed-edge", "outpost", "search-supervisor":
+			return true
+		}
+	}
+	return false
+}
+
 type HBCriblInfo struct {
 	Config            Config                       `json:"config"`
 	DeploymentID      *string                      `json:"deploymentId,omitempty"`

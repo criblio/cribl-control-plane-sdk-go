@@ -47,6 +47,17 @@ func (e OutputAzureEventhubAcknowledgments) ToPointer() *OutputAzureEventhubAckn
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubAcknowledgments) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 1, 0, -1:
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureEventhubRecordDataFormat - Format to use to serialize events before writing to the Event Hubs Kafka brokers
 type OutputAzureEventhubRecordDataFormat string
 
@@ -61,6 +72,17 @@ func (e OutputAzureEventhubRecordDataFormat) ToPointer() *OutputAzureEventhubRec
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubRecordDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureEventhubAuthTypeAuthenticationMethod - Enter password directly, or select a stored secret
 type OutputAzureEventhubAuthTypeAuthenticationMethod string
 
@@ -71,6 +93,17 @@ const (
 
 func (e OutputAzureEventhubAuthTypeAuthenticationMethod) ToPointer() *OutputAzureEventhubAuthTypeAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubAuthTypeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputAzureEventhubSASLMechanism string
@@ -86,6 +119,17 @@ func (e OutputAzureEventhubSASLMechanism) ToPointer() *OutputAzureEventhubSASLMe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubSASLMechanism) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "plain", "oauthbearer":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod string
 
 const (
@@ -96,6 +140,17 @@ const (
 
 func (e OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod) ToPointer() *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "certificate":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
@@ -109,6 +164,17 @@ const (
 
 func (e OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "https://login.microsoftonline.com", "https://login.microsoftonline.us", "https://login.partner.microsoftonline.cn":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputAzureEventhubAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
@@ -320,6 +386,17 @@ func (e OutputAzureEventhubBackpressureBehavior) ToPointer() *OutputAzureEventhu
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureEventhubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputAzureEventhubMode string
 
@@ -336,6 +413,17 @@ func (e OutputAzureEventhubMode) ToPointer() *OutputAzureEventhubMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureEventhubCompression - Codec to use to compress the persisted data
 type OutputAzureEventhubCompression string
 
@@ -350,6 +438,17 @@ func (e OutputAzureEventhubCompression) ToPointer() *OutputAzureEventhubCompress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureEventhubQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputAzureEventhubQueueFullBehavior string
 
@@ -362,6 +461,17 @@ const (
 
 func (e OutputAzureEventhubQueueFullBehavior) ToPointer() *OutputAzureEventhubQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureEventhubQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputAzureEventhubPqControls struct {

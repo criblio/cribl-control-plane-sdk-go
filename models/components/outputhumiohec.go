@@ -77,6 +77,17 @@ func (e OutputHumioHecFailedRequestLoggingMode) ToPointer() *OutputHumioHecFaile
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputHumioHecFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputHumioHecRequestFormat - When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
 type OutputHumioHecRequestFormat string
 
@@ -91,6 +102,17 @@ func (e OutputHumioHecRequestFormat) ToPointer() *OutputHumioHecRequestFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputHumioHecRequestFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "JSON", "raw":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputHumioHecAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type OutputHumioHecAuthenticationMethod string
 
@@ -101,6 +123,17 @@ const (
 
 func (e OutputHumioHecAuthenticationMethod) ToPointer() *OutputHumioHecAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputHumioHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputHumioHecResponseRetrySetting struct {
@@ -218,6 +251,17 @@ func (e OutputHumioHecBackpressureBehavior) ToPointer() *OutputHumioHecBackpress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputHumioHecBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputHumioHecMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputHumioHecMode string
 
@@ -234,6 +278,17 @@ func (e OutputHumioHecMode) ToPointer() *OutputHumioHecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputHumioHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputHumioHecCompression - Codec to use to compress the persisted data
 type OutputHumioHecCompression string
 
@@ -248,6 +303,17 @@ func (e OutputHumioHecCompression) ToPointer() *OutputHumioHecCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputHumioHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputHumioHecQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputHumioHecQueueFullBehavior string
 
@@ -260,6 +326,17 @@ const (
 
 func (e OutputHumioHecQueueFullBehavior) ToPointer() *OutputHumioHecQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputHumioHecQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputHumioHecPqControls struct {

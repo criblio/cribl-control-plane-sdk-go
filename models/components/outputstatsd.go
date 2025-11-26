@@ -45,6 +45,17 @@ func (e OutputStatsdDestinationProtocol) ToPointer() *OutputStatsdDestinationPro
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputStatsdDestinationProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "udp", "tcp":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputStatsdBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputStatsdBackpressureBehavior string
 
@@ -59,6 +70,17 @@ const (
 
 func (e OutputStatsdBackpressureBehavior) ToPointer() *OutputStatsdBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputStatsdBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputStatsdMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -77,6 +99,17 @@ func (e OutputStatsdMode) ToPointer() *OutputStatsdMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputStatsdMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputStatsdCompression - Codec to use to compress the persisted data
 type OutputStatsdCompression string
 
@@ -91,6 +124,17 @@ func (e OutputStatsdCompression) ToPointer() *OutputStatsdCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputStatsdCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputStatsdQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputStatsdQueueFullBehavior string
 
@@ -103,6 +147,17 @@ const (
 
 func (e OutputStatsdQueueFullBehavior) ToPointer() *OutputStatsdQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputStatsdQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputStatsdPqControls struct {
