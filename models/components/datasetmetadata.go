@@ -13,6 +13,17 @@ func (e ScanMode) ToPointer() *ScanMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ScanMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "detailed", "quick":
+			return true
+		}
+	}
+	return false
+}
+
 type DatasetMetadata struct {
 	Earliest           string                  `json:"earliest"`
 	EnableAcceleration bool                    `json:"enableAcceleration"`

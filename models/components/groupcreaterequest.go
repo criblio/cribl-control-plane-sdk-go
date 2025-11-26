@@ -30,6 +30,17 @@ func (e GroupCreateRequestEstimatedIngestRate) ToPointer() *GroupCreateRequestEs
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GroupCreateRequestEstimatedIngestRate) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 1024, 2048, 3072, 4096, 5120, 7168, 10240, 13312, 15360:
+			return true
+		}
+	}
+	return false
+}
+
 type GroupCreateRequestGit struct {
 	Commit       *string  `json:"commit,omitempty"`
 	LocalChanges *float64 `json:"localChanges,omitempty"`
@@ -65,6 +76,17 @@ const (
 
 func (e GroupCreateRequestType) ToPointer() *GroupCreateRequestType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GroupCreateRequestType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "lake_access":
+			return true
+		}
+	}
+	return false
 }
 
 type GroupCreateRequest struct {

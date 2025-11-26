@@ -75,6 +75,17 @@ func (e InputKafkaMode) ToPointer() *InputKafkaMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKafkaMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputKafkaCompression - Codec to use to compress the persisted data
 type InputKafkaCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputKafkaCompression) ToPointer() *InputKafkaCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKafkaCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKafkaPqControls struct {
@@ -233,6 +255,17 @@ func (e InputKafkaKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *InputKafkaK
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKafkaKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputKafkaKafkaSchemaRegistryMaximumTLSVersion string
 
 const (
@@ -244,6 +277,17 @@ const (
 
 func (e InputKafkaKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *InputKafkaKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKafkaKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKafkaKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -435,6 +479,17 @@ func (e InputKafkaAuthenticationMethod) ToPointer() *InputKafkaAuthenticationMet
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKafkaAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type InputKafkaSASLMechanism string
 
 const (
@@ -450,6 +505,17 @@ const (
 
 func (e InputKafkaSASLMechanism) ToPointer() *InputKafkaSASLMechanism {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKafkaSASLMechanism) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "plain", "scram-sha-256", "scram-sha-512", "kerberos":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKafkaOauthParam struct {
@@ -679,6 +745,17 @@ func (e InputKafkaMinimumTLSVersion) ToPointer() *InputKafkaMinimumTLSVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKafkaMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputKafkaMaximumTLSVersion string
 
 const (
@@ -690,6 +767,17 @@ const (
 
 func (e InputKafkaMaximumTLSVersion) ToPointer() *InputKafkaMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKafkaMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKafkaTLSSettingsClientSide struct {

@@ -43,6 +43,17 @@ func (e OutputServiceNowOTLPVersion) ToPointer() *OutputServiceNowOTLPVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowOTLPVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "1.3.1":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputServiceNowProtocol - Select a transport option for OpenTelemetry
 type OutputServiceNowProtocol string
 
@@ -55,6 +66,17 @@ const (
 
 func (e OutputServiceNowProtocol) ToPointer() *OutputServiceNowProtocol {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "grpc", "http":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputServiceNowCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -73,6 +95,17 @@ func (e OutputServiceNowCompressCompression) ToPointer() *OutputServiceNowCompre
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "deflate", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputServiceNowHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
 type OutputServiceNowHTTPCompressCompression string
 
@@ -85,6 +118,17 @@ const (
 
 func (e OutputServiceNowHTTPCompressCompression) ToPointer() *OutputServiceNowHTTPCompressCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowHTTPCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputServiceNowMetadatum struct {
@@ -133,6 +177,17 @@ func (e OutputServiceNowFailedRequestLoggingMode) ToPointer() *OutputServiceNowF
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputServiceNowBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputServiceNowBackpressureBehavior string
 
@@ -147,6 +202,17 @@ const (
 
 func (e OutputServiceNowBackpressureBehavior) ToPointer() *OutputServiceNowBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputServiceNowExtraHTTPHeader struct {
@@ -291,6 +357,17 @@ func (e OutputServiceNowMinimumTLSVersion) ToPointer() *OutputServiceNowMinimumT
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputServiceNowMaximumTLSVersion string
 
 const (
@@ -302,6 +379,17 @@ const (
 
 func (e OutputServiceNowMaximumTLSVersion) ToPointer() *OutputServiceNowMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputServiceNowTLSSettingsClientSide struct {
@@ -413,6 +501,17 @@ func (e OutputServiceNowMode) ToPointer() *OutputServiceNowMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputServiceNowPqCompressCompression - Codec to use to compress the persisted data
 type OutputServiceNowPqCompressCompression string
 
@@ -427,6 +526,17 @@ func (e OutputServiceNowPqCompressCompression) ToPointer() *OutputServiceNowPqCo
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputServiceNowQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputServiceNowQueueFullBehavior string
 
@@ -439,6 +549,17 @@ const (
 
 func (e OutputServiceNowQueueFullBehavior) ToPointer() *OutputServiceNowQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputServiceNowPqControls struct {

@@ -45,6 +45,17 @@ func (e OutputCriblTCPCompression) ToPointer() *OutputCriblTCPCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblTCPCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputCriblTCPMinimumTLSVersion string
 
 const (
@@ -58,6 +69,17 @@ func (e OutputCriblTCPMinimumTLSVersion) ToPointer() *OutputCriblTCPMinimumTLSVe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblTCPMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputCriblTCPMaximumTLSVersion string
 
 const (
@@ -69,6 +91,17 @@ const (
 
 func (e OutputCriblTCPMaximumTLSVersion) ToPointer() *OutputCriblTCPMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblTCPMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputCriblTCPTLSSettingsClientSide struct {
@@ -229,6 +262,17 @@ func (e OutputCriblTCPBackpressureBehavior) ToPointer() *OutputCriblTCPBackpress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblTCPBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCriblTCPTLS - Whether to inherit TLS configs from group setting or disable TLS
 type OutputCriblTCPTLS string
 
@@ -239,6 +283,17 @@ const (
 
 func (e OutputCriblTCPTLS) ToPointer() *OutputCriblTCPTLS {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblTCPTLS) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "inherit", "off":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputCriblTCPHost struct {
@@ -316,6 +371,17 @@ func (e OutputCriblTCPMode) ToPointer() *OutputCriblTCPMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblTCPMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCriblTCPPqCompressCompression - Codec to use to compress the persisted data
 type OutputCriblTCPPqCompressCompression string
 
@@ -330,6 +396,17 @@ func (e OutputCriblTCPPqCompressCompression) ToPointer() *OutputCriblTCPPqCompre
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblTCPPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCriblTCPQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputCriblTCPQueueFullBehavior string
 
@@ -342,6 +419,17 @@ const (
 
 func (e OutputCriblTCPQueueFullBehavior) ToPointer() *OutputCriblTCPQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblTCPQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputCriblTCPPqControls struct {

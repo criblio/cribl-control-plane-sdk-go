@@ -75,6 +75,17 @@ func (e InputSystemMetricsPqMode) ToPointer() *InputSystemMetricsPqMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsPqMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSystemMetricsCompression - Codec to use to compress the persisted data
 type InputSystemMetricsCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputSystemMetricsCompression) ToPointer() *InputSystemMetricsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSystemMetricsPqControls struct {
@@ -206,6 +228,17 @@ func (e InputSystemMetricsHostMode) ToPointer() *InputSystemMetricsHostMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsHostMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSystemMetricsSystemMode - Select the level of detail for system metrics
 type InputSystemMetricsSystemMode string
 
@@ -222,6 +255,17 @@ const (
 
 func (e InputSystemMetricsSystemMode) ToPointer() *InputSystemMetricsSystemMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsSystemMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSystemMetricsSystem struct {
@@ -272,6 +316,17 @@ const (
 
 func (e InputSystemMetricsCPUMode) ToPointer() *InputSystemMetricsCPUMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsCPUMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSystemMetricsCPU struct {
@@ -342,6 +397,17 @@ func (e InputSystemMetricsMemoryMode) ToPointer() *InputSystemMetricsMemoryMode 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsMemoryMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSystemMetricsMemory struct {
 	// Select the level of detail for memory metrics
 	Mode *InputSystemMetricsMemoryMode `default:"basic" json:"mode"`
@@ -390,6 +456,17 @@ const (
 
 func (e InputSystemMetricsNetworkMode) ToPointer() *InputSystemMetricsNetworkMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsNetworkMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSystemMetricsNetwork struct {
@@ -467,6 +544,17 @@ const (
 
 func (e InputSystemMetricsDiskMode) ToPointer() *InputSystemMetricsDiskMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsDiskMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSystemMetricsDisk struct {
@@ -710,6 +798,17 @@ func (e ContainerMode) ToPointer() *ContainerMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ContainerMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSystemMetricsFilter struct {
 	Expr string `json:"expr"`
 }
@@ -849,6 +948,17 @@ const (
 
 func (e InputSystemMetricsDataCompressionFormat) ToPointer() *InputSystemMetricsDataCompressionFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemMetricsDataCompressionFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSystemMetricsPersistence struct {

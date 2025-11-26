@@ -75,6 +75,17 @@ func (e InputSnmpMode) ToPointer() *InputSnmpMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSnmpMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSnmpCompression - Codec to use to compress the persisted data
 type InputSnmpCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputSnmpCompression) ToPointer() *InputSnmpCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSnmpCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSnmpPqControls struct {
@@ -209,6 +231,17 @@ const (
 
 func (e AuthenticationProtocol) ToPointer() *AuthenticationProtocol {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AuthenticationProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
+			return true
+		}
+	}
+	return false
 }
 
 type V3User struct {

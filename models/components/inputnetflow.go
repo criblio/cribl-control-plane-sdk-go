@@ -75,6 +75,17 @@ func (e InputNetflowMode) ToPointer() *InputNetflowMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputNetflowMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputNetflowCompression - Codec to use to compress the persisted data
 type InputNetflowCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputNetflowCompression) ToPointer() *InputNetflowCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputNetflowCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputNetflowPqControls struct {

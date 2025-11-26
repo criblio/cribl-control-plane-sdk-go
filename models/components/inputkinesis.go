@@ -75,6 +75,17 @@ func (e InputKinesisMode) ToPointer() *InputKinesisMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKinesisMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputKinesisCompression - Codec to use to compress the persisted data
 type InputKinesisCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputKinesisCompression) ToPointer() *InputKinesisCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKinesisCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKinesisPqControls struct {
@@ -202,6 +224,17 @@ func (e ShardIteratorStart) ToPointer() *ShardIteratorStart {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ShardIteratorStart) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TRIM_HORIZON", "LATEST":
+			return true
+		}
+	}
+	return false
+}
+
 // InputKinesisRecordDataFormat - Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
 type InputKinesisRecordDataFormat string
 
@@ -220,6 +253,17 @@ func (e InputKinesisRecordDataFormat) ToPointer() *InputKinesisRecordDataFormat 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKinesisRecordDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "cribl", "ndjson", "cloudwatch", "line":
+			return true
+		}
+	}
+	return false
+}
+
 // ShardLoadBalancing - The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 type ShardLoadBalancing string
 
@@ -232,6 +276,17 @@ const (
 
 func (e ShardLoadBalancing) ToPointer() *ShardLoadBalancing {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ShardLoadBalancing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ConsistentHashing", "RoundRobin":
+			return true
+		}
+	}
+	return false
 }
 
 // InputKinesisAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
@@ -250,6 +305,17 @@ func (e InputKinesisAuthenticationMethod) ToPointer() *InputKinesisAuthenticatio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKinesisAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputKinesisSignatureVersion - Signature version to use for signing Kinesis stream requests
 type InputKinesisSignatureVersion string
 
@@ -260,6 +326,17 @@ const (
 
 func (e InputKinesisSignatureVersion) ToPointer() *InputKinesisSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKinesisSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKinesisMetadatum struct {

@@ -77,6 +77,17 @@ func (e OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode) ToPointer() *Outpu
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCrowdstrikeNextGenSiemRequestFormat - When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
 type OutputCrowdstrikeNextGenSiemRequestFormat string
 
@@ -91,6 +102,17 @@ func (e OutputCrowdstrikeNextGenSiemRequestFormat) ToPointer() *OutputCrowdstrik
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCrowdstrikeNextGenSiemRequestFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "JSON", "raw":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCrowdstrikeNextGenSiemAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type OutputCrowdstrikeNextGenSiemAuthenticationMethod string
 
@@ -101,6 +123,17 @@ const (
 
 func (e OutputCrowdstrikeNextGenSiemAuthenticationMethod) ToPointer() *OutputCrowdstrikeNextGenSiemAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCrowdstrikeNextGenSiemAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputCrowdstrikeNextGenSiemResponseRetrySetting struct {
@@ -218,6 +251,17 @@ func (e OutputCrowdstrikeNextGenSiemBackpressureBehavior) ToPointer() *OutputCro
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCrowdstrikeNextGenSiemBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCrowdstrikeNextGenSiemMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputCrowdstrikeNextGenSiemMode string
 
@@ -234,6 +278,17 @@ func (e OutputCrowdstrikeNextGenSiemMode) ToPointer() *OutputCrowdstrikeNextGenS
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCrowdstrikeNextGenSiemMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCrowdstrikeNextGenSiemCompression - Codec to use to compress the persisted data
 type OutputCrowdstrikeNextGenSiemCompression string
 
@@ -248,6 +303,17 @@ func (e OutputCrowdstrikeNextGenSiemCompression) ToPointer() *OutputCrowdstrikeN
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCrowdstrikeNextGenSiemCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCrowdstrikeNextGenSiemQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputCrowdstrikeNextGenSiemQueueFullBehavior string
 
@@ -260,6 +326,17 @@ const (
 
 func (e OutputCrowdstrikeNextGenSiemQueueFullBehavior) ToPointer() *OutputCrowdstrikeNextGenSiemQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCrowdstrikeNextGenSiemQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputCrowdstrikeNextGenSiemPqControls struct {

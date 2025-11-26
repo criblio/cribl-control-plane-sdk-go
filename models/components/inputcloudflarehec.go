@@ -75,6 +75,17 @@ func (e InputCloudflareHecMode) ToPointer() *InputCloudflareHecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputCloudflareHecCompression - Codec to use to compress the persisted data
 type InputCloudflareHecCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputCloudflareHecCompression) ToPointer() *InputCloudflareHecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCloudflareHecPqControls struct {
@@ -197,6 +219,17 @@ const (
 
 func (e InputCloudflareHecAuthenticationMethod) ToPointer() *InputCloudflareHecAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCloudflareHecAuthTokenMetadatum struct {
@@ -316,6 +349,17 @@ func (e InputCloudflareHecMinimumTLSVersion) ToPointer() *InputCloudflareHecMini
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputCloudflareHecMaximumTLSVersion string
 
 const (
@@ -327,6 +371,17 @@ const (
 
 func (e InputCloudflareHecMaximumTLSVersion) ToPointer() *InputCloudflareHecMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCloudflareHecTLSSettingsServerSide struct {

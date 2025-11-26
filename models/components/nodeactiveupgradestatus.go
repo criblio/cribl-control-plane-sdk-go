@@ -13,3 +13,14 @@ const (
 func (e NodeActiveUpgradeStatus) ToPointer() *NodeActiveUpgradeStatus {
 	return &e
 }
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *NodeActiveUpgradeStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 0, 1, 2:
+			return true
+		}
+	}
+	return false
+}
