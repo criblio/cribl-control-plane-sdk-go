@@ -14,6 +14,17 @@ func (e CriblLakeDatasetUpdateFormat) ToPointer() *CriblLakeDatasetUpdateFormat 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CriblLakeDatasetUpdateFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "ddss", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
 type CriblLakeDatasetUpdate struct {
 	AcceleratedFields     []string                      `json:"acceleratedFields,omitempty"`
 	BucketName            *string                       `json:"bucketName,omitempty"`

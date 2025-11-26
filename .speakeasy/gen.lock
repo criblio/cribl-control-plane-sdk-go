@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: f38364f544e6fd9f60b609f0e9c3eefe
-  docVersion: 4.16.0-alpha.1764083963699-9bae55e4
-  speakeasyVersion: 1.659.0
-  generationVersion: 2.755.9
-  releaseVersion: 0.4.0-beta.5
-  configChecksum: 59d04afc14089cdf151e3447be87a447
+  docChecksum: 269dd486e3923036195f59ad1eba4fcf
+  docVersion: 4.16.0-alpha.1764154171060-22c638ae
+  speakeasyVersion: 1.661.2
+  generationVersion: 2.763.3
+  releaseVersion: 0.4.0-beta.6
+  configChecksum: 52aaf1e34accb802eddada5b03c7156a
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.13.2
+    core: 3.13.3
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     enums: 2.82.0
@@ -32,7 +32,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.2.0
-    unions: 2.87.1
+    unions: 2.87.2
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -3550,4 +3550,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Nodes.List()`:  `response.Items.[].LastMetrics.{}` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Samples.Create()`: \n  *  `request.OutputTestRequest.Events.[].AdditionalProperties` **Added**\n"
+releaseNotes: "## Go SDK Changes Detected:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[].[wiz].ContentConfig.[].MaxPages` **Added**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.[wiz].ContentConfig.[].MaxPages` **Added**\n  *  `response.Items.[].[wiz].ContentConfig.[].MaxPages` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[].[wiz].ContentConfig.[].MaxPages` **Added**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.[wiz].ContentConfig.[].MaxPages` **Added**\n  *  `response.Items.[].[wiz].ContentConfig.[].MaxPages` **Added**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[].[wiz].ContentConfig.[].MaxPages` **Added**\n"

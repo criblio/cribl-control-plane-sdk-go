@@ -47,6 +47,17 @@ func (e OutputKafkaAcknowledgments) ToPointer() *OutputKafkaAcknowledgments {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaAcknowledgments) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 1, 0, -1:
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKafkaRecordDataFormat - Format to use to serialize events before writing to Kafka.
 type OutputKafkaRecordDataFormat string
 
@@ -61,6 +72,17 @@ const (
 
 func (e OutputKafkaRecordDataFormat) ToPointer() *OutputKafkaRecordDataFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaRecordDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "protobuf":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputKafkaCompression - Codec to use to compress the data before sending to Kafka
@@ -81,6 +103,17 @@ const (
 
 func (e OutputKafkaCompression) ToPointer() *OutputKafkaCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip", "snappy", "lz4", "zstd":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputKafkaAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -128,6 +161,17 @@ func (e OutputKafkaKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *OutputKafk
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputKafkaKafkaSchemaRegistryMaximumTLSVersion string
 
 const (
@@ -139,6 +183,17 @@ const (
 
 func (e OutputKafkaKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *OutputKafkaKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -348,6 +403,17 @@ func (e OutputKafkaAuthenticationMethod) ToPointer() *OutputKafkaAuthenticationM
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputKafkaSASLMechanism string
 
 const (
@@ -363,6 +429,17 @@ const (
 
 func (e OutputKafkaSASLMechanism) ToPointer() *OutputKafkaSASLMechanism {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaSASLMechanism) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "plain", "scram-sha-256", "scram-sha-512", "kerberos":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputKafkaOauthParam struct {
@@ -592,6 +669,17 @@ func (e OutputKafkaMinimumTLSVersion) ToPointer() *OutputKafkaMinimumTLSVersion 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputKafkaMaximumTLSVersion string
 
 const (
@@ -603,6 +691,17 @@ const (
 
 func (e OutputKafkaMaximumTLSVersion) ToPointer() *OutputKafkaMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputKafkaTLSSettingsClientSide struct {
@@ -723,6 +822,17 @@ func (e OutputKafkaBackpressureBehavior) ToPointer() *OutputKafkaBackpressureBeh
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKafkaMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputKafkaMode string
 
@@ -739,6 +849,17 @@ func (e OutputKafkaMode) ToPointer() *OutputKafkaMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKafkaPqCompressCompression - Codec to use to compress the persisted data
 type OutputKafkaPqCompressCompression string
 
@@ -753,6 +874,17 @@ func (e OutputKafkaPqCompressCompression) ToPointer() *OutputKafkaPqCompressComp
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKafkaQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputKafkaQueueFullBehavior string
 
@@ -765,6 +897,17 @@ const (
 
 func (e OutputKafkaQueueFullBehavior) ToPointer() *OutputKafkaQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKafkaQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputKafkaPqControls struct {

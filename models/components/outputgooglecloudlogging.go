@@ -48,6 +48,17 @@ func (e LogLocationType) ToPointer() *LogLocationType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *LogLocationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "project", "organization", "billingAccount", "folder":
+			return true
+		}
+	}
+	return false
+}
+
 // PayloadFormat - Format to use when sending payload. Defaults to Text.
 type PayloadFormat string
 
@@ -60,6 +71,17 @@ const (
 
 func (e PayloadFormat) ToPointer() *PayloadFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PayloadFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "text", "json":
+			return true
+		}
+	}
+	return false
 }
 
 type LogLabel struct {
@@ -142,6 +164,17 @@ func (e OutputGoogleCloudLoggingGoogleAuthenticationMethod) ToPointer() *OutputG
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudLoggingGoogleAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudLoggingBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputGoogleCloudLoggingBackpressureBehavior string
 
@@ -156,6 +189,17 @@ const (
 
 func (e OutputGoogleCloudLoggingBackpressureBehavior) ToPointer() *OutputGoogleCloudLoggingBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudLoggingBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputGoogleCloudLoggingMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -174,6 +218,17 @@ func (e OutputGoogleCloudLoggingMode) ToPointer() *OutputGoogleCloudLoggingMode 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudLoggingCompression - Codec to use to compress the persisted data
 type OutputGoogleCloudLoggingCompression string
 
@@ -188,6 +243,17 @@ func (e OutputGoogleCloudLoggingCompression) ToPointer() *OutputGoogleCloudLoggi
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudLoggingCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudLoggingQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputGoogleCloudLoggingQueueFullBehavior string
 
@@ -200,6 +266,17 @@ const (
 
 func (e OutputGoogleCloudLoggingQueueFullBehavior) ToPointer() *OutputGoogleCloudLoggingQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudLoggingQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGoogleCloudLoggingPqControls struct {

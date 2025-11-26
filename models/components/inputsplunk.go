@@ -75,6 +75,17 @@ func (e InputSplunkMode) ToPointer() *InputSplunkMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSplunkPqCompression - Codec to use to compress the persisted data
 type InputSplunkPqCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputSplunkPqCompression) ToPointer() *InputSplunkPqCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkPqCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkPqControls struct {
@@ -201,6 +223,17 @@ func (e InputSplunkMinimumTLSVersion) ToPointer() *InputSplunkMinimumTLSVersion 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSplunkMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputSplunkMaximumTLSVersion) ToPointer() *InputSplunkMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkTLSSettingsServerSide struct {
@@ -400,6 +444,17 @@ func (e InputSplunkMaxS2SVersion) ToPointer() *InputSplunkMaxS2SVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkMaxS2SVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v3", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSplunkCompression - Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
 type InputSplunkCompression string
 
@@ -414,6 +469,17 @@ const (
 
 func (e InputSplunkCompression) ToPointer() *InputSplunkCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "disabled", "auto", "always":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunk struct {

@@ -45,6 +45,17 @@ func (e OutputOpenTelemetryProtocol) ToPointer() *OutputOpenTelemetryProtocol {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "grpc", "http":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputOpenTelemetryOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
 type OutputOpenTelemetryOTLPVersion string
 
@@ -57,6 +68,17 @@ const (
 
 func (e OutputOpenTelemetryOTLPVersion) ToPointer() *OutputOpenTelemetryOTLPVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryOTLPVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "0.10.0", "1.3.1":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputOpenTelemetryCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -75,6 +97,17 @@ func (e OutputOpenTelemetryCompressCompression) ToPointer() *OutputOpenTelemetry
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "deflate", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputOpenTelemetryHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
 type OutputOpenTelemetryHTTPCompressCompression string
 
@@ -87,6 +120,17 @@ const (
 
 func (e OutputOpenTelemetryHTTPCompressCompression) ToPointer() *OutputOpenTelemetryHTTPCompressCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryHTTPCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
@@ -103,6 +147,17 @@ const (
 
 func (e OutputOpenTelemetryAuthenticationType) ToPointer() *OutputOpenTelemetryAuthenticationType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputOpenTelemetryMetadatum struct {
@@ -151,6 +206,17 @@ func (e OutputOpenTelemetryFailedRequestLoggingMode) ToPointer() *OutputOpenTele
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputOpenTelemetryBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputOpenTelemetryBackpressureBehavior string
 
@@ -165,6 +231,17 @@ const (
 
 func (e OutputOpenTelemetryBackpressureBehavior) ToPointer() *OutputOpenTelemetryBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputOpenTelemetryOauthParam struct {
@@ -373,6 +450,17 @@ func (e OutputOpenTelemetryMinimumTLSVersion) ToPointer() *OutputOpenTelemetryMi
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputOpenTelemetryMaximumTLSVersion string
 
 const (
@@ -384,6 +472,17 @@ const (
 
 func (e OutputOpenTelemetryMaximumTLSVersion) ToPointer() *OutputOpenTelemetryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputOpenTelemetryTLSSettingsClientSide struct {
@@ -495,6 +594,17 @@ func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputOpenTelemetryPqCompressCompression - Codec to use to compress the persisted data
 type OutputOpenTelemetryPqCompressCompression string
 
@@ -509,6 +619,17 @@ func (e OutputOpenTelemetryPqCompressCompression) ToPointer() *OutputOpenTelemet
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputOpenTelemetryQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputOpenTelemetryQueueFullBehavior string
 
@@ -521,6 +642,17 @@ const (
 
 func (e OutputOpenTelemetryQueueFullBehavior) ToPointer() *OutputOpenTelemetryQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputOpenTelemetryPqControls struct {

@@ -47,6 +47,17 @@ func (e OutputKinesisAuthenticationMethod) ToPointer() *OutputKinesisAuthenticat
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKinesisSignatureVersion - Signature version to use for signing Kinesis stream requests
 type OutputKinesisSignatureVersion string
 
@@ -57,6 +68,17 @@ const (
 
 func (e OutputKinesisSignatureVersion) ToPointer() *OutputKinesisSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputKinesisCompression - Compression type to use for records
@@ -71,6 +93,17 @@ const (
 
 func (e OutputKinesisCompression) ToPointer() *OutputKinesisCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputKinesisBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -89,6 +122,17 @@ func (e OutputKinesisBackpressureBehavior) ToPointer() *OutputKinesisBackpressur
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKinesisMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputKinesisMode string
 
@@ -105,6 +149,17 @@ func (e OutputKinesisMode) ToPointer() *OutputKinesisMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKinesisPqCompressCompression - Codec to use to compress the persisted data
 type OutputKinesisPqCompressCompression string
 
@@ -119,6 +174,17 @@ func (e OutputKinesisPqCompressCompression) ToPointer() *OutputKinesisPqCompress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKinesisQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputKinesisQueueFullBehavior string
 
@@ -131,6 +197,17 @@ const (
 
 func (e OutputKinesisQueueFullBehavior) ToPointer() *OutputKinesisQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputKinesisPqControls struct {

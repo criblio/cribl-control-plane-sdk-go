@@ -20,6 +20,17 @@ func (e RunnableJobScheduledSearchJobType) ToPointer() *RunnableJobScheduledSear
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobScheduledSearchJobType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection", "executor", "scheduledSearch":
+			return true
+		}
+	}
+	return false
+}
+
 type RunnableJobScheduledSearchType string
 
 const (

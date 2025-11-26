@@ -42,6 +42,17 @@ func (e OutputChronicleAuthenticationMethod) ToPointer() *OutputChronicleAuthent
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputChronicleAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "serviceAccount", "serviceAccountSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputChronicleResponseRetrySetting struct {
 	// The HTTP response status code that will trigger retries
 	HTTPStatus float64 `json:"httpStatus"`
@@ -187,6 +198,17 @@ func (e OutputChronicleFailedRequestLoggingMode) ToPointer() *OutputChronicleFai
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputChronicleFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputChronicleBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputChronicleBackpressureBehavior string
 
@@ -201,6 +223,17 @@ const (
 
 func (e OutputChronicleBackpressureBehavior) ToPointer() *OutputChronicleBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputChronicleBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputChronicleCustomLabel struct {
@@ -258,6 +291,17 @@ func (e OutputChronicleMode) ToPointer() *OutputChronicleMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputChronicleMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputChronicleCompression - Codec to use to compress the persisted data
 type OutputChronicleCompression string
 
@@ -272,6 +316,17 @@ func (e OutputChronicleCompression) ToPointer() *OutputChronicleCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputChronicleCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputChronicleQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputChronicleQueueFullBehavior string
 
@@ -284,6 +339,17 @@ const (
 
 func (e OutputChronicleQueueFullBehavior) ToPointer() *OutputChronicleQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputChronicleQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputChroniclePqControls struct {

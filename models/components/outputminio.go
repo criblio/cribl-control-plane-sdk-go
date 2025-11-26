@@ -47,6 +47,17 @@ func (e OutputMinioAuthenticationMethod) ToPointer() *OutputMinioAuthenticationM
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMinioSignatureVersion - Signature version to use for signing MinIO requests
 type OutputMinioSignatureVersion string
 
@@ -57,6 +68,17 @@ const (
 
 func (e OutputMinioSignatureVersion) ToPointer() *OutputMinioSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputMinioObjectACL - Object ACL to assign to uploaded objects
@@ -83,6 +105,17 @@ func (e OutputMinioObjectACL) ToPointer() *OutputMinioObjectACL {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioObjectACL) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "private", "public-read", "public-read-write", "authenticated-read", "aws-exec-read", "bucket-owner-read", "bucket-owner-full-control":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMinioStorageClass - Storage class to select for uploaded objects
 type OutputMinioStorageClass string
 
@@ -97,6 +130,17 @@ func (e OutputMinioStorageClass) ToPointer() *OutputMinioStorageClass {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioStorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "REDUCED_REDUNDANCY":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMinioServerSideEncryption - Server-side encryption for uploaded objects
 type OutputMinioServerSideEncryption string
 
@@ -107,6 +151,17 @@ const (
 
 func (e OutputMinioServerSideEncryption) ToPointer() *OutputMinioServerSideEncryption {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioServerSideEncryption) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "AES256":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputMinioDataFormat - Format of the output data
@@ -125,6 +180,17 @@ func (e OutputMinioDataFormat) ToPointer() *OutputMinioDataFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMinioBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputMinioBackpressureBehavior string
 
@@ -137,6 +203,17 @@ const (
 
 func (e OutputMinioBackpressureBehavior) ToPointer() *OutputMinioBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputMinioDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
@@ -153,6 +230,17 @@ func (e OutputMinioDiskSpaceProtection) ToPointer() *OutputMinioDiskSpaceProtect
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMinioCompression - Data compression format to apply to HTTP content before it is delivered
 type OutputMinioCompression string
 
@@ -163,6 +251,17 @@ const (
 
 func (e OutputMinioCompression) ToPointer() *OutputMinioCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputMinioCompressionLevel - Compression level to apply before moving files to final destination
@@ -181,6 +280,17 @@ func (e OutputMinioCompressionLevel) ToPointer() *OutputMinioCompressionLevel {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioCompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMinioParquetVersion - Determines which data types are supported and how they are represented
 type OutputMinioParquetVersion string
 
@@ -197,6 +307,17 @@ func (e OutputMinioParquetVersion) ToPointer() *OutputMinioParquetVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMinioDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputMinioDataPageVersion string
 
@@ -209,6 +330,17 @@ const (
 
 func (e OutputMinioDataPageVersion) ToPointer() *OutputMinioDataPageVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMinioDataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputMinioKeyValueMetadatum struct {
