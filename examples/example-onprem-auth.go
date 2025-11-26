@@ -1,10 +1,10 @@
 /**
  * On-Prem Authentication Example
  *
- * This example demonstrates how to configure authentication for an on-prem 
+ * This example demonstrates how to configure authentication for an on-prem
  * Cribl instance using username and password credentials.
  *
- * 1. Create an SDK client with username and password credentials using the 
+ * 1. Create an SDK client with username and password credentials using the
  * BearerAuth security scheme.
  * 2. Automatically handle token exchange and refresh using a callback function.
  * 3. Validate the connection by listing all git branches.
@@ -145,13 +145,13 @@ func main() {
 		return
 	}
 
-	if response.Object == nil || response.Object.Items == nil {
+	if response.CountedBranchInfo == nil || response.CountedBranchInfo.Items == nil {
 		fmt.Println("⚠️ No branches found")
 		return
 	}
 
 	var branches []string
-	for _, branch := range response.Object.Items {
+	for _, branch := range response.CountedBranchInfo.Items {
 		if branch.ID != "" {
 			branches = append(branches, branch.ID)
 		}
