@@ -75,6 +75,17 @@ func (e InputFirehoseMode) ToPointer() *InputFirehoseMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFirehoseMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputFirehoseCompression - Codec to use to compress the persisted data
 type InputFirehoseCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputFirehoseCompression) ToPointer() *InputFirehoseCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFirehoseCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputFirehosePqControls struct {
@@ -201,6 +223,17 @@ func (e InputFirehoseMinimumTLSVersion) ToPointer() *InputFirehoseMinimumTLSVers
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFirehoseMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputFirehoseMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputFirehoseMaximumTLSVersion) ToPointer() *InputFirehoseMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFirehoseMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputFirehoseTLSSettingsServerSide struct {

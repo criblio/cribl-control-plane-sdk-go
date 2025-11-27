@@ -36,31 +36,10 @@ func (g *GetConfigGroupACLByProductAndIDRequest) GetType() *components.RbacResou
 	return g.Type
 }
 
-// GetConfigGroupACLByProductAndIDResponseBody - a list of UserAccessControlList objects
-type GetConfigGroupACLByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                             `json:"count,omitempty"`
-	Items []components.UserAccessControlList `json:"items,omitempty"`
-}
-
-func (g *GetConfigGroupACLByProductAndIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetConfigGroupACLByProductAndIDResponseBody) GetItems() []components.UserAccessControlList {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetConfigGroupACLByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of UserAccessControlList objects
-	Object *GetConfigGroupACLByProductAndIDResponseBody
+	CountedUserAccessControlList *components.CountedUserAccessControlList
 }
 
 func (g *GetConfigGroupACLByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -70,9 +49,9 @@ func (g *GetConfigGroupACLByProductAndIDResponse) GetHTTPMeta() components.HTTPM
 	return g.HTTPMeta
 }
 
-func (g *GetConfigGroupACLByProductAndIDResponse) GetObject() *GetConfigGroupACLByProductAndIDResponseBody {
+func (g *GetConfigGroupACLByProductAndIDResponse) GetCountedUserAccessControlList() *components.CountedUserAccessControlList {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedUserAccessControlList
 }

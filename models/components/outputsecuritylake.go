@@ -47,6 +47,17 @@ func (e OutputSecurityLakeAuthenticationMethod) ToPointer() *OutputSecurityLakeA
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSecurityLakeSignatureVersion - Signature version to use for signing Amazon Security Lake requests
 type OutputSecurityLakeSignatureVersion string
 
@@ -57,6 +68,17 @@ const (
 
 func (e OutputSecurityLakeSignatureVersion) ToPointer() *OutputSecurityLakeSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputSecurityLakeObjectACL - Object ACL to assign to uploaded objects
@@ -81,6 +103,17 @@ const (
 
 func (e OutputSecurityLakeObjectACL) ToPointer() *OutputSecurityLakeObjectACL {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeObjectACL) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "private", "public-read", "public-read-write", "authenticated-read", "aws-exec-read", "bucket-owner-read", "bucket-owner-full-control":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputSecurityLakeStorageClass - Storage class to select for uploaded objects
@@ -109,6 +142,17 @@ func (e OutputSecurityLakeStorageClass) ToPointer() *OutputSecurityLakeStorageCl
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeStorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "REDUCED_REDUNDANCY", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER", "GLACIER_IR", "DEEP_ARCHIVE":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSecurityLakeServerSideEncryptionForUploadedObjects string
 
 const (
@@ -120,6 +164,17 @@ const (
 
 func (e OutputSecurityLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputSecurityLakeServerSideEncryptionForUploadedObjects {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeServerSideEncryptionForUploadedObjects) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "AES256", "aws:kms":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputSecurityLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -136,6 +191,17 @@ func (e OutputSecurityLakeBackpressureBehavior) ToPointer() *OutputSecurityLakeB
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSecurityLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputSecurityLakeDiskSpaceProtection string
 
@@ -148,6 +214,17 @@ const (
 
 func (e OutputSecurityLakeDiskSpaceProtection) ToPointer() *OutputSecurityLakeDiskSpaceProtection {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputSecurityLakeParquetVersion - Determines which data types are supported and how they are represented
@@ -166,6 +243,17 @@ func (e OutputSecurityLakeParquetVersion) ToPointer() *OutputSecurityLakeParquet
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSecurityLakeDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputSecurityLakeDataPageVersion string
 
@@ -178,6 +266,17 @@ const (
 
 func (e OutputSecurityLakeDataPageVersion) ToPointer() *OutputSecurityLakeDataPageVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSecurityLakeDataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSecurityLakeKeyValueMetadatum struct {

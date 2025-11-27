@@ -47,6 +47,17 @@ func (e OutputClickHouseAuthenticationType) ToPointer() *OutputClickHouseAuthent
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "sslUserCertificate", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputClickHouseFormat - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
 type OutputClickHouseFormat string
 
@@ -59,6 +70,17 @@ const (
 
 func (e OutputClickHouseFormat) ToPointer() *OutputClickHouseFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json-compact-each-row-with-names", "json-each-row":
+			return true
+		}
+	}
+	return false
 }
 
 // MappingType - How event fields are mapped to ClickHouse columns.
@@ -75,6 +97,17 @@ func (e MappingType) ToPointer() *MappingType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *MappingType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "automatic", "custom":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputClickHouseMinimumTLSVersion string
 
 const (
@@ -88,6 +121,17 @@ func (e OutputClickHouseMinimumTLSVersion) ToPointer() *OutputClickHouseMinimumT
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputClickHouseMaximumTLSVersion string
 
 const (
@@ -99,6 +143,17 @@ const (
 
 func (e OutputClickHouseMaximumTLSVersion) ToPointer() *OutputClickHouseMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputClickHouseTLSSettingsClientSide struct {
@@ -239,6 +294,17 @@ func (e OutputClickHouseFailedRequestLoggingMode) ToPointer() *OutputClickHouseF
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputClickHouseResponseRetrySetting struct {
 	// The HTTP response status code that will trigger retries
 	HTTPStatus float64 `json:"httpStatus"`
@@ -352,6 +418,17 @@ const (
 
 func (e OutputClickHouseBackpressureBehavior) ToPointer() *OutputClickHouseBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputClickHouseOauthParam struct {
@@ -475,6 +552,17 @@ func (e OutputClickHouseMode) ToPointer() *OutputClickHouseMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputClickHouseCompression - Codec to use to compress the persisted data
 type OutputClickHouseCompression string
 
@@ -489,6 +577,17 @@ func (e OutputClickHouseCompression) ToPointer() *OutputClickHouseCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputClickHouseQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputClickHouseQueueFullBehavior string
 
@@ -501,6 +600,17 @@ const (
 
 func (e OutputClickHouseQueueFullBehavior) ToPointer() *OutputClickHouseQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputClickHouseQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputClickHousePqControls struct {

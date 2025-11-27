@@ -77,6 +77,17 @@ func (e OutputXsiamFailedRequestLoggingMode) ToPointer() *OutputXsiamFailedReque
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputXsiamFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputXsiamAuthenticationMethod - Enter a token directly, or provide a secret referencing a token
 type OutputXsiamAuthenticationMethod string
 
@@ -87,6 +98,17 @@ const (
 
 func (e OutputXsiamAuthenticationMethod) ToPointer() *OutputXsiamAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputXsiamAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "token", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputXsiamResponseRetrySetting struct {
@@ -204,6 +226,17 @@ func (e OutputXsiamBackpressureBehavior) ToPointer() *OutputXsiamBackpressureBeh
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputXsiamBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputXsiamURL struct {
 	URL any `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
@@ -251,6 +284,17 @@ func (e OutputXsiamMode) ToPointer() *OutputXsiamMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputXsiamMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputXsiamCompression - Codec to use to compress the persisted data
 type OutputXsiamCompression string
 
@@ -265,6 +309,17 @@ func (e OutputXsiamCompression) ToPointer() *OutputXsiamCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputXsiamCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputXsiamQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputXsiamQueueFullBehavior string
 
@@ -277,6 +332,17 @@ const (
 
 func (e OutputXsiamQueueFullBehavior) ToPointer() *OutputXsiamQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputXsiamQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputXsiamPqControls struct {

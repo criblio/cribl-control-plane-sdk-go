@@ -75,6 +75,17 @@ func (e InputCloudflareHecMode) ToPointer() *InputCloudflareHecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputCloudflareHecCompression - Codec to use to compress the persisted data
 type InputCloudflareHecCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputCloudflareHecCompression) ToPointer() *InputCloudflareHecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCloudflareHecPqControls struct {
@@ -193,10 +215,22 @@ type InputCloudflareHecAuthenticationMethod string
 
 const (
 	InputCloudflareHecAuthenticationMethodSecret InputCloudflareHecAuthenticationMethod = "secret"
+	InputCloudflareHecAuthenticationMethodManual InputCloudflareHecAuthenticationMethod = "manual"
 )
 
 func (e InputCloudflareHecAuthenticationMethod) ToPointer() *InputCloudflareHecAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "secret", "manual":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCloudflareHecAuthTokenMetadatum struct {
@@ -232,11 +266,13 @@ func (i *InputCloudflareHecAuthTokenMetadatum) GetValue() string {
 
 type InputCloudflareHecAuthToken struct {
 	// Select Secret to use a text secret to authenticate
-	AuthType    *InputCloudflareHecAuthenticationMethod `default:"secret" json:"authType"`
-	TokenSecret any                                     `json:"tokenSecret,omitempty"`
-	Token       any                                     `json:"token,omitempty"`
-	Enabled     *bool                                   `default:"true" json:"enabled"`
-	Description *string                                 `json:"description,omitempty"`
+	AuthType *InputCloudflareHecAuthenticationMethod `default:"secret" json:"authType"`
+	// Select or create a stored text secret
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       *string `json:"token,omitempty"`
+	Enabled     *bool   `default:"true" json:"enabled"`
+	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
@@ -261,14 +297,14 @@ func (i *InputCloudflareHecAuthToken) GetAuthType() *InputCloudflareHecAuthentic
 	return i.AuthType
 }
 
-func (i *InputCloudflareHecAuthToken) GetTokenSecret() any {
+func (i *InputCloudflareHecAuthToken) GetTokenSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenSecret
 }
 
-func (i *InputCloudflareHecAuthToken) GetToken() any {
+func (i *InputCloudflareHecAuthToken) GetToken() *string {
 	if i == nil {
 		return nil
 	}
@@ -316,6 +352,17 @@ func (e InputCloudflareHecMinimumTLSVersion) ToPointer() *InputCloudflareHecMini
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputCloudflareHecMaximumTLSVersion string
 
 const (
@@ -327,6 +374,17 @@ const (
 
 func (e InputCloudflareHecMaximumTLSVersion) ToPointer() *InputCloudflareHecMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCloudflareHecMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCloudflareHecTLSSettingsServerSide struct {

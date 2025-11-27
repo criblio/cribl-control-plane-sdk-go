@@ -75,6 +75,17 @@ func (e InputRawUDPMode) ToPointer() *InputRawUDPMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputRawUDPMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputRawUDPCompression - Codec to use to compress the persisted data
 type InputRawUDPCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputRawUDPCompression) ToPointer() *InputRawUDPCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputRawUDPCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputRawUDPPqControls struct {

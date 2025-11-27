@@ -75,6 +75,17 @@ func (e InputDatagenMode) ToPointer() *InputDatagenMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatagenMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputDatagenCompression - Codec to use to compress the persisted data
 type InputDatagenCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputDatagenCompression) ToPointer() *InputDatagenCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatagenCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputDatagenPqControls struct {

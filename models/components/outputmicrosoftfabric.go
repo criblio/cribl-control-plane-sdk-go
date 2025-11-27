@@ -47,6 +47,17 @@ func (e OutputMicrosoftFabricAcknowledgments) ToPointer() *OutputMicrosoftFabric
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricAcknowledgments) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 1, 0, -1:
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMicrosoftFabricRecordDataFormat - Format to use to serialize events before writing to the Event Hubs Kafka brokers
 type OutputMicrosoftFabricRecordDataFormat string
 
@@ -59,6 +70,17 @@ const (
 
 func (e OutputMicrosoftFabricRecordDataFormat) ToPointer() *OutputMicrosoftFabricRecordDataFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricRecordDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputMicrosoftFabricSASLMechanism string
@@ -74,6 +96,17 @@ func (e OutputMicrosoftFabricSASLMechanism) ToPointer() *OutputMicrosoftFabricSA
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricSASLMechanism) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "plain", "oauthbearer":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputMicrosoftFabricAuthenticationMethod string
 
 const (
@@ -83,6 +116,17 @@ const (
 
 func (e OutputMicrosoftFabricAuthenticationMethod) ToPointer() *OutputMicrosoftFabricAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "secret", "certificate":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
@@ -96,6 +140,17 @@ const (
 
 func (e OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "https://login.microsoftonline.com", "https://login.microsoftonline.us", "https://login.partner.microsoftonline.cn":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputMicrosoftFabricAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
@@ -280,6 +335,17 @@ func (e OutputMicrosoftFabricBackpressureBehavior) ToPointer() *OutputMicrosoftF
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMicrosoftFabricMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputMicrosoftFabricMode string
 
@@ -296,6 +362,17 @@ func (e OutputMicrosoftFabricMode) ToPointer() *OutputMicrosoftFabricMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMicrosoftFabricCompression - Codec to use to compress the persisted data
 type OutputMicrosoftFabricCompression string
 
@@ -310,6 +387,17 @@ func (e OutputMicrosoftFabricCompression) ToPointer() *OutputMicrosoftFabricComp
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMicrosoftFabricQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputMicrosoftFabricQueueFullBehavior string
 
@@ -322,6 +410,17 @@ const (
 
 func (e OutputMicrosoftFabricQueueFullBehavior) ToPointer() *OutputMicrosoftFabricQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMicrosoftFabricQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputMicrosoftFabricPqControls struct {
