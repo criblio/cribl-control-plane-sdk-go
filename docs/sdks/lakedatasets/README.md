@@ -134,6 +134,7 @@ import(
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -147,7 +148,15 @@ func main() {
         }),
     )
 
-    res, err := s.LakeDatasets.List(ctx, "<id>")
+    res, err := s.LakeDatasets.List(ctx, operations.GetCriblLakeDatasetByLakeIDRequest{
+        LakeID: "<id>",
+        StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
+        Format: criblcontrolplanesdkgo.Pointer("<value>"),
+        ExcludeDDSS: criblcontrolplanesdkgo.Pointer("<value>"),
+        ExcludeDeleted: criblcontrolplanesdkgo.Pointer("<value>"),
+        ExcludeInternal: criblcontrolplanesdkgo.Pointer("<value>"),
+        ExcludeBYOS: criblcontrolplanesdkgo.Pointer("<value>"),
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -159,11 +168,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
-| `lakeID`                                                                 | *string*                                                                 | :heavy_check_mark:                                                       | The <code>id</code> of the Lake that contains the Lake Datasets to list. |
-| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
+| Parameter                                                                                                      | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                          | :heavy_check_mark:                                                                                             | The context to use for the request.                                                                            |
+| `request`                                                                                                      | [operations.GetCriblLakeDatasetByLakeIDRequest](../../models/operations/getcribllakedatasetbylakeidrequest.md) | :heavy_check_mark:                                                                                             | The request object to use for the request.                                                                     |
+| `opts`                                                                                                         | [][operations.Option](../../models/operations/option.md)                                                       | :heavy_minus_sign:                                                                                             | The options for this request.                                                                                  |
 
 ### Response
 
