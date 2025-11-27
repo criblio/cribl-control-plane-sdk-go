@@ -75,6 +75,17 @@ func (e InputKubeLogsMode) ToPointer() *InputKubeLogsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeLogsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputKubeLogsPqCompression - Codec to use to compress the persisted data
 type InputKubeLogsPqCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputKubeLogsPqCompression) ToPointer() *InputKubeLogsPqCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeLogsPqCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKubeLogsPqControls struct {
@@ -261,6 +283,17 @@ const (
 
 func (e InputKubeLogsPersistenceCompression) ToPointer() *InputKubeLogsPersistenceCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeLogsPersistenceCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKubeLogsDiskSpooling struct {

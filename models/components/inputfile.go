@@ -75,6 +75,17 @@ func (e InputFilePqMode) ToPointer() *InputFilePqMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFilePqMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputFileCompression - Codec to use to compress the persisted data
 type InputFileCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputFileCompression) ToPointer() *InputFileCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFileCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputFilePqControls struct {
@@ -200,6 +222,17 @@ const (
 
 func (e InputFileMode) ToPointer() *InputFileMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFileMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "auto":
+			return true
+		}
+	}
+	return false
 }
 
 type InputFileMetadatum struct {

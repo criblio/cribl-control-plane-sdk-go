@@ -299,31 +299,10 @@ func (u *UpdateOutputByIDRequest) GetOutputCloudflareR2() *components.OutputClou
 	return u.GetOutput().OutputCloudflareR2
 }
 
-// UpdateOutputByIDResponseBody - a list of Destination objects
-type UpdateOutputByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64              `json:"count,omitempty"`
-	Items []components.Output `json:"items,omitempty"`
-}
-
-func (u *UpdateOutputByIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdateOutputByIDResponseBody) GetItems() []components.Output {
-	if u == nil {
-		return nil
-	}
-	return u.Items
-}
-
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
-	Object *UpdateOutputByIDResponseBody
+	CountedOutput *components.CountedOutput
 }
 
 func (u *UpdateOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -333,9 +312,9 @@ func (u *UpdateOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdateOutputByIDResponse) GetObject() *UpdateOutputByIDResponseBody {
+func (u *UpdateOutputByIDResponse) GetCountedOutput() *components.CountedOutput {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedOutput
 }

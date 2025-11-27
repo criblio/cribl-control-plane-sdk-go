@@ -47,6 +47,17 @@ func (e OutputSnsAuthenticationMethod) ToPointer() *OutputSnsAuthenticationMetho
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSnsSignatureVersion - Signature version to use for signing SNS requests
 type OutputSnsSignatureVersion string
 
@@ -57,6 +68,17 @@ const (
 
 func (e OutputSnsSignatureVersion) ToPointer() *OutputSnsSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputSnsBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -75,6 +97,17 @@ func (e OutputSnsBackpressureBehavior) ToPointer() *OutputSnsBackpressureBehavio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSnsMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSnsMode string
 
@@ -91,6 +124,17 @@ func (e OutputSnsMode) ToPointer() *OutputSnsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSnsCompression - Codec to use to compress the persisted data
 type OutputSnsCompression string
 
@@ -105,6 +149,17 @@ func (e OutputSnsCompression) ToPointer() *OutputSnsCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSnsQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSnsQueueFullBehavior string
 
@@ -117,6 +172,17 @@ const (
 
 func (e OutputSnsQueueFullBehavior) ToPointer() *OutputSnsQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSnsPqControls struct {

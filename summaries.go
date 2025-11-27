@@ -106,6 +106,16 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -115,10 +125,6 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -208,12 +214,12 @@ func (s *Summaries) Get(ctx context.Context, mode *components.WorkerTypes, opts 
 				return nil, err
 			}
 
-			var out operations.GetSummaryResponseBody
+			var out components.CountedDistributedSummary
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedDistributedSummary = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

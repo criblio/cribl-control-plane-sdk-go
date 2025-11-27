@@ -45,6 +45,17 @@ func (e SendLogsAs) ToPointer() *SendLogsAs {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SendLogsAs) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "text", "json":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDatadogSeverity - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
 type OutputDatadogSeverity string
 
@@ -71,6 +82,17 @@ func (e OutputDatadogSeverity) ToPointer() *OutputDatadogSeverity {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogSeverity) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "emergency", "alert", "critical", "error", "warning", "notice", "info", "debug":
+			return true
+		}
+	}
+	return false
+}
+
 // DatadogSite - Datadog site to which events should be sent
 type DatadogSite string
 
@@ -93,6 +115,17 @@ const (
 
 func (e DatadogSite) ToPointer() *DatadogSite {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DatadogSite) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "us", "us3", "us5", "eu", "fed1", "ap1", "custom":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDatadogExtraHTTPHeader struct {
@@ -139,6 +172,17 @@ const (
 
 func (e OutputDatadogFailedRequestLoggingMode) ToPointer() *OutputDatadogFailedRequestLoggingMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDatadogResponseRetrySetting struct {
@@ -256,6 +300,17 @@ func (e OutputDatadogBackpressureBehavior) ToPointer() *OutputDatadogBackpressur
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDatadogAuthenticationMethod - Enter API key directly, or select a stored secret
 type OutputDatadogAuthenticationMethod string
 
@@ -266,6 +321,17 @@ const (
 
 func (e OutputDatadogAuthenticationMethod) ToPointer() *OutputDatadogAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputDatadogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -284,6 +350,17 @@ func (e OutputDatadogMode) ToPointer() *OutputDatadogMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDatadogCompression - Codec to use to compress the persisted data
 type OutputDatadogCompression string
 
@@ -298,6 +375,17 @@ func (e OutputDatadogCompression) ToPointer() *OutputDatadogCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDatadogQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputDatadogQueueFullBehavior string
 
@@ -310,6 +398,17 @@ const (
 
 func (e OutputDatadogQueueFullBehavior) ToPointer() *OutputDatadogQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDatadogPqControls struct {

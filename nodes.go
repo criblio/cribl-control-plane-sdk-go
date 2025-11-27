@@ -105,6 +105,16 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -114,10 +124,6 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -207,12 +213,12 @@ func (s *Nodes) List(ctx context.Context, request operations.ListMasterWorkerEnt
 				return nil, err
 			}
 
-			var out operations.ListMasterWorkerEntryResponseBody
+			var out components.CountedMasterWorkerEntry
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedMasterWorkerEntry = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -346,6 +352,16 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -355,10 +371,6 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -448,12 +460,12 @@ func (s *Nodes) Count(ctx context.Context, filterExp *string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.GetMasterWorkerEntryResponseBody
+			var out components.CountedNumber
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedNumber = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

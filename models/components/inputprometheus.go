@@ -75,6 +75,17 @@ func (e InputPrometheusMode) ToPointer() *InputPrometheusMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputPrometheusMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputPrometheusCompression - Codec to use to compress the persisted data
 type InputPrometheusCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputPrometheusCompression) ToPointer() *InputPrometheusCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputPrometheusCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputPrometheusPqControls struct {
@@ -204,6 +226,17 @@ func (e InputPrometheusDiscoveryType) ToPointer() *InputPrometheusDiscoveryType 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputPrometheusDiscoveryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "static", "dns", "ec2":
+			return true
+		}
+	}
+	return false
+}
+
 // InputPrometheusLogLevel - Collector runtime Log Level
 type InputPrometheusLogLevel string
 
@@ -216,6 +249,17 @@ const (
 
 func (e InputPrometheusLogLevel) ToPointer() *InputPrometheusLogLevel {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputPrometheusLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug":
+			return true
+		}
+	}
+	return false
 }
 
 type InputPrometheusMetadatum struct {
@@ -261,6 +305,17 @@ func (e InputPrometheusAuthTypeAuthenticationMethod) ToPointer() *InputPrometheu
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputPrometheusAuthTypeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputPrometheusRecordType - DNS Record type to resolve
 type InputPrometheusRecordType string
 
@@ -274,6 +329,17 @@ func (e InputPrometheusRecordType) ToPointer() *InputPrometheusRecordType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputPrometheusRecordType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "SRV", "A", "AAAA":
+			return true
+		}
+	}
+	return false
+}
+
 // MetricsProtocol - Protocol to use when collecting metrics
 type MetricsProtocol string
 
@@ -284,6 +350,17 @@ const (
 
 func (e MetricsProtocol) ToPointer() *MetricsProtocol {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *MetricsProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "https":
+			return true
+		}
+	}
+	return false
 }
 
 // InputPrometheusAwsAuthenticationMethodAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
@@ -300,6 +377,17 @@ const (
 
 func (e InputPrometheusAwsAuthenticationMethodAuthenticationMethod) ToPointer() *InputPrometheusAwsAuthenticationMethodAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputPrometheusAwsAuthenticationMethodAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputPrometheusSearchFilter struct {
@@ -344,6 +432,17 @@ const (
 
 func (e InputPrometheusSignatureVersion) ToPointer() *InputPrometheusSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputPrometheusSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputPrometheus struct {

@@ -17,3 +17,14 @@ const (
 func (e RbacResource) ToPointer() *RbacResource {
 	return &e
 }
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RbacResource) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "groups", "datasets", "dataset-providers", "projects", "dashboards", "macros", "notebooks":
+			return true
+		}
+	}
+	return false
+}

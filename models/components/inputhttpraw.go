@@ -75,6 +75,17 @@ func (e InputHTTPRawMode) ToPointer() *InputHTTPRawMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputHTTPRawMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputHTTPRawCompression - Codec to use to compress the persisted data
 type InputHTTPRawCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputHTTPRawCompression) ToPointer() *InputHTTPRawCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputHTTPRawCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputHTTPRawPqControls struct {
@@ -201,6 +223,17 @@ func (e InputHTTPRawMinimumTLSVersion) ToPointer() *InputHTTPRawMinimumTLSVersio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputHTTPRawMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputHTTPRawMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputHTTPRawMaximumTLSVersion) ToPointer() *InputHTTPRawMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputHTTPRawMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputHTTPRawTLSSettingsServerSide struct {

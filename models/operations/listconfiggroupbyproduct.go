@@ -27,31 +27,10 @@ func (l *ListConfigGroupByProductRequest) GetProduct() components.ProductsCore {
 	return l.Product
 }
 
-// ListConfigGroupByProductResponseBody - a list of ConfigGroup objects
-type ListConfigGroupByProductResponseBody struct {
-	// number of items present in the items array
-	Count *int64                   `json:"count,omitempty"`
-	Items []components.ConfigGroup `json:"items,omitempty"`
-}
-
-func (l *ListConfigGroupByProductResponseBody) GetCount() *int64 {
-	if l == nil {
-		return nil
-	}
-	return l.Count
-}
-
-func (l *ListConfigGroupByProductResponseBody) GetItems() []components.ConfigGroup {
-	if l == nil {
-		return nil
-	}
-	return l.Items
-}
-
 type ListConfigGroupByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
-	Object *ListConfigGroupByProductResponseBody
+	CountedConfigGroup *components.CountedConfigGroup
 }
 
 func (l *ListConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (l *ListConfigGroupByProductResponse) GetHTTPMeta() components.HTTPMetadata
 	return l.HTTPMeta
 }
 
-func (l *ListConfigGroupByProductResponse) GetObject() *ListConfigGroupByProductResponseBody {
+func (l *ListConfigGroupByProductResponse) GetCountedConfigGroup() *components.CountedConfigGroup {
 	if l == nil {
 		return nil
 	}
-	return l.Object
+	return l.CountedConfigGroup
 }

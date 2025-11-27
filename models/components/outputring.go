@@ -43,6 +43,17 @@ func (e OutputRingDataFormat) ToPointer() *OutputRingDataFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputRingDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputRingDataCompressionFormat string
 
 const (
@@ -52,6 +63,17 @@ const (
 
 func (e OutputRingDataCompressionFormat) ToPointer() *OutputRingDataCompressionFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputRingDataCompressionFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputRingBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -66,6 +88,17 @@ const (
 
 func (e OutputRingBackpressureBehavior) ToPointer() *OutputRingBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputRingBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputRing struct {

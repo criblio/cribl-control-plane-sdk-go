@@ -44,6 +44,17 @@ func (e OutputGoogleChronicleAPIVersion) ToPointer() *OutputGoogleChronicleAPIVe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleAPIVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v1", "v2":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputGoogleChronicleAuthenticationMethod string
 
 const (
@@ -59,6 +70,17 @@ const (
 
 func (e OutputGoogleChronicleAuthenticationMethod) ToPointer() *OutputGoogleChronicleAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "serviceAccount", "serviceAccountSecret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGoogleChronicleResponseRetrySetting struct {
@@ -173,6 +195,17 @@ func (e SendEventsAs) ToPointer() *SendEventsAs {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SendEventsAs) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "unstructured", "udm":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputGoogleChronicleExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
 	Value string  `json:"value"`
@@ -219,6 +252,17 @@ func (e OutputGoogleChronicleFailedRequestLoggingMode) ToPointer() *OutputGoogle
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleChronicleBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputGoogleChronicleBackpressureBehavior string
 
@@ -233,6 +277,17 @@ const (
 
 func (e OutputGoogleChronicleBackpressureBehavior) ToPointer() *OutputGoogleChronicleBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 type ExtraLogType struct {
@@ -307,6 +362,17 @@ func (e UDMType) ToPointer() *UDMType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *UDMType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "entities", "logs":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleChronicleMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputGoogleChronicleMode string
 
@@ -323,6 +389,17 @@ func (e OutputGoogleChronicleMode) ToPointer() *OutputGoogleChronicleMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleChronicleCompression - Codec to use to compress the persisted data
 type OutputGoogleChronicleCompression string
 
@@ -337,6 +414,17 @@ func (e OutputGoogleChronicleCompression) ToPointer() *OutputGoogleChronicleComp
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleChronicleQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputGoogleChronicleQueueFullBehavior string
 
@@ -349,6 +437,17 @@ const (
 
 func (e OutputGoogleChronicleQueueFullBehavior) ToPointer() *OutputGoogleChronicleQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGoogleChroniclePqControls struct {

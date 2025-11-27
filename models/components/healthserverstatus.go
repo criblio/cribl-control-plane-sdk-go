@@ -13,6 +13,17 @@ func (e Role) ToPointer() *Role {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Role) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "standby", "primary":
+			return true
+		}
+	}
+	return false
+}
+
 type Status string
 
 const (
@@ -23,6 +34,17 @@ const (
 
 func (e Status) ToPointer() *Status {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Status) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "shutting down", "healthy", "standby":
+			return true
+		}
+	}
+	return false
 }
 
 type HealthServerStatus struct {

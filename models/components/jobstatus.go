@@ -22,6 +22,17 @@ func (e State) ToPointer() *State {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *State) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9:
+			return true
+		}
+	}
+	return false
+}
+
 type JobStatus struct {
 	Reason map[string]any `json:"reason,omitempty"`
 	// State of the Job

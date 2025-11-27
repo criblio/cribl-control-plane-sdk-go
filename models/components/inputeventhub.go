@@ -75,6 +75,17 @@ func (e InputEventhubMode) ToPointer() *InputEventhubMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEventhubMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputEventhubCompression - Codec to use to compress the persisted data
 type InputEventhubCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputEventhubCompression) ToPointer() *InputEventhubCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEventhubCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputEventhubPqControls struct {
@@ -200,6 +222,17 @@ func (e InputEventhubAuthTypeAuthenticationMethod) ToPointer() *InputEventhubAut
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEventhubAuthTypeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type InputEventhubSASLMechanism string
 
 const (
@@ -211,6 +244,17 @@ const (
 
 func (e InputEventhubSASLMechanism) ToPointer() *InputEventhubSASLMechanism {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEventhubSASLMechanism) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "plain", "oauthbearer":
+			return true
+		}
+	}
+	return false
 }
 
 type InputEventhubClientSecretAuthTypeAuthenticationMethod string
@@ -225,6 +269,17 @@ func (e InputEventhubClientSecretAuthTypeAuthenticationMethod) ToPointer() *Inpu
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEventhubClientSecretAuthTypeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "certificate":
+			return true
+		}
+	}
+	return false
+}
+
 // InputEventhubMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
 type InputEventhubMicrosoftEntraIDAuthenticationEndpoint string
 
@@ -236,6 +291,17 @@ const (
 
 func (e InputEventhubMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *InputEventhubMicrosoftEntraIDAuthenticationEndpoint {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEventhubMicrosoftEntraIDAuthenticationEndpoint) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "https://login.microsoftonline.com", "https://login.microsoftonline.us", "https://login.partner.microsoftonline.cn":
+			return true
+		}
+	}
+	return false
 }
 
 // InputEventhubAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.

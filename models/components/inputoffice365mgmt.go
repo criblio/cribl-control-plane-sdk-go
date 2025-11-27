@@ -75,6 +75,17 @@ func (e InputOffice365MgmtMode) ToPointer() *InputOffice365MgmtMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MgmtMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputOffice365MgmtCompression - Codec to use to compress the persisted data
 type InputOffice365MgmtCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputOffice365MgmtCompression) ToPointer() *InputOffice365MgmtCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MgmtCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365MgmtPqControls struct {
@@ -206,6 +228,17 @@ func (e InputOffice365MgmtSubscriptionPlan) ToPointer() *InputOffice365MgmtSubsc
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MgmtSubscriptionPlan) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "enterprise_gcc", "gcc", "gcc_high", "dod":
+			return true
+		}
+	}
+	return false
+}
+
 type InputOffice365MgmtMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -249,6 +282,17 @@ const (
 
 func (e InputOffice365MgmtLogLevel) ToPointer() *InputOffice365MgmtLogLevel {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MgmtLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365MgmtContentConfig struct {
@@ -322,6 +366,17 @@ const (
 
 func (e InputOffice365MgmtRetryType) ToPointer() *InputOffice365MgmtRetryType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MgmtRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365MgmtRetryRules struct {
@@ -420,6 +475,17 @@ const (
 
 func (e InputOffice365MgmtAuthenticationMethod) ToPointer() *InputOffice365MgmtAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365MgmtAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365Mgmt struct {

@@ -75,6 +75,17 @@ func (e InputSplunkHecMode) ToPointer() *InputSplunkHecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSplunkHecCompression - Codec to use to compress the persisted data
 type InputSplunkHecCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputSplunkHecCompression) ToPointer() *InputSplunkHecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkHecPqControls struct {
@@ -200,6 +222,17 @@ func (e InputSplunkHecAuthenticationMethod) ToPointer() *InputSplunkHecAuthentic
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSplunkHecAuthTokenMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -233,10 +266,12 @@ func (i *InputSplunkHecAuthTokenMetadatum) GetValue() string {
 
 type InputSplunkHecAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *InputSplunkHecAuthenticationMethod `default:"manual" json:"authType"`
-	TokenSecret any                                 `json:"tokenSecret,omitempty"`
-	Token       any                                 `json:"token"`
-	Enabled     *bool                               `default:"true" json:"enabled"`
+	AuthType *InputSplunkHecAuthenticationMethod `default:"manual" json:"authType"`
+	// Select or create a stored text secret
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token   string `json:"token"`
+	Enabled *bool  `default:"true" json:"enabled"`
 	// Optional token description
 	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -263,16 +298,16 @@ func (i *InputSplunkHecAuthToken) GetAuthType() *InputSplunkHecAuthenticationMet
 	return i.AuthType
 }
 
-func (i *InputSplunkHecAuthToken) GetTokenSecret() any {
+func (i *InputSplunkHecAuthToken) GetTokenSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenSecret
 }
 
-func (i *InputSplunkHecAuthToken) GetToken() any {
+func (i *InputSplunkHecAuthToken) GetToken() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Token
 }
@@ -318,6 +353,17 @@ func (e InputSplunkHecMinimumTLSVersion) ToPointer() *InputSplunkHecMinimumTLSVe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSplunkHecMaximumTLSVersion string
 
 const (
@@ -329,6 +375,17 @@ const (
 
 func (e InputSplunkHecMaximumTLSVersion) ToPointer() *InputSplunkHecMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkHecTLSSettingsServerSide struct {
