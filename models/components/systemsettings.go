@@ -518,7 +518,7 @@ func (s *SystemSettingsWorkers) GetV8SingleThread() *bool {
 type SystemSettings struct {
 	API                  SystemSettingsAPI         `json:"api"`
 	Auth                 AuthConfig                `json:"auth"`
-	Backups              SystemSettingsBackups     `json:"backups"`
+	Backups              *SystemSettingsBackups    `json:"backups,omitempty"`
 	CustomLogo           *SystemSettingsCustomLogo `json:"customLogo,omitempty"`
 	Distributed          Distributed               `json:"distributed"`
 	Fips                 bool                      `json:"fips"`
@@ -529,17 +529,17 @@ type SystemSettings struct {
 	Proxy                SystemSettingsProxy       `json:"proxy"`
 	RedisCacheLimits     RedisCacheLimits          `json:"redisCacheLimits"`
 	RedisLimits          RedisLimits               `json:"redisLimits"`
-	Rollback             SystemSettingsRollback    `json:"rollback"`
+	Rollback             *SystemSettingsRollback   `json:"rollback,omitempty"`
 	SearchLimits         SearchSettings            `json:"searchLimits"`
 	ServicesLimits       ServicesLimits            `json:"servicesLimits"`
-	Shutdown             SystemSettingsShutdown    `json:"shutdown"`
-	Sni                  SystemSettingsSni         `json:"sni"`
+	Shutdown             *SystemSettingsShutdown   `json:"shutdown,omitempty"`
+	Sni                  *SystemSettingsSni        `json:"sni,omitempty"`
 	Sockets              *SystemSettingsSockets    `json:"sockets,omitempty"`
 	Support              *SystemSettingsSupport    `json:"support,omitempty"`
 	System               SystemSettingsSystem      `json:"system"`
-	TLS                  SystemSettingsTLS         `json:"tls"`
+	TLS                  *SystemSettingsTLS        `json:"tls,omitempty"`
 	UpgradeGroupSettings UpgradeGroupSettings      `json:"upgradeGroupSettings"`
-	UpgradeSettings      UpgradeSettings           `json:"upgradeSettings"`
+	UpgradeSettings      *UpgradeSettings          `json:"upgradeSettings,omitempty"`
 	Workers              SystemSettingsWorkers     `json:"workers"`
 }
 
@@ -557,9 +557,9 @@ func (s *SystemSettings) GetAuth() AuthConfig {
 	return s.Auth
 }
 
-func (s *SystemSettings) GetBackups() SystemSettingsBackups {
+func (s *SystemSettings) GetBackups() *SystemSettingsBackups {
 	if s == nil {
-		return SystemSettingsBackups{}
+		return nil
 	}
 	return s.Backups
 }
@@ -634,9 +634,9 @@ func (s *SystemSettings) GetRedisLimits() RedisLimits {
 	return s.RedisLimits
 }
 
-func (s *SystemSettings) GetRollback() SystemSettingsRollback {
+func (s *SystemSettings) GetRollback() *SystemSettingsRollback {
 	if s == nil {
-		return SystemSettingsRollback{}
+		return nil
 	}
 	return s.Rollback
 }
@@ -655,16 +655,16 @@ func (s *SystemSettings) GetServicesLimits() ServicesLimits {
 	return s.ServicesLimits
 }
 
-func (s *SystemSettings) GetShutdown() SystemSettingsShutdown {
+func (s *SystemSettings) GetShutdown() *SystemSettingsShutdown {
 	if s == nil {
-		return SystemSettingsShutdown{}
+		return nil
 	}
 	return s.Shutdown
 }
 
-func (s *SystemSettings) GetSni() SystemSettingsSni {
+func (s *SystemSettings) GetSni() *SystemSettingsSni {
 	if s == nil {
-		return SystemSettingsSni{}
+		return nil
 	}
 	return s.Sni
 }
@@ -690,9 +690,9 @@ func (s *SystemSettings) GetSystem() SystemSettingsSystem {
 	return s.System
 }
 
-func (s *SystemSettings) GetTLS() SystemSettingsTLS {
+func (s *SystemSettings) GetTLS() *SystemSettingsTLS {
 	if s == nil {
-		return SystemSettingsTLS{}
+		return nil
 	}
 	return s.TLS
 }
@@ -704,9 +704,9 @@ func (s *SystemSettings) GetUpgradeGroupSettings() UpgradeGroupSettings {
 	return s.UpgradeGroupSettings
 }
 
-func (s *SystemSettings) GetUpgradeSettings() UpgradeSettings {
+func (s *SystemSettings) GetUpgradeSettings() *UpgradeSettings {
 	if s == nil {
-		return UpgradeSettings{}
+		return nil
 	}
 	return s.UpgradeSettings
 }
