@@ -34,7 +34,7 @@ jobs:
           echo "branch=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
 
           # Check version for prerelease detection
-          VERSION=$(yq '.typescript.version' .speakeasy/gen.yaml)
+          VERSION=$(yq '.go.version' .speakeasy/gen.yaml)
           echo "Detected version: $VERSION"
 
           # Check if version is a prerelease
