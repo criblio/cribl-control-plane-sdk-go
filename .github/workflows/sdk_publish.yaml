@@ -20,6 +20,7 @@ jobs:
     outputs:
       branch: ${{ steps.branch-info.outputs.branch }}
       is-production: ${{ steps.branch-info.outputs.is-production }}
+      is-prerelease: ${{ steps.branch-info.outputs.is-prerelease }}
     steps:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -30,6 +31,19 @@ jobs:
           echo "Current branch: ${GITHUB_REF_NAME}"
           echo "branch=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
 
+          # Check version for prerelease detection
+          VERSION=$(yq '.typescript.version' .speakeasy/gen.yaml)
+          echo "Detected version: $VERSION"
+
+          # Check if version is a prerelease
+          if [[ "$VERSION" == *"-alpha."* ]] || [[ "$VERSION" == *"-beta."* ]] || [[ "$VERSION" == *"-rc."* ]] || [[ "$VERSION" == *"-tc."* ]]; then
+            echo "is-prerelease=true" >> "$GITHUB_OUTPUT"
+            echo "✅ Prerelease version detected: $VERSION"
+          else
+            echo "is-prerelease=false" >> "$GITHUB_OUTPUT"
+            echo "✅ GA version detected: $VERSION"
+          fi
+
           # Determine if this is a production release
           if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
             echo "is-production=true" >> "$GITHUB_OUTPUT"
@@ -38,13 +52,8 @@ jobs:
             echo "is-production=false" >> "$GITHUB_OUTPUT"
             echo "✅ Prerelease from ${GITHUB_REF_NAME} branch"
 
-            # For non-standard branches, check prerelease version
-            VERSION=$(yq '.go.version' .speakeasy/gen.yaml)
-            echo "Detected version: $VERSION"
-
-            if [[ "$VERSION" == *"-alpha."* ]] || [[ "$VERSION" == *"-beta."* ]] || [[ "$VERSION" == *"-rc."* ]] || [[ "$VERSION" == *"-tc."* ]]; then
-              echo "✅ Prerelease version detected: $VERSION"
-            else
+            # For non-standard branches, validate prerelease version
+            if [[ "$VERSION" != *"-alpha."* ]] && [[ "$VERSION" != *"-beta."* ]] && [[ "$VERSION" != *"-rc."* ]] && [[ "$VERSION" != *"-tc."* ]]; then
               echo "::error::Version is not a valid prerelease (expected format X.Y.Z-{alpha|beta|rc|tc}.<n>)"
               echo "::error::Detected version: $VERSION"
               exit 1
@@ -82,6 +91,7 @@ jobs:
           sudo chmod +x /usr/local/bin/yq
 
       - name: Restore workflow.lock from GA tag
+        if: needs.check-branch.outputs.branch == 'main' && needs.check-branch.outputs.is-prerelease == 'true'
         run: |
           set -euo pipefail
           
