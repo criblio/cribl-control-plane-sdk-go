@@ -121,7 +121,7 @@ func main() {
             SsoRateLimit: criblcontrolplanesdkgo.Pointer("<value>"),
             WorkerRemoteAccess: true,
         },
-        Backups: components.SystemSettingsConfBackups{
+        Backups: &components.SystemSettingsConfBackups{
             BackupPersistence: "<value>",
             BackupsDirectory: "<value>",
         },
@@ -136,15 +136,15 @@ func main() {
         Proxy: components.SystemSettingsConfProxy{
             UseEnvVars: true,
         },
-        Rollback: components.SystemSettingsConfRollback{
+        Rollback: &components.SystemSettingsConfRollback{
             RollbackEnabled: false,
             RollbackRetries: criblcontrolplanesdkgo.Pointer[float64](3174.73),
             RollbackTimeout: criblcontrolplanesdkgo.Pointer[float64](1506.54),
         },
-        Shutdown: components.SystemSettingsConfShutdown{
+        Shutdown: &components.SystemSettingsConfShutdown{
             DrainTimeout: 3723.75,
         },
-        Sni: components.SystemSettingsConfSni{
+        Sni: &components.SystemSettingsConfSni{
             DisableSNIRouting: false,
         },
         Sockets: &components.SystemSettingsConfSockets{
@@ -162,7 +162,7 @@ func main() {
             Intercom: false,
             Upgrade: components.SystemSettingsConfUpgradeAPI,
         },
-        TLS: components.SystemSettingsConfTLS{
+        TLS: &components.SystemSettingsConfTLS{
             DefaultCipherList: "<value>",
             DefaultEcdhCurve: "<value>",
             MaxVersion: "<value>",
@@ -175,7 +175,7 @@ func main() {
             RetryCount: criblcontrolplanesdkgo.Pointer[float64](4414.66),
             RetryDelay: criblcontrolplanesdkgo.Pointer[float64](4374.4),
         },
-        UpgradeSettings: components.UpgradeSettings{
+        UpgradeSettings: &components.UpgradeSettings{
             AutomaticUpgradeCheckPeriod: criblcontrolplanesdkgo.Pointer("<value>"),
             DisableAutomaticUpgrade: false,
             EnableLegacyEdgeUpgrade: false,

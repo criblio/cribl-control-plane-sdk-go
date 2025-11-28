@@ -479,19 +479,19 @@ func (s *SystemSettingsConfWorkers) GetV8SingleThread() *bool {
 
 type SystemSettingsConf struct {
 	API                  SystemSettingsConfAPI         `json:"api"`
-	Backups              SystemSettingsConfBackups     `json:"backups"`
+	Backups              *SystemSettingsConfBackups    `json:"backups,omitempty"`
 	CustomLogo           *SystemSettingsConfCustomLogo `json:"customLogo,omitempty"`
 	Pii                  SystemSettingsConfPii         `json:"pii"`
 	Proxy                SystemSettingsConfProxy       `json:"proxy"`
-	Rollback             SystemSettingsConfRollback    `json:"rollback"`
-	Shutdown             SystemSettingsConfShutdown    `json:"shutdown"`
-	Sni                  SystemSettingsConfSni         `json:"sni"`
+	Rollback             *SystemSettingsConfRollback   `json:"rollback,omitempty"`
+	Shutdown             *SystemSettingsConfShutdown   `json:"shutdown,omitempty"`
+	Sni                  *SystemSettingsConfSni        `json:"sni,omitempty"`
 	Sockets              *SystemSettingsConfSockets    `json:"sockets,omitempty"`
 	Support              *SystemSettingsConfSupport    `json:"support,omitempty"`
 	System               SystemSettingsConfSystem      `json:"system"`
-	TLS                  SystemSettingsConfTLS         `json:"tls"`
+	TLS                  *SystemSettingsConfTLS        `json:"tls,omitempty"`
 	UpgradeGroupSettings UpgradeGroupSettings          `json:"upgradeGroupSettings"`
-	UpgradeSettings      UpgradeSettings               `json:"upgradeSettings"`
+	UpgradeSettings      *UpgradeSettings              `json:"upgradeSettings,omitempty"`
 	Workers              SystemSettingsConfWorkers     `json:"workers"`
 }
 
@@ -502,9 +502,9 @@ func (s *SystemSettingsConf) GetAPI() SystemSettingsConfAPI {
 	return s.API
 }
 
-func (s *SystemSettingsConf) GetBackups() SystemSettingsConfBackups {
+func (s *SystemSettingsConf) GetBackups() *SystemSettingsConfBackups {
 	if s == nil {
-		return SystemSettingsConfBackups{}
+		return nil
 	}
 	return s.Backups
 }
@@ -530,23 +530,23 @@ func (s *SystemSettingsConf) GetProxy() SystemSettingsConfProxy {
 	return s.Proxy
 }
 
-func (s *SystemSettingsConf) GetRollback() SystemSettingsConfRollback {
+func (s *SystemSettingsConf) GetRollback() *SystemSettingsConfRollback {
 	if s == nil {
-		return SystemSettingsConfRollback{}
+		return nil
 	}
 	return s.Rollback
 }
 
-func (s *SystemSettingsConf) GetShutdown() SystemSettingsConfShutdown {
+func (s *SystemSettingsConf) GetShutdown() *SystemSettingsConfShutdown {
 	if s == nil {
-		return SystemSettingsConfShutdown{}
+		return nil
 	}
 	return s.Shutdown
 }
 
-func (s *SystemSettingsConf) GetSni() SystemSettingsConfSni {
+func (s *SystemSettingsConf) GetSni() *SystemSettingsConfSni {
 	if s == nil {
-		return SystemSettingsConfSni{}
+		return nil
 	}
 	return s.Sni
 }
@@ -572,9 +572,9 @@ func (s *SystemSettingsConf) GetSystem() SystemSettingsConfSystem {
 	return s.System
 }
 
-func (s *SystemSettingsConf) GetTLS() SystemSettingsConfTLS {
+func (s *SystemSettingsConf) GetTLS() *SystemSettingsConfTLS {
 	if s == nil {
-		return SystemSettingsConfTLS{}
+		return nil
 	}
 	return s.TLS
 }
@@ -586,9 +586,9 @@ func (s *SystemSettingsConf) GetUpgradeGroupSettings() UpgradeGroupSettings {
 	return s.UpgradeGroupSettings
 }
 
-func (s *SystemSettingsConf) GetUpgradeSettings() UpgradeSettings {
+func (s *SystemSettingsConf) GetUpgradeSettings() *UpgradeSettings {
 	if s == nil {
-		return UpgradeSettings{}
+		return nil
 	}
 	return s.UpgradeSettings
 }
