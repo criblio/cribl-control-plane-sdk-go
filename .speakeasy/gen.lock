@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 78eec1d314df9dc939edec86d36a923f
-  docVersion: 4.16.0-alpha.1764354647110-900386f7
+  docChecksum: f44c800173163e62a4e33cc062b9fd74
+  docVersion: 4.16.0-alpha.1764405717066-349af032
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.8
-  configChecksum: 29f9f85ccf4179723e22b244d583c1fd
+  releaseVersion: 0.4.0-rc.9
+  configChecksum: 14f505d3f9fe29dcd02627f659665969
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -44,6 +44,7 @@ generatedFiles:
   - /models/components/addhectokenrequest.go
   - /models/components/authconfig.go
   - /models/components/authtoken.go
+  - /models/components/backupssettingsunion.go
   - /models/components/branchinfo.go
   - /models/components/cacheconnection.go
   - /models/components/cacheconnectionbackfillstatus.go
@@ -88,6 +89,7 @@ generatedFiles:
   - /models/components/cribllakedataset.go
   - /models/components/cribllakedatasetupdate.go
   - /models/components/currentbranchresult.go
+  - /models/components/customlogounion.go
   - /models/components/datasetmetadata.go
   - /models/components/datasetmetadataruninfo.go
   - /models/components/deployrequest.go
@@ -273,14 +275,17 @@ generatedFiles:
   - /models/components/packinstallinfo.go
   - /models/components/packrequestbodyunion.go
   - /models/components/packupgraderequest.go
+  - /models/components/piisettingsunion.go
   - /models/components/pipeline.go
   - /models/components/pipelinefunctionconf.go
   - /models/components/productscore.go
+  - /models/components/proxysettingsunion.go
   - /models/components/rbacresource.go
   - /models/components/rediscachelimits.go
   - /models/components/redisconnectionlimits.go
   - /models/components/redislimits.go
   - /models/components/resourcepolicy.go
+  - /models/components/rollbacksettingsunion.go
   - /models/components/routeconf.go
   - /models/components/routes.go
   - /models/components/routesroute.go
@@ -293,15 +298,19 @@ generatedFiles:
   - /models/components/security.go
   - /models/components/serviceprocstype.go
   - /models/components/serviceslimits.go
+  - /models/components/shutdownsettingsunion.go
+  - /models/components/snisettingsunion.go
   - /models/components/systemsettings.go
   - /models/components/systemsettingsconf.go
   - /models/components/teamaccesscontrollist.go
+  - /models/components/tlssettingsunion.go
   - /models/components/updatehectokenrequest.go
-  - /models/components/upgradegroupsettings.go
+  - /models/components/upgradegroupsettingsunion.go
   - /models/components/upgradepackageurls.go
-  - /models/components/upgradesettings.go
+  - /models/components/upgradesettingsunion.go
   - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
+  - /models/components/workerssettingsunion.go
   - /models/components/workertypes.go
   - /models/operations/createauthlogin.go
   - /models/operations/createconfiggroupbyproduct.go
@@ -392,6 +401,9 @@ generatedFiles:
   - docs/models/components/authtoken.md
   - docs/models/components/authtype.md
   - docs/models/components/awsauthenticationmethod.md
+  - docs/models/components/backupssettings1.md
+  - docs/models/components/backupssettings2.md
+  - docs/models/components/backupssettingsunion.md
   - docs/models/components/blobaccesstier.md
   - docs/models/components/block.md
   - docs/models/components/branchinfo.md
@@ -456,6 +468,9 @@ generatedFiles:
   - docs/models/components/cribllakedatasetupdate.md
   - docs/models/components/cribllakedatasetupdateformat.md
   - docs/models/components/currentbranchresult.md
+  - docs/models/components/customlogo1.md
+  - docs/models/components/customlogo2.md
+  - docs/models/components/customlogounion.md
   - docs/models/components/datadogsite.md
   - docs/models/components/datasetmetadata.md
   - docs/models/components/datasetmetadataruninfo.md
@@ -2254,6 +2269,9 @@ generatedFiles:
   - docs/models/components/packrequestbodyunion.md
   - docs/models/components/packupgraderequest.md
   - docs/models/components/payloadformat.md
+  - docs/models/components/piisettings1.md
+  - docs/models/components/piisettings2.md
+  - docs/models/components/piisettingsunion.md
   - docs/models/components/pipeline.md
   - docs/models/components/pipelinefunctionconf.md
   - docs/models/components/pipelinegroups.md
@@ -2265,6 +2283,9 @@ generatedFiles:
   - docs/models/components/prometheusauthoauthheader2.md
   - docs/models/components/prometheusauthoauthparam1.md
   - docs/models/components/prometheusauthoauthparam2.md
+  - docs/models/components/proxysettings1.md
+  - docs/models/components/proxysettings2.md
+  - docs/models/components/proxysettingsunion.md
   - docs/models/components/query.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
@@ -2280,6 +2301,9 @@ generatedFiles:
   - docs/models/components/resourcepolicy.md
   - docs/models/components/resourcetypelabel.md
   - docs/models/components/role.md
+  - docs/models/components/rollbacksettings1.md
+  - docs/models/components/rollbacksettings2.md
+  - docs/models/components/rollbacksettingsunion.md
   - docs/models/components/routeconf.md
   - docs/models/components/routes.md
   - docs/models/components/routesgroups.md
@@ -2332,6 +2356,12 @@ generatedFiles:
   - docs/models/components/serviceslimits.md
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
+  - docs/models/components/shutdownsettings1.md
+  - docs/models/components/shutdownsettings2.md
+  - docs/models/components/shutdownsettingsunion.md
+  - docs/models/components/snisettings1.md
+  - docs/models/components/snisettings2.md
+  - docs/models/components/snisettingsunion.md
   - docs/models/components/snmpv3authentication.md
   - docs/models/components/splunkhecmetadata.md
   - docs/models/components/state.md
@@ -2342,39 +2372,21 @@ generatedFiles:
   - docs/models/components/summary.md
   - docs/models/components/systemsettings.md
   - docs/models/components/systemsettingsapi.md
-  - docs/models/components/systemsettingsbackups.md
   - docs/models/components/systemsettingsconf.md
   - docs/models/components/systemsettingsconfapi.md
-  - docs/models/components/systemsettingsconfbackups.md
-  - docs/models/components/systemsettingsconfcustomlogo.md
   - docs/models/components/systemsettingsconffeatureflagoverride.md
-  - docs/models/components/systemsettingsconfpii.md
-  - docs/models/components/systemsettingsconfproxy.md
-  - docs/models/components/systemsettingsconfrollback.md
-  - docs/models/components/systemsettingsconfshutdown.md
-  - docs/models/components/systemsettingsconfsni.md
   - docs/models/components/systemsettingsconfsockets.md
   - docs/models/components/systemsettingsconfssl.md
   - docs/models/components/systemsettingsconfsupport.md
   - docs/models/components/systemsettingsconfsystem.md
-  - docs/models/components/systemsettingsconftls.md
   - docs/models/components/systemsettingsconfupgrade.md
-  - docs/models/components/systemsettingsconfworkers.md
-  - docs/models/components/systemsettingscustomlogo.md
   - docs/models/components/systemsettingsfeatureflagoverride.md
   - docs/models/components/systemsettingsmode.md
-  - docs/models/components/systemsettingspii.md
-  - docs/models/components/systemsettingsproxy.md
-  - docs/models/components/systemsettingsrollback.md
-  - docs/models/components/systemsettingsshutdown.md
-  - docs/models/components/systemsettingssni.md
   - docs/models/components/systemsettingssockets.md
   - docs/models/components/systemsettingsssl.md
   - docs/models/components/systemsettingssupport.md
   - docs/models/components/systemsettingssystem.md
-  - docs/models/components/systemsettingstls.md
   - docs/models/components/systemsettingsupgrade.md
-  - docs/models/components/systemsettingsworkers.md
   - docs/models/components/target.md
   - docs/models/components/targetprotocol.md
   - docs/models/components/teamaccesscontrollist.md
@@ -2382,12 +2394,19 @@ generatedFiles:
   - docs/models/components/timerange.md
   - docs/models/components/timestampformat.md
   - docs/models/components/timestampprecision.md
+  - docs/models/components/tlssettings1.md
+  - docs/models/components/tlssettings2.md
+  - docs/models/components/tlssettingsunion.md
   - docs/models/components/udmtype.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
-  - docs/models/components/upgradegroupsettings.md
+  - docs/models/components/upgradegroupsettings1.md
+  - docs/models/components/upgradegroupsettings2.md
+  - docs/models/components/upgradegroupsettingsunion.md
   - docs/models/components/upgradepackageurls.md
-  - docs/models/components/upgradesettings.md
+  - docs/models/components/upgradesettings1.md
+  - docs/models/components/upgradesettings2.md
+  - docs/models/components/upgradesettingsunion.md
   - docs/models/components/uploadpackresponse.md
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
@@ -2395,6 +2414,9 @@ generatedFiles:
   - docs/models/components/warmpoolsize.md
   - docs/models/components/warmpoolsizeenum.md
   - docs/models/components/wheretocapture.md
+  - docs/models/components/workerssettings1.md
+  - docs/models/components/workerssettings2.md
+  - docs/models/components/workerssettingsunion.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
   - docs/models/operations/createauthloginresponse.md
@@ -3640,4 +3662,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.System.Settings.Cribl.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.System.Settings.Cribl.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n"

@@ -168,52 +168,6 @@ func (s *SystemSettingsAPI) GetWorkerRemoteAccess() bool {
 	return s.WorkerRemoteAccess
 }
 
-type SystemSettingsBackups struct {
-	BackupPersistence string `json:"backupPersistence"`
-	BackupsDirectory  string `json:"backupsDirectory"`
-}
-
-func (s *SystemSettingsBackups) GetBackupPersistence() string {
-	if s == nil {
-		return ""
-	}
-	return s.BackupPersistence
-}
-
-func (s *SystemSettingsBackups) GetBackupsDirectory() string {
-	if s == nil {
-		return ""
-	}
-	return s.BackupsDirectory
-}
-
-type SystemSettingsCustomLogo struct {
-	Enabled         bool   `json:"enabled"`
-	LogoDescription string `json:"logoDescription"`
-	LogoImage       string `json:"logoImage"`
-}
-
-func (s *SystemSettingsCustomLogo) GetEnabled() bool {
-	if s == nil {
-		return false
-	}
-	return s.Enabled
-}
-
-func (s *SystemSettingsCustomLogo) GetLogoDescription() string {
-	if s == nil {
-		return ""
-	}
-	return s.LogoDescription
-}
-
-func (s *SystemSettingsCustomLogo) GetLogoImage() string {
-	if s == nil {
-		return ""
-	}
-	return s.LogoImage
-}
-
 type SystemSettingsMode string
 
 const (
@@ -250,77 +204,6 @@ func (d *Distributed) GetMode() SystemSettingsMode {
 		return SystemSettingsMode("")
 	}
 	return d.Mode
-}
-
-type SystemSettingsPii struct {
-	EnablePiiDetection bool `json:"enablePiiDetection"`
-}
-
-func (s *SystemSettingsPii) GetEnablePiiDetection() bool {
-	if s == nil {
-		return false
-	}
-	return s.EnablePiiDetection
-}
-
-type SystemSettingsProxy struct {
-	UseEnvVars bool `json:"useEnvVars"`
-}
-
-func (s *SystemSettingsProxy) GetUseEnvVars() bool {
-	if s == nil {
-		return false
-	}
-	return s.UseEnvVars
-}
-
-type SystemSettingsRollback struct {
-	RollbackEnabled bool     `json:"rollbackEnabled"`
-	RollbackRetries *float64 `json:"rollbackRetries,omitempty"`
-	RollbackTimeout *float64 `json:"rollbackTimeout,omitempty"`
-}
-
-func (s *SystemSettingsRollback) GetRollbackEnabled() bool {
-	if s == nil {
-		return false
-	}
-	return s.RollbackEnabled
-}
-
-func (s *SystemSettingsRollback) GetRollbackRetries() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.RollbackRetries
-}
-
-func (s *SystemSettingsRollback) GetRollbackTimeout() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.RollbackTimeout
-}
-
-type SystemSettingsShutdown struct {
-	DrainTimeout float64 `json:"drainTimeout"`
-}
-
-func (s *SystemSettingsShutdown) GetDrainTimeout() float64 {
-	if s == nil {
-		return 0.0
-	}
-	return s.DrainTimeout
-}
-
-type SystemSettingsSni struct {
-	DisableSNIRouting bool `json:"disableSNIRouting"`
-}
-
-func (s *SystemSettingsSni) GetDisableSNIRouting() bool {
-	if s == nil {
-		return false
-	}
-	return s.DisableSNIRouting
 }
 
 type SystemSettingsSockets struct {
@@ -405,142 +288,32 @@ func (s *SystemSettingsSystem) GetUpgrade() SystemSettingsUpgrade {
 	return s.Upgrade
 }
 
-type SystemSettingsTLS struct {
-	DefaultCipherList  string `json:"defaultCipherList"`
-	DefaultEcdhCurve   string `json:"defaultEcdhCurve"`
-	MaxVersion         string `json:"maxVersion"`
-	MinVersion         string `json:"minVersion"`
-	RejectUnauthorized bool   `json:"rejectUnauthorized"`
-}
-
-func (s *SystemSettingsTLS) GetDefaultCipherList() string {
-	if s == nil {
-		return ""
-	}
-	return s.DefaultCipherList
-}
-
-func (s *SystemSettingsTLS) GetDefaultEcdhCurve() string {
-	if s == nil {
-		return ""
-	}
-	return s.DefaultEcdhCurve
-}
-
-func (s *SystemSettingsTLS) GetMaxVersion() string {
-	if s == nil {
-		return ""
-	}
-	return s.MaxVersion
-}
-
-func (s *SystemSettingsTLS) GetMinVersion() string {
-	if s == nil {
-		return ""
-	}
-	return s.MinVersion
-}
-
-func (s *SystemSettingsTLS) GetRejectUnauthorized() bool {
-	if s == nil {
-		return false
-	}
-	return s.RejectUnauthorized
-}
-
-type SystemSettingsWorkers struct {
-	Count                  float64  `json:"count"`
-	EnableHeapSnapshots    *bool    `json:"enableHeapSnapshots,omitempty"`
-	LoadThrottlePerc       *float64 `json:"loadThrottlePerc,omitempty"`
-	Memory                 float64  `json:"memory"`
-	Minimum                float64  `json:"minimum"`
-	StartupMaxConns        *float64 `json:"startupMaxConns,omitempty"`
-	StartupThrottleTimeout *float64 `json:"startupThrottleTimeout,omitempty"`
-	V8SingleThread         *bool    `json:"v8SingleThread,omitempty"`
-}
-
-func (s *SystemSettingsWorkers) GetCount() float64 {
-	if s == nil {
-		return 0.0
-	}
-	return s.Count
-}
-
-func (s *SystemSettingsWorkers) GetEnableHeapSnapshots() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.EnableHeapSnapshots
-}
-
-func (s *SystemSettingsWorkers) GetLoadThrottlePerc() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.LoadThrottlePerc
-}
-
-func (s *SystemSettingsWorkers) GetMemory() float64 {
-	if s == nil {
-		return 0.0
-	}
-	return s.Memory
-}
-
-func (s *SystemSettingsWorkers) GetMinimum() float64 {
-	if s == nil {
-		return 0.0
-	}
-	return s.Minimum
-}
-
-func (s *SystemSettingsWorkers) GetStartupMaxConns() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.StartupMaxConns
-}
-
-func (s *SystemSettingsWorkers) GetStartupThrottleTimeout() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.StartupThrottleTimeout
-}
-
-func (s *SystemSettingsWorkers) GetV8SingleThread() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.V8SingleThread
-}
-
 type SystemSettings struct {
 	API                  SystemSettingsAPI         `json:"api"`
 	Auth                 AuthConfig                `json:"auth"`
-	Backups              *SystemSettingsBackups    `json:"backups,omitempty"`
-	CustomLogo           *SystemSettingsCustomLogo `json:"customLogo,omitempty"`
+	Backups              BackupsSettingsUnion      `json:"backups"`
+	CustomLogo           *CustomLogoUnion          `json:"customLogo,omitempty"`
 	Distributed          Distributed               `json:"distributed"`
 	Fips                 bool                      `json:"fips"`
 	Git                  GitSettings               `json:"git"`
 	JobLimits            JobSettings               `json:"jobLimits"`
 	Limits               Limits                    `json:"limits"`
-	Pii                  SystemSettingsPii         `json:"pii"`
-	Proxy                SystemSettingsProxy       `json:"proxy"`
+	Pii                  PiiSettingsUnion          `json:"pii"`
+	Proxy                ProxySettingsUnion        `json:"proxy"`
 	RedisCacheLimits     RedisCacheLimits          `json:"redisCacheLimits"`
 	RedisLimits          RedisLimits               `json:"redisLimits"`
-	Rollback             *SystemSettingsRollback   `json:"rollback,omitempty"`
+	Rollback             RollbackSettingsUnion     `json:"rollback"`
 	SearchLimits         SearchSettings            `json:"searchLimits"`
 	ServicesLimits       ServicesLimits            `json:"servicesLimits"`
-	Shutdown             *SystemSettingsShutdown   `json:"shutdown,omitempty"`
-	Sni                  *SystemSettingsSni        `json:"sni,omitempty"`
+	Shutdown             ShutdownSettingsUnion     `json:"shutdown"`
+	Sni                  SniSettingsUnion          `json:"sni"`
 	Sockets              *SystemSettingsSockets    `json:"sockets,omitempty"`
 	Support              *SystemSettingsSupport    `json:"support,omitempty"`
 	System               SystemSettingsSystem      `json:"system"`
-	TLS                  *SystemSettingsTLS        `json:"tls,omitempty"`
-	UpgradeGroupSettings UpgradeGroupSettings      `json:"upgradeGroupSettings"`
-	UpgradeSettings      *UpgradeSettings          `json:"upgradeSettings,omitempty"`
-	Workers              SystemSettingsWorkers     `json:"workers"`
+	TLS                  TLSSettingsUnion          `json:"tls"`
+	UpgradeGroupSettings UpgradeGroupSettingsUnion `json:"upgradeGroupSettings"`
+	UpgradeSettings      UpgradeSettingsUnion      `json:"upgradeSettings"`
+	Workers              WorkersSettingsUnion      `json:"workers"`
 }
 
 func (s *SystemSettings) GetAPI() SystemSettingsAPI {
@@ -557,14 +330,14 @@ func (s *SystemSettings) GetAuth() AuthConfig {
 	return s.Auth
 }
 
-func (s *SystemSettings) GetBackups() *SystemSettingsBackups {
+func (s *SystemSettings) GetBackups() BackupsSettingsUnion {
 	if s == nil {
-		return nil
+		return BackupsSettingsUnion{}
 	}
 	return s.Backups
 }
 
-func (s *SystemSettings) GetCustomLogo() *SystemSettingsCustomLogo {
+func (s *SystemSettings) GetCustomLogo() *CustomLogoUnion {
 	if s == nil {
 		return nil
 	}
@@ -606,16 +379,16 @@ func (s *SystemSettings) GetLimits() Limits {
 	return s.Limits
 }
 
-func (s *SystemSettings) GetPii() SystemSettingsPii {
+func (s *SystemSettings) GetPii() PiiSettingsUnion {
 	if s == nil {
-		return SystemSettingsPii{}
+		return PiiSettingsUnion{}
 	}
 	return s.Pii
 }
 
-func (s *SystemSettings) GetProxy() SystemSettingsProxy {
+func (s *SystemSettings) GetProxy() ProxySettingsUnion {
 	if s == nil {
-		return SystemSettingsProxy{}
+		return ProxySettingsUnion{}
 	}
 	return s.Proxy
 }
@@ -634,9 +407,9 @@ func (s *SystemSettings) GetRedisLimits() RedisLimits {
 	return s.RedisLimits
 }
 
-func (s *SystemSettings) GetRollback() *SystemSettingsRollback {
+func (s *SystemSettings) GetRollback() RollbackSettingsUnion {
 	if s == nil {
-		return nil
+		return RollbackSettingsUnion{}
 	}
 	return s.Rollback
 }
@@ -655,16 +428,16 @@ func (s *SystemSettings) GetServicesLimits() ServicesLimits {
 	return s.ServicesLimits
 }
 
-func (s *SystemSettings) GetShutdown() *SystemSettingsShutdown {
+func (s *SystemSettings) GetShutdown() ShutdownSettingsUnion {
 	if s == nil {
-		return nil
+		return ShutdownSettingsUnion{}
 	}
 	return s.Shutdown
 }
 
-func (s *SystemSettings) GetSni() *SystemSettingsSni {
+func (s *SystemSettings) GetSni() SniSettingsUnion {
 	if s == nil {
-		return nil
+		return SniSettingsUnion{}
 	}
 	return s.Sni
 }
@@ -690,30 +463,30 @@ func (s *SystemSettings) GetSystem() SystemSettingsSystem {
 	return s.System
 }
 
-func (s *SystemSettings) GetTLS() *SystemSettingsTLS {
+func (s *SystemSettings) GetTLS() TLSSettingsUnion {
 	if s == nil {
-		return nil
+		return TLSSettingsUnion{}
 	}
 	return s.TLS
 }
 
-func (s *SystemSettings) GetUpgradeGroupSettings() UpgradeGroupSettings {
+func (s *SystemSettings) GetUpgradeGroupSettings() UpgradeGroupSettingsUnion {
 	if s == nil {
-		return UpgradeGroupSettings{}
+		return UpgradeGroupSettingsUnion{}
 	}
 	return s.UpgradeGroupSettings
 }
 
-func (s *SystemSettings) GetUpgradeSettings() *UpgradeSettings {
+func (s *SystemSettings) GetUpgradeSettings() UpgradeSettingsUnion {
 	if s == nil {
-		return nil
+		return UpgradeSettingsUnion{}
 	}
 	return s.UpgradeSettings
 }
 
-func (s *SystemSettings) GetWorkers() SystemSettingsWorkers {
+func (s *SystemSettings) GetWorkers() WorkersSettingsUnion {
 	if s == nil {
-		return SystemSettingsWorkers{}
+		return WorkersSettingsUnion{}
 	}
 	return s.Workers
 }
