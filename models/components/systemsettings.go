@@ -46,21 +46,21 @@ func (s *SystemSettingsSsl) GetPrivKeyPath() string {
 }
 
 type SystemSettingsAPI struct {
-	BaseURL            *string           `json:"baseUrl,omitempty"`
-	DisableAPICache    *bool             `json:"disableApiCache,omitempty"`
-	Disabled           bool              `json:"disabled"`
-	Headers            map[string]string `json:"headers,omitempty"`
-	Host               string            `json:"host"`
-	IdleSessionTTL     *float64          `json:"idleSessionTTL,omitempty"`
-	ListenOnPort       *bool             `json:"listenOnPort,omitempty"`
-	LoginRateLimit     *string           `json:"loginRateLimit,omitempty"`
-	Port               float64           `json:"port"`
-	Protocol           *string           `json:"protocol,omitempty"`
-	Scripts            *bool             `json:"scripts,omitempty"`
-	SensitiveFields    []string          `json:"sensitiveFields,omitempty"`
-	Ssl                SystemSettingsSsl `json:"ssl"`
-	SsoRateLimit       *string           `json:"ssoRateLimit,omitempty"`
-	WorkerRemoteAccess *bool             `json:"workerRemoteAccess,omitempty"`
+	BaseURL            *string            `json:"baseUrl,omitempty"`
+	DisableAPICache    *bool              `json:"disableApiCache,omitempty"`
+	Disabled           bool               `json:"disabled"`
+	Headers            map[string]string  `json:"headers,omitempty"`
+	Host               string             `json:"host"`
+	IdleSessionTTL     *float64           `json:"idleSessionTTL,omitempty"`
+	ListenOnPort       *bool              `json:"listenOnPort,omitempty"`
+	LoginRateLimit     *string            `json:"loginRateLimit,omitempty"`
+	Port               float64            `json:"port"`
+	Protocol           *string            `json:"protocol,omitempty"`
+	Scripts            *bool              `json:"scripts,omitempty"`
+	SensitiveFields    []string           `json:"sensitiveFields,omitempty"`
+	Ssl                *SystemSettingsSsl `json:"ssl,omitempty"`
+	SsoRateLimit       *string            `json:"ssoRateLimit,omitempty"`
+	WorkerRemoteAccess *bool              `json:"workerRemoteAccess,omitempty"`
 }
 
 func (s *SystemSettingsAPI) GetBaseURL() *string {
@@ -147,9 +147,9 @@ func (s *SystemSettingsAPI) GetSensitiveFields() []string {
 	return s.SensitiveFields
 }
 
-func (s *SystemSettingsAPI) GetSsl() SystemSettingsSsl {
+func (s *SystemSettingsAPI) GetSsl() *SystemSettingsSsl {
 	if s == nil {
-		return SystemSettingsSsl{}
+		return nil
 	}
 	return s.Ssl
 }
