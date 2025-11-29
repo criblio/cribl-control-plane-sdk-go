@@ -111,7 +111,7 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            Ssl: components.SystemSettingsConfSsl{
+            Ssl: &components.SystemSettingsConfSsl{
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: "<value>",
                 Disabled: true,
