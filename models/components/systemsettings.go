@@ -55,12 +55,12 @@ type SystemSettingsAPI struct {
 	ListenOnPort       *bool             `json:"listenOnPort,omitempty"`
 	LoginRateLimit     *string           `json:"loginRateLimit,omitempty"`
 	Port               float64           `json:"port"`
-	Protocol           string            `json:"protocol"`
+	Protocol           *string           `json:"protocol,omitempty"`
 	Scripts            *bool             `json:"scripts,omitempty"`
 	SensitiveFields    []string          `json:"sensitiveFields,omitempty"`
 	Ssl                SystemSettingsSsl `json:"ssl"`
 	SsoRateLimit       *string           `json:"ssoRateLimit,omitempty"`
-	WorkerRemoteAccess bool              `json:"workerRemoteAccess"`
+	WorkerRemoteAccess *bool             `json:"workerRemoteAccess,omitempty"`
 }
 
 func (s *SystemSettingsAPI) GetBaseURL() *string {
@@ -126,9 +126,9 @@ func (s *SystemSettingsAPI) GetPort() float64 {
 	return s.Port
 }
 
-func (s *SystemSettingsAPI) GetProtocol() string {
+func (s *SystemSettingsAPI) GetProtocol() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.Protocol
 }
@@ -161,9 +161,9 @@ func (s *SystemSettingsAPI) GetSsoRateLimit() *string {
 	return s.SsoRateLimit
 }
 
-func (s *SystemSettingsAPI) GetWorkerRemoteAccess() bool {
+func (s *SystemSettingsAPI) GetWorkerRemoteAccess() *bool {
 	if s == nil {
-		return false
+		return nil
 	}
 	return s.WorkerRemoteAccess
 }
