@@ -121,32 +121,46 @@ func main() {
             SsoRateLimit: criblcontrolplanesdkgo.Pointer("<value>"),
             WorkerRemoteAccess: true,
         },
-        Backups: &components.SystemSettingsConfBackups{
-            BackupPersistence: "<value>",
-            BackupsDirectory: "<value>",
-        },
-        CustomLogo: &components.SystemSettingsConfCustomLogo{
-            Enabled: false,
-            LogoDescription: "<value>",
-            LogoImage: "<value>",
-        },
-        Pii: components.SystemSettingsConfPii{
-            EnablePiiDetection: false,
-        },
-        Proxy: components.SystemSettingsConfProxy{
-            UseEnvVars: true,
-        },
-        Rollback: &components.SystemSettingsConfRollback{
-            RollbackEnabled: false,
-            RollbackRetries: criblcontrolplanesdkgo.Pointer[float64](3174.73),
-            RollbackTimeout: criblcontrolplanesdkgo.Pointer[float64](1506.54),
-        },
-        Shutdown: &components.SystemSettingsConfShutdown{
-            DrainTimeout: 3723.75,
-        },
-        Sni: &components.SystemSettingsConfSni{
-            DisableSNIRouting: false,
-        },
+        Backups: components.CreateBackupsSettingsUnionBackupsSettings1(
+            components.BackupsSettings1{
+                BackupPersistence: "<value>",
+                BackupsDirectory: "<value>",
+            },
+        ),
+        CustomLogo: criblcontrolplanesdkgo.Pointer(components.CreateCustomLogoUnionCustomLogo1(
+            components.CustomLogo1{
+                Enabled: false,
+                LogoDescription: "<value>",
+                LogoImage: "<value>",
+            },
+        )),
+        Pii: components.CreatePiiSettingsUnionPiiSettings1(
+            components.PiiSettings1{
+                EnablePiiDetection: false,
+            },
+        ),
+        Proxy: components.CreateProxySettingsUnionProxySettings1(
+            components.ProxySettings1{
+                UseEnvVars: true,
+            },
+        ),
+        Rollback: components.CreateRollbackSettingsUnionRollbackSettings1(
+            components.RollbackSettings1{
+                RollbackEnabled: false,
+                RollbackRetries: criblcontrolplanesdkgo.Pointer[float64](3174.73),
+                RollbackTimeout: criblcontrolplanesdkgo.Pointer[float64](1506.54),
+            },
+        ),
+        Shutdown: components.CreateShutdownSettingsUnionShutdownSettings1(
+            components.ShutdownSettings1{
+                DrainTimeout: 3723.75,
+            },
+        ),
+        Sni: components.CreateSniSettingsUnionSniSettings1(
+            components.SniSettings1{
+                DisableSNIRouting: false,
+            },
+        ),
         Sockets: &components.SystemSettingsConfSockets{
             Directory: criblcontrolplanesdkgo.Pointer("/usr/ports"),
         },
@@ -162,41 +176,49 @@ func main() {
             Intercom: false,
             Upgrade: components.SystemSettingsConfUpgradeAPI,
         },
-        TLS: &components.SystemSettingsConfTLS{
-            DefaultCipherList: "<value>",
-            DefaultEcdhCurve: "<value>",
-            MaxVersion: "<value>",
-            MinVersion: "<value>",
-            RejectUnauthorized: true,
-        },
-        UpgradeGroupSettings: components.UpgradeGroupSettings{
-            IsRolling: criblcontrolplanesdkgo.Pointer(false),
-            Quantity: criblcontrolplanesdkgo.Pointer[float64](7915.07),
-            RetryCount: criblcontrolplanesdkgo.Pointer[float64](4414.66),
-            RetryDelay: criblcontrolplanesdkgo.Pointer[float64](4374.4),
-        },
-        UpgradeSettings: &components.UpgradeSettings{
-            AutomaticUpgradeCheckPeriod: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisableAutomaticUpgrade: false,
-            EnableLegacyEdgeUpgrade: false,
-            PackageUrls: []components.UpgradePackageUrls{
-                components.UpgradePackageUrls{
-                    PackageHashURL: criblcontrolplanesdkgo.Pointer("https://thrifty-teammate.net/"),
-                    PackageURL: "https://skeletal-dwell.info/",
-                },
+        TLS: components.CreateTLSSettingsUnionTLSSettings1(
+            components.TLSSettings1{
+                DefaultCipherList: "<value>",
+                DefaultEcdhCurve: "<value>",
+                MaxVersion: "<value>",
+                MinVersion: "<value>",
+                RejectUnauthorized: true,
             },
-            UpgradeSource: "<value>",
-        },
-        Workers: components.SystemSettingsConfWorkers{
-            Count: 2124.14,
-            EnableHeapSnapshots: criblcontrolplanesdkgo.Pointer(true),
-            LoadThrottlePerc: criblcontrolplanesdkgo.Pointer[float64](2538.71),
-            Memory: 20.53,
-            Minimum: 6157.83,
-            StartupMaxConns: criblcontrolplanesdkgo.Pointer[float64](4731.29),
-            StartupThrottleTimeout: criblcontrolplanesdkgo.Pointer[float64](1613.48),
-            V8SingleThread: criblcontrolplanesdkgo.Pointer(true),
-        },
+        ),
+        UpgradeGroupSettings: components.CreateUpgradeGroupSettingsUnionUpgradeGroupSettings1(
+            components.UpgradeGroupSettings1{
+                IsRolling: criblcontrolplanesdkgo.Pointer(false),
+                Quantity: criblcontrolplanesdkgo.Pointer[float64](7915.07),
+                RetryCount: criblcontrolplanesdkgo.Pointer[float64](4414.66),
+                RetryDelay: criblcontrolplanesdkgo.Pointer[float64](4374.4),
+            },
+        ),
+        UpgradeSettings: components.CreateUpgradeSettingsUnionUpgradeSettings1(
+            components.UpgradeSettings1{
+                AutomaticUpgradeCheckPeriod: criblcontrolplanesdkgo.Pointer("<value>"),
+                DisableAutomaticUpgrade: false,
+                EnableLegacyEdgeUpgrade: false,
+                PackageUrls: []components.UpgradePackageUrls{
+                    components.UpgradePackageUrls{
+                        PackageHashURL: criblcontrolplanesdkgo.Pointer("https://thrifty-teammate.net/"),
+                        PackageURL: "https://skeletal-dwell.info/",
+                    },
+                },
+                UpgradeSource: "<value>",
+            },
+        ),
+        Workers: components.CreateWorkersSettingsUnionWorkersSettings1(
+            components.WorkersSettings1{
+                Count: 2124.14,
+                EnableHeapSnapshots: criblcontrolplanesdkgo.Pointer(true),
+                LoadThrottlePerc: criblcontrolplanesdkgo.Pointer[float64](2538.71),
+                Memory: 20.53,
+                Minimum: 6157.83,
+                StartupMaxConns: criblcontrolplanesdkgo.Pointer[float64](4731.29),
+                StartupThrottleTimeout: criblcontrolplanesdkgo.Pointer[float64](1613.48),
+                V8SingleThread: criblcontrolplanesdkgo.Pointer(true),
+            },
+        ),
     })
     if err != nil {
         log.Fatal(err)
