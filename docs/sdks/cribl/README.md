@@ -105,7 +105,7 @@ func main() {
             ListenOnPort: criblcontrolplanesdkgo.Pointer(true),
             LoginRateLimit: criblcontrolplanesdkgo.Pointer("<value>"),
             Port: 2424.38,
-            Protocol: "<value>",
+            Protocol: criblcontrolplanesdkgo.Pointer("<value>"),
             Scripts: criblcontrolplanesdkgo.Pointer(true),
             SensitiveFields: []string{
                 "<value 1>",
@@ -119,7 +119,7 @@ func main() {
                 PrivKeyPath: "<value>",
             },
             SsoRateLimit: criblcontrolplanesdkgo.Pointer("<value>"),
-            WorkerRemoteAccess: true,
+            WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
         },
         Backups: components.CreateBackupsSettingsUnionBackupsSettings1(
             components.BackupsSettings1{
