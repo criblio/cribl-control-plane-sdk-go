@@ -168,6 +168,33 @@ func (s *SystemSettingsAPI) GetWorkerRemoteAccess() *bool {
 	return s.WorkerRemoteAccess
 }
 
+type SystemSettingsCustomLogo struct {
+	Enabled         bool    `json:"enabled"`
+	LogoDescription *string `json:"logoDescription,omitempty"`
+	LogoImage       *string `json:"logoImage,omitempty"`
+}
+
+func (s *SystemSettingsCustomLogo) GetEnabled() bool {
+	if s == nil {
+		return false
+	}
+	return s.Enabled
+}
+
+func (s *SystemSettingsCustomLogo) GetLogoDescription() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LogoDescription
+}
+
+func (s *SystemSettingsCustomLogo) GetLogoImage() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LogoImage
+}
+
 type SystemSettingsMode string
 
 const (
@@ -204,6 +231,28 @@ func (d *Distributed) GetMode() SystemSettingsMode {
 		return SystemSettingsMode("")
 	}
 	return d.Mode
+}
+
+type SystemSettingsProxy struct {
+	UseEnvVars bool `json:"useEnvVars"`
+}
+
+func (s *SystemSettingsProxy) GetUseEnvVars() bool {
+	if s == nil {
+		return false
+	}
+	return s.UseEnvVars
+}
+
+type SystemSettingsShutdown struct {
+	DrainTimeout float64 `json:"drainTimeout"`
+}
+
+func (s *SystemSettingsShutdown) GetDrainTimeout() float64 {
+	if s == nil {
+		return 0.0
+	}
+	return s.DrainTimeout
 }
 
 type SystemSettingsSockets struct {
@@ -288,24 +337,91 @@ func (s *SystemSettingsSystem) GetUpgrade() SystemSettingsUpgrade {
 	return s.Upgrade
 }
 
+type SystemSettingsWorkers struct {
+	Count                  float64  `json:"count"`
+	EnableHeapSnapshots    *bool    `json:"enableHeapSnapshots,omitempty"`
+	LoadThrottlePerc       *float64 `json:"loadThrottlePerc,omitempty"`
+	Memory                 float64  `json:"memory"`
+	Minimum                float64  `json:"minimum"`
+	StartupMaxConns        *float64 `json:"startupMaxConns,omitempty"`
+	StartupThrottleTimeout *float64 `json:"startupThrottleTimeout,omitempty"`
+	V8SingleThread         *bool    `json:"v8SingleThread,omitempty"`
+}
+
+func (s *SystemSettingsWorkers) GetCount() float64 {
+	if s == nil {
+		return 0.0
+	}
+	return s.Count
+}
+
+func (s *SystemSettingsWorkers) GetEnableHeapSnapshots() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.EnableHeapSnapshots
+}
+
+func (s *SystemSettingsWorkers) GetLoadThrottlePerc() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.LoadThrottlePerc
+}
+
+func (s *SystemSettingsWorkers) GetMemory() float64 {
+	if s == nil {
+		return 0.0
+	}
+	return s.Memory
+}
+
+func (s *SystemSettingsWorkers) GetMinimum() float64 {
+	if s == nil {
+		return 0.0
+	}
+	return s.Minimum
+}
+
+func (s *SystemSettingsWorkers) GetStartupMaxConns() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.StartupMaxConns
+}
+
+func (s *SystemSettingsWorkers) GetStartupThrottleTimeout() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.StartupThrottleTimeout
+}
+
+func (s *SystemSettingsWorkers) GetV8SingleThread() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.V8SingleThread
+}
+
 type SystemSettings struct {
 	API                  SystemSettingsAPI         `json:"api"`
 	Auth                 AuthConfig                `json:"auth"`
 	Backups              BackupsSettingsUnion      `json:"backups"`
-	CustomLogo           CustomLogoUnion           `json:"customLogo"`
+	CustomLogo           SystemSettingsCustomLogo  `json:"customLogo"`
 	Distributed          Distributed               `json:"distributed"`
 	Fips                 bool                      `json:"fips"`
 	Git                  GitSettings               `json:"git"`
 	JobLimits            JobSettings               `json:"jobLimits"`
 	Limits               Limits                    `json:"limits"`
 	Pii                  PiiSettingsUnion          `json:"pii"`
-	Proxy                ProxySettingsUnion        `json:"proxy"`
+	Proxy                SystemSettingsProxy       `json:"proxy"`
 	RedisCacheLimits     RedisCacheLimits          `json:"redisCacheLimits"`
 	RedisLimits          RedisLimits               `json:"redisLimits"`
 	Rollback             RollbackSettingsUnion     `json:"rollback"`
 	SearchLimits         SearchSettings            `json:"searchLimits"`
 	ServicesLimits       ServicesLimits            `json:"servicesLimits"`
-	Shutdown             ShutdownSettingsUnion     `json:"shutdown"`
+	Shutdown             SystemSettingsShutdown    `json:"shutdown"`
 	Sni                  SniSettingsUnion          `json:"sni"`
 	Sockets              *SystemSettingsSockets    `json:"sockets,omitempty"`
 	Support              *SystemSettingsSupport    `json:"support,omitempty"`
@@ -313,7 +429,7 @@ type SystemSettings struct {
 	TLS                  TLSSettingsUnion          `json:"tls"`
 	UpgradeGroupSettings UpgradeGroupSettingsUnion `json:"upgradeGroupSettings"`
 	UpgradeSettings      UpgradeSettings           `json:"upgradeSettings"`
-	Workers              WorkersSettingsUnion      `json:"workers"`
+	Workers              SystemSettingsWorkers     `json:"workers"`
 }
 
 func (s *SystemSettings) GetAPI() SystemSettingsAPI {
@@ -337,9 +453,9 @@ func (s *SystemSettings) GetBackups() BackupsSettingsUnion {
 	return s.Backups
 }
 
-func (s *SystemSettings) GetCustomLogo() CustomLogoUnion {
+func (s *SystemSettings) GetCustomLogo() SystemSettingsCustomLogo {
 	if s == nil {
-		return CustomLogoUnion{}
+		return SystemSettingsCustomLogo{}
 	}
 	return s.CustomLogo
 }
@@ -386,9 +502,9 @@ func (s *SystemSettings) GetPii() PiiSettingsUnion {
 	return s.Pii
 }
 
-func (s *SystemSettings) GetProxy() ProxySettingsUnion {
+func (s *SystemSettings) GetProxy() SystemSettingsProxy {
 	if s == nil {
-		return ProxySettingsUnion{}
+		return SystemSettingsProxy{}
 	}
 	return s.Proxy
 }
@@ -428,9 +544,9 @@ func (s *SystemSettings) GetServicesLimits() ServicesLimits {
 	return s.ServicesLimits
 }
 
-func (s *SystemSettings) GetShutdown() ShutdownSettingsUnion {
+func (s *SystemSettings) GetShutdown() SystemSettingsShutdown {
 	if s == nil {
-		return ShutdownSettingsUnion{}
+		return SystemSettingsShutdown{}
 	}
 	return s.Shutdown
 }
@@ -484,9 +600,9 @@ func (s *SystemSettings) GetUpgradeSettings() UpgradeSettings {
 	return s.UpgradeSettings
 }
 
-func (s *SystemSettings) GetWorkers() WorkersSettingsUnion {
+func (s *SystemSettings) GetWorkers() SystemSettingsWorkers {
 	if s == nil {
-		return WorkersSettingsUnion{}
+		return SystemSettingsWorkers{}
 	}
 	return s.Workers
 }
