@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 3ff211a9efd4b4c068a3dd1ce83868ae
-  docVersion: 4.16.0-alpha.1764417066009-0840ca85
+  docChecksum: 2f0243a76af2a0f95ffb2fcd2bb74c3a
+  docVersion: 4.16.0-alpha.1764537500966-708d4cad
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.11
-  configChecksum: bb5ebb49c7cd3726efd49a219f1f41cb
+  releaseVersion: 0.4.0-rc.12
+  configChecksum: 2bfcaf5eaa4d117cc3c0f1480144fb7b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -307,7 +307,7 @@ generatedFiles:
   - /models/components/updatehectokenrequest.go
   - /models/components/upgradegroupsettingsunion.go
   - /models/components/upgradepackageurls.go
-  - /models/components/upgradesettingsunion.go
+  - /models/components/upgradesettings.go
   - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
   - /models/components/workerssettingsunion.go
@@ -2404,9 +2404,7 @@ generatedFiles:
   - docs/models/components/upgradegroupsettings2.md
   - docs/models/components/upgradegroupsettingsunion.md
   - docs/models/components/upgradepackageurls.md
-  - docs/models/components/upgradesettings1.md
-  - docs/models/components/upgradesettings2.md
-  - docs/models/components/upgradesettingsunion.md
+  - docs/models/components/upgradesettings.md
   - docs/models/components/uploadpackresponse.md
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
@@ -3662,4 +3660,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.System.Settings.Cribl.List()`:  `response.Items.[].Api.Ssl` **Changed**\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request.Api.Ssl` **Changed**\n  *  `response.Items.[].Api.Ssl` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.System.Settings.Cribl.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n"

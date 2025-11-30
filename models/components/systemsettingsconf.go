@@ -253,7 +253,7 @@ func (s *SystemSettingsConfSystem) GetUpgrade() SystemSettingsConfUpgrade {
 type SystemSettingsConf struct {
 	API                  SystemSettingsConfAPI      `json:"api"`
 	Backups              BackupsSettingsUnion       `json:"backups"`
-	CustomLogo           *CustomLogoUnion           `json:"customLogo,omitempty"`
+	CustomLogo           CustomLogoUnion            `json:"customLogo"`
 	Pii                  PiiSettingsUnion           `json:"pii"`
 	Proxy                ProxySettingsUnion         `json:"proxy"`
 	Rollback             RollbackSettingsUnion      `json:"rollback"`
@@ -264,7 +264,7 @@ type SystemSettingsConf struct {
 	System               SystemSettingsConfSystem   `json:"system"`
 	TLS                  TLSSettingsUnion           `json:"tls"`
 	UpgradeGroupSettings UpgradeGroupSettingsUnion  `json:"upgradeGroupSettings"`
-	UpgradeSettings      UpgradeSettingsUnion       `json:"upgradeSettings"`
+	UpgradeSettings      UpgradeSettings            `json:"upgradeSettings"`
 	Workers              WorkersSettingsUnion       `json:"workers"`
 }
 
@@ -282,9 +282,9 @@ func (s *SystemSettingsConf) GetBackups() BackupsSettingsUnion {
 	return s.Backups
 }
 
-func (s *SystemSettingsConf) GetCustomLogo() *CustomLogoUnion {
+func (s *SystemSettingsConf) GetCustomLogo() CustomLogoUnion {
 	if s == nil {
-		return nil
+		return CustomLogoUnion{}
 	}
 	return s.CustomLogo
 }
@@ -359,9 +359,9 @@ func (s *SystemSettingsConf) GetUpgradeGroupSettings() UpgradeGroupSettingsUnion
 	return s.UpgradeGroupSettings
 }
 
-func (s *SystemSettingsConf) GetUpgradeSettings() UpgradeSettingsUnion {
+func (s *SystemSettingsConf) GetUpgradeSettings() UpgradeSettings {
 	if s == nil {
-		return UpgradeSettingsUnion{}
+		return UpgradeSettings{}
 	}
 	return s.UpgradeSettings
 }

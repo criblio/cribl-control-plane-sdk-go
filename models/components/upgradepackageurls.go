@@ -2,24 +2,9 @@
 
 package components
 
-import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-)
-
 type UpgradePackageUrls struct {
 	PackageHashURL *string `json:"packageHashUrl,omitempty"`
 	PackageURL     string  `json:"packageUrl"`
-}
-
-func (u UpgradePackageUrls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UpgradePackageUrls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"packageUrl"}); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (u *UpgradePackageUrls) GetPackageHashURL() *string {

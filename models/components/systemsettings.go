@@ -292,7 +292,7 @@ type SystemSettings struct {
 	API                  SystemSettingsAPI         `json:"api"`
 	Auth                 AuthConfig                `json:"auth"`
 	Backups              BackupsSettingsUnion      `json:"backups"`
-	CustomLogo           *CustomLogoUnion          `json:"customLogo,omitempty"`
+	CustomLogo           CustomLogoUnion           `json:"customLogo"`
 	Distributed          Distributed               `json:"distributed"`
 	Fips                 bool                      `json:"fips"`
 	Git                  GitSettings               `json:"git"`
@@ -312,7 +312,7 @@ type SystemSettings struct {
 	System               SystemSettingsSystem      `json:"system"`
 	TLS                  TLSSettingsUnion          `json:"tls"`
 	UpgradeGroupSettings UpgradeGroupSettingsUnion `json:"upgradeGroupSettings"`
-	UpgradeSettings      UpgradeSettingsUnion      `json:"upgradeSettings"`
+	UpgradeSettings      UpgradeSettings           `json:"upgradeSettings"`
 	Workers              WorkersSettingsUnion      `json:"workers"`
 }
 
@@ -337,9 +337,9 @@ func (s *SystemSettings) GetBackups() BackupsSettingsUnion {
 	return s.Backups
 }
 
-func (s *SystemSettings) GetCustomLogo() *CustomLogoUnion {
+func (s *SystemSettings) GetCustomLogo() CustomLogoUnion {
 	if s == nil {
-		return nil
+		return CustomLogoUnion{}
 	}
 	return s.CustomLogo
 }
@@ -477,9 +477,9 @@ func (s *SystemSettings) GetUpgradeGroupSettings() UpgradeGroupSettingsUnion {
 	return s.UpgradeGroupSettings
 }
 
-func (s *SystemSettings) GetUpgradeSettings() UpgradeSettingsUnion {
+func (s *SystemSettings) GetUpgradeSettings() UpgradeSettings {
 	if s == nil {
-		return UpgradeSettingsUnion{}
+		return UpgradeSettings{}
 	}
 	return s.UpgradeSettings
 }
