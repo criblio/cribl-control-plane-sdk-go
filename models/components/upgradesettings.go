@@ -7,7 +7,7 @@ type UpgradeSettings struct {
 	DisableAutomaticUpgrade     bool                 `json:"disableAutomaticUpgrade"`
 	EnableLegacyEdgeUpgrade     bool                 `json:"enableLegacyEdgeUpgrade"`
 	PackageUrls                 []UpgradePackageUrls `json:"packageUrls,omitempty"`
-	UpgradeSource               string               `json:"upgradeSource"`
+	UpgradeSource               *string              `json:"upgradeSource,omitempty"`
 }
 
 func (u *UpgradeSettings) GetAutomaticUpgradeCheckPeriod() *string {
@@ -38,9 +38,9 @@ func (u *UpgradeSettings) GetPackageUrls() []UpgradePackageUrls {
 	return u.PackageUrls
 }
 
-func (u *UpgradeSettings) GetUpgradeSource() string {
+func (u *UpgradeSettings) GetUpgradeSource() *string {
 	if u == nil {
-		return ""
+		return nil
 	}
 	return u.UpgradeSource
 }

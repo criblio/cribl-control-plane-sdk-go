@@ -127,23 +127,19 @@ func main() {
                 BackupsDirectory: "<value>",
             },
         ),
-        CustomLogo: components.CreateCustomLogoUnionCustomLogo1(
-            components.CustomLogo1{
-                Enabled: false,
-                LogoDescription: "<value>",
-                LogoImage: "<value>",
-            },
-        ),
+        CustomLogo: components.SystemSettingsConfCustomLogo{
+            Enabled: false,
+            LogoDescription: criblcontrolplanesdkgo.Pointer("<value>"),
+            LogoImage: criblcontrolplanesdkgo.Pointer("<value>"),
+        },
         Pii: components.CreatePiiSettingsUnionPiiSettings1(
             components.PiiSettings1{
                 EnablePiiDetection: false,
             },
         ),
-        Proxy: components.CreateProxySettingsUnionProxySettings1(
-            components.ProxySettings1{
-                UseEnvVars: true,
-            },
-        ),
+        Proxy: components.SystemSettingsConfProxy{
+            UseEnvVars: true,
+        },
         Rollback: components.CreateRollbackSettingsUnionRollbackSettings1(
             components.RollbackSettings1{
                 RollbackEnabled: false,
@@ -151,11 +147,9 @@ func main() {
                 RollbackTimeout: criblcontrolplanesdkgo.Pointer[float64](1506.54),
             },
         ),
-        Shutdown: components.CreateShutdownSettingsUnionShutdownSettings1(
-            components.ShutdownSettings1{
-                DrainTimeout: 3723.75,
-            },
-        ),
+        Shutdown: components.SystemSettingsConfShutdown{
+            DrainTimeout: 3723.75,
+        },
         Sni: components.CreateSniSettingsUnionSniSettings1(
             components.SniSettings1{
                 DisableSNIRouting: false,
@@ -203,20 +197,18 @@ func main() {
                     PackageURL: "https://skeletal-dwell.info/",
                 },
             },
-            UpgradeSource: "<value>",
+            UpgradeSource: criblcontrolplanesdkgo.Pointer("<value>"),
         },
-        Workers: components.CreateWorkersSettingsUnionWorkersSettings1(
-            components.WorkersSettings1{
-                Count: 2124.14,
-                EnableHeapSnapshots: criblcontrolplanesdkgo.Pointer(true),
-                LoadThrottlePerc: criblcontrolplanesdkgo.Pointer[float64](2538.71),
-                Memory: 20.53,
-                Minimum: 6157.83,
-                StartupMaxConns: criblcontrolplanesdkgo.Pointer[float64](4731.29),
-                StartupThrottleTimeout: criblcontrolplanesdkgo.Pointer[float64](1613.48),
-                V8SingleThread: criblcontrolplanesdkgo.Pointer(true),
-            },
-        ),
+        Workers: components.SystemSettingsConfWorkers{
+            Count: 2124.14,
+            EnableHeapSnapshots: criblcontrolplanesdkgo.Pointer(true),
+            LoadThrottlePerc: criblcontrolplanesdkgo.Pointer[float64](2538.71),
+            Memory: 20.53,
+            Minimum: 6157.83,
+            StartupMaxConns: criblcontrolplanesdkgo.Pointer[float64](4731.29),
+            StartupThrottleTimeout: criblcontrolplanesdkgo.Pointer[float64](1613.48),
+            V8SingleThread: criblcontrolplanesdkgo.Pointer(true),
+        },
     })
     if err != nil {
         log.Fatal(err)

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 2f0243a76af2a0f95ffb2fcd2bb74c3a
-  docVersion: 4.16.0-alpha.1764537500966-708d4cad
+  docChecksum: e9f4b062a3a00c9e3b9d24bf5eb957e3
+  docVersion: 4.16.0-alpha.1764539522165-bd71c8bd
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.12
-  configChecksum: 2bfcaf5eaa4d117cc3c0f1480144fb7b
+  releaseVersion: 0.4.0-rc.13
+  configChecksum: f7b78f08dc6d4ad0f57053776bda5989
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -89,7 +89,6 @@ generatedFiles:
   - /models/components/cribllakedataset.go
   - /models/components/cribllakedatasetupdate.go
   - /models/components/currentbranchresult.go
-  - /models/components/customlogounion.go
   - /models/components/datasetmetadata.go
   - /models/components/datasetmetadataruninfo.go
   - /models/components/deployrequest.go
@@ -279,7 +278,6 @@ generatedFiles:
   - /models/components/pipeline.go
   - /models/components/pipelinefunctionconf.go
   - /models/components/productscore.go
-  - /models/components/proxysettingsunion.go
   - /models/components/rbacresource.go
   - /models/components/rediscachelimits.go
   - /models/components/redisconnectionlimits.go
@@ -298,7 +296,6 @@ generatedFiles:
   - /models/components/security.go
   - /models/components/serviceprocstype.go
   - /models/components/serviceslimits.go
-  - /models/components/shutdownsettingsunion.go
   - /models/components/snisettingsunion.go
   - /models/components/systemsettings.go
   - /models/components/systemsettingsconf.go
@@ -310,7 +307,6 @@ generatedFiles:
   - /models/components/upgradesettings.go
   - /models/components/uploadpackresponse.go
   - /models/components/useraccesscontrollist.go
-  - /models/components/workerssettingsunion.go
   - /models/components/workertypes.go
   - /models/operations/createauthlogin.go
   - /models/operations/createconfiggroupbyproduct.go
@@ -468,9 +464,6 @@ generatedFiles:
   - docs/models/components/cribllakedatasetupdate.md
   - docs/models/components/cribllakedatasetupdateformat.md
   - docs/models/components/currentbranchresult.md
-  - docs/models/components/customlogo1.md
-  - docs/models/components/customlogo2.md
-  - docs/models/components/customlogounion.md
   - docs/models/components/datadogsite.md
   - docs/models/components/datasetmetadata.md
   - docs/models/components/datasetmetadataruninfo.md
@@ -2283,9 +2276,6 @@ generatedFiles:
   - docs/models/components/prometheusauthoauthheader2.md
   - docs/models/components/prometheusauthoauthparam1.md
   - docs/models/components/prometheusauthoauthparam2.md
-  - docs/models/components/proxysettings1.md
-  - docs/models/components/proxysettings2.md
-  - docs/models/components/proxysettingsunion.md
   - docs/models/components/query.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
@@ -2356,9 +2346,6 @@ generatedFiles:
   - docs/models/components/serviceslimits.md
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
-  - docs/models/components/shutdownsettings1.md
-  - docs/models/components/shutdownsettings2.md
-  - docs/models/components/shutdownsettingsunion.md
   - docs/models/components/snisettings1.md
   - docs/models/components/snisettings2.md
   - docs/models/components/snisettingsunion.md
@@ -2374,19 +2361,27 @@ generatedFiles:
   - docs/models/components/systemsettingsapi.md
   - docs/models/components/systemsettingsconf.md
   - docs/models/components/systemsettingsconfapi.md
+  - docs/models/components/systemsettingsconfcustomlogo.md
   - docs/models/components/systemsettingsconffeatureflagoverride.md
+  - docs/models/components/systemsettingsconfproxy.md
+  - docs/models/components/systemsettingsconfshutdown.md
   - docs/models/components/systemsettingsconfsockets.md
   - docs/models/components/systemsettingsconfssl.md
   - docs/models/components/systemsettingsconfsupport.md
   - docs/models/components/systemsettingsconfsystem.md
   - docs/models/components/systemsettingsconfupgrade.md
+  - docs/models/components/systemsettingsconfworkers.md
+  - docs/models/components/systemsettingscustomlogo.md
   - docs/models/components/systemsettingsfeatureflagoverride.md
   - docs/models/components/systemsettingsmode.md
+  - docs/models/components/systemsettingsproxy.md
+  - docs/models/components/systemsettingsshutdown.md
   - docs/models/components/systemsettingssockets.md
   - docs/models/components/systemsettingsssl.md
   - docs/models/components/systemsettingssupport.md
   - docs/models/components/systemsettingssystem.md
   - docs/models/components/systemsettingsupgrade.md
+  - docs/models/components/systemsettingsworkers.md
   - docs/models/components/target.md
   - docs/models/components/targetprotocol.md
   - docs/models/components/teamaccesscontrollist.md
@@ -2412,9 +2407,6 @@ generatedFiles:
   - docs/models/components/warmpoolsize.md
   - docs/models/components/warmpoolsizeenum.md
   - docs/models/components/wheretocapture.md
-  - docs/models/components/workerssettings1.md
-  - docs/models/components/workerssettings2.md
-  - docs/models/components/workerssettingsunion.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
   - docs/models/operations/createauthloginresponse.md
