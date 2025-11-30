@@ -127,13 +127,13 @@ func main() {
                 BackupsDirectory: "<value>",
             },
         ),
-        CustomLogo: criblcontrolplanesdkgo.Pointer(components.CreateCustomLogoUnionCustomLogo1(
+        CustomLogo: components.CreateCustomLogoUnionCustomLogo1(
             components.CustomLogo1{
                 Enabled: false,
                 LogoDescription: "<value>",
                 LogoImage: "<value>",
             },
-        )),
+        ),
         Pii: components.CreatePiiSettingsUnionPiiSettings1(
             components.PiiSettings1{
                 EnablePiiDetection: false,
@@ -193,20 +193,18 @@ func main() {
                 RetryDelay: criblcontrolplanesdkgo.Pointer[float64](4374.4),
             },
         ),
-        UpgradeSettings: components.CreateUpgradeSettingsUnionUpgradeSettings1(
-            components.UpgradeSettings1{
-                AutomaticUpgradeCheckPeriod: criblcontrolplanesdkgo.Pointer("<value>"),
-                DisableAutomaticUpgrade: false,
-                EnableLegacyEdgeUpgrade: false,
-                PackageUrls: []components.UpgradePackageUrls{
-                    components.UpgradePackageUrls{
-                        PackageHashURL: criblcontrolplanesdkgo.Pointer("https://thrifty-teammate.net/"),
-                        PackageURL: "https://skeletal-dwell.info/",
-                    },
+        UpgradeSettings: components.UpgradeSettings{
+            AutomaticUpgradeCheckPeriod: criblcontrolplanesdkgo.Pointer("<value>"),
+            DisableAutomaticUpgrade: false,
+            EnableLegacyEdgeUpgrade: false,
+            PackageUrls: []components.UpgradePackageUrls{
+                components.UpgradePackageUrls{
+                    PackageHashURL: criblcontrolplanesdkgo.Pointer("https://thrifty-teammate.net/"),
+                    PackageURL: "https://skeletal-dwell.info/",
                 },
-                UpgradeSource: "<value>",
             },
-        ),
+            UpgradeSource: "<value>",
+        },
         Workers: components.CreateWorkersSettingsUnionWorkersSettings1(
             components.WorkersSettings1{
                 Count: 2124.14,
