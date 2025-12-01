@@ -127,7 +127,7 @@ func main() {
                 BackupsDirectory: "<value>",
             },
         ),
-        CustomLogo: components.CustomLogo{
+        CustomLogo: &components.CustomLogo{
             Enabled: false,
             LogoDescription: criblcontrolplanesdkgo.Pointer("<value>"),
             LogoImage: criblcontrolplanesdkgo.Pointer("<value>"),
