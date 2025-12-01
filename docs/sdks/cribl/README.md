@@ -189,15 +189,15 @@ func main() {
         ),
         UpgradeSettings: components.UpgradeSettings{
             AutomaticUpgradeCheckPeriod: criblcontrolplanesdkgo.Pointer("<value>"),
-            DisableAutomaticUpgrade: false,
-            EnableLegacyEdgeUpgrade: false,
+            DisableAutomaticUpgrade: criblcontrolplanesdkgo.Pointer(false),
+            EnableLegacyEdgeUpgrade: criblcontrolplanesdkgo.Pointer(false),
             PackageUrls: []components.UpgradePackageUrls{
                 components.UpgradePackageUrls{
                     PackageHashURL: criblcontrolplanesdkgo.Pointer("https://thrifty-teammate.net/"),
                     PackageURL: "https://skeletal-dwell.info/",
                 },
             },
-            UpgradeSource: "<value>",
+            UpgradeSource: criblcontrolplanesdkgo.Pointer("<value>"),
         },
         Workers: components.SystemSettingsConfWorkers{
             Count: 2124.14,

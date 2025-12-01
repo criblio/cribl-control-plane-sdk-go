@@ -4,10 +4,10 @@ package components
 
 type UpgradeSettings struct {
 	AutomaticUpgradeCheckPeriod *string              `json:"automaticUpgradeCheckPeriod,omitempty"`
-	DisableAutomaticUpgrade     bool                 `json:"disableAutomaticUpgrade"`
-	EnableLegacyEdgeUpgrade     bool                 `json:"enableLegacyEdgeUpgrade"`
+	DisableAutomaticUpgrade     *bool                `json:"disableAutomaticUpgrade,omitempty"`
+	EnableLegacyEdgeUpgrade     *bool                `json:"enableLegacyEdgeUpgrade,omitempty"`
 	PackageUrls                 []UpgradePackageUrls `json:"packageUrls,omitempty"`
-	UpgradeSource               string               `json:"upgradeSource"`
+	UpgradeSource               *string              `json:"upgradeSource,omitempty"`
 }
 
 func (u *UpgradeSettings) GetAutomaticUpgradeCheckPeriod() *string {
@@ -17,16 +17,16 @@ func (u *UpgradeSettings) GetAutomaticUpgradeCheckPeriod() *string {
 	return u.AutomaticUpgradeCheckPeriod
 }
 
-func (u *UpgradeSettings) GetDisableAutomaticUpgrade() bool {
+func (u *UpgradeSettings) GetDisableAutomaticUpgrade() *bool {
 	if u == nil {
-		return false
+		return nil
 	}
 	return u.DisableAutomaticUpgrade
 }
 
-func (u *UpgradeSettings) GetEnableLegacyEdgeUpgrade() bool {
+func (u *UpgradeSettings) GetEnableLegacyEdgeUpgrade() *bool {
 	if u == nil {
-		return false
+		return nil
 	}
 	return u.EnableLegacyEdgeUpgrade
 }
@@ -38,9 +38,9 @@ func (u *UpgradeSettings) GetPackageUrls() []UpgradePackageUrls {
 	return u.PackageUrls
 }
 
-func (u *UpgradeSettings) GetUpgradeSource() string {
+func (u *UpgradeSettings) GetUpgradeSource() *string {
 	if u == nil {
-		return ""
+		return nil
 	}
 	return u.UpgradeSource
 }
