@@ -197,7 +197,7 @@ func main() {
                     PackageURL: "https://skeletal-dwell.info/",
                 },
             },
-            UpgradeSource: criblcontrolplanesdkgo.Pointer("<value>"),
+            UpgradeSource: "<value>",
         },
         Workers: components.SystemSettingsConfWorkers{
             Count: 2124.14,

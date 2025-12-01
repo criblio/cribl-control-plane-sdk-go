@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: e9f4b062a3a00c9e3b9d24bf5eb957e3
-  docVersion: 4.16.0-alpha.1764539522165-bd71c8bd
+  docChecksum: 08ee164226c235c8f88e54b174c8f7dd
+  docVersion: 4.16.0-TC777-03894bd6
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.13
-  configChecksum: f7b78f08dc6d4ad0f57053776bda5989
+  releaseVersion: 0.4.0-rc.14
+  configChecksum: fafad7ce3f8bf93a8f61980d33405d56
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -3652,4 +3652,4 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.System.Settings.Cribl.List()`:  `response.Items.[]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request` **Changed** **Breaking** :warning:\n  *  `response.Items.[]` **Changed** **Breaking** :warning:\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request.UpgradeSettings.UpgradeSource` **Changed** **Breaking** :warning:\n  *  `response.Items.[].UpgradeSettings.UpgradeSource` **Changed**\n* `CriblControlPlane.System.Settings.Cribl.List()`:  `response.Items.[].UpgradeSettings.UpgradeSource` **Changed**\n"
