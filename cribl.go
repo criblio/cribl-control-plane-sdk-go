@@ -452,12 +452,12 @@ func (s *Cribl) Update(ctx context.Context, request components.SystemSettingsCon
 				return nil, err
 			}
 
-			var out components.CountedSystemSettings
+			var out components.CountedSystemSettingsConf
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CountedSystemSettings = &out
+			res.CountedSystemSettingsConf = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

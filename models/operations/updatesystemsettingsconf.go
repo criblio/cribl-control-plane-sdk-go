@@ -8,8 +8,8 @@ import (
 
 type UpdateSystemSettingsConfResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of SystemSettings objects
-	CountedSystemSettings *components.CountedSystemSettings
+	// a list of SystemSettingsConf objects
+	CountedSystemSettingsConf *components.CountedSystemSettingsConf
 }
 
 func (u *UpdateSystemSettingsConfResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -19,9 +19,9 @@ func (u *UpdateSystemSettingsConfResponse) GetHTTPMeta() components.HTTPMetadata
 	return u.HTTPMeta
 }
 
-func (u *UpdateSystemSettingsConfResponse) GetCountedSystemSettings() *components.CountedSystemSettings {
+func (u *UpdateSystemSettingsConfResponse) GetCountedSystemSettingsConf() *components.CountedSystemSettingsConf {
 	if u == nil {
 		return nil
 	}
-	return u.CountedSystemSettings
+	return u.CountedSystemSettingsConf
 }

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 08ee164226c235c8f88e54b174c8f7dd
-  docVersion: 4.16.0-TC777-03894bd6
+  docChecksum: e18c8be5f444f2a17df4438c15445c1f
+  docVersion: 4.16.0-alpha.1764596484764-d0a66001
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.14
-  configChecksum: fafad7ce3f8bf93a8f61980d33405d56
+  releaseVersion: 0.4.0-rc.15
+  configChecksum: d2c34f10f102dcab34fab4d361cad1c9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -42,7 +42,6 @@ generatedFiles:
   - /models/apierrors/error.go
   - /models/apierrors/healthserverstatuserror.go
   - /models/components/addhectokenrequest.go
-  - /models/components/authconfig.go
   - /models/components/authtoken.go
   - /models/components/backupssettingsunion.go
   - /models/components/branchinfo.go
@@ -50,7 +49,6 @@ generatedFiles:
   - /models/components/cacheconnectionbackfillstatus.go
   - /models/components/cloudprovider.go
   - /models/components/commit.go
-  - /models/components/commonservicelimitconfigs.go
   - /models/components/configgroup.go
   - /models/components/configgroupcloud.go
   - /models/components/configgrouplookups.go
@@ -81,7 +79,6 @@ generatedFiles:
   - /models/components/countedpipeline.go
   - /models/components/countedroutes.go
   - /models/components/countedstring.go
-  - /models/components/countedsystemsettings.go
   - /models/components/countedsystemsettingsconf.go
   - /models/components/countedteamaccesscontrollist.go
   - /models/components/counteduseraccesscontrollist.go
@@ -99,7 +96,6 @@ generatedFiles:
   - /models/components/difflinedelete.go
   - /models/components/difflineinsert.go
   - /models/components/distributedsummary.go
-  - /models/components/edgeheartbeatmetricsmode.go
   - /models/components/gitcommitparams.go
   - /models/components/gitcommitsummary.go
   - /models/components/gitcountresult.go
@@ -108,10 +104,8 @@ generatedFiles:
   - /models/components/gitfilesresponse.go
   - /models/components/gitinfo.go
   - /models/components/gitlogresult.go
-  - /models/components/gitopstype.go
   - /models/components/gitrevertparams.go
   - /models/components/gitrevertresult.go
-  - /models/components/gitsettings.go
   - /models/components/gitshowresult.go
   - /models/components/gitstatusresult.go
   - /models/components/groupcreaterequest.go
@@ -182,15 +176,12 @@ generatedFiles:
   - /models/components/inputwizwebhook.go
   - /models/components/inputzscalerhec.go
   - /models/components/jobinfo.go
-  - /models/components/jobsettings.go
   - /models/components/jobstatus.go
   - /models/components/lakedatasetmetrics.go
   - /models/components/lakedatasetsearchconfig.go
   - /models/components/lakehouseconnectiontype.go
-  - /models/components/limits.go
   - /models/components/logininfo.go
   - /models/components/masterworkerentry.go
-  - /models/components/maxconcurrentsearchestype.go
   - /models/components/nodeactiveupgradestatus.go
   - /models/components/nodefailedupgradestatus.go
   - /models/components/nodeprovidedinfo.go
@@ -279,9 +270,6 @@ generatedFiles:
   - /models/components/pipelinefunctionconf.go
   - /models/components/productscore.go
   - /models/components/rbacresource.go
-  - /models/components/rediscachelimits.go
-  - /models/components/redisconnectionlimits.go
-  - /models/components/redislimits.go
   - /models/components/resourcepolicy.go
   - /models/components/rollbacksettingsunion.go
   - /models/components/routeconf.go
@@ -292,12 +280,8 @@ generatedFiles:
   - /models/components/runnablejobexecutor.go
   - /models/components/runnablejobscheduledsearch.go
   - /models/components/schemeclientoauth.go
-  - /models/components/searchsettings.go
   - /models/components/security.go
-  - /models/components/serviceprocstype.go
-  - /models/components/serviceslimits.go
   - /models/components/snisettingsunion.go
-  - /models/components/systemsettings.go
   - /models/components/systemsettingsconf.go
   - /models/components/teamaccesscontrollist.go
   - /models/components/tlssettingsunion.go
@@ -389,9 +373,8 @@ generatedFiles:
   - docs/models/components/additionalproperty.md
   - docs/models/components/aisiemendpointpath.md
   - docs/models/components/allow.md
+  - docs/models/components/api.md
   - docs/models/components/audit.md
-  - docs/models/components/authconfig.md
-  - docs/models/components/authconfigtype.md
   - docs/models/components/authenticationprotocol.md
   - docs/models/components/author.md
   - docs/models/components/authtoken.md
@@ -415,7 +398,6 @@ generatedFiles:
   - docs/models/components/columnmapping.md
   - docs/models/components/comment.md
   - docs/models/components/commit.md
-  - docs/models/components/commonservicelimitconfigs.md
   - docs/models/components/conf.md
   - docs/models/components/config.md
   - docs/models/components/configgroup.md
@@ -454,7 +436,6 @@ generatedFiles:
   - docs/models/components/countedpipeline.md
   - docs/models/components/countedroutes.md
   - docs/models/components/countedstring.md
-  - docs/models/components/countedsystemsettings.md
   - docs/models/components/countedsystemsettingsconf.md
   - docs/models/components/countedteamaccesscontrollist.md
   - docs/models/components/counteduseraccesscontrollist.md
@@ -464,6 +445,7 @@ generatedFiles:
   - docs/models/components/cribllakedatasetupdate.md
   - docs/models/components/cribllakedatasetupdateformat.md
   - docs/models/components/currentbranchresult.md
+  - docs/models/components/customlogo.md
   - docs/models/components/datadogsite.md
   - docs/models/components/datasetmetadata.md
   - docs/models/components/datasetmetadataruninfo.md
@@ -481,12 +463,10 @@ generatedFiles:
   - docs/models/components/difflineinserttype.md
   - docs/models/components/disksandfilesystems.md
   - docs/models/components/distmode.md
-  - docs/models/components/distributed.md
   - docs/models/components/distributedsummary.md
   - docs/models/components/distributedsummarygroups.md
   - docs/models/components/distributedsummaryworkers.md
   - docs/models/components/dns.md
-  - docs/models/components/edgeheartbeatmetricsmode.md
   - docs/models/components/elasticsearchmetadata.md
   - docs/models/components/elasticversion.md
   - docs/models/components/endpoint.md
@@ -500,6 +480,7 @@ generatedFiles:
   - docs/models/components/extenttag.md
   - docs/models/components/extralogtype.md
   - docs/models/components/facility.md
+  - docs/models/components/featureflagoverride.md
   - docs/models/components/fieldname.md
   - docs/models/components/file.md
   - docs/models/components/firewall.md
@@ -513,11 +494,9 @@ generatedFiles:
   - docs/models/components/gitfilesresponse.md
   - docs/models/components/gitinfo.md
   - docs/models/components/gitlogresult.md
-  - docs/models/components/gitopstype.md
   - docs/models/components/gitrevertparams.md
   - docs/models/components/gitrevertresult.md
   - docs/models/components/gitrevertresultfiles.md
-  - docs/models/components/gitsettings.md
   - docs/models/components/gitshowresult.md
   - docs/models/components/gitstatusresult.md
   - docs/models/components/groupcreaterequest.md
@@ -1337,12 +1316,10 @@ generatedFiles:
   - docs/models/components/inputzscalerhectype.md
   - docs/models/components/interfaces.md
   - docs/models/components/jobinfo.md
-  - docs/models/components/jobsettings.md
   - docs/models/components/jobstatus.md
   - docs/models/components/lakedatasetmetrics.md
   - docs/models/components/lakedatasetsearchconfig.md
   - docs/models/components/lakehouseconnectiontype.md
-  - docs/models/components/limits.md
   - docs/models/components/listeningports.md
   - docs/models/components/loggedinusers.md
   - docs/models/components/logininfo.md
@@ -1357,7 +1334,6 @@ generatedFiles:
   - docs/models/components/masterworkerentry.md
   - docs/models/components/masterworkerentrytype.md
   - docs/models/components/masterworkerentryworkers.md
-  - docs/models/components/maxconcurrentsearchestype.md
   - docs/models/components/metricsprotocol.md
   - docs/models/components/mtlssettings.md
   - docs/models/components/nodeactiveupgradestatus.md
@@ -2276,13 +2252,11 @@ generatedFiles:
   - docs/models/components/prometheusauthoauthheader2.md
   - docs/models/components/prometheusauthoauthparam1.md
   - docs/models/components/prometheusauthoauthparam2.md
+  - docs/models/components/proxy.md
   - docs/models/components/query.md
   - docs/models/components/querybuildermode.md
   - docs/models/components/rbacresource.md
   - docs/models/components/readmode.md
-  - docs/models/components/rediscachelimits.md
-  - docs/models/components/redisconnectionlimits.md
-  - docs/models/components/redislimits.md
   - docs/models/components/remote.md
   - docs/models/components/remoteenum.md
   - docs/models/components/renamed.md
@@ -2330,58 +2304,34 @@ generatedFiles:
   - docs/models/components/runnablejobscheduledsearchtimewarning.md
   - docs/models/components/runnablejobscheduledsearchtype.md
   - docs/models/components/sample.md
-  - docs/models/components/samples.md
   - docs/models/components/scanmode.md
   - docs/models/components/scheduletype.md
   - docs/models/components/schemeclientoauth.md
   - docs/models/components/scrapeprotocolprotocol.md
-  - docs/models/components/searchqueuelength.md
-  - docs/models/components/searchsettings.md
   - docs/models/components/security.md
   - docs/models/components/sendeventsas.md
   - docs/models/components/sendlogsas.md
-  - docs/models/components/serviceprocstype.md
-  - docs/models/components/serviceprocstypeenum.md
   - docs/models/components/services.md
-  - docs/models/components/serviceslimits.md
   - docs/models/components/sharditeratorstart.md
   - docs/models/components/shardloadbalancing.md
+  - docs/models/components/shutdown.md
   - docs/models/components/snisettings1.md
   - docs/models/components/snisettings2.md
   - docs/models/components/snisettingsunion.md
   - docs/models/components/snmpv3authentication.md
+  - docs/models/components/sockets.md
   - docs/models/components/splunkhecmetadata.md
+  - docs/models/components/ssl.md
   - docs/models/components/state.md
   - docs/models/components/stats.md
   - docs/models/components/status.md
   - docs/models/components/subscription.md
   - docs/models/components/subscriptionmetadatum.md
   - docs/models/components/summary.md
-  - docs/models/components/systemsettings.md
-  - docs/models/components/systemsettingsapi.md
+  - docs/models/components/support.md
   - docs/models/components/systemsettingsconf.md
-  - docs/models/components/systemsettingsconfapi.md
-  - docs/models/components/systemsettingsconfcustomlogo.md
-  - docs/models/components/systemsettingsconffeatureflagoverride.md
-  - docs/models/components/systemsettingsconfproxy.md
-  - docs/models/components/systemsettingsconfshutdown.md
-  - docs/models/components/systemsettingsconfsockets.md
-  - docs/models/components/systemsettingsconfssl.md
-  - docs/models/components/systemsettingsconfsupport.md
   - docs/models/components/systemsettingsconfsystem.md
-  - docs/models/components/systemsettingsconfupgrade.md
   - docs/models/components/systemsettingsconfworkers.md
-  - docs/models/components/systemsettingscustomlogo.md
-  - docs/models/components/systemsettingsfeatureflagoverride.md
-  - docs/models/components/systemsettingsmode.md
-  - docs/models/components/systemsettingsproxy.md
-  - docs/models/components/systemsettingsshutdown.md
-  - docs/models/components/systemsettingssockets.md
-  - docs/models/components/systemsettingsssl.md
-  - docs/models/components/systemsettingssupport.md
-  - docs/models/components/systemsettingssystem.md
-  - docs/models/components/systemsettingsupgrade.md
-  - docs/models/components/systemsettingsworkers.md
   - docs/models/components/target.md
   - docs/models/components/targetprotocol.md
   - docs/models/components/teamaccesscontrollist.md
@@ -2395,6 +2345,7 @@ generatedFiles:
   - docs/models/components/udmtype.md
   - docs/models/components/updatehectokenrequest.md
   - docs/models/components/updatehectokenrequestmetadatum.md
+  - docs/models/components/upgrade.md
   - docs/models/components/upgradegroupsettings1.md
   - docs/models/components/upgradegroupsettings2.md
   - docs/models/components/upgradegroupsettingsunion.md
@@ -2404,8 +2355,6 @@ generatedFiles:
   - docs/models/components/useraccesscontrollist.md
   - docs/models/components/usersandgroups.md
   - docs/models/components/v3user.md
-  - docs/models/components/warmpoolsize.md
-  - docs/models/components/warmpoolsizeenum.md
   - docs/models/components/wheretocapture.md
   - docs/models/components/workertypes.md
   - docs/models/components/writeaction.md
@@ -3542,7 +3491,7 @@ examples:
         application/json: {"api": {"baseUrl": "https://both-draw.com/", "disableApiCache": true, "disabled": false, "headers": {}, "host": "meaty-spring.biz", "idleSessionTTL": 89.27, "listenOnPort": true, "loginRateLimit": "<value>", "port": 2424.38, "protocol": "<value>", "scripts": true, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": true}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 3174.73, "rollbackTimeout": 1506.54}, "shutdown": {"drainTimeout": 3723.75}, "sni": {"disableSNIRouting": false}, "sockets": {"directory": "/usr/ports"}, "support": {"featureFlagOverrides": [{"disabled": true, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 2124.14, "enableHeapSnapshots": true, "loadThrottlePerc": 2538.71, "memory": 20.53, "minimum": 6157.83, "startupMaxConns": 4731.29, "startupThrottleTimeout": 1613.48, "v8SingleThread": true}}
       responses:
         "200":
-          application/json: {"count": 621984, "items": [{"api": {"baseUrl": "https://crafty-humidity.com/", "disableApiCache": false, "disabled": true, "headers": {}, "host": "unwelcome-gastropod.info", "idleSessionTTL": 5654.06, "listenOnPort": false, "loginRateLimit": "<value>", "port": 9260.96, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "auth": {"fallback": true, "fallbackBadLogin": true, "filter_type": "<value>", "host": "elementary-tectonics.com", "port": 5119.59, "ssl": false, "type": "saml"}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": true, "logoDescription": "<value>", "logoImage": "<value>"}, "distributed": {"mode": "master"}, "fips": true, "git": {"authType": "<value>", "autoAction": "<value>", "autoActionMessage": "<value>", "autoActionSchedule": "<value>", "branch": "<value>", "commitDeploySingleAction": true, "copilotAutoGitCommitMessages": true, "defaultCommitMessage": "<value>", "gitOps": "pull", "password": "mx2vfxXQJD4Ybfr", "remote": "<value>", "sshKey": "<value>", "strictHostKeyChecking": true, "timeout": 1445.54, "user": "Ursula79"}, "jobLimits": {"concurrentJobLimit": 5261.7, "concurrentScheduledJobLimit": 8739.55, "concurrentSystemJobLimit": 7105.98, "concurrentSystemTaskLimit": 2659.8, "concurrentTaskLimit": 9028.78, "disableTasks": true, "finishedJobArtifactsLimit": 5997.68, "finishedTaskArtifactsLimit": 8338.08, "jobArtifactsReaperPeriod": "<value>", "jobTimeout": "<value>", "maxTaskPerc": 7246.27, "schedulingPolicy": "<value>", "taskHeartbeatPeriod": 7464.28, "taskManifestFlushPeriodMs": 2406.65, "taskManifestMaxBufferSize": 6473.61, "taskManifestReadBufferSize": "<value>", "taskPollTimeoutMs": 5365.61}, "limits": {"cpuProfileTTL": "<value>", "disableMetricsAccessorCache": false, "edgeMetricsCustomExpression": "<value>", "edgeMetricsMode": "all", "edgeNodesCount": 148.31, "enableMetricsPersistence": false, "enableWorkerPersistence": false, "eventsMetadataSources": ["<value 1>", "<value 2>"], "largeEventsThreshold": "<value>", "lookupMaxSize": "<value>", "lookupMaxTotalSize": "<value>", "maxDimensionValueSize": 821.15, "maxMetrics": 743.26, "maxPQSize": "<value>", "maxReconnectInterval": "<value>", "metricsDirectory": "<value>", "metricsDropList": ["<value 1>", "<value 2>"], "metricsFieldsBlacklist": [], "metricsGCPeriod": "<value>", "metricsMaxCardinality": 991.34, "metricsMaxDiskSpace": "<value>", "metricsNeverDropList": ["<value 1>", "<value 2>", "<value 3>"], "metricsWorkerIdBlacklist": ["<value 1>", "<value 2>"], "minFreeSpace": "<value>", "minReconnectInterval": "<value>", "netFlowTemplateFlushInterval": 2696.85, "randomReconnectInterval": "<value>", "samples": {"maxSize": "<value>"}, "workerMaxMetrics": 3440.42}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "redisCacheLimits": {"clientTrackingMechanism": "<value>", "enableServerAssist": false, "keyTTLSecs": 1429.84, "maxCacheSize": 1900.2, "maxNumKeys": 8821.39, "servicePeriodSecs": 2756.18}, "redisLimits": {"connections": {"disabled": true, "maxConnections": 2244.47}}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 251.18, "rollbackTimeout": 5753.48}, "searchLimits": {"compressObjectCacheArtifacts": false, "fieldSummaryMaxFields": 997.95, "fieldSummaryMaxNestedDepth": 6311.46, "maxConcurrentSearches": 9454.72, "maxExecutorsPerSearch": 8461.8, "maxResultsPerSearch": 1247.74, "maxSearchDuration": "<value>", "searchHistoryMaxJobs": 7581.99, "searchHistoryTTL": "<value>", "searchQueueLength": 4176.38, "warmPoolSize": "auto", "writeOnlyProviderSecrets": true}, "servicesLimits": {"connections": {"memoryLimit": "<value>", "procs": 3795.06}, "metrics": {"memoryLimit": "<value>", "procs": "auto"}, "notifications": {"memoryLimit": "<value>", "procs": "auto"}}, "shutdown": {"drainTimeout": 8291.44}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/proc"}, "support": {"featureFlagOverrides": [{"disabled": false, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 5732.34, "enableHeapSnapshots": false, "loadThrottlePerc": 580.39, "memory": 8722.5, "minimum": 1180.07, "startupMaxConns": 9534.79, "startupThrottleTimeout": 1509.67, "v8SingleThread": false}}]}
+          application/json: {"count": 621984, "items": [{"api": {"baseUrl": "https://crafty-humidity.com/", "disableApiCache": false, "disabled": true, "headers": {}, "host": "unwelcome-gastropod.info", "idleSessionTTL": 5654.06, "listenOnPort": false, "loginRateLimit": "<value>", "port": 9260.96, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": true, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 251.18, "rollbackTimeout": 5753.48}, "shutdown": {"drainTimeout": 8291.44}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/proc"}, "support": {"featureFlagOverrides": [{"disabled": false, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 5732.34, "enableHeapSnapshots": false, "loadThrottlePerc": 580.39, "memory": 8722.5, "minimum": 1180.07, "startupMaxConns": 9534.79, "startupThrottleTimeout": 1509.67, "v8SingleThread": false}}]}
         "500":
           application/json: {"message": "<value>"}
   getSystemSettingsGitSettings:
@@ -3652,4 +3601,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request.UpgradeSettings.UpgradeSource` **Changed** **Breaking** :warning:\n  *  `response.Items.[].UpgradeSettings.UpgradeSource` **Changed**\n* `CriblControlPlane.System.Settings.Cribl.List()`:  `response.Items.[].UpgradeSettings.UpgradeSource` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `CriblControlPlane.System.Settings.Cribl.Update()`:  `response.Items.[]` **Changed** **Breaking** :warning:

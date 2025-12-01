@@ -2,7 +2,7 @@
 
 package components
 
-type SystemSettingsConfSsl struct {
+type Ssl struct {
 	CaPath      *string `json:"caPath,omitempty"`
 	CertPath    string  `json:"certPath"`
 	Disabled    bool    `json:"disabled"`
@@ -10,267 +10,267 @@ type SystemSettingsConfSsl struct {
 	PrivKeyPath string  `json:"privKeyPath"`
 }
 
-func (s *SystemSettingsConfSsl) GetCaPath() *string {
+func (s *Ssl) GetCaPath() *string {
 	if s == nil {
 		return nil
 	}
 	return s.CaPath
 }
 
-func (s *SystemSettingsConfSsl) GetCertPath() string {
+func (s *Ssl) GetCertPath() string {
 	if s == nil {
 		return ""
 	}
 	return s.CertPath
 }
 
-func (s *SystemSettingsConfSsl) GetDisabled() bool {
+func (s *Ssl) GetDisabled() bool {
 	if s == nil {
 		return false
 	}
 	return s.Disabled
 }
 
-func (s *SystemSettingsConfSsl) GetPassphrase() string {
+func (s *Ssl) GetPassphrase() string {
 	if s == nil {
 		return ""
 	}
 	return s.Passphrase
 }
 
-func (s *SystemSettingsConfSsl) GetPrivKeyPath() string {
+func (s *Ssl) GetPrivKeyPath() string {
 	if s == nil {
 		return ""
 	}
 	return s.PrivKeyPath
 }
 
-type SystemSettingsConfAPI struct {
-	BaseURL            *string                `json:"baseUrl,omitempty"`
-	DisableAPICache    *bool                  `json:"disableApiCache,omitempty"`
-	Disabled           bool                   `json:"disabled"`
-	Headers            map[string]string      `json:"headers,omitempty"`
-	Host               string                 `json:"host"`
-	IdleSessionTTL     *float64               `json:"idleSessionTTL,omitempty"`
-	ListenOnPort       *bool                  `json:"listenOnPort,omitempty"`
-	LoginRateLimit     *string                `json:"loginRateLimit,omitempty"`
-	Port               float64                `json:"port"`
-	Protocol           *string                `json:"protocol,omitempty"`
-	Scripts            *bool                  `json:"scripts,omitempty"`
-	SensitiveFields    []string               `json:"sensitiveFields,omitempty"`
-	Ssl                *SystemSettingsConfSsl `json:"ssl,omitempty"`
-	SsoRateLimit       *string                `json:"ssoRateLimit,omitempty"`
-	WorkerRemoteAccess *bool                  `json:"workerRemoteAccess,omitempty"`
+type API struct {
+	BaseURL            *string           `json:"baseUrl,omitempty"`
+	DisableAPICache    *bool             `json:"disableApiCache,omitempty"`
+	Disabled           bool              `json:"disabled"`
+	Headers            map[string]string `json:"headers,omitempty"`
+	Host               string            `json:"host"`
+	IdleSessionTTL     *float64          `json:"idleSessionTTL,omitempty"`
+	ListenOnPort       *bool             `json:"listenOnPort,omitempty"`
+	LoginRateLimit     *string           `json:"loginRateLimit,omitempty"`
+	Port               float64           `json:"port"`
+	Protocol           *string           `json:"protocol,omitempty"`
+	Scripts            *bool             `json:"scripts,omitempty"`
+	SensitiveFields    []string          `json:"sensitiveFields,omitempty"`
+	Ssl                *Ssl              `json:"ssl,omitempty"`
+	SsoRateLimit       *string           `json:"ssoRateLimit,omitempty"`
+	WorkerRemoteAccess *bool             `json:"workerRemoteAccess,omitempty"`
 }
 
-func (s *SystemSettingsConfAPI) GetBaseURL() *string {
-	if s == nil {
+func (a *API) GetBaseURL() *string {
+	if a == nil {
 		return nil
 	}
-	return s.BaseURL
+	return a.BaseURL
 }
 
-func (s *SystemSettingsConfAPI) GetDisableAPICache() *bool {
-	if s == nil {
+func (a *API) GetDisableAPICache() *bool {
+	if a == nil {
 		return nil
 	}
-	return s.DisableAPICache
+	return a.DisableAPICache
 }
 
-func (s *SystemSettingsConfAPI) GetDisabled() bool {
-	if s == nil {
+func (a *API) GetDisabled() bool {
+	if a == nil {
 		return false
 	}
-	return s.Disabled
+	return a.Disabled
 }
 
-func (s *SystemSettingsConfAPI) GetHeaders() map[string]string {
-	if s == nil {
+func (a *API) GetHeaders() map[string]string {
+	if a == nil {
 		return nil
 	}
-	return s.Headers
+	return a.Headers
 }
 
-func (s *SystemSettingsConfAPI) GetHost() string {
-	if s == nil {
+func (a *API) GetHost() string {
+	if a == nil {
 		return ""
 	}
-	return s.Host
+	return a.Host
 }
 
-func (s *SystemSettingsConfAPI) GetIdleSessionTTL() *float64 {
-	if s == nil {
+func (a *API) GetIdleSessionTTL() *float64 {
+	if a == nil {
 		return nil
 	}
-	return s.IdleSessionTTL
+	return a.IdleSessionTTL
 }
 
-func (s *SystemSettingsConfAPI) GetListenOnPort() *bool {
-	if s == nil {
+func (a *API) GetListenOnPort() *bool {
+	if a == nil {
 		return nil
 	}
-	return s.ListenOnPort
+	return a.ListenOnPort
 }
 
-func (s *SystemSettingsConfAPI) GetLoginRateLimit() *string {
-	if s == nil {
+func (a *API) GetLoginRateLimit() *string {
+	if a == nil {
 		return nil
 	}
-	return s.LoginRateLimit
+	return a.LoginRateLimit
 }
 
-func (s *SystemSettingsConfAPI) GetPort() float64 {
-	if s == nil {
+func (a *API) GetPort() float64 {
+	if a == nil {
 		return 0.0
 	}
-	return s.Port
+	return a.Port
 }
 
-func (s *SystemSettingsConfAPI) GetProtocol() *string {
-	if s == nil {
+func (a *API) GetProtocol() *string {
+	if a == nil {
 		return nil
 	}
-	return s.Protocol
+	return a.Protocol
 }
 
-func (s *SystemSettingsConfAPI) GetScripts() *bool {
-	if s == nil {
+func (a *API) GetScripts() *bool {
+	if a == nil {
 		return nil
 	}
-	return s.Scripts
+	return a.Scripts
 }
 
-func (s *SystemSettingsConfAPI) GetSensitiveFields() []string {
-	if s == nil {
+func (a *API) GetSensitiveFields() []string {
+	if a == nil {
 		return nil
 	}
-	return s.SensitiveFields
+	return a.SensitiveFields
 }
 
-func (s *SystemSettingsConfAPI) GetSsl() *SystemSettingsConfSsl {
-	if s == nil {
+func (a *API) GetSsl() *Ssl {
+	if a == nil {
 		return nil
 	}
-	return s.Ssl
+	return a.Ssl
 }
 
-func (s *SystemSettingsConfAPI) GetSsoRateLimit() *string {
-	if s == nil {
+func (a *API) GetSsoRateLimit() *string {
+	if a == nil {
 		return nil
 	}
-	return s.SsoRateLimit
+	return a.SsoRateLimit
 }
 
-func (s *SystemSettingsConfAPI) GetWorkerRemoteAccess() *bool {
-	if s == nil {
+func (a *API) GetWorkerRemoteAccess() *bool {
+	if a == nil {
 		return nil
 	}
-	return s.WorkerRemoteAccess
+	return a.WorkerRemoteAccess
 }
 
-type SystemSettingsConfCustomLogo struct {
+type CustomLogo struct {
 	Enabled         bool    `json:"enabled"`
 	LogoDescription *string `json:"logoDescription,omitempty"`
 	LogoImage       *string `json:"logoImage,omitempty"`
 }
 
-func (s *SystemSettingsConfCustomLogo) GetEnabled() bool {
-	if s == nil {
+func (c *CustomLogo) GetEnabled() bool {
+	if c == nil {
 		return false
 	}
-	return s.Enabled
+	return c.Enabled
 }
 
-func (s *SystemSettingsConfCustomLogo) GetLogoDescription() *string {
-	if s == nil {
+func (c *CustomLogo) GetLogoDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return s.LogoDescription
+	return c.LogoDescription
 }
 
-func (s *SystemSettingsConfCustomLogo) GetLogoImage() *string {
-	if s == nil {
+func (c *CustomLogo) GetLogoImage() *string {
+	if c == nil {
 		return nil
 	}
-	return s.LogoImage
+	return c.LogoImage
 }
 
-type SystemSettingsConfProxy struct {
+type Proxy struct {
 	UseEnvVars bool `json:"useEnvVars"`
 }
 
-func (s *SystemSettingsConfProxy) GetUseEnvVars() bool {
-	if s == nil {
+func (p *Proxy) GetUseEnvVars() bool {
+	if p == nil {
 		return false
 	}
-	return s.UseEnvVars
+	return p.UseEnvVars
 }
 
-type SystemSettingsConfShutdown struct {
+type Shutdown struct {
 	DrainTimeout float64 `json:"drainTimeout"`
 }
 
-func (s *SystemSettingsConfShutdown) GetDrainTimeout() float64 {
+func (s *Shutdown) GetDrainTimeout() float64 {
 	if s == nil {
 		return 0.0
 	}
 	return s.DrainTimeout
 }
 
-type SystemSettingsConfSockets struct {
+type Sockets struct {
 	Directory *string `json:"directory,omitempty"`
 }
 
-func (s *SystemSettingsConfSockets) GetDirectory() *string {
+func (s *Sockets) GetDirectory() *string {
 	if s == nil {
 		return nil
 	}
 	return s.Directory
 }
 
-type SystemSettingsConfFeatureFlagOverride struct {
+type FeatureFlagOverride struct {
 	Disabled bool   `json:"disabled"`
 	FlagID   string `json:"flagId"`
 }
 
-func (s *SystemSettingsConfFeatureFlagOverride) GetDisabled() bool {
-	if s == nil {
+func (f *FeatureFlagOverride) GetDisabled() bool {
+	if f == nil {
 		return false
 	}
-	return s.Disabled
+	return f.Disabled
 }
 
-func (s *SystemSettingsConfFeatureFlagOverride) GetFlagID() string {
-	if s == nil {
+func (f *FeatureFlagOverride) GetFlagID() string {
+	if f == nil {
 		return ""
 	}
-	return s.FlagID
+	return f.FlagID
 }
 
-type SystemSettingsConfSupport struct {
-	FeatureFlagOverrides []SystemSettingsConfFeatureFlagOverride `json:"featureFlagOverrides,omitempty"`
+type Support struct {
+	FeatureFlagOverrides []FeatureFlagOverride `json:"featureFlagOverrides,omitempty"`
 }
 
-func (s *SystemSettingsConfSupport) GetFeatureFlagOverrides() []SystemSettingsConfFeatureFlagOverride {
+func (s *Support) GetFeatureFlagOverrides() []FeatureFlagOverride {
 	if s == nil {
 		return nil
 	}
 	return s.FeatureFlagOverrides
 }
 
-type SystemSettingsConfUpgrade string
+type Upgrade string
 
 const (
-	SystemSettingsConfUpgradeFalse SystemSettingsConfUpgrade = "false"
-	SystemSettingsConfUpgradeAPI   SystemSettingsConfUpgrade = "api"
+	UpgradeFalse Upgrade = "false"
+	UpgradeAPI   Upgrade = "api"
 )
 
-func (e SystemSettingsConfUpgrade) ToPointer() *SystemSettingsConfUpgrade {
+func (e Upgrade) ToPointer() *Upgrade {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SystemSettingsConfUpgrade) IsExact() bool {
+func (e *Upgrade) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "false", "api":
@@ -281,8 +281,8 @@ func (e *SystemSettingsConfUpgrade) IsExact() bool {
 }
 
 type SystemSettingsConfSystem struct {
-	Intercom bool                      `json:"intercom"`
-	Upgrade  SystemSettingsConfUpgrade `json:"upgrade"`
+	Intercom bool    `json:"intercom"`
+	Upgrade  Upgrade `json:"upgrade"`
 }
 
 func (s *SystemSettingsConfSystem) GetIntercom() bool {
@@ -292,9 +292,9 @@ func (s *SystemSettingsConfSystem) GetIntercom() bool {
 	return s.Intercom
 }
 
-func (s *SystemSettingsConfSystem) GetUpgrade() SystemSettingsConfUpgrade {
+func (s *SystemSettingsConfSystem) GetUpgrade() Upgrade {
 	if s == nil {
-		return SystemSettingsConfUpgrade("")
+		return Upgrade("")
 	}
 	return s.Upgrade
 }
@@ -367,26 +367,26 @@ func (s *SystemSettingsConfWorkers) GetV8SingleThread() *bool {
 }
 
 type SystemSettingsConf struct {
-	API                  SystemSettingsConfAPI        `json:"api"`
-	Backups              BackupsSettingsUnion         `json:"backups"`
-	CustomLogo           SystemSettingsConfCustomLogo `json:"customLogo"`
-	Pii                  PiiSettingsUnion             `json:"pii"`
-	Proxy                SystemSettingsConfProxy      `json:"proxy"`
-	Rollback             RollbackSettingsUnion        `json:"rollback"`
-	Shutdown             SystemSettingsConfShutdown   `json:"shutdown"`
-	Sni                  SniSettingsUnion             `json:"sni"`
-	Sockets              *SystemSettingsConfSockets   `json:"sockets,omitempty"`
-	Support              *SystemSettingsConfSupport   `json:"support,omitempty"`
-	System               SystemSettingsConfSystem     `json:"system"`
-	TLS                  TLSSettingsUnion             `json:"tls"`
-	UpgradeGroupSettings UpgradeGroupSettingsUnion    `json:"upgradeGroupSettings"`
-	UpgradeSettings      UpgradeSettings              `json:"upgradeSettings"`
-	Workers              SystemSettingsConfWorkers    `json:"workers"`
+	API                  API                       `json:"api"`
+	Backups              BackupsSettingsUnion      `json:"backups"`
+	CustomLogo           CustomLogo                `json:"customLogo"`
+	Pii                  PiiSettingsUnion          `json:"pii"`
+	Proxy                Proxy                     `json:"proxy"`
+	Rollback             RollbackSettingsUnion     `json:"rollback"`
+	Shutdown             Shutdown                  `json:"shutdown"`
+	Sni                  SniSettingsUnion          `json:"sni"`
+	Sockets              *Sockets                  `json:"sockets,omitempty"`
+	Support              *Support                  `json:"support,omitempty"`
+	System               SystemSettingsConfSystem  `json:"system"`
+	TLS                  TLSSettingsUnion          `json:"tls"`
+	UpgradeGroupSettings UpgradeGroupSettingsUnion `json:"upgradeGroupSettings"`
+	UpgradeSettings      UpgradeSettings           `json:"upgradeSettings"`
+	Workers              SystemSettingsConfWorkers `json:"workers"`
 }
 
-func (s *SystemSettingsConf) GetAPI() SystemSettingsConfAPI {
+func (s *SystemSettingsConf) GetAPI() API {
 	if s == nil {
-		return SystemSettingsConfAPI{}
+		return API{}
 	}
 	return s.API
 }
@@ -398,9 +398,9 @@ func (s *SystemSettingsConf) GetBackups() BackupsSettingsUnion {
 	return s.Backups
 }
 
-func (s *SystemSettingsConf) GetCustomLogo() SystemSettingsConfCustomLogo {
+func (s *SystemSettingsConf) GetCustomLogo() CustomLogo {
 	if s == nil {
-		return SystemSettingsConfCustomLogo{}
+		return CustomLogo{}
 	}
 	return s.CustomLogo
 }
@@ -412,9 +412,9 @@ func (s *SystemSettingsConf) GetPii() PiiSettingsUnion {
 	return s.Pii
 }
 
-func (s *SystemSettingsConf) GetProxy() SystemSettingsConfProxy {
+func (s *SystemSettingsConf) GetProxy() Proxy {
 	if s == nil {
-		return SystemSettingsConfProxy{}
+		return Proxy{}
 	}
 	return s.Proxy
 }
@@ -426,9 +426,9 @@ func (s *SystemSettingsConf) GetRollback() RollbackSettingsUnion {
 	return s.Rollback
 }
 
-func (s *SystemSettingsConf) GetShutdown() SystemSettingsConfShutdown {
+func (s *SystemSettingsConf) GetShutdown() Shutdown {
 	if s == nil {
-		return SystemSettingsConfShutdown{}
+		return Shutdown{}
 	}
 	return s.Shutdown
 }
@@ -440,14 +440,14 @@ func (s *SystemSettingsConf) GetSni() SniSettingsUnion {
 	return s.Sni
 }
 
-func (s *SystemSettingsConf) GetSockets() *SystemSettingsConfSockets {
+func (s *SystemSettingsConf) GetSockets() *Sockets {
 	if s == nil {
 		return nil
 	}
 	return s.Sockets
 }
 
-func (s *SystemSettingsConf) GetSupport() *SystemSettingsConfSupport {
+func (s *SystemSettingsConf) GetSupport() *Support {
 	if s == nil {
 		return nil
 	}

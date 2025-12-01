@@ -93,7 +93,7 @@ func main() {
     )
 
     res, err := s.System.Settings.Cribl.Update(ctx, components.SystemSettingsConf{
-        API: components.SystemSettingsConfAPI{
+        API: components.API{
             BaseURL: criblcontrolplanesdkgo.Pointer("https://both-draw.com/"),
             DisableAPICache: criblcontrolplanesdkgo.Pointer(true),
             Disabled: false,
@@ -111,7 +111,7 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            Ssl: &components.SystemSettingsConfSsl{
+            Ssl: &components.Ssl{
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: "<value>",
                 Disabled: true,
@@ -127,7 +127,7 @@ func main() {
                 BackupsDirectory: "<value>",
             },
         ),
-        CustomLogo: components.SystemSettingsConfCustomLogo{
+        CustomLogo: components.CustomLogo{
             Enabled: false,
             LogoDescription: criblcontrolplanesdkgo.Pointer("<value>"),
             LogoImage: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -137,7 +137,7 @@ func main() {
                 EnablePiiDetection: false,
             },
         ),
-        Proxy: components.SystemSettingsConfProxy{
+        Proxy: components.Proxy{
             UseEnvVars: true,
         },
         Rollback: components.CreateRollbackSettingsUnionRollbackSettings1(
@@ -147,7 +147,7 @@ func main() {
                 RollbackTimeout: criblcontrolplanesdkgo.Pointer[float64](1506.54),
             },
         ),
-        Shutdown: components.SystemSettingsConfShutdown{
+        Shutdown: components.Shutdown{
             DrainTimeout: 3723.75,
         },
         Sni: components.CreateSniSettingsUnionSniSettings1(
@@ -155,12 +155,12 @@ func main() {
                 DisableSNIRouting: false,
             },
         ),
-        Sockets: &components.SystemSettingsConfSockets{
+        Sockets: &components.Sockets{
             Directory: criblcontrolplanesdkgo.Pointer("/usr/ports"),
         },
-        Support: &components.SystemSettingsConfSupport{
-            FeatureFlagOverrides: []components.SystemSettingsConfFeatureFlagOverride{
-                components.SystemSettingsConfFeatureFlagOverride{
+        Support: &components.Support{
+            FeatureFlagOverrides: []components.FeatureFlagOverride{
+                components.FeatureFlagOverride{
                     Disabled: true,
                     FlagID: "<id>",
                 },
@@ -168,7 +168,7 @@ func main() {
         },
         System: components.SystemSettingsConfSystem{
             Intercom: false,
-            Upgrade: components.SystemSettingsConfUpgradeAPI,
+            Upgrade: components.UpgradeAPI,
         },
         TLS: components.CreateTLSSettingsUnionTLSSettings1(
             components.TLSSettings1{
@@ -213,7 +213,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedSystemSettings != nil {
+    if res.CountedSystemSettingsConf != nil {
         // handle response
     }
 }
