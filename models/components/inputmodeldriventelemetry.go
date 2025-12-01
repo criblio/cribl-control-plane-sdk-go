@@ -75,6 +75,17 @@ func (e InputModelDrivenTelemetryMode) ToPointer() *InputModelDrivenTelemetryMod
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputModelDrivenTelemetryMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputModelDrivenTelemetryCompression - Codec to use to compress the persisted data
 type InputModelDrivenTelemetryCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputModelDrivenTelemetryCompression) ToPointer() *InputModelDrivenTelemetryCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputModelDrivenTelemetryCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputModelDrivenTelemetryPqControls struct {
@@ -201,6 +223,17 @@ func (e InputModelDrivenTelemetryMinimumTLSVersion) ToPointer() *InputModelDrive
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputModelDrivenTelemetryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputModelDrivenTelemetryMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputModelDrivenTelemetryMaximumTLSVersion) ToPointer() *InputModelDrivenTelemetryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputModelDrivenTelemetryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputModelDrivenTelemetryTLSSettingsServerSide struct {

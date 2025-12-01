@@ -75,6 +75,17 @@ func (e InputKubeEventsMode) ToPointer() *InputKubeEventsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeEventsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputKubeEventsCompression - Codec to use to compress the persisted data
 type InputKubeEventsCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputKubeEventsCompression) ToPointer() *InputKubeEventsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeEventsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKubeEventsPqControls struct {

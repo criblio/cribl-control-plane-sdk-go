@@ -1,0 +1,15 @@
+# AuthConfig
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `Fallback`                                                             | *bool*                                                                 | :heavy_check_mark:                                                     | N/A                                                                    |
+| `FallbackBadLogin`                                                     | *bool*                                                                 | :heavy_check_mark:                                                     | N/A                                                                    |
+| `FilterType`                                                           | **string*                                                              | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `Host`                                                                 | *string*                                                               | :heavy_check_mark:                                                     | N/A                                                                    |
+| `Port`                                                                 | *float64*                                                              | :heavy_check_mark:                                                     | N/A                                                                    |
+| `Ssl`                                                                  | *bool*                                                                 | :heavy_check_mark:                                                     | N/A                                                                    |
+| `Type`                                                                 | [components.AuthConfigType](../../models/components/authconfigtype.md) | :heavy_check_mark:                                                     | N/A                                                                    |
+| `AdditionalProperties`                                                 | map[string]*any*                                                       | :heavy_minus_sign:                                                     | N/A                                                                    |

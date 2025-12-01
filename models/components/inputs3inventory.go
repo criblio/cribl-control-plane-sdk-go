@@ -75,6 +75,17 @@ func (e InputS3InventoryMode) ToPointer() *InputS3InventoryMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventoryMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputS3InventoryCompression - Codec to use to compress the persisted data
 type InputS3InventoryCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputS3InventoryCompression) ToPointer() *InputS3InventoryCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventoryCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputS3InventoryPqControls struct {
@@ -204,6 +226,17 @@ func (e InputS3InventoryAuthenticationMethod) ToPointer() *InputS3InventoryAuthe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventoryAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputS3InventorySignatureVersion - Signature version to use for signing S3 requests
 type InputS3InventorySignatureVersion string
 
@@ -214,6 +247,17 @@ const (
 
 func (e InputS3InventorySignatureVersion) ToPointer() *InputS3InventorySignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventorySignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputS3InventoryPreprocess struct {
@@ -328,6 +372,17 @@ const (
 
 func (e InputS3InventoryTagAfterProcessing) ToPointer() *InputS3InventoryTagAfterProcessing {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventoryTagAfterProcessing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "false", "true":
+			return true
+		}
+	}
+	return false
 }
 
 type InputS3Inventory struct {

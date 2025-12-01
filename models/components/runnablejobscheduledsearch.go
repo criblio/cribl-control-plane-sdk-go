@@ -20,6 +20,17 @@ func (e RunnableJobScheduledSearchJobType) ToPointer() *RunnableJobScheduledSear
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobScheduledSearchJobType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection", "executor", "scheduledSearch":
+			return true
+		}
+	}
+	return false
+}
+
 type RunnableJobScheduledSearchType string
 
 const (
@@ -119,21 +130,9 @@ type RunnableJobScheduledSearchRunSettings struct {
 	//
 	//
 	//
-	//
-	//
-	//
-	//
-	//
-	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
-	//
-	//
-	//
-	//
-	//
 	//
 	//
 	//

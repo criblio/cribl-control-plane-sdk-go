@@ -75,6 +75,17 @@ func (e InputKubeMetricsMode) ToPointer() *InputKubeMetricsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeMetricsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputKubeMetricsCompression - Codec to use to compress the persisted data
 type InputKubeMetricsCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputKubeMetricsCompression) ToPointer() *InputKubeMetricsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeMetricsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKubeMetricsPqControls struct {
@@ -260,6 +282,17 @@ const (
 
 func (e InputKubeMetricsDataCompressionFormat) ToPointer() *InputKubeMetricsDataCompressionFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeMetricsDataCompressionFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputKubeMetricsPersistence struct {

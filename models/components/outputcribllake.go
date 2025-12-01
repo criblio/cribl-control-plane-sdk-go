@@ -43,6 +43,17 @@ func (e OutputCriblLakeSignatureVersion) ToPointer() *OutputCriblLakeSignatureVe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCriblLakeObjectACL - Object ACL to assign to uploaded objects
 type OutputCriblLakeObjectACL string
 
@@ -65,6 +76,17 @@ const (
 
 func (e OutputCriblLakeObjectACL) ToPointer() *OutputCriblLakeObjectACL {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeObjectACL) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "private", "public-read", "public-read-write", "authenticated-read", "aws-exec-read", "bucket-owner-read", "bucket-owner-full-control":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputCriblLakeStorageClass - Storage class to select for uploaded objects
@@ -93,6 +115,17 @@ func (e OutputCriblLakeStorageClass) ToPointer() *OutputCriblLakeStorageClass {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeStorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "REDUCED_REDUNDANCY", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER", "GLACIER_IR", "DEEP_ARCHIVE":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputCriblLakeServerSideEncryptionForUploadedObjects string
 
 const (
@@ -104,6 +137,17 @@ const (
 
 func (e OutputCriblLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputCriblLakeServerSideEncryptionForUploadedObjects {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeServerSideEncryptionForUploadedObjects) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "AES256", "aws:kms":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputCriblLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -120,6 +164,17 @@ func (e OutputCriblLakeBackpressureBehavior) ToPointer() *OutputCriblLakeBackpre
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputCriblLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputCriblLakeDiskSpaceProtection string
 
@@ -134,6 +189,17 @@ func (e OutputCriblLakeDiskSpaceProtection) ToPointer() *OutputCriblLakeDiskSpac
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type AwsAuthenticationMethod string
 
 const (
@@ -146,6 +212,17 @@ func (e AwsAuthenticationMethod) ToPointer() *AwsAuthenticationMethod {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AwsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "auto_rpc", "manual":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputCriblLakeFormat string
 
 const (
@@ -156,6 +233,17 @@ const (
 
 func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "parquet", "ddss":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputCriblLake struct {

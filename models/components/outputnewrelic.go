@@ -47,6 +47,17 @@ func (e OutputNewrelicRegion) ToPointer() *OutputNewrelicRegion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputNewrelicRegion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "US", "EU", "Custom":
+			return true
+		}
+	}
+	return false
+}
+
 type FieldName string
 
 const (
@@ -58,6 +69,17 @@ const (
 
 func (e FieldName) ToPointer() *FieldName {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FieldName) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "service", "hostname", "timestamp", "auditId":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputNewrelicMetadatum struct {
@@ -135,6 +157,17 @@ const (
 
 func (e OutputNewrelicFailedRequestLoggingMode) ToPointer() *OutputNewrelicFailedRequestLoggingMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputNewrelicFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputNewrelicResponseRetrySetting struct {
@@ -252,6 +285,17 @@ func (e OutputNewrelicBackpressureBehavior) ToPointer() *OutputNewrelicBackpress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputNewrelicBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputNewrelicAuthenticationMethod - Enter API key directly, or select a stored secret
 type OutputNewrelicAuthenticationMethod string
 
@@ -262,6 +306,17 @@ const (
 
 func (e OutputNewrelicAuthenticationMethod) ToPointer() *OutputNewrelicAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputNewrelicAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputNewrelicMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -280,6 +335,17 @@ func (e OutputNewrelicMode) ToPointer() *OutputNewrelicMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputNewrelicMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputNewrelicCompression - Codec to use to compress the persisted data
 type OutputNewrelicCompression string
 
@@ -294,6 +360,17 @@ func (e OutputNewrelicCompression) ToPointer() *OutputNewrelicCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputNewrelicCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputNewrelicQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputNewrelicQueueFullBehavior string
 
@@ -306,6 +383,17 @@ const (
 
 func (e OutputNewrelicQueueFullBehavior) ToPointer() *OutputNewrelicQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputNewrelicQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputNewrelicPqControls struct {

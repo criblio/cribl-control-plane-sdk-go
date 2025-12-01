@@ -44,6 +44,17 @@ func (e OutputWebhookMethod) ToPointer() *OutputWebhookMethod {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "POST", "PUT", "PATCH":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputWebhookFormat - How to format events before sending out
 type OutputWebhookFormat string
 
@@ -60,6 +71,17 @@ const (
 
 func (e OutputWebhookFormat) ToPointer() *OutputWebhookFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ndjson", "json_array", "custom", "advanced":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputWebhookExtraHTTPHeader struct {
@@ -106,6 +128,17 @@ const (
 
 func (e OutputWebhookFailedRequestLoggingMode) ToPointer() *OutputWebhookFailedRequestLoggingMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputWebhookResponseRetrySetting struct {
@@ -223,6 +256,17 @@ func (e OutputWebhookBackpressureBehavior) ToPointer() *OutputWebhookBackpressur
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputWebhookAuthenticationType - Authentication method to use for the HTTP request
 type OutputWebhookAuthenticationType string
 
@@ -245,6 +289,17 @@ func (e OutputWebhookAuthenticationType) ToPointer() *OutputWebhookAuthenticatio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputWebhookMinimumTLSVersion string
 
 const (
@@ -258,6 +313,17 @@ func (e OutputWebhookMinimumTLSVersion) ToPointer() *OutputWebhookMinimumTLSVers
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputWebhookMaximumTLSVersion string
 
 const (
@@ -269,6 +335,17 @@ const (
 
 func (e OutputWebhookMaximumTLSVersion) ToPointer() *OutputWebhookMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputWebhookTLSSettingsClientSide struct {
@@ -379,6 +456,17 @@ func (e OutputWebhookMode) ToPointer() *OutputWebhookMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputWebhookCompression - Codec to use to compress the persisted data
 type OutputWebhookCompression string
 
@@ -393,6 +481,17 @@ func (e OutputWebhookCompression) ToPointer() *OutputWebhookCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputWebhookQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputWebhookQueueFullBehavior string
 
@@ -405,6 +504,17 @@ const (
 
 func (e OutputWebhookQueueFullBehavior) ToPointer() *OutputWebhookQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputWebhookQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputWebhookPqControls struct {
