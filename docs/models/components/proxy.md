@@ -1,8 +1,8 @@
-# Samples
+# Proxy
 
 
 ## Fields
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `MaxSize`          | *string*           | :heavy_check_mark: | N/A                |
+| `UseEnvVars`       | *bool*             | :heavy_check_mark: | N/A                |

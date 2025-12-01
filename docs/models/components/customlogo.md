@@ -1,4 +1,4 @@
-# SystemSettingsCustomLogo
+# CustomLogo
 
 
 ## Fields
