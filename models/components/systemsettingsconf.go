@@ -369,7 +369,7 @@ func (s *SystemSettingsConfWorkers) GetV8SingleThread() *bool {
 type SystemSettingsConf struct {
 	API                  API                       `json:"api"`
 	Backups              BackupsSettingsUnion      `json:"backups"`
-	CustomLogo           CustomLogo                `json:"customLogo"`
+	CustomLogo           *CustomLogo               `json:"customLogo,omitempty"`
 	Pii                  PiiSettingsUnion          `json:"pii"`
 	Proxy                Proxy                     `json:"proxy"`
 	Rollback             RollbackSettingsUnion     `json:"rollback"`
@@ -398,9 +398,9 @@ func (s *SystemSettingsConf) GetBackups() BackupsSettingsUnion {
 	return s.Backups
 }
 
-func (s *SystemSettingsConf) GetCustomLogo() CustomLogo {
+func (s *SystemSettingsConf) GetCustomLogo() *CustomLogo {
 	if s == nil {
-		return CustomLogo{}
+		return nil
 	}
 	return s.CustomLogo
 }
