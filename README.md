@@ -319,6 +319,11 @@ func main() {
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
+#### [System.Settings.Cribl](docs/sdks/cribl/README.md)
+
+* [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+* [Update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+
 #### [Versions.Branches](docs/sdks/branches/README.md)
 
 * [List](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
