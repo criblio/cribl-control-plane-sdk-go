@@ -61,7 +61,7 @@ func (i *InputConfluentCloudConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputConfluentCloudMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputConfluentCloudMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputConfluentCloudMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputConfluentCloudMode) ToPointer() *InputConfluentCloudMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputConfluentCloudMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputConfluentCloudCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputConfluentCloudCompression) ToPointer() *InputConfluentCloudCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputConfluentCloudCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputConfluentCloudPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputConfluentCloudPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputConfluentCloudPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputConfluentCloudMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -201,6 +223,17 @@ func (e InputConfluentCloudMinimumTLSVersion) ToPointer() *InputConfluentCloudMi
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputConfluentCloudMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputConfluentCloudMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputConfluentCloudMaximumTLSVersion) ToPointer() *InputConfluentCloudMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputConfluentCloudMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputConfluentCloudTLSSettingsClientSide struct {
@@ -361,6 +405,17 @@ func (e InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *In
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion string
 
 const (
@@ -372,6 +427,17 @@ const (
 
 func (e InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -563,6 +629,17 @@ func (e InputConfluentCloudAuthenticationMethod) ToPointer() *InputConfluentClou
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputConfluentCloudAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type InputConfluentCloudSASLMechanism string
 
 const (
@@ -578,6 +655,17 @@ const (
 
 func (e InputConfluentCloudSASLMechanism) ToPointer() *InputConfluentCloudSASLMechanism {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputConfluentCloudSASLMechanism) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "plain", "scram-sha-256", "scram-sha-512", "kerberos":
+			return true
+		}
+	}
+	return false
 }
 
 type InputConfluentCloudOauthParam struct {

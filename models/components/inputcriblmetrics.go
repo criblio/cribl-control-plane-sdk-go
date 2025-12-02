@@ -61,7 +61,7 @@ func (i *InputCriblmetricsConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputCriblmetricsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputCriblmetricsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputCriblmetricsMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputCriblmetricsMode) ToPointer() *InputCriblmetricsMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblmetricsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputCriblmetricsCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputCriblmetricsCompression) ToPointer() *InputCriblmetricsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblmetricsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCriblmetricsPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputCriblmetricsPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputCriblmetricsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputCriblmetricsMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`

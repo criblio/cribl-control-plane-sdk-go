@@ -61,7 +61,7 @@ func (i *InputSplunkSearchConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputSplunkSearchMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputSplunkSearchMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputSplunkSearchMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputSplunkSearchMode) ToPointer() *InputSplunkSearchMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputSplunkSearchCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputSplunkSearchCompression) ToPointer() *InputSplunkSearchCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkSearchPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputSplunkSearchPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputSplunkSearchPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSplunkSearchMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -200,9 +222,20 @@ func (e OutputMode) ToPointer() *OutputMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "csv", "json":
+			return true
+		}
+	}
+	return false
+}
+
 type EndpointParam struct {
 	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
+	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
 }
 
@@ -233,7 +266,7 @@ func (e *EndpointParam) GetValue() string {
 
 type EndpointHeader struct {
 	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
+	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
 }
 
@@ -274,6 +307,17 @@ const (
 
 func (e InputSplunkSearchLogLevel) ToPointer() *InputSplunkSearchLogLevel {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkSearchMetadatum struct {
@@ -321,6 +365,17 @@ const (
 
 func (e InputSplunkSearchRetryType) ToPointer() *InputSplunkSearchRetryType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkSearchRetryRules struct {
@@ -423,6 +478,17 @@ const (
 
 func (e InputSplunkSearchAuthenticationType) ToPointer() *InputSplunkSearchAuthenticationType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkSearchOauthParam struct {

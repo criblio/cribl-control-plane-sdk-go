@@ -61,7 +61,7 @@ func (i *InputS3InventoryConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputS3InventoryMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputS3InventoryMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputS3InventoryMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputS3InventoryMode) ToPointer() *InputS3InventoryMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventoryMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputS3InventoryCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputS3InventoryCompression) ToPointer() *InputS3InventoryCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventoryCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputS3InventoryPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputS3InventoryPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputS3InventoryPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputS3InventoryMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -204,6 +226,17 @@ func (e InputS3InventoryAuthenticationMethod) ToPointer() *InputS3InventoryAuthe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventoryAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputS3InventorySignatureVersion - Signature version to use for signing S3 requests
 type InputS3InventorySignatureVersion string
 
@@ -214,6 +247,17 @@ const (
 
 func (e InputS3InventorySignatureVersion) ToPointer() *InputS3InventorySignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventorySignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputS3InventoryPreprocess struct {
@@ -328,6 +372,17 @@ const (
 
 func (e InputS3InventoryTagAfterProcessing) ToPointer() *InputS3InventoryTagAfterProcessing {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3InventoryTagAfterProcessing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "false", "true":
+			return true
+		}
+	}
+	return false
 }
 
 type InputS3Inventory struct {

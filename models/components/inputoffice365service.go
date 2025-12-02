@@ -61,7 +61,7 @@ func (i *InputOffice365ServiceConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputOffice365ServiceMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputOffice365ServiceMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputOffice365ServiceMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputOffice365ServiceMode) ToPointer() *InputOffice365ServiceMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputOffice365ServiceCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputOffice365ServiceCompression) ToPointer() *InputOffice365ServiceCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365ServicePqControls struct {
@@ -104,7 +126,7 @@ func (i *InputOffice365ServicePqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputOffice365ServicePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputOffice365ServiceMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -206,6 +228,17 @@ func (e InputOffice365ServiceSubscriptionPlan) ToPointer() *InputOffice365Servic
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceSubscriptionPlan) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "enterprise_gcc", "gcc", "gcc_high", "dod":
+			return true
+		}
+	}
+	return false
+}
+
 type InputOffice365ServiceMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -249,6 +282,17 @@ const (
 
 func (e InputOffice365ServiceLogLevel) ToPointer() *InputOffice365ServiceLogLevel {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365ServiceContentConfig struct {
@@ -322,6 +366,17 @@ const (
 
 func (e InputOffice365ServiceRetryType) ToPointer() *InputOffice365ServiceRetryType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365ServiceRetryRules struct {
@@ -420,6 +475,17 @@ const (
 
 func (e InputOffice365ServiceAuthenticationMethod) ToPointer() *InputOffice365ServiceAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365Service struct {

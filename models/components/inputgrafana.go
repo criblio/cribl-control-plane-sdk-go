@@ -62,7 +62,7 @@ func (i *InputGrafanaConnection2) GetOutput() string {
 	return i.Output
 }
 
-// InputGrafanaMode2 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputGrafanaMode2 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputGrafanaMode2 string
 
 const (
@@ -74,6 +74,17 @@ const (
 
 func (e InputGrafanaMode2) ToPointer() *InputGrafanaMode2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaMode2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputGrafanaCompression2 - Codec to use to compress the persisted data
@@ -88,6 +99,17 @@ const (
 
 func (e InputGrafanaCompression2) ToPointer() *InputGrafanaCompression2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaCompression2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputGrafanaPqControls2 struct {
@@ -105,7 +127,7 @@ func (i *InputGrafanaPqControls2) UnmarshalJSON(data []byte) error {
 }
 
 type InputGrafanaPq2 struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputGrafanaMode2 `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -202,6 +224,17 @@ func (e InputGrafanaMinimumTLSVersion2) ToPointer() *InputGrafanaMinimumTLSVersi
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaMinimumTLSVersion2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputGrafanaMaximumTLSVersion2 string
 
 const (
@@ -213,6 +246,17 @@ const (
 
 func (e InputGrafanaMaximumTLSVersion2) ToPointer() *InputGrafanaMaximumTLSVersion2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaMaximumTLSVersion2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputGrafanaTLSSettingsServerSide2 struct {
@@ -339,6 +383,17 @@ const (
 
 func (e InputGrafanaPrometheusAuthAuthenticationType2) ToPointer() *InputGrafanaPrometheusAuthAuthenticationType2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaPrometheusAuthAuthenticationType2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 type PrometheusAuthOauthParam2 struct {
@@ -557,6 +612,17 @@ const (
 
 func (e InputGrafanaLokiAuthAuthenticationType2) ToPointer() *InputGrafanaLokiAuthAuthenticationType2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaLokiAuthAuthenticationType2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 type LokiAuthOauthParam2 struct {
@@ -1122,7 +1188,7 @@ func (i *InputGrafanaConnection1) GetOutput() string {
 	return i.Output
 }
 
-// InputGrafanaMode1 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputGrafanaMode1 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputGrafanaMode1 string
 
 const (
@@ -1134,6 +1200,17 @@ const (
 
 func (e InputGrafanaMode1) ToPointer() *InputGrafanaMode1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaMode1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputGrafanaCompression1 - Codec to use to compress the persisted data
@@ -1148,6 +1225,17 @@ const (
 
 func (e InputGrafanaCompression1) ToPointer() *InputGrafanaCompression1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaCompression1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputGrafanaPqControls1 struct {
@@ -1165,7 +1253,7 @@ func (i *InputGrafanaPqControls1) UnmarshalJSON(data []byte) error {
 }
 
 type InputGrafanaPq1 struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputGrafanaMode1 `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -1262,6 +1350,17 @@ func (e InputGrafanaMinimumTLSVersion1) ToPointer() *InputGrafanaMinimumTLSVersi
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaMinimumTLSVersion1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputGrafanaMaximumTLSVersion1 string
 
 const (
@@ -1273,6 +1372,17 @@ const (
 
 func (e InputGrafanaMaximumTLSVersion1) ToPointer() *InputGrafanaMaximumTLSVersion1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaMaximumTLSVersion1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputGrafanaTLSSettingsServerSide1 struct {
@@ -1399,6 +1509,17 @@ const (
 
 func (e InputGrafanaPrometheusAuthAuthenticationType1) ToPointer() *InputGrafanaPrometheusAuthAuthenticationType1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaPrometheusAuthAuthenticationType1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 type PrometheusAuthOauthParam1 struct {
@@ -1617,6 +1738,17 @@ const (
 
 func (e InputGrafanaLokiAuthAuthenticationType1) ToPointer() *InputGrafanaLokiAuthAuthenticationType1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGrafanaLokiAuthAuthenticationType1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 type LokiAuthOauthParam1 struct {

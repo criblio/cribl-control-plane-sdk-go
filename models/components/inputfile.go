@@ -61,7 +61,7 @@ func (i *InputFileConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputFilePqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputFilePqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputFilePqMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputFilePqMode) ToPointer() *InputFilePqMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFilePqMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputFileCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputFileCompression) ToPointer() *InputFileCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFileCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputFilePqControls struct {
@@ -104,7 +126,7 @@ func (i *InputFilePqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputFilePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputFilePqMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -200,6 +222,17 @@ const (
 
 func (e InputFileMode) ToPointer() *InputFileMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFileMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "auto":
+			return true
+		}
+	}
+	return false
 }
 
 type InputFileMetadatum struct {

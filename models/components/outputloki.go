@@ -45,6 +45,17 @@ func (e OutputLokiMessageFormat) ToPointer() *OutputLokiMessageFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputLokiMessageFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "protobuf", "json":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputLokiLabel struct {
 	Name  *string `default:"" json:"name"`
 	Value string  `json:"value"`
@@ -94,6 +105,17 @@ func (e OutputLokiAuthenticationType) ToPointer() *OutputLokiAuthenticationType 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputLokiAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "token", "textSecret", "basic", "credentialsSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputLokiExtraHTTPHeader struct {
 	Name  *string `json:"name,omitempty"`
 	Value string  `json:"value"`
@@ -138,6 +160,17 @@ const (
 
 func (e OutputLokiFailedRequestLoggingMode) ToPointer() *OutputLokiFailedRequestLoggingMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputLokiFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputLokiResponseRetrySetting struct {
@@ -255,6 +288,17 @@ func (e OutputLokiBackpressureBehavior) ToPointer() *OutputLokiBackpressureBehav
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputLokiBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputLokiMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputLokiMode string
 
@@ -271,6 +315,17 @@ func (e OutputLokiMode) ToPointer() *OutputLokiMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputLokiMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputLokiCompression - Codec to use to compress the persisted data
 type OutputLokiCompression string
 
@@ -285,6 +340,17 @@ func (e OutputLokiCompression) ToPointer() *OutputLokiCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputLokiCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputLokiQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputLokiQueueFullBehavior string
 
@@ -297,6 +363,17 @@ const (
 
 func (e OutputLokiQueueFullBehavior) ToPointer() *OutputLokiQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputLokiQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputLokiPqControls struct {

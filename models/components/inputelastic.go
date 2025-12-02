@@ -61,7 +61,7 @@ func (i *InputElasticConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputElasticMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputElasticMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputElasticMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputElasticMode) ToPointer() *InputElasticMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputElasticCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputElasticCompression) ToPointer() *InputElasticCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputElasticPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputElasticPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputElasticPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputElasticMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -201,6 +223,17 @@ func (e InputElasticMinimumTLSVersion) ToPointer() *InputElasticMinimumTLSVersio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputElasticMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputElasticMaximumTLSVersion) ToPointer() *InputElasticMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputElasticTLSSettingsServerSide struct {
@@ -341,6 +385,17 @@ func (e InputElasticAuthenticationType) ToPointer() *InputElasticAuthenticationT
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "authTokens":
+			return true
+		}
+	}
+	return false
+}
+
 // InputElasticAPIVersion - The API version to use for communicating with the server
 type InputElasticAPIVersion string
 
@@ -355,6 +410,17 @@ const (
 
 func (e InputElasticAPIVersion) ToPointer() *InputElasticAPIVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticAPIVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "6.8.4", "8.3.2", "custom":
+			return true
+		}
+	}
+	return false
 }
 
 type InputElasticExtraHTTPHeader struct {
@@ -429,6 +495,17 @@ const (
 
 func (e InputElasticAuthenticationMethod) ToPointer() *InputElasticAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputElasticProxyMode struct {

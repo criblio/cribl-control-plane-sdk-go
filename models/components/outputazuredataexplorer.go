@@ -44,6 +44,17 @@ func (e IngestionMode) ToPointer() *IngestionMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *IngestionMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "batching", "streaming":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
 type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint string
 
@@ -55,6 +66,17 @@ const (
 
 func (e OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "https://login.microsoftonline.com", "https://login.microsoftonline.us", "https://login.partner.microsoftonline.cn":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputAzureDataExplorerAuthenticationMethod - The type of OAuth 2.0 client credentials grant flow to use
@@ -71,6 +93,17 @@ const (
 
 func (e OutputAzureDataExplorerAuthenticationMethod) ToPointer() *OutputAzureDataExplorerAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "clientSecret", "clientTextSecret", "certificate":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputAzureDataExplorerCertificate struct {
@@ -112,6 +145,17 @@ func (e OutputAzureDataExplorerDataFormat) ToPointer() *OutputAzureDataExplorerD
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureDataExplorerCompressCompression - Data compression format to apply to HTTP content before it is delivered
 type OutputAzureDataExplorerCompressCompression string
 
@@ -122,6 +166,17 @@ const (
 
 func (e OutputAzureDataExplorerCompressCompression) ToPointer() *OutputAzureDataExplorerCompressCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputAzureDataExplorerCompressionLevel - Compression level to apply before moving files to final destination
@@ -140,6 +195,17 @@ func (e OutputAzureDataExplorerCompressionLevel) ToPointer() *OutputAzureDataExp
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerCompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureDataExplorerParquetVersion - Determines which data types are supported and how they are represented
 type OutputAzureDataExplorerParquetVersion string
 
@@ -156,6 +222,17 @@ func (e OutputAzureDataExplorerParquetVersion) ToPointer() *OutputAzureDataExplo
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureDataExplorerDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputAzureDataExplorerDataPageVersion string
 
@@ -168,6 +245,17 @@ const (
 
 func (e OutputAzureDataExplorerDataPageVersion) ToPointer() *OutputAzureDataExplorerDataPageVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerDataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputAzureDataExplorerKeyValueMetadatum struct {
@@ -216,6 +304,17 @@ func (e OutputAzureDataExplorerBackpressureBehavior) ToPointer() *OutputAzureDat
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureDataExplorerDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputAzureDataExplorerDiskSpaceProtection string
 
@@ -230,6 +329,17 @@ func (e OutputAzureDataExplorerDiskSpaceProtection) ToPointer() *OutputAzureData
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type PrefixOptional string
 
 const (
@@ -241,6 +351,17 @@ const (
 
 func (e PrefixOptional) ToPointer() *PrefixOptional {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PrefixOptional) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "dropBy", "ingestBy":
+			return true
+		}
+	}
+	return false
 }
 
 type ExtentTag struct {
@@ -311,6 +432,17 @@ func (e ReportLevel) ToPointer() *ReportLevel {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ReportLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "failuresOnly", "doNotReport", "failuresAndSuccesses":
+			return true
+		}
+	}
+	return false
+}
+
 // ReportMethod - Target of the ingestion status reporting. Defaults to Queue.
 type ReportMethod string
 
@@ -325,6 +457,17 @@ const (
 
 func (e ReportMethod) ToPointer() *ReportMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ReportMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "queue", "table", "queueAndTable":
+			return true
+		}
+	}
+	return false
 }
 
 type AdditionalProperty struct {
@@ -472,6 +615,17 @@ func (e OutputAzureDataExplorerMode) ToPointer() *OutputAzureDataExplorerMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureDataExplorerPqCompressCompression - Codec to use to compress the persisted data
 type OutputAzureDataExplorerPqCompressCompression string
 
@@ -486,6 +640,17 @@ func (e OutputAzureDataExplorerPqCompressCompression) ToPointer() *OutputAzureDa
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureDataExplorerQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputAzureDataExplorerQueueFullBehavior string
 
@@ -498,6 +663,17 @@ const (
 
 func (e OutputAzureDataExplorerQueueFullBehavior) ToPointer() *OutputAzureDataExplorerQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureDataExplorerQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputAzureDataExplorerPqControls struct {

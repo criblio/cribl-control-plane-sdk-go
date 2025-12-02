@@ -61,7 +61,7 @@ func (i *InputCrowdstrikeConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputCrowdstrikeMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputCrowdstrikeMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputCrowdstrikeMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputCrowdstrikeMode) ToPointer() *InputCrowdstrikeMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCrowdstrikeMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputCrowdstrikeCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputCrowdstrikeCompression) ToPointer() *InputCrowdstrikeCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCrowdstrikeCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCrowdstrikePqControls struct {
@@ -104,7 +126,7 @@ func (i *InputCrowdstrikePqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputCrowdstrikePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputCrowdstrikeMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -204,6 +226,17 @@ func (e InputCrowdstrikeAuthenticationMethod) ToPointer() *InputCrowdstrikeAuthe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCrowdstrikeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputCrowdstrikeSignatureVersion - Signature version to use for signing S3 requests
 type InputCrowdstrikeSignatureVersion string
 
@@ -214,6 +247,17 @@ const (
 
 func (e InputCrowdstrikeSignatureVersion) ToPointer() *InputCrowdstrikeSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCrowdstrikeSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCrowdstrikePreprocess struct {
@@ -328,6 +372,17 @@ const (
 
 func (e InputCrowdstrikeTagAfterProcessing) ToPointer() *InputCrowdstrikeTagAfterProcessing {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCrowdstrikeTagAfterProcessing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "false", "true":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCrowdstrike struct {

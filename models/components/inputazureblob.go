@@ -61,7 +61,7 @@ func (i *InputAzureBlobConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputAzureBlobMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputAzureBlobMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputAzureBlobMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputAzureBlobMode) ToPointer() *InputAzureBlobMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAzureBlobMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputAzureBlobCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputAzureBlobCompression) ToPointer() *InputAzureBlobCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAzureBlobCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputAzureBlobPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputAzureBlobPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputAzureBlobPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputAzureBlobMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -230,6 +252,17 @@ const (
 
 func (e InputAzureBlobAuthenticationMethod) ToPointer() *InputAzureBlobAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAzureBlobAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "clientSecret", "clientCert":
+			return true
+		}
+	}
+	return false
 }
 
 type InputAzureBlobCertificate struct {

@@ -61,7 +61,7 @@ func (i *InputWefConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputWefMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputWefMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputWefMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputWefMode) ToPointer() *InputWefMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputWefCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputWefCompression) ToPointer() *InputWefCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWefPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputWefPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputWefPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputWefMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -202,6 +224,17 @@ func (e InputWefAuthenticationMethod) ToPointer() *InputWefAuthenticationMethod 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "clientCert", "kerberos":
+			return true
+		}
+	}
+	return false
+}
+
 type InputWefMinimumTLSVersion string
 
 const (
@@ -215,6 +248,17 @@ func (e InputWefMinimumTLSVersion) ToPointer() *InputWefMinimumTLSVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputWefMaximumTLSVersion string
 
 const (
@@ -226,6 +270,17 @@ const (
 
 func (e InputWefMaximumTLSVersion) ToPointer() *InputWefMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type MTLSSettings struct {
@@ -385,6 +440,17 @@ func (e InputWefFormat) ToPointer() *InputWefFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWefFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "Raw", "RenderedText":
+			return true
+		}
+	}
+	return false
+}
+
 type QueryBuilderMode string
 
 const (
@@ -394,6 +460,17 @@ const (
 
 func (e QueryBuilderMode) ToPointer() *QueryBuilderMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *QueryBuilderMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "simple", "xml":
+			return true
+		}
+	}
+	return false
 }
 
 type SubscriptionMetadatum struct {

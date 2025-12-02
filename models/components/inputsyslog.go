@@ -62,7 +62,7 @@ func (i *InputSyslogConnection2) GetOutput() string {
 	return i.Output
 }
 
-// InputSyslogMode2 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputSyslogMode2 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputSyslogMode2 string
 
 const (
@@ -74,6 +74,17 @@ const (
 
 func (e InputSyslogMode2) ToPointer() *InputSyslogMode2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMode2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputSyslogCompression2 - Codec to use to compress the persisted data
@@ -88,6 +99,17 @@ const (
 
 func (e InputSyslogCompression2) ToPointer() *InputSyslogCompression2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogCompression2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSyslogPqControls2 struct {
@@ -105,7 +127,7 @@ func (i *InputSyslogPqControls2) UnmarshalJSON(data []byte) error {
 }
 
 type InputSyslogPq2 struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSyslogMode2 `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -202,6 +224,17 @@ func (e InputSyslogMinimumTLSVersion2) ToPointer() *InputSyslogMinimumTLSVersion
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMinimumTLSVersion2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSyslogMaximumTLSVersion2 string
 
 const (
@@ -213,6 +246,17 @@ const (
 
 func (e InputSyslogMaximumTLSVersion2) ToPointer() *InputSyslogMaximumTLSVersion2 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMaximumTLSVersion2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSyslogTLSSettingsServerSide2 struct {
@@ -715,7 +759,7 @@ func (i *InputSyslogConnection1) GetOutput() string {
 	return i.Output
 }
 
-// InputSyslogMode1 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputSyslogMode1 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputSyslogMode1 string
 
 const (
@@ -727,6 +771,17 @@ const (
 
 func (e InputSyslogMode1) ToPointer() *InputSyslogMode1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMode1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputSyslogCompression1 - Codec to use to compress the persisted data
@@ -741,6 +796,17 @@ const (
 
 func (e InputSyslogCompression1) ToPointer() *InputSyslogCompression1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogCompression1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSyslogPqControls1 struct {
@@ -758,7 +824,7 @@ func (i *InputSyslogPqControls1) UnmarshalJSON(data []byte) error {
 }
 
 type InputSyslogPq1 struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSyslogMode1 `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -855,6 +921,17 @@ func (e InputSyslogMinimumTLSVersion1) ToPointer() *InputSyslogMinimumTLSVersion
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMinimumTLSVersion1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSyslogMaximumTLSVersion1 string
 
 const (
@@ -866,6 +943,17 @@ const (
 
 func (e InputSyslogMaximumTLSVersion1) ToPointer() *InputSyslogMaximumTLSVersion1 {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSyslogMaximumTLSVersion1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSyslogTLSSettingsServerSide1 struct {

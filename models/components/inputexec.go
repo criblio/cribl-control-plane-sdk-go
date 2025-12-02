@@ -61,7 +61,7 @@ func (i *InputExecConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputExecMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputExecMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputExecMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputExecMode) ToPointer() *InputExecMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputExecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputExecCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputExecCompression) ToPointer() *InputExecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputExecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputExecPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputExecPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputExecPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputExecMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -198,6 +220,17 @@ const (
 
 func (e ScheduleType) ToPointer() *ScheduleType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ScheduleType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "interval", "cronSchedule":
+			return true
+		}
+	}
+	return false
 }
 
 type InputExecMetadatum struct {

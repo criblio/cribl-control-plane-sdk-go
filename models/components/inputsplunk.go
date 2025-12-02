@@ -61,7 +61,7 @@ func (i *InputSplunkConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputSplunkMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputSplunkMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputSplunkMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputSplunkMode) ToPointer() *InputSplunkMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputSplunkPqCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputSplunkPqCompression) ToPointer() *InputSplunkPqCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkPqCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputSplunkPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputSplunkPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSplunkMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -201,6 +223,17 @@ func (e InputSplunkMinimumTLSVersion) ToPointer() *InputSplunkMinimumTLSVersion 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSplunkMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputSplunkMaximumTLSVersion) ToPointer() *InputSplunkMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkTLSSettingsServerSide struct {
@@ -356,7 +400,7 @@ func (i *InputSplunkMetadatum) GetValue() string {
 }
 
 type InputSplunkAuthToken struct {
-	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitempty"`
 }
@@ -400,6 +444,17 @@ func (e InputSplunkMaxS2SVersion) ToPointer() *InputSplunkMaxS2SVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkMaxS2SVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v3", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSplunkCompression - Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
 type InputSplunkCompression string
 
@@ -414,6 +469,17 @@ const (
 
 func (e InputSplunkCompression) ToPointer() *InputSplunkCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "disabled", "auto", "always":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunk struct {
@@ -457,7 +523,7 @@ type InputSplunk struct {
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
-	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
 	AuthTokens []InputSplunkAuthToken `json:"authTokens,omitempty"`
 	// The highest S2S protocol version to advertise during handshake
 	MaxS2Sversion *InputSplunkMaxS2SVersion `default:"v3" json:"maxS2Sversion"`

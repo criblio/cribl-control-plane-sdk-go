@@ -61,7 +61,7 @@ func (i *InputMskConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputMskMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputMskMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputMskMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputMskMode) ToPointer() *InputMskMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMskMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputMskCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputMskCompression) ToPointer() *InputMskCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMskCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputMskPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputMskPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputMskPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputMskMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -264,6 +286,17 @@ func (e InputMskKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *InputMskKafka
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMskKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputMskKafkaSchemaRegistryMaximumTLSVersion string
 
 const (
@@ -275,6 +308,17 @@ const (
 
 func (e InputMskKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *InputMskKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMskKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputMskKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -470,6 +514,17 @@ func (e InputMskAuthenticationMethod) ToPointer() *InputMskAuthenticationMethod 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMskAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputMskSignatureVersion - Signature version to use for signing MSK cluster requests
 type InputMskSignatureVersion string
 
@@ -480,6 +535,17 @@ const (
 
 func (e InputMskSignatureVersion) ToPointer() *InputMskSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMskSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputMskMinimumTLSVersion string
@@ -495,6 +561,17 @@ func (e InputMskMinimumTLSVersion) ToPointer() *InputMskMinimumTLSVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMskMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputMskMaximumTLSVersion string
 
 const (
@@ -506,6 +583,17 @@ const (
 
 func (e InputMskMaximumTLSVersion) ToPointer() *InputMskMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMskMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputMskTLSSettingsClientSide struct {

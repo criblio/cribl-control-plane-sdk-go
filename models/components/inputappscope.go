@@ -61,7 +61,7 @@ func (i *InputAppscopeConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputAppscopeMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputAppscopeMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputAppscopeMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputAppscopeMode) ToPointer() *InputAppscopeMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAppscopeMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputAppscopeCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputAppscopeCompression) ToPointer() *InputAppscopeCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAppscopeCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputAppscopePqControls struct {
@@ -104,7 +126,7 @@ func (i *InputAppscopePqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputAppscopePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputAppscopeMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -303,6 +325,17 @@ func (e InputAppscopeDataCompressionFormat) ToPointer() *InputAppscopeDataCompre
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAppscopeDataCompressionFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 type InputAppscopePersistence struct {
 	// Spool events and metrics on disk for Cribl Edge and Search
 	Enable *bool `default:"false" json:"enable"`
@@ -382,6 +415,17 @@ func (e InputAppscopeAuthenticationMethod) ToPointer() *InputAppscopeAuthenticat
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAppscopeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type InputAppscopeMinimumTLSVersion string
 
 const (
@@ -395,6 +439,17 @@ func (e InputAppscopeMinimumTLSVersion) ToPointer() *InputAppscopeMinimumTLSVers
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAppscopeMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputAppscopeMaximumTLSVersion string
 
 const (
@@ -406,6 +461,17 @@ const (
 
 func (e InputAppscopeMaximumTLSVersion) ToPointer() *InputAppscopeMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAppscopeMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputAppscopeTLSSettingsServerSide struct {

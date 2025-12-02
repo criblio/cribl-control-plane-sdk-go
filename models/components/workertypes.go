@@ -12,3 +12,14 @@ const (
 func (e WorkerTypes) ToPointer() *WorkerTypes {
 	return &e
 }
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *WorkerTypes) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "worker", "managed-edge":
+			return true
+		}
+	}
+	return false
+}

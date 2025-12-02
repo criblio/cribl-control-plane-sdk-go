@@ -77,6 +77,17 @@ func (e OutputPrometheusFailedRequestLoggingMode) ToPointer() *OutputPrometheusF
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputPrometheusFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputPrometheusResponseRetrySetting struct {
 	// The HTTP response status code that will trigger retries
 	HTTPStatus float64 `json:"httpStatus"`
@@ -192,6 +203,17 @@ func (e OutputPrometheusBackpressureBehavior) ToPointer() *OutputPrometheusBackp
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputPrometheusBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputPrometheusAuthenticationType - Remote Write authentication type
 type OutputPrometheusAuthenticationType string
 
@@ -206,6 +228,17 @@ const (
 
 func (e OutputPrometheusAuthenticationType) ToPointer() *OutputPrometheusAuthenticationType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputPrometheusAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputPrometheusMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -224,6 +257,17 @@ func (e OutputPrometheusMode) ToPointer() *OutputPrometheusMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputPrometheusMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputPrometheusCompression - Codec to use to compress the persisted data
 type OutputPrometheusCompression string
 
@@ -238,6 +282,17 @@ func (e OutputPrometheusCompression) ToPointer() *OutputPrometheusCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputPrometheusCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputPrometheusQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputPrometheusQueueFullBehavior string
 
@@ -250,6 +305,17 @@ const (
 
 func (e OutputPrometheusQueueFullBehavior) ToPointer() *OutputPrometheusQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputPrometheusQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputPrometheusPqControls struct {

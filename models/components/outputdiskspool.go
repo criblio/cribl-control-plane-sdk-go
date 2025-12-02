@@ -43,6 +43,17 @@ func (e OutputDiskSpoolCompression) ToPointer() *OutputDiskSpoolCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDiskSpoolCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputDiskSpool struct {
 	// Unique ID for this output
 	ID   *string             `json:"id,omitempty"`
