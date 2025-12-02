@@ -1,0 +1,12 @@
+# UpgradeSettings
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `AutomaticUpgradeCheckPeriod`                                                    | **string*                                                                        | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `DisableAutomaticUpgrade`                                                        | **bool*                                                                          | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `EnableLegacyEdgeUpgrade`                                                        | **bool*                                                                          | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `PackageUrls`                                                                    | [][components.UpgradePackageUrls](../../models/components/upgradepackageurls.md) | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `UpgradeSource`                                                                  | **string*                                                                        | :heavy_minus_sign:                                                               | N/A                                                                              |
