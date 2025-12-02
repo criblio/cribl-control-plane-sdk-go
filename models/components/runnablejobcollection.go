@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -40,18 +38,16 @@ const (
 func (e RunnableJobCollectionRunType) ToPointer() *RunnableJobCollectionRunType {
 	return &e
 }
-func (e *RunnableJobCollectionRunType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobCollectionRunType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection":
+			return true
+		}
 	}
-	switch v {
-	case "collection":
-		*e = RunnableJobCollectionRunType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionRunType: %v", v)
-	}
+	return false
 }
 
 // RunnableJobCollectionScheduleLogLevel - Level at which to set task logging
@@ -68,26 +64,16 @@ const (
 func (e RunnableJobCollectionScheduleLogLevel) ToPointer() *RunnableJobCollectionScheduleLogLevel {
 	return &e
 }
-func (e *RunnableJobCollectionScheduleLogLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobCollectionScheduleLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug", "silly":
+			return true
+		}
 	}
-	switch v {
-	case "error":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		fallthrough
-	case "silly":
-		*e = RunnableJobCollectionScheduleLogLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionScheduleLogLevel: %v", v)
-	}
+	return false
 }
 
 type RunnableJobCollectionScheduleTimeWarning struct {
@@ -128,11 +114,9 @@ type RunnableJobCollectionRunSettings struct {
 	// Limits the bundle size for small tasks. For example,
 	//
 	//
-	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
 	//
 	//
 	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
