@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 4049df36171be8e086dc727914fcffc0
-  docVersion: 4.16.0-alpha.1764671469967-9644b632
+  docChecksum: e64e6b45d01f6db842e18a0a89554a14
+  docVersion: 4.16.0-alpha.1764748039259-a309bd85
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-beta.14
-  configChecksum: cc8eefbd8773450d429ee31111cb973c
+  releaseVersion: 0.4.0-beta.15
+  configChecksum: 03c647eb05fe48b1ea15784c9b295c9d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -2965,6 +2965,13 @@ examples:
       parameters:
         path:
           lakeId: "<id>"
+        query:
+          storageLocationId: "<id>"
+          format: "<value>"
+          excludeDDSS: true
+          excludeDeleted: true
+          excludeInternal: false
+          excludeBYOS: false
       responses:
         "200":
           application/json: {"count": 3101, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 6343.67, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 6213}, "deletionStartedAt": 581.96, "description": "remarkable meh whoever ha crossly", "format": "json", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 31.01, "metricsDate": "<value>"}, "retentionPeriodInDays": 2829.32, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4800.7, "finishedAt": 8646.6, "latestScannedTime": 5697.01, "objectCount": 4527.63}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
@@ -3601,3 +3608,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `CriblControlPlane.LakeDatasets.List()`:  `request` **Changed** **Breaking** :warning:
