@@ -45,6 +45,17 @@ func (e OutputSyslogProtocol) ToPointer() *OutputSyslogProtocol {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "tcp", "udp":
+			return true
+		}
+	}
+	return false
+}
+
 // Facility - Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
 type Facility int64
 
@@ -77,6 +88,17 @@ func (e Facility) ToPointer() *Facility {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Facility) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21:
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSyslogSeverity - Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
 type OutputSyslogSeverity int64
 
@@ -103,6 +125,17 @@ func (e OutputSyslogSeverity) ToPointer() *OutputSyslogSeverity {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogSeverity) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 0, 1, 2, 3, 4, 5, 6, 7:
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSyslogMessageFormat - The syslog message format depending on the receiver's support
 type OutputSyslogMessageFormat string
 
@@ -115,6 +148,17 @@ const (
 
 func (e OutputSyslogMessageFormat) ToPointer() *OutputSyslogMessageFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogMessageFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "rfc3164", "rfc5424":
+			return true
+		}
+	}
+	return false
 }
 
 // TimestampFormat - Timestamp format to use when serializing event's time field
@@ -131,6 +175,17 @@ func (e TimestampFormat) ToPointer() *TimestampFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TimestampFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "syslog", "iso8601":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSyslogTLS - Whether to inherit TLS configs from group setting or disable TLS
 type OutputSyslogTLS string
 
@@ -141,6 +196,17 @@ const (
 
 func (e OutputSyslogTLS) ToPointer() *OutputSyslogTLS {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogTLS) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "inherit", "off":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSyslogHost struct {
@@ -215,6 +281,17 @@ func (e OutputSyslogMinimumTLSVersion) ToPointer() *OutputSyslogMinimumTLSVersio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSyslogMaximumTLSVersion string
 
 const (
@@ -226,6 +303,17 @@ const (
 
 func (e OutputSyslogMaximumTLSVersion) ToPointer() *OutputSyslogMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSyslogTLSSettingsClientSide struct {
@@ -346,6 +434,17 @@ func (e OutputSyslogBackpressureBehavior) ToPointer() *OutputSyslogBackpressureB
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSyslogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSyslogMode string
 
@@ -362,6 +461,17 @@ func (e OutputSyslogMode) ToPointer() *OutputSyslogMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSyslogCompression - Codec to use to compress the persisted data
 type OutputSyslogCompression string
 
@@ -376,6 +486,17 @@ func (e OutputSyslogCompression) ToPointer() *OutputSyslogCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSyslogQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSyslogQueueFullBehavior string
 
@@ -388,6 +509,17 @@ const (
 
 func (e OutputSyslogQueueFullBehavior) ToPointer() *OutputSyslogQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSyslogPqControls struct {

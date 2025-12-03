@@ -61,7 +61,7 @@ func (i *InputWinEventLogsConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputWinEventLogsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputWinEventLogsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputWinEventLogsMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputWinEventLogsMode) ToPointer() *InputWinEventLogsMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWinEventLogsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputWinEventLogsCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputWinEventLogsCompression) ToPointer() *InputWinEventLogsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWinEventLogsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWinEventLogsPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputWinEventLogsPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputWinEventLogsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputWinEventLogsMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -202,6 +224,17 @@ func (e ReadMode) ToPointer() *ReadMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ReadMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "oldest", "newest":
+			return true
+		}
+	}
+	return false
+}
+
 // EventFormat - Format of individual events
 type EventFormat string
 
@@ -214,6 +247,17 @@ const (
 
 func (e EventFormat) ToPointer() *EventFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EventFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "xml":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWinEventLogsMetadatum struct {

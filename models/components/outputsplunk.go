@@ -45,6 +45,17 @@ func (e OutputSplunkNestedFieldSerialization) ToPointer() *OutputSplunkNestedFie
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkNestedFieldSerialization) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSplunkMinimumTLSVersion string
 
 const (
@@ -58,6 +69,17 @@ func (e OutputSplunkMinimumTLSVersion) ToPointer() *OutputSplunkMinimumTLSVersio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSplunkMaximumTLSVersion string
 
 const (
@@ -69,6 +91,17 @@ const (
 
 func (e OutputSplunkMaximumTLSVersion) ToPointer() *OutputSplunkMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSplunkTLSSettingsClientSide struct {
@@ -185,6 +218,17 @@ func (e OutputSplunkMaxS2SVersion) ToPointer() *OutputSplunkMaxS2SVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkMaxS2SVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v3", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputSplunkBackpressureBehavior string
 
@@ -201,6 +245,17 @@ func (e OutputSplunkBackpressureBehavior) ToPointer() *OutputSplunkBackpressureB
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type OutputSplunkAuthenticationMethod string
 
@@ -211,6 +266,17 @@ const (
 
 func (e OutputSplunkAuthenticationMethod) ToPointer() *OutputSplunkAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputSplunkCompressCompression - Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
@@ -229,6 +295,17 @@ func (e OutputSplunkCompressCompression) ToPointer() *OutputSplunkCompressCompre
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "disabled", "auto", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSplunkMode string
 
@@ -245,6 +322,17 @@ func (e OutputSplunkMode) ToPointer() *OutputSplunkMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkPqCompressCompression - Codec to use to compress the persisted data
 type OutputSplunkPqCompressCompression string
 
@@ -259,6 +347,17 @@ func (e OutputSplunkPqCompressCompression) ToPointer() *OutputSplunkPqCompressCo
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSplunkQueueFullBehavior string
 
@@ -271,6 +370,17 @@ const (
 
 func (e OutputSplunkQueueFullBehavior) ToPointer() *OutputSplunkQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSplunkPqControls struct {

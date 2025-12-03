@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: ae8c55091e5afdc7ade0ebab9dd4727b
+  docChecksum: 6c7f33616a5c6f3b22ba40c8a8859f13
   docVersion: 4.15.0-f275b803
-  speakeasyVersion: 1.650.0
-  generationVersion: 2.743.2
-  releaseVersion: 0.3.0
-  configChecksum: 49d9bb2c95a4ce7baf7ad9f414c9d00d
+  speakeasyVersion: 1.665.0
+  generationVersion: 2.767.2
+  releaseVersion: 0.4.0
+  configChecksum: b233d8f40d7e4d57646245e90053ee50
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.13.1
+    core: 3.13.5
     defaultEnabledRetries: 0.2.0
     devContainers: 2.90.0
     enums: 2.82.0
@@ -31,8 +31,8 @@ features:
     openEnums: 0.1.0
     responseFormat: 0.1.2
     retries: 2.84.2
-    sdkHooks: 0.2.0
-    unions: 2.87.0
+    sdkHooks: 0.3.0
+    unions: 2.87.2
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md

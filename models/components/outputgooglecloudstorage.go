@@ -43,6 +43,17 @@ func (e OutputGoogleCloudStorageSignatureVersion) ToPointer() *OutputGoogleCloud
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputGoogleCloudStorageAuthenticationMethod string
 
 const (
@@ -56,6 +67,17 @@ const (
 
 func (e OutputGoogleCloudStorageAuthenticationMethod) ToPointer() *OutputGoogleCloudStorageAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputGoogleCloudStorageObjectACL - Object ACL to assign to uploaded objects
@@ -80,6 +102,17 @@ func (e OutputGoogleCloudStorageObjectACL) ToPointer() *OutputGoogleCloudStorage
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageObjectACL) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "private", "bucket-owner-read", "bucket-owner-full-control", "project-private", "authenticated-read", "public-read":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudStorageStorageClass - Storage class to select for uploaded objects
 type OutputGoogleCloudStorageStorageClass string
 
@@ -98,6 +131,17 @@ func (e OutputGoogleCloudStorageStorageClass) ToPointer() *OutputGoogleCloudStor
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageStorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "NEARLINE", "COLDLINE", "ARCHIVE":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudStorageDataFormat - Format of the output data
 type OutputGoogleCloudStorageDataFormat string
 
@@ -114,6 +158,17 @@ func (e OutputGoogleCloudStorageDataFormat) ToPointer() *OutputGoogleCloudStorag
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudStorageBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputGoogleCloudStorageBackpressureBehavior string
 
@@ -126,6 +181,17 @@ const (
 
 func (e OutputGoogleCloudStorageBackpressureBehavior) ToPointer() *OutputGoogleCloudStorageBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputGoogleCloudStorageDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
@@ -142,6 +208,17 @@ func (e OutputGoogleCloudStorageDiskSpaceProtection) ToPointer() *OutputGoogleCl
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudStorageCompression - Data compression format to apply to HTTP content before it is delivered
 type OutputGoogleCloudStorageCompression string
 
@@ -152,6 +229,17 @@ const (
 
 func (e OutputGoogleCloudStorageCompression) ToPointer() *OutputGoogleCloudStorageCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputGoogleCloudStorageCompressionLevel - Compression level to apply before moving files to final destination
@@ -170,6 +258,17 @@ func (e OutputGoogleCloudStorageCompressionLevel) ToPointer() *OutputGoogleCloud
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageCompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudStorageParquetVersion - Determines which data types are supported and how they are represented
 type OutputGoogleCloudStorageParquetVersion string
 
@@ -186,6 +285,17 @@ func (e OutputGoogleCloudStorageParquetVersion) ToPointer() *OutputGoogleCloudSt
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputGoogleCloudStorageDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputGoogleCloudStorageDataPageVersion string
 
@@ -198,6 +308,17 @@ const (
 
 func (e OutputGoogleCloudStorageDataPageVersion) ToPointer() *OutputGoogleCloudStorageDataPageVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageDataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputGoogleCloudStorageKeyValueMetadatum struct {

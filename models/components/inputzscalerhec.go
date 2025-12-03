@@ -61,7 +61,7 @@ func (i *InputZscalerHecConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputZscalerHecMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputZscalerHecMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputZscalerHecMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputZscalerHecMode) ToPointer() *InputZscalerHecMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputZscalerHecCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputZscalerHecCompression) ToPointer() *InputZscalerHecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputZscalerHecPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputZscalerHecPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputZscalerHecPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputZscalerHecMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -198,6 +220,17 @@ const (
 
 func (e InputZscalerHecAuthenticationMethod) ToPointer() *InputZscalerHecAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputZscalerHecAuthTokenMetadatum struct {
@@ -317,6 +350,17 @@ func (e InputZscalerHecMinimumTLSVersion) ToPointer() *InputZscalerHecMinimumTLS
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputZscalerHecMaximumTLSVersion string
 
 const (
@@ -328,6 +372,17 @@ const (
 
 func (e InputZscalerHecMaximumTLSVersion) ToPointer() *InputZscalerHecMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputZscalerHecMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputZscalerHecTLSSettingsServerSide struct {

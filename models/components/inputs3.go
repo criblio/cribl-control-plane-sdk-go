@@ -61,7 +61,7 @@ func (i *InputS3Connection) GetOutput() string {
 	return i.Output
 }
 
-// InputS3Mode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputS3Mode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputS3Mode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputS3Mode) ToPointer() *InputS3Mode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3Mode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputS3Compression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputS3Compression) ToPointer() *InputS3Compression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3Compression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputS3PqControls struct {
@@ -104,7 +126,7 @@ func (i *InputS3PqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputS3Pq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputS3Mode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -204,6 +226,17 @@ func (e InputS3AuthenticationMethod) ToPointer() *InputS3AuthenticationMethod {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3AuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputS3SignatureVersion - Signature version to use for signing S3 requests
 type InputS3SignatureVersion string
 
@@ -214,6 +247,17 @@ const (
 
 func (e InputS3SignatureVersion) ToPointer() *InputS3SignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3SignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputS3Preprocess struct {

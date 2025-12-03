@@ -61,7 +61,7 @@ func (i *InputSecurityLakeConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputSecurityLakeMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputSecurityLakeMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputSecurityLakeMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputSecurityLakeMode) ToPointer() *InputSecurityLakeMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSecurityLakeMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputSecurityLakeCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputSecurityLakeCompression) ToPointer() *InputSecurityLakeCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSecurityLakeCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSecurityLakePqControls struct {
@@ -104,7 +126,7 @@ func (i *InputSecurityLakePqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputSecurityLakePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputSecurityLakeMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -204,6 +226,17 @@ func (e InputSecurityLakeAuthenticationMethod) ToPointer() *InputSecurityLakeAut
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSecurityLakeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSecurityLakeSignatureVersion - Signature version to use for signing S3 requests
 type InputSecurityLakeSignatureVersion string
 
@@ -214,6 +247,17 @@ const (
 
 func (e InputSecurityLakeSignatureVersion) ToPointer() *InputSecurityLakeSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSecurityLakeSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSecurityLakePreprocess struct {
@@ -328,6 +372,17 @@ const (
 
 func (e InputSecurityLakeTagAfterProcessing) ToPointer() *InputSecurityLakeTagAfterProcessing {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSecurityLakeTagAfterProcessing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "false", "true":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSecurityLake struct {

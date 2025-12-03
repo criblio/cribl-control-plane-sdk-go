@@ -48,6 +48,17 @@ func (e OutputSentinelOneAiSiemRegion) ToPointer() *OutputSentinelOneAiSiemRegio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSentinelOneAiSiemRegion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "US", "CA", "EMEA", "AP", "APS", "AU", "Custom":
+			return true
+		}
+	}
+	return false
+}
+
 // AISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
 type AISIEMEndpointPath string
 
@@ -58,6 +69,17 @@ const (
 
 func (e AISIEMEndpointPath) ToPointer() *AISIEMEndpointPath {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AISIEMEndpointPath) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "/services/collector/event", "/services/collector/raw":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSentinelOneAiSiemExtraHTTPHeader struct {
@@ -106,6 +128,17 @@ func (e OutputSentinelOneAiSiemFailedRequestLoggingMode) ToPointer() *OutputSent
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSentinelOneAiSiemFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSentinelOneAiSiemAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type OutputSentinelOneAiSiemAuthenticationMethod string
 
@@ -116,6 +149,17 @@ const (
 
 func (e OutputSentinelOneAiSiemAuthenticationMethod) ToPointer() *OutputSentinelOneAiSiemAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSentinelOneAiSiemAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSentinelOneAiSiemResponseRetrySetting struct {
@@ -233,6 +277,17 @@ func (e OutputSentinelOneAiSiemBackpressureBehavior) ToPointer() *OutputSentinel
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSentinelOneAiSiemBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSentinelOneAiSiemMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSentinelOneAiSiemMode string
 
@@ -249,6 +304,17 @@ func (e OutputSentinelOneAiSiemMode) ToPointer() *OutputSentinelOneAiSiemMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSentinelOneAiSiemMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSentinelOneAiSiemCompression - Codec to use to compress the persisted data
 type OutputSentinelOneAiSiemCompression string
 
@@ -263,6 +329,17 @@ func (e OutputSentinelOneAiSiemCompression) ToPointer() *OutputSentinelOneAiSiem
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSentinelOneAiSiemCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSentinelOneAiSiemQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSentinelOneAiSiemQueueFullBehavior string
 
@@ -275,6 +352,17 @@ const (
 
 func (e OutputSentinelOneAiSiemQueueFullBehavior) ToPointer() *OutputSentinelOneAiSiemQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSentinelOneAiSiemQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSentinelOneAiSiemPqControls struct {

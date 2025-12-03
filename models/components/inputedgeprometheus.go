@@ -61,7 +61,7 @@ func (i *InputEdgePrometheusConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputEdgePrometheusMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputEdgePrometheusMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputEdgePrometheusMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputEdgePrometheusMode) ToPointer() *InputEdgePrometheusMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEdgePrometheusMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputEdgePrometheusPqCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputEdgePrometheusPqCompression) ToPointer() *InputEdgePrometheusPqCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEdgePrometheusPqCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputEdgePrometheusPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputEdgePrometheusPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputEdgePrometheusPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputEdgePrometheusMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -208,6 +230,17 @@ func (e InputEdgePrometheusDiscoveryType) ToPointer() *InputEdgePrometheusDiscov
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEdgePrometheusDiscoveryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods":
+			return true
+		}
+	}
+	return false
+}
+
 // InputEdgePrometheusPersistenceCompression - Data compression format. Default is gzip.
 type InputEdgePrometheusPersistenceCompression string
 
@@ -218,6 +251,17 @@ const (
 
 func (e InputEdgePrometheusPersistenceCompression) ToPointer() *InputEdgePrometheusPersistenceCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEdgePrometheusPersistenceCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputEdgePrometheusDiskSpooling struct {
@@ -323,6 +367,17 @@ func (e InputEdgePrometheusAuthTypeAuthenticationMethod) ToPointer() *InputEdgeP
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEdgePrometheusAuthTypeAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "kubernetes":
+			return true
+		}
+	}
+	return false
+}
+
 // TargetProtocol - Protocol to use when collecting metrics
 type TargetProtocol string
 
@@ -333,6 +388,17 @@ const (
 
 func (e TargetProtocol) ToPointer() *TargetProtocol {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TargetProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "https":
+			return true
+		}
+	}
+	return false
 }
 
 type Target struct {
@@ -398,6 +464,17 @@ func (e InputEdgePrometheusRecordType) ToPointer() *InputEdgePrometheusRecordTyp
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEdgePrometheusRecordType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "SRV", "A", "AAAA":
+			return true
+		}
+	}
+	return false
+}
+
 // ScrapeProtocolProtocol - Protocol to use when collecting metrics
 type ScrapeProtocolProtocol string
 
@@ -408,6 +485,17 @@ const (
 
 func (e ScrapeProtocolProtocol) ToPointer() *ScrapeProtocolProtocol {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ScrapeProtocolProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "https":
+			return true
+		}
+	}
+	return false
 }
 
 // InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
@@ -424,6 +512,17 @@ const (
 
 func (e InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod) ToPointer() *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputEdgePrometheusSearchFilter struct {
@@ -468,6 +567,17 @@ const (
 
 func (e InputEdgePrometheusSignatureVersion) ToPointer() *InputEdgePrometheusSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputEdgePrometheusSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type PodFilter struct {

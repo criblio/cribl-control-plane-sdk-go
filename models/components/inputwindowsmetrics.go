@@ -61,7 +61,7 @@ func (i *InputWindowsMetricsConnection) GetOutput() string {
 	return i.Output
 }
 
-// InputWindowsMetricsPqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+// InputWindowsMetricsPqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 type InputWindowsMetricsPqMode string
 
 const (
@@ -73,6 +73,17 @@ const (
 
 func (e InputWindowsMetricsPqMode) ToPointer() *InputWindowsMetricsPqMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsPqMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
 }
 
 // InputWindowsMetricsCompression - Codec to use to compress the persisted data
@@ -87,6 +98,17 @@ const (
 
 func (e InputWindowsMetricsCompression) ToPointer() *InputWindowsMetricsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWindowsMetricsPqControls struct {
@@ -104,7 +126,7 @@ func (i *InputWindowsMetricsPqControls) UnmarshalJSON(data []byte) error {
 }
 
 type InputWindowsMetricsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *InputWindowsMetricsPqMode `default:"always" json:"mode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
@@ -206,6 +228,17 @@ func (e InputWindowsMetricsHostMode) ToPointer() *InputWindowsMetricsHostMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsHostMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 // InputWindowsMetricsSystemMode - Select the level of details for system metrics
 type InputWindowsMetricsSystemMode string
 
@@ -222,6 +255,17 @@ const (
 
 func (e InputWindowsMetricsSystemMode) ToPointer() *InputWindowsMetricsSystemMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsSystemMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWindowsMetricsSystem struct {
@@ -272,6 +316,17 @@ const (
 
 func (e InputWindowsMetricsCPUMode) ToPointer() *InputWindowsMetricsCPUMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsCPUMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWindowsMetricsCPU struct {
@@ -342,6 +397,17 @@ func (e InputWindowsMetricsMemoryMode) ToPointer() *InputWindowsMetricsMemoryMod
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsMemoryMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type InputWindowsMetricsMemory struct {
 	// Select the level of details for memory metrics
 	Mode *InputWindowsMetricsMemoryMode `default:"basic" json:"mode"`
@@ -390,6 +456,17 @@ const (
 
 func (e InputWindowsMetricsNetworkMode) ToPointer() *InputWindowsMetricsNetworkMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsNetworkMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWindowsMetricsNetwork struct {
@@ -467,6 +544,17 @@ const (
 
 func (e InputWindowsMetricsDiskMode) ToPointer() *InputWindowsMetricsDiskMode {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsDiskMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWindowsMetricsDisk struct {
@@ -705,6 +793,17 @@ const (
 
 func (e InputWindowsMetricsDataCompressionFormat) ToPointer() *InputWindowsMetricsDataCompressionFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWindowsMetricsDataCompressionFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWindowsMetricsPersistence struct {
