@@ -152,10 +152,10 @@ func main() {
         LakeID: "<id>",
         StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
         Format: criblcontrolplanesdkgo.Pointer("<value>"),
-        ExcludeDDSS: criblcontrolplanesdkgo.Pointer("<value>"),
-        ExcludeDeleted: criblcontrolplanesdkgo.Pointer("<value>"),
-        ExcludeInternal: criblcontrolplanesdkgo.Pointer("<value>"),
-        ExcludeBYOS: criblcontrolplanesdkgo.Pointer("<value>"),
+        ExcludeDDSS: criblcontrolplanesdkgo.Pointer(true),
+        ExcludeDeleted: criblcontrolplanesdkgo.Pointer(true),
+        ExcludeInternal: criblcontrolplanesdkgo.Pointer(false),
+        ExcludeBYOS: criblcontrolplanesdkgo.Pointer(false),
     })
     if err != nil {
         log.Fatal(err)
