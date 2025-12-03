@@ -283,11 +283,7 @@ func (s *LakeDatasets) Create(ctx context.Context, lakeID string, criblLakeDatas
 
 // List all Lake Datasets
 // Get a list of all Lake Datasets in the specified Lake.
-func (s *LakeDatasets) List(ctx context.Context, lakeID string, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDResponse, error) {
-	request := operations.GetCriblLakeDatasetByLakeIDRequest{
-		LakeID: lakeID,
-	}
-
+func (s *LakeDatasets) List(ctx context.Context, request operations.GetCriblLakeDatasetByLakeIDRequest, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -338,6 +334,10 @@ func (s *LakeDatasets) List(ctx context.Context, lakeID string, opts ...operatio
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
