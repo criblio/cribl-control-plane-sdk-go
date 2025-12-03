@@ -9,18 +9,18 @@ import (
 type GetCriblLakeDatasetByLakeIDRequest struct {
 	// The <code>id</code> of the Lake that contains the Lake Datasets to list.
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
-	// query string false Filter datasets by storage location ID. Use <code>default</code> for default storage location.
+	// Filter datasets by storage location ID. Use <code>default</code> for default storage location.
 	StorageLocationID *string `queryParam:"style=form,explode=true,name=storageLocationId"`
-	// query string false Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+	// Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
 	Format *string `queryParam:"style=form,explode=true,name=format"`
-	// query boolean false Exclude DDSS format datasets from the response.
-	ExcludeDDSS *string `queryParam:"style=form,explode=true,name=excludeDDSS"`
-	// query boolean false Exclude deleted datasets from the response.
-	ExcludeDeleted *string `queryParam:"style=form,explode=true,name=excludeDeleted"`
-	// query boolean false Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
-	ExcludeInternal *string `queryParam:"style=form,explode=true,name=excludeInternal"`
-	// query boolean false Exclude BYOS (Bring Your Own Storage) datasets from the response.
-	ExcludeBYOS *string `queryParam:"style=form,explode=true,name=excludeBYOS"`
+	// Exclude DDSS format datasets from the response.
+	ExcludeDDSS *bool `queryParam:"style=form,explode=true,name=excludeDDSS"`
+	// Exclude deleted datasets from the response.
+	ExcludeDeleted *bool `queryParam:"style=form,explode=true,name=excludeDeleted"`
+	// Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
+	ExcludeInternal *bool `queryParam:"style=form,explode=true,name=excludeInternal"`
+	// Exclude BYOS (Bring Your Own Storage) datasets from the response.
+	ExcludeBYOS *bool `queryParam:"style=form,explode=true,name=excludeBYOS"`
 }
 
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
@@ -44,28 +44,28 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetFormat() *string {
 	return g.Format
 }
 
-func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDDSS() *string {
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDDSS() *bool {
 	if g == nil {
 		return nil
 	}
 	return g.ExcludeDDSS
 }
 
-func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDeleted() *string {
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDeleted() *bool {
 	if g == nil {
 		return nil
 	}
 	return g.ExcludeDeleted
 }
 
-func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeInternal() *string {
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeInternal() *bool {
 	if g == nil {
 		return nil
 	}
 	return g.ExcludeInternal
 }
 
-func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeBYOS() *string {
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeBYOS() *bool {
 	if g == nil {
 		return nil
 	}
