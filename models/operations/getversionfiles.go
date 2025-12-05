@@ -10,7 +10,7 @@ type GetVersionFilesRequest struct {
 	// The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for.
 	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// The Git commit hash to use as the starting point for the request.
-	ID *string `queryParam:"style=form,explode=true,name=ID"`
+	Commit *string `queryParam:"style=form,explode=true,name=commit"`
 }
 
 func (g *GetVersionFilesRequest) GetGroupID() *string {
@@ -20,11 +20,11 @@ func (g *GetVersionFilesRequest) GetGroupID() *string {
 	return g.GroupID
 }
 
-func (g *GetVersionFilesRequest) GetID() *string {
+func (g *GetVersionFilesRequest) GetCommit() *string {
 	if g == nil {
 		return nil
 	}
-	return g.ID
+	return g.Commit
 }
 
 type GetVersionFilesResponse struct {

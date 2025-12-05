@@ -36,7 +36,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Files.Count(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("<id>"))
+    res, err := s.Versions.Commits.Files.Count(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -52,7 +52,7 @@ func main() {
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | `ctx`                                                                       | [context.Context](https://pkg.go.dev/context#Context)                       | :heavy_check_mark:                                                          | The context to use for the request.                                         |
 | `groupID`                                                                   | **string*                                                                   | :heavy_minus_sign:                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the count for. |
-| `id`                                                                        | **string*                                                                   | :heavy_minus_sign:                                                          | The Git commit hash to use as the starting point for the count.             |
+| `commit`                                                                    | **string*                                                                   | :heavy_minus_sign:                                                          | The Git commit hash to use as the starting point for the count.             |
 | `opts`                                                                      | [][operations.Option](../../models/operations/option.md)                    | :heavy_minus_sign:                                                          | The options for this request.                                               |
 
 ### Response
@@ -94,7 +94,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Files.List(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("<id>"))
+    res, err := s.Versions.Commits.Files.List(ctx, criblcontrolplanesdkgo.Pointer("<id>"), criblcontrolplanesdkgo.Pointer("<value>"))
     if err != nil {
         log.Fatal(err)
     }
@@ -110,7 +110,7 @@ func main() {
 | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `ctx`                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                   | :heavy_check_mark:                                                                      | The context to use for the request.                                                     |
 | `groupID`                                                                               | **string*                                                                               | :heavy_minus_sign:                                                                      | The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for. |
-| `id`                                                                                    | **string*                                                                               | :heavy_minus_sign:                                                                      | The Git commit hash to use as the starting point for the request.                       |
+| `commit`                                                                                | **string*                                                                               | :heavy_minus_sign:                                                                      | The Git commit hash to use as the starting point for the request.                       |
 | `opts`                                                                                  | [][operations.Option](../../models/operations/option.md)                                | :heavy_minus_sign:                                                                      | The options for this request.                                                           |
 
 ### Response

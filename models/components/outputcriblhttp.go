@@ -314,7 +314,7 @@ func (o *OutputCriblHTTPResponseRetrySetting) GetMaxBackoff() *float64 {
 }
 
 type OutputCriblHTTPTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"true" json:"timeoutRetry"`
+	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
 	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
 	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
 	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
