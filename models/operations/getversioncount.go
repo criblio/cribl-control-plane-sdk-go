@@ -10,7 +10,7 @@ type GetVersionCountRequest struct {
 	// The <code>id</code> of the Worker Group or Edge Fleet to get the count for.
 	GroupID *string `queryParam:"style=form,explode=true,name=groupId"`
 	// The Git commit hash to use as the starting point for the count.
-	ID *string `queryParam:"style=form,explode=true,name=ID"`
+	Commit *string `queryParam:"style=form,explode=true,name=commit"`
 }
 
 func (g *GetVersionCountRequest) GetGroupID() *string {
@@ -20,11 +20,11 @@ func (g *GetVersionCountRequest) GetGroupID() *string {
 	return g.GroupID
 }
 
-func (g *GetVersionCountRequest) GetID() *string {
+func (g *GetVersionCountRequest) GetCommit() *string {
 	if g == nil {
 		return nil
 	}
-	return g.ID
+	return g.Commit
 }
 
 type GetVersionCountResponse struct {
