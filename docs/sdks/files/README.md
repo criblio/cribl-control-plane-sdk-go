@@ -1,5 +1,4 @@
-# Files
-(*Versions.Commits.Files*)
+# Versions.Commits.Files
 
 ## Overview
 

@@ -1,5 +1,4 @@
 # Routes
-(*Routes*)
 
 ## Overview
 
@@ -154,13 +153,24 @@ func main() {
     )
 
     res, err := s.Routes.Update(ctx, "<id>", components.Routes{
-        ID: criblcontrolplanesdkgo.Pointer("<id>"),
-        Routes: []components.RoutesRoute{},
+        ID: criblcontrolplanesdkgo.Pointer("default"),
+        Routes: []components.RoutesRoute{
+            components.RoutesRoute{
+                ID: criblcontrolplanesdkgo.Pointer("default"),
+                Name: "my-route",
+                Disabled: criblcontrolplanesdkgo.Pointer(true),
+                Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
+                Pipeline: "main",
+                Output: "<value>",
+                OutputExpression: "<value>",
+                Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
+            },
+        },
         Groups: map[string]components.RoutesGroups{
             "key": components.RoutesGroups{
                 Name: "<value>",
-                Description: criblcontrolplanesdkgo.Pointer("where internationalize yesterday woefully tank underneath"),
-                Disabled: criblcontrolplanesdkgo.Pointer(true),
+                Description: criblcontrolplanesdkgo.Pointer("ugh eyeliner authorized even burgeon chime expansion boldly midst and"),
+                Disabled: criblcontrolplanesdkgo.Pointer(false),
             },
         },
         Comments: []components.Comment{
@@ -226,7 +236,30 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{})
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
+        components.RouteConf{
+            Clones: []map[string]string{
+                map[string]string{
+                    "key": "<value>",
+                },
+                map[string]string{
+
+                },
+            },
+            Context: criblcontrolplanesdkgo.Pointer("<value>"),
+            Description: criblcontrolplanesdkgo.Pointer("Route new logs to main pipeline"),
+            Disabled: criblcontrolplanesdkgo.Pointer(true),
+            EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
+            Filter: criblcontrolplanesdkgo.Pointer("source == \"new.log\""),
+            Final: true,
+            GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
+            ID: "route-new",
+            Name: "new-route",
+            Output: criblcontrolplanesdkgo.Pointer("<value>"),
+            OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
+            Pipeline: "main",
+        },
+    })
     if err != nil {
         log.Fatal(err)
     }

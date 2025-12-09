@@ -60,8 +60,8 @@ const (
 )
 
 type BackupsSettingsUnion struct {
-	BackupsSettings1 *BackupsSettings1 `queryParam:"inline,name=BackupsSettings"`
-	BackupsSettings2 *BackupsSettings2 `queryParam:"inline,name=BackupsSettings"`
+	BackupsSettings1 *BackupsSettings1 `queryParam:"inline,name=BackupsSettings" union:"member"`
+	BackupsSettings2 *BackupsSettings2 `queryParam:"inline,name=BackupsSettings" union:"member"`
 
 	Type BackupsSettingsUnionType
 }

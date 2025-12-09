@@ -1,5 +1,4 @@
-# ACL
-(*Groups.ACL*)
+# Groups.Acl
 
 ## Overview
 
