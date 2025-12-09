@@ -1,5 +1,4 @@
-# HecTokens
-(*Sources.HecTokens*)
+# Sources.HecTokens
 
 ## Overview
 
@@ -40,15 +39,15 @@ func main() {
         AllowedIndexesAtToken: []string{
             "<value 1>",
         },
-        Description: criblcontrolplanesdkgo.Pointer("bah ick stingy"),
-        Enabled: criblcontrolplanesdkgo.Pointer(false),
+        Description: criblcontrolplanesdkgo.Pointer("toward precedent merry vaguely across ha fooey ingratiate jealously outlying"),
+        Enabled: criblcontrolplanesdkgo.Pointer(true),
         Metadata: []components.AddHecTokenRequestMetadatum{
             components.AddHecTokenRequestMetadatum{
-                Name: "<value>",
-                Value: "<value>",
+                Name: "fieldX",
+                Value: "valueX",
             },
         },
-        Token: "<value>",
+        Token: "12345678901",
     })
     if err != nil {
         log.Fatal(err)
@@ -111,12 +110,12 @@ func main() {
         AllowedIndexesAtToken: []string{
             "<value 1>",
         },
-        Description: criblcontrolplanesdkgo.Pointer("by bleakly fortunately phew barring"),
-        Enabled: criblcontrolplanesdkgo.Pointer(false),
+        Description: criblcontrolplanesdkgo.Pointer("once lively fooey who though while dampen please denitrify pish"),
+        Enabled: criblcontrolplanesdkgo.Pointer(true),
         Metadata: []components.UpdateHecTokenRequestMetadatum{
             components.UpdateHecTokenRequestMetadatum{
-                Name: "<value>",
-                Value: "<value>",
+                Name: "fieldX",
+                Value: "valueX",
             },
         },
     })

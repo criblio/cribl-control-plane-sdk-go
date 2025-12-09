@@ -68,8 +68,8 @@ const (
 )
 
 type RollbackSettingsUnion struct {
-	RollbackSettings1 *RollbackSettings1 `queryParam:"inline,name=RollbackSettings"`
-	RollbackSettings2 *RollbackSettings2 `queryParam:"inline,name=RollbackSettings"`
+	RollbackSettings1 *RollbackSettings1 `queryParam:"inline,name=RollbackSettings" union:"member"`
+	RollbackSettings2 *RollbackSettings2 `queryParam:"inline,name=RollbackSettings" union:"member"`
 
 	Type RollbackSettingsUnionType
 }

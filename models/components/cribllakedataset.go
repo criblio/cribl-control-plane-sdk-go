@@ -6,8 +6,8 @@ type CriblLakeDatasetFormat string
 
 const (
 	CriblLakeDatasetFormatJSON    CriblLakeDatasetFormat = "json"
-	CriblLakeDatasetFormatDdss    CriblLakeDatasetFormat = "ddss"
 	CriblLakeDatasetFormatParquet CriblLakeDatasetFormat = "parquet"
+	CriblLakeDatasetFormatDdss    CriblLakeDatasetFormat = "ddss"
 )
 
 func (e CriblLakeDatasetFormat) ToPointer() *CriblLakeDatasetFormat {
@@ -18,7 +18,7 @@ func (e CriblLakeDatasetFormat) ToPointer() *CriblLakeDatasetFormat {
 func (e *CriblLakeDatasetFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "ddss", "parquet":
+		case "json", "parquet", "ddss":
 			return true
 		}
 	}

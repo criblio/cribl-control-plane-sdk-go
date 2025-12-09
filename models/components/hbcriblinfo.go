@@ -48,10 +48,10 @@ func (c *Config) GetVersion() *string {
 type DistMode string
 
 const (
-	DistModeEdge             DistMode = "edge"
-	DistModeWorker           DistMode = "worker"
 	DistModeSingle           DistMode = "single"
 	DistModeMaster           DistMode = "master"
+	DistModeWorker           DistMode = "worker"
+	DistModeEdge             DistMode = "edge"
 	DistModeManagedEdge      DistMode = "managed-edge"
 	DistModeOutpost          DistMode = "outpost"
 	DistModeSearchSupervisor DistMode = "search-supervisor"
@@ -65,7 +65,7 @@ func (e DistMode) ToPointer() *DistMode {
 func (e *DistMode) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "edge", "worker", "single", "master", "managed-edge", "outpost", "search-supervisor":
+		case "single", "master", "worker", "edge", "managed-edge", "outpost", "search-supervisor":
 			return true
 		}
 	}

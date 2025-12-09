@@ -18,9 +18,9 @@ const (
 )
 
 type DiffLine struct {
-	DiffLineDelete  *DiffLineDelete  `queryParam:"inline,name=DiffLine"`
-	DiffLineInsert  *DiffLineInsert  `queryParam:"inline,name=DiffLine"`
-	DiffLineContext *DiffLineContext `queryParam:"inline,name=DiffLine"`
+	DiffLineDelete  *DiffLineDelete  `queryParam:"inline,name=DiffLine" union:"member"`
+	DiffLineInsert  *DiffLineInsert  `queryParam:"inline,name=DiffLine" union:"member"`
+	DiffLineContext *DiffLineContext `queryParam:"inline,name=DiffLine" union:"member"`
 
 	Type DiffLineType
 }

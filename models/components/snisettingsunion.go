@@ -52,8 +52,8 @@ const (
 )
 
 type SniSettingsUnion struct {
-	SniSettings1 *SniSettings1 `queryParam:"inline,name=SniSettings"`
-	SniSettings2 *SniSettings2 `queryParam:"inline,name=SniSettings"`
+	SniSettings1 *SniSettings1 `queryParam:"inline,name=SniSettings" union:"member"`
+	SniSettings2 *SniSettings2 `queryParam:"inline,name=SniSettings" union:"member"`
 
 	Type SniSettingsUnionType
 }

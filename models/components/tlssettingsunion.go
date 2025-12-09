@@ -84,8 +84,8 @@ const (
 )
 
 type TLSSettingsUnion struct {
-	TLSSettings1 *TLSSettings1 `queryParam:"inline,name=TlsSettings"`
-	TLSSettings2 *TLSSettings2 `queryParam:"inline,name=TlsSettings"`
+	TLSSettings1 *TLSSettings1 `queryParam:"inline,name=TlsSettings" union:"member"`
+	TLSSettings2 *TLSSettings2 `queryParam:"inline,name=TlsSettings" union:"member"`
 
 	Type TLSSettingsUnionType
 }
