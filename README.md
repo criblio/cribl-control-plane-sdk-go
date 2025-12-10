@@ -218,7 +218,7 @@ func main() {
 <details open>
 <summary>Available methods</summary>
 
-#### [Auth.Tokens](docs/sdks/tokens/README.md)
+### [Auth.Tokens](docs/sdks/tokens/README.md)
 
 * [Get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
 
@@ -249,11 +249,11 @@ func main() {
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
 * [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
-#### [Groups.ACL](docs/sdks/acl/README.md)
+#### [Groups.Acl](docs/sdks/acl/README.md)
 
 * [Get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
 
-#### [Groups.ACL.Teams](docs/sdks/teams/README.md)
+##### [Groups.Acl.Teams](docs/sdks/teams/README.md)
 
 * [Get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 
@@ -319,12 +319,12 @@ func main() {
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
-#### [Versions.Branches](docs/sdks/branches/README.md)
+### [Versions.Branches](docs/sdks/branches/README.md)
 
 * [List](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
 * [Get](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 
-#### [Versions.Commits](docs/sdks/commits/README.md)
+### [Versions.Commits](docs/sdks/commits/README.md)
 
 * [Create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
 * [Diff](docs/sdks/commits/README.md#diff) - Get the diff for a commit
@@ -339,11 +339,11 @@ func main() {
 * [Count](docs/sdks/files/README.md#count) - Get a count of files that changed since a commit
 * [List](docs/sdks/files/README.md#list) - Get the names and statuses of files that changed since a commit
 
-#### [Versions.Configs](docs/sdks/versionsconfigs/README.md)
+### [Versions.Configs](docs/sdks/versionsconfigs/README.md)
 
 * [Get](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 
-#### [Versions.Statuses](docs/sdks/statuses/README.md)
+### [Versions.Statuses](docs/sdks/statuses/README.md)
 
 * [Get](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
 
