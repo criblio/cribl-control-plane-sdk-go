@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: a24601b7c83b165ccdfac1a8a3c72825
-  docVersion: 4.16.0-alpha.1765234963760-e3e85e6f
-  speakeasyVersion: 1.672.0
-  generationVersion: 2.774.0
-  releaseVersion: 0.4.0-beta.18
-  configChecksum: d189a3a9189464a0cce46de79450d957
+  docChecksum: 162eccc82c48c6908b87a465e5007cc3
+  docVersion: 4.16.0-alpha.1765321374704-65bfc569
+  speakeasyVersion: 1.674.0
+  generationVersion: 2.778.0
+  releaseVersion: 0.4.0-beta.19
+  configChecksum: 2b3a8d0d35fec41da9f43606f22803cd
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: b42a7370-41e2-4d1f-ad2b-895764eef6d6
-  pristine_commit_hash: 33090bcc2506279baa0effbb00b0979c8f04ce9c
-  pristine_tree_hash: 3e4143cb460053f7c2410dc55daea0fb02520922
+  generation_id: a612fbfc-dab3-470f-9793-2c855a06225c
+  pristine_commit_hash: 8a4acbcfb6d7efeda5cf86c00c515bbde791621d
+  pristine_tree_hash: f6690f2edfcdb028a0f83e2e07fb5b00fc7c6dd7
 features:
   go:
     additionalDependencies: 0.1.0
@@ -85,8 +85,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:4f5eccb60a03f99cd38915869232a5f0115ac62d
-    pristine_git_object: a4adef86c6b40dae378ee4b22e5c870f6a540772
+    last_write_checksum: sha1:0857957dd129810043fde90f091c2848aba1550e
+    pristine_git_object: 6c0cfb6ad211a67efd3090098fe35cd6f91d3e18
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:4c1067ba5253b5d6e1d7a4a48560e6876bc6c395
@@ -195,18 +195,230 @@ trackedFiles:
     id: 38a02abe4717
     last_write_checksum: sha1:96f748fc580b9275c462e7050ddef11cb8cad1e6
     pristine_git_object: 12907d84269e04738e3b1f3dffbc7a4009dcce34
+  docs/models/components/collectmethod.md:
+    id: 4efe88361714
+    last_write_checksum: sha1:b0904bf8327d1819588f3b74154e26e31ccbbac5
+    pristine_git_object: a6ae5b9458577785e660c4f2283da889236ab0d3
   docs/models/components/collector.md:
     id: 039dcf369765
-    last_write_checksum: sha1:8b81c935d318b237d64a7e4f59687797a331d6b3
-    pristine_git_object: 1c19993c34b8422cd338181d6aa70d1963111478
+    last_write_checksum: sha1:b92fee30dc89bf90d25f84d93c843ca370a9c57d
+    pristine_git_object: 2d26c6d0f013d06599f277248164c15f6c52ed5b
+  docs/models/components/collectorazureblob.md:
+    id: 44eb462a3e33
+    last_write_checksum: sha1:85636586a6f20251e9029da38e25a9ba8709b3a6
+    pristine_git_object: dc8ce89a928b4b4bf03c9423bee939466e339e67
+  docs/models/components/collectorazureblobauthenticationmethod.md:
+    id: adcfabd259d6
+    last_write_checksum: sha1:b552332aa1fb9aef9669e0a8f3f508c54a4e7c7a
+    pristine_git_object: c6426e8f5fb6a79d9a25c1eb816bb5f9042eeb83
+  docs/models/components/collectorazureblobextractor.md:
+    id: a641b78606bc
+    last_write_checksum: sha1:f91df437a7178ed373a1803a306ef1ffaf81697b
+    pristine_git_object: 5d503d8b0321bdfd39b6dc23ee3121697b714858
+  docs/models/components/collectorazureblobtype.md:
+    id: 1002895d1174
+    last_write_checksum: sha1:aaa287510bfbc4d4cbd38b6767f31026086b6d4c
+    pristine_git_object: e71262294adfb100d438f1580777c4f06460aa9a
+  docs/models/components/collectorconf.md:
+    id: 8af8d6aaebe9
+    last_write_checksum: sha1:7471431c2c1f56829f08dac2368945bf94d24faa
+    pristine_git_object: 6d9f037dde82d0098396edd383500909d6109f54
+  docs/models/components/collectorcribllake.md:
+    id: 976507ce8ad0
+    last_write_checksum: sha1:5457d1d06585a5923d1537daf6d5a951b7a5fd6d
+    pristine_git_object: 594c5ebcb1236b98a229657da980e44b1725013b
+  docs/models/components/collectorcribllaketype.md:
+    id: 6277875b35a5
+    last_write_checksum: sha1:b8d860d726ac3d4899371f51e3cddd56783dbcc9
+    pristine_git_object: 89f989dbf2b86266cab73f856113ef1548605440
+  docs/models/components/collectordatabase.md:
+    id: 81e3b6dc0f7e
+    last_write_checksum: sha1:d6d33202b13d2d9594a3732d010b22b43467caa0
+    pristine_git_object: 4094fef07649d6cb3010f3c6e4f8654fc165afd1
+  docs/models/components/collectordatabasehiddendefaultbreakers.md:
+    id: d016022cfa2b
+    last_write_checksum: sha1:a724b8879ddb8577665dadee761d79c977266111
+    pristine_git_object: 2babcb213d7b00fe5ac34af51960fea85c944546
+  docs/models/components/collectordatabasescheduling.md:
+    id: b42e28bf993c
+    last_write_checksum: sha1:56d7de07bfde408a896a6db41347207258acd430
+    pristine_git_object: 917b8bf7ae52129904b0ac046f7d0281a68b1fe5
+  docs/models/components/collectordatabasestatetracking.md:
+    id: b45d311c59da
+    last_write_checksum: sha1:dd0d410e132b47d1ce2ee31247066ee19578eaa5
+    pristine_git_object: 1c8efc584796bea0f78db98d7ee1ece3cc597879
+  docs/models/components/collectordatabasetype.md:
+    id: 18cfcb9d7dc6
+    last_write_checksum: sha1:bdfc55695951eb8f81b5adec2ca770f494763240
+    pristine_git_object: 341595205aacbad9b3e8a02cb55e9f485bd4a1d5
+  docs/models/components/collectorfilesystem.md:
+    id: e104bef38221
+    last_write_checksum: sha1:6adbf5ff1c453b87a8a65c1de1bb5edb7c191d2a
+    pristine_git_object: 67077b16c1d1ca56d4ac0138eebf6f2fce0dea1a
+  docs/models/components/collectorfilesystemextractor.md:
+    id: e826b23a1d58
+    last_write_checksum: sha1:6d43d40714d917302892b868dfd1896a14e2aaeb
+    pristine_git_object: b83ec9c83a0b827d937a3525d8ae091648adbef8
+  docs/models/components/collectorfilesystemtype.md:
+    id: c798439cb3b6
+    last_write_checksum: sha1:a3b07f1331544c633a34227b26b75575cb58beb2
+    pristine_git_object: 05ec9314a1cf1eeb9489b4209dd955bb438dfbf4
+  docs/models/components/collectorgooglecloudstorage.md:
+    id: 26bc8b0345d5
+    last_write_checksum: sha1:1bbb0578c851e378999e3110e0a52b7b6264caea
+    pristine_git_object: 10a9892038c693a9f66c316c8b3a7b9a4704d97e
+  docs/models/components/collectorgooglecloudstorageauthenticationmethod.md:
+    id: a6a81732c3ef
+    last_write_checksum: sha1:18c58825b6dac3000cba9408bd3de0aa83d73061
+    pristine_git_object: 55966cd1babfdaae5741db8ae110d86d298566e7
+  docs/models/components/collectorgooglecloudstorageextractor.md:
+    id: 353e1f788684
+    last_write_checksum: sha1:3f0ca428a39e63af1c43b853c29d983b4d0cda20
+    pristine_git_object: 7954e3b21f7989340ccd2ed99924c4853bbacf16
+  docs/models/components/collectorgooglecloudstoragetype.md:
+    id: ea1ec23ef239
+    last_write_checksum: sha1:bcbc08646d3e6a7014e3349b1ceea82e08913cdd
+    pristine_git_object: c4196751b18c0f5347a3b9eb1e4f6808f4b79801
+  docs/models/components/collectorhealthcheck.md:
+    id: d66cab46dddd
+    last_write_checksum: sha1:c3698451388d400e1c95eb1ba1d7ecb6713bdd32
+    pristine_git_object: 4f2ddf8e3f258f323e0d9dcc4055c1266903235c
+  docs/models/components/collectorhealthcheckauthentication.md:
+    id: fcd52398e412
+    last_write_checksum: sha1:8ada21050e44feb1cf6f31510bcc920b73797a3d
+    pristine_git_object: af3f9daa9653cf6961c3c0a3811a6faa265d4379
+  docs/models/components/collectorhealthcheckcollectrequestheader.md:
+    id: 773ee11f0d03
+    last_write_checksum: sha1:45990eaa448d06c2ea64ce7140fb5ed6f90c6462
+    pristine_git_object: 1cf6669b7cf263209e4b0efa340757fe0f680659
+  docs/models/components/collectorhealthcheckdiscovertype.md:
+    id: 42554afe81f8
+    last_write_checksum: sha1:9d8a4896f06f4bca560fc1bfe80f1a08880e9080
+    pristine_git_object: ad729a0367ad60c6b9fe144f691e49c5ef4b0f42
+  docs/models/components/collectorhealthcheckdiscovery.md:
+    id: 01de497a3489
+    last_write_checksum: sha1:867b946ba54ab1183159a57b45dda3142b4f64fe
+    pristine_git_object: e7eb2eb0e7bd57d08cb607e7a785ed35d265c489
+  docs/models/components/collectorhealthcheckhiddendefaultbreakers.md:
+    id: 8d6d4b65f531
+    last_write_checksum: sha1:4baa34a337c90afccd1129dd814810f57ad40208
+    pristine_git_object: 30368d6a1b1ce6d6eb3114e2f3f322f742acfe34
+  docs/models/components/collectorhealthcheckretryrules.md:
+    id: fbaedd242345
+    last_write_checksum: sha1:5f51a8e741adf53e34c6a7d8b34a33c946f4ef0b
+    pristine_git_object: 04e0b52b21ddf0dc75024cf84094d54040d4ae85
+  docs/models/components/collectorhealthcheckretrytype.md:
+    id: f0ee804222ae
+    last_write_checksum: sha1:3117f011965bb50ebdc29e8c37137053a816c543
+    pristine_git_object: 909af3ab50f5d3e3c795f0f229f2a289f2c4f767
+  docs/models/components/collectorhealthchecktype.md:
+    id: 9fac2a663da1
+    last_write_checksum: sha1:9b58ad5f7fd8bf69c026825c50877b82526abb59
+    pristine_git_object: 51882a8d31c0b3c8cf7097688aaa629b5fdb1c5c
+  docs/models/components/collectorrest.md:
+    id: 3237502064b6
+    last_write_checksum: sha1:afe79ca71a86bf0659d54a2260b751cd6f8296a1
+    pristine_git_object: 203f2d94e18e98c92f714b07332188104881916a
+  docs/models/components/collectorrestauthentication.md:
+    id: 9af2e5344dcc
+    last_write_checksum: sha1:1ced0d8cb622b110e4a46fc5601208e6839b2bf6
+    pristine_git_object: 710fb82f8a898f3c9aa3d6926eaed2632e9b303a
+  docs/models/components/collectorrestcollectrequestheader.md:
+    id: 135cc69fe8ae
+    last_write_checksum: sha1:8bde78e00f0e90558d74abe284fd957057e0357d
+    pristine_git_object: 3fb38db3589d1895c89804329afa625a19aed0dd
+  docs/models/components/collectorrestdiscovertype.md:
+    id: 5b5807b5c14a
+    last_write_checksum: sha1:13d2a92b03238747962204638e75f2f0b9244c38
+    pristine_git_object: 2e4b2baf1d15d4a75f50751c571fd8dad9f463d0
+  docs/models/components/collectorrestdiscovery.md:
+    id: c9423c635203
+    last_write_checksum: sha1:adc917d26ecdf6c7fb1e56620163ee8a3ba82be1
+    pristine_git_object: 8cbb92c52f27e865b3fb59816dd11b85dfbcd8ab
+  docs/models/components/collectorrestretryrules.md:
+    id: d25499386a0c
+    last_write_checksum: sha1:f729743955756300c8d70b1c41ffdb0813f9ae1b
+    pristine_git_object: 1d8d9e354bd45880ba3723edc8193a8370d8eef7
+  docs/models/components/collectorrestretrytype.md:
+    id: a0a32b390ba8
+    last_write_checksum: sha1:2502e42fd1a83a903b448a7fa8f26b04b5bafe1f
+    pristine_git_object: d2513d503f5b0330e22ae4ae28145c6899558f91
+  docs/models/components/collectorrestscheduling.md:
+    id: d92b0cd92c8b
+    last_write_checksum: sha1:b98cd8ddb76f2a67d38de33df4ee90040b81e152
+    pristine_git_object: 182adff13dc02a2958fb4eeb23bf9bd6bb0d6f95
+  docs/models/components/collectorreststatetracking.md:
+    id: 52492e137c79
+    last_write_checksum: sha1:5f028a45d4f3a09489d1acb765012e2ee6306ed2
+    pristine_git_object: 965d53793cd105ab6ce231d3f0ed13d2a03b7323
+  docs/models/components/collectorresttype.md:
+    id: fde5bacfac00
+    last_write_checksum: sha1:07532ffdb4ae159942121345cda6bd63dbcebc11
+    pristine_git_object: 35d38d80bb41538f2f7b6f2c99b4759643025cc4
   docs/models/components/collectors.md:
     id: a05fac8cc6e1
     last_write_checksum: sha1:bcf2267bfabde92ee8f03f6bef9e9ebef1bf7e04
     pristine_git_object: 220429bdf9a9b08c354e7c5f2c4b53a0e729551b
-  docs/models/components/collectorspecificsettings.md:
-    id: 38b2edc77aea
-    last_write_checksum: sha1:0781f4fe892055e53e16d953a2f380700e3376a2
-    pristine_git_object: 4773cc348431c93745813b6d9b6aa5841a857b4d
+  docs/models/components/collectors3.md:
+    id: d36986469ef2
+    last_write_checksum: sha1:9955e91cb4b88ba4d02e71b824421ad39471e873
+    pristine_git_object: eaab50a4ebb2a22bc35c7c72114713c8bfe4110f
+  docs/models/components/collectors3authenticationmethod.md:
+    id: 0968b2ea18dd
+    last_write_checksum: sha1:c5a2a426c42db843bdffa23a59107651f902c756
+    pristine_git_object: 4750a1ec390b33fe2e7e345e21df49df272a7b4e
+  docs/models/components/collectors3extractor.md:
+    id: 858b53a897de
+    last_write_checksum: sha1:64ad00d4723c0b06719070ab974e3e5a5825ba65
+    pristine_git_object: 27f3ff0051865faa26206f3064a6edf4068b8f47
+  docs/models/components/collectors3signatureversion.md:
+    id: 4b374e2b58df
+    last_write_checksum: sha1:210edfca69ad71210a21da13057153c7af7f43dc
+    pristine_git_object: 57418fca0898f3909bf904532f5ada2922e06d4c
+  docs/models/components/collectors3type.md:
+    id: 228c699a47b2
+    last_write_checksum: sha1:2567fd88c5c1627c088121047664141c8ccb95f9
+    pristine_git_object: 912a6e3541189513b26353ff00c02d7ef90d689b
+  docs/models/components/collectorscript.md:
+    id: a6c83be6b23a
+    last_write_checksum: sha1:997a973b85daa851a226aef30fd657b5acd3274f
+    pristine_git_object: 71ec16a365ffd11dc824476a7999a8ccf11d2a2a
+  docs/models/components/collectorscripttype.md:
+    id: dc0f8b21bbd6
+    last_write_checksum: sha1:684a257be9979adc22a2561f0c4c169e0fa99f0c
+    pristine_git_object: c0e353056852385f951986f84082562fb5801aea
+  docs/models/components/collectorsplunk.md:
+    id: abce81280f41
+    last_write_checksum: sha1:c9c1a88d9863b32832894923aa89e6e756657e3c
+    pristine_git_object: 3e5d6927dc831008c6d8419b7f8723f40d1ef7f5
+  docs/models/components/collectorsplunkauthentication.md:
+    id: 0545c93dfce9
+    last_write_checksum: sha1:499aabb9d8004c0de8949cc90c94c4b2a61e9e91
+    pristine_git_object: 97a1075f35590a0ff8cd663dd2d7e774b9176037
+  docs/models/components/collectorsplunkcollectrequestheader.md:
+    id: de31fd4528fe
+    last_write_checksum: sha1:458e255947536f844ec0c6397f414df9ac98b475
+    pristine_git_object: f47f666dcb61ba18f551c509c43cd839b8574a37
+  docs/models/components/collectorsplunkoutputmode.md:
+    id: fe7d8754d6dc
+    last_write_checksum: sha1:755351fd2fada92e81fa76075a4fc188fd2c1ff2
+    pristine_git_object: 4389b9c46fc993f87ed1e4658d41590094302373
+  docs/models/components/collectorsplunkretryrules.md:
+    id: a043d7069745
+    last_write_checksum: sha1:dff6b30180adfb0f8860b95bb152efac25bac29a
+    pristine_git_object: 4a5e590ce28aad2f535ece61e809ad8abc75f733
+  docs/models/components/collectorsplunkretrytype.md:
+    id: 9ed082bcaaa4
+    last_write_checksum: sha1:6afa86a19c09141033a853114975c9383e09cff3
+    pristine_git_object: 5cf43eb87983c8b732aa696a387f077a370e9e73
+  docs/models/components/collectorsplunktype.md:
+    id: 2911cc5aff55
+    last_write_checksum: sha1:d3d66be13a6a7e1f31903578f467fa2573e2a1bf
+    pristine_git_object: 76a99b241b888a4623a6a9a67f0eae4e6a838afb
+  docs/models/components/collectrequestparam.md:
+    id: 1c8951966a33
+    last_write_checksum: sha1:0ba9e7caaafded4b5afae035de317e0ddfe4a969
+    pristine_git_object: 54db1dce95bb3cc59aa857e098f1e20c2bf470db
   docs/models/components/columnmapping.md:
     id: 8b155628938d
     last_write_checksum: sha1:1be60fd9e73a6a496c257b86c2ab78d64785a213
@@ -523,6 +735,10 @@ trackedFiles:
     id: 53d27c9dd72c
     last_write_checksum: sha1:8104f5cfcb415caf7fa849d730f61f5c9bf5432f
     pristine_git_object: cb6174e77a523a7cb863ebca4625bca0ba50110a
+  docs/models/components/envvar.md:
+    id: ea7a04812857
+    last_write_checksum: sha1:9394f07d85964f4731b1c460156de7dc50bb32ac
+    pristine_git_object: afb445a69d12c26ec2168eaade65b3dc998c18f5
   docs/models/components/eventformat.md:
     id: f48508585c4d
     last_write_checksum: sha1:f1dac333c7f3c36c757addb6b69e46b0d7619354
@@ -647,6 +863,10 @@ trackedFiles:
     id: d5c89397ad15
     last_write_checksum: sha1:ae8dd14e0646df3eac2c4a5563295d7ca9db81cf
     pristine_git_object: e7e7098c9cec74261e3a7f9d75056720a8d62ead
+  docs/models/components/healthcheckmethod.md:
+    id: f046195b2c53
+    last_write_checksum: sha1:f2b53d8796b3ab9a6e14679454be59cb670f92d6
+    pristine_git_object: 36fed05bb71bbb32492cc73d67c5f885b1ac7f65
   docs/models/components/healthserverstatus.md:
     id: 6223ddff5473
     last_write_checksum: sha1:2e58f1ac025ea5f1cfb20298e72b6e9c8c15dae6
@@ -3093,8 +3313,8 @@ trackedFiles:
     pristine_git_object: 94efbbb470993d6e9abf4a43b3307bbd4d0456bf
   docs/models/components/inputsplunksearch.md:
     id: 87a56571766e
-    last_write_checksum: sha1:d625fc3593985e88496aeb1c88e0f53e11df4c23
-    pristine_git_object: 7537a1247d9602431f0833b12b06c0a6cf974976
+    last_write_checksum: sha1:83bd6e06bcefe86b3809777e3b3011dafdbf2b8d
+    pristine_git_object: adac1268d30bce7b82c68ee37273a5e33a055695
   docs/models/components/inputsplunksearchauthenticationtype.md:
     id: 897a8abd3a37
     last_write_checksum: sha1:87e6f5db980ae4a06916e00d70e97103b1538da3
@@ -3127,6 +3347,10 @@ trackedFiles:
     id: cfce7ed30ec6
     last_write_checksum: sha1:d3f9446df38141c95d2af92cde1971cab1fac006
     pristine_git_object: db28613667011885179fe582a321e332545cb670
+  docs/models/components/inputsplunksearchoutputmode.md:
+    id: e3fde2deb5a6
+    last_write_checksum: sha1:c11d8ef1465d656cec51c1766a12a7c642967f9a
+    pristine_git_object: 5e06c4bfc9f3b1e0140e605ffec448c9ea37600d
   docs/models/components/inputsplunksearchpq.md:
     id: 8f119436538d
     last_write_checksum: sha1:ea7da889279ce9964ab4c275a0bb01916477dbcf
@@ -6127,10 +6351,6 @@ trackedFiles:
     id: aeafdc66c6dc
     last_write_checksum: sha1:68ac672dba2c5d24866c01271f030967de03a044
     pristine_git_object: 3d8c8d6ec85774d3da8decdfb4a6ca3b7161f73a
-  docs/models/components/outputmode.md:
-    id: 2313c48d87e2
-    last_write_checksum: sha1:1eb05fd22f1365e6b7eed1a0fe6ca54996e79c6e
-    pristine_git_object: 233a1f5f8c0483054dffd2a33554a956baa1cf22
   docs/models/components/outputmsk.md:
     id: 64dc6cc4bd36
     last_write_checksum: sha1:bbd3be7698a07aa17f659efa3ab5a792d1263282
@@ -7575,6 +7795,18 @@ trackedFiles:
     id: 3b5e4854348a
     last_write_checksum: sha1:0c0539296393d874e911f7a4582173a53ebc842b
     pristine_git_object: 1d627cc5c2057a98385f61662c8e8ad7ec840808
+  docs/models/components/pagination.md:
+    id: c63182f7c460
+    last_write_checksum: sha1:e31bc33412fa55bbe98bd2c2060c1d7a48ee8f49
+    pristine_git_object: 24e94b32b923ef33268188ee4eaba3987d1c59e1
+  docs/models/components/paginationenum.md:
+    id: ae1c9ae535b1
+    last_write_checksum: sha1:89a6119ee1e515284442b676779c3c57e9bc1fd3
+    pristine_git_object: d4df7a7b24924a497c1bc998c7a08a901ea98d5b
+  docs/models/components/partitioningscheme.md:
+    id: a20025891d7d
+    last_write_checksum: sha1:ca4712d1ba4a1f764142e3059459604df8d6c8c8
+    pristine_git_object: 5811946adaf9bd82aaca308986f542879e71d549
   docs/models/components/payloadformat.md:
     id: 26004bcc42ef
     last_write_checksum: sha1:d6753ad8dd08ad42ed02b96f5c478b5bf9c67021
@@ -8573,8 +8805,8 @@ trackedFiles:
     pristine_git_object: 2598402db39524f8fe9338a5bdf38b81de1ca8d9
   docs/sdks/pipelines/README.md:
     id: 96306a4a5f5a
-    last_write_checksum: sha1:a66c7a8e96f5ff42dfd45dc5735cb629dd57c6d8
-    pristine_git_object: 8a2b5658e657f8b55206c93f14ef603656539aa0
+    last_write_checksum: sha1:44f18f24e6dc7584bb0fa345d19db434499f19a0
+    pristine_git_object: d0aa914b05abc8fc028f3bd972aae4976f4b3726
   docs/sdks/pq/README.md:
     id: 47d89d172a34
     last_write_checksum: sha1:6e2bee31654888fbd4a6152227c5162c2167744b
@@ -8751,6 +8983,50 @@ trackedFiles:
     id: 3dddbf19f0ee
     last_write_checksum: sha1:d63540875a0f12bb571315d8bcf2a0f44bf166fb
     pristine_git_object: c45dfa8fb4e027e60bebff43fab28af4d2c17827
+  models/components/collectorazureblob.go:
+    id: 80ed23a41189
+    last_write_checksum: sha1:950f2142bd4f723ec709456f8dfcec886683b512
+    pristine_git_object: 05df49b50661537f0368ecb5e5c271978a824139
+  models/components/collectorconf.go:
+    id: f1e36a26dd98
+    last_write_checksum: sha1:db97eaaf79e71ffe0f97e55a8f5ffc7b1a33e69e
+    pristine_git_object: 7238c2ac018eb264147c66a4d2541e9788996e64
+  models/components/collectorcribllake.go:
+    id: ada034079523
+    last_write_checksum: sha1:b8dfe437f33070c855c72affb7c717efe6e4308f
+    pristine_git_object: a77bb4e1b3ed6f293bb5c4f6a2a09645846578b1
+  models/components/collectordatabase.go:
+    id: 7648d14e34e4
+    last_write_checksum: sha1:052c3724c6b988c06496ec109e204249752f5359
+    pristine_git_object: f2b15509000394c0c0c8af19c1c1951261e6793e
+  models/components/collectorfilesystem.go:
+    id: 17d75124718b
+    last_write_checksum: sha1:53fdc8753c8529848d1064853a247e43e18b5d1a
+    pristine_git_object: c6670079621cb35dec65c17212c0ba9fa70e8156
+  models/components/collectorgooglecloudstorage.go:
+    id: a2a621d1b1f6
+    last_write_checksum: sha1:68dc444143a04b5580c3010810c8c81cef8e0f0b
+    pristine_git_object: f20fc17cadc9f685f3ca7497397cf0d49cf61784
+  models/components/collectorhealthcheck.go:
+    id: 48056b43e586
+    last_write_checksum: sha1:9178f5d99e9ec4e6eb600c9ab34b004f579b032f
+    pristine_git_object: 663706b26b07291d66849a0207f22922910d876f
+  models/components/collectorrest.go:
+    id: 7d5941d020b9
+    last_write_checksum: sha1:7855ea95091a05f6dbd87aa54651015b32f54f75
+    pristine_git_object: 8726c984b9bea6b322b88d08ccd3cc10d42f79e2
+  models/components/collectors3.go:
+    id: 0dd4c21df9d3
+    last_write_checksum: sha1:a29b1ce110d4cc4581eab91e683100faa96b39ab
+    pristine_git_object: b6a0bd0e793b18cf776de0890eb0fd6aa2121061
+  models/components/collectorscript.go:
+    id: c2a4feaa7aa7
+    last_write_checksum: sha1:2f0bf2c9bd7420f96e2bfbb0284ea89fddbf3822
+    pristine_git_object: 02121129bc619dba4d2b0e667a54cfee372465b8
+  models/components/collectorsplunk.go:
+    id: 02193f7557bd
+    last_write_checksum: sha1:3c46f77c559a86941c23e521dbe31a254baf31f6
+    pristine_git_object: b3287afa136ac254e4f1df7a614b5985dbef50ba
   models/components/commit.go:
     id: 89d576d1911c
     last_write_checksum: sha1:d3321c2735caac168f25546f2b4fda0b79ce1bcc
@@ -9209,8 +9485,8 @@ trackedFiles:
     pristine_git_object: b804f954774aced183fba97f018e5e7b345e856b
   models/components/inputsplunksearch.go:
     id: 6a50a517b8b8
-    last_write_checksum: sha1:c03700d401492948b64c2bc536b816a6d81e9852
-    pristine_git_object: 8b68b8308ed9a287cbc4ddcec869b028425e7f68
+    last_write_checksum: sha1:680fa952a5753cce9a5ecd1ae8db996aeae031d6
+    pristine_git_object: 313c8a58e07c3c414ce7b206c08f8e159c885d7e
   models/components/inputsqs.go:
     id: fec789af6076
     last_write_checksum: sha1:11a241fb027c8f9653d4fca20f1b39ef33d920cc
@@ -9665,8 +9941,8 @@ trackedFiles:
     pristine_git_object: ff9d4570a5341730269e17bb79221633a9809108
   models/components/runnablejobcollection.go:
     id: 5ef292ec87c0
-    last_write_checksum: sha1:6fc5ad0bf6655a69cb052ec4d6067ad805b267f8
-    pristine_git_object: 098d67c4639aeaa8cdff6238e1706d98f732a829
+    last_write_checksum: sha1:11b51af0c80ba9bbb33877ce24958a7f338ef5ed
+    pristine_git_object: e30afc0709572bdd8e00d7727c33770c3d813ada
   models/components/runnablejobexecutor.go:
     id: 6ec2fa45e13c
     last_write_checksum: sha1:163437b175a4045181f462a59438720b488314dc
@@ -12671,7 +12947,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 9134.23}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 3}}, {"args": {"id": "<id>", "description": "merrily decode unnaturally duh because quiet", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 4040.76, "latest": 7109.44, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 7063.41, "latest": 1234.41, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {"key": 2179.01, "key1": 3145, "key2": 9277.24}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 9}}, {"args": {"id": "<id>", "description": "merrily decode unnaturally duh because quiet", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 4040.76, "latest": 7109.44, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 7063.41, "latest": 1234.41, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 8}}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 9134.23}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 3}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 2179.01, "key1": 3145, "key2": 9277.24}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 9}}, {"args": {"id": "<id>", "description": "merrily decode unnaturally duh because quiet", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": true, "resumeMissed": false, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 4040.76, "latest": 7109.44, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {"type": "rest", "discovery": {"discoverType": "none"}, "collectUrl": "https://sarcastic-casket.com/", "collectMethod": "get", "collectVerb": "<value>", "collectRequestParams": "<value>", "collectBody": "<value>", "collectRequestHeaders": [{"name": "<value>", "value": "<value>"}], "pagination": {"type": "none"}, "authentication": "none", "timeout": 0, "useRoundRobinDns": false, "disableTimeFilter": false, "decodeUrl": true, "rejectUnauthorized": false, "captureHeaders": false, "stopOnEmptyResults": false, "safeHeaders": ["<value 1>", "<value 2>", "<value 3>"], "retryRules": {"type": "backoff", "interval": "<value>", "limit": "<value>", "multiplier": "<value>", "maxIntervalMs": "<value>", "codes": "<value>", "enableHeader": "<value>", "retryConnectTimeout": "<value>", "retryConnectReset": "<value>"}, "__scheduling": {"stateTracking": {"enabled": false}}}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": 8}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -12819,6 +13095,326 @@ examples:
           application/json: {"count": 670554, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 905091, "output": "default", "description": "next tightly positively", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "academics woot finally woot queasy bah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet", "disabled": true}}}}]}
         "500":
           application/json: {"message": "<value>"}
+    PipelineExamplesEmpty:
+      requestBody:
+        application/json: {"id": "empty-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "", "streamtags": [], "functions": [], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAggregations:
+      requestBody:
+        application/json: {"id": "aggregation-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that aggregates rejected bytes grouped by source address every 10 seconds", "streamtags": [], "functions": [{"filter": "true", "id": "aggregation", "description": "like kindheartedly syringe because hm fake inasmuch intrepid", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAggregateMetrics:
+      requestBody:
+        application/json: {"id": "aggregate-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that aggregates process metrics: CPU, memory, and bytes over time windows", "streamtags": [], "functions": [{"filter": "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))", "id": "aggregate_metrics", "description": "beneath shred pfft drat unfit who however avaricious", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAutoTimestamp:
+      requestBody:
+        application/json: {"id": "auto-timestamp-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts timestamps from event data using auto timestamp function", "streamtags": [], "functions": [{"filter": "true", "id": "auto_timestamp", "description": "tuber worth oddly judicious appertain", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesCEFSerializer:
+      requestBody:
+        application/json: {"id": "cef-serializer-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that formats events in CEF format with custom header and extension fields", "streamtags": [], "functions": [{"filter": "true", "id": "cef", "description": "whoever till shy miskey huzzah ouch sanity lyre but", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesChain:
+      requestBody:
+        application/json: {"id": "chain-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that chains to another pipeline for sequential data processing", "streamtags": [], "functions": [{"filter": "true", "id": "chain", "description": "modulo however adjourn expansion hm loyally whenever selfish", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesClone:
+      requestBody:
+        application/json: {"id": "clone-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that creates cloned events with additional fields for comparison or routing", "streamtags": [], "functions": [{"filter": "true", "id": "clone", "description": "from confiscate positively until", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesComment:
+      requestBody:
+        application/json: {"id": "comment-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline with comment function for documentation", "streamtags": [], "functions": [{"filter": "true", "id": "comment", "description": "obnoxiously for chops magnificent ew", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDNSLookup:
+      requestBody:
+        application/json: {"id": "dns-lookup-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that performs DNS lookups to resolve hostnames and IP addresses", "streamtags": [], "functions": [{"filter": "true", "id": "dns_lookup", "description": "upset if aha entice artistic meh oof", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDrop:
+      requestBody:
+        application/json: {"id": "drop-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that drops events containing success messages", "streamtags": [], "functions": [{"filter": "_raw.search(/success/i)>=0", "id": "drop", "description": "blight scornful in eek numeric since bah monster if since", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDropDimensions:
+      requestBody:
+        application/json: {"id": "drop-dimensions-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that drops specified dimensions from metrics to reduce cardinality", "streamtags": [], "functions": [{"filter": "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))", "id": "drop_dimensions", "description": "where provided tight", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDynamicSampling:
+      requestBody:
+        application/json: {"id": "dynamic-sampling-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that dynamically samples events based on volume using square root mode", "streamtags": [], "functions": [{"filter": "true", "id": "dynamic_sampling", "description": "mothball arraign analyse that meaningfully draw", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEval:
+      requestBody:
+        application/json: {"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that evaluates JavaScript expressions to add, modify, and remove fields", "streamtags": [], "functions": [{"filter": "true", "id": "eval", "description": "mmm as fatally impeccable supportive upbeat powerfully camouflage upbeat spirit", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEventBreaker:
+      requestBody:
+        application/json: {"id": "event-breaker-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that breaks large event streams into discrete events using regex", "streamtags": [], "functions": [{"filter": "true", "id": "event_breaker", "description": "finally rust save draft zebra busily woot alongside", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesFlatten:
+      requestBody:
+        application/json: {"id": "flatten-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that flattens nested JSON structures into top-level fields", "streamtags": [], "functions": [{"filter": "true", "id": "flatten", "description": "well-lit rudely worthwhile cross everlasting ghost freezing majority", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesFoldKeys:
+      requestBody:
+        application/json: {"id": "fold-keys-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that transforms flat field names with separators into nested structures", "streamtags": [], "functions": [{"filter": "true", "id": "foldkeys", "description": "when insignificant quarrel decongestant substantiate", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGeoIP:
+      requestBody:
+        application/json: {"id": "geoip-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that enriches events with geolocation data from IP addresses", "streamtags": [], "functions": [{"filter": "true", "id": "geoip", "description": "browse vice denitrify via questionable ugh hopelessly viability", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGrok:
+      requestBody:
+        application/json: {"id": "grok-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts structured fields from log data using Grok patterns", "streamtags": [], "functions": [{"filter": "true", "id": "grok", "description": "drat when eek ha amidst judgementally while why", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGuard:
+      requestBody:
+        application/json: {"id": "guard-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that scans for sensitive data and applies mitigation expressions", "streamtags": [], "functions": [{"filter": "true", "id": "sensitive_data_scanner", "description": "knowledgeably supposing athwart generally atop behest", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesJSONUnroll:
+      requestBody:
+        application/json: {"id": "json-unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls JSON arrays into individual events while retaining parent fields", "streamtags": [], "functions": [{"filter": "true", "id": "json_unroll", "description": "uh-huh aboard immaculate apud", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesLookup:
+      requestBody:
+        application/json: {"id": "lookup-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that enriches events with location data from IP address lookups", "streamtags": [], "functions": [{"filter": "true", "id": "lookup", "description": "vivaciously ugh after knavishly circular of", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesMask:
+      requestBody:
+        application/json: {"id": "mask-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that masks Social Security numbers and other sensitive data", "streamtags": [], "functions": [{"filter": "true", "id": "mask", "description": "zany beneath beloved likewise gah", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesNumerify:
+      requestBody:
+        application/json: {"id": "numerify-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that converts string numbers to numeric type for mathematical operations", "streamtags": [], "functions": [{"filter": "true", "id": "numerify", "description": "braid after especially the fully", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPLogs:
+      requestBody:
+        application/json: {"id": "otlp-logs-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that normalizes and batches OTLP log events from OpenTelemetry sources", "streamtags": [], "functions": [{"filter": "__inputId=='open_telemetry:open_telemetry'", "id": "otlp_logs", "description": "whereas humiliating tomatillo mmm crank", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPMetrics:
+      requestBody:
+        application/json: {"id": "otlp-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that converts dimensional metrics to OTLP format and batches them by resource attributes", "streamtags": [], "functions": [{"filter": "__inputId=='prometheus_rw:prom_rw_in'", "id": "otlp_metrics", "description": "worth slow anenst", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPTraces:
+      requestBody:
+        application/json: {"id": "otlp-traces-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that normalizes and batches OTLP trace events from OpenTelemetry sources", "streamtags": [], "functions": [{"filter": "__inputId=='open_telemetry:open_telemetry'", "id": "otlp_traces", "description": "notwithstanding fond next glaring", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesParser:
+      requestBody:
+        application/json: {"id": "parser-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts fields from key-value pair formatted data", "streamtags": [], "functions": [{"filter": "true", "id": "serde", "description": "when swing yahoo jaunty absentmindedly geez mantua", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesPublishMetrics:
+      requestBody:
+        application/json: {"id": "publish-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts metrics from events and formats them for metrics aggregation platforms", "streamtags": [], "functions": [{"filter": "true", "id": "publish_metrics", "description": "guard reproachfully into degenerate unpleasant miserably until", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRedis:
+      requestBody:
+        application/json: {"id": "redis-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that retrieves values from Redis using GET command", "streamtags": [], "functions": [{"filter": "true", "id": "redis", "description": "aside anti overwork abaft intrepid gosh chiffonier lace", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRegexExtract:
+      requestBody:
+        application/json: {"id": "regex-extract-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts structured fields from log data using regex patterns with named capture groups", "streamtags": [], "functions": [{"filter": "true", "id": "regex_extract", "description": "ingratiate symbolise porter in", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRegexFilter:
+      requestBody:
+        application/json: {"id": "regex-filter-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that filters out events matching specific regex patterns", "streamtags": [], "functions": [{"filter": "true", "id": "regex_filter", "description": "venom fatally who until boohoo interestingly hydrolyze heighten", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRename:
+      requestBody:
+        application/json: {"id": "rename-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that renames fields using key-value pairs and expressions", "streamtags": [], "functions": [{"filter": "true", "id": "rename", "description": "grouper other despite furthermore amid lustrous gee livid internal", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRollupMetrics:
+      requestBody:
+        application/json: {"id": "rollup-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that consolidates high-frequency metrics into manageable time windows", "streamtags": [], "functions": [{"filter": "true", "id": "rollup_metrics", "description": "license help disconnection", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSampling:
+      requestBody:
+        application/json: {"id": "sampling-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that samples events at specified rates based on filter criteria", "streamtags": [], "functions": [{"filter": "true", "id": "sampling", "description": "delicious boo unique usually red dimly utilized league", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSerialize:
+      requestBody:
+        application/json: {"id": "serialize-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that serializes event fields into JSON format", "streamtags": [], "functions": [{"filter": "true", "id": "serialize", "description": "mesh broadly under positively after hmph", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSNMPTrapSerialize:
+      requestBody:
+        application/json: {"id": "snmp-trap-serialize-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that serializes events into SNMP trap format for SNMP trap destinations", "streamtags": [], "functions": [{"filter": "true", "id": "snmp_trap_serialize", "description": "vacantly helpful oof knowingly mindless shear", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSuppress:
+      requestBody:
+        application/json: {"id": "suppress-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that suppresses duplicate events based on a key expression", "streamtags": [], "functions": [{"filter": "true", "id": "suppress", "description": "reiterate optimistically helpfully frightened good convalesce pillow under far", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesTee:
+      requestBody:
+        application/json: {"id": "tee-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that sends events to a command via stdin for debugging purposes", "streamtags": [], "functions": [{"filter": "true", "id": "tee", "description": "whispered uh-huh rare loyally phew along irresponsible between greedily", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesUnroll:
+      requestBody:
+        application/json: {"id": "unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls array fields into separate events", "streamtags": [], "functions": [{"filter": "true", "id": "unroll", "description": "sinful traditionalism exploration", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesXMLUnroll:
+      requestBody:
+        application/json: {"id": "xml-unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls XML elements into separate events", "streamtags": [], "functions": [{"filter": "true", "id": "xml_unroll", "description": "who wear so", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "duh likewise alongside though", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
   getPipelineById:
     speakeasy-default-get-pipeline-by-id:
       parameters:
@@ -12839,6 +13435,446 @@ examples:
       responses:
         "200":
           application/json: {"count": 939042, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 430119, "output": "default", "description": "reflecting for productive extroverted instead upwardly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "mozzarella boohoo possession as grok", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "definitive ew but busily freely scaly indeed", "disabled": true}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEmpty:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "empty-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "", "streamtags": [], "functions": [], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAggregations:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "aggregation-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that aggregates rejected bytes grouped by source address every 10 seconds", "streamtags": [], "functions": [{"filter": "true", "id": "aggregation", "description": "while cuddly boo", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAggregateMetrics:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "aggregate-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that aggregates process metrics: CPU, memory, and bytes over time windows", "streamtags": [], "functions": [{"filter": "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))", "id": "aggregate_metrics", "description": "er now rigidly whoever", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesAutoTimestamp:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "auto-timestamp-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts timestamps from event data using auto timestamp function", "streamtags": [], "functions": [{"filter": "true", "id": "auto_timestamp", "description": "longboat while patroller altruistic careless far-off definitive instead knowledgeable", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesCEFSerializer:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "cef-serializer-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that formats events in CEF format with custom header and extension fields", "streamtags": [], "functions": [{"filter": "true", "id": "cef", "description": "where slake but lighthearted quicker lampoon", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesChain:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "chain-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that chains to another pipeline for sequential data processing", "streamtags": [], "functions": [{"filter": "true", "id": "chain", "description": "whoever notwithstanding now mmm homely", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesClone:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "clone-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that creates cloned events with additional fields for comparison or routing", "streamtags": [], "functions": [{"filter": "true", "id": "clone", "description": "blacken into jaggedly truly plan soulful per conjecture", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesComment:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "comment-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline with comment function for documentation", "streamtags": [], "functions": [{"filter": "true", "id": "comment", "description": "offset woot abnormally meh", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDNSLookup:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "dns-lookup-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that performs DNS lookups to resolve hostnames and IP addresses", "streamtags": [], "functions": [{"filter": "true", "id": "dns_lookup", "description": "however blindly sugary into except selfishly", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDrop:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "drop-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that drops events containing success messages", "streamtags": [], "functions": [{"filter": "_raw.search(/success/i)>=0", "id": "drop", "description": "psst penalise couch lest mid yowza versus chime until near", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDropDimensions:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "drop-dimensions-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that drops specified dimensions from metrics to reduce cardinality", "streamtags": [], "functions": [{"filter": "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))", "id": "drop_dimensions", "description": "whether yet excepting along when sizzle", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesDynamicSampling:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "dynamic-sampling-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that dynamically samples events based on volume using square root mode", "streamtags": [], "functions": [{"filter": "true", "id": "dynamic_sampling", "description": "unnecessarily unwieldy joshingly calmly circulate repossess", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEval:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that evaluates JavaScript expressions to add, modify, and remove fields", "streamtags": [], "functions": [{"filter": "true", "id": "eval", "description": "glaring even sizzle proselytise", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesEventBreaker:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "event-breaker-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that breaks large event streams into discrete events using regex", "streamtags": [], "functions": [{"filter": "true", "id": "event_breaker", "description": "creator ack adventurously so beside hutch peninsula how", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesFlatten:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "flatten-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that flattens nested JSON structures into top-level fields", "streamtags": [], "functions": [{"filter": "true", "id": "flatten", "description": "forswear yippee clear-cut packaging", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesFoldKeys:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "fold-keys-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that transforms flat field names with separators into nested structures", "streamtags": [], "functions": [{"filter": "true", "id": "foldkeys", "description": "relieve amidst nor puff general meh", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGeoIP:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "geoip-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that enriches events with geolocation data from IP addresses", "streamtags": [], "functions": [{"filter": "true", "id": "geoip", "description": "now executor even well-groomed where cricket", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGrok:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "grok-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts structured fields from log data using Grok patterns", "streamtags": [], "functions": [{"filter": "true", "id": "grok", "description": "gee shakily unbearably abacus oof dislocate blah", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesGuard:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "guard-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that scans for sensitive data and applies mitigation expressions", "streamtags": [], "functions": [{"filter": "true", "id": "sensitive_data_scanner", "description": "lid snuggle toe", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesJSONUnroll:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "json-unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls JSON arrays into individual events while retaining parent fields", "streamtags": [], "functions": [{"filter": "true", "id": "json_unroll", "description": "wordy including yippee negotiation hence ew uh-huh puppet elegantly", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesLookup:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "lookup-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that enriches events with location data from IP address lookups", "streamtags": [], "functions": [{"filter": "true", "id": "lookup", "description": "but lasting brr gee function", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesMask:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "mask-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that masks Social Security numbers and other sensitive data", "streamtags": [], "functions": [{"filter": "true", "id": "mask", "description": "celebrated stake because", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesNumerify:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "numerify-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that converts string numbers to numeric type for mathematical operations", "streamtags": [], "functions": [{"filter": "true", "id": "numerify", "description": "role across impassioned gah intermix midst likewise whereas broadcast delightfully", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPLogs:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "otlp-logs-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that normalizes and batches OTLP log events from OpenTelemetry sources", "streamtags": [], "functions": [{"filter": "__inputId=='open_telemetry:open_telemetry'", "id": "otlp_logs", "description": "hm black-and-white gah", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPMetrics:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "otlp-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that converts dimensional metrics to OTLP format and batches them by resource attributes", "streamtags": [], "functions": [{"filter": "__inputId=='prometheus_rw:prom_rw_in'", "id": "otlp_metrics", "description": "unnaturally through hastily aw archive aw ponder defrag", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesOTLPTraces:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "otlp-traces-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that normalizes and batches OTLP trace events from OpenTelemetry sources", "streamtags": [], "functions": [{"filter": "__inputId=='open_telemetry:open_telemetry'", "id": "otlp_traces", "description": "that profuse whereas bossy dapper after than or illustrious", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesParser:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "parser-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts fields from key-value pair formatted data", "streamtags": [], "functions": [{"filter": "true", "id": "serde", "description": "adventurously contravene schlep", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesPublishMetrics:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "publish-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts metrics from events and formats them for metrics aggregation platforms", "streamtags": [], "functions": [{"filter": "true", "id": "publish_metrics", "description": "bind as exhausted alive where hmph selfishly", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRedis:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "redis-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that retrieves values from Redis using GET command", "streamtags": [], "functions": [{"filter": "true", "id": "redis", "description": "over and overheard marvelous", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRegexExtract:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "regex-extract-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that extracts structured fields from log data using regex patterns with named capture groups", "streamtags": [], "functions": [{"filter": "true", "id": "regex_extract", "description": "compassionate lest wear iterate buzzing improbable dusk", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRegexFilter:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "regex-filter-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that filters out events matching specific regex patterns", "streamtags": [], "functions": [{"filter": "true", "id": "regex_filter", "description": "vol failing far how prejudge", "disabled": false, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRename:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "rename-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that renames fields using key-value pairs and expressions", "streamtags": [], "functions": [{"filter": "true", "id": "rename", "description": "glorious whether throughout overspend overproduce probe hollow boyfriend settler", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesRollupMetrics:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "rollup-metrics-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that consolidates high-frequency metrics into manageable time windows", "streamtags": [], "functions": [{"filter": "true", "id": "rollup_metrics", "description": "finer ruin accurate eek likewise retention economise pleased repeat", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSampling:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "sampling-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that samples events at specified rates based on filter criteria", "streamtags": [], "functions": [{"filter": "true", "id": "sampling", "description": "zowie up annual saturate thoroughly straight usefully stylish", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSerialize:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "serialize-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that serializes event fields into JSON format", "streamtags": [], "functions": [{"filter": "true", "id": "serialize", "description": "how gah euphonium unethically hot however bah", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSNMPTrapSerialize:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "snmp-trap-serialize-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that serializes events into SNMP trap format for SNMP trap destinations", "streamtags": [], "functions": [{"filter": "true", "id": "snmp_trap_serialize", "description": "to drat fragrant psst implode dock", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesSuppress:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "suppress-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that suppresses duplicate events based on a key expression", "streamtags": [], "functions": [{"filter": "true", "id": "suppress", "description": "mummify yippee uh-huh archive hence solidly", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesTee:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "tee-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that sends events to a command via stdin for debugging purposes", "streamtags": [], "functions": [{"filter": "true", "id": "tee", "description": "yuck saloon ack alongside famously", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesUnroll:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls array fields into separate events", "streamtags": [], "functions": [{"filter": "true", "id": "unroll", "description": "behind consequently gently", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
+        "500":
+          application/json: {"message": "<value>"}
+    PipelineExamplesXMLUnroll:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "xml-unroll-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that unrolls XML elements into separate events", "streamtags": [], "functions": [{"filter": "true", "id": "xml_unroll", "description": "whistle comfortable pessimistic pecan seemingly loosely apropos wrathful eminent", "disabled": true, "final": false, "conf": {}, "groupId": "<id>"}], "groups": {}}}
+      responses:
+        "200":
+          application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "<id>", "description": "underneath before ethyl ah with", "disabled": false, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
         "500":
           application/json: {"message": "<value>"}
   deletePipelineById:
@@ -13647,6 +14683,9 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items.[].Args.[runnableJobCollection].Collector.Conf` **Changed** **Breaking** :warning:
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

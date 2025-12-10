@@ -97,29 +97,14 @@ func main() {
     )
 
     res, err := s.Pipelines.Create(ctx, components.Pipeline{
-        ID: "<id>",
+        ID: "empty-pipeline",
         Conf: components.Conf{
-            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](905091),
-            Description: criblcontrolplanesdkgo.Pointer("next tightly positively"),
-            Streamtags: []string{
-                "<value 1>",
-            },
-            Functions: []components.PipelineFunctionConf{
-                components.PipelineFunctionConf{
-                    ID: "<id>",
-                    Description: criblcontrolplanesdkgo.Pointer("academics woot finally woot queasy bah"),
-                    Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    Final: criblcontrolplanesdkgo.Pointer(false),
-                    Conf: components.FunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                },
-            },
+            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](1000),
+            Description: criblcontrolplanesdkgo.Pointer(""),
+            Streamtags: []string{},
+            Functions: []components.PipelineFunctionConf{},
             Groups: map[string]components.PipelineGroups{
-                "key": components.PipelineGroups{
-                    Name: "<value>",
-                    Description: criblcontrolplanesdkgo.Pointer("yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet"),
-                    Disabled: criblcontrolplanesdkgo.Pointer(true),
-                },
+
             },
         },
     })
@@ -237,29 +222,14 @@ func main() {
     )
 
     res, err := s.Pipelines.Update(ctx, "<id>", components.Pipeline{
-        ID: "<id>",
+        ID: "empty-pipeline",
         Conf: components.Conf{
-            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](430119),
-            Description: criblcontrolplanesdkgo.Pointer("reflecting for productive extroverted instead upwardly"),
-            Streamtags: []string{
-                "<value 1>",
-            },
-            Functions: []components.PipelineFunctionConf{
-                components.PipelineFunctionConf{
-                    ID: "<id>",
-                    Description: criblcontrolplanesdkgo.Pointer("mozzarella boohoo possession as grok"),
-                    Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    Final: criblcontrolplanesdkgo.Pointer(false),
-                    Conf: components.FunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                },
-            },
+            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](1000),
+            Description: criblcontrolplanesdkgo.Pointer(""),
+            Streamtags: []string{},
+            Functions: []components.PipelineFunctionConf{},
             Groups: map[string]components.PipelineGroups{
-                "key": components.PipelineGroups{
-                    Name: "<value>",
-                    Description: criblcontrolplanesdkgo.Pointer("definitive ew but busily freely scaly indeed"),
-                    Disabled: criblcontrolplanesdkgo.Pointer(true),
-                },
+
             },
         },
     })
