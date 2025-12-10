@@ -1,5 +1,4 @@
-# Pq
-(*Destinations.Pq*)
+# Destinations.Pq
 
 ## Overview
 

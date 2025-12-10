@@ -2269,8 +2269,8 @@ const (
 )
 
 type InputGrafana struct {
-	InputGrafanaGrafana1 *InputGrafanaGrafana1 `queryParam:"inline,name=InputGrafana"`
-	InputGrafanaGrafana2 *InputGrafanaGrafana2 `queryParam:"inline,name=InputGrafana"`
+	InputGrafanaGrafana1 *InputGrafanaGrafana1 `queryParam:"inline,name=InputGrafana" union:"member"`
+	InputGrafanaGrafana2 *InputGrafanaGrafana2 `queryParam:"inline,name=InputGrafana" union:"member"`
 
 	Type InputGrafanaType
 }

@@ -1,5 +1,4 @@
-# Branches
-(*Versions.Branches*)
+# Versions.Branches
 
 ## Overview
 

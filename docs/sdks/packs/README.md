@@ -1,5 +1,4 @@
 # Packs
-(*Packs*)
 
 ## Overview
 
