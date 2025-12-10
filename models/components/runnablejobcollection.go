@@ -300,24 +300,11 @@ func (r *RunnableJobCollectionSchedule) GetRun() *RunnableJobCollectionRunSettin
 	return r.Run
 }
 
-type CollectorSpecificSettings struct {
-}
-
-func (c CollectorSpecificSettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSpecificSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
 type Collector struct {
 	// The type of collector to run
-	Type string                    `json:"type"`
-	Conf CollectorSpecificSettings `json:"conf"`
+	Type string `json:"type"`
+	// Collector configuration
+	Conf CollectorConf `json:"conf"`
 	// Delete any files collected (where applicable)
 	Destructive *bool `default:"false" json:"destructive"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
@@ -342,11 +329,51 @@ func (c *Collector) GetType() string {
 	return c.Type
 }
 
-func (c *Collector) GetConf() CollectorSpecificSettings {
+func (c *Collector) GetConf() CollectorConf {
 	if c == nil {
-		return CollectorSpecificSettings{}
+		return CollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *Collector) GetConfAzureBlob() *CollectorAzureBlob {
+	return c.GetConf().CollectorAzureBlob
+}
+
+func (c *Collector) GetConfCriblLake() *CollectorCriblLake {
+	return c.GetConf().CollectorCriblLake
+}
+
+func (c *Collector) GetConfDatabase() *CollectorDatabase {
+	return c.GetConf().CollectorDatabase
+}
+
+func (c *Collector) GetConfFilesystem() *CollectorFilesystem {
+	return c.GetConf().CollectorFilesystem
+}
+
+func (c *Collector) GetConfGoogleCloudStorage() *CollectorGoogleCloudStorage {
+	return c.GetConf().CollectorGoogleCloudStorage
+}
+
+func (c *Collector) GetConfHealthCheck() *CollectorHealthCheck {
+	return c.GetConf().CollectorHealthCheck
+}
+
+func (c *Collector) GetConfRest() *CollectorRest {
+	return c.GetConf().CollectorRest
+}
+
+func (c *Collector) GetConfS3() *CollectorS3 {
+	return c.GetConf().CollectorS3
+}
+
+func (c *Collector) GetConfScript() *CollectorScript {
+	return c.GetConf().CollectorScript
+}
+
+func (c *Collector) GetConfSplunk() *CollectorSplunk {
+	return c.GetConf().CollectorSplunk
 }
 
 func (c *Collector) GetDestructive() *bool {
