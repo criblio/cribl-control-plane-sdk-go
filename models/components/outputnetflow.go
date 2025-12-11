@@ -79,9 +79,7 @@ type OutputNetflow struct {
 	Hosts []OutputNetflowHost `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `default:"0" json:"dnsResolvePeriodSec"`
-	// Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
-	EnableIPSpoofing *bool   `default:"false" json:"enableIpSpoofing"`
-	Description      *string `json:"description,omitempty"`
+	Description         *string  `json:"description,omitempty"`
 }
 
 func (o OutputNetflow) MarshalJSON() ([]byte, error) {
@@ -149,13 +147,6 @@ func (o *OutputNetflow) GetDNSResolvePeriodSec() *float64 {
 		return nil
 	}
 	return o.DNSResolvePeriodSec
-}
-
-func (o *OutputNetflow) GetEnableIPSpoofing() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableIPSpoofing
 }
 
 func (o *OutputNetflow) GetDescription() *string {

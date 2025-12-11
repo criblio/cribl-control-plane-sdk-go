@@ -1,5 +1,4 @@
-# HecTokens
-(*Sources.HecTokens*)
+# Sources.HecTokens
 
 ## Overview
 
