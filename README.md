@@ -240,6 +240,11 @@ func main() {
 * [Get](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 * [Create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 
+### [Functions](docs/sdks/functions/README.md)
+
+* [List](docs/sdks/functions/README.md#list) - Get a list of FunctionResponse objects
+* [Get](docs/sdks/functions/README.md#get) - Get FunctionResponse by ID
+
 ### [Groups](docs/sdks/groups/README.md)
 
 * [List](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
