@@ -6,32 +6,32 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type GetFunctionResponseByIDRequest struct {
-	// Unique ID to GET
+type GetFunctionsByIDRequest struct {
+	// The <code>id</code> of the Function to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (g *GetFunctionResponseByIDRequest) GetID() string {
+func (g *GetFunctionsByIDRequest) GetID() string {
 	if g == nil {
 		return ""
 	}
 	return g.ID
 }
 
-type GetFunctionResponseByIDResponse struct {
+type GetFunctionsByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of FunctionResponse objects
+	// a list of Function objects
 	CountedFunctionResponse *components.CountedFunctionResponse
 }
 
-func (g *GetFunctionResponseByIDResponse) GetHTTPMeta() components.HTTPMetadata {
+func (g *GetFunctionsByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	if g == nil {
 		return components.HTTPMetadata{}
 	}
 	return g.HTTPMeta
 }
 
-func (g *GetFunctionResponseByIDResponse) GetCountedFunctionResponse() *components.CountedFunctionResponse {
+func (g *GetFunctionsByIDResponse) GetCountedFunctionResponse() *components.CountedFunctionResponse {
 	if g == nil {
 		return nil
 	}

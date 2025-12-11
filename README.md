@@ -242,8 +242,8 @@ func main() {
 
 ### [Functions](docs/sdks/functions/README.md)
 
-* [List](docs/sdks/functions/README.md#list) - Get a list of FunctionResponse objects
-* [Get](docs/sdks/functions/README.md#get) - Get FunctionResponse by ID
+* [Get](docs/sdks/functions/README.md#get) - Get a Function
+* [List](docs/sdks/functions/README.md#list) - List all Functions
 
 ### [Groups](docs/sdks/groups/README.md)
 
