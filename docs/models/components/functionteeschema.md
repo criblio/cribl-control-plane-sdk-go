@@ -1,0 +1,11 @@
+# FunctionTeeSchema
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `Command`                                                                            | *string*                                                                             | :heavy_check_mark:                                                                   | Command to execute and feed events to, via stdin. One JSON-formatted event per line. |
+| `Args`                                                                               | []*string*                                                                           | :heavy_minus_sign:                                                                   | N/A                                                                                  |
+| `RestartOnExit`                                                                      | **bool*                                                                              | :heavy_minus_sign:                                                                   | Restart the process if it exits and/or we fail to write to it                        |
+| `Env`                                                                                | map[string]*string*                                                                  | :heavy_minus_sign:                                                                   | Environment variables to overwrite or set                                            |
