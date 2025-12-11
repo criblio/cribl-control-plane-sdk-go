@@ -1,5 +1,4 @@
-# Summaries
-(*Nodes.Summaries*)
+# Nodes.Summaries
 
 ## Overview
 
