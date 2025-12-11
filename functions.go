@@ -32,9 +32,13 @@ func newFunctions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 	}
 }
 
-// List - Get a list of FunctionResponse objects
-// Get a list of FunctionResponse objects
-func (s *Functions) List(ctx context.Context, opts ...operations.Option) (*operations.ListFunctionResponseResponse, error) {
+// Get a Function
+// Get the specified Function.
+func (s *Functions) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetFunctionsByIDResponse, error) {
+	request := operations.GetFunctionsByIDRequest{
+		ID: id,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -53,7 +57,7 @@ func (s *Functions) List(ctx context.Context, opts ...operations.Option) (*opera
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/functions")
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/functions/{id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -63,7 +67,7 @@ func (s *Functions) List(ctx context.Context, opts ...operations.Option) (*opera
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "listFunctionResponse",
+		OperationID:      "getFunctionsById",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -191,7 +195,7 @@ func (s *Functions) List(ctx context.Context, opts ...operations.Option) (*opera
 		}
 	}
 
-	res := &operations.ListFunctionResponseResponse{
+	res := &operations.GetFunctionsByIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -271,13 +275,9 @@ func (s *Functions) List(ctx context.Context, opts ...operations.Option) (*opera
 
 }
 
-// Get FunctionResponse by ID
-// Get FunctionResponse by ID
-func (s *Functions) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetFunctionResponseByIDResponse, error) {
-	request := operations.GetFunctionResponseByIDRequest{
-		ID: id,
-	}
-
+// List all Functions
+// Get a list of all Functions.
+func (s *Functions) List(ctx context.Context, opts ...operations.Option) (*operations.GetFunctionsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -296,7 +296,7 @@ func (s *Functions) Get(ctx context.Context, id string, opts ...operations.Optio
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/functions/{id}", request, nil)
+	opURL, err := url.JoinPath(baseURL, "/functions")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -306,7 +306,7 @@ func (s *Functions) Get(ctx context.Context, id string, opts ...operations.Optio
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getFunctionResponseById",
+		OperationID:      "getFunctions",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -434,7 +434,7 @@ func (s *Functions) Get(ctx context.Context, id string, opts ...operations.Optio
 		}
 	}
 
-	res := &operations.GetFunctionResponseByIDResponse{
+	res := &operations.GetFunctionsResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,

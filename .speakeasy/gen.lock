@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 95f2ca58a21bd917a5984610cb1fb105
-  docVersion: 4.16.0-alpha.1765446369054-b5828090
+  docChecksum: dda50498132c95281a8338efd92c2f07
+  docVersion: 4.16.0-alpha.1765487092497-ed578836
   speakeasyVersion: 1.674.0
   generationVersion: 2.778.0
-  releaseVersion: 0.4.0-beta.21
-  configChecksum: 6d2d1ddf16f44461052a1fdee9116a24
+  releaseVersion: 0.4.0-beta.22
+  configChecksum: d9132f7650a154e822d4e5bc7f35fc5b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: e2f8b447-f8d4-4ad9-8358-480e6034a4d8
-  pristine_commit_hash: 2bb612793875184030d2209ddd330bfa41928d46
-  pristine_tree_hash: ac00e9650df2f8ab35631db97fed8cd649d49c36
+  generation_id: 466a8e19-ffe7-4c23-b46c-69dc0842d97e
+  pristine_commit_hash: d4f256ec9b15a84d0006c38101c04b9bacf959c1
+  pristine_tree_hash: 5a089f2e30d3b1d54dd00b6e7975ead4f077245f
 features:
   go:
     additionalDependencies: 0.1.0
@@ -85,8 +85,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:afd634df2f48caba8b4407f104b7afbfe77b7ace
-    pristine_git_object: 378120fbbbca11da5bbfe84632dcdd885d05c616
+    last_write_checksum: sha1:e08faa1076eece198fdd5919d6257f71df6aa1ad
+    pristine_git_object: 272b3ca09cd48cb2d02e28123628bd661c194a31
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:4c1067ba5253b5d6e1d7a4a48560e6876bc6c395
@@ -9483,14 +9483,18 @@ trackedFiles:
     id: e40ce058b03a
     last_write_checksum: sha1:0536bb3f652022ff6cb12a1588ee95050501a6d2
     pristine_git_object: 5720dd48574f97fd9eca42003460317b6dbf3df1
-  docs/models/operations/getfunctionresponsebyidrequest.md:
-    id: e0f6ef1c95c2
-    last_write_checksum: sha1:e224df2d45a259abe8f173bfb95f945255a35768
-    pristine_git_object: f60a78c337a19bec855a920fa215529cd8fb0e3e
-  docs/models/operations/getfunctionresponsebyidresponse.md:
-    id: 64d0a3005dc5
-    last_write_checksum: sha1:0c58d0ff2cd514ecf3e0cdfcef117e8897c56d7f
-    pristine_git_object: 163be028cafcae6c618916fae489dc297f97a776
+  docs/models/operations/getfunctionsbyidrequest.md:
+    id: b8169bd8d35e
+    last_write_checksum: sha1:141288b94456f0694b03a398080a33af96fabf1c
+    pristine_git_object: 4f2bb2224488763d6655cae456e2074ad302e13b
+  docs/models/operations/getfunctionsbyidresponse.md:
+    id: 7c84707ce8c1
+    last_write_checksum: sha1:d463e1baa4c1f1f399a07405169de075a65c7777
+    pristine_git_object: aa59e0aacdfdbed79b5396985733c601e57f0a0d
+  docs/models/operations/getfunctionsresponse.md:
+    id: e836c360de8c
+    last_write_checksum: sha1:7741d2167a800c7333b946e0275449e4aafae43d
+    pristine_git_object: 50c6c11c070004117ff0a5efa0daa922f04cdc59
   docs/models/operations/gethealthresponse.md:
     id: fa06383d6e10
     last_write_checksum: sha1:c17e2c6a607a1c8135b478944bf6853109b0326b
@@ -9647,10 +9651,6 @@ trackedFiles:
     id: b39cde3062ff
     last_write_checksum: sha1:ceb48264bbe4ce810726462060646bde8170c86d
     pristine_git_object: 5f87d8a9030754abe55b202b55f46a4d27b221cc
-  docs/models/operations/listfunctionresponseresponse.md:
-    id: 9a688967037c
-    last_write_checksum: sha1:c1a1025f740f938ffbc69a42dd41f975bc90769a
-    pristine_git_object: 8800a7c19b957492a30f5faa66866b3951aa02b3
   docs/models/operations/listinputresponse.md:
     id: 21ac6df14168
     last_write_checksum: sha1:2f7304ced899522b0bdc2912408e70a2142b30e4
@@ -9793,8 +9793,8 @@ trackedFiles:
     pristine_git_object: 534074d026e7b335925ff254bc4eec6b35f0271b
   docs/sdks/functions/README.md:
     id: 5c831af22db5
-    last_write_checksum: sha1:a7db2c579220eaeabe833ebd0d85d939d4d04755
-    pristine_git_object: 7d7be655cdd061b80406c40ab77aede23c81242c
+    last_write_checksum: sha1:2fea608419a1ffaf9bce54a4964832d25a30c52e
+    pristine_git_object: ec05365c4ad18fe108c70f19d38dc90022950884
   docs/sdks/groups/README.md:
     id: 3336939a71e4
     last_write_checksum: sha1:221c44cb4f4ec02ae354d89c8941e3fd78dbbb60
@@ -9865,8 +9865,8 @@ trackedFiles:
     pristine_git_object: 56311c4b40781fb95c067832e67c5a4c825ff8e7
   functions.go:
     id: 0f7b27d65923
-    last_write_checksum: sha1:2d423ac3bb9da414954531a377e56c02a70ec40a
-    pristine_git_object: 52aa8720c0a24f687b82ae81903aabb0c67ff04f
+    last_write_checksum: sha1:4478a311aba69423b4369bdfddc2e9f46badd516
+    pristine_git_object: b0c303deb2474978b47d6a1a2c203a997da4148f
   go.mod:
     id: c47645c391ad
     last_write_checksum: sha1:0798d3cc4bcfeca20f0206ab16f5bb5166418532
@@ -11395,10 +11395,14 @@ trackedFiles:
     id: b881ab564621
     last_write_checksum: sha1:33cab270a668bf997e9a1e4d71a0ec11d2ff6af0
     pristine_git_object: 2d853cc19e352b142186072305985f0f2db160c4
-  models/operations/getfunctionresponsebyid.go:
-    id: 73a61569cb5d
-    last_write_checksum: sha1:079d87a1834584b67ae78af3609af3f5b731a756
-    pristine_git_object: f4b8f25298bee19f454dd76f58b0c14a9447fca4
+  models/operations/getfunctions.go:
+    id: ebffcc241759
+    last_write_checksum: sha1:35b4329cd217d15b48dba8059665eb1c9f7ff771
+    pristine_git_object: f8cef8f6f1400e64e39152900df7ccf45a648402
+  models/operations/getfunctionsbyid.go:
+    id: 74a9c983aafc
+    last_write_checksum: sha1:4b8303005a3b5c3ea4d7e9f94dfcc53207957548
+    pristine_git_object: 307399cfa91f1f9c971724fca729b6a534cae89b
   models/operations/gethealth.go:
     id: 215314edcc7b
     last_write_checksum: sha1:ad3027ee25380e04e054d6191b8d63c32ed9866d
@@ -11487,10 +11491,6 @@ trackedFiles:
     id: b0ce43cbd646
     last_write_checksum: sha1:024eaf5231c0d9fda625a89f2535debbca811c9b
     pristine_git_object: 7b3a7845e390a9d2e1cc0b2d38105ce5d5fdc98a
-  models/operations/listfunctionresponse.go:
-    id: 1509c3fabef0
-    last_write_checksum: sha1:22bbcd1eab3a90c13ca8a1f10efda548b2a23e32
-    pristine_git_object: 353515004b18db9c91be331dd9085f39b9672a12
   models/operations/listinput.go:
     id: da59fe53b914
     last_write_checksum: sha1:bb44bfc19decd1e1d21a854d19ae0307bc408a28
@@ -15927,6 +15927,23 @@ examples:
           application/json: {"count": 807894, "items": [{"__filename": "example.file", "asyncTimeout": 7487.36, "cribl_version": "<value>", "disabled": false, "group": "<value>", "handleSignals": true, "id": "notify", "loadTime": 5064.57, "modTime": 3482.55, "name": "<value>", "sync": false, "uischema": {"key": "<value>"}, "version": "<value>", "schema": {"group": "default", "notificationId": "main", "searchId": "<id>", "savedQueryId": "<id>", "trigger": "<value>", "triggerType": "resultsCount", "triggerComparator": "<=", "triggerCount": 0, "resultsLimit": 50, "searchUrl": "https://empty-goat.net/", "message": "<value>", "authToken": "<value>", "messagesEndpoint": "<value>", "tenantId": "<id>"}}]}
         "500":
           application/json: {"message": "<value>"}
+  getFunctionsById:
+    speakeasy-default-get-functions-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 360057, "items": [{"__filename": "example.file", "asyncTimeout": 2925.28, "cribl_version": "<value>", "disabled": false, "group": "<value>", "handleSignals": true, "id": "otlp_logs", "loadTime": 4607.55, "modTime": 411.38, "name": "<value>", "sync": false, "uischema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "version": "<value>", "schema": {"dropNonLogEvents": false, "batchOTLPLogs": false}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getFunctions:
+    speakeasy-default-get-functions:
+      responses:
+        "200":
+          application/json: {"count": 499784, "items": [{"__filename": "example.file", "asyncTimeout": 5128.66, "cribl_version": "<value>", "disabled": true, "group": "<value>", "handleSignals": true, "id": "numerify", "loadTime": 4310.3, "modTime": 5716.36, "name": "<value>", "sync": true, "uischema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "version": "<value>", "schema": {"depth": 5, "ignoreFields": ["<value 1>"], "filterExpr": "<value>", "format": "none"}}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -15992,7 +16009,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[netflow].EnableIpSpoofing` **Removed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[netflow].EnableIpSpoofing` **Removed** **Breaking** :warning:\n  *  `response.Items.[].[netflow].EnableIpSpoofing` **Removed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[netflow].EnableIpSpoofing` **Removed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[netflow].EnableIpSpoofing` **Removed** **Breaking** :warning:\n  *  `response.Items.[].[netflow].EnableIpSpoofing` **Removed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[netflow].EnableIpSpoofing` **Removed** **Breaking** :warning:\n* `CriblControlPlane.Functions.List()`: **Added**\n* `CriblControlPlane.Functions.Get()`: **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
