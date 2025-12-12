@@ -95,9 +95,9 @@ type NotifyConfiguration struct {
 	// Workspace within the deployment to send the search results to.
 	NotificationID *string `default:"main" json:"notificationId"`
 	// Id of the search this function is running on.
-	SearchID string `json:"searchId"`
+	SearchID *string `json:"searchId,omitempty"`
 	// Id of the saved query
-	SavedQueryID string `json:"savedQueryId"`
+	SavedQueryID *string `json:"savedQueryId,omitempty"`
 	// Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
 	Trigger *string `json:"trigger,omitempty"`
 	// Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
@@ -109,13 +109,13 @@ type NotifyConfiguration struct {
 	// Number of results to include in the notification event
 	ResultsLimit *float64 `default:"50" json:"resultsLimit"`
 	// Url of the search results
-	SearchURL string `json:"searchUrl"`
+	SearchURL *string `json:"searchUrl,omitempty"`
 	// Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
 	Message *string `json:"message,omitempty"`
 	// Auth token for sending notification messages
-	AuthToken string `json:"authToken"`
+	AuthToken *string `json:"authToken,omitempty"`
 	// System messages api endpoint
-	MessagesEndpoint string `json:"messagesEndpoint"`
+	MessagesEndpoint *string `json:"messagesEndpoint,omitempty"`
 	// Current tenant id
 	TenantID *string `json:"tenantId,omitempty"`
 }
@@ -125,7 +125,7 @@ func (n NotifyConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (n *NotifyConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"searchId", "savedQueryId", "searchUrl", "authToken", "messagesEndpoint"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -145,16 +145,16 @@ func (n *NotifyConfiguration) GetNotificationID() *string {
 	return n.NotificationID
 }
 
-func (n *NotifyConfiguration) GetSearchID() string {
+func (n *NotifyConfiguration) GetSearchID() *string {
 	if n == nil {
-		return ""
+		return nil
 	}
 	return n.SearchID
 }
 
-func (n *NotifyConfiguration) GetSavedQueryID() string {
+func (n *NotifyConfiguration) GetSavedQueryID() *string {
 	if n == nil {
-		return ""
+		return nil
 	}
 	return n.SavedQueryID
 }
@@ -194,9 +194,9 @@ func (n *NotifyConfiguration) GetResultsLimit() *float64 {
 	return n.ResultsLimit
 }
 
-func (n *NotifyConfiguration) GetSearchURL() string {
+func (n *NotifyConfiguration) GetSearchURL() *string {
 	if n == nil {
-		return ""
+		return nil
 	}
 	return n.SearchURL
 }
@@ -208,16 +208,16 @@ func (n *NotifyConfiguration) GetMessage() *string {
 	return n.Message
 }
 
-func (n *NotifyConfiguration) GetAuthToken() string {
+func (n *NotifyConfiguration) GetAuthToken() *string {
 	if n == nil {
-		return ""
+		return nil
 	}
 	return n.AuthToken
 }
 
-func (n *NotifyConfiguration) GetMessagesEndpoint() string {
+func (n *NotifyConfiguration) GetMessagesEndpoint() *string {
 	if n == nil {
-		return ""
+		return nil
 	}
 	return n.MessagesEndpoint
 }

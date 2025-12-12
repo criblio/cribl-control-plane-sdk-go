@@ -592,6 +592,8 @@ type OutputCriblHTTP struct {
 	FailedRequestLoggingMode *OutputCriblHTTPFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []OutputCriblHTTPResponseRetrySetting `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *OutputCriblHTTPTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
@@ -785,6 +787,13 @@ func (o *OutputCriblHTTP) GetSafeHeaders() []string {
 		return nil
 	}
 	return o.SafeHeaders
+}
+
+func (o *OutputCriblHTTP) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
 }
 
 func (o *OutputCriblHTTP) GetResponseRetrySettings() []OutputCriblHTTPResponseRetrySetting {

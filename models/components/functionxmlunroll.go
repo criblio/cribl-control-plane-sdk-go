@@ -33,7 +33,7 @@ func (e *FunctionXMLUnrollID) UnmarshalJSON(data []byte) error {
 
 type FunctionXMLUnrollSchema struct {
 	// Path to array to unroll. Example: ^root\.child\.ElementToUnroll$
-	Unroll string `json:"unroll"`
+	Unroll *string `json:"unroll,omitempty"`
 	// Regex matching elements to copy into each unrolled event. Example: ^root\.(childA|childB|childC)$
 	Inherit *string `json:"inherit,omitempty"`
 	// Add a field with this name, containing the index at which the item was located, starting from 0
@@ -47,15 +47,15 @@ func (f FunctionXMLUnrollSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionXMLUnrollSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"unroll"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionXMLUnrollSchema) GetUnroll() string {
+func (f *FunctionXMLUnrollSchema) GetUnroll() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.Unroll
 }

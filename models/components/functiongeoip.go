@@ -80,7 +80,7 @@ func (o *OutputFieldMappings) UnmarshalJSON(data []byte) error {
 
 type FunctionGeoipSchema struct {
 	// Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
-	File string `json:"file"`
+	File *string `json:"file,omitempty"`
 	// Field name in which to find an IP to look up. Can be nested.
 	InField *string `default:"ip" json:"inField"`
 	// Field name in which to store the GeoIP lookup results
@@ -95,15 +95,15 @@ func (f FunctionGeoipSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionGeoipSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"file"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionGeoipSchema) GetFile() string {
+func (f *FunctionGeoipSchema) GetFile() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.File
 }

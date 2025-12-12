@@ -33,7 +33,7 @@ func (e *FunctionJSONUnrollID) UnmarshalJSON(data []byte) error {
 
 type FunctionJSONUnrollSchema struct {
 	// Path to array to unroll, such as foo.0.bar
-	Path string `json:"path"`
+	Path *string `json:"path,omitempty"`
 	// Name of each exploded array element in each new event. Leave empty to expand the array element with its original name.
 	Name *string `json:"name,omitempty"`
 }
@@ -43,15 +43,15 @@ func (f FunctionJSONUnrollSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionJSONUnrollSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"path"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionJSONUnrollSchema) GetPath() string {
+func (f *FunctionJSONUnrollSchema) GetPath() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.Path
 }

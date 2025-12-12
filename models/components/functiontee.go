@@ -33,7 +33,7 @@ func (e *FunctionTeeID) UnmarshalJSON(data []byte) error {
 
 type FunctionTeeSchema struct {
 	// Command to execute and feed events to, via stdin. One JSON-formatted event per line.
-	Command string   `json:"command"`
+	Command *string  `json:"command,omitempty"`
 	Args    []string `json:"args,omitempty"`
 	// Restart the process if it exits and/or we fail to write to it
 	RestartOnExit *bool `default:"true" json:"restartOnExit"`
@@ -46,15 +46,15 @@ func (f FunctionTeeSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionTeeSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionTeeSchema) GetCommand() string {
+func (f *FunctionTeeSchema) GetCommand() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.Command
 }

@@ -104,7 +104,7 @@ func (f *FunctionMaskFlag) GetValue() string {
 }
 
 type FunctionMaskSchema struct {
-	Rules []FunctionMaskRule `json:"rules"`
+	Rules []FunctionMaskRule `json:"rules,omitempty"`
 	// Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
 	Fields []string `json:"fields,omitempty"`
 	// Depth to which the Mask Function will search for fields to mask
@@ -118,7 +118,7 @@ func (f FunctionMaskSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionMaskSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"rules"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -126,7 +126,7 @@ func (f *FunctionMaskSchema) UnmarshalJSON(data []byte) error {
 
 func (f *FunctionMaskSchema) GetRules() []FunctionMaskRule {
 	if f == nil {
-		return []FunctionMaskRule{}
+		return nil
 	}
 	return f.Rules
 }

@@ -74,7 +74,7 @@ func (t *TemplateDefinition) GetType() *string {
 
 type FunctionHandlebarSchema struct {
 	// Object with template_id as keys and template definitions as values. Uses event.__template_id to select template at runtime.
-	Templates map[string]TemplateDefinition `json:"templates"`
+	Templates map[string]TemplateDefinition `json:"templates,omitempty"`
 	// Field name to store the rendered template result. Defaults to _raw.
 	TargetField *string `default:"_raw" json:"targetField"`
 	// Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
@@ -88,7 +88,7 @@ func (f FunctionHandlebarSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionHandlebarSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"templates"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -96,7 +96,7 @@ func (f *FunctionHandlebarSchema) UnmarshalJSON(data []byte) error {
 
 func (f *FunctionHandlebarSchema) GetTemplates() map[string]TemplateDefinition {
 	if f == nil {
-		return map[string]TemplateDefinition{}
+		return nil
 	}
 	return f.Templates
 }

@@ -35,7 +35,7 @@ type FunctionDropDimensionsSchema struct {
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
 	TimeWindow *string `default:"10s" json:"timeWindow"`
 	// One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
-	DropDimensions []string `json:"dropDimensions"`
+	DropDimensions []string `json:"dropDimensions,omitempty"`
 	// Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
 	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
 }
@@ -45,7 +45,7 @@ func (f FunctionDropDimensionsSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionDropDimensionsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"dropDimensions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -60,7 +60,7 @@ func (f *FunctionDropDimensionsSchema) GetTimeWindow() *string {
 
 func (f *FunctionDropDimensionsSchema) GetDropDimensions() []string {
 	if f == nil {
-		return []string{}
+		return nil
 	}
 	return f.DropDimensions
 }

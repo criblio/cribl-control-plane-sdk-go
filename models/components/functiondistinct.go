@@ -33,7 +33,7 @@ func (e *FunctionDistinctID) UnmarshalJSON(data []byte) error {
 
 type DistinctConfiguration struct {
 	// Defines the properties that are concatenated to produce distinct key
-	GroupBy []string `json:"groupBy"`
+	GroupBy []string `json:"groupBy,omitempty"`
 	// maximum number of tracked combinations
 	MaxCombinations *float64 `default:"10000" json:"maxCombinations"`
 	// maximum number of groupBy properties
@@ -49,7 +49,7 @@ func (d DistinctConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DistinctConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"groupBy"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -57,7 +57,7 @@ func (d *DistinctConfiguration) UnmarshalJSON(data []byte) error {
 
 func (d *DistinctConfiguration) GetGroupBy() []string {
 	if d == nil {
-		return []string{}
+		return nil
 	}
 	return d.GroupBy
 }

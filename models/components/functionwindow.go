@@ -33,9 +33,9 @@ func (e *FunctionWindowID) UnmarshalJSON(data []byte) error {
 
 type FunctionWindowSchema struct {
 	// Identifies the unique ID, used for a event window
-	EventWindowID float64 `json:"eventWindowId"`
+	EventWindowID *float64 `json:"eventWindowId,omitempty"`
 	// All window functions, tracked by this event window
-	RegisteredFunctions []string `json:"registeredFunctions"`
+	RegisteredFunctions []string `json:"registeredFunctions,omitempty"`
 	// Number of events to keep before the current event in the window
 	TailEventCount *float64 `default:"0" json:"tailEventCount"`
 	// Number of events to keep after the current event in the window
@@ -47,22 +47,22 @@ func (f FunctionWindowSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionWindowSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"eventWindowId", "registeredFunctions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionWindowSchema) GetEventWindowID() float64 {
+func (f *FunctionWindowSchema) GetEventWindowID() *float64 {
 	if f == nil {
-		return 0.0
+		return nil
 	}
 	return f.EventWindowID
 }
 
 func (f *FunctionWindowSchema) GetRegisteredFunctions() []string {
 	if f == nil {
-		return []string{}
+		return nil
 	}
 	return f.RegisteredFunctions
 }

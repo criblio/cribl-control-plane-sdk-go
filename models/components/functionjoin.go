@@ -69,7 +69,7 @@ type JoinConfiguration struct {
 	// Hints passed to the join function
 	Hints map[string]string `json:"hints,omitempty"`
 	// Fields to use when joining
-	FieldConditions []FieldCondition `json:"fieldConditions"`
+	FieldConditions []FieldCondition `json:"fieldConditions,omitempty"`
 	// The id for this search job.
 	SearchJobID *string `json:"searchJobId,omitempty"`
 	// The stage we are joining with.
@@ -81,7 +81,7 @@ func (j JoinConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (j *JoinConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &j, "", false, []string{"fieldConditions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &j, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -103,7 +103,7 @@ func (j *JoinConfiguration) GetHints() map[string]string {
 
 func (j *JoinConfiguration) GetFieldConditions() []FieldCondition {
 	if j == nil {
-		return []FieldCondition{}
+		return nil
 	}
 	return j.FieldConditions
 }

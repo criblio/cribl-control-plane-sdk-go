@@ -64,7 +64,7 @@ type SendConfiguration struct {
 	// Template to build the URL to send from.
 	SendURLTemplate *string `json:"sendUrlTemplate,omitempty"`
 	// Id of the search this function is running on.
-	SearchID string `json:"searchId"`
+	SearchID *string `json:"searchId,omitempty"`
 	// Tee results to search. When set to true results will be shipped instead of stats
 	Tee *string `default:"false" json:"tee"`
 	// How often are stats flushed in ms
@@ -80,7 +80,7 @@ func (s SendConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SendConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"searchId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -114,9 +114,9 @@ func (s *SendConfiguration) GetSendURLTemplate() *string {
 	return s.SendURLTemplate
 }
 
-func (s *SendConfiguration) GetSearchID() string {
+func (s *SendConfiguration) GetSearchID() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.SearchID
 }

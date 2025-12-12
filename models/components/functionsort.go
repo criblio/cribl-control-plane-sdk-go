@@ -35,7 +35,7 @@ type SortConfiguration struct {
 	// Has to be unique if there are multiple sorts on the pipeline.
 	SortID *string `json:"sortId,omitempty"`
 	// The expression can access the events via the 'left' and 'right' properties.
-	ComparisonExpression string `json:"comparisonExpression"`
+	ComparisonExpression *string `json:"comparisonExpression,omitempty"`
 	// Limits the output to N (highest/lowest) events
 	TopN *float64 `json:"topN,omitempty"`
 	// Specifies the number of events that can flow into this function
@@ -49,7 +49,7 @@ func (s SortConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SortConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"comparisonExpression"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -62,9 +62,9 @@ func (s *SortConfiguration) GetSortID() *string {
 	return s.SortID
 }
 
-func (s *SortConfiguration) GetComparisonExpression() string {
+func (s *SortConfiguration) GetComparisonExpression() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.ComparisonExpression
 }

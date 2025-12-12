@@ -102,7 +102,7 @@ func (f *FunctionSensitiveDataScannerFlag) GetValue() string {
 }
 
 type FunctionSensitiveDataScannerSchema struct {
-	Rules []FunctionSensitiveDataScannerRule `json:"rules"`
+	Rules []FunctionSensitiveDataScannerRule `json:"rules,omitempty"`
 	// Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
 	Fields []string `json:"fields,omitempty"`
 	// Fields that the mitigation expression will not be applied to. Supports wildcards (*).
@@ -118,7 +118,7 @@ func (f FunctionSensitiveDataScannerSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionSensitiveDataScannerSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"rules"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -126,7 +126,7 @@ func (f *FunctionSensitiveDataScannerSchema) UnmarshalJSON(data []byte) error {
 
 func (f *FunctionSensitiveDataScannerSchema) GetRules() []FunctionSensitiveDataScannerRule {
 	if f == nil {
-		return []FunctionSensitiveDataScannerRule{}
+		return nil
 	}
 	return f.Rules
 }

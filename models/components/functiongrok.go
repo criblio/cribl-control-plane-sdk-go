@@ -56,7 +56,7 @@ func (p *PatternList) GetPattern() string {
 
 type FunctionGrokSchema struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     string        `json:"pattern"`
+	Pattern     *string       `json:"pattern,omitempty"`
 	PatternList []PatternList `json:"patternList,omitempty"`
 	// Field on which to perform Grok extractions
 	Source *string `default:"_raw" json:"source"`
@@ -67,15 +67,15 @@ func (f FunctionGrokSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionGrokSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"pattern"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionGrokSchema) GetPattern() string {
+func (f *FunctionGrokSchema) GetPattern() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.Pattern
 }

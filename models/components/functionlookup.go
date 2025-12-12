@@ -106,7 +106,7 @@ func (o *OutField) GetDefaultValue() *string {
 
 type FunctionLookupSchema struct {
 	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
-	File string `json:"file"`
+	File *string `json:"file,omitempty"`
 	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
 	DbLookup        *bool `default:"false" json:"dbLookup"`
 	MatchMode       any   `json:"matchMode,omitempty"`
@@ -126,15 +126,15 @@ func (f FunctionLookupSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionLookupSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"file"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionLookupSchema) GetFile() string {
+func (f *FunctionLookupSchema) GetFile() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.File
 }
