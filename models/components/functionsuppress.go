@@ -33,7 +33,7 @@ func (e *FunctionSuppressID) UnmarshalJSON(data []byte) error {
 
 type FunctionSuppressSchema struct {
 	// Suppression key expression used to uniquely identify events to suppress. For example, `${ip}:${port}` will use fields ip and port from each event to generate the key.
-	KeyExpr string `json:"keyExpr"`
+	KeyExpr *string `json:"keyExpr,omitempty"`
 	// The number of events to allow per time period
 	Allow *float64 `default:"1" json:"allow"`
 	// The number of seconds to suppress events after 'Number to allow' events are received
@@ -53,15 +53,15 @@ func (f FunctionSuppressSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionSuppressSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionSuppressSchema) GetKeyExpr() string {
+func (f *FunctionSuppressSchema) GetKeyExpr() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.KeyExpr
 }

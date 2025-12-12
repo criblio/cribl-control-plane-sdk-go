@@ -33,9 +33,9 @@ func (e *FunctionLakeExportID) UnmarshalJSON(data []byte) error {
 
 type LakeExportConfiguration struct {
 	// Id of the search job this function is running on.
-	SearchJobID string `json:"searchJobId"`
+	SearchJobID *string `json:"searchJobId,omitempty"`
 	// Name of the dataset
-	Dataset string `json:"dataset"`
+	Dataset *string `json:"dataset,omitempty"`
 	// Name of the lake
 	Lake *string `default:"default" json:"lake"`
 	// Tee results to search. When set to true results will be shipped instead of stats
@@ -51,22 +51,22 @@ func (l LakeExportConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (l *LakeExportConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"searchJobId", "dataset"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *LakeExportConfiguration) GetSearchJobID() string {
+func (l *LakeExportConfiguration) GetSearchJobID() *string {
 	if l == nil {
-		return ""
+		return nil
 	}
 	return l.SearchJobID
 }
 
-func (l *LakeExportConfiguration) GetDataset() string {
+func (l *LakeExportConfiguration) GetDataset() *string {
 	if l == nil {
-		return ""
+		return nil
 	}
 	return l.Dataset
 }

@@ -33,7 +33,7 @@ func (e *FunctionChainID) UnmarshalJSON(data []byte) error {
 
 type FunctionChainSchema struct {
 	// The data processor (Pack/Pipeline) to send events through
-	Processor string `json:"processor"`
+	Processor *string `json:"processor,omitempty"`
 }
 
 func (f FunctionChainSchema) MarshalJSON() ([]byte, error) {
@@ -41,15 +41,15 @@ func (f FunctionChainSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionChainSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"processor"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionChainSchema) GetProcessor() string {
+func (f *FunctionChainSchema) GetProcessor() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.Processor
 }

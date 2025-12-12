@@ -33,7 +33,7 @@ func (e *FunctionPackID) UnmarshalJSON(data []byte) error {
 
 type FunctionPackSchema struct {
 	// List of fields to keep, everything else will be packed
-	UnpackedFields []string `json:"unpackedFields"`
+	UnpackedFields []string `json:"unpackedFields,omitempty"`
 	// Name of the (packed) target field
 	Target *string `default:"_pack" json:"target"`
 }
@@ -43,7 +43,7 @@ func (f FunctionPackSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionPackSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"unpackedFields"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -51,7 +51,7 @@ func (f *FunctionPackSchema) UnmarshalJSON(data []byte) error {
 
 func (f *FunctionPackSchema) GetUnpackedFields() []string {
 	if f == nil {
-		return []string{}
+		return nil
 	}
 	return f.UnpackedFields
 }

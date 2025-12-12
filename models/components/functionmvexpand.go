@@ -58,7 +58,7 @@ func (e *BagExpansionMode) IsExact() bool {
 
 type FunctionMvExpandSchema struct {
 	// Array of property-/field-names to expand
-	SourceFields []string `json:"sourceFields"`
+	SourceFields []string `json:"sourceFields,omitempty"`
 	// stores the value as new target field name
 	TargetNames []string `json:"targetNames,omitempty"`
 	// max. number of rows generated out of every source events
@@ -74,7 +74,7 @@ func (f FunctionMvExpandSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionMvExpandSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"sourceFields"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -82,7 +82,7 @@ func (f *FunctionMvExpandSchema) UnmarshalJSON(data []byte) error {
 
 func (f *FunctionMvExpandSchema) GetSourceFields() []string {
 	if f == nil {
-		return []string{}
+		return nil
 	}
 	return f.SourceFields
 }

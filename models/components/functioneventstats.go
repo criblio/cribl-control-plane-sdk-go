@@ -33,7 +33,7 @@ func (e *FunctionEventstatsID) UnmarshalJSON(data []byte) error {
 
 type EventstatsConfiguration struct {
 	// Aggregate function(s) to perform on events. E.g., sum(bytes).where(action=='REJECT').as(TotalBytes)
-	Aggregations []string `json:"aggregations"`
+	Aggregations []string `json:"aggregations,omitempty"`
 	// Fields to group aggregates by, supports wildcard expressions.
 	GroupBys []string `json:"groupBys,omitempty"`
 	// Specifies how many events are at max kept in memory to be enriched with aggregations
@@ -47,7 +47,7 @@ func (e EventstatsConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EventstatsConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -55,7 +55,7 @@ func (e *EventstatsConfiguration) UnmarshalJSON(data []byte) error {
 
 func (e *EventstatsConfiguration) GetAggregations() []string {
 	if e == nil {
-		return []string{}
+		return nil
 	}
 	return e.Aggregations
 }

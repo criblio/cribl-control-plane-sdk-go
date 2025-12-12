@@ -33,7 +33,7 @@ func (e *FunctionLocalSearchDatatypeParserID) UnmarshalJSON(data []byte) error {
 
 type FunctionLocalSearchDatatypeParserSchema struct {
 	// ID of the local search datatype ruleset
-	RulesetID string `json:"rulesetId"`
+	RulesetID *string `json:"rulesetId,omitempty"`
 }
 
 func (f FunctionLocalSearchDatatypeParserSchema) MarshalJSON() ([]byte, error) {
@@ -41,15 +41,15 @@ func (f FunctionLocalSearchDatatypeParserSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionLocalSearchDatatypeParserSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"rulesetId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionLocalSearchDatatypeParserSchema) GetRulesetID() string {
+func (f *FunctionLocalSearchDatatypeParserSchema) GetRulesetID() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.RulesetID
 }

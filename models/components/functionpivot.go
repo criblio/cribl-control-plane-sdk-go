@@ -33,11 +33,11 @@ func (e *FunctionPivotID) UnmarshalJSON(data []byte) error {
 
 type SimplePivotConfiguration struct {
 	// Fields to be used for the left-most column.
-	LabelField string `json:"labelField"`
+	LabelField *string `json:"labelField,omitempty"`
 	// Fields with the cell values (i.e. aggregates)
-	DataFields []string `json:"dataFields"`
+	DataFields []string `json:"dataFields,omitempty"`
 	// Fields to qualify or group data fields
-	QualifierFields []string `json:"qualifierFields"`
+	QualifierFields []string `json:"qualifierFields,omitempty"`
 }
 
 func (s SimplePivotConfiguration) MarshalJSON() ([]byte, error) {
@@ -45,29 +45,29 @@ func (s SimplePivotConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SimplePivotConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"labelField", "dataFields", "qualifierFields"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SimplePivotConfiguration) GetLabelField() string {
+func (s *SimplePivotConfiguration) GetLabelField() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.LabelField
 }
 
 func (s *SimplePivotConfiguration) GetDataFields() []string {
 	if s == nil {
-		return []string{}
+		return nil
 	}
 	return s.DataFields
 }
 
 func (s *SimplePivotConfiguration) GetQualifierFields() []string {
 	if s == nil {
-		return []string{}
+		return nil
 	}
 	return s.QualifierFields
 }

@@ -137,7 +137,7 @@ func (e *FunctionRedisAuthenticationMethod) IsExact() bool {
 }
 
 type FunctionRedisSchema struct {
-	Commands []Command `json:"commands"`
+	Commands []Command `json:"commands,omitempty"`
 	// How the Redis server is configured. Defaults to Standalone
 	DeploymentType *DeploymentType                    `default:"standalone" json:"deploymentType"`
 	AuthType       *FunctionRedisAuthenticationMethod `default:"none" json:"authType"`
@@ -152,7 +152,7 @@ func (f FunctionRedisSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionRedisSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"commands"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -160,7 +160,7 @@ func (f *FunctionRedisSchema) UnmarshalJSON(data []byte) error {
 
 func (f *FunctionRedisSchema) GetCommands() []Command {
 	if f == nil {
-		return []Command{}
+		return nil
 	}
 	return f.Commands
 }

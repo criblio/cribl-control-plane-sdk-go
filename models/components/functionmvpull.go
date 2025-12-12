@@ -33,11 +33,11 @@ func (e *FunctionMvPullID) UnmarshalJSON(data []byte) error {
 
 type FunctionMvPullSchema struct {
 	// Field name of the array within events that contains the data objects of interest. Can be a path.
-	ArrayPath string `json:"arrayPath"`
+	ArrayPath *string `json:"arrayPath,omitempty"`
 	// Extract the K-V pair's key from this field, relative to the data object.
-	RelativeKeyPath string `json:"relativeKeyPath"`
+	RelativeKeyPath *string `json:"relativeKeyPath,omitempty"`
 	// Extract the K-V pair's value from this field, relative to the data object.
-	RelativeValuePath string `json:"relativeValuePath"`
+	RelativeValuePath *string `json:"relativeValuePath,omitempty"`
 	// Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
 	TargetBagPath *string `default:"null" json:"targetBagPath"`
 	// Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
@@ -49,29 +49,29 @@ func (f FunctionMvPullSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionMvPullSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"arrayPath", "relativeKeyPath", "relativeValuePath"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionMvPullSchema) GetArrayPath() string {
+func (f *FunctionMvPullSchema) GetArrayPath() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.ArrayPath
 }
 
-func (f *FunctionMvPullSchema) GetRelativeKeyPath() string {
+func (f *FunctionMvPullSchema) GetRelativeKeyPath() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.RelativeKeyPath
 }
 
-func (f *FunctionMvPullSchema) GetRelativeValuePath() string {
+func (f *FunctionMvPullSchema) GetRelativeValuePath() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.RelativeValuePath
 }

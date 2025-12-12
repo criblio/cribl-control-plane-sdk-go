@@ -33,11 +33,11 @@ func (e *FunctionNotificationsID) UnmarshalJSON(data []byte) error {
 
 type FunctionNotificationsSchema struct {
 	// Notification ID
-	ID string `json:"id"`
+	ID *string `json:"id,omitempty"`
 	// Notification event state field name
-	Field string `json:"field"`
+	Field *string `json:"field,omitempty"`
 	// Toggle deduplication.
-	Deduplicate bool `json:"deduplicate"`
+	Deduplicate *bool `json:"deduplicate,omitempty"`
 }
 
 func (f FunctionNotificationsSchema) MarshalJSON() ([]byte, error) {
@@ -45,29 +45,29 @@ func (f FunctionNotificationsSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionNotificationsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"id", "field", "deduplicate"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionNotificationsSchema) GetID() string {
+func (f *FunctionNotificationsSchema) GetID() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.ID
 }
 
-func (f *FunctionNotificationsSchema) GetField() string {
+func (f *FunctionNotificationsSchema) GetField() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.Field
 }
 
-func (f *FunctionNotificationsSchema) GetDeduplicate() bool {
+func (f *FunctionNotificationsSchema) GetDeduplicate() *bool {
 	if f == nil {
-		return false
+		return nil
 	}
 	return f.Deduplicate
 }

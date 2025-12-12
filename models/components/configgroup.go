@@ -71,6 +71,9 @@ func (c *ConfigGroupGit) GetLog() []Commit {
 type ConfigGroupType string
 
 const (
+	ConfigGroupTypeEdge        ConfigGroupType = "edge"
+	ConfigGroupTypeStream      ConfigGroupType = "stream"
+	ConfigGroupTypeSearch      ConfigGroupType = "search"
 	ConfigGroupTypeLakeAccess  ConfigGroupType = "lake_access"
 	ConfigGroupTypeLocalSearch ConfigGroupType = "local_search"
 )
@@ -83,7 +86,7 @@ func (e ConfigGroupType) ToPointer() *ConfigGroupType {
 func (e *ConfigGroupType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "lake_access", "local_search":
+		case "edge", "stream", "search", "lake_access", "local_search":
 			return true
 		}
 	}

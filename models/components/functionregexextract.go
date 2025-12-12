@@ -56,7 +56,7 @@ func (f *FunctionRegexExtractRegexList) GetRegex() string {
 
 type FunctionRegexExtractSchema struct {
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     string                          `json:"regex"`
+	Regex     *string                         `json:"regex,omitempty"`
 	RegexList []FunctionRegexExtractRegexList `json:"regexList,omitempty"`
 	// Field on which to perform regex field extraction
 	Source *string `default:"_raw" json:"source"`
@@ -73,15 +73,15 @@ func (f FunctionRegexExtractSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionRegexExtractSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"regex"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionRegexExtractSchema) GetRegex() string {
+func (f *FunctionRegexExtractSchema) GetRegex() *string {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.Regex
 }

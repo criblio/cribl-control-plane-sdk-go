@@ -5,4 +5,4 @@
 
 | Field                                   | Type                                    | Required                                | Description                             |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| `RulesetID`                             | *string*                                | :heavy_check_mark:                      | ID of the local search datatype ruleset |
+| `RulesetID`                             | **string*                               | :heavy_minus_sign:                      | ID of the local search datatype ruleset |

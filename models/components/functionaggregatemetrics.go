@@ -134,7 +134,7 @@ type FunctionAggregateMetricsSchema struct {
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
 	TimeWindow *string `default:"10s" json:"timeWindow"`
 	// Combination of Aggregation function and output metric type
-	Aggregations []Aggregation `json:"aggregations"`
+	Aggregations []Aggregation `json:"aggregations,omitempty"`
 	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
 	Groupbys []string `json:"groupbys,omitempty"`
 	// The maximum number of events to include in any given aggregation event
@@ -156,7 +156,7 @@ func (f FunctionAggregateMetricsSchema) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionAggregateMetricsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -199,7 +199,7 @@ func (f *FunctionAggregateMetricsSchema) GetTimeWindow() *string {
 
 func (f *FunctionAggregateMetricsSchema) GetAggregations() []Aggregation {
 	if f == nil {
-		return []Aggregation{}
+		return nil
 	}
 	return f.Aggregations
 }

@@ -33,9 +33,9 @@ func (e *FunctionUnionID) UnmarshalJSON(data []byte) error {
 
 type UnionConfiguration struct {
 	// The id for this search job.
-	SearchJobID string `json:"searchJobId"`
+	SearchJobID *string `json:"searchJobId,omitempty"`
 	// The stages we are unioning with.
-	StageIds []string `json:"stageIds"`
+	StageIds []string `json:"stageIds,omitempty"`
 }
 
 func (u UnionConfiguration) MarshalJSON() ([]byte, error) {
@@ -43,22 +43,22 @@ func (u UnionConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (u *UnionConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"searchJobId", "stageIds"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u *UnionConfiguration) GetSearchJobID() string {
+func (u *UnionConfiguration) GetSearchJobID() *string {
 	if u == nil {
-		return ""
+		return nil
 	}
 	return u.SearchJobID
 }
 
 func (u *UnionConfiguration) GetStageIds() []string {
 	if u == nil {
-		return []string{}
+		return nil
 	}
 	return u.StageIds
 }
