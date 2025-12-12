@@ -75,6 +75,17 @@ func (e InputWizMode) ToPointer() *InputWizMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputWizCompression - Codec to use to compress the persisted data
 type InputWizCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputWizCompression) ToPointer() *InputWizCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWizPqControls struct {
@@ -274,6 +296,17 @@ func (e InputWizRetryType) ToPointer() *InputWizRetryType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
+}
+
 type InputWizRetryRules struct {
 	// The algorithm to use when performing HTTP retries
 	Type *InputWizRetryType `default:"backoff" json:"type"`
@@ -370,6 +403,17 @@ const (
 
 func (e InputWizAuthenticationMethod) ToPointer() *InputWizAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWiz struct {

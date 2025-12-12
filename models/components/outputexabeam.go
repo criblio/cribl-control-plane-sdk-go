@@ -43,6 +43,17 @@ func (e OutputExabeamSignatureVersion) ToPointer() *OutputExabeamSignatureVersio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputExabeamObjectACL - Object ACL to assign to uploaded objects
 type OutputExabeamObjectACL string
 
@@ -65,6 +76,17 @@ func (e OutputExabeamObjectACL) ToPointer() *OutputExabeamObjectACL {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamObjectACL) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "private", "bucket-owner-read", "bucket-owner-full-control", "project-private", "authenticated-read", "public-read":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputExabeamStorageClass - Storage class to select for uploaded objects
 type OutputExabeamStorageClass string
 
@@ -83,6 +105,17 @@ func (e OutputExabeamStorageClass) ToPointer() *OutputExabeamStorageClass {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamStorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "NEARLINE", "COLDLINE", "ARCHIVE":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputExabeamBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputExabeamBackpressureBehavior string
 
@@ -97,6 +130,17 @@ func (e OutputExabeamBackpressureBehavior) ToPointer() *OutputExabeamBackpressur
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputExabeamDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
 type OutputExabeamDiskSpaceProtection string
 
@@ -109,6 +153,17 @@ const (
 
 func (e OutputExabeamDiskSpaceProtection) ToPointer() *OutputExabeamDiskSpaceProtection {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputExabeam struct {

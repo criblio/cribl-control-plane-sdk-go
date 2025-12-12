@@ -75,6 +75,17 @@ func (e InputGooglePubsubMode) ToPointer() *InputGooglePubsubMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGooglePubsubMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputGooglePubsubCompression - Codec to use to compress the persisted data
 type InputGooglePubsubCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputGooglePubsubCompression) ToPointer() *InputGooglePubsubCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGooglePubsubCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputGooglePubsubPqControls struct {
@@ -202,6 +224,17 @@ const (
 
 func (e InputGooglePubsubGoogleAuthenticationMethod) ToPointer() *InputGooglePubsubGoogleAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGooglePubsubGoogleAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputGooglePubsubMetadatum struct {

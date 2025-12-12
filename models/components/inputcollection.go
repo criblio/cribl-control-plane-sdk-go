@@ -75,6 +75,17 @@ func (e InputCollectionMode) ToPointer() *InputCollectionMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCollectionMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputCollectionCompression - Codec to use to compress the persisted data
 type InputCollectionCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputCollectionCompression) ToPointer() *InputCollectionCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCollectionCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCollectionPqControls struct {

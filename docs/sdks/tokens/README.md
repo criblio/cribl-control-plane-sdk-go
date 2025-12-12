@@ -1,5 +1,4 @@
-# Tokens
-(*Auth.Tokens*)
+# Auth.Tokens
 
 ## Overview
 

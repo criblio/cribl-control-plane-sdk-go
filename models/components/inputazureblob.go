@@ -75,6 +75,17 @@ func (e InputAzureBlobMode) ToPointer() *InputAzureBlobMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAzureBlobMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputAzureBlobCompression - Codec to use to compress the persisted data
 type InputAzureBlobCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputAzureBlobCompression) ToPointer() *InputAzureBlobCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAzureBlobCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputAzureBlobPqControls struct {
@@ -230,6 +252,17 @@ const (
 
 func (e InputAzureBlobAuthenticationMethod) ToPointer() *InputAzureBlobAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAzureBlobAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "clientSecret", "clientCert":
+			return true
+		}
+	}
+	return false
 }
 
 type InputAzureBlobCertificate struct {

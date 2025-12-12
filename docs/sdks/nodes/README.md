@@ -1,5 +1,4 @@
 # Nodes
-(*Nodes*)
 
 ## Overview
 

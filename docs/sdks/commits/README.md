@@ -1,5 +1,4 @@
-# Commits
-(*Versions.Commits*)
+# Versions.Commits
 
 ## Overview
 
