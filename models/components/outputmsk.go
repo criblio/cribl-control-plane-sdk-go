@@ -47,6 +47,17 @@ func (e OutputMskAcknowledgments) ToPointer() *OutputMskAcknowledgments {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskAcknowledgments) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 1, 0, -1:
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMskRecordDataFormat - Format to use to serialize events before writing to Kafka.
 type OutputMskRecordDataFormat string
 
@@ -61,6 +72,17 @@ const (
 
 func (e OutputMskRecordDataFormat) ToPointer() *OutputMskRecordDataFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskRecordDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "protobuf":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputMskCompression - Codec to use to compress the data before sending to Kafka
@@ -81,6 +103,17 @@ const (
 
 func (e OutputMskCompression) ToPointer() *OutputMskCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip", "snappy", "lz4", "zstd":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputMskAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -128,6 +161,17 @@ func (e OutputMskKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *OutputMskKaf
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputMskKafkaSchemaRegistryMaximumTLSVersion string
 
 const (
@@ -139,6 +183,17 @@ const (
 
 func (e OutputMskKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *OutputMskKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputMskKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -352,6 +407,17 @@ func (e OutputMskAuthenticationMethod) ToPointer() *OutputMskAuthenticationMetho
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMskSignatureVersion - Signature version to use for signing MSK cluster requests
 type OutputMskSignatureVersion string
 
@@ -362,6 +428,17 @@ const (
 
 func (e OutputMskSignatureVersion) ToPointer() *OutputMskSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputMskMinimumTLSVersion string
@@ -377,6 +454,17 @@ func (e OutputMskMinimumTLSVersion) ToPointer() *OutputMskMinimumTLSVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputMskMaximumTLSVersion string
 
 const (
@@ -388,6 +476,17 @@ const (
 
 func (e OutputMskMaximumTLSVersion) ToPointer() *OutputMskMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputMskTLSSettingsClientSide struct {
@@ -508,6 +607,17 @@ func (e OutputMskBackpressureBehavior) ToPointer() *OutputMskBackpressureBehavio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMskMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputMskMode string
 
@@ -524,6 +634,17 @@ func (e OutputMskMode) ToPointer() *OutputMskMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMskPqCompressCompression - Codec to use to compress the persisted data
 type OutputMskPqCompressCompression string
 
@@ -538,6 +659,17 @@ func (e OutputMskPqCompressCompression) ToPointer() *OutputMskPqCompressCompress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputMskQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputMskQueueFullBehavior string
 
@@ -550,6 +682,17 @@ const (
 
 func (e OutputMskQueueFullBehavior) ToPointer() *OutputMskQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputMskPqControls struct {

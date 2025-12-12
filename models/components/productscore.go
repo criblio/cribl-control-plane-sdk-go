@@ -12,3 +12,14 @@ const (
 func (e ProductsCore) ToPointer() *ProductsCore {
 	return &e
 }
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ProductsCore) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "stream", "edge":
+			return true
+		}
+	}
+	return false
+}

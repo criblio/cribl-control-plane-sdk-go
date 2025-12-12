@@ -47,6 +47,17 @@ func (e OutputS3AuthenticationMethod) ToPointer() *OutputS3AuthenticationMethod 
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3AuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputS3SignatureVersion - Signature version to use for signing S3 requests
 type OutputS3SignatureVersion string
 
@@ -57,6 +68,17 @@ const (
 
 func (e OutputS3SignatureVersion) ToPointer() *OutputS3SignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3SignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputS3ObjectACL - Object ACL to assign to uploaded objects
@@ -81,6 +103,17 @@ const (
 
 func (e OutputS3ObjectACL) ToPointer() *OutputS3ObjectACL {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3ObjectACL) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "private", "public-read", "public-read-write", "authenticated-read", "aws-exec-read", "bucket-owner-read", "bucket-owner-full-control":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputS3StorageClass - Storage class to select for uploaded objects
@@ -109,6 +142,17 @@ func (e OutputS3StorageClass) ToPointer() *OutputS3StorageClass {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3StorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "REDUCED_REDUNDANCY", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER", "GLACIER_IR", "DEEP_ARCHIVE":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputS3ServerSideEncryptionForUploadedObjects string
 
 const (
@@ -120,6 +164,17 @@ const (
 
 func (e OutputS3ServerSideEncryptionForUploadedObjects) ToPointer() *OutputS3ServerSideEncryptionForUploadedObjects {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3ServerSideEncryptionForUploadedObjects) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "AES256", "aws:kms":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputS3DataFormat - Format of the output data
@@ -138,6 +193,17 @@ func (e OutputS3DataFormat) ToPointer() *OutputS3DataFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3DataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputS3BackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputS3BackpressureBehavior string
 
@@ -150,6 +216,17 @@ const (
 
 func (e OutputS3BackpressureBehavior) ToPointer() *OutputS3BackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3BackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputS3DiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
@@ -166,6 +243,17 @@ func (e OutputS3DiskSpaceProtection) ToPointer() *OutputS3DiskSpaceProtection {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3DiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputS3Compression - Data compression format to apply to HTTP content before it is delivered
 type OutputS3Compression string
 
@@ -176,6 +264,17 @@ const (
 
 func (e OutputS3Compression) ToPointer() *OutputS3Compression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3Compression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputS3CompressionLevel - Compression level to apply before moving files to final destination
@@ -194,6 +293,17 @@ func (e OutputS3CompressionLevel) ToPointer() *OutputS3CompressionLevel {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3CompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputS3ParquetVersion - Determines which data types are supported and how they are represented
 type OutputS3ParquetVersion string
 
@@ -210,6 +320,17 @@ func (e OutputS3ParquetVersion) ToPointer() *OutputS3ParquetVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3ParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputS3DataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputS3DataPageVersion string
 
@@ -222,6 +343,17 @@ const (
 
 func (e OutputS3DataPageVersion) ToPointer() *OutputS3DataPageVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputS3DataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputS3KeyValueMetadatum struct {

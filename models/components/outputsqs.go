@@ -45,6 +45,17 @@ func (e OutputSqsQueueType) ToPointer() *OutputSqsQueueType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsQueueType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "standard", "fifo":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSqsAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
 type OutputSqsAuthenticationMethod string
 
@@ -61,6 +72,17 @@ func (e OutputSqsAuthenticationMethod) ToPointer() *OutputSqsAuthenticationMetho
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSqsSignatureVersion - Signature version to use for signing SQS requests
 type OutputSqsSignatureVersion string
 
@@ -71,6 +93,17 @@ const (
 
 func (e OutputSqsSignatureVersion) ToPointer() *OutputSqsSignatureVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputSqsBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -89,6 +122,17 @@ func (e OutputSqsBackpressureBehavior) ToPointer() *OutputSqsBackpressureBehavio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSqsMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputSqsMode string
 
@@ -105,6 +149,17 @@ func (e OutputSqsMode) ToPointer() *OutputSqsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSqsCompression - Codec to use to compress the persisted data
 type OutputSqsCompression string
 
@@ -119,6 +174,17 @@ func (e OutputSqsCompression) ToPointer() *OutputSqsCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSqsQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSqsQueueFullBehavior string
 
@@ -131,6 +197,17 @@ const (
 
 func (e OutputSqsQueueFullBehavior) ToPointer() *OutputSqsQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSqsPqControls struct {

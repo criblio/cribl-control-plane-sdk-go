@@ -16,8 +16,8 @@ const (
 )
 
 type Stats struct {
-	Number      *float64           `queryParam:"inline,name=stats"`
-	MapOfNumber map[string]float64 `queryParam:"inline,name=stats"`
+	Number      *float64           `queryParam:"inline,name=stats" union:"member"`
+	MapOfNumber map[string]float64 `queryParam:"inline,name=stats" union:"member"`
 
 	Type StatsType
 }

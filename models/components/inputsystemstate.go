@@ -75,6 +75,17 @@ func (e InputSystemStateMode) ToPointer() *InputSystemStateMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemStateMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSystemStateCompression - Codec to use to compress the persisted data
 type InputSystemStateCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputSystemStateCompression) ToPointer() *InputSystemStateCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemStateCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSystemStatePqControls struct {
@@ -594,6 +616,17 @@ const (
 
 func (e InputSystemStateDataCompressionFormat) ToPointer() *InputSystemStateDataCompressionFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemStateDataCompressionFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSystemStatePersistence struct {

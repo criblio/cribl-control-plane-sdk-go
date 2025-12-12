@@ -75,6 +75,17 @@ func (e InputSplunkSearchMode) ToPointer() *InputSplunkSearchMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSplunkSearchCompression - Codec to use to compress the persisted data
 type InputSplunkSearchCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputSplunkSearchCompression) ToPointer() *InputSplunkSearchCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkSearchPqControls struct {
@@ -200,6 +222,17 @@ func (e OutputMode) ToPointer() *OutputMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "csv", "json":
+			return true
+		}
+	}
+	return false
+}
+
 type EndpointParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
@@ -276,6 +309,17 @@ func (e InputSplunkSearchLogLevel) ToPointer() *InputSplunkSearchLogLevel {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSplunkSearchMetadatum struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -321,6 +365,17 @@ const (
 
 func (e InputSplunkSearchRetryType) ToPointer() *InputSplunkSearchRetryType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkSearchRetryRules struct {
@@ -423,6 +478,17 @@ const (
 
 func (e InputSplunkSearchAuthenticationType) ToPointer() *InputSplunkSearchAuthenticationType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkSearchOauthParam struct {

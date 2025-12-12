@@ -75,6 +75,17 @@ func (e InputCriblHTTPMode) ToPointer() *InputCriblHTTPMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblHTTPMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputCriblHTTPCompression - Codec to use to compress the persisted data
 type InputCriblHTTPCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputCriblHTTPCompression) ToPointer() *InputCriblHTTPCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblHTTPCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCriblHTTPPqControls struct {
@@ -241,6 +263,17 @@ func (e InputCriblHTTPMinimumTLSVersion) ToPointer() *InputCriblHTTPMinimumTLSVe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblHTTPMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputCriblHTTPMaximumTLSVersion string
 
 const (
@@ -252,6 +285,17 @@ const (
 
 func (e InputCriblHTTPMaximumTLSVersion) ToPointer() *InputCriblHTTPMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblHTTPMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCriblHTTPTLSSettingsServerSide struct {

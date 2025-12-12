@@ -43,6 +43,17 @@ func (e OutputDynatraceOtlpProtocol) ToPointer() *OutputDynatraceOtlpProtocol {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOtlpProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDynatraceOTLPOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
 type OutputDynatraceOTLPOTLPVersion string
 
@@ -53,6 +64,17 @@ const (
 
 func (e OutputDynatraceOTLPOTLPVersion) ToPointer() *OutputDynatraceOTLPOTLPVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOTLPOTLPVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "1.3.1":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputDynatraceOtlpCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -71,6 +93,17 @@ func (e OutputDynatraceOtlpCompressCompression) ToPointer() *OutputDynatraceOtlp
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOtlpCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "deflate", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDynatraceOtlpHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
 type OutputDynatraceOtlpHTTPCompressCompression string
 
@@ -83,6 +116,17 @@ const (
 
 func (e OutputDynatraceOtlpHTTPCompressCompression) ToPointer() *OutputDynatraceOtlpHTTPCompressCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOtlpHTTPCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDynatraceOtlpMetadatum struct {
@@ -131,6 +175,17 @@ func (e OutputDynatraceOtlpFailedRequestLoggingMode) ToPointer() *OutputDynatrac
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOtlpFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 // EndpointType - Select the type of Dynatrace endpoint configured
 type EndpointType string
 
@@ -143,6 +198,17 @@ const (
 
 func (e EndpointType) ToPointer() *EndpointType {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EndpointType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "saas", "ag":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputDynatraceOtlpBackpressureBehavior - How to handle events when all receivers are exerting backpressure
@@ -159,6 +225,17 @@ const (
 
 func (e OutputDynatraceOtlpBackpressureBehavior) ToPointer() *OutputDynatraceOtlpBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOtlpBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDynatraceOtlpExtraHTTPHeader struct {
@@ -306,6 +383,17 @@ func (e OutputDynatraceOtlpMode) ToPointer() *OutputDynatraceOtlpMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOtlpMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDynatraceOtlpPqCompressCompression - Codec to use to compress the persisted data
 type OutputDynatraceOtlpPqCompressCompression string
 
@@ -320,6 +408,17 @@ func (e OutputDynatraceOtlpPqCompressCompression) ToPointer() *OutputDynatraceOt
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOtlpPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputDynatraceOtlpQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputDynatraceOtlpQueueFullBehavior string
 
@@ -332,6 +431,17 @@ const (
 
 func (e OutputDynatraceOtlpQueueFullBehavior) ToPointer() *OutputDynatraceOtlpQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDynatraceOtlpQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputDynatraceOtlpPqControls struct {
