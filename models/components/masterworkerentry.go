@@ -17,6 +17,17 @@ func (e MasterWorkerEntryType) ToPointer() *MasterWorkerEntryType {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *MasterWorkerEntryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "info", "req", "resp":
+			return true
+		}
+	}
+	return false
+}
+
 type MasterWorkerEntryWorkers struct {
 	Count float64 `json:"count"`
 }

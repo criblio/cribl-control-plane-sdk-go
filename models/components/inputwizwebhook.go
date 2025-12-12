@@ -75,6 +75,17 @@ func (e InputWizWebhookMode) ToPointer() *InputWizWebhookMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizWebhookMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputWizWebhookCompression - Codec to use to compress the persisted data
 type InputWizWebhookCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputWizWebhookCompression) ToPointer() *InputWizWebhookCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizWebhookCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWizWebhookPqControls struct {
@@ -201,6 +223,17 @@ func (e InputWizWebhookMinimumTLSVersion) ToPointer() *InputWizWebhookMinimumTLS
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizWebhookMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputWizWebhookMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputWizWebhookMaximumTLSVersion) ToPointer() *InputWizWebhookMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputWizWebhookMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputWizWebhookTLSSettingsServerSide struct {

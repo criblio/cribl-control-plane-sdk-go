@@ -45,6 +45,17 @@ func (e OutputSplunkLbNestedFieldSerialization) ToPointer() *OutputSplunkLbNeste
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbNestedFieldSerialization) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSplunkLbMinimumTLSVersion string
 
 const (
@@ -58,6 +69,17 @@ func (e OutputSplunkLbMinimumTLSVersion) ToPointer() *OutputSplunkLbMinimumTLSVe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSplunkLbMaximumTLSVersion string
 
 const (
@@ -69,6 +91,17 @@ const (
 
 func (e OutputSplunkLbMaximumTLSVersion) ToPointer() *OutputSplunkLbMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSplunkLbTLSSettingsClientSide struct {
@@ -185,6 +218,17 @@ func (e OutputSplunkLbMaxS2SVersion) ToPointer() *OutputSplunkLbMaxS2SVersion {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbMaxS2SVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v3", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkLbBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputSplunkLbBackpressureBehavior string
 
@@ -201,6 +245,17 @@ func (e OutputSplunkLbBackpressureBehavior) ToPointer() *OutputSplunkLbBackpress
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkLbAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type OutputSplunkLbAuthenticationMethod string
 
@@ -211,6 +266,17 @@ const (
 
 func (e OutputSplunkLbAuthenticationMethod) ToPointer() *OutputSplunkLbAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputSplunkLbCompressCompression - Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
@@ -229,6 +295,17 @@ func (e OutputSplunkLbCompressCompression) ToPointer() *OutputSplunkLbCompressCo
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "disabled", "auto", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // IndexerDiscoveryConfigsAuthTokenAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 type IndexerDiscoveryConfigsAuthTokenAuthenticationMethod string
 
@@ -239,6 +316,17 @@ const (
 
 func (e IndexerDiscoveryConfigsAuthTokenAuthenticationMethod) ToPointer() *IndexerDiscoveryConfigsAuthTokenAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *IndexerDiscoveryConfigsAuthTokenAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSplunkLbAuthToken struct {
@@ -274,6 +362,17 @@ const (
 
 func (e IndexerDiscoveryConfigsAuthenticationMethod) ToPointer() *IndexerDiscoveryConfigsAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *IndexerDiscoveryConfigsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 // IndexerDiscoveryConfigs - List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
@@ -375,6 +474,17 @@ func (e OutputSplunkLbTLS) ToPointer() *OutputSplunkLbTLS {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbTLS) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "inherit", "off":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSplunkLbHost struct {
 	// The hostname of the receiver
 	Host string `json:"host"`
@@ -450,6 +560,17 @@ func (e OutputSplunkLbMode) ToPointer() *OutputSplunkLbMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkLbPqCompressCompression - Codec to use to compress the persisted data
 type OutputSplunkLbPqCompressCompression string
 
@@ -464,6 +585,17 @@ func (e OutputSplunkLbPqCompressCompression) ToPointer() *OutputSplunkLbPqCompre
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSplunkLbQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputSplunkLbQueueFullBehavior string
 
@@ -476,6 +608,17 @@ const (
 
 func (e OutputSplunkLbQueueFullBehavior) ToPointer() *OutputSplunkLbQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSplunkLbQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputSplunkLbPqControls struct {

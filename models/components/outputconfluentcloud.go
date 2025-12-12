@@ -44,6 +44,17 @@ func (e OutputConfluentCloudMinimumTLSVersion) ToPointer() *OutputConfluentCloud
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputConfluentCloudMaximumTLSVersion string
 
 const (
@@ -55,6 +66,17 @@ const (
 
 func (e OutputConfluentCloudMaximumTLSVersion) ToPointer() *OutputConfluentCloudMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputConfluentCloudTLSSettingsClientSide struct {
@@ -175,6 +197,17 @@ func (e OutputConfluentCloudAcknowledgments) ToPointer() *OutputConfluentCloudAc
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudAcknowledgments) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 1, 0, -1:
+			return true
+		}
+	}
+	return false
+}
+
 // OutputConfluentCloudRecordDataFormat - Format to use to serialize events before writing to Kafka.
 type OutputConfluentCloudRecordDataFormat string
 
@@ -189,6 +222,17 @@ const (
 
 func (e OutputConfluentCloudRecordDataFormat) ToPointer() *OutputConfluentCloudRecordDataFormat {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudRecordDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "protobuf":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputConfluentCloudCompression - Codec to use to compress the data before sending to Kafka
@@ -209,6 +253,17 @@ const (
 
 func (e OutputConfluentCloudCompression) ToPointer() *OutputConfluentCloudCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip", "snappy", "lz4", "zstd":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputConfluentCloudAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -256,6 +311,17 @@ func (e OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *O
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion string
 
 const (
@@ -267,6 +333,17 @@ const (
 
 func (e OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide struct {
@@ -476,6 +553,17 @@ func (e OutputConfluentCloudAuthenticationMethod) ToPointer() *OutputConfluentCl
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputConfluentCloudSASLMechanism string
 
 const (
@@ -491,6 +579,17 @@ const (
 
 func (e OutputConfluentCloudSASLMechanism) ToPointer() *OutputConfluentCloudSASLMechanism {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudSASLMechanism) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "plain", "scram-sha-256", "scram-sha-512", "kerberos":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputConfluentCloudOauthParam struct {
@@ -723,6 +822,17 @@ func (e OutputConfluentCloudBackpressureBehavior) ToPointer() *OutputConfluentCl
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputConfluentCloudMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputConfluentCloudMode string
 
@@ -739,6 +849,17 @@ func (e OutputConfluentCloudMode) ToPointer() *OutputConfluentCloudMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputConfluentCloudPqCompressCompression - Codec to use to compress the persisted data
 type OutputConfluentCloudPqCompressCompression string
 
@@ -753,6 +874,17 @@ func (e OutputConfluentCloudPqCompressCompression) ToPointer() *OutputConfluentC
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputConfluentCloudQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputConfluentCloudQueueFullBehavior string
 
@@ -765,6 +897,17 @@ const (
 
 func (e OutputConfluentCloudQueueFullBehavior) ToPointer() *OutputConfluentCloudQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputConfluentCloudQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputConfluentCloudPqControls struct {

@@ -77,6 +77,17 @@ func (e OutputAzureLogsFailedRequestLoggingMode) ToPointer() *OutputAzureLogsFai
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputAzureLogsResponseRetrySetting struct {
 	// The HTTP response status code that will trigger retries
 	HTTPStatus float64 `json:"httpStatus"`
@@ -192,6 +203,17 @@ func (e OutputAzureLogsBackpressureBehavior) ToPointer() *OutputAzureLogsBackpre
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureLogsAuthenticationMethod - Enter workspace ID and workspace key directly, or select a stored secret
 type OutputAzureLogsAuthenticationMethod string
 
@@ -202,6 +224,17 @@ const (
 
 func (e OutputAzureLogsAuthenticationMethod) ToPointer() *OutputAzureLogsAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputAzureLogsMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
@@ -220,6 +253,17 @@ func (e OutputAzureLogsMode) ToPointer() *OutputAzureLogsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureLogsCompression - Codec to use to compress the persisted data
 type OutputAzureLogsCompression string
 
@@ -234,6 +278,17 @@ func (e OutputAzureLogsCompression) ToPointer() *OutputAzureLogsCompression {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureLogsQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputAzureLogsQueueFullBehavior string
 
@@ -246,6 +301,17 @@ const (
 
 func (e OutputAzureLogsQueueFullBehavior) ToPointer() *OutputAzureLogsQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputAzureLogsPqControls struct {

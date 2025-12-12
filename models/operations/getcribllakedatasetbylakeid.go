@@ -9,6 +9,18 @@ import (
 type GetCriblLakeDatasetByLakeIDRequest struct {
 	// The <code>id</code> of the Lake that contains the Lake Datasets to list.
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
+	// Filter datasets by storage location ID. Use <code>default</code> for default storage location.
+	StorageLocationID *string `queryParam:"style=form,explode=true,name=storageLocationId"`
+	// Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+	Format *string `queryParam:"style=form,explode=true,name=format"`
+	// Exclude DDSS format datasets from the response.
+	ExcludeDDSS *bool `queryParam:"style=form,explode=true,name=excludeDDSS"`
+	// Exclude deleted datasets from the response.
+	ExcludeDeleted *bool `queryParam:"style=form,explode=true,name=excludeDeleted"`
+	// Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
+	ExcludeInternal *bool `queryParam:"style=form,explode=true,name=excludeInternal"`
+	// Exclude BYOS (Bring Your Own Storage) datasets from the response.
+	ExcludeBYOS *bool `queryParam:"style=form,explode=true,name=excludeBYOS"`
 }
 
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
@@ -16,6 +28,48 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
 		return ""
 	}
 	return g.LakeID
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetStorageLocationID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.StorageLocationID
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetFormat() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Format
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDDSS() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExcludeDDSS
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDeleted() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExcludeDeleted
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeInternal() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExcludeInternal
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeBYOS() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExcludeBYOS
 }
 
 // GetCriblLakeDatasetByLakeIDResponseBody - a list of CriblLakeDataset objects

@@ -47,6 +47,17 @@ func (e OutputAzureBlobDataFormat) ToPointer() *OutputAzureBlobDataFormat {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureBlobDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureBlobBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputAzureBlobBackpressureBehavior string
 
@@ -59,6 +70,17 @@ const (
 
 func (e OutputAzureBlobBackpressureBehavior) ToPointer() *OutputAzureBlobBackpressureBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureBlobBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputAzureBlobDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
@@ -75,6 +97,17 @@ func (e OutputAzureBlobDiskSpaceProtection) ToPointer() *OutputAzureBlobDiskSpac
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureBlobDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputAzureBlobAuthenticationMethod string
 
 const (
@@ -86,6 +119,17 @@ const (
 
 func (e OutputAzureBlobAuthenticationMethod) ToPointer() *OutputAzureBlobAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureBlobAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "clientSecret", "clientCert":
+			return true
+		}
+	}
+	return false
 }
 
 type BlobAccessTier string
@@ -107,6 +151,17 @@ func (e BlobAccessTier) ToPointer() *BlobAccessTier {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BlobAccessTier) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "Inferred", "Hot", "Cool", "Cold", "Archive":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureBlobCompression - Data compression format to apply to HTTP content before it is delivered
 type OutputAzureBlobCompression string
 
@@ -117,6 +172,17 @@ const (
 
 func (e OutputAzureBlobCompression) ToPointer() *OutputAzureBlobCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureBlobCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 // OutputAzureBlobCompressionLevel - Compression level to apply before moving files to final destination
@@ -135,6 +201,17 @@ func (e OutputAzureBlobCompressionLevel) ToPointer() *OutputAzureBlobCompression
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureBlobCompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureBlobParquetVersion - Determines which data types are supported and how they are represented
 type OutputAzureBlobParquetVersion string
 
@@ -151,6 +228,17 @@ func (e OutputAzureBlobParquetVersion) ToPointer() *OutputAzureBlobParquetVersio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureBlobParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureBlobDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
 type OutputAzureBlobDataPageVersion string
 
@@ -163,6 +251,17 @@ const (
 
 func (e OutputAzureBlobDataPageVersion) ToPointer() *OutputAzureBlobDataPageVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureBlobDataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputAzureBlobKeyValueMetadatum struct {

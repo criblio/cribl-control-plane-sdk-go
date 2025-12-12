@@ -77,6 +77,17 @@ func (e OutputElasticCloudFailedRequestLoggingMode) ToPointer() *OutputElasticCl
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticCloudFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputElasticCloudExtraParam struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
@@ -119,6 +130,17 @@ const (
 
 func (e OutputElasticCloudAuthenticationMethod) ToPointer() *OutputElasticCloudAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticCloudAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "manualAPIKey", "textSecret":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputElasticCloudAuth struct {
@@ -310,6 +332,17 @@ func (e OutputElasticCloudBackpressureBehavior) ToPointer() *OutputElasticCloudB
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticCloudBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputElasticCloudMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 type OutputElasticCloudMode string
 
@@ -326,6 +359,17 @@ func (e OutputElasticCloudMode) ToPointer() *OutputElasticCloudMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticCloudMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputElasticCloudCompression - Codec to use to compress the persisted data
 type OutputElasticCloudCompression string
 
@@ -340,6 +384,17 @@ func (e OutputElasticCloudCompression) ToPointer() *OutputElasticCloudCompressio
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticCloudCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputElasticCloudQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 type OutputElasticCloudQueueFullBehavior string
 
@@ -352,6 +407,17 @@ const (
 
 func (e OutputElasticCloudQueueFullBehavior) ToPointer() *OutputElasticCloudQueueFullBehavior {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputElasticCloudQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
 }
 
 type OutputElasticCloudPqControls struct {

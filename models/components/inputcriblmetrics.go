@@ -75,6 +75,17 @@ func (e InputCriblmetricsMode) ToPointer() *InputCriblmetricsMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblmetricsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputCriblmetricsCompression - Codec to use to compress the persisted data
 type InputCriblmetricsCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputCriblmetricsCompression) ToPointer() *InputCriblmetricsCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblmetricsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputCriblmetricsPqControls struct {

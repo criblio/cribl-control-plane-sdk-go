@@ -75,6 +75,17 @@ func (e InputSplunkHecMode) ToPointer() *InputSplunkHecMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputSplunkHecCompression - Codec to use to compress the persisted data
 type InputSplunkHecCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputSplunkHecCompression) ToPointer() *InputSplunkHecCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkHecPqControls struct {
@@ -198,6 +220,17 @@ const (
 
 func (e InputSplunkHecAuthenticationMethod) ToPointer() *InputSplunkHecAuthenticationMethod {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkHecAuthTokenMetadatum struct {
@@ -318,6 +351,17 @@ func (e InputSplunkHecMinimumTLSVersion) ToPointer() *InputSplunkHecMinimumTLSVe
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputSplunkHecMaximumTLSVersion string
 
 const (
@@ -329,6 +373,17 @@ const (
 
 func (e InputSplunkHecMaximumTLSVersion) ToPointer() *InputSplunkHecMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkHecMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputSplunkHecTLSSettingsServerSide struct {

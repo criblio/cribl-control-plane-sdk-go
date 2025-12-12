@@ -75,6 +75,17 @@ func (e InputDatadogAgentMode) ToPointer() *InputDatadogAgentMode {
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatadogAgentMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
 // InputDatadogAgentCompression - Codec to use to compress the persisted data
 type InputDatadogAgentCompression string
 
@@ -87,6 +98,17 @@ const (
 
 func (e InputDatadogAgentCompression) ToPointer() *InputDatadogAgentCompression {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatadogAgentCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
 }
 
 type InputDatadogAgentPqControls struct {
@@ -201,6 +223,17 @@ func (e InputDatadogAgentMinimumTLSVersion) ToPointer() *InputDatadogAgentMinimu
 	return &e
 }
 
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatadogAgentMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
 type InputDatadogAgentMaximumTLSVersion string
 
 const (
@@ -212,6 +245,17 @@ const (
 
 func (e InputDatadogAgentMaximumTLSVersion) ToPointer() *InputDatadogAgentMaximumTLSVersion {
 	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatadogAgentMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
 }
 
 type InputDatadogAgentTLSSettingsServerSide struct {

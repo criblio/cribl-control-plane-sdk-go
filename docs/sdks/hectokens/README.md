@@ -1,5 +1,4 @@
-# HecTokens
-(*Sources.HecTokens*)
+# Sources.HecTokens
 
 ## Overview
 
@@ -37,6 +36,9 @@ func main() {
     )
 
     res, err := s.Sources.HecTokens.Create(ctx, "<id>", components.AddHecTokenRequest{
+        AllowedIndexesAtToken: []string{
+            "<value 1>",
+        },
         Description: criblcontrolplanesdkgo.Pointer("bah ick stingy"),
         Enabled: criblcontrolplanesdkgo.Pointer(false),
         Metadata: []components.AddHecTokenRequestMetadatum{
@@ -105,6 +107,9 @@ func main() {
     )
 
     res, err := s.Sources.HecTokens.Update(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
+        AllowedIndexesAtToken: []string{
+            "<value 1>",
+        },
         Description: criblcontrolplanesdkgo.Pointer("by bleakly fortunately phew barring"),
         Enabled: criblcontrolplanesdkgo.Pointer(false),
         Metadata: []components.UpdateHecTokenRequestMetadatum{
