@@ -5,14 +5,14 @@ management:
   docVersion: 4.16.0-alpha.1765563517298-e5356002
   speakeasyVersion: 1.674.0
   generationVersion: 2.778.0
-  releaseVersion: 0.4.0-beta.24
-  configChecksum: ac775070ce52b6d3652a3ac88228253d
+  releaseVersion: 0.4.0-beta.25
+  configChecksum: eea44aa41e4b797504cfd16786307fcf
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 0328bc77-f205-41db-a782-9088a9dcd42a
-  pristine_commit_hash: 2c7a9a380053d8432294941924444bf6c596706b
-  pristine_tree_hash: 4b9d5deb4b9d0a5709b70052541a38f3be7b523c
+  generation_id: 7f98d4dc-3263-4005-9a6a-acfc37b3df26
+  pristine_commit_hash: 0586c1aee5b7fbfe5f54823f7b6da0dd3dbb1054
+  pristine_tree_hash: c2ce3bd4c764f8f4ffe8cab5dd213a44f42da095
 features:
   go:
     additionalDependencies: 0.1.0
@@ -85,8 +85,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:c04e745eb4ee3535cb29df423d655d5b87fbb22d
-    pristine_git_object: 70988fb2524443fbe3e581f0833f5e9bc4d0a3e1
+    last_write_checksum: sha1:e2f052ac2671bdc94e4d7e3df5dba89b76e5048a
+    pristine_git_object: cf193ad40408ac9daa560905bf3d11c28223d548
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:4c1067ba5253b5d6e1d7a4a48560e6876bc6c395
@@ -16009,7 +16009,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[criblHttp].ThrottleRatePerSec` **Added**\n  *  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[criblHttp].ThrottleRatePerSec` **Added**\n  *  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Functions.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Functions.List()`:  `response.Items.[]` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
