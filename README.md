@@ -222,6 +222,14 @@ func main() {
 
 * [Get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
 
+### [Collectors](docs/sdks/collectors/README.md)
+
+* [Create](docs/sdks/collectors/README.md#create) - Create a Collector
+* [List](docs/sdks/collectors/README.md#list) - List all Collectors
+* [Delete](docs/sdks/collectors/README.md#delete) - Delete a Collector
+* [Get](docs/sdks/collectors/README.md#get) - Get a Collector
+* [Update](docs/sdks/collectors/README.md#update) - Update a Collector
+
 ### [Destinations](docs/sdks/destinations/README.md)
 
 * [List](docs/sdks/destinations/README.md#list) - List all Destinations
