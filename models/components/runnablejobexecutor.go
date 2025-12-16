@@ -300,58 +300,58 @@ func (r *RunnableJobExecutorSchedule) GetRun() *RunnableJobExecutorRunSettings {
 	return r.Run
 }
 
-type ExecutorSpecificSettings struct {
+type RunnableJobExecutorExecutorSpecificSettings struct {
 }
 
-func (e ExecutorSpecificSettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
+func (r RunnableJobExecutorExecutorSpecificSettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
 }
 
-func (e *ExecutorSpecificSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+func (r *RunnableJobExecutorExecutorSpecificSettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type Executor struct {
+type RunnableJobExecutorExecutor struct {
 	// The type of executor to run
 	Type string `json:"type"`
 	// Determines whether or not to write task results to disk
-	StoreTaskResults *bool                     `default:"true" json:"storeTaskResults"`
-	Conf             *ExecutorSpecificSettings `json:"conf,omitempty"`
+	StoreTaskResults *bool                                        `default:"true" json:"storeTaskResults"`
+	Conf             *RunnableJobExecutorExecutorSpecificSettings `json:"conf,omitempty"`
 }
 
-func (e Executor) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
+func (r RunnableJobExecutorExecutor) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
 }
 
-func (e *Executor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"type"}); err != nil {
+func (r *RunnableJobExecutorExecutor) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *Executor) GetType() string {
-	if e == nil {
+func (r *RunnableJobExecutorExecutor) GetType() string {
+	if r == nil {
 		return ""
 	}
-	return e.Type
+	return r.Type
 }
 
-func (e *Executor) GetStoreTaskResults() *bool {
-	if e == nil {
+func (r *RunnableJobExecutorExecutor) GetStoreTaskResults() *bool {
+	if r == nil {
 		return nil
 	}
-	return e.StoreTaskResults
+	return r.StoreTaskResults
 }
 
-func (e *Executor) GetConf() *ExecutorSpecificSettings {
-	if e == nil {
+func (r *RunnableJobExecutorExecutor) GetConf() *RunnableJobExecutorExecutorSpecificSettings {
+	if r == nil {
 		return nil
 	}
-	return e.Conf
+	return r.Conf
 }
 
 // RunnableJobExecutorLogLevel - Level at which to set task logging
@@ -448,9 +448,9 @@ type RunnableJobExecutor struct {
 	// Configuration for a scheduled job
 	Schedule *RunnableJobExecutorSchedule `json:"schedule,omitempty"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string               `json:"streamtags,omitempty"`
-	Executor   Executor               `json:"executor"`
-	Run        RunnableJobExecutorRun `json:"run"`
+	Streamtags []string                    `json:"streamtags,omitempty"`
+	Executor   RunnableJobExecutorExecutor `json:"executor"`
+	Run        RunnableJobExecutorRun      `json:"run"`
 }
 
 func (r RunnableJobExecutor) MarshalJSON() ([]byte, error) {
@@ -534,9 +534,9 @@ func (r *RunnableJobExecutor) GetStreamtags() []string {
 	return r.Streamtags
 }
 
-func (r *RunnableJobExecutor) GetExecutor() Executor {
+func (r *RunnableJobExecutor) GetExecutor() RunnableJobExecutorExecutor {
 	if r == nil {
-		return Executor{}
+		return RunnableJobExecutorExecutor{}
 	}
 	return r.Executor
 }

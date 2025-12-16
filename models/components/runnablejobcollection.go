@@ -300,7 +300,7 @@ func (r *RunnableJobCollectionSchedule) GetRun() *RunnableJobCollectionRunSettin
 	return r.Run
 }
 
-type Collector struct {
+type RunnableJobCollectionCollector struct {
 	// The type of collector to run
 	Type string `json:"type"`
 	// Collector configuration
@@ -311,97 +311,97 @@ type Collector struct {
 	Encoding *string `json:"encoding,omitempty"`
 }
 
-func (c Collector) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (r RunnableJobCollectionCollector) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
 }
 
-func (c *Collector) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
+func (r *RunnableJobCollectionCollector) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "conf"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *Collector) GetType() string {
-	if c == nil {
+func (r *RunnableJobCollectionCollector) GetType() string {
+	if r == nil {
 		return ""
 	}
-	return c.Type
+	return r.Type
 }
 
-func (c *Collector) GetConf() CollectorConf {
-	if c == nil {
+func (r *RunnableJobCollectionCollector) GetConf() CollectorConf {
+	if r == nil {
 		return CollectorConf{}
 	}
-	return c.Conf
+	return r.Conf
 }
 
-func (c *Collector) GetConfAzureBlob() *CollectorAzureBlob {
-	return c.GetConf().CollectorAzureBlob
+func (r *RunnableJobCollectionCollector) GetConfAzureBlob() *CollectorAzureBlob {
+	return r.GetConf().CollectorAzureBlob
 }
 
-func (c *Collector) GetConfCriblLake() *CollectorCriblLake {
-	return c.GetConf().CollectorCriblLake
+func (r *RunnableJobCollectionCollector) GetConfCriblLake() *CollectorCriblLake {
+	return r.GetConf().CollectorCriblLake
 }
 
-func (c *Collector) GetConfDatabase() *CollectorDatabase {
-	return c.GetConf().CollectorDatabase
+func (r *RunnableJobCollectionCollector) GetConfDatabase() *CollectorDatabase {
+	return r.GetConf().CollectorDatabase
 }
 
-func (c *Collector) GetConfFilesystem() *CollectorFilesystem {
-	return c.GetConf().CollectorFilesystem
+func (r *RunnableJobCollectionCollector) GetConfFilesystem() *CollectorFilesystem {
+	return r.GetConf().CollectorFilesystem
 }
 
-func (c *Collector) GetConfGoogleCloudStorage() *CollectorGoogleCloudStorage {
-	return c.GetConf().CollectorGoogleCloudStorage
+func (r *RunnableJobCollectionCollector) GetConfGoogleCloudStorage() *CollectorGoogleCloudStorage {
+	return r.GetConf().CollectorGoogleCloudStorage
 }
 
-func (c *Collector) GetConfHealthCheck() *CollectorHealthCheck {
-	return c.GetConf().CollectorHealthCheck
+func (r *RunnableJobCollectionCollector) GetConfHealthCheck() *CollectorHealthCheck {
+	return r.GetConf().CollectorHealthCheck
 }
 
-func (c *Collector) GetConfRest() *CollectorRest {
-	return c.GetConf().CollectorRest
+func (r *RunnableJobCollectionCollector) GetConfRest() *CollectorRest {
+	return r.GetConf().CollectorRest
 }
 
-func (c *Collector) GetConfS3() *CollectorS3 {
-	return c.GetConf().CollectorS3
+func (r *RunnableJobCollectionCollector) GetConfS3() *CollectorS3 {
+	return r.GetConf().CollectorS3
 }
 
-func (c *Collector) GetConfScript() *CollectorScript {
-	return c.GetConf().CollectorScript
+func (r *RunnableJobCollectionCollector) GetConfScript() *CollectorScript {
+	return r.GetConf().CollectorScript
 }
 
-func (c *Collector) GetConfSplunk() *CollectorSplunk {
-	return c.GetConf().CollectorSplunk
+func (r *RunnableJobCollectionCollector) GetConfSplunk() *CollectorSplunk {
+	return r.GetConf().CollectorSplunk
 }
 
-func (c *Collector) GetDestructive() *bool {
-	if c == nil {
+func (r *RunnableJobCollectionCollector) GetDestructive() *bool {
+	if r == nil {
 		return nil
 	}
-	return c.Destructive
+	return r.Destructive
 }
 
-func (c *Collector) GetEncoding() *string {
-	if c == nil {
+func (r *RunnableJobCollectionCollector) GetEncoding() *string {
+	if r == nil {
 		return nil
 	}
-	return c.Encoding
+	return r.Encoding
 }
 
-type InputType string
+type RunnableJobCollectionInputType string
 
 const (
-	InputTypeCollection InputType = "collection"
+	RunnableJobCollectionInputTypeCollection RunnableJobCollectionInputType = "collection"
 )
 
-func (e InputType) ToPointer() *InputType {
+func (e RunnableJobCollectionInputType) ToPointer() *RunnableJobCollectionInputType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputType) IsExact() bool {
+func (e *RunnableJobCollectionInputType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "collection":
@@ -483,7 +483,7 @@ func (r *RunnableJobCollectionMetadatum) GetValue() string {
 }
 
 type RunnableJobCollectionInput struct {
-	Type *InputType `default:"collection" json:"type"`
+	Type *RunnableJobCollectionInputType `default:"collection" json:"type"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -512,7 +512,7 @@ func (r *RunnableJobCollectionInput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *RunnableJobCollectionInput) GetType() *InputType {
+func (r *RunnableJobCollectionInput) GetType() *RunnableJobCollectionInputType {
 	if r == nil {
 		return nil
 	}
@@ -901,10 +901,10 @@ type RunnableJobCollection struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// If enabled, tasks are created and run by the same Worker Node
-	WorkerAffinity *bool                       `default:"false" json:"workerAffinity"`
-	Collector      Collector                   `json:"collector"`
-	Input          *RunnableJobCollectionInput `json:"input,omitempty"`
-	Run            RunnableJobCollectionRun    `json:"run"`
+	WorkerAffinity *bool                          `default:"false" json:"workerAffinity"`
+	Collector      RunnableJobCollectionCollector `json:"collector"`
+	Input          *RunnableJobCollectionInput    `json:"input,omitempty"`
+	Run            RunnableJobCollectionRun       `json:"run"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -995,9 +995,9 @@ func (r *RunnableJobCollection) GetWorkerAffinity() *bool {
 	return r.WorkerAffinity
 }
 
-func (r *RunnableJobCollection) GetCollector() Collector {
+func (r *RunnableJobCollection) GetCollector() RunnableJobCollectionCollector {
 	if r == nil {
-		return Collector{}
+		return RunnableJobCollectionCollector{}
 	}
 	return r.Collector
 }

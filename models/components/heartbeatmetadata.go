@@ -53,6 +53,89 @@ func (h *HeartbeatMetadataAws) GetZone() string {
 	return h.Zone
 }
 
+type HeartbeatMetadataAzure struct {
+	Enabled        bool              `json:"enabled"`
+	Hostname       *string           `json:"hostname,omitempty"`
+	InstanceID     *string           `json:"instanceId,omitempty"`
+	Name           *string           `json:"name,omitempty"`
+	Region         *string           `json:"region,omitempty"`
+	ResourceGroup  *string           `json:"resourceGroup,omitempty"`
+	SubscriptionID *string           `json:"subscriptionId,omitempty"`
+	Tags           map[string]string `json:"tags,omitempty"`
+	Type           *string           `json:"type,omitempty"`
+	Zone           *string           `json:"zone,omitempty"`
+}
+
+func (h *HeartbeatMetadataAzure) GetEnabled() bool {
+	if h == nil {
+		return false
+	}
+	return h.Enabled
+}
+
+func (h *HeartbeatMetadataAzure) GetHostname() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Hostname
+}
+
+func (h *HeartbeatMetadataAzure) GetInstanceID() *string {
+	if h == nil {
+		return nil
+	}
+	return h.InstanceID
+}
+
+func (h *HeartbeatMetadataAzure) GetName() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Name
+}
+
+func (h *HeartbeatMetadataAzure) GetRegion() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Region
+}
+
+func (h *HeartbeatMetadataAzure) GetResourceGroup() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ResourceGroup
+}
+
+func (h *HeartbeatMetadataAzure) GetSubscriptionID() *string {
+	if h == nil {
+		return nil
+	}
+	return h.SubscriptionID
+}
+
+func (h *HeartbeatMetadataAzure) GetTags() map[string]string {
+	if h == nil {
+		return nil
+	}
+	return h.Tags
+}
+
+func (h *HeartbeatMetadataAzure) GetType() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Type
+}
+
+func (h *HeartbeatMetadataAzure) GetZone() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Zone
+}
+
 type HeartbeatMetadataHostOs struct {
 	Addresses []string `json:"addresses"`
 	Enabled   bool     `json:"enabled"`
@@ -195,6 +278,7 @@ func (h *HeartbeatMetadataOs) GetVersion() string {
 
 type HeartbeatMetadata struct {
 	Aws    *HeartbeatMetadataAws    `json:"aws,omitempty"`
+	Azure  *HeartbeatMetadataAzure  `json:"azure,omitempty"`
 	HostOs *HeartbeatMetadataHostOs `json:"hostOs,omitempty"`
 	Kube   *HeartbeatMetadataKube   `json:"kube,omitempty"`
 	Os     *HeartbeatMetadataOs     `json:"os,omitempty"`
@@ -205,6 +289,13 @@ func (h *HeartbeatMetadata) GetAws() *HeartbeatMetadataAws {
 		return nil
 	}
 	return h.Aws
+}
+
+func (h *HeartbeatMetadata) GetAzure() *HeartbeatMetadataAzure {
+	if h == nil {
+		return nil
+	}
+	return h.Azure
 }
 
 func (h *HeartbeatMetadata) GetHostOs() *HeartbeatMetadataHostOs {
