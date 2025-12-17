@@ -71,6 +71,9 @@ func (g *GroupCreateRequestGit) GetLog() []Commit {
 type GroupCreateRequestType string
 
 const (
+	GroupCreateRequestTypeEdge        GroupCreateRequestType = "edge"
+	GroupCreateRequestTypeStream      GroupCreateRequestType = "stream"
+	GroupCreateRequestTypeSearch      GroupCreateRequestType = "search"
 	GroupCreateRequestTypeLakeAccess  GroupCreateRequestType = "lake_access"
 	GroupCreateRequestTypeLocalSearch GroupCreateRequestType = "local_search"
 )
@@ -83,7 +86,7 @@ func (e GroupCreateRequestType) ToPointer() *GroupCreateRequestType {
 func (e *GroupCreateRequestType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "lake_access", "local_search":
+		case "edge", "stream", "search", "lake_access", "local_search":
 			return true
 		}
 	}

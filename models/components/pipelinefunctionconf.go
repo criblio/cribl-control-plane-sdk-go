@@ -3,84 +3,1767 @@
 package components
 
 import (
+	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionSpecificConfigs struct {
-}
+type PipelineFunctionConfType string
+
+const (
+	PipelineFunctionConfTypeAggregateMetrics          PipelineFunctionConfType = "aggregate_metrics"
+	PipelineFunctionConfTypeAggregation               PipelineFunctionConfType = "aggregation"
+	PipelineFunctionConfTypeAutoTimestamp             PipelineFunctionConfType = "auto_timestamp"
+	PipelineFunctionConfTypeCef                       PipelineFunctionConfType = "cef"
+	PipelineFunctionConfTypeChain                     PipelineFunctionConfType = "chain"
+	PipelineFunctionConfTypeClone                     PipelineFunctionConfType = "clone"
+	PipelineFunctionConfTypeCode                      PipelineFunctionConfType = "code"
+	PipelineFunctionConfTypeComment                   PipelineFunctionConfType = "comment"
+	PipelineFunctionConfTypeDistinct                  PipelineFunctionConfType = "distinct"
+	PipelineFunctionConfTypeDNSLookup                 PipelineFunctionConfType = "dns_lookup"
+	PipelineFunctionConfTypeDrop                      PipelineFunctionConfType = "drop"
+	PipelineFunctionConfTypeDropDimensions            PipelineFunctionConfType = "drop_dimensions"
+	PipelineFunctionConfTypeDynamicSampling           PipelineFunctionConfType = "dynamic_sampling"
+	PipelineFunctionConfTypeEval                      PipelineFunctionConfType = "eval"
+	PipelineFunctionConfTypeEventBreaker              PipelineFunctionConfType = "event_breaker"
+	PipelineFunctionConfTypeEventstats                PipelineFunctionConfType = "eventstats"
+	PipelineFunctionConfTypeExternaldata              PipelineFunctionConfType = "externaldata"
+	PipelineFunctionConfTypeFlatten                   PipelineFunctionConfType = "flatten"
+	PipelineFunctionConfTypeFoldkeys                  PipelineFunctionConfType = "foldkeys"
+	PipelineFunctionConfTypeGenStats                  PipelineFunctionConfType = "gen_stats"
+	PipelineFunctionConfTypeGeoip                     PipelineFunctionConfType = "geoip"
+	PipelineFunctionConfTypeGrok                      PipelineFunctionConfType = "grok"
+	PipelineFunctionConfTypeHandlebar                 PipelineFunctionConfType = "handlebar"
+	PipelineFunctionConfTypeJoin                      PipelineFunctionConfType = "join"
+	PipelineFunctionConfTypeJSONUnroll                PipelineFunctionConfType = "json_unroll"
+	PipelineFunctionConfTypeLakeExport                PipelineFunctionConfType = "lake_export"
+	PipelineFunctionConfTypeLimit                     PipelineFunctionConfType = "limit"
+	PipelineFunctionConfTypeLocalSearchDatatypeParser PipelineFunctionConfType = "local_search_datatype_parser"
+	PipelineFunctionConfTypeLocalSearchRulesetRunner  PipelineFunctionConfType = "local_search_ruleset_runner"
+	PipelineFunctionConfTypeLookup                    PipelineFunctionConfType = "lookup"
+	PipelineFunctionConfTypeMask                      PipelineFunctionConfType = "mask"
+	PipelineFunctionConfTypeMvExpand                  PipelineFunctionConfType = "mv_expand"
+	PipelineFunctionConfTypeMvPull                    PipelineFunctionConfType = "mv_pull"
+	PipelineFunctionConfTypeNotificationPolicies      PipelineFunctionConfType = "notification_policies"
+	PipelineFunctionConfTypeNotifications             PipelineFunctionConfType = "notifications"
+	PipelineFunctionConfTypeNotify                    PipelineFunctionConfType = "notify"
+	PipelineFunctionConfTypeNumerify                  PipelineFunctionConfType = "numerify"
+	PipelineFunctionConfTypeOtlpLogs                  PipelineFunctionConfType = "otlp_logs"
+	PipelineFunctionConfTypeOtlpMetrics               PipelineFunctionConfType = "otlp_metrics"
+	PipelineFunctionConfTypeOtlpTraces                PipelineFunctionConfType = "otlp_traces"
+	PipelineFunctionConfTypePack                      PipelineFunctionConfType = "pack"
+	PipelineFunctionConfTypePivot                     PipelineFunctionConfType = "pivot"
+	PipelineFunctionConfTypePublishMetrics            PipelineFunctionConfType = "publish_metrics"
+	PipelineFunctionConfTypeRedis                     PipelineFunctionConfType = "redis"
+	PipelineFunctionConfTypeRegexExtract              PipelineFunctionConfType = "regex_extract"
+	PipelineFunctionConfTypeRegexFilter               PipelineFunctionConfType = "regex_filter"
+	PipelineFunctionConfTypeRename                    PipelineFunctionConfType = "rename"
+	PipelineFunctionConfTypeRollupMetrics             PipelineFunctionConfType = "rollup_metrics"
+	PipelineFunctionConfTypeSampling                  PipelineFunctionConfType = "sampling"
+	PipelineFunctionConfTypeSend                      PipelineFunctionConfType = "send"
+	PipelineFunctionConfTypeSensitiveDataScanner      PipelineFunctionConfType = "sensitive_data_scanner"
+	PipelineFunctionConfTypeSerde                     PipelineFunctionConfType = "serde"
+	PipelineFunctionConfTypeSerialize                 PipelineFunctionConfType = "serialize"
+	PipelineFunctionConfTypeSidlookup                 PipelineFunctionConfType = "sidlookup"
+	PipelineFunctionConfTypeSnmpTrapSerialize         PipelineFunctionConfType = "snmp_trap_serialize"
+	PipelineFunctionConfTypeSort                      PipelineFunctionConfType = "sort"
+	PipelineFunctionConfTypeStore                     PipelineFunctionConfType = "store"
+	PipelineFunctionConfTypeSuppress                  PipelineFunctionConfType = "suppress"
+	PipelineFunctionConfTypeTee                       PipelineFunctionConfType = "tee"
+	PipelineFunctionConfTypeTrimTimestamp             PipelineFunctionConfType = "trim_timestamp"
+	PipelineFunctionConfTypeUnion                     PipelineFunctionConfType = "union"
+	PipelineFunctionConfTypeUnroll                    PipelineFunctionConfType = "unroll"
+	PipelineFunctionConfTypeWindow                    PipelineFunctionConfType = "window"
+	PipelineFunctionConfTypeXMLUnroll                 PipelineFunctionConfType = "xml_unroll"
+)
 
 type PipelineFunctionConf struct {
-	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
-	// Function ID
-	ID string `json:"id"`
-	// Simple description of this step
-	Description *string `json:"description,omitempty"`
-	// If true, data will not be pushed through this function
-	Disabled *bool `json:"disabled,omitempty"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                   `json:"final,omitempty"`
-	Conf  FunctionSpecificConfigs `json:"conf"`
-	// Group ID
-	GroupID *string `json:"groupId,omitempty"`
+	PipelineFunctionAggregateMetrics          *PipelineFunctionAggregateMetrics          `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionAggregation               *PipelineFunctionAggregation               `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionAutoTimestamp             *PipelineFunctionAutoTimestamp             `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionCef                       *PipelineFunctionCef                       `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionChain                     *PipelineFunctionChain                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionClone                     *PipelineFunctionClone                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionCode                      *PipelineFunctionCode                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionComment                   *PipelineFunctionComment                   `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionDistinct                  *PipelineFunctionDistinct                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionDNSLookup                 *PipelineFunctionDNSLookup                 `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionDrop                      *PipelineFunctionDrop                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionDropDimensions            *PipelineFunctionDropDimensions            `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionDynamicSampling           *PipelineFunctionDynamicSampling           `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionEval                      *PipelineFunctionEval                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionEventBreaker              *PipelineFunctionEventBreaker              `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionEventstats                *PipelineFunctionEventstats                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionExternaldata              *PipelineFunctionExternaldata              `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionFlatten                   *PipelineFunctionFlatten                   `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionFoldkeys                  *PipelineFunctionFoldkeys                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionGenStats                  *PipelineFunctionGenStats                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionGeoip                     *PipelineFunctionGeoip                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionGrok                      *PipelineFunctionGrok                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionHandlebar                 *PipelineFunctionHandlebar                 `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionJoin                      *PipelineFunctionJoin                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionJSONUnroll                *PipelineFunctionJSONUnroll                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionLakeExport                *PipelineFunctionLakeExport                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionLimit                     *PipelineFunctionLimit                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionLocalSearchDatatypeParser *PipelineFunctionLocalSearchDatatypeParser `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionLocalSearchRulesetRunner  *PipelineFunctionLocalSearchRulesetRunner  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionLookup                    *PipelineFunctionLookup                    `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionMask                      *PipelineFunctionMask                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionMvExpand                  *PipelineFunctionMvExpand                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionMvPull                    *PipelineFunctionMvPull                    `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionNotificationPolicies      *PipelineFunctionNotificationPolicies      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionNotifications             *PipelineFunctionNotifications             `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionNotify                    *PipelineFunctionNotify                    `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionNumerify                  *PipelineFunctionNumerify                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionOtlpLogs                  *PipelineFunctionOtlpLogs                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionOtlpMetrics               *PipelineFunctionOtlpMetrics               `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionOtlpTraces                *PipelineFunctionOtlpTraces                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionPack                      *PipelineFunctionPack                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionPivot                     *PipelineFunctionPivot                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionPublishMetrics            *PipelineFunctionPublishMetrics            `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionRedis                     *PipelineFunctionRedis                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionRegexExtract              *PipelineFunctionRegexExtract              `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionRegexFilter               *PipelineFunctionRegexFilter               `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionRename                    *PipelineFunctionRename                    `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionRollupMetrics             *PipelineFunctionRollupMetrics             `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSampling                  *PipelineFunctionSampling                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSend                      *PipelineFunctionSend                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSensitiveDataScanner      *PipelineFunctionSensitiveDataScanner      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSerde                     *PipelineFunctionSerde                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSerialize                 *PipelineFunctionSerialize                 `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSidlookup                 *PipelineFunctionSidlookup                 `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSnmpTrapSerialize         *PipelineFunctionSnmpTrapSerialize         `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSort                      *PipelineFunctionSort                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionStore                     *PipelineFunctionStore                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionSuppress                  *PipelineFunctionSuppress                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionTee                       *PipelineFunctionTee                       `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionTrimTimestamp             *PipelineFunctionTrimTimestamp             `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionUnion                     *PipelineFunctionUnion                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionUnroll                    *PipelineFunctionUnroll                    `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionWindow                    *PipelineFunctionWindow                    `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionXMLUnroll                 *PipelineFunctionXMLUnroll                 `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+
+	Type PipelineFunctionConfType
 }
 
-func (p PipelineFunctionConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
+func CreatePipelineFunctionConfAggregateMetrics(aggregateMetrics PipelineFunctionAggregateMetrics) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeAggregateMetrics
 
-func (p *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "conf"}); err != nil {
-		return err
+	typStr := PipelineFunctionAggregateMetricsID(typ)
+	aggregateMetrics.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionAggregateMetrics: &aggregateMetrics,
+		Type:                             typ,
 	}
-	return nil
 }
 
-func (p *PipelineFunctionConf) GetFilter() *string {
-	if p == nil {
+func CreatePipelineFunctionConfAggregation(aggregation PipelineFunctionAggregation) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeAggregation
+
+	typStr := PipelineFunctionAggregationID(typ)
+	aggregation.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionAggregation: &aggregation,
+		Type:                        typ,
+	}
+}
+
+func CreatePipelineFunctionConfAutoTimestamp(autoTimestamp PipelineFunctionAutoTimestamp) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeAutoTimestamp
+
+	typStr := PipelineFunctionAutoTimestampID(typ)
+	autoTimestamp.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionAutoTimestamp: &autoTimestamp,
+		Type:                          typ,
+	}
+}
+
+func CreatePipelineFunctionConfCef(cef PipelineFunctionCef) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeCef
+
+	typStr := PipelineFunctionCefID(typ)
+	cef.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionCef: &cef,
+		Type:                typ,
+	}
+}
+
+func CreatePipelineFunctionConfChain(chain PipelineFunctionChain) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeChain
+
+	typStr := PipelineFunctionChainID(typ)
+	chain.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionChain: &chain,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfClone(clone PipelineFunctionClone) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeClone
+
+	typStr := PipelineFunctionCloneID(typ)
+	clone.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionClone: &clone,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfCode(code PipelineFunctionCode) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeCode
+
+	typStr := PipelineFunctionCodeID(typ)
+	code.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionCode: &code,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfComment(comment PipelineFunctionComment) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeComment
+
+	typStr := PipelineFunctionCommentID(typ)
+	comment.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionComment: &comment,
+		Type:                    typ,
+	}
+}
+
+func CreatePipelineFunctionConfDistinct(distinct PipelineFunctionDistinct) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeDistinct
+
+	typStr := PipelineFunctionDistinctID(typ)
+	distinct.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionDistinct: &distinct,
+		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfDNSLookup(dnsLookup PipelineFunctionDNSLookup) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeDNSLookup
+
+	typStr := PipelineFunctionDNSLookupID(typ)
+	dnsLookup.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionDNSLookup: &dnsLookup,
+		Type:                      typ,
+	}
+}
+
+func CreatePipelineFunctionConfDrop(drop PipelineFunctionDrop) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeDrop
+
+	typStr := PipelineFunctionDropID(typ)
+	drop.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionDrop: &drop,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfDropDimensions(dropDimensions PipelineFunctionDropDimensions) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeDropDimensions
+
+	typStr := PipelineFunctionDropDimensionsID(typ)
+	dropDimensions.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionDropDimensions: &dropDimensions,
+		Type:                           typ,
+	}
+}
+
+func CreatePipelineFunctionConfDynamicSampling(dynamicSampling PipelineFunctionDynamicSampling) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeDynamicSampling
+
+	typStr := PipelineFunctionDynamicSamplingID(typ)
+	dynamicSampling.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionDynamicSampling: &dynamicSampling,
+		Type:                            typ,
+	}
+}
+
+func CreatePipelineFunctionConfEval(eval PipelineFunctionEval) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeEval
+
+	typStr := PipelineFunctionEvalID(typ)
+	eval.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionEval: &eval,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfEventBreaker(eventBreaker PipelineFunctionEventBreaker) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeEventBreaker
+
+	typStr := PipelineFunctionEventBreakerID(typ)
+	eventBreaker.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionEventBreaker: &eventBreaker,
+		Type:                         typ,
+	}
+}
+
+func CreatePipelineFunctionConfEventstats(eventstats PipelineFunctionEventstats) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeEventstats
+
+	typStr := PipelineFunctionEventstatsID(typ)
+	eventstats.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionEventstats: &eventstats,
+		Type:                       typ,
+	}
+}
+
+func CreatePipelineFunctionConfExternaldata(externaldata PipelineFunctionExternaldata) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeExternaldata
+
+	typStr := PipelineFunctionExternaldataID(typ)
+	externaldata.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionExternaldata: &externaldata,
+		Type:                         typ,
+	}
+}
+
+func CreatePipelineFunctionConfFlatten(flatten PipelineFunctionFlatten) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeFlatten
+
+	typStr := PipelineFunctionFlattenID(typ)
+	flatten.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionFlatten: &flatten,
+		Type:                    typ,
+	}
+}
+
+func CreatePipelineFunctionConfFoldkeys(foldkeys PipelineFunctionFoldkeys) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeFoldkeys
+
+	typStr := PipelineFunctionFoldkeysID(typ)
+	foldkeys.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionFoldkeys: &foldkeys,
+		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfGenStats(genStats PipelineFunctionGenStats) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeGenStats
+
+	typStr := PipelineFunctionGenStatsID(typ)
+	genStats.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionGenStats: &genStats,
+		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfGeoip(geoip PipelineFunctionGeoip) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeGeoip
+
+	typStr := PipelineFunctionGeoipID(typ)
+	geoip.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionGeoip: &geoip,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfGrok(grok PipelineFunctionGrok) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeGrok
+
+	typStr := PipelineFunctionGrokID(typ)
+	grok.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionGrok: &grok,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfHandlebar(handlebar PipelineFunctionHandlebar) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeHandlebar
+
+	typStr := PipelineFunctionHandlebarID(typ)
+	handlebar.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionHandlebar: &handlebar,
+		Type:                      typ,
+	}
+}
+
+func CreatePipelineFunctionConfJoin(join PipelineFunctionJoin) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeJoin
+
+	typStr := PipelineFunctionJoinID(typ)
+	join.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionJoin: &join,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfJSONUnroll(jsonUnroll PipelineFunctionJSONUnroll) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeJSONUnroll
+
+	typStr := PipelineFunctionJSONUnrollID(typ)
+	jsonUnroll.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionJSONUnroll: &jsonUnroll,
+		Type:                       typ,
+	}
+}
+
+func CreatePipelineFunctionConfLakeExport(lakeExport PipelineFunctionLakeExport) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeLakeExport
+
+	typStr := PipelineFunctionLakeExportID(typ)
+	lakeExport.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionLakeExport: &lakeExport,
+		Type:                       typ,
+	}
+}
+
+func CreatePipelineFunctionConfLimit(limit PipelineFunctionLimit) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeLimit
+
+	typStr := PipelineFunctionLimitID(typ)
+	limit.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionLimit: &limit,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfLocalSearchDatatypeParser(localSearchDatatypeParser PipelineFunctionLocalSearchDatatypeParser) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeLocalSearchDatatypeParser
+
+	typStr := PipelineFunctionLocalSearchDatatypeParserID(typ)
+	localSearchDatatypeParser.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionLocalSearchDatatypeParser: &localSearchDatatypeParser,
+		Type: typ,
+	}
+}
+
+func CreatePipelineFunctionConfLocalSearchRulesetRunner(localSearchRulesetRunner PipelineFunctionLocalSearchRulesetRunner) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeLocalSearchRulesetRunner
+
+	typStr := PipelineFunctionLocalSearchRulesetRunnerID(typ)
+	localSearchRulesetRunner.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionLocalSearchRulesetRunner: &localSearchRulesetRunner,
+		Type:                                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfLookup(lookup PipelineFunctionLookup) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeLookup
+
+	typStr := PipelineFunctionLookupID(typ)
+	lookup.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionLookup: &lookup,
+		Type:                   typ,
+	}
+}
+
+func CreatePipelineFunctionConfMask(mask PipelineFunctionMask) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeMask
+
+	typStr := PipelineFunctionMaskID(typ)
+	mask.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionMask: &mask,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfMvExpand(mvExpand PipelineFunctionMvExpand) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeMvExpand
+
+	typStr := PipelineFunctionMvExpandID(typ)
+	mvExpand.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionMvExpand: &mvExpand,
+		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfMvPull(mvPull PipelineFunctionMvPull) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeMvPull
+
+	typStr := PipelineFunctionMvPullID(typ)
+	mvPull.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionMvPull: &mvPull,
+		Type:                   typ,
+	}
+}
+
+func CreatePipelineFunctionConfNotificationPolicies(notificationPolicies PipelineFunctionNotificationPolicies) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeNotificationPolicies
+
+	typStr := PipelineFunctionNotificationPoliciesID(typ)
+	notificationPolicies.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionNotificationPolicies: &notificationPolicies,
+		Type:                                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfNotifications(notifications PipelineFunctionNotifications) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeNotifications
+
+	typStr := PipelineFunctionNotificationsID(typ)
+	notifications.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionNotifications: &notifications,
+		Type:                          typ,
+	}
+}
+
+func CreatePipelineFunctionConfNotify(notify PipelineFunctionNotify) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeNotify
+
+	typStr := PipelineFunctionNotifyID(typ)
+	notify.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionNotify: &notify,
+		Type:                   typ,
+	}
+}
+
+func CreatePipelineFunctionConfNumerify(numerify PipelineFunctionNumerify) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeNumerify
+
+	typStr := PipelineFunctionNumerifyID(typ)
+	numerify.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionNumerify: &numerify,
+		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfOtlpLogs(otlpLogs PipelineFunctionOtlpLogs) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeOtlpLogs
+
+	typStr := PipelineFunctionOtlpLogsID(typ)
+	otlpLogs.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionOtlpLogs: &otlpLogs,
+		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfOtlpMetrics(otlpMetrics PipelineFunctionOtlpMetrics) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeOtlpMetrics
+
+	typStr := PipelineFunctionOtlpMetricsID(typ)
+	otlpMetrics.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionOtlpMetrics: &otlpMetrics,
+		Type:                        typ,
+	}
+}
+
+func CreatePipelineFunctionConfOtlpTraces(otlpTraces PipelineFunctionOtlpTraces) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeOtlpTraces
+
+	typStr := PipelineFunctionOtlpTracesID(typ)
+	otlpTraces.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionOtlpTraces: &otlpTraces,
+		Type:                       typ,
+	}
+}
+
+func CreatePipelineFunctionConfPack(pack PipelineFunctionPack) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypePack
+
+	typStr := PipelineFunctionPackID(typ)
+	pack.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionPack: &pack,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfPivot(pivot PipelineFunctionPivot) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypePivot
+
+	typStr := PipelineFunctionPivotID(typ)
+	pivot.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionPivot: &pivot,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfPublishMetrics(publishMetrics PipelineFunctionPublishMetrics) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypePublishMetrics
+
+	typStr := PipelineFunctionPublishMetricsID(typ)
+	publishMetrics.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionPublishMetrics: &publishMetrics,
+		Type:                           typ,
+	}
+}
+
+func CreatePipelineFunctionConfRedis(redis PipelineFunctionRedis) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeRedis
+
+	typStr := PipelineFunctionRedisID(typ)
+	redis.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionRedis: &redis,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfRegexExtract(regexExtract PipelineFunctionRegexExtract) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeRegexExtract
+
+	typStr := PipelineFunctionRegexExtractID(typ)
+	regexExtract.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionRegexExtract: &regexExtract,
+		Type:                         typ,
+	}
+}
+
+func CreatePipelineFunctionConfRegexFilter(regexFilter PipelineFunctionRegexFilter) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeRegexFilter
+
+	typStr := PipelineFunctionRegexFilterID(typ)
+	regexFilter.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionRegexFilter: &regexFilter,
+		Type:                        typ,
+	}
+}
+
+func CreatePipelineFunctionConfRename(rename PipelineFunctionRename) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeRename
+
+	typStr := PipelineFunctionRenameID(typ)
+	rename.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionRename: &rename,
+		Type:                   typ,
+	}
+}
+
+func CreatePipelineFunctionConfRollupMetrics(rollupMetrics PipelineFunctionRollupMetrics) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeRollupMetrics
+
+	typStr := PipelineFunctionRollupMetricsID(typ)
+	rollupMetrics.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionRollupMetrics: &rollupMetrics,
+		Type:                          typ,
+	}
+}
+
+func CreatePipelineFunctionConfSampling(sampling PipelineFunctionSampling) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSampling
+
+	typStr := PipelineFunctionSamplingID(typ)
+	sampling.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSampling: &sampling,
+		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfSend(send PipelineFunctionSend) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSend
+
+	typStr := PipelineFunctionSendID(typ)
+	send.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSend: &send,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfSensitiveDataScanner(sensitiveDataScanner PipelineFunctionSensitiveDataScanner) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSensitiveDataScanner
+
+	typStr := PipelineFunctionSensitiveDataScannerID(typ)
+	sensitiveDataScanner.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSensitiveDataScanner: &sensitiveDataScanner,
+		Type:                                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfSerde(serde PipelineFunctionSerde) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSerde
+
+	typStr := PipelineFunctionSerdeID(typ)
+	serde.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSerde: &serde,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfSerialize(serialize PipelineFunctionSerialize) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSerialize
+
+	typStr := PipelineFunctionSerializeID(typ)
+	serialize.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSerialize: &serialize,
+		Type:                      typ,
+	}
+}
+
+func CreatePipelineFunctionConfSidlookup(sidlookup PipelineFunctionSidlookup) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSidlookup
+
+	typStr := PipelineFunctionSidlookupID(typ)
+	sidlookup.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSidlookup: &sidlookup,
+		Type:                      typ,
+	}
+}
+
+func CreatePipelineFunctionConfSnmpTrapSerialize(snmpTrapSerialize PipelineFunctionSnmpTrapSerialize) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSnmpTrapSerialize
+
+	typStr := PipelineFunctionSnmpTrapSerializeID(typ)
+	snmpTrapSerialize.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSnmpTrapSerialize: &snmpTrapSerialize,
+		Type:                              typ,
+	}
+}
+
+func CreatePipelineFunctionConfSort(sort PipelineFunctionSort) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSort
+
+	typStr := PipelineFunctionSortID(typ)
+	sort.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSort: &sort,
+		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfStore(store PipelineFunctionStore) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeStore
+
+	typStr := PipelineFunctionStoreID(typ)
+	store.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionStore: &store,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfSuppress(suppress PipelineFunctionSuppress) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSuppress
+
+	typStr := PipelineFunctionSuppressID(typ)
+	suppress.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSuppress: &suppress,
+		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfTee(tee PipelineFunctionTee) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeTee
+
+	typStr := PipelineFunctionTeeID(typ)
+	tee.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionTee: &tee,
+		Type:                typ,
+	}
+}
+
+func CreatePipelineFunctionConfTrimTimestamp(trimTimestamp PipelineFunctionTrimTimestamp) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeTrimTimestamp
+
+	typStr := PipelineFunctionTrimTimestampID(typ)
+	trimTimestamp.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionTrimTimestamp: &trimTimestamp,
+		Type:                          typ,
+	}
+}
+
+func CreatePipelineFunctionConfUnion(union PipelineFunctionUnion) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeUnion
+
+	typStr := PipelineFunctionUnionID(typ)
+	union.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionUnion: &union,
+		Type:                  typ,
+	}
+}
+
+func CreatePipelineFunctionConfUnroll(unroll PipelineFunctionUnroll) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeUnroll
+
+	typStr := PipelineFunctionUnrollID(typ)
+	unroll.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionUnroll: &unroll,
+		Type:                   typ,
+	}
+}
+
+func CreatePipelineFunctionConfWindow(window PipelineFunctionWindow) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeWindow
+
+	typStr := PipelineFunctionWindowID(typ)
+	window.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionWindow: &window,
+		Type:                   typ,
+	}
+}
+
+func CreatePipelineFunctionConfXMLUnroll(xmlUnroll PipelineFunctionXMLUnroll) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeXMLUnroll
+
+	typStr := PipelineFunctionXMLUnrollID(typ)
+	xmlUnroll.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionXMLUnroll: &xmlUnroll,
+		Type:                      typ,
+	}
+}
+
+func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		ID string `json:"id"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.ID {
+	case "aggregate_metrics":
+		pipelineFunctionAggregateMetrics := new(PipelineFunctionAggregateMetrics)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionAggregateMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == aggregate_metrics) type PipelineFunctionAggregateMetrics within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionAggregateMetrics = pipelineFunctionAggregateMetrics
+		u.Type = PipelineFunctionConfTypeAggregateMetrics
+		return nil
+	case "aggregation":
+		pipelineFunctionAggregation := new(PipelineFunctionAggregation)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionAggregation, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == aggregation) type PipelineFunctionAggregation within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionAggregation = pipelineFunctionAggregation
+		u.Type = PipelineFunctionConfTypeAggregation
+		return nil
+	case "auto_timestamp":
+		pipelineFunctionAutoTimestamp := new(PipelineFunctionAutoTimestamp)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionAutoTimestamp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto_timestamp) type PipelineFunctionAutoTimestamp within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionAutoTimestamp = pipelineFunctionAutoTimestamp
+		u.Type = PipelineFunctionConfTypeAutoTimestamp
+		return nil
+	case "cef":
+		pipelineFunctionCef := new(PipelineFunctionCef)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionCef, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == cef) type PipelineFunctionCef within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionCef = pipelineFunctionCef
+		u.Type = PipelineFunctionConfTypeCef
+		return nil
+	case "chain":
+		pipelineFunctionChain := new(PipelineFunctionChain)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionChain, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == chain) type PipelineFunctionChain within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionChain = pipelineFunctionChain
+		u.Type = PipelineFunctionConfTypeChain
+		return nil
+	case "clone":
+		pipelineFunctionClone := new(PipelineFunctionClone)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionClone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == clone) type PipelineFunctionClone within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionClone = pipelineFunctionClone
+		u.Type = PipelineFunctionConfTypeClone
+		return nil
+	case "code":
+		pipelineFunctionCode := new(PipelineFunctionCode)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionCode, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == code) type PipelineFunctionCode within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionCode = pipelineFunctionCode
+		u.Type = PipelineFunctionConfTypeCode
+		return nil
+	case "comment":
+		pipelineFunctionComment := new(PipelineFunctionComment)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionComment, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == comment) type PipelineFunctionComment within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionComment = pipelineFunctionComment
+		u.Type = PipelineFunctionConfTypeComment
+		return nil
+	case "distinct":
+		pipelineFunctionDistinct := new(PipelineFunctionDistinct)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionDistinct, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == distinct) type PipelineFunctionDistinct within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionDistinct = pipelineFunctionDistinct
+		u.Type = PipelineFunctionConfTypeDistinct
+		return nil
+	case "dns_lookup":
+		pipelineFunctionDNSLookup := new(PipelineFunctionDNSLookup)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionDNSLookup, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == dns_lookup) type PipelineFunctionDNSLookup within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionDNSLookup = pipelineFunctionDNSLookup
+		u.Type = PipelineFunctionConfTypeDNSLookup
+		return nil
+	case "drop":
+		pipelineFunctionDrop := new(PipelineFunctionDrop)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionDrop, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == drop) type PipelineFunctionDrop within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionDrop = pipelineFunctionDrop
+		u.Type = PipelineFunctionConfTypeDrop
+		return nil
+	case "drop_dimensions":
+		pipelineFunctionDropDimensions := new(PipelineFunctionDropDimensions)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionDropDimensions, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == drop_dimensions) type PipelineFunctionDropDimensions within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionDropDimensions = pipelineFunctionDropDimensions
+		u.Type = PipelineFunctionConfTypeDropDimensions
+		return nil
+	case "dynamic_sampling":
+		pipelineFunctionDynamicSampling := new(PipelineFunctionDynamicSampling)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionDynamicSampling, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == dynamic_sampling) type PipelineFunctionDynamicSampling within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionDynamicSampling = pipelineFunctionDynamicSampling
+		u.Type = PipelineFunctionConfTypeDynamicSampling
+		return nil
+	case "eval":
+		pipelineFunctionEval := new(PipelineFunctionEval)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionEval, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == eval) type PipelineFunctionEval within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionEval = pipelineFunctionEval
+		u.Type = PipelineFunctionConfTypeEval
+		return nil
+	case "event_breaker":
+		pipelineFunctionEventBreaker := new(PipelineFunctionEventBreaker)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionEventBreaker, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == event_breaker) type PipelineFunctionEventBreaker within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionEventBreaker = pipelineFunctionEventBreaker
+		u.Type = PipelineFunctionConfTypeEventBreaker
+		return nil
+	case "eventstats":
+		pipelineFunctionEventstats := new(PipelineFunctionEventstats)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionEventstats, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == eventstats) type PipelineFunctionEventstats within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionEventstats = pipelineFunctionEventstats
+		u.Type = PipelineFunctionConfTypeEventstats
+		return nil
+	case "externaldata":
+		pipelineFunctionExternaldata := new(PipelineFunctionExternaldata)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionExternaldata, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == externaldata) type PipelineFunctionExternaldata within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionExternaldata = pipelineFunctionExternaldata
+		u.Type = PipelineFunctionConfTypeExternaldata
+		return nil
+	case "flatten":
+		pipelineFunctionFlatten := new(PipelineFunctionFlatten)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionFlatten, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == flatten) type PipelineFunctionFlatten within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionFlatten = pipelineFunctionFlatten
+		u.Type = PipelineFunctionConfTypeFlatten
+		return nil
+	case "foldkeys":
+		pipelineFunctionFoldkeys := new(PipelineFunctionFoldkeys)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionFoldkeys, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == foldkeys) type PipelineFunctionFoldkeys within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionFoldkeys = pipelineFunctionFoldkeys
+		u.Type = PipelineFunctionConfTypeFoldkeys
+		return nil
+	case "gen_stats":
+		pipelineFunctionGenStats := new(PipelineFunctionGenStats)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionGenStats, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == gen_stats) type PipelineFunctionGenStats within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionGenStats = pipelineFunctionGenStats
+		u.Type = PipelineFunctionConfTypeGenStats
+		return nil
+	case "geoip":
+		pipelineFunctionGeoip := new(PipelineFunctionGeoip)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionGeoip, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == geoip) type PipelineFunctionGeoip within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionGeoip = pipelineFunctionGeoip
+		u.Type = PipelineFunctionConfTypeGeoip
+		return nil
+	case "grok":
+		pipelineFunctionGrok := new(PipelineFunctionGrok)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionGrok, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == grok) type PipelineFunctionGrok within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionGrok = pipelineFunctionGrok
+		u.Type = PipelineFunctionConfTypeGrok
+		return nil
+	case "handlebar":
+		pipelineFunctionHandlebar := new(PipelineFunctionHandlebar)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionHandlebar, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == handlebar) type PipelineFunctionHandlebar within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionHandlebar = pipelineFunctionHandlebar
+		u.Type = PipelineFunctionConfTypeHandlebar
+		return nil
+	case "join":
+		pipelineFunctionJoin := new(PipelineFunctionJoin)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionJoin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == join) type PipelineFunctionJoin within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionJoin = pipelineFunctionJoin
+		u.Type = PipelineFunctionConfTypeJoin
+		return nil
+	case "json_unroll":
+		pipelineFunctionJSONUnroll := new(PipelineFunctionJSONUnroll)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionJSONUnroll, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == json_unroll) type PipelineFunctionJSONUnroll within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionJSONUnroll = pipelineFunctionJSONUnroll
+		u.Type = PipelineFunctionConfTypeJSONUnroll
+		return nil
+	case "lake_export":
+		pipelineFunctionLakeExport := new(PipelineFunctionLakeExport)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionLakeExport, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == lake_export) type PipelineFunctionLakeExport within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionLakeExport = pipelineFunctionLakeExport
+		u.Type = PipelineFunctionConfTypeLakeExport
+		return nil
+	case "limit":
+		pipelineFunctionLimit := new(PipelineFunctionLimit)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionLimit, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == limit) type PipelineFunctionLimit within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionLimit = pipelineFunctionLimit
+		u.Type = PipelineFunctionConfTypeLimit
+		return nil
+	case "local_search_datatype_parser":
+		pipelineFunctionLocalSearchDatatypeParser := new(PipelineFunctionLocalSearchDatatypeParser)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionLocalSearchDatatypeParser, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_datatype_parser) type PipelineFunctionLocalSearchDatatypeParser within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionLocalSearchDatatypeParser = pipelineFunctionLocalSearchDatatypeParser
+		u.Type = PipelineFunctionConfTypeLocalSearchDatatypeParser
+		return nil
+	case "local_search_ruleset_runner":
+		pipelineFunctionLocalSearchRulesetRunner := new(PipelineFunctionLocalSearchRulesetRunner)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionLocalSearchRulesetRunner, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_ruleset_runner) type PipelineFunctionLocalSearchRulesetRunner within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionLocalSearchRulesetRunner = pipelineFunctionLocalSearchRulesetRunner
+		u.Type = PipelineFunctionConfTypeLocalSearchRulesetRunner
+		return nil
+	case "lookup":
+		pipelineFunctionLookup := new(PipelineFunctionLookup)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionLookup, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == lookup) type PipelineFunctionLookup within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionLookup = pipelineFunctionLookup
+		u.Type = PipelineFunctionConfTypeLookup
+		return nil
+	case "mask":
+		pipelineFunctionMask := new(PipelineFunctionMask)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionMask, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == mask) type PipelineFunctionMask within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionMask = pipelineFunctionMask
+		u.Type = PipelineFunctionConfTypeMask
+		return nil
+	case "mv_expand":
+		pipelineFunctionMvExpand := new(PipelineFunctionMvExpand)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionMvExpand, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == mv_expand) type PipelineFunctionMvExpand within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionMvExpand = pipelineFunctionMvExpand
+		u.Type = PipelineFunctionConfTypeMvExpand
+		return nil
+	case "mv_pull":
+		pipelineFunctionMvPull := new(PipelineFunctionMvPull)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionMvPull, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == mv_pull) type PipelineFunctionMvPull within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionMvPull = pipelineFunctionMvPull
+		u.Type = PipelineFunctionConfTypeMvPull
+		return nil
+	case "notification_policies":
+		pipelineFunctionNotificationPolicies := new(PipelineFunctionNotificationPolicies)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionNotificationPolicies, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == notification_policies) type PipelineFunctionNotificationPolicies within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionNotificationPolicies = pipelineFunctionNotificationPolicies
+		u.Type = PipelineFunctionConfTypeNotificationPolicies
+		return nil
+	case "notifications":
+		pipelineFunctionNotifications := new(PipelineFunctionNotifications)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionNotifications, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == notifications) type PipelineFunctionNotifications within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionNotifications = pipelineFunctionNotifications
+		u.Type = PipelineFunctionConfTypeNotifications
+		return nil
+	case "notify":
+		pipelineFunctionNotify := new(PipelineFunctionNotify)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionNotify, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == notify) type PipelineFunctionNotify within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionNotify = pipelineFunctionNotify
+		u.Type = PipelineFunctionConfTypeNotify
+		return nil
+	case "numerify":
+		pipelineFunctionNumerify := new(PipelineFunctionNumerify)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionNumerify, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == numerify) type PipelineFunctionNumerify within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionNumerify = pipelineFunctionNumerify
+		u.Type = PipelineFunctionConfTypeNumerify
+		return nil
+	case "otlp_logs":
+		pipelineFunctionOtlpLogs := new(PipelineFunctionOtlpLogs)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionOtlpLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == otlp_logs) type PipelineFunctionOtlpLogs within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionOtlpLogs = pipelineFunctionOtlpLogs
+		u.Type = PipelineFunctionConfTypeOtlpLogs
+		return nil
+	case "otlp_metrics":
+		pipelineFunctionOtlpMetrics := new(PipelineFunctionOtlpMetrics)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionOtlpMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == otlp_metrics) type PipelineFunctionOtlpMetrics within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionOtlpMetrics = pipelineFunctionOtlpMetrics
+		u.Type = PipelineFunctionConfTypeOtlpMetrics
+		return nil
+	case "otlp_traces":
+		pipelineFunctionOtlpTraces := new(PipelineFunctionOtlpTraces)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionOtlpTraces, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == otlp_traces) type PipelineFunctionOtlpTraces within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionOtlpTraces = pipelineFunctionOtlpTraces
+		u.Type = PipelineFunctionConfTypeOtlpTraces
+		return nil
+	case "pack":
+		pipelineFunctionPack := new(PipelineFunctionPack)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionPack, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == pack) type PipelineFunctionPack within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionPack = pipelineFunctionPack
+		u.Type = PipelineFunctionConfTypePack
+		return nil
+	case "pivot":
+		pipelineFunctionPivot := new(PipelineFunctionPivot)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionPivot, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == pivot) type PipelineFunctionPivot within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionPivot = pipelineFunctionPivot
+		u.Type = PipelineFunctionConfTypePivot
+		return nil
+	case "publish_metrics":
+		pipelineFunctionPublishMetrics := new(PipelineFunctionPublishMetrics)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionPublishMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == publish_metrics) type PipelineFunctionPublishMetrics within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionPublishMetrics = pipelineFunctionPublishMetrics
+		u.Type = PipelineFunctionConfTypePublishMetrics
+		return nil
+	case "redis":
+		pipelineFunctionRedis := new(PipelineFunctionRedis)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionRedis, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == redis) type PipelineFunctionRedis within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionRedis = pipelineFunctionRedis
+		u.Type = PipelineFunctionConfTypeRedis
+		return nil
+	case "regex_extract":
+		pipelineFunctionRegexExtract := new(PipelineFunctionRegexExtract)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionRegexExtract, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == regex_extract) type PipelineFunctionRegexExtract within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionRegexExtract = pipelineFunctionRegexExtract
+		u.Type = PipelineFunctionConfTypeRegexExtract
+		return nil
+	case "regex_filter":
+		pipelineFunctionRegexFilter := new(PipelineFunctionRegexFilter)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionRegexFilter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == regex_filter) type PipelineFunctionRegexFilter within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionRegexFilter = pipelineFunctionRegexFilter
+		u.Type = PipelineFunctionConfTypeRegexFilter
+		return nil
+	case "rename":
+		pipelineFunctionRename := new(PipelineFunctionRename)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionRename, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == rename) type PipelineFunctionRename within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionRename = pipelineFunctionRename
+		u.Type = PipelineFunctionConfTypeRename
+		return nil
+	case "rollup_metrics":
+		pipelineFunctionRollupMetrics := new(PipelineFunctionRollupMetrics)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionRollupMetrics, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == rollup_metrics) type PipelineFunctionRollupMetrics within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionRollupMetrics = pipelineFunctionRollupMetrics
+		u.Type = PipelineFunctionConfTypeRollupMetrics
+		return nil
+	case "sampling":
+		pipelineFunctionSampling := new(PipelineFunctionSampling)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSampling, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == sampling) type PipelineFunctionSampling within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSampling = pipelineFunctionSampling
+		u.Type = PipelineFunctionConfTypeSampling
+		return nil
+	case "send":
+		pipelineFunctionSend := new(PipelineFunctionSend)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSend, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == send) type PipelineFunctionSend within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSend = pipelineFunctionSend
+		u.Type = PipelineFunctionConfTypeSend
+		return nil
+	case "sensitive_data_scanner":
+		pipelineFunctionSensitiveDataScanner := new(PipelineFunctionSensitiveDataScanner)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSensitiveDataScanner, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == sensitive_data_scanner) type PipelineFunctionSensitiveDataScanner within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSensitiveDataScanner = pipelineFunctionSensitiveDataScanner
+		u.Type = PipelineFunctionConfTypeSensitiveDataScanner
+		return nil
+	case "serde":
+		pipelineFunctionSerde := new(PipelineFunctionSerde)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSerde, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == serde) type PipelineFunctionSerde within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSerde = pipelineFunctionSerde
+		u.Type = PipelineFunctionConfTypeSerde
+		return nil
+	case "serialize":
+		pipelineFunctionSerialize := new(PipelineFunctionSerialize)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSerialize, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == serialize) type PipelineFunctionSerialize within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSerialize = pipelineFunctionSerialize
+		u.Type = PipelineFunctionConfTypeSerialize
+		return nil
+	case "sidlookup":
+		pipelineFunctionSidlookup := new(PipelineFunctionSidlookup)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSidlookup, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == sidlookup) type PipelineFunctionSidlookup within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSidlookup = pipelineFunctionSidlookup
+		u.Type = PipelineFunctionConfTypeSidlookup
+		return nil
+	case "snmp_trap_serialize":
+		pipelineFunctionSnmpTrapSerialize := new(PipelineFunctionSnmpTrapSerialize)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSnmpTrapSerialize, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == snmp_trap_serialize) type PipelineFunctionSnmpTrapSerialize within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSnmpTrapSerialize = pipelineFunctionSnmpTrapSerialize
+		u.Type = PipelineFunctionConfTypeSnmpTrapSerialize
+		return nil
+	case "sort":
+		pipelineFunctionSort := new(PipelineFunctionSort)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSort, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == sort) type PipelineFunctionSort within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSort = pipelineFunctionSort
+		u.Type = PipelineFunctionConfTypeSort
+		return nil
+	case "store":
+		pipelineFunctionStore := new(PipelineFunctionStore)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionStore, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == store) type PipelineFunctionStore within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionStore = pipelineFunctionStore
+		u.Type = PipelineFunctionConfTypeStore
+		return nil
+	case "suppress":
+		pipelineFunctionSuppress := new(PipelineFunctionSuppress)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSuppress, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == suppress) type PipelineFunctionSuppress within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSuppress = pipelineFunctionSuppress
+		u.Type = PipelineFunctionConfTypeSuppress
+		return nil
+	case "tee":
+		pipelineFunctionTee := new(PipelineFunctionTee)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionTee, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == tee) type PipelineFunctionTee within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionTee = pipelineFunctionTee
+		u.Type = PipelineFunctionConfTypeTee
+		return nil
+	case "trim_timestamp":
+		pipelineFunctionTrimTimestamp := new(PipelineFunctionTrimTimestamp)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionTrimTimestamp, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == trim_timestamp) type PipelineFunctionTrimTimestamp within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionTrimTimestamp = pipelineFunctionTrimTimestamp
+		u.Type = PipelineFunctionConfTypeTrimTimestamp
+		return nil
+	case "union":
+		pipelineFunctionUnion := new(PipelineFunctionUnion)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionUnion, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == union) type PipelineFunctionUnion within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionUnion = pipelineFunctionUnion
+		u.Type = PipelineFunctionConfTypeUnion
+		return nil
+	case "unroll":
+		pipelineFunctionUnroll := new(PipelineFunctionUnroll)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionUnroll, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == unroll) type PipelineFunctionUnroll within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionUnroll = pipelineFunctionUnroll
+		u.Type = PipelineFunctionConfTypeUnroll
+		return nil
+	case "window":
+		pipelineFunctionWindow := new(PipelineFunctionWindow)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionWindow, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == window) type PipelineFunctionWindow within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionWindow = pipelineFunctionWindow
+		u.Type = PipelineFunctionConfTypeWindow
+		return nil
+	case "xml_unroll":
+		pipelineFunctionXMLUnroll := new(PipelineFunctionXMLUnroll)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionXMLUnroll, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == xml_unroll) type PipelineFunctionXMLUnroll within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionXMLUnroll = pipelineFunctionXMLUnroll
+		u.Type = PipelineFunctionConfTypeXMLUnroll
 		return nil
 	}
-	return p.Filter
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PipelineFunctionConf", string(data))
 }
 
-func (p *PipelineFunctionConf) GetID() string {
-	if p == nil {
-		return ""
+func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
+	if u.PipelineFunctionAggregateMetrics != nil {
+		return utils.MarshalJSON(u.PipelineFunctionAggregateMetrics, "", true)
 	}
-	return p.ID
-}
 
-func (p *PipelineFunctionConf) GetDescription() *string {
-	if p == nil {
-		return nil
+	if u.PipelineFunctionAggregation != nil {
+		return utils.MarshalJSON(u.PipelineFunctionAggregation, "", true)
 	}
-	return p.Description
-}
 
-func (p *PipelineFunctionConf) GetDisabled() *bool {
-	if p == nil {
-		return nil
+	if u.PipelineFunctionAutoTimestamp != nil {
+		return utils.MarshalJSON(u.PipelineFunctionAutoTimestamp, "", true)
 	}
-	return p.Disabled
-}
 
-func (p *PipelineFunctionConf) GetFinal() *bool {
-	if p == nil {
-		return nil
+	if u.PipelineFunctionCef != nil {
+		return utils.MarshalJSON(u.PipelineFunctionCef, "", true)
 	}
-	return p.Final
-}
 
-func (p *PipelineFunctionConf) GetConf() FunctionSpecificConfigs {
-	if p == nil {
-		return FunctionSpecificConfigs{}
+	if u.PipelineFunctionChain != nil {
+		return utils.MarshalJSON(u.PipelineFunctionChain, "", true)
 	}
-	return p.Conf
-}
 
-func (p *PipelineFunctionConf) GetGroupID() *string {
-	if p == nil {
-		return nil
+	if u.PipelineFunctionClone != nil {
+		return utils.MarshalJSON(u.PipelineFunctionClone, "", true)
 	}
-	return p.GroupID
+
+	if u.PipelineFunctionCode != nil {
+		return utils.MarshalJSON(u.PipelineFunctionCode, "", true)
+	}
+
+	if u.PipelineFunctionComment != nil {
+		return utils.MarshalJSON(u.PipelineFunctionComment, "", true)
+	}
+
+	if u.PipelineFunctionDistinct != nil {
+		return utils.MarshalJSON(u.PipelineFunctionDistinct, "", true)
+	}
+
+	if u.PipelineFunctionDNSLookup != nil {
+		return utils.MarshalJSON(u.PipelineFunctionDNSLookup, "", true)
+	}
+
+	if u.PipelineFunctionDrop != nil {
+		return utils.MarshalJSON(u.PipelineFunctionDrop, "", true)
+	}
+
+	if u.PipelineFunctionDropDimensions != nil {
+		return utils.MarshalJSON(u.PipelineFunctionDropDimensions, "", true)
+	}
+
+	if u.PipelineFunctionDynamicSampling != nil {
+		return utils.MarshalJSON(u.PipelineFunctionDynamicSampling, "", true)
+	}
+
+	if u.PipelineFunctionEval != nil {
+		return utils.MarshalJSON(u.PipelineFunctionEval, "", true)
+	}
+
+	if u.PipelineFunctionEventBreaker != nil {
+		return utils.MarshalJSON(u.PipelineFunctionEventBreaker, "", true)
+	}
+
+	if u.PipelineFunctionEventstats != nil {
+		return utils.MarshalJSON(u.PipelineFunctionEventstats, "", true)
+	}
+
+	if u.PipelineFunctionExternaldata != nil {
+		return utils.MarshalJSON(u.PipelineFunctionExternaldata, "", true)
+	}
+
+	if u.PipelineFunctionFlatten != nil {
+		return utils.MarshalJSON(u.PipelineFunctionFlatten, "", true)
+	}
+
+	if u.PipelineFunctionFoldkeys != nil {
+		return utils.MarshalJSON(u.PipelineFunctionFoldkeys, "", true)
+	}
+
+	if u.PipelineFunctionGenStats != nil {
+		return utils.MarshalJSON(u.PipelineFunctionGenStats, "", true)
+	}
+
+	if u.PipelineFunctionGeoip != nil {
+		return utils.MarshalJSON(u.PipelineFunctionGeoip, "", true)
+	}
+
+	if u.PipelineFunctionGrok != nil {
+		return utils.MarshalJSON(u.PipelineFunctionGrok, "", true)
+	}
+
+	if u.PipelineFunctionHandlebar != nil {
+		return utils.MarshalJSON(u.PipelineFunctionHandlebar, "", true)
+	}
+
+	if u.PipelineFunctionJoin != nil {
+		return utils.MarshalJSON(u.PipelineFunctionJoin, "", true)
+	}
+
+	if u.PipelineFunctionJSONUnroll != nil {
+		return utils.MarshalJSON(u.PipelineFunctionJSONUnroll, "", true)
+	}
+
+	if u.PipelineFunctionLakeExport != nil {
+		return utils.MarshalJSON(u.PipelineFunctionLakeExport, "", true)
+	}
+
+	if u.PipelineFunctionLimit != nil {
+		return utils.MarshalJSON(u.PipelineFunctionLimit, "", true)
+	}
+
+	if u.PipelineFunctionLocalSearchDatatypeParser != nil {
+		return utils.MarshalJSON(u.PipelineFunctionLocalSearchDatatypeParser, "", true)
+	}
+
+	if u.PipelineFunctionLocalSearchRulesetRunner != nil {
+		return utils.MarshalJSON(u.PipelineFunctionLocalSearchRulesetRunner, "", true)
+	}
+
+	if u.PipelineFunctionLookup != nil {
+		return utils.MarshalJSON(u.PipelineFunctionLookup, "", true)
+	}
+
+	if u.PipelineFunctionMask != nil {
+		return utils.MarshalJSON(u.PipelineFunctionMask, "", true)
+	}
+
+	if u.PipelineFunctionMvExpand != nil {
+		return utils.MarshalJSON(u.PipelineFunctionMvExpand, "", true)
+	}
+
+	if u.PipelineFunctionMvPull != nil {
+		return utils.MarshalJSON(u.PipelineFunctionMvPull, "", true)
+	}
+
+	if u.PipelineFunctionNotificationPolicies != nil {
+		return utils.MarshalJSON(u.PipelineFunctionNotificationPolicies, "", true)
+	}
+
+	if u.PipelineFunctionNotifications != nil {
+		return utils.MarshalJSON(u.PipelineFunctionNotifications, "", true)
+	}
+
+	if u.PipelineFunctionNotify != nil {
+		return utils.MarshalJSON(u.PipelineFunctionNotify, "", true)
+	}
+
+	if u.PipelineFunctionNumerify != nil {
+		return utils.MarshalJSON(u.PipelineFunctionNumerify, "", true)
+	}
+
+	if u.PipelineFunctionOtlpLogs != nil {
+		return utils.MarshalJSON(u.PipelineFunctionOtlpLogs, "", true)
+	}
+
+	if u.PipelineFunctionOtlpMetrics != nil {
+		return utils.MarshalJSON(u.PipelineFunctionOtlpMetrics, "", true)
+	}
+
+	if u.PipelineFunctionOtlpTraces != nil {
+		return utils.MarshalJSON(u.PipelineFunctionOtlpTraces, "", true)
+	}
+
+	if u.PipelineFunctionPack != nil {
+		return utils.MarshalJSON(u.PipelineFunctionPack, "", true)
+	}
+
+	if u.PipelineFunctionPivot != nil {
+		return utils.MarshalJSON(u.PipelineFunctionPivot, "", true)
+	}
+
+	if u.PipelineFunctionPublishMetrics != nil {
+		return utils.MarshalJSON(u.PipelineFunctionPublishMetrics, "", true)
+	}
+
+	if u.PipelineFunctionRedis != nil {
+		return utils.MarshalJSON(u.PipelineFunctionRedis, "", true)
+	}
+
+	if u.PipelineFunctionRegexExtract != nil {
+		return utils.MarshalJSON(u.PipelineFunctionRegexExtract, "", true)
+	}
+
+	if u.PipelineFunctionRegexFilter != nil {
+		return utils.MarshalJSON(u.PipelineFunctionRegexFilter, "", true)
+	}
+
+	if u.PipelineFunctionRename != nil {
+		return utils.MarshalJSON(u.PipelineFunctionRename, "", true)
+	}
+
+	if u.PipelineFunctionRollupMetrics != nil {
+		return utils.MarshalJSON(u.PipelineFunctionRollupMetrics, "", true)
+	}
+
+	if u.PipelineFunctionSampling != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSampling, "", true)
+	}
+
+	if u.PipelineFunctionSend != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSend, "", true)
+	}
+
+	if u.PipelineFunctionSensitiveDataScanner != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSensitiveDataScanner, "", true)
+	}
+
+	if u.PipelineFunctionSerde != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSerde, "", true)
+	}
+
+	if u.PipelineFunctionSerialize != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSerialize, "", true)
+	}
+
+	if u.PipelineFunctionSidlookup != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSidlookup, "", true)
+	}
+
+	if u.PipelineFunctionSnmpTrapSerialize != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSnmpTrapSerialize, "", true)
+	}
+
+	if u.PipelineFunctionSort != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSort, "", true)
+	}
+
+	if u.PipelineFunctionStore != nil {
+		return utils.MarshalJSON(u.PipelineFunctionStore, "", true)
+	}
+
+	if u.PipelineFunctionSuppress != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSuppress, "", true)
+	}
+
+	if u.PipelineFunctionTee != nil {
+		return utils.MarshalJSON(u.PipelineFunctionTee, "", true)
+	}
+
+	if u.PipelineFunctionTrimTimestamp != nil {
+		return utils.MarshalJSON(u.PipelineFunctionTrimTimestamp, "", true)
+	}
+
+	if u.PipelineFunctionUnion != nil {
+		return utils.MarshalJSON(u.PipelineFunctionUnion, "", true)
+	}
+
+	if u.PipelineFunctionUnroll != nil {
+		return utils.MarshalJSON(u.PipelineFunctionUnroll, "", true)
+	}
+
+	if u.PipelineFunctionWindow != nil {
+		return utils.MarshalJSON(u.PipelineFunctionWindow, "", true)
+	}
+
+	if u.PipelineFunctionXMLUnroll != nil {
+		return utils.MarshalJSON(u.PipelineFunctionXMLUnroll, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type PipelineFunctionConf: all fields are null")
 }

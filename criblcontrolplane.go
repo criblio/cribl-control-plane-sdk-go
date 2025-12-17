@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.16.0-T790-846c4cdc and generator version 2.767.2
+// Generated from OpenAPI doc version 4.16.0-alpha.1766009482375-5da8fbaa and generator version 2.788.4
 
 import (
 	"context"
@@ -45,6 +45,8 @@ func Pointer[T any](v T) *T { return &v }
 type CriblControlPlane struct {
 	SDKVersion   string
 	LakeDatasets *LakeDatasets
+	// Actions related to Collectors
+	Collectors *Collectors
 	// Actions related to Sources
 	Sources *Sources
 	// Actions related to Destinations
@@ -60,7 +62,9 @@ type CriblControlPlane struct {
 	Packs    *Packs
 	System   *System
 	Versions *Versions
-	Nodes    *Nodes
+	// Actions related to functions
+	Functions *Functions
+	Nodes     *Nodes
 	// Actions related to Groups
 	Groups *Groups
 
@@ -109,9 +113,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.4.0-rc.17",
+		SDKVersion: "0.5.0-rc.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.4.0-rc.17 2.767.2 4.16.0-T790-846c4cdc github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.5.0-rc.1 2.788.4 4.16.0-alpha.1766009482375-5da8fbaa github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -136,6 +140,7 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
 	sdk.LakeDatasets = newLakeDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Destinations = newDestinations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
@@ -145,6 +150,7 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.System = newSystem(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Versions = newVersions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Functions = newFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Groups = newGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
 

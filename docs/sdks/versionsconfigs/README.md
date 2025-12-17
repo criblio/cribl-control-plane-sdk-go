@@ -1,5 +1,4 @@
-# VersionsConfigs
-(*Versions.Configs*)
+# Versions.Configs
 
 ## Overview
 

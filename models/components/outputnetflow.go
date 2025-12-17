@@ -75,11 +75,15 @@ type OutputNetflow struct {
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// One or more NetFlow destinations to forward events to
+	// One or more NetFlow Destinations to forward events to
 	Hosts []OutputNetflowHost `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `default:"0" json:"dnsResolvePeriodSec"`
-	Description         *string  `json:"description,omitempty"`
+	// Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+	EnableIPSpoofing *bool   `default:"false" json:"enableIpSpoofing"`
+	Description      *string `json:"description,omitempty"`
+	// MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
+	MaxRecordSize *float64 `default:"1500" json:"maxRecordSize"`
 }
 
 func (o OutputNetflow) MarshalJSON() ([]byte, error) {
@@ -149,9 +153,23 @@ func (o *OutputNetflow) GetDNSResolvePeriodSec() *float64 {
 	return o.DNSResolvePeriodSec
 }
 
+func (o *OutputNetflow) GetEnableIPSpoofing() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableIPSpoofing
+}
+
 func (o *OutputNetflow) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
+}
+
+func (o *OutputNetflow) GetMaxRecordSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSize
 }

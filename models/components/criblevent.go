@@ -16,7 +16,7 @@ func (c CriblEvent) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CriblEvent) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"_raw"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil

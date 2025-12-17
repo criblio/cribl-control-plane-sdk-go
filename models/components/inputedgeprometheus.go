@@ -451,7 +451,7 @@ func (t *Target) GetPath() *string {
 	return t.Path
 }
 
-// InputEdgePrometheusRecordType - DNS Record type to resolve
+// InputEdgePrometheusRecordType - DNS record type to resolve
 type InputEdgePrometheusRecordType string
 
 const (
@@ -526,9 +526,9 @@ func (e *InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod) IsExact
 }
 
 type InputEdgePrometheusSearchFilter struct {
-	// Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
+	// See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for information. Attributes can be manually entered if not present in the list.
 	Name string `json:"Name"`
-	// Search Filter Values, if empty only "running" EC2 instances will be returned
+	// Values to match within this row's attribute. If empty, search will return only running EC2 instances.
 	Values []string `json:"Values"`
 }
 
@@ -645,7 +645,7 @@ type InputEdgePrometheus struct {
 	AuthType    *InputEdgePrometheusAuthTypeAuthenticationMethod `default:"manual" json:"authType"`
 	Description *string                                          `json:"description,omitempty"`
 	Targets     []Target                                         `json:"targets,omitempty"`
-	// DNS Record type to resolve
+	// DNS record type to resolve
 	RecordType *InputEdgePrometheusRecordType `default:"SRV" json:"recordType"`
 	// The port number in the metrics URL for discovered targets.
 	ScrapePort *float64 `default:"9090" json:"scrapePort"`
@@ -660,9 +660,9 @@ type InputEdgePrometheus struct {
 	AwsAPIKey               *string                                                         `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Use public IP address for discovered targets. Set to false if the private IP address should be used.
+	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `default:"true" json:"usePublicIp"`
-	// EC2 Instance Search Filter
+	// Filter to apply when searching for EC2 instances
 	SearchFilter []InputEdgePrometheusSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                           `json:"awsSecretKey,omitempty"`
 	// Region where the EC2 is located

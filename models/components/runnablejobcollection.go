@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -40,18 +38,16 @@ const (
 func (e RunnableJobCollectionRunType) ToPointer() *RunnableJobCollectionRunType {
 	return &e
 }
-func (e *RunnableJobCollectionRunType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobCollectionRunType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection":
+			return true
+		}
 	}
-	switch v {
-	case "collection":
-		*e = RunnableJobCollectionRunType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionRunType: %v", v)
-	}
+	return false
 }
 
 // RunnableJobCollectionScheduleLogLevel - Level at which to set task logging
@@ -68,26 +64,16 @@ const (
 func (e RunnableJobCollectionScheduleLogLevel) ToPointer() *RunnableJobCollectionScheduleLogLevel {
 	return &e
 }
-func (e *RunnableJobCollectionScheduleLogLevel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RunnableJobCollectionScheduleLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug", "silly":
+			return true
+		}
 	}
-	switch v {
-	case "error":
-		fallthrough
-	case "warn":
-		fallthrough
-	case "info":
-		fallthrough
-	case "debug":
-		fallthrough
-	case "silly":
-		*e = RunnableJobCollectionScheduleLogLevel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for RunnableJobCollectionScheduleLogLevel: %v", v)
-	}
+	return false
 }
 
 type RunnableJobCollectionScheduleTimeWarning struct {
@@ -128,11 +114,9 @@ type RunnableJobCollectionRunSettings struct {
 	// Limits the bundle size for small tasks. For example,
 	//
 	//
-	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
 	//
 	//
 	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
@@ -316,81 +300,108 @@ func (r *RunnableJobCollectionSchedule) GetRun() *RunnableJobCollectionRunSettin
 	return r.Run
 }
 
-type CollectorSpecificSettings struct {
-}
-
-func (c CollectorSpecificSettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSpecificSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type Collector struct {
+type RunnableJobCollectionCollector struct {
 	// The type of collector to run
-	Type string                    `json:"type"`
-	Conf CollectorSpecificSettings `json:"conf"`
+	Type string `json:"type"`
+	// Collector configuration
+	Conf CollectorConf `json:"conf"`
 	// Delete any files collected (where applicable)
 	Destructive *bool `default:"false" json:"destructive"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
 	Encoding *string `json:"encoding,omitempty"`
 }
 
-func (c Collector) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (r RunnableJobCollectionCollector) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
 }
 
-func (c *Collector) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
+func (r *RunnableJobCollectionCollector) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "conf"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *Collector) GetType() string {
-	if c == nil {
+func (r *RunnableJobCollectionCollector) GetType() string {
+	if r == nil {
 		return ""
 	}
-	return c.Type
+	return r.Type
 }
 
-func (c *Collector) GetConf() CollectorSpecificSettings {
-	if c == nil {
-		return CollectorSpecificSettings{}
+func (r *RunnableJobCollectionCollector) GetConf() CollectorConf {
+	if r == nil {
+		return CollectorConf{}
 	}
-	return c.Conf
+	return r.Conf
 }
 
-func (c *Collector) GetDestructive() *bool {
-	if c == nil {
+func (r *RunnableJobCollectionCollector) GetConfAzureBlob() *CollectorAzureBlob {
+	return r.GetConf().CollectorAzureBlob
+}
+
+func (r *RunnableJobCollectionCollector) GetConfCriblLake() *CollectorCriblLake {
+	return r.GetConf().CollectorCriblLake
+}
+
+func (r *RunnableJobCollectionCollector) GetConfDatabase() *CollectorDatabase {
+	return r.GetConf().CollectorDatabase
+}
+
+func (r *RunnableJobCollectionCollector) GetConfFilesystem() *CollectorFilesystem {
+	return r.GetConf().CollectorFilesystem
+}
+
+func (r *RunnableJobCollectionCollector) GetConfGoogleCloudStorage() *CollectorGoogleCloudStorage {
+	return r.GetConf().CollectorGoogleCloudStorage
+}
+
+func (r *RunnableJobCollectionCollector) GetConfHealthCheck() *CollectorHealthCheck {
+	return r.GetConf().CollectorHealthCheck
+}
+
+func (r *RunnableJobCollectionCollector) GetConfRest() *CollectorRest {
+	return r.GetConf().CollectorRest
+}
+
+func (r *RunnableJobCollectionCollector) GetConfS3() *CollectorS3 {
+	return r.GetConf().CollectorS3
+}
+
+func (r *RunnableJobCollectionCollector) GetConfScript() *CollectorScript {
+	return r.GetConf().CollectorScript
+}
+
+func (r *RunnableJobCollectionCollector) GetConfSplunk() *CollectorSplunk {
+	return r.GetConf().CollectorSplunk
+}
+
+func (r *RunnableJobCollectionCollector) GetDestructive() *bool {
+	if r == nil {
 		return nil
 	}
-	return c.Destructive
+	return r.Destructive
 }
 
-func (c *Collector) GetEncoding() *string {
-	if c == nil {
+func (r *RunnableJobCollectionCollector) GetEncoding() *string {
+	if r == nil {
 		return nil
 	}
-	return c.Encoding
+	return r.Encoding
 }
 
-type InputType string
+type RunnableJobCollectionInputType string
 
 const (
-	InputTypeCollection InputType = "collection"
+	RunnableJobCollectionInputTypeCollection RunnableJobCollectionInputType = "collection"
 )
 
-func (e InputType) ToPointer() *InputType {
+func (e RunnableJobCollectionInputType) ToPointer() *RunnableJobCollectionInputType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputType) IsExact() bool {
+func (e *RunnableJobCollectionInputType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "collection":
@@ -472,7 +483,7 @@ func (r *RunnableJobCollectionMetadatum) GetValue() string {
 }
 
 type RunnableJobCollectionInput struct {
-	Type *InputType `default:"collection" json:"type"`
+	Type *RunnableJobCollectionInputType `default:"collection" json:"type"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -501,7 +512,7 @@ func (r *RunnableJobCollectionInput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *RunnableJobCollectionInput) GetType() *InputType {
+func (r *RunnableJobCollectionInput) GetType() *RunnableJobCollectionInputType {
 	if r == nil {
 		return nil
 	}
@@ -890,10 +901,10 @@ type RunnableJobCollection struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// If enabled, tasks are created and run by the same Worker Node
-	WorkerAffinity *bool                       `default:"false" json:"workerAffinity"`
-	Collector      Collector                   `json:"collector"`
-	Input          *RunnableJobCollectionInput `json:"input,omitempty"`
-	Run            RunnableJobCollectionRun    `json:"run"`
+	WorkerAffinity *bool                          `default:"false" json:"workerAffinity"`
+	Collector      RunnableJobCollectionCollector `json:"collector"`
+	Input          *RunnableJobCollectionInput    `json:"input,omitempty"`
+	Run            RunnableJobCollectionRun       `json:"run"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -984,9 +995,9 @@ func (r *RunnableJobCollection) GetWorkerAffinity() *bool {
 	return r.WorkerAffinity
 }
 
-func (r *RunnableJobCollection) GetCollector() Collector {
+func (r *RunnableJobCollection) GetCollector() RunnableJobCollectionCollector {
 	if r == nil {
-		return Collector{}
+		return RunnableJobCollectionCollector{}
 	}
 	return r.Collector
 }

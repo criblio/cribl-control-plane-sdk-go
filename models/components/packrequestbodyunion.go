@@ -314,8 +314,8 @@ const (
 )
 
 type PackRequestBodyUnion struct {
-	PackRequestBody1 *PackRequestBody1 `queryParam:"inline,name=PackRequestBody"`
-	PackRequestBody2 *PackRequestBody2 `queryParam:"inline,name=PackRequestBody"`
+	PackRequestBody1 *PackRequestBody1 `queryParam:"inline,name=PackRequestBody" union:"member"`
+	PackRequestBody2 *PackRequestBody2 `queryParam:"inline,name=PackRequestBody" union:"member"`
 
 	Type PackRequestBodyUnionType
 }
