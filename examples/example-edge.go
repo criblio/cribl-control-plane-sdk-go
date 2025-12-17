@@ -172,12 +172,12 @@ func main() {
 	if err != nil {
 		log.Printf("Error marshaling pipeline config: %v", err)
 	} else {
-		var conf components.Conf
+		var conf components.ConfInput
 		err = json.Unmarshal(confBytes, &conf)
 		if err != nil {
 			log.Printf("Error unmarshaling pipeline config: %v", err)
 		} else {
-			pipeline := components.Pipeline{
+			pipeline := components.PipelineInput{
 				ID:   "my-pipeline",
 				Conf: conf,
 			}
