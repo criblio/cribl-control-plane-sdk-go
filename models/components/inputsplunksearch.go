@@ -210,20 +210,20 @@ func (i *InputSplunkSearchPq) GetPqControls() *InputSplunkSearchPqControls {
 	return i.PqControls
 }
 
-// OutputMode - Format of the returned output
-type OutputMode string
+// InputSplunkSearchOutputMode - Format of the returned output
+type InputSplunkSearchOutputMode string
 
 const (
-	OutputModeCsv  OutputMode = "csv"
-	OutputModeJSON OutputMode = "json"
+	InputSplunkSearchOutputModeCsv  InputSplunkSearchOutputMode = "csv"
+	InputSplunkSearchOutputModeJSON InputSplunkSearchOutputMode = "json"
 )
 
-func (e OutputMode) ToPointer() *OutputMode {
+func (e InputSplunkSearchOutputMode) ToPointer() *InputSplunkSearchOutputMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMode) IsExact() bool {
+func (e *InputSplunkSearchOutputMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "csv", "json":
@@ -586,7 +586,7 @@ type InputSplunkSearch struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputMode `default:"json" json:"outputMode"`
+	OutputMode *InputSplunkSearchOutputMode `default:"json" json:"outputMode"`
 	// Optional request parameters to send to the endpoint
 	EndpointParams []EndpointParam `json:"endpointParams,omitempty"`
 	// Optional request headers to send to the endpoint
@@ -770,7 +770,7 @@ func (i *InputSplunkSearch) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearch) GetOutputMode() *OutputMode {
+func (i *InputSplunkSearch) GetOutputMode() *InputSplunkSearchOutputMode {
 	if i == nil {
 		return nil
 	}

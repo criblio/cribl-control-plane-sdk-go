@@ -1,5 +1,4 @@
 # Sources
-(*Sources*)
 
 ## Overview
 
@@ -97,10 +96,10 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Create(ctx, components.CreateInputTCP(
-        components.InputTCP{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.InputTCPTypeTCP,
+    res, err := s.Sources.Create(ctx, components.CreateInputAppscope(
+        components.InputAppscope{
+            ID: criblcontrolplanesdkgo.Pointer("appscope-source"),
+            Type: components.InputAppscopeTypeAppscope,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
@@ -108,29 +107,17 @@ func main() {
                 "<value 2>",
                 "<value 3>",
             },
-            Connections: []components.InputTCPConnection{
-                components.InputTCPConnection{
+            Connections: []components.InputAppscopeConnection{
+                components.InputAppscopeConnection{
                     Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
-            Pq: &components.InputTCPPq{
-                PqControls: &components.InputTCPPqControls{},
+            Pq: &components.InputAppscopePq{
+                PqControls: &components.InputAppscopePqControls{},
             },
-            Port: 301.76,
-            TLS: &components.InputTCPTLSSettingsServerSide{
-                RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
-                CommonNameRegex: criblcontrolplanesdkgo.Pointer("<value>"),
-                CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
-                PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
-                CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                MinVersion: components.InputTCPMinimumTLSVersionTlSv1.ToPointer(),
-                MaxVersion: components.InputTCPMaximumTLSVersionTlSv11.ToPointer(),
-            },
-            Metadata: []components.InputTCPMetadatum{
-                components.InputTCPMetadatum{
+            Metadata: []components.InputAppscopeMetadatum{
+                components.InputAppscopeMetadatum{
                     Name: "<value>",
                     Value: "<value>",
                 },
@@ -138,15 +125,30 @@ func main() {
             BreakerRulesets: []string{
                 "<value 1>",
             },
-            Preprocess: &components.InputTCPPreprocess{
-                Command: criblcontrolplanesdkgo.Pointer("<value>"),
-                Args: []string{
-                    "<value 1>",
-                    "<value 2>",
-                    "<value 3>",
+            Filter: &components.InputAppscopeFilter{
+                Allow: []components.Allow{
+                    components.Allow{
+                        Procname: "<value>",
+                        Arg: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Config: "<value>",
+                    },
                 },
+                TransportURL: criblcontrolplanesdkgo.Pointer("https://drab-scrap.info/"),
             },
-            Description: criblcontrolplanesdkgo.Pointer("classic pish supposing misguided carefully fen"),
+            Persistence: &components.InputAppscopePersistence{},
+            Description: criblcontrolplanesdkgo.Pointer("if deserted boohoo red chops excepting know stay bah"),
+            Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
+            Port: criblcontrolplanesdkgo.Pointer[float64](9109),
+            TLS: &components.InputAppscopeTLSSettingsServerSide{
+                CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
+                PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
+                CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                MinVersion: components.InputAppscopeMinimumTLSVersionTlSv11.ToPointer(),
+                MaxVersion: components.InputAppscopeMaximumTLSVersionTlSv1.ToPointer(),
+            },
+            UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
@@ -263,38 +265,59 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeEvents(
-        components.InputKubeEvents{
-            ID: criblcontrolplanesdkgo.Pointer("<id>"),
-            Type: components.InputKubeEventsTypeKubeEvents,
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAppscope(
+        components.InputAppscope{
+            ID: criblcontrolplanesdkgo.Pointer("appscope-source"),
+            Type: components.InputAppscopeTypeAppscope,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
                 "<value 1>",
                 "<value 2>",
             },
-            Connections: []components.InputKubeEventsConnection{
-                components.InputKubeEventsConnection{
+            Connections: []components.InputAppscopeConnection{
+                components.InputAppscopeConnection{
                     Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
-            Pq: &components.InputKubeEventsPq{
-                PqControls: &components.InputKubeEventsPqControls{},
+            Pq: &components.InputAppscopePq{
+                PqControls: &components.InputAppscopePqControls{},
             },
-            Rules: []components.InputKubeEventsRule{
-                components.InputKubeEventsRule{
-                    Filter: "<value>",
-                    Description: criblcontrolplanesdkgo.Pointer("invite meh corny incidentally down"),
-                },
-            },
-            Metadata: []components.InputKubeEventsMetadatum{
-                components.InputKubeEventsMetadatum{
+            Metadata: []components.InputAppscopeMetadatum{
+                components.InputAppscopeMetadatum{
                     Name: "<value>",
                     Value: "<value>",
                 },
             },
-            Description: criblcontrolplanesdkgo.Pointer("gown deployment portray gah mindless carp stabilise"),
+            BreakerRulesets: []string{
+                "<value 1>",
+            },
+            Filter: &components.InputAppscopeFilter{
+                Allow: []components.Allow{
+                    components.Allow{
+                        Procname: "<value>",
+                        Arg: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Config: "<value>",
+                    },
+                },
+                TransportURL: criblcontrolplanesdkgo.Pointer("https://youthful-hammock.net/"),
+            },
+            Persistence: &components.InputAppscopePersistence{},
+            Description: criblcontrolplanesdkgo.Pointer("beyond hidden supposing ghost fictionalize disarm geez"),
+            Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
+            Port: criblcontrolplanesdkgo.Pointer[float64](9109),
+            TLS: &components.InputAppscopeTLSSettingsServerSide{
+                CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
+                PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
+                CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
+                MinVersion: components.InputAppscopeMinimumTLSVersionTlSv11.ToPointer(),
+                MaxVersion: components.InputAppscopeMaximumTLSVersionTlSv12.ToPointer(),
+            },
+            UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
+            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
     if err != nil {

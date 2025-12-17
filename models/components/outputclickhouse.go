@@ -404,6 +404,76 @@ func (o *OutputClickHouseTimeoutRetrySettings) GetMaxBackoff() *float64 {
 	return o.MaxBackoff
 }
 
+type StatsDestination struct {
+	URL         *string `json:"url,omitempty"`
+	Database    *string `json:"database,omitempty"`
+	TableName   *string `json:"tableName,omitempty"`
+	AuthType    *string `json:"authType,omitempty"`
+	Username    *string `json:"username,omitempty"`
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	Password    *string `json:"password,omitempty"`
+}
+
+func (s StatsDestination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StatsDestination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StatsDestination) GetURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.URL
+}
+
+func (s *StatsDestination) GetDatabase() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Database
+}
+
+func (s *StatsDestination) GetTableName() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TableName
+}
+
+func (s *StatsDestination) GetAuthType() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AuthType
+}
+
+func (s *StatsDestination) GetUsername() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Username
+}
+
+func (s *StatsDestination) GetSQLUsername() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SQLUsername
+}
+
+func (s *StatsDestination) GetPassword() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Password
+}
+
 // OutputClickHouseBackpressureBehavior - How to handle events when all receivers are exerting backpressure
 type OutputClickHouseBackpressureBehavior string
 
@@ -682,7 +752,8 @@ type OutputClickHouse struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// Log the most recent event that fails to match the table schema
-	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	DumpFormatErrorsToDisk *bool             `default:"false" json:"dumpFormatErrorsToDisk"`
+	StatsDestination       *StatsDestination `json:"statsDestination,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *OutputClickHouseBackpressureBehavior `default:"block" json:"onBackpressure"`
 	Description    *string                               `json:"description,omitempty"`
@@ -954,6 +1025,13 @@ func (o *OutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
 		return nil
 	}
 	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputClickHouse) GetStatsDestination() *StatsDestination {
+	if o == nil {
+		return nil
+	}
+	return o.StatsDestination
 }
 
 func (o *OutputClickHouse) GetOnBackpressure() *OutputClickHouseBackpressureBehavior {

@@ -59,6 +59,89 @@ func (n *NodeProvidedInfoAws) GetZone() string {
 	return n.Zone
 }
 
+type NodeProvidedInfoAzure struct {
+	Enabled        bool              `json:"enabled"`
+	Hostname       *string           `json:"hostname,omitempty"`
+	InstanceID     *string           `json:"instanceId,omitempty"`
+	Name           *string           `json:"name,omitempty"`
+	Region         *string           `json:"region,omitempty"`
+	ResourceGroup  *string           `json:"resourceGroup,omitempty"`
+	SubscriptionID *string           `json:"subscriptionId,omitempty"`
+	Tags           map[string]string `json:"tags,omitempty"`
+	Type           *string           `json:"type,omitempty"`
+	Zone           *string           `json:"zone,omitempty"`
+}
+
+func (n *NodeProvidedInfoAzure) GetEnabled() bool {
+	if n == nil {
+		return false
+	}
+	return n.Enabled
+}
+
+func (n *NodeProvidedInfoAzure) GetHostname() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Hostname
+}
+
+func (n *NodeProvidedInfoAzure) GetInstanceID() *string {
+	if n == nil {
+		return nil
+	}
+	return n.InstanceID
+}
+
+func (n *NodeProvidedInfoAzure) GetName() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Name
+}
+
+func (n *NodeProvidedInfoAzure) GetRegion() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Region
+}
+
+func (n *NodeProvidedInfoAzure) GetResourceGroup() *string {
+	if n == nil {
+		return nil
+	}
+	return n.ResourceGroup
+}
+
+func (n *NodeProvidedInfoAzure) GetSubscriptionID() *string {
+	if n == nil {
+		return nil
+	}
+	return n.SubscriptionID
+}
+
+func (n *NodeProvidedInfoAzure) GetTags() map[string]string {
+	if n == nil {
+		return nil
+	}
+	return n.Tags
+}
+
+func (n *NodeProvidedInfoAzure) GetType() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Type
+}
+
+func (n *NodeProvidedInfoAzure) GetZone() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Zone
+}
+
 type NodeProvidedInfoHostOs struct {
 	Addresses []string `json:"addresses"`
 	Enabled   bool     `json:"enabled"`
@@ -240,8 +323,8 @@ const (
 )
 
 type Os struct {
-	NodeProvidedInfoOs1 *NodeProvidedInfoOs1 `queryParam:"inline,name=os"`
-	NodeProvidedInfoOs2 *NodeProvidedInfoOs2 `queryParam:"inline,name=os"`
+	NodeProvidedInfoOs1 *NodeProvidedInfoOs1 `queryParam:"inline,name=os" union:"member"`
+	NodeProvidedInfoOs2 *NodeProvidedInfoOs2 `queryParam:"inline,name=os" union:"member"`
 
 	Type OsType
 }
@@ -298,6 +381,7 @@ func (u Os) MarshalJSON() ([]byte, error) {
 type NodeProvidedInfo struct {
 	Architecture   string                  `json:"architecture"`
 	Aws            *NodeProvidedInfoAws    `json:"aws,omitempty"`
+	Azure          *NodeProvidedInfoAzure  `json:"azure,omitempty"`
 	ConnIP         *string                 `json:"conn_ip,omitempty"`
 	Cpus           float64                 `json:"cpus"`
 	Cribl          HBCriblInfo             `json:"cribl"`
@@ -330,6 +414,13 @@ func (n *NodeProvidedInfo) GetAws() *NodeProvidedInfoAws {
 		return nil
 	}
 	return n.Aws
+}
+
+func (n *NodeProvidedInfo) GetAzure() *NodeProvidedInfoAzure {
+	if n == nil {
+		return nil
+	}
+	return n.Azure
 }
 
 func (n *NodeProvidedInfo) GetConnIP() *string {

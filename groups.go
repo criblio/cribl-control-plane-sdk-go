@@ -40,8 +40,8 @@ func newGroups(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 // Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
 func (s *Groups) List(ctx context.Context, product components.ProductsCore, fields *string, opts ...operations.Option) (*operations.ListConfigGroupByProductResponse, error) {
 	request := operations.ListConfigGroupByProductRequest{
-		Fields:  fields,
 		Product: product,
+		Fields:  fields,
 	}
 
 	o := operations.Options{}

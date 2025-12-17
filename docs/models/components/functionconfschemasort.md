@@ -1,0 +1,12 @@
+# FunctionConfSchemaSort
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `SortID`                                                                    | **string*                                                                   | :heavy_minus_sign:                                                          | Has to be unique if there are multiple sorts on the pipeline.               |
+| `ComparisonExpression`                                                      | **string*                                                                   | :heavy_minus_sign:                                                          | The expression can access the events via the 'left' and 'right' properties. |
+| `TopN`                                                                      | **float64*                                                                  | :heavy_minus_sign:                                                          | Limits the output to N (highest/lowest) events                              |
+| `MaxEvents`                                                                 | **float64*                                                                  | :heavy_minus_sign:                                                          | Specifies the number of events that can flow into this function             |
+| `SuppressPreviews`                                                          | **bool*                                                                     | :heavy_minus_sign:                                                          | Toggle this on to suppress generating previews of intermediate results      |

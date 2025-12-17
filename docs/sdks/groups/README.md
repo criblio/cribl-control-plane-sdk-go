@@ -1,5 +1,4 @@
 # Groups
-(*Groups*)
 
 ## Overview
 
@@ -169,7 +168,7 @@ func main() {
 | Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
 | `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
-| `product`                                                                      | [components.ProductsCore](../../models/components/productscore.md)             | :heavy_check_mark:                                                             | required Name of the Cribl product to add the Worker Group or Edge Fleet to.   |
+| `product`                                                                      | [components.ProductsCore](../../models/components/productscore.md)             | :heavy_check_mark:                                                             | Name of the Cribl product to add the Worker Group or Edge Fleet to.            |
 | `groupCreateRequest`                                                           | [components.GroupCreateRequest](../../models/components/groupcreaterequest.md) | :heavy_check_mark:                                                             | GroupCreateRequest object                                                      |
 | `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
 

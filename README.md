@@ -166,9 +166,17 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 <details open>
 <summary>Available methods</summary>
 
-#### [Auth.Tokens](docs/sdks/tokens/README.md)
+### [Auth.Tokens](docs/sdks/tokens/README.md)
 
 * [Get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
+
+### [Collectors](docs/sdks/collectors/README.md)
+
+* [Create](docs/sdks/collectors/README.md#create) - Create a Collector
+* [List](docs/sdks/collectors/README.md#list) - List all Collectors
+* [Delete](docs/sdks/collectors/README.md#delete) - Delete a Collector
+* [Get](docs/sdks/collectors/README.md#get) - Get a Collector
+* [Update](docs/sdks/collectors/README.md#update) - Update a Collector
 
 ### [Destinations](docs/sdks/destinations/README.md)
 
@@ -188,6 +196,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Get](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 * [Create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 
+### [Functions](docs/sdks/functions/README.md)
+
+* [Get](docs/sdks/functions/README.md#get) - Get a Function
+* [List](docs/sdks/functions/README.md#list) - List all Functions
+
 ### [Groups](docs/sdks/groups/README.md)
 
 * [List](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
@@ -197,11 +210,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
 * [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
-#### [Groups.ACL](docs/sdks/acl/README.md)
+#### [Groups.Acl](docs/sdks/acl/README.md)
 
 * [Get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
 
-#### [Groups.ACL.Teams](docs/sdks/teams/README.md)
+##### [Groups.Acl.Teams](docs/sdks/teams/README.md)
 
 * [Get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 
@@ -267,17 +280,17 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
-#### [System.Settings.Cribl](docs/sdks/cribl/README.md)
+### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
 * [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
 * [Update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
 
-#### [Versions.Branches](docs/sdks/branches/README.md)
+### [Versions.Branches](docs/sdks/branches/README.md)
 
 * [List](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
 * [Get](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 
-#### [Versions.Commits](docs/sdks/commits/README.md)
+### [Versions.Commits](docs/sdks/commits/README.md)
 
 * [Create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
 * [Diff](docs/sdks/commits/README.md#diff) - Get the diff for a commit
@@ -292,11 +305,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Count](docs/sdks/files/README.md#count) - Get a count of files that changed since a commit
 * [List](docs/sdks/files/README.md#list) - Get the names and statuses of files that changed since a commit
 
-#### [Versions.Configs](docs/sdks/versionsconfigs/README.md)
+### [Versions.Configs](docs/sdks/versionsconfigs/README.md)
 
 * [Get](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 
-#### [Versions.Statuses](docs/sdks/statuses/README.md)
+### [Versions.Statuses](docs/sdks/statuses/README.md)
 
 * [Get](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
 

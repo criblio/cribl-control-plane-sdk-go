@@ -1,5 +1,4 @@
-# Cribl
-(*System.Settings.Cribl*)
+# System.Settings.Cribl
 
 ## Overview
 

@@ -210,31 +210,31 @@ func (i *InputSnmpPq) GetPqControls() *InputSnmpPqControls {
 	return i.PqControls
 }
 
-type AuthenticationProtocol string
+type InputSnmpAuthenticationProtocol string
 
 const (
-	// AuthenticationProtocolNone None
-	AuthenticationProtocolNone AuthenticationProtocol = "none"
-	// AuthenticationProtocolMd5 MD5
-	AuthenticationProtocolMd5 AuthenticationProtocol = "md5"
-	// AuthenticationProtocolSha SHA1
-	AuthenticationProtocolSha AuthenticationProtocol = "sha"
-	// AuthenticationProtocolSha224 SHA224
-	AuthenticationProtocolSha224 AuthenticationProtocol = "sha224"
-	// AuthenticationProtocolSha256 SHA256
-	AuthenticationProtocolSha256 AuthenticationProtocol = "sha256"
-	// AuthenticationProtocolSha384 SHA384
-	AuthenticationProtocolSha384 AuthenticationProtocol = "sha384"
-	// AuthenticationProtocolSha512 SHA512
-	AuthenticationProtocolSha512 AuthenticationProtocol = "sha512"
+	// InputSnmpAuthenticationProtocolNone None
+	InputSnmpAuthenticationProtocolNone InputSnmpAuthenticationProtocol = "none"
+	// InputSnmpAuthenticationProtocolMd5 MD5
+	InputSnmpAuthenticationProtocolMd5 InputSnmpAuthenticationProtocol = "md5"
+	// InputSnmpAuthenticationProtocolSha SHA1
+	InputSnmpAuthenticationProtocolSha InputSnmpAuthenticationProtocol = "sha"
+	// InputSnmpAuthenticationProtocolSha224 SHA224
+	InputSnmpAuthenticationProtocolSha224 InputSnmpAuthenticationProtocol = "sha224"
+	// InputSnmpAuthenticationProtocolSha256 SHA256
+	InputSnmpAuthenticationProtocolSha256 InputSnmpAuthenticationProtocol = "sha256"
+	// InputSnmpAuthenticationProtocolSha384 SHA384
+	InputSnmpAuthenticationProtocolSha384 InputSnmpAuthenticationProtocol = "sha384"
+	// InputSnmpAuthenticationProtocolSha512 SHA512
+	InputSnmpAuthenticationProtocolSha512 InputSnmpAuthenticationProtocol = "sha512"
 )
 
-func (e AuthenticationProtocol) ToPointer() *AuthenticationProtocol {
+func (e InputSnmpAuthenticationProtocol) ToPointer() *InputSnmpAuthenticationProtocol {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthenticationProtocol) IsExact() bool {
+func (e *InputSnmpAuthenticationProtocol) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
@@ -274,58 +274,58 @@ func (e *PrivacyProtocol) IsExact() bool {
 	return false
 }
 
-type V3User struct {
-	Name         string                  `json:"name"`
-	AuthProtocol *AuthenticationProtocol `default:"none" json:"authProtocol"`
-	AuthKey      *string                 `json:"authKey,omitempty"`
-	PrivProtocol *PrivacyProtocol        `default:"none" json:"privProtocol"`
-	PrivKey      *string                 `json:"privKey,omitempty"`
+type InputSnmpV3User struct {
+	Name         string                           `json:"name"`
+	AuthProtocol *InputSnmpAuthenticationProtocol `default:"none" json:"authProtocol"`
+	AuthKey      *string                          `json:"authKey,omitempty"`
+	PrivProtocol *PrivacyProtocol                 `default:"none" json:"privProtocol"`
+	PrivKey      *string                          `json:"privKey,omitempty"`
 }
 
-func (v V3User) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(v, "", false)
+func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (v *V3User) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &v, "", false, []string{"name"}); err != nil {
+func (i *InputSnmpV3User) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (v *V3User) GetName() string {
-	if v == nil {
+func (i *InputSnmpV3User) GetName() string {
+	if i == nil {
 		return ""
 	}
-	return v.Name
+	return i.Name
 }
 
-func (v *V3User) GetAuthProtocol() *AuthenticationProtocol {
-	if v == nil {
+func (i *InputSnmpV3User) GetAuthProtocol() *InputSnmpAuthenticationProtocol {
+	if i == nil {
 		return nil
 	}
-	return v.AuthProtocol
+	return i.AuthProtocol
 }
 
-func (v *V3User) GetAuthKey() *string {
-	if v == nil {
+func (i *InputSnmpV3User) GetAuthKey() *string {
+	if i == nil {
 		return nil
 	}
-	return v.AuthKey
+	return i.AuthKey
 }
 
-func (v *V3User) GetPrivProtocol() *PrivacyProtocol {
-	if v == nil {
+func (i *InputSnmpV3User) GetPrivProtocol() *PrivacyProtocol {
+	if i == nil {
 		return nil
 	}
-	return v.PrivProtocol
+	return i.PrivProtocol
 }
 
-func (v *V3User) GetPrivKey() *string {
-	if v == nil {
+func (i *InputSnmpV3User) GetPrivKey() *string {
+	if i == nil {
 		return nil
 	}
-	return v.PrivKey
+	return i.PrivKey
 }
 
 // SNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
@@ -334,7 +334,7 @@ type SNMPv3Authentication struct {
 	// Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
 	AllowUnmatchedTrap *bool `default:"false" json:"allowUnmatchedTrap"`
 	// User credentials for receiving v3 traps
-	V3Users []V3User `json:"v3Users,omitempty"`
+	V3Users []InputSnmpV3User `json:"v3Users,omitempty"`
 }
 
 func (s SNMPv3Authentication) MarshalJSON() ([]byte, error) {
@@ -362,7 +362,7 @@ func (s *SNMPv3Authentication) GetAllowUnmatchedTrap() *bool {
 	return s.AllowUnmatchedTrap
 }
 
-func (s *SNMPv3Authentication) GetV3Users() []V3User {
+func (s *SNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 	if s == nil {
 		return nil
 	}

@@ -22,10 +22,18 @@ func (a *AddHecTokenRequestMetadatum) GetValue() string {
 }
 
 type AddHecTokenRequest struct {
-	Description *string                       `json:"description,omitempty"`
-	Enabled     *bool                         `json:"enabled,omitempty"`
-	Metadata    []AddHecTokenRequestMetadatum `json:"metadata,omitempty"`
-	Token       string                        `json:"token"`
+	AllowedIndexesAtToken []string                      `json:"allowedIndexesAtToken,omitempty"`
+	Description           *string                       `json:"description,omitempty"`
+	Enabled               *bool                         `json:"enabled,omitempty"`
+	Metadata              []AddHecTokenRequestMetadatum `json:"metadata,omitempty"`
+	Token                 string                        `json:"token"`
+}
+
+func (a *AddHecTokenRequest) GetAllowedIndexesAtToken() []string {
+	if a == nil {
+		return nil
+	}
+	return a.AllowedIndexesAtToken
 }
 
 func (a *AddHecTokenRequest) GetDescription() *string {
