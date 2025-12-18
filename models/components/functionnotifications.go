@@ -31,62 +31,21 @@ func (e *FunctionNotificationsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionNotificationsSchema struct {
-	// Notification ID
-	ID *string `json:"id,omitempty"`
-	// Notification event state field name
-	Field *string `json:"field,omitempty"`
-	// Toggle deduplication.
-	Deduplicate *bool `json:"deduplicate,omitempty"`
-}
-
-func (f FunctionNotificationsSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionNotificationsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionNotificationsSchema) GetID() *string {
-	if f == nil {
-		return nil
-	}
-	return f.ID
-}
-
-func (f *FunctionNotificationsSchema) GetField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Field
-}
-
-func (f *FunctionNotificationsSchema) GetDeduplicate() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Deduplicate
-}
-
 type FunctionNotifications struct {
-	Filename      string                       `json:"__filename"`
-	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                      `json:"cribl_version,omitempty"`
-	Disabled      *bool                        `json:"disabled,omitempty"`
-	Group         string                       `json:"group"`
-	HandleSignals *bool                        `json:"handleSignals,omitempty"`
-	ID            FunctionNotificationsID      `json:"id"`
-	LoadTime      float64                      `json:"loadTime"`
-	ModTime       float64                      `json:"modTime"`
-	Name          string                       `json:"name"`
-	Sync          *bool                        `json:"sync,omitempty"`
-	Uischema      map[string]any               `json:"uischema"`
-	Version       string                       `json:"version"`
-	Schema        *FunctionNotificationsSchema `json:"schema,omitempty"`
+	Filename      string                           `json:"__filename"`
+	AsyncTimeout  *float64                         `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                          `json:"cribl_version,omitempty"`
+	Disabled      *bool                            `json:"disabled,omitempty"`
+	Group         string                           `json:"group"`
+	HandleSignals *bool                            `json:"handleSignals,omitempty"`
+	ID            FunctionNotificationsID          `json:"id"`
+	LoadTime      float64                          `json:"loadTime"`
+	ModTime       float64                          `json:"modTime"`
+	Name          string                           `json:"name"`
+	Sync          *bool                            `json:"sync,omitempty"`
+	Uischema      map[string]any                   `json:"uischema"`
+	Version       string                           `json:"version"`
+	Schema        *FunctionConfSchemaNotifications `json:"schema,omitempty"`
 }
 
 func (f FunctionNotifications) MarshalJSON() ([]byte, error) {
@@ -191,7 +150,7 @@ func (f *FunctionNotifications) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionNotifications) GetSchema() *FunctionNotificationsSchema {
+func (f *FunctionNotifications) GetSchema() *FunctionConfSchemaNotifications {
 	if f == nil {
 		return nil
 	}

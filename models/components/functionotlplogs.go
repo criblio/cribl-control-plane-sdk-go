@@ -31,52 +31,21 @@ func (e *FunctionOtlpLogsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionOtlpLogsSchema struct {
-	DropNonLogEvents *bool `default:"false" json:"dropNonLogEvents"`
-	// Batch OTLP log records by shared top-level `resource` attributes
-	BatchOTLPLogs *bool `default:"false" json:"batchOTLPLogs"`
-}
-
-func (f FunctionOtlpLogsSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionOtlpLogsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionOtlpLogsSchema) GetDropNonLogEvents() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.DropNonLogEvents
-}
-
-func (f *FunctionOtlpLogsSchema) GetBatchOTLPLogs() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.BatchOTLPLogs
-}
-
 type FunctionOtlpLogs struct {
-	Filename      string                  `json:"__filename"`
-	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                 `json:"cribl_version,omitempty"`
-	Disabled      *bool                   `json:"disabled,omitempty"`
-	Group         string                  `json:"group"`
-	HandleSignals *bool                   `json:"handleSignals,omitempty"`
-	ID            FunctionOtlpLogsID      `json:"id"`
-	LoadTime      float64                 `json:"loadTime"`
-	ModTime       float64                 `json:"modTime"`
-	Name          string                  `json:"name"`
-	Sync          *bool                   `json:"sync,omitempty"`
-	Uischema      map[string]any          `json:"uischema"`
-	Version       string                  `json:"version"`
-	Schema        *FunctionOtlpLogsSchema `json:"schema,omitempty"`
+	Filename      string                      `json:"__filename"`
+	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                     `json:"cribl_version,omitempty"`
+	Disabled      *bool                       `json:"disabled,omitempty"`
+	Group         string                      `json:"group"`
+	HandleSignals *bool                       `json:"handleSignals,omitempty"`
+	ID            FunctionOtlpLogsID          `json:"id"`
+	LoadTime      float64                     `json:"loadTime"`
+	ModTime       float64                     `json:"modTime"`
+	Name          string                      `json:"name"`
+	Sync          *bool                       `json:"sync,omitempty"`
+	Uischema      map[string]any              `json:"uischema"`
+	Version       string                      `json:"version"`
+	Schema        *FunctionConfSchemaOtlpLogs `json:"schema,omitempty"`
 }
 
 func (f FunctionOtlpLogs) MarshalJSON() ([]byte, error) {
@@ -181,7 +150,7 @@ func (f *FunctionOtlpLogs) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionOtlpLogs) GetSchema() *FunctionOtlpLogsSchema {
+func (f *FunctionOtlpLogs) GetSchema() *FunctionConfSchemaOtlpLogs {
 	if f == nil {
 		return nil
 	}

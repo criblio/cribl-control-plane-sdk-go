@@ -31,112 +31,21 @@ func (e *FunctionJoinID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FieldCondition struct {
-	// The field name to join on, on the left side.
-	LeftFieldName string `json:"leftFieldName"`
-	// The field name on the right side of the data, i.e. the stage results, that we are joining with
-	RightFieldName string `json:"rightFieldName"`
-}
-
-func (f FieldCondition) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FieldCondition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"leftFieldName", "rightFieldName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FieldCondition) GetLeftFieldName() string {
-	if f == nil {
-		return ""
-	}
-	return f.LeftFieldName
-}
-
-func (f *FieldCondition) GetRightFieldName() string {
-	if f == nil {
-		return ""
-	}
-	return f.RightFieldName
-}
-
-type JoinConfiguration struct {
-	// Join kind, e.g. inner
-	Kind *string `json:"kind,omitempty"`
-	// Hints passed to the join function
-	Hints map[string]string `json:"hints,omitempty"`
-	// Fields to use when joining
-	FieldConditions []FieldCondition `json:"fieldConditions,omitempty"`
-	// The id for this search job.
-	SearchJobID *string `json:"searchJobId,omitempty"`
-	// The stage we are joining with.
-	StageID *string `json:"stageId,omitempty"`
-}
-
-func (j JoinConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(j, "", false)
-}
-
-func (j *JoinConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &j, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (j *JoinConfiguration) GetKind() *string {
-	if j == nil {
-		return nil
-	}
-	return j.Kind
-}
-
-func (j *JoinConfiguration) GetHints() map[string]string {
-	if j == nil {
-		return nil
-	}
-	return j.Hints
-}
-
-func (j *JoinConfiguration) GetFieldConditions() []FieldCondition {
-	if j == nil {
-		return nil
-	}
-	return j.FieldConditions
-}
-
-func (j *JoinConfiguration) GetSearchJobID() *string {
-	if j == nil {
-		return nil
-	}
-	return j.SearchJobID
-}
-
-func (j *JoinConfiguration) GetStageID() *string {
-	if j == nil {
-		return nil
-	}
-	return j.StageID
-}
-
 type FunctionJoin struct {
-	Filename      string             `json:"__filename"`
-	AsyncTimeout  *float64           `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string            `json:"cribl_version,omitempty"`
-	Disabled      *bool              `json:"disabled,omitempty"`
-	Group         string             `json:"group"`
-	HandleSignals *bool              `json:"handleSignals,omitempty"`
-	ID            FunctionJoinID     `json:"id"`
-	LoadTime      float64            `json:"loadTime"`
-	ModTime       float64            `json:"modTime"`
-	Name          string             `json:"name"`
-	Sync          *bool              `json:"sync,omitempty"`
-	Uischema      map[string]any     `json:"uischema"`
-	Version       string             `json:"version"`
-	Schema        *JoinConfiguration `json:"schema,omitempty"`
+	Filename      string                  `json:"__filename"`
+	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                   `json:"disabled,omitempty"`
+	Group         string                  `json:"group"`
+	HandleSignals *bool                   `json:"handleSignals,omitempty"`
+	ID            FunctionJoinID          `json:"id"`
+	LoadTime      float64                 `json:"loadTime"`
+	ModTime       float64                 `json:"modTime"`
+	Name          string                  `json:"name"`
+	Sync          *bool                   `json:"sync,omitempty"`
+	Uischema      map[string]any          `json:"uischema"`
+	Version       string                  `json:"version"`
+	Schema        *FunctionConfSchemaJoin `json:"schema,omitempty"`
 }
 
 func (f FunctionJoin) MarshalJSON() ([]byte, error) {
@@ -241,7 +150,7 @@ func (f *FunctionJoin) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionJoin) GetSchema() *JoinConfiguration {
+func (f *FunctionJoin) GetSchema() *FunctionConfSchemaJoin {
 	if f == nil {
 		return nil
 	}

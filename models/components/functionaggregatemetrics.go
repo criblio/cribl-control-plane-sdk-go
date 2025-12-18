@@ -31,243 +31,21 @@ func (e *FunctionAggregateMetricsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// FunctionAggregateMetricsMetricType - The output metric type
-type FunctionAggregateMetricsMetricType string
-
-const (
-	FunctionAggregateMetricsMetricTypeAutomatic    FunctionAggregateMetricsMetricType = "automatic"
-	FunctionAggregateMetricsMetricTypeCounter      FunctionAggregateMetricsMetricType = "counter"
-	FunctionAggregateMetricsMetricTypeDistribution FunctionAggregateMetricsMetricType = "distribution"
-	FunctionAggregateMetricsMetricTypeGauge        FunctionAggregateMetricsMetricType = "gauge"
-	FunctionAggregateMetricsMetricTypeHistogram    FunctionAggregateMetricsMetricType = "histogram"
-	FunctionAggregateMetricsMetricTypeSummary      FunctionAggregateMetricsMetricType = "summary"
-	FunctionAggregateMetricsMetricTypeTimer        FunctionAggregateMetricsMetricType = "timer"
-)
-
-func (e FunctionAggregateMetricsMetricType) ToPointer() *FunctionAggregateMetricsMetricType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionAggregateMetricsMetricType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "automatic", "counter", "distribution", "gauge", "histogram", "summary", "timer":
-			return true
-		}
-	}
-	return false
-}
-
-type Aggregation struct {
-	// The output metric type
-	MetricType *FunctionAggregateMetricsMetricType `default:"automatic" json:"metricType"`
-	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
-	Agg string `json:"agg"`
-}
-
-func (a Aggregation) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *Aggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"agg"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *Aggregation) GetMetricType() *FunctionAggregateMetricsMetricType {
-	if a == nil {
-		return nil
-	}
-	return a.MetricType
-}
-
-func (a *Aggregation) GetAgg() string {
-	if a == nil {
-		return ""
-	}
-	return a.Agg
-}
-
-type FunctionAggregateMetricsAdd struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (f FunctionAggregateMetricsAdd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionAggregateMetricsAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionAggregateMetricsAdd) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FunctionAggregateMetricsAdd) GetValue() string {
-	if f == nil {
-		return ""
-	}
-	return f.Value
-}
-
-type FunctionAggregateMetricsSchema struct {
-	// Pass through the original events along with the aggregation events
-	Passthrough *bool `default:"false" json:"passthrough"`
-	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `default:"false" json:"preserveGroupBys"`
-	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `default:"false" json:"sufficientStatsOnly"`
-	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitempty"`
-	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"10s" json:"timeWindow"`
-	// Combination of Aggregation function and output metric type
-	Aggregations []Aggregation `json:"aggregations,omitempty"`
-	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitempty"`
-	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
-	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
-	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `default:"false" json:"cumulative"`
-	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `default:"true" json:"shouldTreatDotsAsLiterals"`
-	// Set of key-value pairs to evaluate and add/set
-	Add []FunctionAggregateMetricsAdd `json:"add,omitempty"`
-	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
-}
-
-func (f FunctionAggregateMetricsSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionAggregateMetricsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionAggregateMetricsSchema) GetPassthrough() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Passthrough
-}
-
-func (f *FunctionAggregateMetricsSchema) GetPreserveGroupBys() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.PreserveGroupBys
-}
-
-func (f *FunctionAggregateMetricsSchema) GetSufficientStatsOnly() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.SufficientStatsOnly
-}
-
-func (f *FunctionAggregateMetricsSchema) GetPrefix() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Prefix
-}
-
-func (f *FunctionAggregateMetricsSchema) GetTimeWindow() *string {
-	if f == nil {
-		return nil
-	}
-	return f.TimeWindow
-}
-
-func (f *FunctionAggregateMetricsSchema) GetAggregations() []Aggregation {
-	if f == nil {
-		return nil
-	}
-	return f.Aggregations
-}
-
-func (f *FunctionAggregateMetricsSchema) GetGroupbys() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Groupbys
-}
-
-func (f *FunctionAggregateMetricsSchema) GetFlushEventLimit() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.FlushEventLimit
-}
-
-func (f *FunctionAggregateMetricsSchema) GetFlushMemLimit() *string {
-	if f == nil {
-		return nil
-	}
-	return f.FlushMemLimit
-}
-
-func (f *FunctionAggregateMetricsSchema) GetCumulative() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Cumulative
-}
-
-func (f *FunctionAggregateMetricsSchema) GetShouldTreatDotsAsLiterals() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.ShouldTreatDotsAsLiterals
-}
-
-func (f *FunctionAggregateMetricsSchema) GetAdd() []FunctionAggregateMetricsAdd {
-	if f == nil {
-		return nil
-	}
-	return f.Add
-}
-
-func (f *FunctionAggregateMetricsSchema) GetFlushOnInputClose() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.FlushOnInputClose
-}
-
 type FunctionAggregateMetrics struct {
-	Filename      string                          `json:"__filename"`
-	AsyncTimeout  *float64                        `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                         `json:"cribl_version,omitempty"`
-	Disabled      *bool                           `json:"disabled,omitempty"`
-	Group         string                          `json:"group"`
-	HandleSignals *bool                           `json:"handleSignals,omitempty"`
-	ID            FunctionAggregateMetricsID      `json:"id"`
-	LoadTime      float64                         `json:"loadTime"`
-	ModTime       float64                         `json:"modTime"`
-	Name          string                          `json:"name"`
-	Sync          *bool                           `json:"sync,omitempty"`
-	Uischema      map[string]any                  `json:"uischema"`
-	Version       string                          `json:"version"`
-	Schema        *FunctionAggregateMetricsSchema `json:"schema,omitempty"`
+	Filename      string                              `json:"__filename"`
+	AsyncTimeout  *float64                            `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                             `json:"cribl_version,omitempty"`
+	Disabled      *bool                               `json:"disabled,omitempty"`
+	Group         string                              `json:"group"`
+	HandleSignals *bool                               `json:"handleSignals,omitempty"`
+	ID            FunctionAggregateMetricsID          `json:"id"`
+	LoadTime      float64                             `json:"loadTime"`
+	ModTime       float64                             `json:"modTime"`
+	Name          string                              `json:"name"`
+	Sync          *bool                               `json:"sync,omitempty"`
+	Uischema      map[string]any                      `json:"uischema"`
+	Version       string                              `json:"version"`
+	Schema        *FunctionConfSchemaAggregateMetrics `json:"schema,omitempty"`
 }
 
 func (f FunctionAggregateMetrics) MarshalJSON() ([]byte, error) {
@@ -372,7 +150,7 @@ func (f *FunctionAggregateMetrics) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionAggregateMetrics) GetSchema() *FunctionAggregateMetricsSchema {
+func (f *FunctionAggregateMetrics) GetSchema() *FunctionConfSchemaAggregateMetrics {
 	if f == nil {
 		return nil
 	}

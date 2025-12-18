@@ -31,76 +31,21 @@ func (e *FunctionSamplingID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionSamplingRule struct {
-	// JavaScript filter expression matching events to be sampled. Use true to match all.
-	Filter *string `default:"true" json:"filter"`
-	// Sampling rate; picks one out of N matching events
-	Rate *int64 `default:"1" json:"rate"`
-}
-
-func (f FunctionSamplingRule) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSamplingRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSamplingRule) GetFilter() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Filter
-}
-
-func (f *FunctionSamplingRule) GetRate() *int64 {
-	if f == nil {
-		return nil
-	}
-	return f.Rate
-}
-
-type FunctionSamplingSchema struct {
-	// Events matching these rules will be sampled at the given rate
-	Rules []FunctionSamplingRule `json:"rules,omitempty"`
-}
-
-func (f FunctionSamplingSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSamplingSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSamplingSchema) GetRules() []FunctionSamplingRule {
-	if f == nil {
-		return nil
-	}
-	return f.Rules
-}
-
 type FunctionSampling struct {
-	Filename      string                  `json:"__filename"`
-	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                 `json:"cribl_version,omitempty"`
-	Disabled      *bool                   `json:"disabled,omitempty"`
-	Group         string                  `json:"group"`
-	HandleSignals *bool                   `json:"handleSignals,omitempty"`
-	ID            FunctionSamplingID      `json:"id"`
-	LoadTime      float64                 `json:"loadTime"`
-	ModTime       float64                 `json:"modTime"`
-	Name          string                  `json:"name"`
-	Sync          *bool                   `json:"sync,omitempty"`
-	Uischema      map[string]any          `json:"uischema"`
-	Version       string                  `json:"version"`
-	Schema        *FunctionSamplingSchema `json:"schema,omitempty"`
+	Filename      string                      `json:"__filename"`
+	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                     `json:"cribl_version,omitempty"`
+	Disabled      *bool                       `json:"disabled,omitempty"`
+	Group         string                      `json:"group"`
+	HandleSignals *bool                       `json:"handleSignals,omitempty"`
+	ID            FunctionSamplingID          `json:"id"`
+	LoadTime      float64                     `json:"loadTime"`
+	ModTime       float64                     `json:"modTime"`
+	Name          string                      `json:"name"`
+	Sync          *bool                       `json:"sync,omitempty"`
+	Uischema      map[string]any              `json:"uischema"`
+	Version       string                      `json:"version"`
+	Schema        *FunctionConfSchemaSampling `json:"schema,omitempty"`
 }
 
 func (f FunctionSampling) MarshalJSON() ([]byte, error) {
@@ -205,7 +150,7 @@ func (f *FunctionSampling) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSampling) GetSchema() *FunctionSamplingSchema {
+func (f *FunctionSampling) GetSchema() *FunctionConfSchemaSampling {
 	if f == nil {
 		return nil
 	}

@@ -31,44 +31,21 @@ func (e *FunctionLocalSearchDatatypeParserID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionLocalSearchDatatypeParserSchema struct {
-	// ID of the local search datatype ruleset
-	RulesetID *string `json:"rulesetId,omitempty"`
-}
-
-func (f FunctionLocalSearchDatatypeParserSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionLocalSearchDatatypeParserSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionLocalSearchDatatypeParserSchema) GetRulesetID() *string {
-	if f == nil {
-		return nil
-	}
-	return f.RulesetID
-}
-
 type FunctionLocalSearchDatatypeParser struct {
-	Filename      string                                   `json:"__filename"`
-	AsyncTimeout  *float64                                 `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                                  `json:"cribl_version,omitempty"`
-	Disabled      *bool                                    `json:"disabled,omitempty"`
-	Group         string                                   `json:"group"`
-	HandleSignals *bool                                    `json:"handleSignals,omitempty"`
-	ID            FunctionLocalSearchDatatypeParserID      `json:"id"`
-	LoadTime      float64                                  `json:"loadTime"`
-	ModTime       float64                                  `json:"modTime"`
-	Name          string                                   `json:"name"`
-	Sync          *bool                                    `json:"sync,omitempty"`
-	Uischema      map[string]any                           `json:"uischema"`
-	Version       string                                   `json:"version"`
-	Schema        *FunctionLocalSearchDatatypeParserSchema `json:"schema,omitempty"`
+	Filename      string                                       `json:"__filename"`
+	AsyncTimeout  *float64                                     `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                                      `json:"cribl_version,omitempty"`
+	Disabled      *bool                                        `json:"disabled,omitempty"`
+	Group         string                                       `json:"group"`
+	HandleSignals *bool                                        `json:"handleSignals,omitempty"`
+	ID            FunctionLocalSearchDatatypeParserID          `json:"id"`
+	LoadTime      float64                                      `json:"loadTime"`
+	ModTime       float64                                      `json:"modTime"`
+	Name          string                                       `json:"name"`
+	Sync          *bool                                        `json:"sync,omitempty"`
+	Uischema      map[string]any                               `json:"uischema"`
+	Version       string                                       `json:"version"`
+	Schema        *FunctionConfSchemaLocalSearchDatatypeParser `json:"schema,omitempty"`
 }
 
 func (f FunctionLocalSearchDatatypeParser) MarshalJSON() ([]byte, error) {
@@ -173,7 +150,7 @@ func (f *FunctionLocalSearchDatatypeParser) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionLocalSearchDatatypeParser) GetSchema() *FunctionLocalSearchDatatypeParserSchema {
+func (f *FunctionLocalSearchDatatypeParser) GetSchema() *FunctionConfSchemaLocalSearchDatatypeParser {
 	if f == nil {
 		return nil
 	}

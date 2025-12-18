@@ -31,70 +31,21 @@ func (e *FunctionTeeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionTeeSchema struct {
-	// Command to execute and feed events to, via stdin. One JSON-formatted event per line.
-	Command *string  `json:"command,omitempty"`
-	Args    []string `json:"args,omitempty"`
-	// Restart the process if it exits and/or we fail to write to it
-	RestartOnExit *bool `default:"true" json:"restartOnExit"`
-	// Environment variables to overwrite or set
-	Env map[string]string `json:"env,omitempty"`
-}
-
-func (f FunctionTeeSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionTeeSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionTeeSchema) GetCommand() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Command
-}
-
-func (f *FunctionTeeSchema) GetArgs() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Args
-}
-
-func (f *FunctionTeeSchema) GetRestartOnExit() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.RestartOnExit
-}
-
-func (f *FunctionTeeSchema) GetEnv() map[string]string {
-	if f == nil {
-		return nil
-	}
-	return f.Env
-}
-
 type FunctionTee struct {
-	Filename      string             `json:"__filename"`
-	AsyncTimeout  *float64           `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string            `json:"cribl_version,omitempty"`
-	Disabled      *bool              `json:"disabled,omitempty"`
-	Group         string             `json:"group"`
-	HandleSignals *bool              `json:"handleSignals,omitempty"`
-	ID            FunctionTeeID      `json:"id"`
-	LoadTime      float64            `json:"loadTime"`
-	ModTime       float64            `json:"modTime"`
-	Name          string             `json:"name"`
-	Sync          *bool              `json:"sync,omitempty"`
-	Uischema      map[string]any     `json:"uischema"`
-	Version       string             `json:"version"`
-	Schema        *FunctionTeeSchema `json:"schema,omitempty"`
+	Filename      string                 `json:"__filename"`
+	AsyncTimeout  *float64               `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                `json:"cribl_version,omitempty"`
+	Disabled      *bool                  `json:"disabled,omitempty"`
+	Group         string                 `json:"group"`
+	HandleSignals *bool                  `json:"handleSignals,omitempty"`
+	ID            FunctionTeeID          `json:"id"`
+	LoadTime      float64                `json:"loadTime"`
+	ModTime       float64                `json:"modTime"`
+	Name          string                 `json:"name"`
+	Sync          *bool                  `json:"sync,omitempty"`
+	Uischema      map[string]any         `json:"uischema"`
+	Version       string                 `json:"version"`
+	Schema        *FunctionConfSchemaTee `json:"schema,omitempty"`
 }
 
 func (f FunctionTee) MarshalJSON() ([]byte, error) {
@@ -199,7 +150,7 @@ func (f *FunctionTee) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionTee) GetSchema() *FunctionTeeSchema {
+func (f *FunctionTee) GetSchema() *FunctionConfSchemaTee {
 	if f == nil {
 		return nil
 	}

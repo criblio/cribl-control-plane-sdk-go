@@ -31,111 +31,21 @@ func (e *FunctionRegexExtractID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionRegexExtractRegexList struct {
-	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex string `json:"regex"`
-}
-
-func (f FunctionRegexExtractRegexList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionRegexExtractRegexList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"regex"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionRegexExtractRegexList) GetRegex() string {
-	if f == nil {
-		return ""
-	}
-	return f.Regex
-}
-
-type FunctionRegexExtractSchema struct {
-	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                         `json:"regex,omitempty"`
-	RegexList []FunctionRegexExtractRegexList `json:"regexList,omitempty"`
-	// Field on which to perform regex field extraction
-	Source *string `default:"_raw" json:"source"`
-	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
-	Iterations *float64 `default:"100" json:"iterations"`
-	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
-	FieldNameExpression *string `json:"fieldNameExpression,omitempty"`
-	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
-	Overwrite *bool `default:"false" json:"overwrite"`
-}
-
-func (f FunctionRegexExtractSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionRegexExtractSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionRegexExtractSchema) GetRegex() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Regex
-}
-
-func (f *FunctionRegexExtractSchema) GetRegexList() []FunctionRegexExtractRegexList {
-	if f == nil {
-		return nil
-	}
-	return f.RegexList
-}
-
-func (f *FunctionRegexExtractSchema) GetSource() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Source
-}
-
-func (f *FunctionRegexExtractSchema) GetIterations() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.Iterations
-}
-
-func (f *FunctionRegexExtractSchema) GetFieldNameExpression() *string {
-	if f == nil {
-		return nil
-	}
-	return f.FieldNameExpression
-}
-
-func (f *FunctionRegexExtractSchema) GetOverwrite() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Overwrite
-}
-
 type FunctionRegexExtract struct {
-	Filename      string                      `json:"__filename"`
-	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                     `json:"cribl_version,omitempty"`
-	Disabled      *bool                       `json:"disabled,omitempty"`
-	Group         string                      `json:"group"`
-	HandleSignals *bool                       `json:"handleSignals,omitempty"`
-	ID            FunctionRegexExtractID      `json:"id"`
-	LoadTime      float64                     `json:"loadTime"`
-	ModTime       float64                     `json:"modTime"`
-	Name          string                      `json:"name"`
-	Sync          *bool                       `json:"sync,omitempty"`
-	Uischema      map[string]any              `json:"uischema"`
-	Version       string                      `json:"version"`
-	Schema        *FunctionRegexExtractSchema `json:"schema,omitempty"`
+	Filename      string                          `json:"__filename"`
+	AsyncTimeout  *float64                        `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                         `json:"cribl_version,omitempty"`
+	Disabled      *bool                           `json:"disabled,omitempty"`
+	Group         string                          `json:"group"`
+	HandleSignals *bool                           `json:"handleSignals,omitempty"`
+	ID            FunctionRegexExtractID          `json:"id"`
+	LoadTime      float64                         `json:"loadTime"`
+	ModTime       float64                         `json:"modTime"`
+	Name          string                          `json:"name"`
+	Sync          *bool                           `json:"sync,omitempty"`
+	Uischema      map[string]any                  `json:"uischema"`
+	Version       string                          `json:"version"`
+	Schema        *FunctionConfSchemaRegexExtract `json:"schema,omitempty"`
 }
 
 func (f FunctionRegexExtract) MarshalJSON() ([]byte, error) {
@@ -240,7 +150,7 @@ func (f *FunctionRegexExtract) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionRegexExtract) GetSchema() *FunctionRegexExtractSchema {
+func (f *FunctionRegexExtract) GetSchema() *FunctionConfSchemaRegexExtract {
 	if f == nil {
 		return nil
 	}

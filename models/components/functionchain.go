@@ -31,44 +31,21 @@ func (e *FunctionChainID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionChainSchema struct {
-	// The data processor (Pack/Pipeline) to send events through
-	Processor *string `json:"processor,omitempty"`
-}
-
-func (f FunctionChainSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionChainSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionChainSchema) GetProcessor() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Processor
-}
-
 type FunctionChain struct {
-	Filename      string               `json:"__filename"`
-	AsyncTimeout  *float64             `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string              `json:"cribl_version,omitempty"`
-	Disabled      *bool                `json:"disabled,omitempty"`
-	Group         string               `json:"group"`
-	HandleSignals *bool                `json:"handleSignals,omitempty"`
-	ID            FunctionChainID      `json:"id"`
-	LoadTime      float64              `json:"loadTime"`
-	ModTime       float64              `json:"modTime"`
-	Name          string               `json:"name"`
-	Sync          *bool                `json:"sync,omitempty"`
-	Uischema      map[string]any       `json:"uischema"`
-	Version       string               `json:"version"`
-	Schema        *FunctionChainSchema `json:"schema,omitempty"`
+	Filename      string                   `json:"__filename"`
+	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                  `json:"cribl_version,omitempty"`
+	Disabled      *bool                    `json:"disabled,omitempty"`
+	Group         string                   `json:"group"`
+	HandleSignals *bool                    `json:"handleSignals,omitempty"`
+	ID            FunctionChainID          `json:"id"`
+	LoadTime      float64                  `json:"loadTime"`
+	ModTime       float64                  `json:"modTime"`
+	Name          string                   `json:"name"`
+	Sync          *bool                    `json:"sync,omitempty"`
+	Uischema      map[string]any           `json:"uischema"`
+	Version       string                   `json:"version"`
+	Schema        *FunctionConfSchemaChain `json:"schema,omitempty"`
 }
 
 func (f FunctionChain) MarshalJSON() ([]byte, error) {
@@ -173,7 +150,7 @@ func (f *FunctionChain) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionChain) GetSchema() *FunctionChainSchema {
+func (f *FunctionChain) GetSchema() *FunctionConfSchemaChain {
 	if f == nil {
 		return nil
 	}

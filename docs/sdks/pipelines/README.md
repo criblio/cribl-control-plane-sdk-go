@@ -96,13 +96,13 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.Create(ctx, components.Pipeline{
+    res, err := s.Pipelines.Create(ctx, components.PipelineInput{
         ID: "empty-pipeline",
-        Conf: components.Conf{
+        Conf: components.ConfInput{
             AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](1000),
             Description: criblcontrolplanesdkgo.Pointer(""),
             Streamtags: []string{},
-            Functions: []components.PipelineFunctionConf{},
+            Functions: []components.PipelineFunctionConfInput{},
             Groups: map[string]components.PipelineGroups{
 
             },
@@ -119,11 +119,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
-| `request`                                                  | [components.Pipeline](../../models/components/pipeline.md) | :heavy_check_mark:                                         | The request object to use for the request.                 |
-| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
+| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
+| `request`                                                            | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | The request object to use for the request.                           |
+| `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
 
 ### Response
 
@@ -221,13 +221,13 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.Update(ctx, "<id>", components.Pipeline{
+    res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
         ID: "empty-pipeline",
-        Conf: components.Conf{
+        Conf: components.ConfInput{
             AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](1000),
             Description: criblcontrolplanesdkgo.Pointer(""),
             Streamtags: []string{},
-            Functions: []components.PipelineFunctionConf{},
+            Functions: []components.PipelineFunctionConfInput{},
             Groups: map[string]components.PipelineGroups{
 
             },
@@ -244,12 +244,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
-| `id`                                                       | *string*                                                   | :heavy_check_mark:                                         | The <code>id</code> of the Pipeline to update.             |
-| `pipeline`                                                 | [components.Pipeline](../../models/components/pipeline.md) | :heavy_check_mark:                                         | Pipeline object                                            |
-| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
+| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
+| `id`                                                                 | *string*                                                             | :heavy_check_mark:                                                   | The <code>id</code> of the Pipeline to update.                       |
+| `pipeline`                                                           | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | Pipeline object                                                      |
+| `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
 
 ### Response
 

@@ -31,53 +31,21 @@ func (e *FunctionUnionID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type UnionConfiguration struct {
-	// The id for this search job.
-	SearchJobID *string `json:"searchJobId,omitempty"`
-	// The stages we are unioning with.
-	StageIds []string `json:"stageIds,omitempty"`
-}
-
-func (u UnionConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UnionConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UnionConfiguration) GetSearchJobID() *string {
-	if u == nil {
-		return nil
-	}
-	return u.SearchJobID
-}
-
-func (u *UnionConfiguration) GetStageIds() []string {
-	if u == nil {
-		return nil
-	}
-	return u.StageIds
-}
-
 type FunctionUnion struct {
-	Filename      string              `json:"__filename"`
-	AsyncTimeout  *float64            `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string             `json:"cribl_version,omitempty"`
-	Disabled      *bool               `json:"disabled,omitempty"`
-	Group         string              `json:"group"`
-	HandleSignals *bool               `json:"handleSignals,omitempty"`
-	ID            FunctionUnionID     `json:"id"`
-	LoadTime      float64             `json:"loadTime"`
-	ModTime       float64             `json:"modTime"`
-	Name          string              `json:"name"`
-	Sync          *bool               `json:"sync,omitempty"`
-	Uischema      map[string]any      `json:"uischema"`
-	Version       string              `json:"version"`
-	Schema        *UnionConfiguration `json:"schema,omitempty"`
+	Filename      string                   `json:"__filename"`
+	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                  `json:"cribl_version,omitempty"`
+	Disabled      *bool                    `json:"disabled,omitempty"`
+	Group         string                   `json:"group"`
+	HandleSignals *bool                    `json:"handleSignals,omitempty"`
+	ID            FunctionUnionID          `json:"id"`
+	LoadTime      float64                  `json:"loadTime"`
+	ModTime       float64                  `json:"modTime"`
+	Name          string                   `json:"name"`
+	Sync          *bool                    `json:"sync,omitempty"`
+	Uischema      map[string]any           `json:"uischema"`
+	Version       string                   `json:"version"`
+	Schema        *FunctionConfSchemaUnion `json:"schema,omitempty"`
 }
 
 func (f FunctionUnion) MarshalJSON() ([]byte, error) {
@@ -182,7 +150,7 @@ func (f *FunctionUnion) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionUnion) GetSchema() *UnionConfiguration {
+func (f *FunctionUnion) GetSchema() *FunctionConfSchemaUnion {
 	if f == nil {
 		return nil
 	}

@@ -1,9 +1,0 @@
-# Aggregation
-
-
-## Fields
-
-| Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `MetricType`                                                                                                    | [*components.FunctionAggregateMetricsMetricType](../../models/components/functionaggregatemetricsmetrictype.md) | :heavy_minus_sign:                                                                                              | The output metric type                                                                                          |
-| `Agg`                                                                                                           | *string*                                                                                                        | :heavy_check_mark:                                                                                              | Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)             |

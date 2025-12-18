@@ -31,124 +31,21 @@ func (e *FunctionCefID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type Header struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (h Header) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(h, "", false)
-}
-
-func (h *Header) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (h *Header) GetName() *string {
-	if h == nil {
-		return nil
-	}
-	return h.Name
-}
-
-func (h *Header) GetValue() string {
-	if h == nil {
-		return ""
-	}
-	return h.Value
-}
-
-type Extension struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (e Extension) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *Extension) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *Extension) GetName() string {
-	if e == nil {
-		return ""
-	}
-	return e.Name
-}
-
-func (e *Extension) GetValue() string {
-	if e == nil {
-		return ""
-	}
-	return e.Value
-}
-
-type FunctionCefSchema struct {
-	// The field to which the CEF formatted event will be output
-	OutputField *string `default:"_raw" json:"outputField"`
-	// Set of header key/value pairs
-	Header []Header `json:"header,omitempty"`
-	// Set of extension key-value pairs
-	Extension []Extension `json:"extension,omitempty"`
-}
-
-func (f FunctionCefSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionCefSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionCefSchema) GetOutputField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.OutputField
-}
-
-func (f *FunctionCefSchema) GetHeader() []Header {
-	if f == nil {
-		return nil
-	}
-	return f.Header
-}
-
-func (f *FunctionCefSchema) GetExtension() []Extension {
-	if f == nil {
-		return nil
-	}
-	return f.Extension
-}
-
 type FunctionCef struct {
-	Filename      string             `json:"__filename"`
-	AsyncTimeout  *float64           `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string            `json:"cribl_version,omitempty"`
-	Disabled      *bool              `json:"disabled,omitempty"`
-	Group         string             `json:"group"`
-	HandleSignals *bool              `json:"handleSignals,omitempty"`
-	ID            FunctionCefID      `json:"id"`
-	LoadTime      float64            `json:"loadTime"`
-	ModTime       float64            `json:"modTime"`
-	Name          string             `json:"name"`
-	Sync          *bool              `json:"sync,omitempty"`
-	Uischema      map[string]any     `json:"uischema"`
-	Version       string             `json:"version"`
-	Schema        *FunctionCefSchema `json:"schema,omitempty"`
+	Filename      string                 `json:"__filename"`
+	AsyncTimeout  *float64               `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                `json:"cribl_version,omitempty"`
+	Disabled      *bool                  `json:"disabled,omitempty"`
+	Group         string                 `json:"group"`
+	HandleSignals *bool                  `json:"handleSignals,omitempty"`
+	ID            FunctionCefID          `json:"id"`
+	LoadTime      float64                `json:"loadTime"`
+	ModTime       float64                `json:"modTime"`
+	Name          string                 `json:"name"`
+	Sync          *bool                  `json:"sync,omitempty"`
+	Uischema      map[string]any         `json:"uischema"`
+	Version       string                 `json:"version"`
+	Schema        *FunctionConfSchemaCef `json:"schema,omitempty"`
 }
 
 func (f FunctionCef) MarshalJSON() ([]byte, error) {
@@ -253,7 +150,7 @@ func (f *FunctionCef) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionCef) GetSchema() *FunctionCefSchema {
+func (f *FunctionCef) GetSchema() *FunctionConfSchemaCef {
 	if f == nil {
 		return nil
 	}

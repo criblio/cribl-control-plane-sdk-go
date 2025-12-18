@@ -31,136 +31,21 @@ func (e *FunctionSerializeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// FunctionSerializeType - Data output format
-type FunctionSerializeType string
-
-const (
-	// FunctionSerializeTypeCsv CSV
-	FunctionSerializeTypeCsv FunctionSerializeType = "csv"
-	// FunctionSerializeTypeElff Extended Log File Format
-	FunctionSerializeTypeElff FunctionSerializeType = "elff"
-	// FunctionSerializeTypeClf Common Log Format
-	FunctionSerializeTypeClf FunctionSerializeType = "clf"
-	// FunctionSerializeTypeKvp Key=Value Pairs
-	FunctionSerializeTypeKvp FunctionSerializeType = "kvp"
-	// FunctionSerializeTypeJSON JSON Object
-	FunctionSerializeTypeJSON FunctionSerializeType = "json"
-	// FunctionSerializeTypeDelim Delimited values
-	FunctionSerializeTypeDelim FunctionSerializeType = "delim"
-)
-
-func (e FunctionSerializeType) ToPointer() *FunctionSerializeType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionSerializeType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "elff", "clf", "kvp", "json", "delim":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionSerializeSchema struct {
-	// Data output format
-	Type       *FunctionSerializeType `default:"csv" json:"type"`
-	DelimChar  any                    `json:"delimChar,omitempty"`
-	QuoteChar  any                    `json:"quoteChar,omitempty"`
-	EscapeChar any                    `json:"escapeChar,omitempty"`
-	NullValue  any                    `json:"nullValue,omitempty"`
-	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-	Fields []string `json:"fields,omitempty"`
-	// Field containing object to serialize. Leave blank to serialize top-level event fields.
-	SrcField *string `json:"srcField,omitempty"`
-	// Field to serialize data to
-	DstField *string `default:"_raw" json:"dstField"`
-}
-
-func (f FunctionSerializeSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSerializeSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSerializeSchema) GetType() *FunctionSerializeType {
-	if f == nil {
-		return nil
-	}
-	return f.Type
-}
-
-func (f *FunctionSerializeSchema) GetDelimChar() any {
-	if f == nil {
-		return nil
-	}
-	return f.DelimChar
-}
-
-func (f *FunctionSerializeSchema) GetQuoteChar() any {
-	if f == nil {
-		return nil
-	}
-	return f.QuoteChar
-}
-
-func (f *FunctionSerializeSchema) GetEscapeChar() any {
-	if f == nil {
-		return nil
-	}
-	return f.EscapeChar
-}
-
-func (f *FunctionSerializeSchema) GetNullValue() any {
-	if f == nil {
-		return nil
-	}
-	return f.NullValue
-}
-
-func (f *FunctionSerializeSchema) GetFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Fields
-}
-
-func (f *FunctionSerializeSchema) GetSrcField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.SrcField
-}
-
-func (f *FunctionSerializeSchema) GetDstField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.DstField
-}
-
 type FunctionSerialize struct {
-	Filename      string                   `json:"__filename"`
-	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                  `json:"cribl_version,omitempty"`
-	Disabled      *bool                    `json:"disabled,omitempty"`
-	Group         string                   `json:"group"`
-	HandleSignals *bool                    `json:"handleSignals,omitempty"`
-	ID            FunctionSerializeID      `json:"id"`
-	LoadTime      float64                  `json:"loadTime"`
-	ModTime       float64                  `json:"modTime"`
-	Name          string                   `json:"name"`
-	Sync          *bool                    `json:"sync,omitempty"`
-	Uischema      map[string]any           `json:"uischema"`
-	Version       string                   `json:"version"`
-	Schema        *FunctionSerializeSchema `json:"schema,omitempty"`
+	Filename      string                       `json:"__filename"`
+	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                      `json:"cribl_version,omitempty"`
+	Disabled      *bool                        `json:"disabled,omitempty"`
+	Group         string                       `json:"group"`
+	HandleSignals *bool                        `json:"handleSignals,omitempty"`
+	ID            FunctionSerializeID          `json:"id"`
+	LoadTime      float64                      `json:"loadTime"`
+	ModTime       float64                      `json:"modTime"`
+	Name          string                       `json:"name"`
+	Sync          *bool                        `json:"sync,omitempty"`
+	Uischema      map[string]any               `json:"uischema"`
+	Version       string                       `json:"version"`
+	Schema        *FunctionConfSchemaSerialize `json:"schema,omitempty"`
 }
 
 func (f FunctionSerialize) MarshalJSON() ([]byte, error) {
@@ -265,7 +150,7 @@ func (f *FunctionSerialize) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSerialize) GetSchema() *FunctionSerializeSchema {
+func (f *FunctionSerialize) GetSchema() *FunctionConfSchemaSerialize {
 	if f == nil {
 		return nil
 	}

@@ -31,98 +31,21 @@ func (e *FunctionSuppressID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionSuppressSchema struct {
-	// Suppression key expression used to uniquely identify events to suppress. For example, `${ip}:${port}` will use fields ip and port from each event to generate the key.
-	KeyExpr *string `json:"keyExpr,omitempty"`
-	// The number of events to allow per time period
-	Allow *float64 `default:"1" json:"allow"`
-	// The number of seconds to suppress events after 'Number to allow' events are received
-	SuppressPeriodSec *float64 `default:"30" json:"suppressPeriodSec"`
-	// If disabled, suppressed events will be tagged with suppress=1 but not dropped
-	DropEventsMode *bool `default:"true" json:"dropEventsMode"`
-	// The maximum number of keys that can be cached before idle entries are removed. Leave at default unless you understand the implications of changing.
-	MaxCacheSize *float64 `default:"50000" json:"maxCacheSize"`
-	// The number of suppression periods 'Suppression Period' of inactivity before a cache entry is considered idle. Leave at default unless you understand the implications of changing.
-	CacheIdleTimeoutPeriods *float64 `default:"2" json:"cacheIdleTimeoutPeriods"`
-	// Check cache for idle sessions every N events when cache size is > 'Maximum Cache Size'. Leave at default unless you understand the implications of changing.
-	NumEventsIdleTimeoutTrigger *float64 `default:"10000" json:"numEventsIdleTimeoutTrigger"`
-}
-
-func (f FunctionSuppressSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSuppressSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSuppressSchema) GetKeyExpr() *string {
-	if f == nil {
-		return nil
-	}
-	return f.KeyExpr
-}
-
-func (f *FunctionSuppressSchema) GetAllow() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.Allow
-}
-
-func (f *FunctionSuppressSchema) GetSuppressPeriodSec() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.SuppressPeriodSec
-}
-
-func (f *FunctionSuppressSchema) GetDropEventsMode() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.DropEventsMode
-}
-
-func (f *FunctionSuppressSchema) GetMaxCacheSize() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.MaxCacheSize
-}
-
-func (f *FunctionSuppressSchema) GetCacheIdleTimeoutPeriods() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.CacheIdleTimeoutPeriods
-}
-
-func (f *FunctionSuppressSchema) GetNumEventsIdleTimeoutTrigger() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.NumEventsIdleTimeoutTrigger
-}
-
 type FunctionSuppress struct {
-	Filename      string                  `json:"__filename"`
-	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                 `json:"cribl_version,omitempty"`
-	Disabled      *bool                   `json:"disabled,omitempty"`
-	Group         string                  `json:"group"`
-	HandleSignals *bool                   `json:"handleSignals,omitempty"`
-	ID            FunctionSuppressID      `json:"id"`
-	LoadTime      float64                 `json:"loadTime"`
-	ModTime       float64                 `json:"modTime"`
-	Name          string                  `json:"name"`
-	Sync          *bool                   `json:"sync,omitempty"`
-	Uischema      map[string]any          `json:"uischema"`
-	Version       string                  `json:"version"`
-	Schema        *FunctionSuppressSchema `json:"schema,omitempty"`
+	Filename      string                      `json:"__filename"`
+	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                     `json:"cribl_version,omitempty"`
+	Disabled      *bool                       `json:"disabled,omitempty"`
+	Group         string                      `json:"group"`
+	HandleSignals *bool                       `json:"handleSignals,omitempty"`
+	ID            FunctionSuppressID          `json:"id"`
+	LoadTime      float64                     `json:"loadTime"`
+	ModTime       float64                     `json:"modTime"`
+	Name          string                      `json:"name"`
+	Sync          *bool                       `json:"sync,omitempty"`
+	Uischema      map[string]any              `json:"uischema"`
+	Version       string                      `json:"version"`
+	Schema        *FunctionConfSchemaSuppress `json:"schema,omitempty"`
 }
 
 func (f FunctionSuppress) MarshalJSON() ([]byte, error) {
@@ -227,7 +150,7 @@ func (f *FunctionSuppress) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSuppress) GetSchema() *FunctionSuppressSchema {
+func (f *FunctionSuppress) GetSchema() *FunctionConfSchemaSuppress {
 	if f == nil {
 		return nil
 	}

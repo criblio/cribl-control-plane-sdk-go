@@ -31,80 +31,21 @@ func (e *FunctionSortID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type SortConfiguration struct {
-	// Has to be unique if there are multiple sorts on the pipeline.
-	SortID *string `json:"sortId,omitempty"`
-	// The expression can access the events via the 'left' and 'right' properties.
-	ComparisonExpression *string `json:"comparisonExpression,omitempty"`
-	// Limits the output to N (highest/lowest) events
-	TopN *float64 `json:"topN,omitempty"`
-	// Specifies the number of events that can flow into this function
-	MaxEvents *float64 `json:"maxEvents,omitempty"`
-	// Toggle this on to suppress generating previews of intermediate results
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
-}
-
-func (s SortConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SortConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SortConfiguration) GetSortID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.SortID
-}
-
-func (s *SortConfiguration) GetComparisonExpression() *string {
-	if s == nil {
-		return nil
-	}
-	return s.ComparisonExpression
-}
-
-func (s *SortConfiguration) GetTopN() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.TopN
-}
-
-func (s *SortConfiguration) GetMaxEvents() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.MaxEvents
-}
-
-func (s *SortConfiguration) GetSuppressPreviews() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.SuppressPreviews
-}
-
 type FunctionSort struct {
-	Filename      string             `json:"__filename"`
-	AsyncTimeout  *float64           `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string            `json:"cribl_version,omitempty"`
-	Disabled      *bool              `json:"disabled,omitempty"`
-	Group         string             `json:"group"`
-	HandleSignals *bool              `json:"handleSignals,omitempty"`
-	ID            FunctionSortID     `json:"id"`
-	LoadTime      float64            `json:"loadTime"`
-	ModTime       float64            `json:"modTime"`
-	Name          string             `json:"name"`
-	Sync          *bool              `json:"sync,omitempty"`
-	Uischema      map[string]any     `json:"uischema"`
-	Version       string             `json:"version"`
-	Schema        *SortConfiguration `json:"schema,omitempty"`
+	Filename      string                  `json:"__filename"`
+	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                   `json:"disabled,omitempty"`
+	Group         string                  `json:"group"`
+	HandleSignals *bool                   `json:"handleSignals,omitempty"`
+	ID            FunctionSortID          `json:"id"`
+	LoadTime      float64                 `json:"loadTime"`
+	ModTime       float64                 `json:"modTime"`
+	Name          string                  `json:"name"`
+	Sync          *bool                   `json:"sync,omitempty"`
+	Uischema      map[string]any          `json:"uischema"`
+	Version       string                  `json:"version"`
+	Schema        *FunctionConfSchemaSort `json:"schema,omitempty"`
 }
 
 func (f FunctionSort) MarshalJSON() ([]byte, error) {
@@ -209,7 +150,7 @@ func (f *FunctionSort) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSort) GetSchema() *SortConfiguration {
+func (f *FunctionSort) GetSchema() *FunctionConfSchemaSort {
 	if f == nil {
 		return nil
 	}

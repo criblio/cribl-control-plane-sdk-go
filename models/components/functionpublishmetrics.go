@@ -31,152 +31,21 @@ func (e *FunctionPublishMetricsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionPublishMetricsMetricType string
-
-const (
-	// FunctionPublishMetricsMetricTypeCounter Counter
-	FunctionPublishMetricsMetricTypeCounter FunctionPublishMetricsMetricType = "counter"
-	// FunctionPublishMetricsMetricTypeTimer Timer
-	FunctionPublishMetricsMetricTypeTimer FunctionPublishMetricsMetricType = "timer"
-	// FunctionPublishMetricsMetricTypeGauge Gauge
-	FunctionPublishMetricsMetricTypeGauge FunctionPublishMetricsMetricType = "gauge"
-	// FunctionPublishMetricsMetricTypeDistribution Distribution
-	FunctionPublishMetricsMetricTypeDistribution FunctionPublishMetricsMetricType = "distribution"
-	// FunctionPublishMetricsMetricTypeSummary Summary
-	FunctionPublishMetricsMetricTypeSummary FunctionPublishMetricsMetricType = "summary"
-	// FunctionPublishMetricsMetricTypeHistogram Histogram
-	FunctionPublishMetricsMetricTypeHistogram FunctionPublishMetricsMetricType = "histogram"
-)
-
-func (e FunctionPublishMetricsMetricType) ToPointer() *FunctionPublishMetricsMetricType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionPublishMetricsMetricType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "counter", "timer", "gauge", "distribution", "summary", "histogram":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionPublishMetricsField struct {
-	// The name of the field in the event that contains the metric value
-	InFieldName string `json:"inFieldName"`
-	// JavaScript expression to evaluate the metric field name. Defaults to Event Field Name.
-	OutFieldExpr *string                           `json:"outFieldExpr,omitempty"`
-	MetricType   *FunctionPublishMetricsMetricType `default:"gauge" json:"metricType"`
-}
-
-func (f FunctionPublishMetricsField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionPublishMetricsField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"inFieldName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionPublishMetricsField) GetInFieldName() string {
-	if f == nil {
-		return ""
-	}
-	return f.InFieldName
-}
-
-func (f *FunctionPublishMetricsField) GetOutFieldExpr() *string {
-	if f == nil {
-		return nil
-	}
-	return f.OutFieldExpr
-}
-
-func (f *FunctionPublishMetricsField) GetMetricType() *FunctionPublishMetricsMetricType {
-	if f == nil {
-		return nil
-	}
-	return f.MetricType
-}
-
-type FunctionPublishMetricsSchema struct {
-	// List of metrics from event to extract and format. Formatted metrics can be used by a destination to pass metrics to a metrics aggregation platform.
-	Fields []FunctionPublishMetricsField `json:"fields,omitempty"`
-	// Overwrite previous metric specs. Leave disabled to append.
-	Overwrite *bool `default:"false" json:"overwrite"`
-	// Optional list of dimensions to include in events. Wildcards supported. If you don't specify metrics, values will be appended to every metric found in the event. When you add a new metric, dimensions will be present only in those new metrics.
-	Dimensions []string `json:"dimensions,omitempty"`
-	// Optional list of metric field names to look for when removing metrics. When a metric's field name matches an element in this list, the metric will be removed from the event.
-	RemoveMetrics []string `json:"removeMetrics,omitempty"`
-	// Optional list of dimensions to remove from every metric found in the event. Wildcards supported.
-	RemoveDimensions []string `json:"removeDimensions,omitempty"`
-}
-
-func (f FunctionPublishMetricsSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionPublishMetricsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionPublishMetricsSchema) GetFields() []FunctionPublishMetricsField {
-	if f == nil {
-		return nil
-	}
-	return f.Fields
-}
-
-func (f *FunctionPublishMetricsSchema) GetOverwrite() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Overwrite
-}
-
-func (f *FunctionPublishMetricsSchema) GetDimensions() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Dimensions
-}
-
-func (f *FunctionPublishMetricsSchema) GetRemoveMetrics() []string {
-	if f == nil {
-		return nil
-	}
-	return f.RemoveMetrics
-}
-
-func (f *FunctionPublishMetricsSchema) GetRemoveDimensions() []string {
-	if f == nil {
-		return nil
-	}
-	return f.RemoveDimensions
-}
-
 type FunctionPublishMetrics struct {
-	Filename      string                        `json:"__filename"`
-	AsyncTimeout  *float64                      `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                       `json:"cribl_version,omitempty"`
-	Disabled      *bool                         `json:"disabled,omitempty"`
-	Group         string                        `json:"group"`
-	HandleSignals *bool                         `json:"handleSignals,omitempty"`
-	ID            FunctionPublishMetricsID      `json:"id"`
-	LoadTime      float64                       `json:"loadTime"`
-	ModTime       float64                       `json:"modTime"`
-	Name          string                        `json:"name"`
-	Sync          *bool                         `json:"sync,omitempty"`
-	Uischema      map[string]any                `json:"uischema"`
-	Version       string                        `json:"version"`
-	Schema        *FunctionPublishMetricsSchema `json:"schema,omitempty"`
+	Filename      string                            `json:"__filename"`
+	AsyncTimeout  *float64                          `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                           `json:"cribl_version,omitempty"`
+	Disabled      *bool                             `json:"disabled,omitempty"`
+	Group         string                            `json:"group"`
+	HandleSignals *bool                             `json:"handleSignals,omitempty"`
+	ID            FunctionPublishMetricsID          `json:"id"`
+	LoadTime      float64                           `json:"loadTime"`
+	ModTime       float64                           `json:"modTime"`
+	Name          string                            `json:"name"`
+	Sync          *bool                             `json:"sync,omitempty"`
+	Uischema      map[string]any                    `json:"uischema"`
+	Version       string                            `json:"version"`
+	Schema        *FunctionConfSchemaPublishMetrics `json:"schema,omitempty"`
 }
 
 func (f FunctionPublishMetrics) MarshalJSON() ([]byte, error) {
@@ -281,7 +150,7 @@ func (f *FunctionPublishMetrics) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionPublishMetrics) GetSchema() *FunctionPublishMetricsSchema {
+func (f *FunctionPublishMetrics) GetSchema() *FunctionConfSchemaPublishMetrics {
 	if f == nil {
 		return nil
 	}

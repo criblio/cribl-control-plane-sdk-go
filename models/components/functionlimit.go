@@ -31,44 +31,21 @@ func (e *FunctionLimitID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionLimitSchema struct {
-	// Number of qualifying events to pass through
-	Limit *int64 `default:"100" json:"limit"`
-}
-
-func (f FunctionLimitSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionLimitSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionLimitSchema) GetLimit() *int64 {
-	if f == nil {
-		return nil
-	}
-	return f.Limit
-}
-
 type FunctionLimit struct {
-	Filename      string               `json:"__filename"`
-	AsyncTimeout  *float64             `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string              `json:"cribl_version,omitempty"`
-	Disabled      *bool                `json:"disabled,omitempty"`
-	Group         string               `json:"group"`
-	HandleSignals *bool                `json:"handleSignals,omitempty"`
-	ID            FunctionLimitID      `json:"id"`
-	LoadTime      float64              `json:"loadTime"`
-	ModTime       float64              `json:"modTime"`
-	Name          string               `json:"name"`
-	Sync          *bool                `json:"sync,omitempty"`
-	Uischema      map[string]any       `json:"uischema"`
-	Version       string               `json:"version"`
-	Schema        *FunctionLimitSchema `json:"schema,omitempty"`
+	Filename      string                   `json:"__filename"`
+	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                  `json:"cribl_version,omitempty"`
+	Disabled      *bool                    `json:"disabled,omitempty"`
+	Group         string                   `json:"group"`
+	HandleSignals *bool                    `json:"handleSignals,omitempty"`
+	ID            FunctionLimitID          `json:"id"`
+	LoadTime      float64                  `json:"loadTime"`
+	ModTime       float64                  `json:"modTime"`
+	Name          string                   `json:"name"`
+	Sync          *bool                    `json:"sync,omitempty"`
+	Uischema      map[string]any           `json:"uischema"`
+	Version       string                   `json:"version"`
+	Schema        *FunctionConfSchemaLimit `json:"schema,omitempty"`
 }
 
 func (f FunctionLimit) MarshalJSON() ([]byte, error) {
@@ -173,7 +150,7 @@ func (f *FunctionLimit) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionLimit) GetSchema() *FunctionLimitSchema {
+func (f *FunctionLimit) GetSchema() *FunctionConfSchemaLimit {
 	if f == nil {
 		return nil
 	}

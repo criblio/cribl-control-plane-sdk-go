@@ -4,7 +4,6 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
@@ -32,305 +31,21 @@ func (e *FunctionNotificationPoliciesID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Operator - Comparison operator
-type Operator string
-
-const (
-	OperatorEqual         Operator = "="
-	OperatorNotEqual      Operator = "!="
-	OperatorRegexMatch    Operator = "=~"
-	OperatorRegexNotMatch Operator = "!~"
-)
-
-func (e Operator) ToPointer() *Operator {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Operator) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "=", "!=", "=~", "!~":
-			return true
-		}
-	}
-	return false
-}
-
-type ValueType string
-
-const (
-	ValueTypeStr     ValueType = "str"
-	ValueTypeNumber  ValueType = "number"
-	ValueTypeBoolean ValueType = "boolean"
-)
-
-// Value to compare against (string, number, boolean)
-type Value struct {
-	Str     *string  `queryParam:"inline,name=Value" union:"member"`
-	Number  *float64 `queryParam:"inline,name=Value" union:"member"`
-	Boolean *bool    `queryParam:"inline,name=Value" union:"member"`
-
-	Type ValueType
-}
-
-func CreateValueStr(str string) Value {
-	typ := ValueTypeStr
-
-	return Value{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func CreateValueNumber(number float64) Value {
-	typ := ValueTypeNumber
-
-	return Value{
-		Number: &number,
-		Type:   typ,
-	}
-}
-
-func CreateValueBoolean(boolean bool) Value {
-	typ := ValueTypeBoolean
-
-	return Value{
-		Boolean: &boolean,
-		Type:    typ,
-	}
-}
-
-func (u *Value) UnmarshalJSON(data []byte) error {
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		u.Str = &str
-		u.Type = ValueTypeStr
-		return nil
-	}
-
-	var number float64 = float64(0)
-	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
-		u.Number = &number
-		u.Type = ValueTypeNumber
-		return nil
-	}
-
-	var boolean bool = false
-	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
-		u.Boolean = &boolean
-		u.Type = ValueTypeBoolean
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value", string(data))
-}
-
-func (u Value) MarshalJSON() ([]byte, error) {
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	if u.Number != nil {
-		return utils.MarshalJSON(u.Number, "", true)
-	}
-
-	if u.Boolean != nil {
-		return utils.MarshalJSON(u.Boolean, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type Value: all fields are null")
-}
-
-type Condition struct {
-	// Event field name to match against
-	Key string `json:"key"`
-	// Comparison operator
-	Operator Operator `json:"operator"`
-	// Value to compare against (string, number, boolean)
-	Value Value `json:"value"`
-}
-
-func (c Condition) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *Condition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "operator", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *Condition) GetKey() string {
-	if c == nil {
-		return ""
-	}
-	return c.Key
-}
-
-func (c *Condition) GetOperator() Operator {
-	if c == nil {
-		return Operator("")
-	}
-	return c.Operator
-}
-
-func (c *Condition) GetValue() Value {
-	if c == nil {
-		return Value{}
-	}
-	return c.Value
-}
-
-type TemplateTargetPair struct {
-	// ID of the notification template to use
-	TemplateID string `json:"templateId"`
-	// ID of the notification target (output)
-	TargetID string `json:"targetId"`
-}
-
-func (t TemplateTargetPair) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TemplateTargetPair) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"templateId", "targetId"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (t *TemplateTargetPair) GetTemplateID() string {
-	if t == nil {
-		return ""
-	}
-	return t.TemplateID
-}
-
-func (t *TemplateTargetPair) GetTargetID() string {
-	if t == nil {
-		return ""
-	}
-	return t.TargetID
-}
-
-type Policy struct {
-	// Unique identifier for this policy
-	ID string `json:"id"`
-	// If true, this policy will be skipped during evaluation
-	Disabled *bool `default:"false" json:"disabled"`
-	// Time to wait (in minutes) to group similar alerts before sending
-	WaitToGroup *float64 `json:"waitToGroup,omitempty"`
-	// Event fields to use for grouping
-	GroupByLabels []string `json:"groupByLabels,omitempty"`
-	// List of conditions. If ANY condition matches (OR), the policy applies. Each condition is a list of tags that must ALL match (AND).
-	Conditions [][]Condition `json:"conditions,omitempty"`
-	// List of targets to route to and the templates to use
-	TemplateTargetPairs []TemplateTargetPair `json:"templateTargetPairs"`
-	// If true, stop evaluating further policies after this one matches
-	Final *bool `default:"false" json:"final"`
-}
-
-func (p Policy) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *Policy) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "templateTargetPairs"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *Policy) GetID() string {
-	if p == nil {
-		return ""
-	}
-	return p.ID
-}
-
-func (p *Policy) GetDisabled() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.Disabled
-}
-
-func (p *Policy) GetWaitToGroup() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.WaitToGroup
-}
-
-func (p *Policy) GetGroupByLabels() []string {
-	if p == nil {
-		return nil
-	}
-	return p.GroupByLabels
-}
-
-func (p *Policy) GetConditions() [][]Condition {
-	if p == nil {
-		return nil
-	}
-	return p.Conditions
-}
-
-func (p *Policy) GetTemplateTargetPairs() []TemplateTargetPair {
-	if p == nil {
-		return []TemplateTargetPair{}
-	}
-	return p.TemplateTargetPairs
-}
-
-func (p *Policy) GetFinal() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.Final
-}
-
-type NotificationPoliciesConfiguration struct {
-	// List of notification routing policies evaluated in order
-	Policies []Policy `json:"policies,omitempty"`
-}
-
-func (n NotificationPoliciesConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(n, "", false)
-}
-
-func (n *NotificationPoliciesConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (n *NotificationPoliciesConfiguration) GetPolicies() []Policy {
-	if n == nil {
-		return nil
-	}
-	return n.Policies
-}
-
 type FunctionNotificationPolicies struct {
-	Filename      string                             `json:"__filename"`
-	AsyncTimeout  *float64                           `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                            `json:"cribl_version,omitempty"`
-	Disabled      *bool                              `json:"disabled,omitempty"`
-	Group         string                             `json:"group"`
-	HandleSignals *bool                              `json:"handleSignals,omitempty"`
-	ID            FunctionNotificationPoliciesID     `json:"id"`
-	LoadTime      float64                            `json:"loadTime"`
-	ModTime       float64                            `json:"modTime"`
-	Name          string                             `json:"name"`
-	Sync          *bool                              `json:"sync,omitempty"`
-	Uischema      map[string]any                     `json:"uischema"`
-	Version       string                             `json:"version"`
-	Schema        *NotificationPoliciesConfiguration `json:"schema,omitempty"`
+	Filename      string                                  `json:"__filename"`
+	AsyncTimeout  *float64                                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                                   `json:"disabled,omitempty"`
+	Group         string                                  `json:"group"`
+	HandleSignals *bool                                   `json:"handleSignals,omitempty"`
+	ID            FunctionNotificationPoliciesID          `json:"id"`
+	LoadTime      float64                                 `json:"loadTime"`
+	ModTime       float64                                 `json:"modTime"`
+	Name          string                                  `json:"name"`
+	Sync          *bool                                   `json:"sync,omitempty"`
+	Uischema      map[string]any                          `json:"uischema"`
+	Version       string                                  `json:"version"`
+	Schema        *FunctionConfSchemaNotificationPolicies `json:"schema,omitempty"`
 }
 
 func (f FunctionNotificationPolicies) MarshalJSON() ([]byte, error) {
@@ -435,7 +150,7 @@ func (f *FunctionNotificationPolicies) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionNotificationPolicies) GetSchema() *NotificationPoliciesConfiguration {
+func (f *FunctionNotificationPolicies) GetSchema() *FunctionConfSchemaNotificationPolicies {
 	if f == nil {
 		return nil
 	}

@@ -31,149 +31,21 @@ func (e *FunctionSensitiveDataScannerID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionSensitiveDataScannerRule struct {
-	// The ID of the ruleset to use for the scan
-	RulesetID string `json:"rulesetId"`
-	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
-	ReplaceExpr *string `default:"'REDACTED'" json:"replaceExpr"`
-	Disabled    *bool   `default:"false" json:"disabled"`
-}
-
-func (f FunctionSensitiveDataScannerRule) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSensitiveDataScannerRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"rulesetId"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSensitiveDataScannerRule) GetRulesetID() string {
-	if f == nil {
-		return ""
-	}
-	return f.RulesetID
-}
-
-func (f *FunctionSensitiveDataScannerRule) GetReplaceExpr() *string {
-	if f == nil {
-		return nil
-	}
-	return f.ReplaceExpr
-}
-
-func (f *FunctionSensitiveDataScannerRule) GetDisabled() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Disabled
-}
-
-type FunctionSensitiveDataScannerFlag struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (f FunctionSensitiveDataScannerFlag) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSensitiveDataScannerFlag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSensitiveDataScannerFlag) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FunctionSensitiveDataScannerFlag) GetValue() string {
-	if f == nil {
-		return ""
-	}
-	return f.Value
-}
-
-type FunctionSensitiveDataScannerSchema struct {
-	Rules []FunctionSensitiveDataScannerRule `json:"rules,omitempty"`
-	// Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
-	Fields []string `json:"fields,omitempty"`
-	// Fields that the mitigation expression will not be applied to. Supports wildcards (*).
-	ExcludeFields []string `json:"excludeFields,omitempty"`
-	// Fields to add when mitigation is applied to an event
-	Flags []FunctionSensitiveDataScannerFlag `json:"flags,omitempty"`
-	// If enabled, Add matching ruleset IDs to a field called "__detected"
-	IncludeDetectedRules *bool `default:"true" json:"includeDetectedRules"`
-}
-
-func (f FunctionSensitiveDataScannerSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSensitiveDataScannerSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSensitiveDataScannerSchema) GetRules() []FunctionSensitiveDataScannerRule {
-	if f == nil {
-		return nil
-	}
-	return f.Rules
-}
-
-func (f *FunctionSensitiveDataScannerSchema) GetFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Fields
-}
-
-func (f *FunctionSensitiveDataScannerSchema) GetExcludeFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.ExcludeFields
-}
-
-func (f *FunctionSensitiveDataScannerSchema) GetFlags() []FunctionSensitiveDataScannerFlag {
-	if f == nil {
-		return nil
-	}
-	return f.Flags
-}
-
-func (f *FunctionSensitiveDataScannerSchema) GetIncludeDetectedRules() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.IncludeDetectedRules
-}
-
 type FunctionSensitiveDataScanner struct {
-	Filename      string                              `json:"__filename"`
-	AsyncTimeout  *float64                            `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                             `json:"cribl_version,omitempty"`
-	Disabled      *bool                               `json:"disabled,omitempty"`
-	Group         string                              `json:"group"`
-	HandleSignals *bool                               `json:"handleSignals,omitempty"`
-	ID            FunctionSensitiveDataScannerID      `json:"id"`
-	LoadTime      float64                             `json:"loadTime"`
-	ModTime       float64                             `json:"modTime"`
-	Name          string                              `json:"name"`
-	Sync          *bool                               `json:"sync,omitempty"`
-	Uischema      map[string]any                      `json:"uischema"`
-	Version       string                              `json:"version"`
-	Schema        *FunctionSensitiveDataScannerSchema `json:"schema,omitempty"`
+	Filename      string                                  `json:"__filename"`
+	AsyncTimeout  *float64                                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                                   `json:"disabled,omitempty"`
+	Group         string                                  `json:"group"`
+	HandleSignals *bool                                   `json:"handleSignals,omitempty"`
+	ID            FunctionSensitiveDataScannerID          `json:"id"`
+	LoadTime      float64                                 `json:"loadTime"`
+	ModTime       float64                                 `json:"modTime"`
+	Name          string                                  `json:"name"`
+	Sync          *bool                                   `json:"sync,omitempty"`
+	Uischema      map[string]any                          `json:"uischema"`
+	Version       string                                  `json:"version"`
+	Schema        *FunctionConfSchemaSensitiveDataScanner `json:"schema,omitempty"`
 }
 
 func (f FunctionSensitiveDataScanner) MarshalJSON() ([]byte, error) {
@@ -278,7 +150,7 @@ func (f *FunctionSensitiveDataScanner) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSensitiveDataScanner) GetSchema() *FunctionSensitiveDataScannerSchema {
+func (f *FunctionSensitiveDataScanner) GetSchema() *FunctionConfSchemaSensitiveDataScanner {
 	if f == nil {
 		return nil
 	}

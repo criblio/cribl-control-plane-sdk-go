@@ -31,219 +31,21 @@ func (e *FunctionNotifyID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// TriggerType - Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
-type TriggerType string
-
-const (
-	// TriggerTypeCustom Where
-	TriggerTypeCustom TriggerType = "custom"
-	// TriggerTypeResultsCount Count of Results
-	TriggerTypeResultsCount TriggerType = "resultsCount"
-)
-
-func (e TriggerType) ToPointer() *TriggerType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TriggerType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "custom", "resultsCount":
-			return true
-		}
-	}
-	return false
-}
-
-// CountComparator - Operation to be applied over the results count
-type CountComparator string
-
-const (
-	// CountComparatorGreaterThan greater than
-	CountComparatorGreaterThan CountComparator = ">"
-	// CountComparatorLessThan less than
-	CountComparatorLessThan CountComparator = "<"
-	// CountComparatorEqualEqualEqual equals
-	CountComparatorEqualEqualEqual CountComparator = "==="
-	// CountComparatorNotEqualEqual not equal to
-	CountComparatorNotEqualEqual CountComparator = "!=="
-	// CountComparatorGreaterThanEqual greater than or equal to
-	CountComparatorGreaterThanEqual CountComparator = ">="
-	// CountComparatorLessThanEqual less than or equal to
-	CountComparatorLessThanEqual CountComparator = "<="
-)
-
-func (e CountComparator) ToPointer() *CountComparator {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CountComparator) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case ">", "<", "===", "!==", ">=", "<=":
-			return true
-		}
-	}
-	return false
-}
-
-type NotifyConfiguration struct {
-	// Group the notification belongs to
-	Group *string `default:"default" json:"group"`
-	// Workspace within the deployment to send the search results to.
-	NotificationID *string `default:"main" json:"notificationId"`
-	// Id of the search this function is running on.
-	SearchID *string `json:"searchId,omitempty"`
-	// Id of the saved query
-	SavedQueryID *string `json:"savedQueryId,omitempty"`
-	// Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
-	Trigger *string `json:"trigger,omitempty"`
-	// Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
-	TriggerType *TriggerType `json:"triggerType,omitempty"`
-	// Operation to be applied over the results count
-	TriggerComparator *CountComparator `json:"triggerComparator,omitempty"`
-	// How many results that match trigger the condition
-	TriggerCount *float64 `default:"0" json:"triggerCount"`
-	// Number of results to include in the notification event
-	ResultsLimit *float64 `default:"50" json:"resultsLimit"`
-	// Url of the search results
-	SearchURL *string `json:"searchUrl,omitempty"`
-	// Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
-	Message *string `json:"message,omitempty"`
-	// Auth token for sending notification messages
-	AuthToken *string `json:"authToken,omitempty"`
-	// System messages api endpoint
-	MessagesEndpoint *string `json:"messagesEndpoint,omitempty"`
-	// Current tenant id
-	TenantID *string `json:"tenantId,omitempty"`
-}
-
-func (n NotifyConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(n, "", false)
-}
-
-func (n *NotifyConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (n *NotifyConfiguration) GetGroup() *string {
-	if n == nil {
-		return nil
-	}
-	return n.Group
-}
-
-func (n *NotifyConfiguration) GetNotificationID() *string {
-	if n == nil {
-		return nil
-	}
-	return n.NotificationID
-}
-
-func (n *NotifyConfiguration) GetSearchID() *string {
-	if n == nil {
-		return nil
-	}
-	return n.SearchID
-}
-
-func (n *NotifyConfiguration) GetSavedQueryID() *string {
-	if n == nil {
-		return nil
-	}
-	return n.SavedQueryID
-}
-
-func (n *NotifyConfiguration) GetTrigger() *string {
-	if n == nil {
-		return nil
-	}
-	return n.Trigger
-}
-
-func (n *NotifyConfiguration) GetTriggerType() *TriggerType {
-	if n == nil {
-		return nil
-	}
-	return n.TriggerType
-}
-
-func (n *NotifyConfiguration) GetTriggerComparator() *CountComparator {
-	if n == nil {
-		return nil
-	}
-	return n.TriggerComparator
-}
-
-func (n *NotifyConfiguration) GetTriggerCount() *float64 {
-	if n == nil {
-		return nil
-	}
-	return n.TriggerCount
-}
-
-func (n *NotifyConfiguration) GetResultsLimit() *float64 {
-	if n == nil {
-		return nil
-	}
-	return n.ResultsLimit
-}
-
-func (n *NotifyConfiguration) GetSearchURL() *string {
-	if n == nil {
-		return nil
-	}
-	return n.SearchURL
-}
-
-func (n *NotifyConfiguration) GetMessage() *string {
-	if n == nil {
-		return nil
-	}
-	return n.Message
-}
-
-func (n *NotifyConfiguration) GetAuthToken() *string {
-	if n == nil {
-		return nil
-	}
-	return n.AuthToken
-}
-
-func (n *NotifyConfiguration) GetMessagesEndpoint() *string {
-	if n == nil {
-		return nil
-	}
-	return n.MessagesEndpoint
-}
-
-func (n *NotifyConfiguration) GetTenantID() *string {
-	if n == nil {
-		return nil
-	}
-	return n.TenantID
-}
-
 type FunctionNotify struct {
-	Filename      string               `json:"__filename"`
-	AsyncTimeout  *float64             `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string              `json:"cribl_version,omitempty"`
-	Disabled      *bool                `json:"disabled,omitempty"`
-	Group         string               `json:"group"`
-	HandleSignals *bool                `json:"handleSignals,omitempty"`
-	ID            FunctionNotifyID     `json:"id"`
-	LoadTime      float64              `json:"loadTime"`
-	ModTime       float64              `json:"modTime"`
-	Name          string               `json:"name"`
-	Sync          *bool                `json:"sync,omitempty"`
-	Uischema      map[string]any       `json:"uischema"`
-	Version       string               `json:"version"`
-	Schema        *NotifyConfiguration `json:"schema,omitempty"`
+	Filename      string                    `json:"__filename"`
+	AsyncTimeout  *float64                  `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                   `json:"cribl_version,omitempty"`
+	Disabled      *bool                     `json:"disabled,omitempty"`
+	Group         string                    `json:"group"`
+	HandleSignals *bool                     `json:"handleSignals,omitempty"`
+	ID            FunctionNotifyID          `json:"id"`
+	LoadTime      float64                   `json:"loadTime"`
+	ModTime       float64                   `json:"modTime"`
+	Name          string                    `json:"name"`
+	Sync          *bool                     `json:"sync,omitempty"`
+	Uischema      map[string]any            `json:"uischema"`
+	Version       string                    `json:"version"`
+	Schema        *FunctionConfSchemaNotify `json:"schema,omitempty"`
 }
 
 func (f FunctionNotify) MarshalJSON() ([]byte, error) {
@@ -348,7 +150,7 @@ func (f *FunctionNotify) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionNotify) GetSchema() *NotifyConfiguration {
+func (f *FunctionNotify) GetSchema() *FunctionConfSchemaNotify {
 	if f == nil {
 		return nil
 	}

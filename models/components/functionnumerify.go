@@ -31,98 +31,21 @@ func (e *FunctionNumerifyID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionNumerifyFormat string
-
-const (
-	// FunctionNumerifyFormatNone None
-	FunctionNumerifyFormatNone FunctionNumerifyFormat = "none"
-	// FunctionNumerifyFormatFix Fix
-	FunctionNumerifyFormatFix FunctionNumerifyFormat = "fix"
-	// FunctionNumerifyFormatFloor Floor
-	FunctionNumerifyFormatFloor FunctionNumerifyFormat = "floor"
-	// FunctionNumerifyFormatCeil Ceil
-	FunctionNumerifyFormatCeil FunctionNumerifyFormat = "ceil"
-)
-
-func (e FunctionNumerifyFormat) ToPointer() *FunctionNumerifyFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionNumerifyFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "fix", "floor", "ceil":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionNumerifySchema struct {
-	// Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
-	Depth *int64 `default:"5" json:"depth"`
-	// Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
-	IgnoreFields []string `json:"ignoreFields,omitempty"`
-	// Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
-	FilterExpr *string                 `json:"filterExpr,omitempty"`
-	Format     *FunctionNumerifyFormat `default:"none" json:"format"`
-}
-
-func (f FunctionNumerifySchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionNumerifySchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionNumerifySchema) GetDepth() *int64 {
-	if f == nil {
-		return nil
-	}
-	return f.Depth
-}
-
-func (f *FunctionNumerifySchema) GetIgnoreFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.IgnoreFields
-}
-
-func (f *FunctionNumerifySchema) GetFilterExpr() *string {
-	if f == nil {
-		return nil
-	}
-	return f.FilterExpr
-}
-
-func (f *FunctionNumerifySchema) GetFormat() *FunctionNumerifyFormat {
-	if f == nil {
-		return nil
-	}
-	return f.Format
-}
-
 type FunctionNumerify struct {
-	Filename      string                  `json:"__filename"`
-	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                 `json:"cribl_version,omitempty"`
-	Disabled      *bool                   `json:"disabled,omitempty"`
-	Group         string                  `json:"group"`
-	HandleSignals *bool                   `json:"handleSignals,omitempty"`
-	ID            FunctionNumerifyID      `json:"id"`
-	LoadTime      float64                 `json:"loadTime"`
-	ModTime       float64                 `json:"modTime"`
-	Name          string                  `json:"name"`
-	Sync          *bool                   `json:"sync,omitempty"`
-	Uischema      map[string]any          `json:"uischema"`
-	Version       string                  `json:"version"`
-	Schema        *FunctionNumerifySchema `json:"schema,omitempty"`
+	Filename      string                      `json:"__filename"`
+	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                     `json:"cribl_version,omitempty"`
+	Disabled      *bool                       `json:"disabled,omitempty"`
+	Group         string                      `json:"group"`
+	HandleSignals *bool                       `json:"handleSignals,omitempty"`
+	ID            FunctionNumerifyID          `json:"id"`
+	LoadTime      float64                     `json:"loadTime"`
+	ModTime       float64                     `json:"modTime"`
+	Name          string                      `json:"name"`
+	Sync          *bool                       `json:"sync,omitempty"`
+	Uischema      map[string]any              `json:"uischema"`
+	Version       string                      `json:"version"`
+	Schema        *FunctionConfSchemaNumerify `json:"schema,omitempty"`
 }
 
 func (f FunctionNumerify) MarshalJSON() ([]byte, error) {
@@ -227,7 +150,7 @@ func (f *FunctionNumerify) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionNumerify) GetSchema() *FunctionNumerifySchema {
+func (f *FunctionNumerify) GetSchema() *FunctionConfSchemaNumerify {
 	if f == nil {
 		return nil
 	}

@@ -31,62 +31,21 @@ func (e *FunctionPivotID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type SimplePivotConfiguration struct {
-	// Fields to be used for the left-most column.
-	LabelField *string `json:"labelField,omitempty"`
-	// Fields with the cell values (i.e. aggregates)
-	DataFields []string `json:"dataFields,omitempty"`
-	// Fields to qualify or group data fields
-	QualifierFields []string `json:"qualifierFields,omitempty"`
-}
-
-func (s SimplePivotConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SimplePivotConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SimplePivotConfiguration) GetLabelField() *string {
-	if s == nil {
-		return nil
-	}
-	return s.LabelField
-}
-
-func (s *SimplePivotConfiguration) GetDataFields() []string {
-	if s == nil {
-		return nil
-	}
-	return s.DataFields
-}
-
-func (s *SimplePivotConfiguration) GetQualifierFields() []string {
-	if s == nil {
-		return nil
-	}
-	return s.QualifierFields
-}
-
 type FunctionPivot struct {
-	Filename      string                    `json:"__filename"`
-	AsyncTimeout  *float64                  `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                   `json:"cribl_version,omitempty"`
-	Disabled      *bool                     `json:"disabled,omitempty"`
-	Group         string                    `json:"group"`
-	HandleSignals *bool                     `json:"handleSignals,omitempty"`
-	ID            FunctionPivotID           `json:"id"`
-	LoadTime      float64                   `json:"loadTime"`
-	ModTime       float64                   `json:"modTime"`
-	Name          string                    `json:"name"`
-	Sync          *bool                     `json:"sync,omitempty"`
-	Uischema      map[string]any            `json:"uischema"`
-	Version       string                    `json:"version"`
-	Schema        *SimplePivotConfiguration `json:"schema,omitempty"`
+	Filename      string                   `json:"__filename"`
+	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                  `json:"cribl_version,omitempty"`
+	Disabled      *bool                    `json:"disabled,omitempty"`
+	Group         string                   `json:"group"`
+	HandleSignals *bool                    `json:"handleSignals,omitempty"`
+	ID            FunctionPivotID          `json:"id"`
+	LoadTime      float64                  `json:"loadTime"`
+	ModTime       float64                  `json:"modTime"`
+	Name          string                   `json:"name"`
+	Sync          *bool                    `json:"sync,omitempty"`
+	Uischema      map[string]any           `json:"uischema"`
+	Version       string                   `json:"version"`
+	Schema        *FunctionConfSchemaPivot `json:"schema,omitempty"`
 }
 
 func (f FunctionPivot) MarshalJSON() ([]byte, error) {
@@ -191,7 +150,7 @@ func (f *FunctionPivot) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionPivot) GetSchema() *SimplePivotConfiguration {
+func (f *FunctionPivot) GetSchema() *FunctionConfSchemaPivot {
 	if f == nil {
 		return nil
 	}

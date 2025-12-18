@@ -31,91 +31,21 @@ func (e *FunctionRollupMetricsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// GaugeUpdate - The operation to use when rolling up gauge metrics. Defaults to last.
-type GaugeUpdate string
-
-const (
-	// GaugeUpdateLast Last
-	GaugeUpdateLast GaugeUpdate = "last"
-	// GaugeUpdateMax Maximum
-	GaugeUpdateMax GaugeUpdate = "max"
-	// GaugeUpdateMin Minimum
-	GaugeUpdateMin GaugeUpdate = "min"
-	// GaugeUpdateAvg Average
-	GaugeUpdateAvg GaugeUpdate = "avg"
-)
-
-func (e GaugeUpdate) ToPointer() *GaugeUpdate {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *GaugeUpdate) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "last", "max", "min", "avg":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionRollupMetricsSchema struct {
-	// List of dimensions across which to perform rollups. Supports wildcards. Defaults to all original dimensions.
-	Dimensions []string `json:"dimensions,omitempty"`
-	// The time span of the rollup window. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"30s" json:"timeWindow"`
-	// The operation to use when rolling up gauge metrics. Defaults to last.
-	GaugeRollup *GaugeUpdate `default:"last" json:"gaugeRollup"`
-}
-
-func (f FunctionRollupMetricsSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionRollupMetricsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionRollupMetricsSchema) GetDimensions() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Dimensions
-}
-
-func (f *FunctionRollupMetricsSchema) GetTimeWindow() *string {
-	if f == nil {
-		return nil
-	}
-	return f.TimeWindow
-}
-
-func (f *FunctionRollupMetricsSchema) GetGaugeRollup() *GaugeUpdate {
-	if f == nil {
-		return nil
-	}
-	return f.GaugeRollup
-}
-
 type FunctionRollupMetrics struct {
-	Filename      string                       `json:"__filename"`
-	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                      `json:"cribl_version,omitempty"`
-	Disabled      *bool                        `json:"disabled,omitempty"`
-	Group         string                       `json:"group"`
-	HandleSignals *bool                        `json:"handleSignals,omitempty"`
-	ID            FunctionRollupMetricsID      `json:"id"`
-	LoadTime      float64                      `json:"loadTime"`
-	ModTime       float64                      `json:"modTime"`
-	Name          string                       `json:"name"`
-	Sync          *bool                        `json:"sync,omitempty"`
-	Uischema      map[string]any               `json:"uischema"`
-	Version       string                       `json:"version"`
-	Schema        *FunctionRollupMetricsSchema `json:"schema,omitempty"`
+	Filename      string                           `json:"__filename"`
+	AsyncTimeout  *float64                         `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                          `json:"cribl_version,omitempty"`
+	Disabled      *bool                            `json:"disabled,omitempty"`
+	Group         string                           `json:"group"`
+	HandleSignals *bool                            `json:"handleSignals,omitempty"`
+	ID            FunctionRollupMetricsID          `json:"id"`
+	LoadTime      float64                          `json:"loadTime"`
+	ModTime       float64                          `json:"modTime"`
+	Name          string                           `json:"name"`
+	Sync          *bool                            `json:"sync,omitempty"`
+	Uischema      map[string]any                   `json:"uischema"`
+	Version       string                           `json:"version"`
+	Schema        *FunctionConfSchemaRollupMetrics `json:"schema,omitempty"`
 }
 
 func (f FunctionRollupMetrics) MarshalJSON() ([]byte, error) {
@@ -220,7 +150,7 @@ func (f *FunctionRollupMetrics) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionRollupMetrics) GetSchema() *FunctionRollupMetricsSchema {
+func (f *FunctionRollupMetrics) GetSchema() *FunctionConfSchemaRollupMetrics {
 	if f == nil {
 		return nil
 	}

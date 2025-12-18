@@ -31,141 +31,21 @@ func (e *FunctionSnmpTrapSerializeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionSnmpTrapSerializeAuthenticationProtocol string
-
-const (
-	// FunctionSnmpTrapSerializeAuthenticationProtocolNone None
-	FunctionSnmpTrapSerializeAuthenticationProtocolNone FunctionSnmpTrapSerializeAuthenticationProtocol = "none"
-	// FunctionSnmpTrapSerializeAuthenticationProtocolMd5 MD5
-	FunctionSnmpTrapSerializeAuthenticationProtocolMd5 FunctionSnmpTrapSerializeAuthenticationProtocol = "md5"
-	// FunctionSnmpTrapSerializeAuthenticationProtocolSha SHA1
-	FunctionSnmpTrapSerializeAuthenticationProtocolSha FunctionSnmpTrapSerializeAuthenticationProtocol = "sha"
-	// FunctionSnmpTrapSerializeAuthenticationProtocolSha224 SHA224
-	FunctionSnmpTrapSerializeAuthenticationProtocolSha224 FunctionSnmpTrapSerializeAuthenticationProtocol = "sha224"
-	// FunctionSnmpTrapSerializeAuthenticationProtocolSha256 SHA256
-	FunctionSnmpTrapSerializeAuthenticationProtocolSha256 FunctionSnmpTrapSerializeAuthenticationProtocol = "sha256"
-	// FunctionSnmpTrapSerializeAuthenticationProtocolSha384 SHA384
-	FunctionSnmpTrapSerializeAuthenticationProtocolSha384 FunctionSnmpTrapSerializeAuthenticationProtocol = "sha384"
-	// FunctionSnmpTrapSerializeAuthenticationProtocolSha512 SHA512
-	FunctionSnmpTrapSerializeAuthenticationProtocolSha512 FunctionSnmpTrapSerializeAuthenticationProtocol = "sha512"
-)
-
-func (e FunctionSnmpTrapSerializeAuthenticationProtocol) ToPointer() *FunctionSnmpTrapSerializeAuthenticationProtocol {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionSnmpTrapSerializeAuthenticationProtocol) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionSnmpTrapSerializeV3User struct {
-	Name         *string                                          `json:"name,omitempty"`
-	AuthProtocol *FunctionSnmpTrapSerializeAuthenticationProtocol `default:"none" json:"authProtocol"`
-	AuthKey      any                                              `json:"authKey,omitempty"`
-	PrivProtocol *string                                          `default:"none" json:"privProtocol"`
-}
-
-func (f FunctionSnmpTrapSerializeV3User) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSnmpTrapSerializeV3User) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSnmpTrapSerializeV3User) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FunctionSnmpTrapSerializeV3User) GetAuthProtocol() *FunctionSnmpTrapSerializeAuthenticationProtocol {
-	if f == nil {
-		return nil
-	}
-	return f.AuthProtocol
-}
-
-func (f *FunctionSnmpTrapSerializeV3User) GetAuthKey() any {
-	if f == nil {
-		return nil
-	}
-	return f.AuthKey
-}
-
-func (f *FunctionSnmpTrapSerializeV3User) GetPrivProtocol() *string {
-	if f == nil {
-		return nil
-	}
-	return f.PrivProtocol
-}
-
-type FunctionSnmpTrapSerializeSchema struct {
-	// Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver.
-	Strict *bool `default:"true" json:"strict"`
-	// When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
-	DropFailedEvents *bool                            `default:"true" json:"dropFailedEvents"`
-	V3User           *FunctionSnmpTrapSerializeV3User `json:"v3User,omitempty"`
-}
-
-func (f FunctionSnmpTrapSerializeSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSnmpTrapSerializeSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSnmpTrapSerializeSchema) GetStrict() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Strict
-}
-
-func (f *FunctionSnmpTrapSerializeSchema) GetDropFailedEvents() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.DropFailedEvents
-}
-
-func (f *FunctionSnmpTrapSerializeSchema) GetV3User() *FunctionSnmpTrapSerializeV3User {
-	if f == nil {
-		return nil
-	}
-	return f.V3User
-}
-
 type FunctionSnmpTrapSerialize struct {
-	Filename      string                           `json:"__filename"`
-	AsyncTimeout  *float64                         `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                          `json:"cribl_version,omitempty"`
-	Disabled      *bool                            `json:"disabled,omitempty"`
-	Group         string                           `json:"group"`
-	HandleSignals *bool                            `json:"handleSignals,omitempty"`
-	ID            FunctionSnmpTrapSerializeID      `json:"id"`
-	LoadTime      float64                          `json:"loadTime"`
-	ModTime       float64                          `json:"modTime"`
-	Name          string                           `json:"name"`
-	Sync          *bool                            `json:"sync,omitempty"`
-	Uischema      map[string]any                   `json:"uischema"`
-	Version       string                           `json:"version"`
-	Schema        *FunctionSnmpTrapSerializeSchema `json:"schema,omitempty"`
+	Filename      string                               `json:"__filename"`
+	AsyncTimeout  *float64                             `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                              `json:"cribl_version,omitempty"`
+	Disabled      *bool                                `json:"disabled,omitempty"`
+	Group         string                               `json:"group"`
+	HandleSignals *bool                                `json:"handleSignals,omitempty"`
+	ID            FunctionSnmpTrapSerializeID          `json:"id"`
+	LoadTime      float64                              `json:"loadTime"`
+	ModTime       float64                              `json:"modTime"`
+	Name          string                               `json:"name"`
+	Sync          *bool                                `json:"sync,omitempty"`
+	Uischema      map[string]any                       `json:"uischema"`
+	Version       string                               `json:"version"`
+	Schema        *FunctionConfSchemaSnmpTrapSerialize `json:"schema,omitempty"`
 }
 
 func (f FunctionSnmpTrapSerialize) MarshalJSON() ([]byte, error) {
@@ -270,7 +150,7 @@ func (f *FunctionSnmpTrapSerialize) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSnmpTrapSerialize) GetSchema() *FunctionSnmpTrapSerializeSchema {
+func (f *FunctionSnmpTrapSerialize) GetSchema() *FunctionConfSchemaSnmpTrapSerialize {
 	if f == nil {
 		return nil
 	}

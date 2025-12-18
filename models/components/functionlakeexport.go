@@ -31,89 +31,21 @@ func (e *FunctionLakeExportID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type LakeExportConfiguration struct {
-	// Id of the search job this function is running on.
-	SearchJobID *string `json:"searchJobId,omitempty"`
-	// Name of the dataset
-	Dataset *string `json:"dataset,omitempty"`
-	// Name of the lake
-	Lake *string `default:"default" json:"lake"`
-	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *string `default:"false" json:"tee"`
-	// How often are stats flushed in ms
-	FlushMs *float64 `default:"1000" json:"flushMs"`
-	// Disables generation of intermediate stats. When true stats will be emitted only on end
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
-}
-
-func (l LakeExportConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LakeExportConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LakeExportConfiguration) GetSearchJobID() *string {
-	if l == nil {
-		return nil
-	}
-	return l.SearchJobID
-}
-
-func (l *LakeExportConfiguration) GetDataset() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Dataset
-}
-
-func (l *LakeExportConfiguration) GetLake() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Lake
-}
-
-func (l *LakeExportConfiguration) GetTee() *string {
-	if l == nil {
-		return nil
-	}
-	return l.Tee
-}
-
-func (l *LakeExportConfiguration) GetFlushMs() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.FlushMs
-}
-
-func (l *LakeExportConfiguration) GetSuppressPreviews() *bool {
-	if l == nil {
-		return nil
-	}
-	return l.SuppressPreviews
-}
-
 type FunctionLakeExport struct {
-	Filename      string                   `json:"__filename"`
-	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                  `json:"cribl_version,omitempty"`
-	Disabled      *bool                    `json:"disabled,omitempty"`
-	Group         string                   `json:"group"`
-	HandleSignals *bool                    `json:"handleSignals,omitempty"`
-	ID            FunctionLakeExportID     `json:"id"`
-	LoadTime      float64                  `json:"loadTime"`
-	ModTime       float64                  `json:"modTime"`
-	Name          string                   `json:"name"`
-	Sync          *bool                    `json:"sync,omitempty"`
-	Uischema      map[string]any           `json:"uischema"`
-	Version       string                   `json:"version"`
-	Schema        *LakeExportConfiguration `json:"schema,omitempty"`
+	Filename      string                        `json:"__filename"`
+	AsyncTimeout  *float64                      `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                       `json:"cribl_version,omitempty"`
+	Disabled      *bool                         `json:"disabled,omitempty"`
+	Group         string                        `json:"group"`
+	HandleSignals *bool                         `json:"handleSignals,omitempty"`
+	ID            FunctionLakeExportID          `json:"id"`
+	LoadTime      float64                       `json:"loadTime"`
+	ModTime       float64                       `json:"modTime"`
+	Name          string                        `json:"name"`
+	Sync          *bool                         `json:"sync,omitempty"`
+	Uischema      map[string]any                `json:"uischema"`
+	Version       string                        `json:"version"`
+	Schema        *FunctionConfSchemaLakeExport `json:"schema,omitempty"`
 }
 
 func (f FunctionLakeExport) MarshalJSON() ([]byte, error) {
@@ -218,7 +150,7 @@ func (f *FunctionLakeExport) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionLakeExport) GetSchema() *LakeExportConfiguration {
+func (f *FunctionLakeExport) GetSchema() *FunctionConfSchemaLakeExport {
 	if f == nil {
 		return nil
 	}

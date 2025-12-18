@@ -31,80 +31,21 @@ func (e *FunctionMvPullID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionMvPullSchema struct {
-	// Field name of the array within events that contains the data objects of interest. Can be a path.
-	ArrayPath *string `json:"arrayPath,omitempty"`
-	// Extract the K-V pair's key from this field, relative to the data object.
-	RelativeKeyPath *string `json:"relativeKeyPath,omitempty"`
-	// Extract the K-V pair's value from this field, relative to the data object.
-	RelativeValuePath *string `json:"relativeValuePath,omitempty"`
-	// Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
-	TargetBagPath *string `default:"null" json:"targetBagPath"`
-	// Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
-	DeleteOriginal *bool `default:"false" json:"deleteOriginal"`
-}
-
-func (f FunctionMvPullSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionMvPullSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionMvPullSchema) GetArrayPath() *string {
-	if f == nil {
-		return nil
-	}
-	return f.ArrayPath
-}
-
-func (f *FunctionMvPullSchema) GetRelativeKeyPath() *string {
-	if f == nil {
-		return nil
-	}
-	return f.RelativeKeyPath
-}
-
-func (f *FunctionMvPullSchema) GetRelativeValuePath() *string {
-	if f == nil {
-		return nil
-	}
-	return f.RelativeValuePath
-}
-
-func (f *FunctionMvPullSchema) GetTargetBagPath() *string {
-	if f == nil {
-		return nil
-	}
-	return f.TargetBagPath
-}
-
-func (f *FunctionMvPullSchema) GetDeleteOriginal() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.DeleteOriginal
-}
-
 type FunctionMvPull struct {
-	Filename      string                `json:"__filename"`
-	AsyncTimeout  *float64              `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string               `json:"cribl_version,omitempty"`
-	Disabled      *bool                 `json:"disabled,omitempty"`
-	Group         string                `json:"group"`
-	HandleSignals *bool                 `json:"handleSignals,omitempty"`
-	ID            FunctionMvPullID      `json:"id"`
-	LoadTime      float64               `json:"loadTime"`
-	ModTime       float64               `json:"modTime"`
-	Name          string                `json:"name"`
-	Sync          *bool                 `json:"sync,omitempty"`
-	Uischema      map[string]any        `json:"uischema"`
-	Version       string                `json:"version"`
-	Schema        *FunctionMvPullSchema `json:"schema,omitempty"`
+	Filename      string                    `json:"__filename"`
+	AsyncTimeout  *float64                  `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                   `json:"cribl_version,omitempty"`
+	Disabled      *bool                     `json:"disabled,omitempty"`
+	Group         string                    `json:"group"`
+	HandleSignals *bool                     `json:"handleSignals,omitempty"`
+	ID            FunctionMvPullID          `json:"id"`
+	LoadTime      float64                   `json:"loadTime"`
+	ModTime       float64                   `json:"modTime"`
+	Name          string                    `json:"name"`
+	Sync          *bool                     `json:"sync,omitempty"`
+	Uischema      map[string]any            `json:"uischema"`
+	Version       string                    `json:"version"`
+	Schema        *FunctionConfSchemaMvPull `json:"schema,omitempty"`
 }
 
 func (f FunctionMvPull) MarshalJSON() ([]byte, error) {
@@ -209,7 +150,7 @@ func (f *FunctionMvPull) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionMvPull) GetSchema() *FunctionMvPullSchema {
+func (f *FunctionMvPull) GetSchema() *FunctionConfSchemaMvPull {
 	if f == nil {
 		return nil
 	}

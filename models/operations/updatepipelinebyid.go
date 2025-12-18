@@ -10,7 +10,7 @@ type UpdatePipelineByIDRequest struct {
 	// The <code>id</code> of the Pipeline to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Pipeline object
-	Pipeline components.Pipeline `request:"mediaType=application/json"`
+	Pipeline components.PipelineInput `request:"mediaType=application/json"`
 }
 
 func (u *UpdatePipelineByIDRequest) GetID() string {
@@ -20,9 +20,9 @@ func (u *UpdatePipelineByIDRequest) GetID() string {
 	return u.ID
 }
 
-func (u *UpdatePipelineByIDRequest) GetPipeline() components.Pipeline {
+func (u *UpdatePipelineByIDRequest) GetPipeline() components.PipelineInput {
 	if u == nil {
-		return components.Pipeline{}
+		return components.PipelineInput{}
 	}
 	return u.Pipeline
 }

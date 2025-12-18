@@ -31,71 +31,21 @@ func (e *FunctionFlattenID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionFlattenSchema struct {
-	// List of top-level fields to include for flattening. Supports * wildcards, except when used on internal fields. Defaults to empty array, which means all fields.
-	Fields []string `json:"fields,omitempty"`
-	// Prefix string for flattened field names. Defaults to empty.
-	Prefix *string `default:"" json:"prefix"`
-	// Number representing the nested levels to consider for flattening. Defaults to 5. Minimum should be 1.
-	Depth *float64 `default:"5" json:"depth"`
-	// Delimiter to be used for flattening. Defaults to underscore.
-	Delimiter *string `default:"_" json:"delimiter"`
-}
-
-func (f FunctionFlattenSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionFlattenSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionFlattenSchema) GetFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Fields
-}
-
-func (f *FunctionFlattenSchema) GetPrefix() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Prefix
-}
-
-func (f *FunctionFlattenSchema) GetDepth() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.Depth
-}
-
-func (f *FunctionFlattenSchema) GetDelimiter() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Delimiter
-}
-
 type FunctionFlatten struct {
-	Filename      string                 `json:"__filename"`
-	AsyncTimeout  *float64               `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                `json:"cribl_version,omitempty"`
-	Disabled      *bool                  `json:"disabled,omitempty"`
-	Group         string                 `json:"group"`
-	HandleSignals *bool                  `json:"handleSignals,omitempty"`
-	ID            FunctionFlattenID      `json:"id"`
-	LoadTime      float64                `json:"loadTime"`
-	ModTime       float64                `json:"modTime"`
-	Name          string                 `json:"name"`
-	Sync          *bool                  `json:"sync,omitempty"`
-	Uischema      map[string]any         `json:"uischema"`
-	Version       string                 `json:"version"`
-	Schema        *FunctionFlattenSchema `json:"schema,omitempty"`
+	Filename      string                     `json:"__filename"`
+	AsyncTimeout  *float64                   `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                    `json:"cribl_version,omitempty"`
+	Disabled      *bool                      `json:"disabled,omitempty"`
+	Group         string                     `json:"group"`
+	HandleSignals *bool                      `json:"handleSignals,omitempty"`
+	ID            FunctionFlattenID          `json:"id"`
+	LoadTime      float64                    `json:"loadTime"`
+	ModTime       float64                    `json:"modTime"`
+	Name          string                     `json:"name"`
+	Sync          *bool                      `json:"sync,omitempty"`
+	Uischema      map[string]any             `json:"uischema"`
+	Version       string                     `json:"version"`
+	Schema        *FunctionConfSchemaFlatten `json:"schema,omitempty"`
 }
 
 func (f FunctionFlatten) MarshalJSON() ([]byte, error) {
@@ -200,7 +150,7 @@ func (f *FunctionFlatten) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionFlatten) GetSchema() *FunctionFlattenSchema {
+func (f *FunctionFlatten) GetSchema() *FunctionConfSchemaFlatten {
 	if f == nil {
 		return nil
 	}

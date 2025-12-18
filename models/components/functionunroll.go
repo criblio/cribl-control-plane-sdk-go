@@ -31,53 +31,21 @@ func (e *FunctionUnrollID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionUnrollSchema struct {
-	// Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
-	SrcExpr *string `default:"_raw" json:"srcExpr"`
-	// Field in destination event in which to place the unrolled value
-	DstField *string `default:"_raw" json:"dstField"`
-}
-
-func (f FunctionUnrollSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionUnrollSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionUnrollSchema) GetSrcExpr() *string {
-	if f == nil {
-		return nil
-	}
-	return f.SrcExpr
-}
-
-func (f *FunctionUnrollSchema) GetDstField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.DstField
-}
-
 type FunctionUnroll struct {
-	Filename      string                `json:"__filename"`
-	AsyncTimeout  *float64              `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string               `json:"cribl_version,omitempty"`
-	Disabled      *bool                 `json:"disabled,omitempty"`
-	Group         string                `json:"group"`
-	HandleSignals *bool                 `json:"handleSignals,omitempty"`
-	ID            FunctionUnrollID      `json:"id"`
-	LoadTime      float64               `json:"loadTime"`
-	ModTime       float64               `json:"modTime"`
-	Name          string                `json:"name"`
-	Sync          *bool                 `json:"sync,omitempty"`
-	Uischema      map[string]any        `json:"uischema"`
-	Version       string                `json:"version"`
-	Schema        *FunctionUnrollSchema `json:"schema,omitempty"`
+	Filename      string                    `json:"__filename"`
+	AsyncTimeout  *float64                  `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                   `json:"cribl_version,omitempty"`
+	Disabled      *bool                     `json:"disabled,omitempty"`
+	Group         string                    `json:"group"`
+	HandleSignals *bool                     `json:"handleSignals,omitempty"`
+	ID            FunctionUnrollID          `json:"id"`
+	LoadTime      float64                   `json:"loadTime"`
+	ModTime       float64                   `json:"modTime"`
+	Name          string                    `json:"name"`
+	Sync          *bool                     `json:"sync,omitempty"`
+	Uischema      map[string]any            `json:"uischema"`
+	Version       string                    `json:"version"`
+	Schema        *FunctionConfSchemaUnroll `json:"schema,omitempty"`
 }
 
 func (f FunctionUnroll) MarshalJSON() ([]byte, error) {
@@ -182,7 +150,7 @@ func (f *FunctionUnroll) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionUnroll) GetSchema() *FunctionUnrollSchema {
+func (f *FunctionUnroll) GetSchema() *FunctionConfSchemaUnroll {
 	if f == nil {
 		return nil
 	}

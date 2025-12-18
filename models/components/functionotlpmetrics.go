@@ -31,93 +31,21 @@ func (e *FunctionOtlpMetricsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionOTLPMetricsOTLPVersion string
-
-const (
-	// FunctionOTLPMetricsOTLPVersionZeroDot10Dot0 0.10.0
-	FunctionOTLPMetricsOTLPVersionZeroDot10Dot0 FunctionOTLPMetricsOTLPVersion = "0.10.0"
-	// FunctionOTLPMetricsOTLPVersionOneDot3Dot1 1.3.1
-	FunctionOTLPMetricsOTLPVersionOneDot3Dot1 FunctionOTLPMetricsOTLPVersion = "1.3.1"
-)
-
-func (e FunctionOTLPMetricsOTLPVersion) ToPointer() *FunctionOTLPMetricsOTLPVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionOTLPMetricsOTLPVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "0.10.0", "1.3.1":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionOtlpMetricsSchema struct {
-	// The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
-	ResourceAttributePrefixes []string                        `json:"resourceAttributePrefixes,omitempty"`
-	DropNonMetricEvents       *bool                           `default:"false" json:"dropNonMetricEvents"`
-	OtlpVersion               *FunctionOTLPMetricsOTLPVersion `default:"0.10.0" json:"otlpVersion"`
-	// Batch OTLP metrics by shared top-level `resource` attributes
-	BatchOTLPMetrics *bool `default:"false" json:"batchOTLPMetrics"`
-}
-
-func (f FunctionOtlpMetricsSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionOtlpMetricsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionOtlpMetricsSchema) GetResourceAttributePrefixes() []string {
-	if f == nil {
-		return nil
-	}
-	return f.ResourceAttributePrefixes
-}
-
-func (f *FunctionOtlpMetricsSchema) GetDropNonMetricEvents() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.DropNonMetricEvents
-}
-
-func (f *FunctionOtlpMetricsSchema) GetOtlpVersion() *FunctionOTLPMetricsOTLPVersion {
-	if f == nil {
-		return nil
-	}
-	return f.OtlpVersion
-}
-
-func (f *FunctionOtlpMetricsSchema) GetBatchOTLPMetrics() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.BatchOTLPMetrics
-}
-
 type FunctionOtlpMetrics struct {
-	Filename      string                     `json:"__filename"`
-	AsyncTimeout  *float64                   `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                    `json:"cribl_version,omitempty"`
-	Disabled      *bool                      `json:"disabled,omitempty"`
-	Group         string                     `json:"group"`
-	HandleSignals *bool                      `json:"handleSignals,omitempty"`
-	ID            FunctionOtlpMetricsID      `json:"id"`
-	LoadTime      float64                    `json:"loadTime"`
-	ModTime       float64                    `json:"modTime"`
-	Name          string                     `json:"name"`
-	Sync          *bool                      `json:"sync,omitempty"`
-	Uischema      map[string]any             `json:"uischema"`
-	Version       string                     `json:"version"`
-	Schema        *FunctionOtlpMetricsSchema `json:"schema,omitempty"`
+	Filename      string                         `json:"__filename"`
+	AsyncTimeout  *float64                       `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                        `json:"cribl_version,omitempty"`
+	Disabled      *bool                          `json:"disabled,omitempty"`
+	Group         string                         `json:"group"`
+	HandleSignals *bool                          `json:"handleSignals,omitempty"`
+	ID            FunctionOtlpMetricsID          `json:"id"`
+	LoadTime      float64                        `json:"loadTime"`
+	ModTime       float64                        `json:"modTime"`
+	Name          string                         `json:"name"`
+	Sync          *bool                          `json:"sync,omitempty"`
+	Uischema      map[string]any                 `json:"uischema"`
+	Version       string                         `json:"version"`
+	Schema        *FunctionConfSchemaOtlpMetrics `json:"schema,omitempty"`
 }
 
 func (f FunctionOtlpMetrics) MarshalJSON() ([]byte, error) {
@@ -222,7 +150,7 @@ func (f *FunctionOtlpMetrics) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionOtlpMetrics) GetSchema() *FunctionOtlpMetricsSchema {
+func (f *FunctionOtlpMetrics) GetSchema() *FunctionConfSchemaOtlpMetrics {
 	if f == nil {
 		return nil
 	}

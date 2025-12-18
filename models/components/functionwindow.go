@@ -31,71 +31,21 @@ func (e *FunctionWindowID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionWindowSchema struct {
-	// Identifies the unique ID, used for a event window
-	EventWindowID *float64 `json:"eventWindowId,omitempty"`
-	// All window functions, tracked by this event window
-	RegisteredFunctions []string `json:"registeredFunctions,omitempty"`
-	// Number of events to keep before the current event in the window
-	TailEventCount *float64 `default:"0" json:"tailEventCount"`
-	// Number of events to keep after the current event in the window
-	HeadEventCount *float64 `default:"0" json:"headEventCount"`
-}
-
-func (f FunctionWindowSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionWindowSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionWindowSchema) GetEventWindowID() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.EventWindowID
-}
-
-func (f *FunctionWindowSchema) GetRegisteredFunctions() []string {
-	if f == nil {
-		return nil
-	}
-	return f.RegisteredFunctions
-}
-
-func (f *FunctionWindowSchema) GetTailEventCount() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.TailEventCount
-}
-
-func (f *FunctionWindowSchema) GetHeadEventCount() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.HeadEventCount
-}
-
 type FunctionWindow struct {
-	Filename      string                `json:"__filename"`
-	AsyncTimeout  *float64              `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string               `json:"cribl_version,omitempty"`
-	Disabled      *bool                 `json:"disabled,omitempty"`
-	Group         string                `json:"group"`
-	HandleSignals *bool                 `json:"handleSignals,omitempty"`
-	ID            FunctionWindowID      `json:"id"`
-	LoadTime      float64               `json:"loadTime"`
-	ModTime       float64               `json:"modTime"`
-	Name          string                `json:"name"`
-	Sync          *bool                 `json:"sync,omitempty"`
-	Uischema      map[string]any        `json:"uischema"`
-	Version       string                `json:"version"`
-	Schema        *FunctionWindowSchema `json:"schema,omitempty"`
+	Filename      string                    `json:"__filename"`
+	AsyncTimeout  *float64                  `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                   `json:"cribl_version,omitempty"`
+	Disabled      *bool                     `json:"disabled,omitempty"`
+	Group         string                    `json:"group"`
+	HandleSignals *bool                     `json:"handleSignals,omitempty"`
+	ID            FunctionWindowID          `json:"id"`
+	LoadTime      float64                   `json:"loadTime"`
+	ModTime       float64                   `json:"modTime"`
+	Name          string                    `json:"name"`
+	Sync          *bool                     `json:"sync,omitempty"`
+	Uischema      map[string]any            `json:"uischema"`
+	Version       string                    `json:"version"`
+	Schema        *FunctionConfSchemaWindow `json:"schema,omitempty"`
 }
 
 func (f FunctionWindow) MarshalJSON() ([]byte, error) {
@@ -200,7 +150,7 @@ func (f *FunctionWindow) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionWindow) GetSchema() *FunctionWindowSchema {
+func (f *FunctionWindow) GetSchema() *FunctionConfSchemaWindow {
 	if f == nil {
 		return nil
 	}
