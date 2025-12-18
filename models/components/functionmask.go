@@ -31,142 +31,21 @@ func (e *FunctionMaskID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionMaskRule struct {
-	// Pattern to replace. Use /g to replace all matches.
-	MatchRegex string `json:"matchRegex"`
-	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
-	ReplaceExpr *string `default:"''" json:"replaceExpr"`
-	// Set to No to disable the evaluation of an individual rule
-	Disabled *bool `default:"false" json:"disabled"`
-}
-
-func (f FunctionMaskRule) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionMaskRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"matchRegex"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionMaskRule) GetMatchRegex() string {
-	if f == nil {
-		return ""
-	}
-	return f.MatchRegex
-}
-
-func (f *FunctionMaskRule) GetReplaceExpr() *string {
-	if f == nil {
-		return nil
-	}
-	return f.ReplaceExpr
-}
-
-func (f *FunctionMaskRule) GetDisabled() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Disabled
-}
-
-type FunctionMaskFlag struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (f FunctionMaskFlag) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionMaskFlag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionMaskFlag) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FunctionMaskFlag) GetValue() string {
-	if f == nil {
-		return ""
-	}
-	return f.Value
-}
-
-type FunctionMaskSchema struct {
-	Rules []FunctionMaskRule `json:"rules,omitempty"`
-	// Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
-	Fields []string `json:"fields,omitempty"`
-	// Depth to which the Mask Function will search for fields to mask
-	Depth *int64 `default:"5" json:"depth"`
-	// Fields to evaluate if one or more masking rules are matched
-	Flags []FunctionMaskFlag `json:"flags,omitempty"`
-}
-
-func (f FunctionMaskSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionMaskSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionMaskSchema) GetRules() []FunctionMaskRule {
-	if f == nil {
-		return nil
-	}
-	return f.Rules
-}
-
-func (f *FunctionMaskSchema) GetFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Fields
-}
-
-func (f *FunctionMaskSchema) GetDepth() *int64 {
-	if f == nil {
-		return nil
-	}
-	return f.Depth
-}
-
-func (f *FunctionMaskSchema) GetFlags() []FunctionMaskFlag {
-	if f == nil {
-		return nil
-	}
-	return f.Flags
-}
-
 type FunctionMask struct {
-	Filename      string              `json:"__filename"`
-	AsyncTimeout  *float64            `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string             `json:"cribl_version,omitempty"`
-	Disabled      *bool               `json:"disabled,omitempty"`
-	Group         string              `json:"group"`
-	HandleSignals *bool               `json:"handleSignals,omitempty"`
-	ID            FunctionMaskID      `json:"id"`
-	LoadTime      float64             `json:"loadTime"`
-	ModTime       float64             `json:"modTime"`
-	Name          string              `json:"name"`
-	Sync          *bool               `json:"sync,omitempty"`
-	Uischema      map[string]any      `json:"uischema"`
-	Version       string              `json:"version"`
-	Schema        *FunctionMaskSchema `json:"schema,omitempty"`
+	Filename      string                  `json:"__filename"`
+	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                   `json:"disabled,omitempty"`
+	Group         string                  `json:"group"`
+	HandleSignals *bool                   `json:"handleSignals,omitempty"`
+	ID            FunctionMaskID          `json:"id"`
+	LoadTime      float64                 `json:"loadTime"`
+	ModTime       float64                 `json:"modTime"`
+	Name          string                  `json:"name"`
+	Sync          *bool                   `json:"sync,omitempty"`
+	Uischema      map[string]any          `json:"uischema"`
+	Version       string                  `json:"version"`
+	Schema        *FunctionConfSchemaMask `json:"schema,omitempty"`
 }
 
 func (f FunctionMask) MarshalJSON() ([]byte, error) {
@@ -271,7 +150,7 @@ func (f *FunctionMask) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionMask) GetSchema() *FunctionMaskSchema {
+func (f *FunctionMask) GetSchema() *FunctionConfSchemaMask {
 	if f == nil {
 		return nil
 	}

@@ -31,102 +31,21 @@ func (e *FunctionEvalID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionEvalAdd struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-	// Set to No to disable the evaluation of an individual expression
-	Disabled *bool `default:"false" json:"disabled"`
-}
-
-func (f FunctionEvalAdd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionEvalAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionEvalAdd) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FunctionEvalAdd) GetValue() string {
-	if f == nil {
-		return ""
-	}
-	return f.Value
-}
-
-func (f *FunctionEvalAdd) GetDisabled() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Disabled
-}
-
-type FunctionEvalSchema struct {
-	// Set of key-value pairs to evaluate and add/set
-	Add []FunctionEvalAdd `json:"add,omitempty"`
-	// List of fields to keep. Supports * wildcards. Takes precedence over 'Remove fields'.
-	Keep []string `json:"keep,omitempty"`
-	// List of fields to remove. Supports * wildcards. Fields that match 'Keep fields' will not be removed. Enclose field names containing special characters in single or double quotes.
-	Remove []string `json:"remove,omitempty"`
-}
-
-func (f FunctionEvalSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionEvalSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionEvalSchema) GetAdd() []FunctionEvalAdd {
-	if f == nil {
-		return nil
-	}
-	return f.Add
-}
-
-func (f *FunctionEvalSchema) GetKeep() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Keep
-}
-
-func (f *FunctionEvalSchema) GetRemove() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Remove
-}
-
 type FunctionEval struct {
-	Filename      string              `json:"__filename"`
-	AsyncTimeout  *float64            `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string             `json:"cribl_version,omitempty"`
-	Disabled      *bool               `json:"disabled,omitempty"`
-	Group         string              `json:"group"`
-	HandleSignals *bool               `json:"handleSignals,omitempty"`
-	ID            FunctionEvalID      `json:"id"`
-	LoadTime      float64             `json:"loadTime"`
-	ModTime       float64             `json:"modTime"`
-	Name          string              `json:"name"`
-	Sync          *bool               `json:"sync,omitempty"`
-	Uischema      map[string]any      `json:"uischema"`
-	Version       string              `json:"version"`
-	Schema        *FunctionEvalSchema `json:"schema,omitempty"`
+	Filename      string                  `json:"__filename"`
+	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                   `json:"disabled,omitempty"`
+	Group         string                  `json:"group"`
+	HandleSignals *bool                   `json:"handleSignals,omitempty"`
+	ID            FunctionEvalID          `json:"id"`
+	LoadTime      float64                 `json:"loadTime"`
+	ModTime       float64                 `json:"modTime"`
+	Name          string                  `json:"name"`
+	Sync          *bool                   `json:"sync,omitempty"`
+	Uischema      map[string]any          `json:"uischema"`
+	Version       string                  `json:"version"`
+	Schema        *FunctionConfSchemaEval `json:"schema,omitempty"`
 }
 
 func (f FunctionEval) MarshalJSON() ([]byte, error) {
@@ -231,7 +150,7 @@ func (f *FunctionEval) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionEval) GetSchema() *FunctionEvalSchema {
+func (f *FunctionEval) GetSchema() *FunctionConfSchemaEval {
 	if f == nil {
 		return nil
 	}

@@ -31,71 +31,21 @@ func (e *FunctionEventstatsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type EventstatsConfiguration struct {
-	// Aggregate function(s) to perform on events. E.g., sum(bytes).where(action=='REJECT').as(TotalBytes)
-	Aggregations []string `json:"aggregations,omitempty"`
-	// Fields to group aggregates by, supports wildcard expressions.
-	GroupBys []string `json:"groupBys,omitempty"`
-	// Specifies how many events are at max kept in memory to be enriched with aggregations
-	MaxEvents *float64 `default:"50000" json:"maxEvents"`
-	// Determines if aggregations should flush when an input stream is closed. If disabled, time window settings will control flush behavior.
-	FlushOnInputClose *bool `default:"false" json:"flushOnInputClose"`
-}
-
-func (e EventstatsConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EventstatsConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EventstatsConfiguration) GetAggregations() []string {
-	if e == nil {
-		return nil
-	}
-	return e.Aggregations
-}
-
-func (e *EventstatsConfiguration) GetGroupBys() []string {
-	if e == nil {
-		return nil
-	}
-	return e.GroupBys
-}
-
-func (e *EventstatsConfiguration) GetMaxEvents() *float64 {
-	if e == nil {
-		return nil
-	}
-	return e.MaxEvents
-}
-
-func (e *EventstatsConfiguration) GetFlushOnInputClose() *bool {
-	if e == nil {
-		return nil
-	}
-	return e.FlushOnInputClose
-}
-
 type FunctionEventstats struct {
-	Filename      string                   `json:"__filename"`
-	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                  `json:"cribl_version,omitempty"`
-	Disabled      *bool                    `json:"disabled,omitempty"`
-	Group         string                   `json:"group"`
-	HandleSignals *bool                    `json:"handleSignals,omitempty"`
-	ID            FunctionEventstatsID     `json:"id"`
-	LoadTime      float64                  `json:"loadTime"`
-	ModTime       float64                  `json:"modTime"`
-	Name          string                   `json:"name"`
-	Sync          *bool                    `json:"sync,omitempty"`
-	Uischema      map[string]any           `json:"uischema"`
-	Version       string                   `json:"version"`
-	Schema        *EventstatsConfiguration `json:"schema,omitempty"`
+	Filename      string                        `json:"__filename"`
+	AsyncTimeout  *float64                      `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                       `json:"cribl_version,omitempty"`
+	Disabled      *bool                         `json:"disabled,omitempty"`
+	Group         string                        `json:"group"`
+	HandleSignals *bool                         `json:"handleSignals,omitempty"`
+	ID            FunctionEventstatsID          `json:"id"`
+	LoadTime      float64                       `json:"loadTime"`
+	ModTime       float64                       `json:"modTime"`
+	Name          string                        `json:"name"`
+	Sync          *bool                         `json:"sync,omitempty"`
+	Uischema      map[string]any                `json:"uischema"`
+	Version       string                        `json:"version"`
+	Schema        *FunctionConfSchemaEventstats `json:"schema,omitempty"`
 }
 
 func (f FunctionEventstats) MarshalJSON() ([]byte, error) {
@@ -200,7 +150,7 @@ func (f *FunctionEventstats) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionEventstats) GetSchema() *EventstatsConfiguration {
+func (f *FunctionEventstats) GetSchema() *FunctionConfSchemaEventstats {
 	if f == nil {
 		return nil
 	}

@@ -31,76 +31,21 @@ func (e *FunctionEventBreakerID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type ExistingOrNew string
-
-const (
-	// ExistingOrNewExisting Use Existing
-	ExistingOrNewExisting ExistingOrNew = "existing"
-	// ExistingOrNewNew Create New
-	ExistingOrNewNew ExistingOrNew = "new"
-)
-
-func (e ExistingOrNew) ToPointer() *ExistingOrNew {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ExistingOrNew) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "existing", "new":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionEventBreakerSchema struct {
-	ExistingOrNew *ExistingOrNew `default:"existing" json:"existingOrNew"`
-	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `default:"true" json:"shouldMarkCriblBreaker"`
-}
-
-func (f FunctionEventBreakerSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionEventBreakerSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionEventBreakerSchema) GetExistingOrNew() *ExistingOrNew {
-	if f == nil {
-		return nil
-	}
-	return f.ExistingOrNew
-}
-
-func (f *FunctionEventBreakerSchema) GetShouldMarkCriblBreaker() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.ShouldMarkCriblBreaker
-}
-
 type FunctionEventBreaker struct {
-	Filename      string                      `json:"__filename"`
-	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                     `json:"cribl_version,omitempty"`
-	Disabled      *bool                       `json:"disabled,omitempty"`
-	Group         string                      `json:"group"`
-	HandleSignals *bool                       `json:"handleSignals,omitempty"`
-	ID            FunctionEventBreakerID      `json:"id"`
-	LoadTime      float64                     `json:"loadTime"`
-	ModTime       float64                     `json:"modTime"`
-	Name          string                      `json:"name"`
-	Sync          *bool                       `json:"sync,omitempty"`
-	Uischema      map[string]any              `json:"uischema"`
-	Version       string                      `json:"version"`
-	Schema        *FunctionEventBreakerSchema `json:"schema,omitempty"`
+	Filename      string                          `json:"__filename"`
+	AsyncTimeout  *float64                        `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                         `json:"cribl_version,omitempty"`
+	Disabled      *bool                           `json:"disabled,omitempty"`
+	Group         string                          `json:"group"`
+	HandleSignals *bool                           `json:"handleSignals,omitempty"`
+	ID            FunctionEventBreakerID          `json:"id"`
+	LoadTime      float64                         `json:"loadTime"`
+	ModTime       float64                         `json:"modTime"`
+	Name          string                          `json:"name"`
+	Sync          *bool                           `json:"sync,omitempty"`
+	Uischema      map[string]any                  `json:"uischema"`
+	Version       string                          `json:"version"`
+	Schema        *FunctionConfSchemaEventBreaker `json:"schema,omitempty"`
 }
 
 func (f FunctionEventBreaker) MarshalJSON() ([]byte, error) {
@@ -205,7 +150,7 @@ func (f *FunctionEventBreaker) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionEventBreaker) GetSchema() *FunctionEventBreakerSchema {
+func (f *FunctionEventBreaker) GetSchema() *FunctionConfSchemaEventBreaker {
 	if f == nil {
 		return nil
 	}

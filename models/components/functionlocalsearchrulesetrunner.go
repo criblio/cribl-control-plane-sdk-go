@@ -31,73 +31,21 @@ func (e *FunctionLocalSearchRulesetRunnerID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type RulesetType string
-
-const (
-	RulesetTypeDataset  RulesetType = "dataset"
-	RulesetTypeDatatype RulesetType = "datatype"
-)
-
-func (e RulesetType) ToPointer() *RulesetType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RulesetType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "dataset", "datatype":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionLocalSearchRulesetRunnerSchema struct {
-	RulesetType *RulesetType `json:"rulesetType,omitempty"`
-	RulesetID   *string      `json:"rulesetId,omitempty"`
-}
-
-func (f FunctionLocalSearchRulesetRunnerSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionLocalSearchRulesetRunnerSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionLocalSearchRulesetRunnerSchema) GetRulesetType() *RulesetType {
-	if f == nil {
-		return nil
-	}
-	return f.RulesetType
-}
-
-func (f *FunctionLocalSearchRulesetRunnerSchema) GetRulesetID() *string {
-	if f == nil {
-		return nil
-	}
-	return f.RulesetID
-}
-
 type FunctionLocalSearchRulesetRunner struct {
-	Filename      string                                  `json:"__filename"`
-	AsyncTimeout  *float64                                `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                                 `json:"cribl_version,omitempty"`
-	Disabled      *bool                                   `json:"disabled,omitempty"`
-	Group         string                                  `json:"group"`
-	HandleSignals *bool                                   `json:"handleSignals,omitempty"`
-	ID            FunctionLocalSearchRulesetRunnerID      `json:"id"`
-	LoadTime      float64                                 `json:"loadTime"`
-	ModTime       float64                                 `json:"modTime"`
-	Name          string                                  `json:"name"`
-	Sync          *bool                                   `json:"sync,omitempty"`
-	Uischema      map[string]any                          `json:"uischema"`
-	Version       string                                  `json:"version"`
-	Schema        *FunctionLocalSearchRulesetRunnerSchema `json:"schema,omitempty"`
+	Filename      string                                      `json:"__filename"`
+	AsyncTimeout  *float64                                    `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                                     `json:"cribl_version,omitempty"`
+	Disabled      *bool                                       `json:"disabled,omitempty"`
+	Group         string                                      `json:"group"`
+	HandleSignals *bool                                       `json:"handleSignals,omitempty"`
+	ID            FunctionLocalSearchRulesetRunnerID          `json:"id"`
+	LoadTime      float64                                     `json:"loadTime"`
+	ModTime       float64                                     `json:"modTime"`
+	Name          string                                      `json:"name"`
+	Sync          *bool                                       `json:"sync,omitempty"`
+	Uischema      map[string]any                              `json:"uischema"`
+	Version       string                                      `json:"version"`
+	Schema        *FunctionConfSchemaLocalSearchRulesetRunner `json:"schema,omitempty"`
 }
 
 func (f FunctionLocalSearchRulesetRunner) MarshalJSON() ([]byte, error) {
@@ -202,7 +150,7 @@ func (f *FunctionLocalSearchRulesetRunner) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionLocalSearchRulesetRunner) GetSchema() *FunctionLocalSearchRulesetRunnerSchema {
+func (f *FunctionLocalSearchRulesetRunner) GetSchema() *FunctionConfSchemaLocalSearchRulesetRunner {
 	if f == nil {
 		return nil
 	}

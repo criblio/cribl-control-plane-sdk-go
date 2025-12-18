@@ -31,185 +31,21 @@ func (e *FunctionLookupID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InField struct {
-	// Field name as it appears in events
-	EventField string `json:"eventField"`
-	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitempty"`
-}
-
-func (i InField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"eventField"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InField) GetEventField() string {
-	if i == nil {
-		return ""
-	}
-	return i.EventField
-}
-
-func (i *InField) GetLookupField() *string {
-	if i == nil {
-		return nil
-	}
-	return i.LookupField
-}
-
-type OutField struct {
-	// The field name as it appears in the lookup file
-	LookupField string `json:"lookupField"`
-	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitempty"`
-	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitempty"`
-}
-
-func (o OutField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"lookupField"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutField) GetLookupField() string {
-	if o == nil {
-		return ""
-	}
-	return o.LookupField
-}
-
-func (o *OutField) GetEventField() *string {
-	if o == nil {
-		return nil
-	}
-	return o.EventField
-}
-
-func (o *OutField) GetDefaultValue() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DefaultValue
-}
-
-type FunctionLookupSchema struct {
-	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
-	File *string `json:"file,omitempty"`
-	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup        *bool `default:"false" json:"dbLookup"`
-	MatchMode       any   `json:"matchMode,omitempty"`
-	MatchType       any   `json:"matchType,omitempty"`
-	ReloadPeriodSec any   `json:"reloadPeriodSec,omitempty"`
-	// Fields that should be used to key into the lookup table
-	InFields []InField `json:"inFields,omitempty"`
-	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []OutField `json:"outFields,omitempty"`
-	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `default:"false" json:"addToEvent"`
-	IgnoreCase any   `json:"ignoreCase,omitempty"`
-}
-
-func (f FunctionLookupSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionLookupSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionLookupSchema) GetFile() *string {
-	if f == nil {
-		return nil
-	}
-	return f.File
-}
-
-func (f *FunctionLookupSchema) GetDbLookup() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.DbLookup
-}
-
-func (f *FunctionLookupSchema) GetMatchMode() any {
-	if f == nil {
-		return nil
-	}
-	return f.MatchMode
-}
-
-func (f *FunctionLookupSchema) GetMatchType() any {
-	if f == nil {
-		return nil
-	}
-	return f.MatchType
-}
-
-func (f *FunctionLookupSchema) GetReloadPeriodSec() any {
-	if f == nil {
-		return nil
-	}
-	return f.ReloadPeriodSec
-}
-
-func (f *FunctionLookupSchema) GetInFields() []InField {
-	if f == nil {
-		return nil
-	}
-	return f.InFields
-}
-
-func (f *FunctionLookupSchema) GetOutFields() []OutField {
-	if f == nil {
-		return nil
-	}
-	return f.OutFields
-}
-
-func (f *FunctionLookupSchema) GetAddToEvent() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.AddToEvent
-}
-
-func (f *FunctionLookupSchema) GetIgnoreCase() any {
-	if f == nil {
-		return nil
-	}
-	return f.IgnoreCase
-}
-
 type FunctionLookup struct {
-	Filename      string                `json:"__filename"`
-	AsyncTimeout  *float64              `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string               `json:"cribl_version,omitempty"`
-	Disabled      *bool                 `json:"disabled,omitempty"`
-	Group         string                `json:"group"`
-	HandleSignals *bool                 `json:"handleSignals,omitempty"`
-	ID            FunctionLookupID      `json:"id"`
-	LoadTime      float64               `json:"loadTime"`
-	ModTime       float64               `json:"modTime"`
-	Name          string                `json:"name"`
-	Sync          *bool                 `json:"sync,omitempty"`
-	Uischema      map[string]any        `json:"uischema"`
-	Version       string                `json:"version"`
-	Schema        *FunctionLookupSchema `json:"schema,omitempty"`
+	Filename      string                    `json:"__filename"`
+	AsyncTimeout  *float64                  `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                   `json:"cribl_version,omitempty"`
+	Disabled      *bool                     `json:"disabled,omitempty"`
+	Group         string                    `json:"group"`
+	HandleSignals *bool                     `json:"handleSignals,omitempty"`
+	ID            FunctionLookupID          `json:"id"`
+	LoadTime      float64                   `json:"loadTime"`
+	ModTime       float64                   `json:"modTime"`
+	Name          string                    `json:"name"`
+	Sync          *bool                     `json:"sync,omitempty"`
+	Uischema      map[string]any            `json:"uischema"`
+	Version       string                    `json:"version"`
+	Schema        *FunctionConfSchemaLookup `json:"schema,omitempty"`
 }
 
 func (f FunctionLookup) MarshalJSON() ([]byte, error) {
@@ -314,7 +150,7 @@ func (f *FunctionLookup) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionLookup) GetSchema() *FunctionLookupSchema {
+func (f *FunctionLookup) GetSchema() *FunctionConfSchemaLookup {
 	if f == nil {
 		return nil
 	}

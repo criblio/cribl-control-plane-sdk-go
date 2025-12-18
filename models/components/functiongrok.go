@@ -31,84 +31,21 @@ func (e *FunctionGrokID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PatternList struct {
-	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern string `json:"pattern"`
-}
-
-func (p PatternList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PatternList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"pattern"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PatternList) GetPattern() string {
-	if p == nil {
-		return ""
-	}
-	return p.Pattern
-}
-
-type FunctionGrokSchema struct {
-	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string       `json:"pattern,omitempty"`
-	PatternList []PatternList `json:"patternList,omitempty"`
-	// Field on which to perform Grok extractions
-	Source *string `default:"_raw" json:"source"`
-}
-
-func (f FunctionGrokSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionGrokSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionGrokSchema) GetPattern() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Pattern
-}
-
-func (f *FunctionGrokSchema) GetPatternList() []PatternList {
-	if f == nil {
-		return nil
-	}
-	return f.PatternList
-}
-
-func (f *FunctionGrokSchema) GetSource() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Source
-}
-
 type FunctionGrok struct {
-	Filename      string              `json:"__filename"`
-	AsyncTimeout  *float64            `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string             `json:"cribl_version,omitempty"`
-	Disabled      *bool               `json:"disabled,omitempty"`
-	Group         string              `json:"group"`
-	HandleSignals *bool               `json:"handleSignals,omitempty"`
-	ID            FunctionGrokID      `json:"id"`
-	LoadTime      float64             `json:"loadTime"`
-	ModTime       float64             `json:"modTime"`
-	Name          string              `json:"name"`
-	Sync          *bool               `json:"sync,omitempty"`
-	Uischema      map[string]any      `json:"uischema"`
-	Version       string              `json:"version"`
-	Schema        *FunctionGrokSchema `json:"schema,omitempty"`
+	Filename      string                  `json:"__filename"`
+	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                   `json:"disabled,omitempty"`
+	Group         string                  `json:"group"`
+	HandleSignals *bool                   `json:"handleSignals,omitempty"`
+	ID            FunctionGrokID          `json:"id"`
+	LoadTime      float64                 `json:"loadTime"`
+	ModTime       float64                 `json:"modTime"`
+	Name          string                  `json:"name"`
+	Sync          *bool                   `json:"sync,omitempty"`
+	Uischema      map[string]any          `json:"uischema"`
+	Version       string                  `json:"version"`
+	Schema        *FunctionConfSchemaGrok `json:"schema,omitempty"`
 }
 
 func (f FunctionGrok) MarshalJSON() ([]byte, error) {
@@ -213,7 +150,7 @@ func (f *FunctionGrok) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionGrok) GetSchema() *FunctionGrokSchema {
+func (f *FunctionGrok) GetSchema() *FunctionConfSchemaGrok {
 	if f == nil {
 		return nil
 	}

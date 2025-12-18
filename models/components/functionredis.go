@@ -31,183 +31,21 @@ func (e *FunctionRedisID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type Command struct {
-	// Name of the field in which to store the returned value. Leave blank to discard returned value.
-	OutField *string `json:"outField,omitempty"`
-	// Redis command to perform. For a complete list visit: https://redis.io/commands
-	Command string `json:"command"`
-	// A JavaScript expression to compute the value of the key to operate on. Can also be a constant such as 'username'.
-	KeyExpr string `json:"keyExpr"`
-	// A JavaScript expression to compute arguments to the operation. Can return an array.
-	ArgsExpr *string `json:"argsExpr,omitempty"`
-}
-
-func (c Command) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *Command) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"command", "keyExpr"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *Command) GetOutField() *string {
-	if c == nil {
-		return nil
-	}
-	return c.OutField
-}
-
-func (c *Command) GetCommand() string {
-	if c == nil {
-		return ""
-	}
-	return c.Command
-}
-
-func (c *Command) GetKeyExpr() string {
-	if c == nil {
-		return ""
-	}
-	return c.KeyExpr
-}
-
-func (c *Command) GetArgsExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ArgsExpr
-}
-
-// DeploymentType - How the Redis server is configured. Defaults to Standalone
-type DeploymentType string
-
-const (
-	// DeploymentTypeStandalone Standalone
-	DeploymentTypeStandalone DeploymentType = "standalone"
-	// DeploymentTypeCluster Cluster
-	DeploymentTypeCluster DeploymentType = "cluster"
-	// DeploymentTypeSentinel Sentinel
-	DeploymentTypeSentinel DeploymentType = "sentinel"
-)
-
-func (e DeploymentType) ToPointer() *DeploymentType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DeploymentType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "standalone", "cluster", "sentinel":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionRedisAuthenticationMethod string
-
-const (
-	// FunctionRedisAuthenticationMethodNone None
-	FunctionRedisAuthenticationMethodNone FunctionRedisAuthenticationMethod = "none"
-	// FunctionRedisAuthenticationMethodManual Manual
-	FunctionRedisAuthenticationMethodManual FunctionRedisAuthenticationMethod = "manual"
-	// FunctionRedisAuthenticationMethodCredentialsSecret User Secret
-	FunctionRedisAuthenticationMethodCredentialsSecret FunctionRedisAuthenticationMethod = "credentialsSecret"
-	// FunctionRedisAuthenticationMethodTextSecret Admin Secret
-	FunctionRedisAuthenticationMethodTextSecret FunctionRedisAuthenticationMethod = "textSecret"
-)
-
-func (e FunctionRedisAuthenticationMethod) ToPointer() *FunctionRedisAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionRedisAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "manual", "credentialsSecret", "textSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionRedisSchema struct {
-	Commands []Command `json:"commands,omitempty"`
-	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *DeploymentType                    `default:"standalone" json:"deploymentType"`
-	AuthType       *FunctionRedisAuthenticationMethod `default:"none" json:"authType"`
-	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `default:"60" json:"maxBlockSecs"`
-	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
-	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
-}
-
-func (f FunctionRedisSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionRedisSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionRedisSchema) GetCommands() []Command {
-	if f == nil {
-		return nil
-	}
-	return f.Commands
-}
-
-func (f *FunctionRedisSchema) GetDeploymentType() *DeploymentType {
-	if f == nil {
-		return nil
-	}
-	return f.DeploymentType
-}
-
-func (f *FunctionRedisSchema) GetAuthType() *FunctionRedisAuthenticationMethod {
-	if f == nil {
-		return nil
-	}
-	return f.AuthType
-}
-
-func (f *FunctionRedisSchema) GetMaxBlockSecs() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.MaxBlockSecs
-}
-
-func (f *FunctionRedisSchema) GetEnableClientSideCaching() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.EnableClientSideCaching
-}
-
 type FunctionRedis struct {
-	Filename      string               `json:"__filename"`
-	AsyncTimeout  *float64             `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string              `json:"cribl_version,omitempty"`
-	Disabled      *bool                `json:"disabled,omitempty"`
-	Group         string               `json:"group"`
-	HandleSignals *bool                `json:"handleSignals,omitempty"`
-	ID            FunctionRedisID      `json:"id"`
-	LoadTime      float64              `json:"loadTime"`
-	ModTime       float64              `json:"modTime"`
-	Name          string               `json:"name"`
-	Sync          *bool                `json:"sync,omitempty"`
-	Uischema      map[string]any       `json:"uischema"`
-	Version       string               `json:"version"`
-	Schema        *FunctionRedisSchema `json:"schema,omitempty"`
+	Filename      string                   `json:"__filename"`
+	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                  `json:"cribl_version,omitempty"`
+	Disabled      *bool                    `json:"disabled,omitempty"`
+	Group         string                   `json:"group"`
+	HandleSignals *bool                    `json:"handleSignals,omitempty"`
+	ID            FunctionRedisID          `json:"id"`
+	LoadTime      float64                  `json:"loadTime"`
+	ModTime       float64                  `json:"modTime"`
+	Name          string                   `json:"name"`
+	Sync          *bool                    `json:"sync,omitempty"`
+	Uischema      map[string]any           `json:"uischema"`
+	Version       string                   `json:"version"`
+	Schema        *FunctionConfSchemaRedis `json:"schema,omitempty"`
 }
 
 func (f FunctionRedis) MarshalJSON() ([]byte, error) {
@@ -312,7 +150,7 @@ func (f *FunctionRedis) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionRedis) GetSchema() *FunctionRedisSchema {
+func (f *FunctionRedis) GetSchema() *FunctionConfSchemaRedis {
 	if f == nil {
 		return nil
 	}

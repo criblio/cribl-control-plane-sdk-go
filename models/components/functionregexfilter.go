@@ -31,84 +31,21 @@ func (e *FunctionRegexFilterID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionRegexFilterRegexList struct {
-	// Regex to test against
-	Regex string `json:"regex"`
-}
-
-func (f FunctionRegexFilterRegexList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionRegexFilterRegexList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"regex"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionRegexFilterRegexList) GetRegex() string {
-	if f == nil {
-		return ""
-	}
-	return f.Regex
-}
-
-type FunctionRegexFilterSchema struct {
-	// Regex to test against
-	Regex     *string                        `json:"regex,omitempty"`
-	RegexList []FunctionRegexFilterRegexList `json:"regexList,omitempty"`
-	// Name of the field to apply the regex on (defaults to _raw)
-	Field *string `default:"_raw" json:"field"`
-}
-
-func (f FunctionRegexFilterSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionRegexFilterSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionRegexFilterSchema) GetRegex() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Regex
-}
-
-func (f *FunctionRegexFilterSchema) GetRegexList() []FunctionRegexFilterRegexList {
-	if f == nil {
-		return nil
-	}
-	return f.RegexList
-}
-
-func (f *FunctionRegexFilterSchema) GetField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Field
-}
-
 type FunctionRegexFilter struct {
-	Filename      string                     `json:"__filename"`
-	AsyncTimeout  *float64                   `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                    `json:"cribl_version,omitempty"`
-	Disabled      *bool                      `json:"disabled,omitempty"`
-	Group         string                     `json:"group"`
-	HandleSignals *bool                      `json:"handleSignals,omitempty"`
-	ID            FunctionRegexFilterID      `json:"id"`
-	LoadTime      float64                    `json:"loadTime"`
-	ModTime       float64                    `json:"modTime"`
-	Name          string                     `json:"name"`
-	Sync          *bool                      `json:"sync,omitempty"`
-	Uischema      map[string]any             `json:"uischema"`
-	Version       string                     `json:"version"`
-	Schema        *FunctionRegexFilterSchema `json:"schema,omitempty"`
+	Filename      string                         `json:"__filename"`
+	AsyncTimeout  *float64                       `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                        `json:"cribl_version,omitempty"`
+	Disabled      *bool                          `json:"disabled,omitempty"`
+	Group         string                         `json:"group"`
+	HandleSignals *bool                          `json:"handleSignals,omitempty"`
+	ID            FunctionRegexFilterID          `json:"id"`
+	LoadTime      float64                        `json:"loadTime"`
+	ModTime       float64                        `json:"modTime"`
+	Name          string                         `json:"name"`
+	Sync          *bool                          `json:"sync,omitempty"`
+	Uischema      map[string]any                 `json:"uischema"`
+	Version       string                         `json:"version"`
+	Schema        *FunctionConfSchemaRegexFilter `json:"schema,omitempty"`
 }
 
 func (f FunctionRegexFilter) MarshalJSON() ([]byte, error) {
@@ -213,7 +150,7 @@ func (f *FunctionRegexFilter) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionRegexFilter) GetSchema() *FunctionRegexFilterSchema {
+func (f *FunctionRegexFilter) GetSchema() *FunctionConfSchemaRegexFilter {
 	if f == nil {
 		return nil
 	}

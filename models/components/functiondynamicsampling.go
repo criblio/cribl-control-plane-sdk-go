@@ -31,105 +31,21 @@ func (e *FunctionDynamicSamplingID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// SampleMode - Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-type SampleMode string
-
-const (
-	// SampleModeLog Logarithmic
-	SampleModeLog SampleMode = "log"
-	// SampleModeSqrt Square Root
-	SampleModeSqrt SampleMode = "sqrt"
-)
-
-func (e SampleMode) ToPointer() *SampleMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SampleMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "log", "sqrt":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionDynamicSamplingSchema struct {
-	// Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-	Mode *SampleMode `default:"log" json:"mode"`
-	// Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
-	KeyExpr *string `default:"\\${host}" json:"keyExpr"`
-	// How often (in seconds) sample rates will be adjusted
-	SamplePeriod *float64 `default:"30" json:"samplePeriod"`
-	// Minimum number of events that must be received in previous sample period for sampling mode to be applied to current period. If the number of events received for a sample group is less than this minimum, a sample rate of 1:1 is used.
-	MinEvents *float64 `default:"30" json:"minEvents"`
-	// Maximum sampling rate. If computed sampling rate is above this value, it will be limited to this value.
-	MaxSampleRate *float64 `default:"100" json:"maxSampleRate"`
-}
-
-func (f FunctionDynamicSamplingSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionDynamicSamplingSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionDynamicSamplingSchema) GetMode() *SampleMode {
-	if f == nil {
-		return nil
-	}
-	return f.Mode
-}
-
-func (f *FunctionDynamicSamplingSchema) GetKeyExpr() *string {
-	if f == nil {
-		return nil
-	}
-	return f.KeyExpr
-}
-
-func (f *FunctionDynamicSamplingSchema) GetSamplePeriod() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.SamplePeriod
-}
-
-func (f *FunctionDynamicSamplingSchema) GetMinEvents() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.MinEvents
-}
-
-func (f *FunctionDynamicSamplingSchema) GetMaxSampleRate() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.MaxSampleRate
-}
-
 type FunctionDynamicSampling struct {
-	Filename      string                         `json:"__filename"`
-	AsyncTimeout  *float64                       `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                        `json:"cribl_version,omitempty"`
-	Disabled      *bool                          `json:"disabled,omitempty"`
-	Group         string                         `json:"group"`
-	HandleSignals *bool                          `json:"handleSignals,omitempty"`
-	ID            FunctionDynamicSamplingID      `json:"id"`
-	LoadTime      float64                        `json:"loadTime"`
-	ModTime       float64                        `json:"modTime"`
-	Name          string                         `json:"name"`
-	Sync          *bool                          `json:"sync,omitempty"`
-	Uischema      map[string]any                 `json:"uischema"`
-	Version       string                         `json:"version"`
-	Schema        *FunctionDynamicSamplingSchema `json:"schema,omitempty"`
+	Filename      string                             `json:"__filename"`
+	AsyncTimeout  *float64                           `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                            `json:"cribl_version,omitempty"`
+	Disabled      *bool                              `json:"disabled,omitempty"`
+	Group         string                             `json:"group"`
+	HandleSignals *bool                              `json:"handleSignals,omitempty"`
+	ID            FunctionDynamicSamplingID          `json:"id"`
+	LoadTime      float64                            `json:"loadTime"`
+	ModTime       float64                            `json:"modTime"`
+	Name          string                             `json:"name"`
+	Sync          *bool                              `json:"sync,omitempty"`
+	Uischema      map[string]any                     `json:"uischema"`
+	Version       string                             `json:"version"`
+	Schema        *FunctionConfSchemaDynamicSampling `json:"schema,omitempty"`
 }
 
 func (f FunctionDynamicSampling) MarshalJSON() ([]byte, error) {
@@ -234,7 +150,7 @@ func (f *FunctionDynamicSampling) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionDynamicSampling) GetSchema() *FunctionDynamicSamplingSchema {
+func (f *FunctionDynamicSampling) GetSchema() *FunctionConfSchemaDynamicSampling {
 	if f == nil {
 		return nil
 	}

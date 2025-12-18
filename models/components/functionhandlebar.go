@@ -31,112 +31,21 @@ func (e *FunctionHandlebarID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type TemplateDefinition struct {
-	// Handlebars template string
-	Content string `json:"content"`
-	// Optional description of what this template is used for
-	Description *string `json:"description,omitempty"`
-	// Type categorization for the template (e.g., Universal, Email, Slack)
-	Type *string `default:"Universal" json:"type"`
-}
-
-func (t TemplateDefinition) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TemplateDefinition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"content"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (t *TemplateDefinition) GetContent() string {
-	if t == nil {
-		return ""
-	}
-	return t.Content
-}
-
-func (t *TemplateDefinition) GetDescription() *string {
-	if t == nil {
-		return nil
-	}
-	return t.Description
-}
-
-func (t *TemplateDefinition) GetType() *string {
-	if t == nil {
-		return nil
-	}
-	return t.Type
-}
-
-type FunctionHandlebarSchema struct {
-	// Object with template_id as keys and template definitions as values. Uses event.__template_id to select template at runtime.
-	Templates map[string]TemplateDefinition `json:"templates,omitempty"`
-	// Field name to store the rendered template result. Defaults to _raw.
-	TargetField *string `default:"_raw" json:"targetField"`
-	// Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
-	ParseJSON *bool `default:"false" json:"parseJson"`
-	// Remove the target field if the rendered result is empty or null.
-	RemoveOnNull *bool `default:"true" json:"removeOnNull"`
-}
-
-func (f FunctionHandlebarSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionHandlebarSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionHandlebarSchema) GetTemplates() map[string]TemplateDefinition {
-	if f == nil {
-		return nil
-	}
-	return f.Templates
-}
-
-func (f *FunctionHandlebarSchema) GetTargetField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.TargetField
-}
-
-func (f *FunctionHandlebarSchema) GetParseJSON() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.ParseJSON
-}
-
-func (f *FunctionHandlebarSchema) GetRemoveOnNull() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.RemoveOnNull
-}
-
 type FunctionHandlebar struct {
-	Filename      string                   `json:"__filename"`
-	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                  `json:"cribl_version,omitempty"`
-	Disabled      *bool                    `json:"disabled,omitempty"`
-	Group         string                   `json:"group"`
-	HandleSignals *bool                    `json:"handleSignals,omitempty"`
-	ID            FunctionHandlebarID      `json:"id"`
-	LoadTime      float64                  `json:"loadTime"`
-	ModTime       float64                  `json:"modTime"`
-	Name          string                   `json:"name"`
-	Sync          *bool                    `json:"sync,omitempty"`
-	Uischema      map[string]any           `json:"uischema"`
-	Version       string                   `json:"version"`
-	Schema        *FunctionHandlebarSchema `json:"schema,omitempty"`
+	Filename      string                       `json:"__filename"`
+	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                      `json:"cribl_version,omitempty"`
+	Disabled      *bool                        `json:"disabled,omitempty"`
+	Group         string                       `json:"group"`
+	HandleSignals *bool                        `json:"handleSignals,omitempty"`
+	ID            FunctionHandlebarID          `json:"id"`
+	LoadTime      float64                      `json:"loadTime"`
+	ModTime       float64                      `json:"modTime"`
+	Name          string                       `json:"name"`
+	Sync          *bool                        `json:"sync,omitempty"`
+	Uischema      map[string]any               `json:"uischema"`
+	Version       string                       `json:"version"`
+	Schema        *FunctionConfSchemaHandlebar `json:"schema,omitempty"`
 }
 
 func (f FunctionHandlebar) MarshalJSON() ([]byte, error) {
@@ -241,7 +150,7 @@ func (f *FunctionHandlebar) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionHandlebar) GetSchema() *FunctionHandlebarSchema {
+func (f *FunctionHandlebar) GetSchema() *FunctionConfSchemaHandlebar {
 	if f == nil {
 		return nil
 	}

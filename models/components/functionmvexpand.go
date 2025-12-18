@@ -31,105 +31,21 @@ func (e *FunctionMvExpandID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// BagExpansionMode - decides if bag-values are expanded to bags or arrays
-type BagExpansionMode string
-
-const (
-	// BagExpansionModeBag Store as object
-	BagExpansionModeBag BagExpansionMode = "bag"
-	// BagExpansionModeArray Store as array
-	BagExpansionModeArray BagExpansionMode = "array"
-)
-
-func (e BagExpansionMode) ToPointer() *BagExpansionMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BagExpansionMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "bag", "array":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionMvExpandSchema struct {
-	// Array of property-/field-names to expand
-	SourceFields []string `json:"sourceFields,omitempty"`
-	// stores the value as new target field name
-	TargetNames []string `json:"targetNames,omitempty"`
-	// max. number of rows generated out of every source events
-	RowLimit *float64 `default:"9007199254740991" json:"rowLimit"`
-	// name of an optional index property generated into the output
-	ItemIndexName *string `json:"itemIndexName,omitempty"`
-	// decides if bag-values are expanded to bags or arrays
-	BagExpansionMode *BagExpansionMode `default:"bag" json:"bagExpansionMode"`
-}
-
-func (f FunctionMvExpandSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionMvExpandSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionMvExpandSchema) GetSourceFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.SourceFields
-}
-
-func (f *FunctionMvExpandSchema) GetTargetNames() []string {
-	if f == nil {
-		return nil
-	}
-	return f.TargetNames
-}
-
-func (f *FunctionMvExpandSchema) GetRowLimit() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.RowLimit
-}
-
-func (f *FunctionMvExpandSchema) GetItemIndexName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.ItemIndexName
-}
-
-func (f *FunctionMvExpandSchema) GetBagExpansionMode() *BagExpansionMode {
-	if f == nil {
-		return nil
-	}
-	return f.BagExpansionMode
-}
-
 type FunctionMvExpand struct {
-	Filename      string                  `json:"__filename"`
-	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                 `json:"cribl_version,omitempty"`
-	Disabled      *bool                   `json:"disabled,omitempty"`
-	Group         string                  `json:"group"`
-	HandleSignals *bool                   `json:"handleSignals,omitempty"`
-	ID            FunctionMvExpandID      `json:"id"`
-	LoadTime      float64                 `json:"loadTime"`
-	ModTime       float64                 `json:"modTime"`
-	Name          string                  `json:"name"`
-	Sync          *bool                   `json:"sync,omitempty"`
-	Uischema      map[string]any          `json:"uischema"`
-	Version       string                  `json:"version"`
-	Schema        *FunctionMvExpandSchema `json:"schema,omitempty"`
+	Filename      string                      `json:"__filename"`
+	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                     `json:"cribl_version,omitempty"`
+	Disabled      *bool                       `json:"disabled,omitempty"`
+	Group         string                      `json:"group"`
+	HandleSignals *bool                       `json:"handleSignals,omitempty"`
+	ID            FunctionMvExpandID          `json:"id"`
+	LoadTime      float64                     `json:"loadTime"`
+	ModTime       float64                     `json:"modTime"`
+	Name          string                      `json:"name"`
+	Sync          *bool                       `json:"sync,omitempty"`
+	Uischema      map[string]any              `json:"uischema"`
+	Version       string                      `json:"version"`
+	Schema        *FunctionConfSchemaMvExpand `json:"schema,omitempty"`
 }
 
 func (f FunctionMvExpand) MarshalJSON() ([]byte, error) {
@@ -234,7 +150,7 @@ func (f *FunctionMvExpand) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionMvExpand) GetSchema() *FunctionMvExpandSchema {
+func (f *FunctionMvExpand) GetSchema() *FunctionConfSchemaMvExpand {
 	if f == nil {
 		return nil
 	}

@@ -31,103 +31,21 @@ func (e *FunctionRenameID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type Rename struct {
-	// Name of the field to rename. Literal identifiers must be quoted.
-	CurrentName string `json:"currentName"`
-	// The name the field will be renamed to. Literal identifiers must be quoted.
-	NewName string `json:"newName"`
-}
-
-func (r Rename) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *Rename) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"currentName", "newName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *Rename) GetCurrentName() string {
-	if r == nil {
-		return ""
-	}
-	return r.CurrentName
-}
-
-func (r *Rename) GetNewName() string {
-	if r == nil {
-		return ""
-	}
-	return r.NewName
-}
-
-type FunctionRenameSchema struct {
-	// Fields whose children will inherit the Rename fields and Rename expression operations. Supports wildcards. If empty, only top-level fields will be renamed.
-	BaseFields []string `json:"baseFields,omitempty"`
-	// Set of key-value pairs to rename fields, where key is the current name and value is the new name. Does not support internal fields.
-	Rename []Rename `json:"rename,omitempty"`
-	// Optional JavaScript expression whose returned value will be used to rename fields. Use the 'name' and 'value' global variables to access field names/values. Example: `name.startsWith('data') ? name.toUpperCase() : name`. You can access other field values via __e.<fieldName>.
-	RenameExpr *string `json:"renameExpr,omitempty"`
-	// For wildcards specified in Parent fields, sets the maximum depth within events to match and rename fields. Enter `0` to match only top-level fields. Defaults to `5` levels down.
-	WildcardDepth *int64 `default:"5" json:"wildcardDepth"`
-}
-
-func (f FunctionRenameSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionRenameSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionRenameSchema) GetBaseFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.BaseFields
-}
-
-func (f *FunctionRenameSchema) GetRename() []Rename {
-	if f == nil {
-		return nil
-	}
-	return f.Rename
-}
-
-func (f *FunctionRenameSchema) GetRenameExpr() *string {
-	if f == nil {
-		return nil
-	}
-	return f.RenameExpr
-}
-
-func (f *FunctionRenameSchema) GetWildcardDepth() *int64 {
-	if f == nil {
-		return nil
-	}
-	return f.WildcardDepth
-}
-
 type FunctionRename struct {
-	Filename      string                `json:"__filename"`
-	AsyncTimeout  *float64              `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string               `json:"cribl_version,omitempty"`
-	Disabled      *bool                 `json:"disabled,omitempty"`
-	Group         string                `json:"group"`
-	HandleSignals *bool                 `json:"handleSignals,omitempty"`
-	ID            FunctionRenameID      `json:"id"`
-	LoadTime      float64               `json:"loadTime"`
-	ModTime       float64               `json:"modTime"`
-	Name          string                `json:"name"`
-	Sync          *bool                 `json:"sync,omitempty"`
-	Uischema      map[string]any        `json:"uischema"`
-	Version       string                `json:"version"`
-	Schema        *FunctionRenameSchema `json:"schema,omitempty"`
+	Filename      string                    `json:"__filename"`
+	AsyncTimeout  *float64                  `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                   `json:"cribl_version,omitempty"`
+	Disabled      *bool                     `json:"disabled,omitempty"`
+	Group         string                    `json:"group"`
+	HandleSignals *bool                     `json:"handleSignals,omitempty"`
+	ID            FunctionRenameID          `json:"id"`
+	LoadTime      float64                   `json:"loadTime"`
+	ModTime       float64                   `json:"modTime"`
+	Name          string                    `json:"name"`
+	Sync          *bool                     `json:"sync,omitempty"`
+	Uischema      map[string]any            `json:"uischema"`
+	Version       string                    `json:"version"`
+	Schema        *FunctionConfSchemaRename `json:"schema,omitempty"`
 }
 
 func (f FunctionRename) MarshalJSON() ([]byte, error) {
@@ -232,7 +150,7 @@ func (f *FunctionRename) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionRename) GetSchema() *FunctionRenameSchema {
+func (f *FunctionRename) GetSchema() *FunctionConfSchemaRename {
 	if f == nil {
 		return nil
 	}

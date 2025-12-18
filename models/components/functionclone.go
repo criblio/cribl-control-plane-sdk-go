@@ -31,44 +31,21 @@ func (e *FunctionCloneID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionCloneSchema struct {
-	// Create clones with the following fields set
-	Clones []map[string]string `json:"clones,omitempty"`
-}
-
-func (f FunctionCloneSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionCloneSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionCloneSchema) GetClones() []map[string]string {
-	if f == nil {
-		return nil
-	}
-	return f.Clones
-}
-
 type FunctionClone struct {
-	Filename      string               `json:"__filename"`
-	AsyncTimeout  *float64             `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string              `json:"cribl_version,omitempty"`
-	Disabled      *bool                `json:"disabled,omitempty"`
-	Group         string               `json:"group"`
-	HandleSignals *bool                `json:"handleSignals,omitempty"`
-	ID            FunctionCloneID      `json:"id"`
-	LoadTime      float64              `json:"loadTime"`
-	ModTime       float64              `json:"modTime"`
-	Name          string               `json:"name"`
-	Sync          *bool                `json:"sync,omitempty"`
-	Uischema      map[string]any       `json:"uischema"`
-	Version       string               `json:"version"`
-	Schema        *FunctionCloneSchema `json:"schema,omitempty"`
+	Filename      string                   `json:"__filename"`
+	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                  `json:"cribl_version,omitempty"`
+	Disabled      *bool                    `json:"disabled,omitempty"`
+	Group         string                   `json:"group"`
+	HandleSignals *bool                    `json:"handleSignals,omitempty"`
+	ID            FunctionCloneID          `json:"id"`
+	LoadTime      float64                  `json:"loadTime"`
+	ModTime       float64                  `json:"modTime"`
+	Name          string                   `json:"name"`
+	Sync          *bool                    `json:"sync,omitempty"`
+	Uischema      map[string]any           `json:"uischema"`
+	Version       string                   `json:"version"`
+	Schema        *FunctionConfSchemaClone `json:"schema,omitempty"`
 }
 
 func (f FunctionClone) MarshalJSON() ([]byte, error) {
@@ -173,7 +150,7 @@ func (f *FunctionClone) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionClone) GetSchema() *FunctionCloneSchema {
+func (f *FunctionClone) GetSchema() *FunctionConfSchemaClone {
 	if f == nil {
 		return nil
 	}

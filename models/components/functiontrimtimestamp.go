@@ -31,44 +31,21 @@ func (e *FunctionTrimTimestampID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionTrimTimestampSchema struct {
-	// Name of field in which to save the timestamp. (If empty, timestamp will not be saved to a field.)
-	Field *string `json:"field,omitempty"`
-}
-
-func (f FunctionTrimTimestampSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionTrimTimestampSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionTrimTimestampSchema) GetField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Field
-}
-
 type FunctionTrimTimestamp struct {
-	Filename      string                       `json:"__filename"`
-	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                      `json:"cribl_version,omitempty"`
-	Disabled      *bool                        `json:"disabled,omitempty"`
-	Group         string                       `json:"group"`
-	HandleSignals *bool                        `json:"handleSignals,omitempty"`
-	ID            FunctionTrimTimestampID      `json:"id"`
-	LoadTime      float64                      `json:"loadTime"`
-	ModTime       float64                      `json:"modTime"`
-	Name          string                       `json:"name"`
-	Sync          *bool                        `json:"sync,omitempty"`
-	Uischema      map[string]any               `json:"uischema"`
-	Version       string                       `json:"version"`
-	Schema        *FunctionTrimTimestampSchema `json:"schema,omitempty"`
+	Filename      string                           `json:"__filename"`
+	AsyncTimeout  *float64                         `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                          `json:"cribl_version,omitempty"`
+	Disabled      *bool                            `json:"disabled,omitempty"`
+	Group         string                           `json:"group"`
+	HandleSignals *bool                            `json:"handleSignals,omitempty"`
+	ID            FunctionTrimTimestampID          `json:"id"`
+	LoadTime      float64                          `json:"loadTime"`
+	ModTime       float64                          `json:"modTime"`
+	Name          string                           `json:"name"`
+	Sync          *bool                            `json:"sync,omitempty"`
+	Uischema      map[string]any                   `json:"uischema"`
+	Version       string                           `json:"version"`
+	Schema        *FunctionConfSchemaTrimTimestamp `json:"schema,omitempty"`
 }
 
 func (f FunctionTrimTimestamp) MarshalJSON() ([]byte, error) {
@@ -173,7 +150,7 @@ func (f *FunctionTrimTimestamp) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionTrimTimestamp) GetSchema() *FunctionTrimTimestampSchema {
+func (f *FunctionTrimTimestamp) GetSchema() *FunctionConfSchemaTrimTimestamp {
 	if f == nil {
 		return nil
 	}

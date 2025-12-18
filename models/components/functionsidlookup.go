@@ -31,84 +31,21 @@ func (e *FunctionSidlookupID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionSidlookupField struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Expr string `json:"expr"`
-	// Set to No to disable the evaluation of an individual expression
-	Disabled *bool `default:"false" json:"disabled"`
-}
-
-func (f FunctionSidlookupField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSidlookupField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"expr"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSidlookupField) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FunctionSidlookupField) GetExpr() string {
-	if f == nil {
-		return ""
-	}
-	return f.Expr
-}
-
-func (f *FunctionSidlookupField) GetDisabled() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Disabled
-}
-
-type FunctionSidlookupSchema struct {
-	// Set of expressions matched to lookup responses
-	Fields []FunctionSidlookupField `json:"fields,omitempty"`
-}
-
-func (f FunctionSidlookupSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSidlookupSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSidlookupSchema) GetFields() []FunctionSidlookupField {
-	if f == nil {
-		return nil
-	}
-	return f.Fields
-}
-
 type FunctionSidlookup struct {
-	Filename      string                   `json:"__filename"`
-	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                  `json:"cribl_version,omitempty"`
-	Disabled      *bool                    `json:"disabled,omitempty"`
-	Group         string                   `json:"group"`
-	HandleSignals *bool                    `json:"handleSignals,omitempty"`
-	ID            FunctionSidlookupID      `json:"id"`
-	LoadTime      float64                  `json:"loadTime"`
-	ModTime       float64                  `json:"modTime"`
-	Name          string                   `json:"name"`
-	Sync          *bool                    `json:"sync,omitempty"`
-	Uischema      map[string]any           `json:"uischema"`
-	Version       string                   `json:"version"`
-	Schema        *FunctionSidlookupSchema `json:"schema,omitempty"`
+	Filename      string                       `json:"__filename"`
+	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                      `json:"cribl_version,omitempty"`
+	Disabled      *bool                        `json:"disabled,omitempty"`
+	Group         string                       `json:"group"`
+	HandleSignals *bool                        `json:"handleSignals,omitempty"`
+	ID            FunctionSidlookupID          `json:"id"`
+	LoadTime      float64                      `json:"loadTime"`
+	ModTime       float64                      `json:"modTime"`
+	Name          string                       `json:"name"`
+	Sync          *bool                        `json:"sync,omitempty"`
+	Uischema      map[string]any               `json:"uischema"`
+	Version       string                       `json:"version"`
+	Schema        *FunctionConfSchemaSidlookup `json:"schema,omitempty"`
 }
 
 func (f FunctionSidlookup) MarshalJSON() ([]byte, error) {
@@ -213,7 +150,7 @@ func (f *FunctionSidlookup) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSidlookup) GetSchema() *FunctionSidlookupSchema {
+func (f *FunctionSidlookup) GetSchema() *FunctionConfSchemaSidlookup {
 	if f == nil {
 		return nil
 	}

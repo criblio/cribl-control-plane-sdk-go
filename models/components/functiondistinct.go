@@ -31,80 +31,21 @@ func (e *FunctionDistinctID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type DistinctConfiguration struct {
-	// Defines the properties that are concatenated to produce distinct key
-	GroupBy []string `json:"groupBy,omitempty"`
-	// maximum number of tracked combinations
-	MaxCombinations *float64 `default:"10000" json:"maxCombinations"`
-	// maximum number of groupBy properties
-	MaxDepth *float64 `default:"15" json:"maxDepth"`
-	// indicator that the operator runs on a federated executor
-	IsFederated *bool `default:"false" json:"isFederated"`
-	// Toggle this on to suppress generating previews of intermediate results
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
-}
-
-func (d DistinctConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(d, "", false)
-}
-
-func (d *DistinctConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (d *DistinctConfiguration) GetGroupBy() []string {
-	if d == nil {
-		return nil
-	}
-	return d.GroupBy
-}
-
-func (d *DistinctConfiguration) GetMaxCombinations() *float64 {
-	if d == nil {
-		return nil
-	}
-	return d.MaxCombinations
-}
-
-func (d *DistinctConfiguration) GetMaxDepth() *float64 {
-	if d == nil {
-		return nil
-	}
-	return d.MaxDepth
-}
-
-func (d *DistinctConfiguration) GetIsFederated() *bool {
-	if d == nil {
-		return nil
-	}
-	return d.IsFederated
-}
-
-func (d *DistinctConfiguration) GetSuppressPreviews() *bool {
-	if d == nil {
-		return nil
-	}
-	return d.SuppressPreviews
-}
-
 type FunctionDistinct struct {
-	Filename      string                 `json:"__filename"`
-	AsyncTimeout  *float64               `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                `json:"cribl_version,omitempty"`
-	Disabled      *bool                  `json:"disabled,omitempty"`
-	Group         string                 `json:"group"`
-	HandleSignals *bool                  `json:"handleSignals,omitempty"`
-	ID            FunctionDistinctID     `json:"id"`
-	LoadTime      float64                `json:"loadTime"`
-	ModTime       float64                `json:"modTime"`
-	Name          string                 `json:"name"`
-	Sync          *bool                  `json:"sync,omitempty"`
-	Uischema      map[string]any         `json:"uischema"`
-	Version       string                 `json:"version"`
-	Schema        *DistinctConfiguration `json:"schema,omitempty"`
+	Filename      string                      `json:"__filename"`
+	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                     `json:"cribl_version,omitempty"`
+	Disabled      *bool                       `json:"disabled,omitempty"`
+	Group         string                      `json:"group"`
+	HandleSignals *bool                       `json:"handleSignals,omitempty"`
+	ID            FunctionDistinctID          `json:"id"`
+	LoadTime      float64                     `json:"loadTime"`
+	ModTime       float64                     `json:"modTime"`
+	Name          string                      `json:"name"`
+	Sync          *bool                       `json:"sync,omitempty"`
+	Uischema      map[string]any              `json:"uischema"`
+	Version       string                      `json:"version"`
+	Schema        *FunctionConfSchemaDistinct `json:"schema,omitempty"`
 }
 
 func (f FunctionDistinct) MarshalJSON() ([]byte, error) {
@@ -209,7 +150,7 @@ func (f *FunctionDistinct) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionDistinct) GetSchema() *DistinctConfiguration {
+func (f *FunctionDistinct) GetSchema() *FunctionConfSchemaDistinct {
 	if f == nil {
 		return nil
 	}

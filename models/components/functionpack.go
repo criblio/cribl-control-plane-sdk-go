@@ -31,53 +31,21 @@ func (e *FunctionPackID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionPackSchema struct {
-	// List of fields to keep, everything else will be packed
-	UnpackedFields []string `json:"unpackedFields,omitempty"`
-	// Name of the (packed) target field
-	Target *string `default:"_pack" json:"target"`
-}
-
-func (f FunctionPackSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionPackSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionPackSchema) GetUnpackedFields() []string {
-	if f == nil {
-		return nil
-	}
-	return f.UnpackedFields
-}
-
-func (f *FunctionPackSchema) GetTarget() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Target
-}
-
 type FunctionPack struct {
-	Filename      string              `json:"__filename"`
-	AsyncTimeout  *float64            `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string             `json:"cribl_version,omitempty"`
-	Disabled      *bool               `json:"disabled,omitempty"`
-	Group         string              `json:"group"`
-	HandleSignals *bool               `json:"handleSignals,omitempty"`
-	ID            FunctionPackID      `json:"id"`
-	LoadTime      float64             `json:"loadTime"`
-	ModTime       float64             `json:"modTime"`
-	Name          string              `json:"name"`
-	Sync          *bool               `json:"sync,omitempty"`
-	Uischema      map[string]any      `json:"uischema"`
-	Version       string              `json:"version"`
-	Schema        *FunctionPackSchema `json:"schema,omitempty"`
+	Filename      string                  `json:"__filename"`
+	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                   `json:"disabled,omitempty"`
+	Group         string                  `json:"group"`
+	HandleSignals *bool                   `json:"handleSignals,omitempty"`
+	ID            FunctionPackID          `json:"id"`
+	LoadTime      float64                 `json:"loadTime"`
+	ModTime       float64                 `json:"modTime"`
+	Name          string                  `json:"name"`
+	Sync          *bool                   `json:"sync,omitempty"`
+	Uischema      map[string]any          `json:"uischema"`
+	Version       string                  `json:"version"`
+	Schema        *FunctionConfSchemaPack `json:"schema,omitempty"`
 }
 
 func (f FunctionPack) MarshalJSON() ([]byte, error) {
@@ -182,7 +150,7 @@ func (f *FunctionPack) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionPack) GetSchema() *FunctionPackSchema {
+func (f *FunctionPack) GetSchema() *FunctionConfSchemaPack {
 	if f == nil {
 		return nil
 	}

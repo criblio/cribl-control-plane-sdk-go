@@ -31,62 +31,21 @@ func (e *FunctionDropDimensionsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionDropDimensionsSchema struct {
-	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"10s" json:"timeWindow"`
-	// One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
-	DropDimensions []string `json:"dropDimensions,omitempty"`
-	// Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
-	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
-}
-
-func (f FunctionDropDimensionsSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionDropDimensionsSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionDropDimensionsSchema) GetTimeWindow() *string {
-	if f == nil {
-		return nil
-	}
-	return f.TimeWindow
-}
-
-func (f *FunctionDropDimensionsSchema) GetDropDimensions() []string {
-	if f == nil {
-		return nil
-	}
-	return f.DropDimensions
-}
-
-func (f *FunctionDropDimensionsSchema) GetFlushOnInputClose() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.FlushOnInputClose
-}
-
 type FunctionDropDimensions struct {
-	Filename      string                        `json:"__filename"`
-	AsyncTimeout  *float64                      `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                       `json:"cribl_version,omitempty"`
-	Disabled      *bool                         `json:"disabled,omitempty"`
-	Group         string                        `json:"group"`
-	HandleSignals *bool                         `json:"handleSignals,omitempty"`
-	ID            FunctionDropDimensionsID      `json:"id"`
-	LoadTime      float64                       `json:"loadTime"`
-	ModTime       float64                       `json:"modTime"`
-	Name          string                        `json:"name"`
-	Sync          *bool                         `json:"sync,omitempty"`
-	Uischema      map[string]any                `json:"uischema"`
-	Version       string                        `json:"version"`
-	Schema        *FunctionDropDimensionsSchema `json:"schema,omitempty"`
+	Filename      string                            `json:"__filename"`
+	AsyncTimeout  *float64                          `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                           `json:"cribl_version,omitempty"`
+	Disabled      *bool                             `json:"disabled,omitempty"`
+	Group         string                            `json:"group"`
+	HandleSignals *bool                             `json:"handleSignals,omitempty"`
+	ID            FunctionDropDimensionsID          `json:"id"`
+	LoadTime      float64                           `json:"loadTime"`
+	ModTime       float64                           `json:"modTime"`
+	Name          string                            `json:"name"`
+	Sync          *bool                             `json:"sync,omitempty"`
+	Uischema      map[string]any                    `json:"uischema"`
+	Version       string                            `json:"version"`
+	Schema        *FunctionConfSchemaDropDimensions `json:"schema,omitempty"`
 }
 
 func (f FunctionDropDimensions) MarshalJSON() ([]byte, error) {
@@ -191,7 +150,7 @@ func (f *FunctionDropDimensions) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionDropDimensions) GetSchema() *FunctionDropDimensionsSchema {
+func (f *FunctionDropDimensions) GetSchema() *FunctionConfSchemaDropDimensions {
 	if f == nil {
 		return nil
 	}

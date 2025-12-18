@@ -31,139 +31,21 @@ func (e *FunctionSendID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// FunctionSendMode - In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
-type FunctionSendMode string
-
-const (
-	FunctionSendModeSender  FunctionSendMode = "sender"
-	FunctionSendModeMetrics FunctionSendMode = "metrics"
-)
-
-func (e FunctionSendMode) ToPointer() *FunctionSendMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionSendMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "sender", "metrics":
-			return true
-		}
-	}
-	return false
-}
-
-type SendConfiguration struct {
-	// Full URL to send search to.
-	URL *string `json:"url,omitempty"`
-	// Group within the workspace we're sending to.
-	Group *string `default:"default" json:"group"`
-	// Workspace within the deployment to send the search results to.
-	Workspace *string `default:"main" json:"workspace"`
-	// Template to build the URL to send from.
-	SendURLTemplate *string `json:"sendUrlTemplate,omitempty"`
-	// Id of the search this function is running on.
-	SearchID *string `json:"searchId,omitempty"`
-	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *string `default:"false" json:"tee"`
-	// How often are stats flushed in ms
-	FlushMs *float64 `default:"1000" json:"flushMs"`
-	// Disables generation of intermediate stats. When true stats will be emitted only on end
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
-	// In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
-	Mode *FunctionSendMode `json:"mode,omitempty"`
-}
-
-func (s SendConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SendConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SendConfiguration) GetURL() *string {
-	if s == nil {
-		return nil
-	}
-	return s.URL
-}
-
-func (s *SendConfiguration) GetGroup() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Group
-}
-
-func (s *SendConfiguration) GetWorkspace() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Workspace
-}
-
-func (s *SendConfiguration) GetSendURLTemplate() *string {
-	if s == nil {
-		return nil
-	}
-	return s.SendURLTemplate
-}
-
-func (s *SendConfiguration) GetSearchID() *string {
-	if s == nil {
-		return nil
-	}
-	return s.SearchID
-}
-
-func (s *SendConfiguration) GetTee() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Tee
-}
-
-func (s *SendConfiguration) GetFlushMs() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.FlushMs
-}
-
-func (s *SendConfiguration) GetSuppressPreviews() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.SuppressPreviews
-}
-
-func (s *SendConfiguration) GetMode() *FunctionSendMode {
-	if s == nil {
-		return nil
-	}
-	return s.Mode
-}
-
 type FunctionSend struct {
-	Filename      string             `json:"__filename"`
-	AsyncTimeout  *float64           `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string            `json:"cribl_version,omitempty"`
-	Disabled      *bool              `json:"disabled,omitempty"`
-	Group         string             `json:"group"`
-	HandleSignals *bool              `json:"handleSignals,omitempty"`
-	ID            FunctionSendID     `json:"id"`
-	LoadTime      float64            `json:"loadTime"`
-	ModTime       float64            `json:"modTime"`
-	Name          string             `json:"name"`
-	Sync          *bool              `json:"sync,omitempty"`
-	Uischema      map[string]any     `json:"uischema"`
-	Version       string             `json:"version"`
-	Schema        *SendConfiguration `json:"schema,omitempty"`
+	Filename      string                  `json:"__filename"`
+	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                   `json:"disabled,omitempty"`
+	Group         string                  `json:"group"`
+	HandleSignals *bool                   `json:"handleSignals,omitempty"`
+	ID            FunctionSendID          `json:"id"`
+	LoadTime      float64                 `json:"loadTime"`
+	ModTime       float64                 `json:"modTime"`
+	Name          string                  `json:"name"`
+	Sync          *bool                   `json:"sync,omitempty"`
+	Uischema      map[string]any          `json:"uischema"`
+	Version       string                  `json:"version"`
+	Schema        *FunctionConfSchemaSend `json:"schema,omitempty"`
 }
 
 func (f FunctionSend) MarshalJSON() ([]byte, error) {
@@ -268,7 +150,7 @@ func (f *FunctionSend) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSend) GetSchema() *SendConfiguration {
+func (f *FunctionSend) GetSchema() *FunctionConfSchemaSend {
 	if f == nil {
 		return nil
 	}

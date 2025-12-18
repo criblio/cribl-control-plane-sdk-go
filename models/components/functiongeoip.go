@@ -31,126 +31,21 @@ func (e *FunctionGeoipID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AdditionalField struct {
-	// Field name in which to find an IP to look up. Can be nested.
-	ExtraInField string `json:"extraInField"`
-	// Field name in which to store the GeoIP lookup results
-	ExtraOutField string `json:"extraOutField"`
-}
-
-func (a AdditionalField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AdditionalField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"extraInField", "extraOutField"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AdditionalField) GetExtraInField() string {
-	if a == nil {
-		return ""
-	}
-	return a.ExtraInField
-}
-
-func (a *AdditionalField) GetExtraOutField() string {
-	if a == nil {
-		return ""
-	}
-	return a.ExtraOutField
-}
-
-// OutputFieldMappings - Search-specific mappings for granular control over event enrichment
-type OutputFieldMappings struct {
-}
-
-func (o OutputFieldMappings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputFieldMappings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type FunctionGeoipSchema struct {
-	// Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
-	File *string `json:"file,omitempty"`
-	// Field name in which to find an IP to look up. Can be nested.
-	InField *string `default:"ip" json:"inField"`
-	// Field name in which to store the GeoIP lookup results
-	OutField         *string           `default:"geoip" json:"outField"`
-	AdditionalFields []AdditionalField `json:"additionalFields,omitempty"`
-	// Search-specific mappings for granular control over event enrichment
-	OutFieldMappings *OutputFieldMappings `json:"outFieldMappings,omitempty"`
-}
-
-func (f FunctionGeoipSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionGeoipSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionGeoipSchema) GetFile() *string {
-	if f == nil {
-		return nil
-	}
-	return f.File
-}
-
-func (f *FunctionGeoipSchema) GetInField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.InField
-}
-
-func (f *FunctionGeoipSchema) GetOutField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.OutField
-}
-
-func (f *FunctionGeoipSchema) GetAdditionalFields() []AdditionalField {
-	if f == nil {
-		return nil
-	}
-	return f.AdditionalFields
-}
-
-func (f *FunctionGeoipSchema) GetOutFieldMappings() *OutputFieldMappings {
-	if f == nil {
-		return nil
-	}
-	return f.OutFieldMappings
-}
-
 type FunctionGeoip struct {
-	Filename      string               `json:"__filename"`
-	AsyncTimeout  *float64             `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string              `json:"cribl_version,omitempty"`
-	Disabled      *bool                `json:"disabled,omitempty"`
-	Group         string               `json:"group"`
-	HandleSignals *bool                `json:"handleSignals,omitempty"`
-	ID            FunctionGeoipID      `json:"id"`
-	LoadTime      float64              `json:"loadTime"`
-	ModTime       float64              `json:"modTime"`
-	Name          string               `json:"name"`
-	Sync          *bool                `json:"sync,omitempty"`
-	Uischema      map[string]any       `json:"uischema"`
-	Version       string               `json:"version"`
-	Schema        *FunctionGeoipSchema `json:"schema,omitempty"`
+	Filename      string                   `json:"__filename"`
+	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                  `json:"cribl_version,omitempty"`
+	Disabled      *bool                    `json:"disabled,omitempty"`
+	Group         string                   `json:"group"`
+	HandleSignals *bool                    `json:"handleSignals,omitempty"`
+	ID            FunctionGeoipID          `json:"id"`
+	LoadTime      float64                  `json:"loadTime"`
+	ModTime       float64                  `json:"modTime"`
+	Name          string                   `json:"name"`
+	Sync          *bool                    `json:"sync,omitempty"`
+	Uischema      map[string]any           `json:"uischema"`
+	Version       string                   `json:"version"`
+	Schema        *FunctionConfSchemaGeoip `json:"schema,omitempty"`
 }
 
 func (f FunctionGeoip) MarshalJSON() ([]byte, error) {
@@ -255,7 +150,7 @@ func (f *FunctionGeoip) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionGeoip) GetSchema() *FunctionGeoipSchema {
+func (f *FunctionGeoip) GetSchema() *FunctionConfSchemaGeoip {
 	if f == nil {
 		return nil
 	}

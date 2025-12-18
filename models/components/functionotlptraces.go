@@ -31,84 +31,21 @@ func (e *FunctionOtlpTracesID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionOTLPTracesOTLPVersion string
-
-const (
-	// FunctionOTLPTracesOTLPVersionZeroDot10Dot0 0.10.0
-	FunctionOTLPTracesOTLPVersionZeroDot10Dot0 FunctionOTLPTracesOTLPVersion = "0.10.0"
-	// FunctionOTLPTracesOTLPVersionOneDot3Dot1 1.3.1
-	FunctionOTLPTracesOTLPVersionOneDot3Dot1 FunctionOTLPTracesOTLPVersion = "1.3.1"
-)
-
-func (e FunctionOTLPTracesOTLPVersion) ToPointer() *FunctionOTLPTracesOTLPVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionOTLPTracesOTLPVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "0.10.0", "1.3.1":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionOtlpTracesSchema struct {
-	DropNonTraceEvents *bool                          `default:"false" json:"dropNonTraceEvents"`
-	OtlpVersion        *FunctionOTLPTracesOTLPVersion `default:"0.10.0" json:"otlpVersion"`
-	// Batch OTLP traces by shared top-level `resource` attributes
-	BatchOTLPTraces *bool `default:"false" json:"batchOTLPTraces"`
-}
-
-func (f FunctionOtlpTracesSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionOtlpTracesSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionOtlpTracesSchema) GetDropNonTraceEvents() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.DropNonTraceEvents
-}
-
-func (f *FunctionOtlpTracesSchema) GetOtlpVersion() *FunctionOTLPTracesOTLPVersion {
-	if f == nil {
-		return nil
-	}
-	return f.OtlpVersion
-}
-
-func (f *FunctionOtlpTracesSchema) GetBatchOTLPTraces() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.BatchOTLPTraces
-}
-
 type FunctionOtlpTraces struct {
-	Filename      string                    `json:"__filename"`
-	AsyncTimeout  *float64                  `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                   `json:"cribl_version,omitempty"`
-	Disabled      *bool                     `json:"disabled,omitempty"`
-	Group         string                    `json:"group"`
-	HandleSignals *bool                     `json:"handleSignals,omitempty"`
-	ID            FunctionOtlpTracesID      `json:"id"`
-	LoadTime      float64                   `json:"loadTime"`
-	ModTime       float64                   `json:"modTime"`
-	Name          string                    `json:"name"`
-	Sync          *bool                     `json:"sync,omitempty"`
-	Uischema      map[string]any            `json:"uischema"`
-	Version       string                    `json:"version"`
-	Schema        *FunctionOtlpTracesSchema `json:"schema,omitempty"`
+	Filename      string                        `json:"__filename"`
+	AsyncTimeout  *float64                      `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                       `json:"cribl_version,omitempty"`
+	Disabled      *bool                         `json:"disabled,omitempty"`
+	Group         string                        `json:"group"`
+	HandleSignals *bool                         `json:"handleSignals,omitempty"`
+	ID            FunctionOtlpTracesID          `json:"id"`
+	LoadTime      float64                       `json:"loadTime"`
+	ModTime       float64                       `json:"modTime"`
+	Name          string                        `json:"name"`
+	Sync          *bool                         `json:"sync,omitempty"`
+	Uischema      map[string]any                `json:"uischema"`
+	Version       string                        `json:"version"`
+	Schema        *FunctionConfSchemaOtlpTraces `json:"schema,omitempty"`
 }
 
 func (f FunctionOtlpTraces) MarshalJSON() ([]byte, error) {
@@ -213,7 +150,7 @@ func (f *FunctionOtlpTraces) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionOtlpTraces) GetSchema() *FunctionOtlpTracesSchema {
+func (f *FunctionOtlpTraces) GetSchema() *FunctionConfSchemaOtlpTraces {
 	if f == nil {
 		return nil
 	}

@@ -31,44 +31,21 @@ func (e *FunctionCommentID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionCommentSchema struct {
-	// Optional, short description of this Function's purpose in the Pipeline
-	Comment *string `json:"comment,omitempty"`
-}
-
-func (f FunctionCommentSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionCommentSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionCommentSchema) GetComment() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Comment
-}
-
 type FunctionComment struct {
-	Filename      string                 `json:"__filename"`
-	AsyncTimeout  *float64               `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                `json:"cribl_version,omitempty"`
-	Disabled      *bool                  `json:"disabled,omitempty"`
-	Group         string                 `json:"group"`
-	HandleSignals *bool                  `json:"handleSignals,omitempty"`
-	ID            FunctionCommentID      `json:"id"`
-	LoadTime      float64                `json:"loadTime"`
-	ModTime       float64                `json:"modTime"`
-	Name          string                 `json:"name"`
-	Sync          *bool                  `json:"sync,omitempty"`
-	Uischema      map[string]any         `json:"uischema"`
-	Version       string                 `json:"version"`
-	Schema        *FunctionCommentSchema `json:"schema,omitempty"`
+	Filename      string                     `json:"__filename"`
+	AsyncTimeout  *float64                   `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                    `json:"cribl_version,omitempty"`
+	Disabled      *bool                      `json:"disabled,omitempty"`
+	Group         string                     `json:"group"`
+	HandleSignals *bool                      `json:"handleSignals,omitempty"`
+	ID            FunctionCommentID          `json:"id"`
+	LoadTime      float64                    `json:"loadTime"`
+	ModTime       float64                    `json:"modTime"`
+	Name          string                     `json:"name"`
+	Sync          *bool                      `json:"sync,omitempty"`
+	Uischema      map[string]any             `json:"uischema"`
+	Version       string                     `json:"version"`
+	Schema        *FunctionConfSchemaComment `json:"schema,omitempty"`
 }
 
 func (f FunctionComment) MarshalJSON() ([]byte, error) {
@@ -173,7 +150,7 @@ func (f *FunctionComment) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionComment) GetSchema() *FunctionCommentSchema {
+func (f *FunctionComment) GetSchema() *FunctionConfSchemaComment {
 	if f == nil {
 		return nil
 	}

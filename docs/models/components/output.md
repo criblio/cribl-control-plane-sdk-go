@@ -315,6 +315,12 @@ output := components.CreateOutputCriblTCP(components.OutputCriblTCP{/* values he
 output := components.CreateOutputCriblHTTP(components.OutputCriblHTTP{/* values here */})
 ```
 
+### OutputCriblSearchEngine
+
+```go
+output := components.CreateOutputCriblSearchEngine(components.OutputCriblSearchEngine{/* values here */})
+```
+
 ### OutputHumioHec
 
 ```go

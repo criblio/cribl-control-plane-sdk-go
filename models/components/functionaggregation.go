@@ -31,201 +31,21 @@ func (e *FunctionAggregationID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionAggregationAdd struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (f FunctionAggregationAdd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionAggregationAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionAggregationAdd) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FunctionAggregationAdd) GetValue() string {
-	if f == nil {
-		return ""
-	}
-	return f.Value
-}
-
-type FunctionAggregationSchema struct {
-	// Pass through the original events along with the aggregation events
-	Passthrough *bool `default:"false" json:"passthrough"`
-	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `default:"false" json:"preserveGroupBys"`
-	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `default:"false" json:"sufficientStatsOnly"`
-	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
-	MetricsMode *bool `default:"false" json:"metricsMode"`
-	// A prefix that is prepended to all of the fields output by this Aggregations Function
-	Prefix *string `json:"prefix,omitempty"`
-	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"10s" json:"timeWindow"`
-	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
-	Aggregations []string `json:"aggregations,omitempty"`
-	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-	Groupbys []string `json:"groupbys,omitempty"`
-	// The maximum number of events to include in any given aggregation event
-	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
-	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
-	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `default:"false" json:"cumulative"`
-	// Allows Cribl Search-specific aggregation configuration
-	SearchAggMode *string `json:"searchAggMode,omitempty"`
-	// Set of key-value pairs to evaluate and add/set
-	Add []FunctionAggregationAdd `json:"add,omitempty"`
-	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `default:"false" json:"shouldTreatDotsAsLiterals"`
-	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
-}
-
-func (f FunctionAggregationSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionAggregationSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionAggregationSchema) GetPassthrough() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Passthrough
-}
-
-func (f *FunctionAggregationSchema) GetPreserveGroupBys() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.PreserveGroupBys
-}
-
-func (f *FunctionAggregationSchema) GetSufficientStatsOnly() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.SufficientStatsOnly
-}
-
-func (f *FunctionAggregationSchema) GetMetricsMode() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.MetricsMode
-}
-
-func (f *FunctionAggregationSchema) GetPrefix() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Prefix
-}
-
-func (f *FunctionAggregationSchema) GetTimeWindow() *string {
-	if f == nil {
-		return nil
-	}
-	return f.TimeWindow
-}
-
-func (f *FunctionAggregationSchema) GetAggregations() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Aggregations
-}
-
-func (f *FunctionAggregationSchema) GetGroupbys() []string {
-	if f == nil {
-		return nil
-	}
-	return f.Groupbys
-}
-
-func (f *FunctionAggregationSchema) GetFlushEventLimit() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.FlushEventLimit
-}
-
-func (f *FunctionAggregationSchema) GetFlushMemLimit() *string {
-	if f == nil {
-		return nil
-	}
-	return f.FlushMemLimit
-}
-
-func (f *FunctionAggregationSchema) GetCumulative() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Cumulative
-}
-
-func (f *FunctionAggregationSchema) GetSearchAggMode() *string {
-	if f == nil {
-		return nil
-	}
-	return f.SearchAggMode
-}
-
-func (f *FunctionAggregationSchema) GetAdd() []FunctionAggregationAdd {
-	if f == nil {
-		return nil
-	}
-	return f.Add
-}
-
-func (f *FunctionAggregationSchema) GetShouldTreatDotsAsLiterals() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.ShouldTreatDotsAsLiterals
-}
-
-func (f *FunctionAggregationSchema) GetFlushOnInputClose() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.FlushOnInputClose
-}
-
 type FunctionAggregation struct {
-	Filename      string                     `json:"__filename"`
-	AsyncTimeout  *float64                   `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                    `json:"cribl_version,omitempty"`
-	Disabled      *bool                      `json:"disabled,omitempty"`
-	Group         string                     `json:"group"`
-	HandleSignals *bool                      `json:"handleSignals,omitempty"`
-	ID            FunctionAggregationID      `json:"id"`
-	LoadTime      float64                    `json:"loadTime"`
-	ModTime       float64                    `json:"modTime"`
-	Name          string                     `json:"name"`
-	Sync          *bool                      `json:"sync,omitempty"`
-	Uischema      map[string]any             `json:"uischema"`
-	Version       string                     `json:"version"`
-	Schema        *FunctionAggregationSchema `json:"schema,omitempty"`
+	Filename      string                         `json:"__filename"`
+	AsyncTimeout  *float64                       `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                        `json:"cribl_version,omitempty"`
+	Disabled      *bool                          `json:"disabled,omitempty"`
+	Group         string                         `json:"group"`
+	HandleSignals *bool                          `json:"handleSignals,omitempty"`
+	ID            FunctionAggregationID          `json:"id"`
+	LoadTime      float64                        `json:"loadTime"`
+	ModTime       float64                        `json:"modTime"`
+	Name          string                         `json:"name"`
+	Sync          *bool                          `json:"sync,omitempty"`
+	Uischema      map[string]any                 `json:"uischema"`
+	Version       string                         `json:"version"`
+	Schema        *FunctionConfSchemaAggregation `json:"schema,omitempty"`
 }
 
 func (f FunctionAggregation) MarshalJSON() ([]byte, error) {
@@ -330,7 +150,7 @@ func (f *FunctionAggregation) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionAggregation) GetSchema() *FunctionAggregationSchema {
+func (f *FunctionAggregation) GetSchema() *FunctionConfSchemaAggregation {
 	if f == nil {
 		return nil
 	}

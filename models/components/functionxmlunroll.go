@@ -31,71 +31,21 @@ func (e *FunctionXMLUnrollID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionXMLUnrollSchema struct {
-	// Path to array to unroll. Example: ^root\.child\.ElementToUnroll$
-	Unroll *string `json:"unroll,omitempty"`
-	// Regex matching elements to copy into each unrolled event. Example: ^root\.(childA|childB|childC)$
-	Inherit *string `json:"inherit,omitempty"`
-	// Add a field with this name, containing the index at which the item was located, starting from 0
-	UnrollIdxField *string `default:"unroll_idx" json:"unrollIdxField"`
-	// Pretty print the output XML
-	Pretty *bool `default:"false" json:"pretty"`
-}
-
-func (f FunctionXMLUnrollSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionXMLUnrollSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionXMLUnrollSchema) GetUnroll() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Unroll
-}
-
-func (f *FunctionXMLUnrollSchema) GetInherit() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Inherit
-}
-
-func (f *FunctionXMLUnrollSchema) GetUnrollIdxField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.UnrollIdxField
-}
-
-func (f *FunctionXMLUnrollSchema) GetPretty() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.Pretty
-}
-
 type FunctionXMLUnroll struct {
-	Filename      string                   `json:"__filename"`
-	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                  `json:"cribl_version,omitempty"`
-	Disabled      *bool                    `json:"disabled,omitempty"`
-	Group         string                   `json:"group"`
-	HandleSignals *bool                    `json:"handleSignals,omitempty"`
-	ID            FunctionXMLUnrollID      `json:"id"`
-	LoadTime      float64                  `json:"loadTime"`
-	ModTime       float64                  `json:"modTime"`
-	Name          string                   `json:"name"`
-	Sync          *bool                    `json:"sync,omitempty"`
-	Uischema      map[string]any           `json:"uischema"`
-	Version       string                   `json:"version"`
-	Schema        *FunctionXMLUnrollSchema `json:"schema,omitempty"`
+	Filename      string                       `json:"__filename"`
+	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                      `json:"cribl_version,omitempty"`
+	Disabled      *bool                        `json:"disabled,omitempty"`
+	Group         string                       `json:"group"`
+	HandleSignals *bool                        `json:"handleSignals,omitempty"`
+	ID            FunctionXMLUnrollID          `json:"id"`
+	LoadTime      float64                      `json:"loadTime"`
+	ModTime       float64                      `json:"modTime"`
+	Name          string                       `json:"name"`
+	Sync          *bool                        `json:"sync,omitempty"`
+	Uischema      map[string]any               `json:"uischema"`
+	Version       string                       `json:"version"`
+	Schema        *FunctionConfSchemaXMLUnroll `json:"schema,omitempty"`
 }
 
 func (f FunctionXMLUnroll) MarshalJSON() ([]byte, error) {
@@ -200,7 +150,7 @@ func (f *FunctionXMLUnroll) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionXMLUnroll) GetSchema() *FunctionXMLUnrollSchema {
+func (f *FunctionXMLUnroll) GetSchema() *FunctionConfSchemaXMLUnroll {
 	if f == nil {
 		return nil
 	}

@@ -31,62 +31,21 @@ func (e *FunctionFoldkeysID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionFoldkeysSchema struct {
-	// When enabled (default), only the folded keys are kept. When disabled, the original entries are retained alongside the folded keys.
-	DeleteOriginal *bool `default:"true" json:"deleteOriginal"`
-	// Character or string used to separate key levels to be folded. Defaults to the dot (.) character.
-	Separator *string `default:"." json:"separator"`
-	// Optional regular expression to select a subset of the keys to fold.
-	SelectionRegExp *string `json:"selectionRegExp,omitempty"`
-}
-
-func (f FunctionFoldkeysSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionFoldkeysSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionFoldkeysSchema) GetDeleteOriginal() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.DeleteOriginal
-}
-
-func (f *FunctionFoldkeysSchema) GetSeparator() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Separator
-}
-
-func (f *FunctionFoldkeysSchema) GetSelectionRegExp() *string {
-	if f == nil {
-		return nil
-	}
-	return f.SelectionRegExp
-}
-
 type FunctionFoldkeys struct {
-	Filename      string                  `json:"__filename"`
-	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                 `json:"cribl_version,omitempty"`
-	Disabled      *bool                   `json:"disabled,omitempty"`
-	Group         string                  `json:"group"`
-	HandleSignals *bool                   `json:"handleSignals,omitempty"`
-	ID            FunctionFoldkeysID      `json:"id"`
-	LoadTime      float64                 `json:"loadTime"`
-	ModTime       float64                 `json:"modTime"`
-	Name          string                  `json:"name"`
-	Sync          *bool                   `json:"sync,omitempty"`
-	Uischema      map[string]any          `json:"uischema"`
-	Version       string                  `json:"version"`
-	Schema        *FunctionFoldkeysSchema `json:"schema,omitempty"`
+	Filename      string                      `json:"__filename"`
+	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                     `json:"cribl_version,omitempty"`
+	Disabled      *bool                       `json:"disabled,omitempty"`
+	Group         string                      `json:"group"`
+	HandleSignals *bool                       `json:"handleSignals,omitempty"`
+	ID            FunctionFoldkeysID          `json:"id"`
+	LoadTime      float64                     `json:"loadTime"`
+	ModTime       float64                     `json:"modTime"`
+	Name          string                      `json:"name"`
+	Sync          *bool                       `json:"sync,omitempty"`
+	Uischema      map[string]any              `json:"uischema"`
+	Version       string                      `json:"version"`
+	Schema        *FunctionConfSchemaFoldkeys `json:"schema,omitempty"`
 }
 
 func (f FunctionFoldkeys) MarshalJSON() ([]byte, error) {
@@ -191,7 +150,7 @@ func (f *FunctionFoldkeys) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionFoldkeys) GetSchema() *FunctionFoldkeysSchema {
+func (f *FunctionFoldkeys) GetSchema() *FunctionConfSchemaFoldkeys {
 	if f == nil {
 		return nil
 	}

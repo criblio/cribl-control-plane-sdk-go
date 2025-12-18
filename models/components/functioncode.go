@@ -31,71 +31,21 @@ func (e *FunctionCodeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FunctionCodeSchema struct {
-	// Caution: This Function will be evaluated in an unprotected context. This means that you will be able to execute almost any JavaScript code.
-	Code *string `json:"code,omitempty"`
-	// The maximum number of allowed iterations within this Function. Defaults to 5,000.
-	MaxNumOfIterations *float64 `default:"5000" json:"maxNumOfIterations"`
-	// Rate at which this Function logs errors. For example, a value of 1 (the default) logs every error, a value of 10 logs every tenth error, and so on.
-	ActiveLogSampleRate *float64 `default:"1" json:"activeLogSampleRate"`
-	// Logs from this Function will be sent to a unique channel in the form `func:code:${pipelineName}:${functionIndex}`. Disable to use the generic `func:code` log channel instead.
-	UseUniqueLogChannel *bool `default:"true" json:"useUniqueLogChannel"`
-}
-
-func (f FunctionCodeSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionCodeSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionCodeSchema) GetCode() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Code
-}
-
-func (f *FunctionCodeSchema) GetMaxNumOfIterations() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.MaxNumOfIterations
-}
-
-func (f *FunctionCodeSchema) GetActiveLogSampleRate() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.ActiveLogSampleRate
-}
-
-func (f *FunctionCodeSchema) GetUseUniqueLogChannel() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.UseUniqueLogChannel
-}
-
 type FunctionCode struct {
-	Filename      string              `json:"__filename"`
-	AsyncTimeout  *float64            `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string             `json:"cribl_version,omitempty"`
-	Disabled      *bool               `json:"disabled,omitempty"`
-	Group         string              `json:"group"`
-	HandleSignals *bool               `json:"handleSignals,omitempty"`
-	ID            FunctionCodeID      `json:"id"`
-	LoadTime      float64             `json:"loadTime"`
-	ModTime       float64             `json:"modTime"`
-	Name          string              `json:"name"`
-	Sync          *bool               `json:"sync,omitempty"`
-	Uischema      map[string]any      `json:"uischema"`
-	Version       string              `json:"version"`
-	Schema        *FunctionCodeSchema `json:"schema,omitempty"`
+	Filename      string                  `json:"__filename"`
+	AsyncTimeout  *float64                `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                 `json:"cribl_version,omitempty"`
+	Disabled      *bool                   `json:"disabled,omitempty"`
+	Group         string                  `json:"group"`
+	HandleSignals *bool                   `json:"handleSignals,omitempty"`
+	ID            FunctionCodeID          `json:"id"`
+	LoadTime      float64                 `json:"loadTime"`
+	ModTime       float64                 `json:"modTime"`
+	Name          string                  `json:"name"`
+	Sync          *bool                   `json:"sync,omitempty"`
+	Uischema      map[string]any          `json:"uischema"`
+	Version       string                  `json:"version"`
+	Schema        *FunctionConfSchemaCode `json:"schema,omitempty"`
 }
 
 func (f FunctionCode) MarshalJSON() ([]byte, error) {
@@ -200,7 +150,7 @@ func (f *FunctionCode) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionCode) GetSchema() *FunctionCodeSchema {
+func (f *FunctionCode) GetSchema() *FunctionConfSchemaCode {
 	if f == nil {
 		return nil
 	}

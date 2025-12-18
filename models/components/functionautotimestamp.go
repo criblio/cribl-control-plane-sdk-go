@@ -31,192 +31,21 @@ func (e *FunctionAutoTimestampID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// DefaultTime - How to set the time field if no timestamp is found
-type DefaultTime string
-
-const (
-	// DefaultTimeNow Current Time
-	DefaultTimeNow DefaultTime = "now"
-	// DefaultTimeLast Last Event's Time
-	DefaultTimeLast DefaultTime = "last"
-	// DefaultTimeNone None
-	DefaultTimeNone DefaultTime = "none"
-)
-
-func (e DefaultTime) ToPointer() *DefaultTime {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DefaultTime) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "now", "last", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type Timestamp struct {
-	// Regex with first capturing group matching the timestamp
-	Regex string `json:"regex"`
-	// Select or enter strptime format for the captured timestamp
-	Strptime string `json:"strptime"`
-}
-
-func (t Timestamp) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *Timestamp) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"regex", "strptime"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (t *Timestamp) GetRegex() string {
-	if t == nil {
-		return ""
-	}
-	return t.Regex
-}
-
-func (t *Timestamp) GetStrptime() string {
-	if t == nil {
-		return ""
-	}
-	return t.Strptime
-}
-
-type FunctionAutoTimestampSchema struct {
-	// Field to search for a timestamp
-	SrcField *string `default:"_raw" json:"srcField"`
-	// Field to place timestamp in
-	DstField *string `default:"_time" json:"dstField"`
-	// Timezone to assign to timestamps without timezone info
-	DefaultTimezone *string `default:"local" json:"defaultTimezone"`
-	// Expression to use to format time. Current time, as a JavaScript Date object, is in global `time`. You can access other fields' values via __e.<fieldName>.
-	TimeExpression *string `default:"time.getTime() / 1000" json:"timeExpression"`
-	// The offset into the string from which to look for a timestamp
-	Offset *float64 `default:"0" json:"offset"`
-	// Maximum string length at which to look for a timestamp
-	MaxLen *float64 `default:"150" json:"maxLen"`
-	// How to set the time field if no timestamp is found
-	DefaultTime *DefaultTime `default:"now" json:"defaultTime"`
-	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to the Default time.
-	LatestDateAllowed *string `default:"+1week" json:"latestDateAllowed"`
-	Spacer            *string `json:"spacer,omitempty"`
-	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to the Default time.
-	EarliestDateAllowed *string `default:"-420weeks" json:"earliestDateAllowed"`
-	// Add regex/strptime pairs to extract additional timestamp formats
-	Timestamps []Timestamp `json:"timestamps,omitempty"`
-}
-
-func (f FunctionAutoTimestampSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionAutoTimestampSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionAutoTimestampSchema) GetSrcField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.SrcField
-}
-
-func (f *FunctionAutoTimestampSchema) GetDstField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.DstField
-}
-
-func (f *FunctionAutoTimestampSchema) GetDefaultTimezone() *string {
-	if f == nil {
-		return nil
-	}
-	return f.DefaultTimezone
-}
-
-func (f *FunctionAutoTimestampSchema) GetTimeExpression() *string {
-	if f == nil {
-		return nil
-	}
-	return f.TimeExpression
-}
-
-func (f *FunctionAutoTimestampSchema) GetOffset() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.Offset
-}
-
-func (f *FunctionAutoTimestampSchema) GetMaxLen() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.MaxLen
-}
-
-func (f *FunctionAutoTimestampSchema) GetDefaultTime() *DefaultTime {
-	if f == nil {
-		return nil
-	}
-	return f.DefaultTime
-}
-
-func (f *FunctionAutoTimestampSchema) GetLatestDateAllowed() *string {
-	if f == nil {
-		return nil
-	}
-	return f.LatestDateAllowed
-}
-
-func (f *FunctionAutoTimestampSchema) GetSpacer() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Spacer
-}
-
-func (f *FunctionAutoTimestampSchema) GetEarliestDateAllowed() *string {
-	if f == nil {
-		return nil
-	}
-	return f.EarliestDateAllowed
-}
-
-func (f *FunctionAutoTimestampSchema) GetTimestamps() []Timestamp {
-	if f == nil {
-		return nil
-	}
-	return f.Timestamps
-}
-
 type FunctionAutoTimestamp struct {
-	Filename      string                       `json:"__filename"`
-	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                      `json:"cribl_version,omitempty"`
-	Disabled      *bool                        `json:"disabled,omitempty"`
-	Group         string                       `json:"group"`
-	HandleSignals *bool                        `json:"handleSignals,omitempty"`
-	ID            FunctionAutoTimestampID      `json:"id"`
-	LoadTime      float64                      `json:"loadTime"`
-	ModTime       float64                      `json:"modTime"`
-	Name          string                       `json:"name"`
-	Sync          *bool                        `json:"sync,omitempty"`
-	Uischema      map[string]any               `json:"uischema"`
-	Version       string                       `json:"version"`
-	Schema        *FunctionAutoTimestampSchema `json:"schema,omitempty"`
+	Filename      string                           `json:"__filename"`
+	AsyncTimeout  *float64                         `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                          `json:"cribl_version,omitempty"`
+	Disabled      *bool                            `json:"disabled,omitempty"`
+	Group         string                           `json:"group"`
+	HandleSignals *bool                            `json:"handleSignals,omitempty"`
+	ID            FunctionAutoTimestampID          `json:"id"`
+	LoadTime      float64                          `json:"loadTime"`
+	ModTime       float64                          `json:"modTime"`
+	Name          string                           `json:"name"`
+	Sync          *bool                            `json:"sync,omitempty"`
+	Uischema      map[string]any                   `json:"uischema"`
+	Version       string                           `json:"version"`
+	Schema        *FunctionConfSchemaAutoTimestamp `json:"schema,omitempty"`
 }
 
 func (f FunctionAutoTimestamp) MarshalJSON() ([]byte, error) {
@@ -321,7 +150,7 @@ func (f *FunctionAutoTimestamp) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionAutoTimestamp) GetSchema() *FunctionAutoTimestampSchema {
+func (f *FunctionAutoTimestamp) GetSchema() *FunctionConfSchemaAutoTimestamp {
 	if f == nil {
 		return nil
 	}

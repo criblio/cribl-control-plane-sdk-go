@@ -31,268 +31,21 @@ func (e *FunctionDNSLookupID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// ResourceRecordType - The DNS record type (RR) to return. Defaults to 'A'.
-type ResourceRecordType string
-
-const (
-	// ResourceRecordTypeA A
-	ResourceRecordTypeA ResourceRecordType = "A"
-	// ResourceRecordTypeAaaa AAAA
-	ResourceRecordTypeAaaa ResourceRecordType = "AAAA"
-	// ResourceRecordTypeAny ANY
-	ResourceRecordTypeAny ResourceRecordType = "ANY"
-	// ResourceRecordTypeCname CNAME
-	ResourceRecordTypeCname ResourceRecordType = "CNAME"
-	// ResourceRecordTypeMx MX
-	ResourceRecordTypeMx ResourceRecordType = "MX"
-	// ResourceRecordTypeNaptr NAPTR
-	ResourceRecordTypeNaptr ResourceRecordType = "NAPTR"
-	// ResourceRecordTypeNs NS
-	ResourceRecordTypeNs ResourceRecordType = "NS"
-	// ResourceRecordTypePtr PTR
-	ResourceRecordTypePtr ResourceRecordType = "PTR"
-	// ResourceRecordTypeSoa SOA
-	ResourceRecordTypeSoa ResourceRecordType = "SOA"
-	// ResourceRecordTypeSrv SRV
-	ResourceRecordTypeSrv ResourceRecordType = "SRV"
-	// ResourceRecordTypeTxt TXT
-	ResourceRecordTypeTxt ResourceRecordType = "TXT"
-)
-
-func (e ResourceRecordType) ToPointer() *ResourceRecordType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ResourceRecordType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "A", "AAAA", "ANY", "CNAME", "MX", "NAPTR", "NS", "PTR", "SOA", "SRV", "TXT":
-			return true
-		}
-	}
-	return false
-}
-
-type DNSLookupField struct {
-	InFieldName *string `json:"inFieldName,omitempty"`
-	// The DNS record type (RR) to return. Defaults to 'A'.
-	ResourceRecordType *ResourceRecordType `default:"A" json:"resourceRecordType"`
-	// Name of field to add lookup results to. Leave blank to overwrite the lookup field.
-	OutFieldName *string `json:"outFieldName,omitempty"`
-}
-
-func (d DNSLookupField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(d, "", false)
-}
-
-func (d *DNSLookupField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (d *DNSLookupField) GetInFieldName() *string {
-	if d == nil {
-		return nil
-	}
-	return d.InFieldName
-}
-
-func (d *DNSLookupField) GetResourceRecordType() *ResourceRecordType {
-	if d == nil {
-		return nil
-	}
-	return d.ResourceRecordType
-}
-
-func (d *DNSLookupField) GetOutFieldName() *string {
-	if d == nil {
-		return nil
-	}
-	return d.OutFieldName
-}
-
-type ReverseLookupField struct {
-	// Name of the field containing the IP to look up. If the field value is not in IPv4 or IPv6 format, the lookup is skipped.
-	InFieldName *string `json:"inFieldName,omitempty"`
-	// Name of field to add the resolved domain to. Leave blank to overwrite the lookup field.
-	OutFieldName *string `json:"outFieldName,omitempty"`
-}
-
-func (r ReverseLookupField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ReverseLookupField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ReverseLookupField) GetInFieldName() *string {
-	if r == nil {
-		return nil
-	}
-	return r.InFieldName
-}
-
-func (r *ReverseLookupField) GetOutFieldName() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OutFieldName
-}
-
-type LogLevelForFailedLookups string
-
-const (
-	// LogLevelForFailedLookupsSilly silly
-	LogLevelForFailedLookupsSilly LogLevelForFailedLookups = "silly"
-	// LogLevelForFailedLookupsDebug debug
-	LogLevelForFailedLookupsDebug LogLevelForFailedLookups = "debug"
-	// LogLevelForFailedLookupsInfo info
-	LogLevelForFailedLookupsInfo LogLevelForFailedLookups = "info"
-	// LogLevelForFailedLookupsWarn warn
-	LogLevelForFailedLookupsWarn LogLevelForFailedLookups = "warn"
-	// LogLevelForFailedLookupsError error
-	LogLevelForFailedLookupsError LogLevelForFailedLookups = "error"
-)
-
-func (e LogLevelForFailedLookups) ToPointer() *LogLevelForFailedLookups {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LogLevelForFailedLookups) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "silly", "debug", "info", "warn", "error":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionDNSLookupSchema struct {
-	// List of field names on which to perform DNS lookup
-	DNSLookupFields []DNSLookupField `json:"dnsLookupFields,omitempty"`
-	// List of field names on which to perform reverse DNS lookup
-	ReverseLookupFields []ReverseLookupField `json:"reverseLookupFields,omitempty"`
-	// IPs, in RFC 5952 format, of the DNS servers to use for resolution. Examples: IPv4 1.1.1.1, 4.2.2.2:53, or IPv6 [2001:4860:4860::8888], [2001:4860:4860::8888]:1053. If not specified, system's DNS will be used.
-	DNSServers []string `json:"dnsServers,omitempty"`
-	// How frequently to expire and refetch DNS cache. Use 0 to disable.
-	CacheTTL *float64 `default:"30" json:"cacheTTL"`
-	// The maximum number of DNS resolutions to be cached locally. Leave at default unless you understand the implications of changing.
-	MaxCacheSize *float64 `default:"5000" json:"maxCacheSize"`
-	// Attempt to resolve DNS short names using the search or domain directive from /etc/resolv.conf
-	UseResolvConf *bool `default:"false" json:"useResolvConf"`
-	// If unable to resolve a DNS short name, make a DNS.lookup() call to resolve it. Caution: This might degrade performance in unrelated areas of @{product}.
-	LookupFallback *bool `default:"false" json:"lookupFallback"`
-	// Specify fallback values for the DNS resolver to use when it cannot resolve a DNS short name
-	DomainOverrides      []string                  `json:"domainOverrides,omitempty"`
-	LookupFailLogLevel   *LogLevelForFailedLookups `default:"error" json:"lookupFailLogLevel"`
-	AdditionalProperties map[string]any            `additionalProperties:"true" json:"-"`
-}
-
-func (f FunctionDNSLookupSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionDNSLookupSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionDNSLookupSchema) GetDNSLookupFields() []DNSLookupField {
-	if f == nil {
-		return nil
-	}
-	return f.DNSLookupFields
-}
-
-func (f *FunctionDNSLookupSchema) GetReverseLookupFields() []ReverseLookupField {
-	if f == nil {
-		return nil
-	}
-	return f.ReverseLookupFields
-}
-
-func (f *FunctionDNSLookupSchema) GetDNSServers() []string {
-	if f == nil {
-		return nil
-	}
-	return f.DNSServers
-}
-
-func (f *FunctionDNSLookupSchema) GetCacheTTL() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.CacheTTL
-}
-
-func (f *FunctionDNSLookupSchema) GetMaxCacheSize() *float64 {
-	if f == nil {
-		return nil
-	}
-	return f.MaxCacheSize
-}
-
-func (f *FunctionDNSLookupSchema) GetUseResolvConf() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.UseResolvConf
-}
-
-func (f *FunctionDNSLookupSchema) GetLookupFallback() *bool {
-	if f == nil {
-		return nil
-	}
-	return f.LookupFallback
-}
-
-func (f *FunctionDNSLookupSchema) GetDomainOverrides() []string {
-	if f == nil {
-		return nil
-	}
-	return f.DomainOverrides
-}
-
-func (f *FunctionDNSLookupSchema) GetLookupFailLogLevel() *LogLevelForFailedLookups {
-	if f == nil {
-		return nil
-	}
-	return f.LookupFailLogLevel
-}
-
-func (f *FunctionDNSLookupSchema) GetAdditionalProperties() map[string]any {
-	if f == nil {
-		return nil
-	}
-	return f.AdditionalProperties
-}
-
 type FunctionDNSLookup struct {
-	Filename      string                   `json:"__filename"`
-	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                  `json:"cribl_version,omitempty"`
-	Disabled      *bool                    `json:"disabled,omitempty"`
-	Group         string                   `json:"group"`
-	HandleSignals *bool                    `json:"handleSignals,omitempty"`
-	ID            FunctionDNSLookupID      `json:"id"`
-	LoadTime      float64                  `json:"loadTime"`
-	ModTime       float64                  `json:"modTime"`
-	Name          string                   `json:"name"`
-	Sync          *bool                    `json:"sync,omitempty"`
-	Uischema      map[string]any           `json:"uischema"`
-	Version       string                   `json:"version"`
-	Schema        *FunctionDNSLookupSchema `json:"schema,omitempty"`
+	Filename      string                       `json:"__filename"`
+	AsyncTimeout  *float64                     `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                      `json:"cribl_version,omitempty"`
+	Disabled      *bool                        `json:"disabled,omitempty"`
+	Group         string                       `json:"group"`
+	HandleSignals *bool                        `json:"handleSignals,omitempty"`
+	ID            FunctionDNSLookupID          `json:"id"`
+	LoadTime      float64                      `json:"loadTime"`
+	ModTime       float64                      `json:"modTime"`
+	Name          string                       `json:"name"`
+	Sync          *bool                        `json:"sync,omitempty"`
+	Uischema      map[string]any               `json:"uischema"`
+	Version       string                       `json:"version"`
+	Schema        *FunctionConfSchemaDNSLookup `json:"schema,omitempty"`
 }
 
 func (f FunctionDNSLookup) MarshalJSON() ([]byte, error) {
@@ -397,7 +150,7 @@ func (f *FunctionDNSLookup) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionDNSLookup) GetSchema() *FunctionDNSLookupSchema {
+func (f *FunctionDNSLookup) GetSchema() *FunctionConfSchemaDNSLookup {
 	if f == nil {
 		return nil
 	}

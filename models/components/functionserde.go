@@ -31,173 +31,21 @@ func (e *FunctionSerdeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-type OperationMode string
-
-const (
-	// OperationModeExtract Extract
-	OperationModeExtract OperationMode = "extract"
-	// OperationModeReserialize Reserialize
-	OperationModeReserialize OperationMode = "reserialize"
-)
-
-func (e OperationMode) ToPointer() *OperationMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OperationMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "extract", "reserialize":
-			return true
-		}
-	}
-	return false
-}
-
-// FunctionSerdeType - Parser or formatter type to use
-type FunctionSerdeType string
-
-const (
-	// FunctionSerdeTypeCsv CSV
-	FunctionSerdeTypeCsv FunctionSerdeType = "csv"
-	// FunctionSerdeTypeElff Extended Log File Format
-	FunctionSerdeTypeElff FunctionSerdeType = "elff"
-	// FunctionSerdeTypeClf Common Log Format
-	FunctionSerdeTypeClf FunctionSerdeType = "clf"
-	// FunctionSerdeTypeKvp Key=Value Pairs
-	FunctionSerdeTypeKvp FunctionSerdeType = "kvp"
-	// FunctionSerdeTypeJSON JSON Object
-	FunctionSerdeTypeJSON FunctionSerdeType = "json"
-	// FunctionSerdeTypeDelim Delimited values
-	FunctionSerdeTypeDelim FunctionSerdeType = "delim"
-	// FunctionSerdeTypeRegex Regular Expression
-	FunctionSerdeTypeRegex FunctionSerdeType = "regex"
-	// FunctionSerdeTypeGrok Grok
-	FunctionSerdeTypeGrok FunctionSerdeType = "grok"
-)
-
-func (e FunctionSerdeType) ToPointer() *FunctionSerdeType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionSerdeType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
-			return true
-		}
-	}
-	return false
-}
-
-type FunctionSerdeSchema struct {
-	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-	Mode *OperationMode `default:"extract" json:"mode"`
-	// Parser or formatter type to use
-	Type       *FunctionSerdeType `default:"csv" json:"type"`
-	DelimChar  any                `json:"delimChar,omitempty"`
-	QuoteChar  any                `json:"quoteChar,omitempty"`
-	EscapeChar any                `json:"escapeChar,omitempty"`
-	NullValue  any                `json:"nullValue,omitempty"`
-	// Field containing text to be parsed
-	SrcField *string `default:"_raw" json:"srcField"`
-	// Name of the field to add fields to. Extract mode only.
-	DstField    *string `json:"dstField,omitempty"`
-	CleanFields any     `json:"cleanFields,omitempty"`
-}
-
-func (f FunctionSerdeSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionSerdeSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionSerdeSchema) GetMode() *OperationMode {
-	if f == nil {
-		return nil
-	}
-	return f.Mode
-}
-
-func (f *FunctionSerdeSchema) GetType() *FunctionSerdeType {
-	if f == nil {
-		return nil
-	}
-	return f.Type
-}
-
-func (f *FunctionSerdeSchema) GetDelimChar() any {
-	if f == nil {
-		return nil
-	}
-	return f.DelimChar
-}
-
-func (f *FunctionSerdeSchema) GetQuoteChar() any {
-	if f == nil {
-		return nil
-	}
-	return f.QuoteChar
-}
-
-func (f *FunctionSerdeSchema) GetEscapeChar() any {
-	if f == nil {
-		return nil
-	}
-	return f.EscapeChar
-}
-
-func (f *FunctionSerdeSchema) GetNullValue() any {
-	if f == nil {
-		return nil
-	}
-	return f.NullValue
-}
-
-func (f *FunctionSerdeSchema) GetSrcField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.SrcField
-}
-
-func (f *FunctionSerdeSchema) GetDstField() *string {
-	if f == nil {
-		return nil
-	}
-	return f.DstField
-}
-
-func (f *FunctionSerdeSchema) GetCleanFields() any {
-	if f == nil {
-		return nil
-	}
-	return f.CleanFields
-}
-
 type FunctionSerde struct {
-	Filename      string               `json:"__filename"`
-	AsyncTimeout  *float64             `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string              `json:"cribl_version,omitempty"`
-	Disabled      *bool                `json:"disabled,omitempty"`
-	Group         string               `json:"group"`
-	HandleSignals *bool                `json:"handleSignals,omitempty"`
-	ID            FunctionSerdeID      `json:"id"`
-	LoadTime      float64              `json:"loadTime"`
-	ModTime       float64              `json:"modTime"`
-	Name          string               `json:"name"`
-	Sync          *bool                `json:"sync,omitempty"`
-	Uischema      map[string]any       `json:"uischema"`
-	Version       string               `json:"version"`
-	Schema        *FunctionSerdeSchema `json:"schema,omitempty"`
+	Filename      string                   `json:"__filename"`
+	AsyncTimeout  *float64                 `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string                  `json:"cribl_version,omitempty"`
+	Disabled      *bool                    `json:"disabled,omitempty"`
+	Group         string                   `json:"group"`
+	HandleSignals *bool                    `json:"handleSignals,omitempty"`
+	ID            FunctionSerdeID          `json:"id"`
+	LoadTime      float64                  `json:"loadTime"`
+	ModTime       float64                  `json:"modTime"`
+	Name          string                   `json:"name"`
+	Sync          *bool                    `json:"sync,omitempty"`
+	Uischema      map[string]any           `json:"uischema"`
+	Version       string                   `json:"version"`
+	Schema        *FunctionConfSchemaSerde `json:"schema,omitempty"`
 }
 
 func (f FunctionSerde) MarshalJSON() ([]byte, error) {
@@ -302,7 +150,7 @@ func (f *FunctionSerde) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionSerde) GetSchema() *FunctionSerdeSchema {
+func (f *FunctionSerde) GetSchema() *FunctionConfSchemaSerde {
 	if f == nil {
 		return nil
 	}
