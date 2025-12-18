@@ -237,7 +237,7 @@ func (e *InputPrometheusDiscoveryType) IsExact() bool {
 	return false
 }
 
-// InputPrometheusLogLevel - Collector runtime Log Level
+// InputPrometheusLogLevel - Collector runtime log level
 type InputPrometheusLogLevel string
 
 const (
@@ -316,7 +316,7 @@ func (e *InputPrometheusAuthTypeAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-// InputPrometheusRecordType - DNS Record type to resolve
+// InputPrometheusRecordType - DNS record type to resolve
 type InputPrometheusRecordType string
 
 const (
@@ -391,9 +391,9 @@ func (e *InputPrometheusAwsAuthenticationMethodAuthenticationMethod) IsExact() b
 }
 
 type InputPrometheusSearchFilter struct {
-	// Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
+	// See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for information. Attributes can be manually entered if not present in the list.
 	Name string `json:"Name"`
-	// Search Filter Values, if empty only "running" EC2 instances will be returned
+	// Values to match within this row's attribute. If empty, search will return only running EC2 instances.
 	Values []string `json:"Values"`
 }
 
@@ -467,12 +467,14 @@ type InputPrometheus struct {
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType *InputPrometheusDiscoveryType `default:"static" json:"discoveryType"`
-	// How often in minutes to scrape targets for metrics, 60 must be evenly divisible by the value or save will fail.
+	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
 	Interval *float64 `default:"15" json:"interval"`
-	// Collector runtime Log Level
+	// Collector runtime log level
 	LogLevel *InputPrometheusLogLevel `default:"info" json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
+	Timeout *float64 `default:"0" json:"timeout"`
 	// How often workers should check in with the scheduler to keep job subscription alive
 	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
@@ -490,9 +492,9 @@ type InputPrometheus struct {
 	Description *string                                      `json:"description,omitempty"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitempty"`
-	// DNS Record type to resolve
+	// DNS record type to resolve
 	RecordType *InputPrometheusRecordType `default:"SRV" json:"recordType"`
-	// The port number in the metrics URL for discovered targets.
+	// The port number in the metrics URL for discovered targets
 	ScrapePort *float64 `default:"9090" json:"scrapePort"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
@@ -505,9 +507,9 @@ type InputPrometheus struct {
 	AwsAPIKey               *string                                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Use public IP address for discovered targets. Set to false if the private IP address should be used.
+	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `default:"true" json:"usePublicIp"`
-	// EC2 Instance Search Filter
+	// Filter to apply when searching for EC2 instances
 	SearchFilter []InputPrometheusSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                       `json:"awsSecretKey,omitempty"`
 	// Region where the EC2 is located
@@ -648,6 +650,13 @@ func (i *InputPrometheus) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return i.RejectUnauthorized
+}
+
+func (i *InputPrometheus) GetTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Timeout
 }
 
 func (i *InputPrometheus) GetKeepAliveTime() *float64 {
