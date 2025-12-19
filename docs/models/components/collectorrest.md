@@ -1,27 +1,89 @@
 # CollectorRest
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Type`                                                                                                                                             | [components.CollectorRestType](../../models/components/collectorresttype.md)                                                                       | :heavy_check_mark:                                                                                                                                 | Collector type: rest                                                                                                                               |
-| `Discovery`                                                                                                                                        | [*components.CollectorRestDiscovery](../../models/components/collectorrestdiscovery.md)                                                            | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectURL`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `CollectMethod`                                                                                                                                    | [*components.CollectMethod](../../models/components/collectmethod.md)                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectRequestHeaders`                                                                                                                            | [][components.CollectorRestCollectRequestHeader](../../models/components/collectorrestcollectrequestheader.md)                                     | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `Pagination`                                                                                                                                       | [*components.Pagination](../../models/components/pagination.md)                                                                                    | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `Authentication`                                                                                                                                   | [*components.CollectorRestAuthentication](../../models/components/collectorrestauthentication.md)                                                  | :heavy_minus_sign:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
-| `Timeout`                                                                                                                                          | **float64*                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
-| `UseRoundRobinDNS`                                                                                                                                 | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
-| `DisableTimeFilter`                                                                                                                                | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Disable Collector event time filtering when a date range is specified                                                                              |
-| `DecodeURL`                                                                                                                                        | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Decode the URL before sending requests (including pagination requests)                                                                             |
-| `RejectUnauthorized`                                                                                                                               | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)                                                  |
-| `CaptureHeaders`                                                                                                                                   | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Enable to add response headers to the resHeaders field under the __collectible object                                                              |
-| `StopOnEmptyResults`                                                                                                                               | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Stop pagination when the Event Breaker produces no events                                                                                          |
-| `SafeHeaders`                                                                                                                                      | []*string*                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text                                                                                                 |
-| `RetryRules`                                                                                                                                       | [*components.CollectorRestRetryRules](../../models/components/collectorrestretryrules.md)                                                          | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `Scheduling`                                                                                                                                       | [*components.CollectorRestScheduling](../../models/components/collectorrestscheduling.md)                                                          | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+### CollectorRestRest1
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest1(components.CollectorRestRest1{/* values here */})
+```
+
+### CollectorRestRest2
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest2(components.CollectorRestRest2{/* values here */})
+```
+
+### CollectorRestRest3
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest3(components.CollectorRestRest3{/* values here */})
+```
+
+### CollectorRestRest4
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest4(components.CollectorRestRest4{/* values here */})
+```
+
+### CollectorRestRest5
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest5(components.CollectorRestRest5{/* values here */})
+```
+
+### CollectorRestRest6
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest6(components.CollectorRestRest6{/* values here */})
+```
+
+### CollectorRestRest7
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest7(components.CollectorRestRest7{/* values here */})
+```
+
+### CollectorRestRest8
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest8(components.CollectorRestRest8{/* values here */})
+```
+
+### CollectorRestRest9
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest9(components.CollectorRestRest9{/* values here */})
+```
+
+### CollectorRestRest10
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest10(components.CollectorRestRest10{/* values here */})
+```
+
+### CollectorRestRest11
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest11(components.CollectorRestRest11{/* values here */})
+```
+
+### CollectorRestRest12
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest12(components.CollectorRestRest12{/* values here */})
+```
+
+### CollectorRestRest13
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest13(components.CollectorRestRest13{/* values here */})
+```
+
+### CollectorRestRest14
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestRest14(components.CollectorRestRest14{/* values here */})
+```
+

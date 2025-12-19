@@ -7,8 +7,6 @@ import (
 )
 
 type FunctionConfSchemaLocalSearchDatatypeParser struct {
-	// ID of the local search datatype ruleset
-	RulesetID *string `json:"rulesetId,omitempty"`
 }
 
 func (f FunctionConfSchemaLocalSearchDatatypeParser) MarshalJSON() ([]byte, error) {
@@ -20,11 +18,4 @@ func (f *FunctionConfSchemaLocalSearchDatatypeParser) UnmarshalJSON(data []byte)
 		return err
 	}
 	return nil
-}
-
-func (f *FunctionConfSchemaLocalSearchDatatypeParser) GetRulesetID() *string {
-	if f == nil {
-		return nil
-	}
-	return f.RulesetID
 }

@@ -362,32 +362,56 @@ func main() {
             Collector: components.SavedJobCollectionCollector{
                 Type: "<value>",
                 Conf: components.CreateCollectorConfHealthCheck(
-                    components.CollectorHealthCheck{
-                        Discovery: &components.CollectorHealthCheckDiscovery{},
-                        CollectURL: "https://shameful-vicinity.com/",
-                        CollectRequestParams: "<value>",
-                        CollectBody: "<value>",
-                        CollectRequestHeaders: []components.CollectorHealthCheckCollectRequestHeader{
-                            components.CollectorHealthCheckCollectRequestHeader{
-                                Name: "<value>",
-                                Value: "<value>",
+                    components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck1(
+                        components.CollectorHealthCheckHealthCheck1{
+                            CollectRequestParams: []components.CollectorHealthCheckCollectRequestParam1{
+                                components.CollectorHealthCheckCollectRequestParam1{
+                                    Name: "<value>",
+                                    Value: "<value>",
+                                },
                             },
+                            Discovery: &components.CollectorHealthCheckDiscovery1{},
+                            CollectURL: "https://shameful-vicinity.com/",
+                            CollectRequestHeaders: []components.CollectorHealthCheckCollectRequestHeader1{
+                                components.CollectorHealthCheckCollectRequestHeader1{
+                                    Name: "<value>",
+                                    Value: "<value>",
+                                },
+                            },
+                            DefaultBreakers: components.CollectorHealthCheckHiddenDefaultBreakers1Cribl.ToPointer(),
+                            SafeHeaders: []string{
+                                "<value 1>",
+                                "<value 2>",
+                                "<value 3>",
+                            },
+                            RetryRules: &components.CollectorHealthCheckRetryRules1{
+                                Interval: "<value>",
+                                Limit: "<value>",
+                                Multiplier: "<value>",
+                                Codes: "<value>",
+                                EnableHeader: "<value>",
+                            },
+                            Username: criblcontrolplanesdkgo.Pointer("Daphnee_Schimmel-Wolf26"),
+                            Password: criblcontrolplanesdkgo.Pointer("qwZ927mZOVqnV8W"),
+                            CredentialsSecret: criblcontrolplanesdkgo.Pointer("<value>"),
+                            TokenRespAttribute: criblcontrolplanesdkgo.Pointer("<value>"),
+                            AuthRequestHeaders: []components.CollectorHealthCheckAuthRequestHeader1{
+                                components.CollectorHealthCheckAuthRequestHeader1{
+                                    Name: "<value>",
+                                    Value: "<value>",
+                                },
+                            },
+                            ClientSecretParamValue: criblcontrolplanesdkgo.Pointer("<value>"),
+                            AuthRequestParams: []components.CollectorHealthCheckAuthRequestParam1{
+                                components.CollectorHealthCheckAuthRequestParam1{
+                                    Name: "<value>",
+                                    Value: "<value>",
+                                },
+                            },
+                            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
+                            Type: components.CollectorHealthCheckType1HealthCheck,
                         },
-                        DefaultBreakers: components.CollectorHealthCheckHiddenDefaultBreakersCribl.ToPointer(),
-                        SafeHeaders: []string{
-                            "<value 1>",
-                            "<value 2>",
-                            "<value 3>",
-                        },
-                        RetryRules: &components.CollectorHealthCheckRetryRules{
-                            Interval: "<value>",
-                            Limit: "<value>",
-                            Multiplier: "<value>",
-                            Codes: "<value>",
-                            EnableHeader: "<value>",
-                        },
-                        Type: components.CollectorHealthCheckTypeHealthCheck,
-                    },
+                    ),
                 ),
                 Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
             },
