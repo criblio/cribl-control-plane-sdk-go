@@ -84,8 +84,9 @@ type FunctionConfSchemaSensitiveDataScanner struct {
 	ExcludeFields []string `json:"excludeFields,omitempty"`
 	// Fields to add when mitigation is applied to an event
 	Flags []FunctionConfSchemaSensitiveDataScannerFlag `json:"flags,omitempty"`
-	// If enabled, Add matching ruleset IDs to a field called "__detected"
+	// Add matching ruleset IDs to a field called "__detected"
 	IncludeDetectedRules *bool `default:"true" json:"includeDetectedRules"`
+	BackgroundDetection  *bool `default:"false" json:"backgroundDetection"`
 }
 
 func (f FunctionConfSchemaSensitiveDataScanner) MarshalJSON() ([]byte, error) {
@@ -132,4 +133,11 @@ func (f *FunctionConfSchemaSensitiveDataScanner) GetIncludeDetectedRules() *bool
 		return nil
 	}
 	return f.IncludeDetectedRules
+}
+
+func (f *FunctionConfSchemaSensitiveDataScanner) GetBackgroundDetection() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.BackgroundDetection
 }

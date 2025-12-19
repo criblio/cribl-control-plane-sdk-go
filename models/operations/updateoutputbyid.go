@@ -235,6 +235,10 @@ func (u *UpdateOutputByIDRequest) GetOutputCriblHTTP() *components.OutputCriblHT
 	return u.GetOutput().OutputCriblHTTP
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputCriblSearchEngine() *components.OutputCriblSearchEngine {
+	return u.GetOutput().OutputCriblSearchEngine
+}
+
 func (u *UpdateOutputByIDRequest) GetOutputHumioHec() *components.OutputHumioHec {
 	return u.GetOutput().OutputHumioHec
 }

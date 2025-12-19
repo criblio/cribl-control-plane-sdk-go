@@ -110,8 +110,9 @@ type PipelineFunctionSensitiveDataScannerConf struct {
 	ExcludeFields []string `json:"excludeFields,omitempty"`
 	// Fields to add when mitigation is applied to an event
 	Flags []PipelineFunctionSensitiveDataScannerFlag `json:"flags,omitempty"`
-	// If enabled, Add matching ruleset IDs to a field called "__detected"
+	// Add matching ruleset IDs to a field called "__detected"
 	IncludeDetectedRules *bool `default:"true" json:"includeDetectedRules"`
+	BackgroundDetection  *bool `default:"false" json:"backgroundDetection"`
 }
 
 func (p PipelineFunctionSensitiveDataScannerConf) MarshalJSON() ([]byte, error) {
@@ -158,6 +159,13 @@ func (p *PipelineFunctionSensitiveDataScannerConf) GetIncludeDetectedRules() *bo
 		return nil
 	}
 	return p.IncludeDetectedRules
+}
+
+func (p *PipelineFunctionSensitiveDataScannerConf) GetBackgroundDetection() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.BackgroundDetection
 }
 
 type PipelineFunctionSensitiveDataScanner struct {
