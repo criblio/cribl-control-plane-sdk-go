@@ -28,9 +28,26 @@ func (e *RulesetType) IsExact() bool {
 	return false
 }
 
+type FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets struct {
+}
+
+func (f FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type FunctionConfSchemaLocalSearchRulesetRunner struct {
-	RulesetType *RulesetType `json:"rulesetType,omitempty"`
-	RulesetID   *string      `json:"rulesetId,omitempty"`
+	RulesetType *RulesetType                                                         `json:"rulesetType,omitempty"`
+	RulesetID   *string                                                              `json:"rulesetId,omitempty"`
+	Ruleset     *FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets `json:"ruleset,omitempty"`
+	// Only for use with live data capture. Mark events that were dropped by dataset rules and still include them for capture
+	MarkAndIncludeDroppedEvents *bool `default:"false" json:"markAndIncludeDroppedEvents"`
 }
 
 func (f FunctionConfSchemaLocalSearchRulesetRunner) MarshalJSON() ([]byte, error) {
@@ -56,4 +73,18 @@ func (f *FunctionConfSchemaLocalSearchRulesetRunner) GetRulesetID() *string {
 		return nil
 	}
 	return f.RulesetID
+}
+
+func (f *FunctionConfSchemaLocalSearchRulesetRunner) GetRuleset() *FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets {
+	if f == nil {
+		return nil
+	}
+	return f.Ruleset
+}
+
+func (f *FunctionConfSchemaLocalSearchRulesetRunner) GetMarkAndIncludeDroppedEvents() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.MarkAndIncludeDroppedEvents
 }

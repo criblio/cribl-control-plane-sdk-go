@@ -1,0 +1,12 @@
+# BackpressureBehaviorDatadog
+
+How to handle events when all receivers are exerting backpressure
+
+
+## Values
+
+| Name                               | Value                              |
+| ---------------------------------- | ---------------------------------- |
+| `BackpressureBehaviorDatadogBlock` | block                              |
+| `BackpressureBehaviorDatadogDrop`  | drop                               |
+| `BackpressureBehaviorDatadogQueue` | queue                              |

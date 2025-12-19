@@ -276,7 +276,7 @@ func (s *Sources) List(ctx context.Context, opts ...operations.Option) (*operati
 
 // Create a Source
 // Create a new Source.
-func (s *Sources) Create(ctx context.Context, request components.Input, opts ...operations.Option) (*operations.CreateInputResponse, error) {
+func (s *Sources) Create(ctx context.Context, request operations.CreateInputRequest, opts ...operations.Option) (*operations.CreateInputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
