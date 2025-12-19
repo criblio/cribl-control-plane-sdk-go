@@ -83,6 +83,7 @@ import(
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -96,10 +97,10 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Create(ctx, components.CreateInputAppscope(
-        components.InputAppscope{
-            ID: criblcontrolplanesdkgo.Pointer("appscope-source"),
-            Type: components.InputAppscopeTypeAppscope,
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAppscope(
+        operations.InputAppscope{
+            ID: "appscope-source",
+            Type: operations.TypeAppscopeAppscope,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
             Streamtags: []string{
@@ -107,17 +108,17 @@ func main() {
                 "<value 2>",
                 "<value 3>",
             },
-            Connections: []components.InputAppscopeConnection{
-                components.InputAppscopeConnection{
+            Connections: []operations.ConnectionAppscope{
+                operations.ConnectionAppscope{
                     Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
-            Pq: &components.InputAppscopePq{
-                PqControls: &components.InputAppscopePqControls{},
+            Pq: &operations.PqAppscope{
+                PqControls: &operations.PqControlsAppscope{},
             },
-            Metadata: []components.InputAppscopeMetadatum{
-                components.InputAppscopeMetadatum{
+            Metadata: []operations.MetadatumAppscope{
+                operations.MetadatumAppscope{
                     Name: "<value>",
                     Value: "<value>",
                 },
@@ -125,9 +126,9 @@ func main() {
             BreakerRulesets: []string{
                 "<value 1>",
             },
-            Filter: &components.InputAppscopeFilter{
-                Allow: []components.Allow{
-                    components.Allow{
+            Filter: &operations.FilterAppscope{
+                Allow: []operations.Allow{
+                    operations.Allow{
                         Procname: "<value>",
                         Arg: criblcontrolplanesdkgo.Pointer("<value>"),
                         Config: "<value>",
@@ -135,18 +136,18 @@ func main() {
                 },
                 TransportURL: criblcontrolplanesdkgo.Pointer("https://drab-scrap.info/"),
             },
-            Persistence: &components.InputAppscopePersistence{},
+            Persistence: &operations.PersistenceAppscope{},
             Description: criblcontrolplanesdkgo.Pointer("if deserted boohoo red chops excepting know stay bah"),
             Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
             Port: criblcontrolplanesdkgo.Pointer[float64](9109),
-            TLS: &components.InputAppscopeTLSSettingsServerSide{
+            TLS: &operations.TLSSettingsServerSideAppscope{
                 CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                 PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                MinVersion: components.InputAppscopeMinimumTLSVersionTlSv11.ToPointer(),
-                MaxVersion: components.InputAppscopeMaximumTLSVersionTlSv1.ToPointer(),
+                MinVersion: operations.MinimumTLSVersionAppscopeTlSv11.ToPointer(),
+                MaxVersion: operations.MaximumTLSVersionAppscopeTlSv1.ToPointer(),
             },
             UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -163,11 +164,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `request`                                                | [components.Input](../../models/components/input.md)     | :heavy_check_mark:                                       | The request object to use for the request.               |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
+| `request`                                                                      | [operations.CreateInputRequest](../../models/operations/createinputrequest.md) | :heavy_check_mark:                                                             | The request object to use for the request.                                     |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
 
 ### Response
 

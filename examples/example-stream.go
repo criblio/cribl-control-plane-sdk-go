@@ -29,7 +29,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -82,98 +81,70 @@ func main() {
 	}
 
 	// Create TCP JSON Source
-	tcpJSONConfig := map[string]interface{}{
-		"id":        "my-tcp-json",
-		"type":      "tcpjson",
-		"port":      PORT,
-		"authType":  "manual",
-		"authToken": AUTH_TOKEN,
+	authType := operations.CreateInputAuthenticationMethodTcpjsonManual
+	authToken := AUTH_TOKEN
+	tcpJSONSource := operations.InputTcpjson{
+		ID:        "my-tcp-json",
+		Type:      operations.CreateInputTypeTcpjsonTcpjson,
+		Port:      float64(PORT),
+		AuthType:  &authType,
+		AuthToken: &authToken,
 	}
 
-	// Convert to components.Input using JSON marshaling/unmarshaling
-	sourceBytes, err := json.Marshal(tcpJSONConfig)
+	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
+	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
-		log.Printf("Error marshaling TCP JSON Source config: %v", err)
+		log.Printf("Error creating TCP JSON Source: %v", err)
 	} else {
-		var tcpJSONSource components.Input
-		err = json.Unmarshal(sourceBytes, &tcpJSONSource)
-		if err != nil {
-			log.Printf("Error unmarshaling TCP JSON Source config: %v", err)
-		} else {
-			_, err = client.Sources.Create(ctx, tcpJSONSource, operations.WithServerURL(groupURL))
-			if err != nil {
-				log.Printf("Error creating TCP JSON Source: %v", err)
-			} else {
-				fmt.Printf("✅ TCP JSON Source created: my-tcp-json\n")
-			}
-		}
+		fmt.Printf("✅ TCP JSON Source created: my-tcp-json\n")
 	}
 
 	// Create Filesystem Destination
-	fileSystemConfig := map[string]interface{}{
-		"id":             "my-fs-destination",
-		"type":           "filesystem",
-		"destPath":       "/tmp/my-output",
-		"fileNameSuffix": "\".log\"", // JavaScript expression that returns ".log"
+	fileNameSuffix := "\".log\"" // JavaScript expression that returns ".log"
+	fileSystemDestination := operations.OutputFilesystem{
+		ID:             "my-fs-destination",
+		Type:           operations.TypeFilesystemFilesystem,
+		DestPath:       "/tmp/my-output",
+		FileNameSuffix: &fileNameSuffix,
 	}
 
-	// Convert to components.Output using JSON marshaling/unmarshaling
-	destBytes, err := json.Marshal(fileSystemConfig)
+	createOutputRequest := operations.CreateCreateOutputRequestFilesystem(fileSystemDestination)
+	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
-		log.Printf("Error marshaling Filesystem Destination config: %v", err)
+		log.Printf("Error creating Filesystem Destination: %v", err)
 	} else {
-		var fileSystemDestination components.Output
-		err = json.Unmarshal(destBytes, &fileSystemDestination)
-		if err != nil {
-			log.Printf("Error unmarshaling Filesystem Destination config: %v", err)
-		} else {
-			_, err = client.Destinations.Create(ctx, fileSystemDestination, operations.WithServerURL(groupURL))
-			if err != nil {
-				log.Printf("Error creating Filesystem Destination: %v", err)
-			} else {
-				fmt.Printf("✅ Filesystem Destination created: my-fs-destination\n")
-			}
-		}
+		fmt.Printf("✅ Filesystem Destination created: my-fs-destination\n")
 	}
 
 	// Create Pipeline
-	pipelineConf := map[string]interface{}{
-		"asyncFuncTimeout": 1000,
-		"functions": []map[string]interface{}{
-			{
-				"filter": "true",
-				"conf": map[string]interface{}{
-					"remove": []string{"*"},
-					"keep":   []string{"name"},
-				},
-				"id":    "eval",
-				"final": true,
-			},
+	asyncFuncTimeout := int64(1000)
+	filter := "true"
+	final := true
+	evalFunction := components.CreatePipelineFunctionConfInputEval(components.PipelineFunctionEval{
+		Filter: &filter,
+		ID:     components.PipelineFunctionEvalIDEval,
+		Final:  &final,
+		Conf: components.FunctionConfSchemaEval{
+			Remove: []string{"*"},
+			Keep:   []string{"name"},
 		},
+	})
+
+	conf := components.ConfInput{
+		AsyncFuncTimeout: &asyncFuncTimeout,
+		Functions:        []components.PipelineFunctionConfInput{evalFunction},
 	}
 
-	// Convert to components.Conf using JSON marshaling/unmarshaling
-	confBytes, err := json.Marshal(pipelineConf)
-	if err != nil {
-		log.Printf("Error marshaling Pipeline config: %v", err)
-	} else {
-		var conf components.ConfInput
-		err = json.Unmarshal(confBytes, &conf)
-		if err != nil {
-			log.Printf("Error unmarshaling Pipeline config: %v", err)
-		} else {
-			pipeline := components.PipelineInput{
-				ID:   "my-pipeline",
-				Conf: conf,
-			}
+	pipeline := components.PipelineInput{
+		ID:   "my-pipeline",
+		Conf: conf,
+	}
 
-			_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(groupURL))
-			if err != nil {
-				log.Printf("Error creating Pipeline: %v", err)
-			} else {
-				fmt.Printf("✅ Pipeline created: my-pipeline\n")
-			}
-		}
+	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(groupURL))
+	if err != nil {
+		log.Printf("Error creating Pipeline: %v", err)
+	} else {
+		fmt.Printf("✅ Pipeline created: my-pipeline\n")
 	}
 
 	// Get existing Routes and add new Route

@@ -28,7 +28,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -95,102 +94,77 @@ func main() {
 	}
 
 	// Create TCP JSON Source in Pack
-	tcpJSONConfig := map[string]interface{}{
-		"id":        "my-tcp-json",
-		"type":      "tcpjson",
-		"port":      PORT,
-		"authType":  "manual",
-		"authToken": AUTH_TOKEN,
+	authType := operations.CreateInputAuthenticationMethodTcpjsonManual
+	authToken := AUTH_TOKEN
+	tcpJSONSource := operations.InputTcpjson{
+		ID:        "my-tcp-json",
+		Type:      operations.CreateInputTypeTcpjsonTcpjson,
+		Port:      float64(PORT),
+		AuthType:  &authType,
+		AuthToken: &authToken,
 	}
 
-	// Convert to components.Input using JSON marshaling/unmarshaling
-	sourceBytes, err := json.Marshal(tcpJSONConfig)
+	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
+	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(packURL))
 	if err != nil {
-		log.Printf("Error marshaling TCP JSON Source config: %v", err)
+		log.Printf("Error creating TCP JSON Source in Pack: %v", err)
 	} else {
-		var tcpJSONSource components.Input
-		err = json.Unmarshal(sourceBytes, &tcpJSONSource)
-		if err != nil {
-			log.Printf("Error unmarshaling TCP JSON Source config: %v", err)
-		} else {
-			_, err = client.Sources.Create(ctx, tcpJSONSource, operations.WithServerURL(packURL))
-			if err != nil {
-				log.Printf("Error creating TCP JSON Source in Pack: %v", err)
-			} else {
-				fmt.Printf("✅ Created TCP JSON Source: my-tcp-json in Pack: \"%s\"\n", PACK_ID)
-			}
-		}
+		fmt.Printf("✅ Created TCP JSON Source: my-tcp-json in Pack: \"%s\"\n", PACK_ID)
 	}
 
 	// Create Amazon S3 Destination in pack
-	s3Config := map[string]interface{}{
-		"id":             "my-s3-destination",
-		"type":           "s3",
-		"bucket":         AWS_BUCKET_NAME,
-		"region":         AWS_REGION,
-		"awsSecretKey":   AWS_SECRET_KEY,
-		"awsApiKey":      AWS_API_KEY,
-		"compress":       "gzip",
-		"fileNameSuffix": "\".log\"",
+	fileNameSuffix := "\".log\""
+	region := AWS_REGION
+	secretKey := AWS_SECRET_KEY
+	apiKey := AWS_API_KEY
+	s3Destination := operations.OutputS3{
+		ID:             "my-s3-destination",
+		Type:           operations.CreateOutputTypeS3S3,
+		Bucket:         AWS_BUCKET_NAME,
+		Region:         &region,
+		AwsSecretKey:   &secretKey,
+		AwsAPIKey:      &apiKey,
+		Compress:       operations.CreateOutputCompressionS3Gzip.ToPointer(),
+		FileNameSuffix: &fileNameSuffix,
 	}
 
-	// Convert to components.Output using JSON marshaling/unmarshaling
-	destBytes, err := json.Marshal(s3Config)
+	createOutputRequest := operations.CreateCreateOutputRequestS3(s3Destination)
+	_, err = client.Destinations.Create(ctx, createOutputRequest, operations.WithServerURL(packURL))
 	if err != nil {
-		log.Printf("Error marshaling Amazon S3 Destination config: %v", err)
+		log.Printf("Error creating Amazon S3 Destination in Pack: %v", err)
 	} else {
-		var s3Destination components.Output
-		err = json.Unmarshal(destBytes, &s3Destination)
-		if err != nil {
-			log.Printf("Error unmarshaling Amazon S3 Destination config: %v", err)
-		} else {
-			_, err = client.Destinations.Create(ctx, s3Destination, operations.WithServerURL(packURL))
-			if err != nil {
-				log.Printf("Error creating Amazon S3 Destination in Pack: %v", err)
-			} else {
-				fmt.Printf("✅ Created Amazon S3 Destination: my-s3-destination in Pack: \"%s\"\n", PACK_ID)
-			}
-		}
+		fmt.Printf("✅ Created Amazon S3 Destination: my-s3-destination in Pack: \"%s\"\n", PACK_ID)
 	}
 
 	// Create Pipeline in Pack
-	pipelineConf := map[string]interface{}{
-		"asyncFuncTimeout": 1000,
-		"functions": []map[string]interface{}{
-			{
-				"filter": "true",
-				"conf": map[string]interface{}{
-					"remove": []string{"*"},
-					"keep":   []string{"name"},
-				},
-				"id":    "eval",
-				"final": true,
-			},
+	asyncFuncTimeout := int64(1000)
+	filter := "true"
+	final := true
+	evalFunction := components.CreatePipelineFunctionConfInputEval(components.PipelineFunctionEval{
+		Filter: &filter,
+		ID:     components.PipelineFunctionEvalIDEval,
+		Final:  &final,
+		Conf: components.FunctionConfSchemaEval{
+			Remove: []string{"*"},
+			Keep:   []string{"name"},
 		},
+	})
+
+	conf := components.ConfInput{
+		AsyncFuncTimeout: &asyncFuncTimeout,
+		Functions:        []components.PipelineFunctionConfInput{evalFunction},
 	}
 
-	// Convert to components.Conf
-	confBytes, err := json.Marshal(pipelineConf)
-	if err != nil {
-		log.Printf("Error marshaling Pipeline config: %v", err)
-	} else {
-		var conf components.ConfInput
-		err = json.Unmarshal(confBytes, &conf)
-		if err != nil {
-			log.Printf("Error unmarshaling Pipeline config: %v", err)
-		} else {
-			pipeline := components.PipelineInput{
-				ID:   "my-pipeline",
-				Conf: conf,
-			}
+	pipeline := components.PipelineInput{
+		ID:   "my-pipeline",
+		Conf: conf,
+	}
 
-			_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(packURL))
-			if err != nil {
-				log.Printf("Error creating Pipeline in Pack: %v", err)
-			} else {
-				fmt.Printf("✅ Created Pipeline: my-pipeline in Pack: \"%s\"\n", PACK_ID)
-			}
-		}
+	_, err = client.Pipelines.Create(ctx, pipeline, operations.WithServerURL(packURL))
+	if err != nil {
+		log.Printf("Error creating Pipeline in Pack: %v", err)
+	} else {
+		fmt.Printf("✅ Created Pipeline: my-pipeline in Pack: \"%s\"\n", PACK_ID)
 	}
 
 	// Get existing Routes and add new Route
