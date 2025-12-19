@@ -32,29 +32,6 @@ func (e *PipelineFunctionLocalSearchDatatypeParserID) UnmarshalJSON(data []byte)
 	}
 }
 
-type PipelineFunctionLocalSearchDatatypeParserConf struct {
-	// ID of the local search datatype ruleset
-	RulesetID string `json:"rulesetId"`
-}
-
-func (p PipelineFunctionLocalSearchDatatypeParserConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionLocalSearchDatatypeParserConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rulesetId"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionLocalSearchDatatypeParserConf) GetRulesetID() string {
-	if p == nil {
-		return ""
-	}
-	return p.RulesetID
-}
-
 type PipelineFunctionLocalSearchDatatypeParser struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `default:"true" json:"filter"`
@@ -65,8 +42,8 @@ type PipelineFunctionLocalSearchDatatypeParser struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                                         `json:"final,omitempty"`
-	Conf  PipelineFunctionLocalSearchDatatypeParserConf `json:"conf"`
+	Final *bool                                       `json:"final,omitempty"`
+	Conf  FunctionConfSchemaLocalSearchDatatypeParser `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -117,9 +94,9 @@ func (p *PipelineFunctionLocalSearchDatatypeParser) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionLocalSearchDatatypeParser) GetConf() PipelineFunctionLocalSearchDatatypeParserConf {
+func (p *PipelineFunctionLocalSearchDatatypeParser) GetConf() FunctionConfSchemaLocalSearchDatatypeParser {
 	if p == nil {
-		return PipelineFunctionLocalSearchDatatypeParserConf{}
+		return FunctionConfSchemaLocalSearchDatatypeParser{}
 	}
 	return p.Conf
 }

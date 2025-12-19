@@ -43,9 +43,6 @@ type CollectorConf struct {
 func CreateCollectorConfAzureBlob(azureBlob CollectorAzureBlob) CollectorConf {
 	typ := CollectorConfTypeAzureBlob
 
-	typStr := CollectorAzureBlobType(typ)
-	azureBlob.Type = typStr
-
 	return CollectorConf{
 		CollectorAzureBlob: &azureBlob,
 		Type:               typ,
@@ -91,9 +88,6 @@ func CreateCollectorConfFilesystem(filesystem CollectorFilesystem) CollectorConf
 func CreateCollectorConfGoogleCloudStorage(googleCloudStorage CollectorGoogleCloudStorage) CollectorConf {
 	typ := CollectorConfTypeGoogleCloudStorage
 
-	typStr := CollectorGoogleCloudStorageType(typ)
-	googleCloudStorage.Type = typStr
-
 	return CollectorConf{
 		CollectorGoogleCloudStorage: &googleCloudStorage,
 		Type:                        typ,
@@ -102,9 +96,6 @@ func CreateCollectorConfGoogleCloudStorage(googleCloudStorage CollectorGoogleClo
 
 func CreateCollectorConfHealthCheck(healthCheck CollectorHealthCheck) CollectorConf {
 	typ := CollectorConfTypeHealthCheck
-
-	typStr := CollectorHealthCheckType(typ)
-	healthCheck.Type = typStr
 
 	return CollectorConf{
 		CollectorHealthCheck: &healthCheck,
@@ -115,9 +106,6 @@ func CreateCollectorConfHealthCheck(healthCheck CollectorHealthCheck) CollectorC
 func CreateCollectorConfRest(rest CollectorRest) CollectorConf {
 	typ := CollectorConfTypeRest
 
-	typStr := CollectorRestType(typ)
-	rest.Type = typStr
-
 	return CollectorConf{
 		CollectorRest: &rest,
 		Type:          typ,
@@ -126,9 +114,6 @@ func CreateCollectorConfRest(rest CollectorRest) CollectorConf {
 
 func CreateCollectorConfS3(s3 CollectorS3) CollectorConf {
 	typ := CollectorConfTypeS3
-
-	typStr := CollectorS3Type(typ)
-	s3.Type = typStr
 
 	return CollectorConf{
 		CollectorS3: &s3,
@@ -150,9 +135,6 @@ func CreateCollectorConfScript(script CollectorScript) CollectorConf {
 
 func CreateCollectorConfSplunk(splunk CollectorSplunk) CollectorConf {
 	typ := CollectorConfTypeSplunk
-
-	typStr := CollectorSplunkType(typ)
-	splunk.Type = typStr
 
 	return CollectorConf{
 		CollectorSplunk: &splunk,

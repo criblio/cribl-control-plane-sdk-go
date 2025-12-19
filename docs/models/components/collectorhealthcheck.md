@@ -1,21 +1,65 @@
 # CollectorHealthCheck
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Discovery`                                                                                                                                        | [*components.CollectorHealthCheckDiscovery](../../models/components/collectorhealthcheckdiscovery.md)                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectURL`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Expression to derive URL to use for the health check operation (can be a constant).                                                                |
-| `CollectMethod`                                                                                                                                    | [*components.HealthCheckMethod](../../models/components/healthcheckmethod.md)                                                                      | :heavy_minus_sign:                                                                                                                                 | Health check HTTP method.                                                                                                                          |
-| `CollectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectRequestHeaders`                                                                                                                            | [][components.CollectorHealthCheckCollectRequestHeader](../../models/components/collectorhealthcheckcollectrequestheader.md)                       | :heavy_minus_sign:                                                                                                                                 | Optional health check request headers.                                                                                                             |
-| `AuthenticateCollect`                                                                                                                              | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Enable to make auth health check call.                                                                                                             |
-| `Authentication`                                                                                                                                   | [*components.CollectorHealthCheckAuthentication](../../models/components/collectorhealthcheckauthentication.md)                                    | :heavy_minus_sign:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers. |
-| `Timeout`                                                                                                                                          | **float64*                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout, use 0 to disable                                                                                                  |
-| `RejectUnauthorized`                                                                                                                               | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).                                        |
-| `DefaultBreakers`                                                                                                                                  | [*components.CollectorHealthCheckHiddenDefaultBreakers](../../models/components/collectorhealthcheckhiddendefaultbreakers.md)                      | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `SafeHeaders`                                                                                                                                      | []*string*                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text.                                                                                                |
-| `RetryRules`                                                                                                                                       | [*components.CollectorHealthCheckRetryRules](../../models/components/collectorhealthcheckretryrules.md)                                            | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `Type`                                                                                                                                             | [components.CollectorHealthCheckType](../../models/components/collectorhealthchecktype.md)                                                         | :heavy_check_mark:                                                                                                                                 | Collector type: health_check                                                                                                                       |
+### CollectorHealthCheckHealthCheck1
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck1(components.CollectorHealthCheckHealthCheck1{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck2
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck2(components.CollectorHealthCheckHealthCheck2{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck3
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck3(components.CollectorHealthCheckHealthCheck3{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck4
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck4(components.CollectorHealthCheckHealthCheck4{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck5
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck5(components.CollectorHealthCheckHealthCheck5{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck6
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck6(components.CollectorHealthCheckHealthCheck6{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck7
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck7(components.CollectorHealthCheckHealthCheck7{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck8
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck8(components.CollectorHealthCheckHealthCheck8{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck9
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck9(components.CollectorHealthCheckHealthCheck9{/* values here */})
+```
+
+### CollectorHealthCheckHealthCheck10
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck10(components.CollectorHealthCheckHealthCheck10{/* values here */})
+```
+
