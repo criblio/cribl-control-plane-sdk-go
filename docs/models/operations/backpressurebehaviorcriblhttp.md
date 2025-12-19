@@ -1,0 +1,12 @@
+# BackpressureBehaviorCriblHTTP
+
+How to handle events when all receivers are exerting backpressure
+
+
+## Values
+
+| Name                                 | Value                                |
+| ------------------------------------ | ------------------------------------ |
+| `BackpressureBehaviorCriblHTTPBlock` | block                                |
+| `BackpressureBehaviorCriblHTTPDrop`  | drop                                 |
+| `BackpressureBehaviorCriblHTTPQueue` | queue                                |

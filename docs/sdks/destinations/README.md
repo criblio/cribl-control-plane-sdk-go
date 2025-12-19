@@ -83,6 +83,7 @@ import(
 	"os"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -96,10 +97,10 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Create(ctx, components.CreateOutputTcpjson(
-        components.OutputTcpjson{
-            ID: criblcontrolplanesdkgo.Pointer("tcpjson-output"),
-            Type: components.OutputTcpjsonTypeTcpjson,
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestTcpjson(
+        operations.OutputTcpjson{
+            ID: "tcpjson-output",
+            Type: operations.CreateOutputTypeTcpjsonTcpjson,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             SystemFields: []string{
                 "<value 1>",
@@ -109,27 +110,27 @@ func main() {
             Streamtags: []string{
                 "<value 1>",
             },
-            TLS: &components.OutputTcpjsonTLSSettingsClientSide{
+            TLS: &operations.TLSSettingsClientSideTcpjson{
                 Servername: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
-                MinVersion: components.OutputTcpjsonMinimumTLSVersionTlSv12.ToPointer(),
-                MaxVersion: components.OutputTcpjsonMaximumTLSVersionTlSv12.ToPointer(),
+                MinVersion: operations.CreateOutputMinimumTLSVersionTcpjsonTlSv12.ToPointer(),
+                MaxVersion: operations.CreateOutputMaximumTLSVersionTcpjsonTlSv12.ToPointer(),
             },
             Description: criblcontrolplanesdkgo.Pointer("hourly about into"),
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090),
-            Hosts: []components.OutputTcpjsonHost{
-                components.OutputTcpjsonHost{
+            Hosts: []operations.HostTcpjson{
+                operations.HostTcpjson{
                     Host: "chilly-exterior.net",
                     Port: 6458.17,
                     Servername: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             },
-            PqControls: &components.OutputTcpjsonPqControls{},
+            PqControls: &operations.CreateOutputPqControlsTcpjson{},
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
@@ -144,11 +145,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `request`                                                | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | The request object to use for the request.               |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `ctx`                                                                            | [context.Context](https://pkg.go.dev/context#Context)                            | :heavy_check_mark:                                                               | The context to use for the request.                                              |
+| `request`                                                                        | [operations.CreateOutputRequest](../../models/operations/createoutputrequest.md) | :heavy_check_mark:                                                               | The request object to use for the request.                                       |
+| `opts`                                                                           | [][operations.Option](../../models/operations/option.md)                         | :heavy_minus_sign:                                                               | The options for this request.                                                    |
 
 ### Response
 

@@ -1,0 +1,12 @@
+# V3User
+
+
+## Fields
+
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `Name`                                                                                  | *string*                                                                                | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `AuthProtocol`                                                                          | [*operations.AuthenticationProtocol](../../models/operations/authenticationprotocol.md) | :heavy_minus_sign:                                                                      | N/A                                                                                     |
+| `AuthKey`                                                                               | **string*                                                                               | :heavy_minus_sign:                                                                      | N/A                                                                                     |
+| `PrivProtocol`                                                                          | [*operations.PrivacyProtocol](../../models/operations/privacyprotocol.md)               | :heavy_minus_sign:                                                                      | N/A                                                                                     |
+| `PrivKey`                                                                               | **string*                                                                               | :heavy_minus_sign:                                                                      | N/A                                                                                     |
