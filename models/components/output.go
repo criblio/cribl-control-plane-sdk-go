@@ -64,6 +64,7 @@ const (
 	OutputTypeDataset                OutputType = "dataset"
 	OutputTypeCriblTCP               OutputType = "cribl_tcp"
 	OutputTypeCriblHTTP              OutputType = "cribl_http"
+	OutputTypeCriblSearchEngine      OutputType = "cribl_search_engine"
 	OutputTypeHumioHec               OutputType = "humio_hec"
 	OutputTypeCrowdstrikeNextGenSiem OutputType = "crowdstrike_next_gen_siem"
 	OutputTypeDlS3                   OutputType = "dl_s3"
@@ -135,6 +136,7 @@ type Output struct {
 	OutputDataset                *OutputDataset                `queryParam:"inline,name=Output" union:"member"`
 	OutputCriblTCP               *OutputCriblTCP               `queryParam:"inline,name=Output" union:"member"`
 	OutputCriblHTTP              *OutputCriblHTTP              `queryParam:"inline,name=Output" union:"member"`
+	OutputCriblSearchEngine      *OutputCriblSearchEngine      `queryParam:"inline,name=Output" union:"member"`
 	OutputHumioHec               *OutputHumioHec               `queryParam:"inline,name=Output" union:"member"`
 	OutputCrowdstrikeNextGenSiem *OutputCrowdstrikeNextGenSiem `queryParam:"inline,name=Output" union:"member"`
 	OutputDlS3                   *OutputDlS3                   `queryParam:"inline,name=Output" union:"member"`
@@ -773,6 +775,18 @@ func CreateOutputCriblHTTP(criblHTTP OutputCriblHTTP) Output {
 	return Output{
 		OutputCriblHTTP: &criblHTTP,
 		Type:            typ,
+	}
+}
+
+func CreateOutputCriblSearchEngine(criblSearchEngine OutputCriblSearchEngine) Output {
+	typ := OutputTypeCriblSearchEngine
+
+	typStr := OutputCriblSearchEngineType(typ)
+	criblSearchEngine.Type = typStr
+
+	return Output{
+		OutputCriblSearchEngine: &criblSearchEngine,
+		Type:                    typ,
 	}
 }
 
@@ -1448,6 +1462,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputCriblHTTP = outputCriblHTTP
 		u.Type = OutputTypeCriblHTTP
 		return nil
+	case "cribl_search_engine":
+		outputCriblSearchEngine := new(OutputCriblSearchEngine)
+		if err := utils.UnmarshalJSON(data, &outputCriblSearchEngine, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cribl_search_engine) type OutputCriblSearchEngine within Output: %w", string(data), err)
+		}
+
+		u.OutputCriblSearchEngine = outputCriblSearchEngine
+		u.Type = OutputTypeCriblSearchEngine
+		return nil
 	case "humio_hec":
 		outputHumioHec := new(OutputHumioHec)
 		if err := utils.UnmarshalJSON(data, &outputHumioHec, "", true, nil); err != nil {
@@ -1804,6 +1827,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputCriblHTTP != nil {
 		return utils.MarshalJSON(u.OutputCriblHTTP, "", true)
+	}
+
+	if u.OutputCriblSearchEngine != nil {
+		return utils.MarshalJSON(u.OutputCriblSearchEngine, "", true)
 	}
 
 	if u.OutputHumioHec != nil {
