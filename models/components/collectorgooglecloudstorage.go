@@ -4,81 +4,26 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// CollectorGoogleCloudStorageType - Collector type: google_cloud_storage
-type CollectorGoogleCloudStorageType string
+// CollectorGoogleCloudStorageAuthenticationMethod3 - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+type CollectorGoogleCloudStorageAuthenticationMethod3 string
 
 const (
-	CollectorGoogleCloudStorageTypeGoogleCloudStorage CollectorGoogleCloudStorageType = "google_cloud_storage"
+	CollectorGoogleCloudStorageAuthenticationMethod3Auto   CollectorGoogleCloudStorageAuthenticationMethod3 = "auto"
+	CollectorGoogleCloudStorageAuthenticationMethod3Manual CollectorGoogleCloudStorageAuthenticationMethod3 = "manual"
+	CollectorGoogleCloudStorageAuthenticationMethod3Secret CollectorGoogleCloudStorageAuthenticationMethod3 = "secret"
 )
 
-func (e CollectorGoogleCloudStorageType) ToPointer() *CollectorGoogleCloudStorageType {
-	return &e
-}
-func (e *CollectorGoogleCloudStorageType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "google_cloud_storage":
-		*e = CollectorGoogleCloudStorageType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorGoogleCloudStorageType: %v", v)
-	}
-}
-
-type CollectorGoogleCloudStorageExtractor struct {
-	// A token from the template path, such as epoch
-	Key string `json:"key"`
-	// JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
-	Expression string `json:"expression"`
-}
-
-func (c CollectorGoogleCloudStorageExtractor) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorGoogleCloudStorageExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorGoogleCloudStorageExtractor) GetKey() string {
-	if c == nil {
-		return ""
-	}
-	return c.Key
-}
-
-func (c *CollectorGoogleCloudStorageExtractor) GetExpression() string {
-	if c == nil {
-		return ""
-	}
-	return c.Expression
-}
-
-// CollectorGoogleCloudStorageAuthenticationMethod - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
-type CollectorGoogleCloudStorageAuthenticationMethod string
-
-const (
-	CollectorGoogleCloudStorageAuthenticationMethodAuto   CollectorGoogleCloudStorageAuthenticationMethod = "auto"
-	CollectorGoogleCloudStorageAuthenticationMethodManual CollectorGoogleCloudStorageAuthenticationMethod = "manual"
-	CollectorGoogleCloudStorageAuthenticationMethodSecret CollectorGoogleCloudStorageAuthenticationMethod = "secret"
-)
-
-func (e CollectorGoogleCloudStorageAuthenticationMethod) ToPointer() *CollectorGoogleCloudStorageAuthenticationMethod {
+func (e CollectorGoogleCloudStorageAuthenticationMethod3) ToPointer() *CollectorGoogleCloudStorageAuthenticationMethod3 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorGoogleCloudStorageAuthenticationMethod) IsExact() bool {
+func (e *CollectorGoogleCloudStorageAuthenticationMethod3) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "manual", "secret":
@@ -88,9 +33,69 @@ func (e *CollectorGoogleCloudStorageAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type CollectorGoogleCloudStorage struct {
+// CollectorGoogleCloudStorageType3 - Collector type: google_cloud_storage
+type CollectorGoogleCloudStorageType3 string
+
+const (
+	CollectorGoogleCloudStorageType3GoogleCloudStorage CollectorGoogleCloudStorageType3 = "google_cloud_storage"
+)
+
+func (e CollectorGoogleCloudStorageType3) ToPointer() *CollectorGoogleCloudStorageType3 {
+	return &e
+}
+func (e *CollectorGoogleCloudStorageType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = CollectorGoogleCloudStorageType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorGoogleCloudStorageType3: %v", v)
+	}
+}
+
+type CollectorGoogleCloudStorageExtractor3 struct {
+	// A token from the template path, such as epoch
+	Key string `json:"key"`
+	// JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
+	Expression string `json:"expression"`
+}
+
+func (c CollectorGoogleCloudStorageExtractor3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorGoogleCloudStorageExtractor3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorGoogleCloudStorageExtractor3) GetKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.Key
+}
+
+func (c *CollectorGoogleCloudStorageExtractor3) GetExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.Expression
+}
+
+type CollectorGoogleCloudStorageGoogleCloudStorage3 struct {
+	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+	AuthType *CollectorGoogleCloudStorageAuthenticationMethod3 `default:"manual" json:"authType"`
+	// Select or create a stored text secret that references your credentials
+	TextSecret string `json:"textSecret"`
 	// Collector type: google_cloud_storage
-	Type CollectorGoogleCloudStorageType `json:"type"`
+	Type CollectorGoogleCloudStorageType3 `json:"type"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
 	OutputName *string `json:"outputName,omitempty"`
 	// Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
@@ -98,7 +103,7 @@ type CollectorGoogleCloudStorage struct {
 	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
 	Path *string `json:"path,omitempty"`
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []CollectorGoogleCloudStorageExtractor `json:"extractors,omitempty"`
+	Extractors []CollectorGoogleCloudStorageExtractor3 `json:"extractors,omitempty"`
 	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Used to disable Collector event time filtering when a date range is specified
@@ -107,105 +112,644 @@ type CollectorGoogleCloudStorage struct {
 	Recurse *bool `default:"true" json:"recurse"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
-	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
-	AuthType *CollectorGoogleCloudStorageAuthenticationMethod `default:"manual" json:"authType"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 }
 
-func (c CollectorGoogleCloudStorage) MarshalJSON() ([]byte, error) {
+func (c CollectorGoogleCloudStorageGoogleCloudStorage3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CollectorGoogleCloudStorage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "bucket"}); err != nil {
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"textSecret", "type", "bucket"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CollectorGoogleCloudStorage) GetType() CollectorGoogleCloudStorageType {
-	if c == nil {
-		return CollectorGoogleCloudStorageType("")
-	}
-	return c.Type
-}
-
-func (c *CollectorGoogleCloudStorage) GetOutputName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.OutputName
-}
-
-func (c *CollectorGoogleCloudStorage) GetBucket() string {
-	if c == nil {
-		return ""
-	}
-	return c.Bucket
-}
-
-func (c *CollectorGoogleCloudStorage) GetPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Path
-}
-
-func (c *CollectorGoogleCloudStorage) GetExtractors() []CollectorGoogleCloudStorageExtractor {
-	if c == nil {
-		return nil
-	}
-	return c.Extractors
-}
-
-func (c *CollectorGoogleCloudStorage) GetEndpoint() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Endpoint
-}
-
-func (c *CollectorGoogleCloudStorage) GetDisableTimeFilter() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.DisableTimeFilter
-}
-
-func (c *CollectorGoogleCloudStorage) GetRecurse() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Recurse
-}
-
-func (c *CollectorGoogleCloudStorage) GetMaxBatchSize() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxBatchSize
-}
-
-func (c *CollectorGoogleCloudStorage) GetAuthType() *CollectorGoogleCloudStorageAuthenticationMethod {
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetAuthType() *CollectorGoogleCloudStorageAuthenticationMethod3 {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CollectorGoogleCloudStorage) GetParquetChunkSizeMB() *float64 {
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetTextSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetType() CollectorGoogleCloudStorageType3 {
+	if c == nil {
+		return CollectorGoogleCloudStorageType3("")
+	}
+	return c.Type
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetOutputName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.OutputName
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Path
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetExtractors() []CollectorGoogleCloudStorageExtractor3 {
+	if c == nil {
+		return nil
+	}
+	return c.Extractors
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetRecurse() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Recurse
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetMaxBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxBatchSize
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetParquetChunkSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkSizeMB
 }
 
-func (c *CollectorGoogleCloudStorage) GetParquetChunkDownloadTimeout() *float64 {
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetParquetChunkDownloadTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkDownloadTimeout
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage3) GetServiceAccountCredentials() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ServiceAccountCredentials
+}
+
+// CollectorGoogleCloudStorageAuthenticationMethod2 - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+type CollectorGoogleCloudStorageAuthenticationMethod2 string
+
+const (
+	CollectorGoogleCloudStorageAuthenticationMethod2Auto   CollectorGoogleCloudStorageAuthenticationMethod2 = "auto"
+	CollectorGoogleCloudStorageAuthenticationMethod2Manual CollectorGoogleCloudStorageAuthenticationMethod2 = "manual"
+	CollectorGoogleCloudStorageAuthenticationMethod2Secret CollectorGoogleCloudStorageAuthenticationMethod2 = "secret"
+)
+
+func (e CollectorGoogleCloudStorageAuthenticationMethod2) ToPointer() *CollectorGoogleCloudStorageAuthenticationMethod2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectorGoogleCloudStorageAuthenticationMethod2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// CollectorGoogleCloudStorageType2 - Collector type: google_cloud_storage
+type CollectorGoogleCloudStorageType2 string
+
+const (
+	CollectorGoogleCloudStorageType2GoogleCloudStorage CollectorGoogleCloudStorageType2 = "google_cloud_storage"
+)
+
+func (e CollectorGoogleCloudStorageType2) ToPointer() *CollectorGoogleCloudStorageType2 {
+	return &e
+}
+func (e *CollectorGoogleCloudStorageType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = CollectorGoogleCloudStorageType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorGoogleCloudStorageType2: %v", v)
+	}
+}
+
+type CollectorGoogleCloudStorageExtractor2 struct {
+	// A token from the template path, such as epoch
+	Key string `json:"key"`
+	// JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
+	Expression string `json:"expression"`
+}
+
+func (c CollectorGoogleCloudStorageExtractor2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorGoogleCloudStorageExtractor2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorGoogleCloudStorageExtractor2) GetKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.Key
+}
+
+func (c *CollectorGoogleCloudStorageExtractor2) GetExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.Expression
+}
+
+type CollectorGoogleCloudStorageGoogleCloudStorage2 struct {
+	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+	AuthType *CollectorGoogleCloudStorageAuthenticationMethod2 `default:"manual" json:"authType"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials string `json:"serviceAccountCredentials"`
+	// Collector type: google_cloud_storage
+	Type CollectorGoogleCloudStorageType2 `json:"type"`
+	// Name of the predefined Destination that will be used to auto-populate Collector settings
+	OutputName *string `json:"outputName,omitempty"`
+	// Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+	Path *string `json:"path,omitempty"`
+	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+	Extractors []CollectorGoogleCloudStorageExtractor2 `json:"extractors,omitempty"`
+	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Used to disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
+	// Recurse through subdirectories
+	Recurse *bool `default:"true" json:"recurse"`
+	// Maximum number of metadata objects to batch before recording as results
+	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	// Select or create a stored text secret that references your credentials
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (c CollectorGoogleCloudStorageGoogleCloudStorage2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"serviceAccountCredentials", "type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetAuthType() *CollectorGoogleCloudStorageAuthenticationMethod2 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetServiceAccountCredentials() string {
+	if c == nil {
+		return ""
+	}
+	return c.ServiceAccountCredentials
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetType() CollectorGoogleCloudStorageType2 {
+	if c == nil {
+		return CollectorGoogleCloudStorageType2("")
+	}
+	return c.Type
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetOutputName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.OutputName
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Path
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetExtractors() []CollectorGoogleCloudStorageExtractor2 {
+	if c == nil {
+		return nil
+	}
+	return c.Extractors
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetRecurse() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Recurse
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetMaxBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxBatchSize
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetParquetChunkSizeMB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkSizeMB
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetParquetChunkDownloadTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkDownloadTimeout
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage2) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+// CollectorGoogleCloudStorageAuthenticationMethod1 - Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+type CollectorGoogleCloudStorageAuthenticationMethod1 string
+
+const (
+	CollectorGoogleCloudStorageAuthenticationMethod1Auto   CollectorGoogleCloudStorageAuthenticationMethod1 = "auto"
+	CollectorGoogleCloudStorageAuthenticationMethod1Manual CollectorGoogleCloudStorageAuthenticationMethod1 = "manual"
+	CollectorGoogleCloudStorageAuthenticationMethod1Secret CollectorGoogleCloudStorageAuthenticationMethod1 = "secret"
+)
+
+func (e CollectorGoogleCloudStorageAuthenticationMethod1) ToPointer() *CollectorGoogleCloudStorageAuthenticationMethod1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectorGoogleCloudStorageAuthenticationMethod1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// CollectorGoogleCloudStorageType1 - Collector type: google_cloud_storage
+type CollectorGoogleCloudStorageType1 string
+
+const (
+	CollectorGoogleCloudStorageType1GoogleCloudStorage CollectorGoogleCloudStorageType1 = "google_cloud_storage"
+)
+
+func (e CollectorGoogleCloudStorageType1) ToPointer() *CollectorGoogleCloudStorageType1 {
+	return &e
+}
+func (e *CollectorGoogleCloudStorageType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "google_cloud_storage":
+		*e = CollectorGoogleCloudStorageType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorGoogleCloudStorageType1: %v", v)
+	}
+}
+
+type CollectorGoogleCloudStorageExtractor1 struct {
+	// A token from the template path, such as epoch
+	Key string `json:"key"`
+	// JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
+	Expression string `json:"expression"`
+}
+
+func (c CollectorGoogleCloudStorageExtractor1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorGoogleCloudStorageExtractor1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorGoogleCloudStorageExtractor1) GetKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.Key
+}
+
+func (c *CollectorGoogleCloudStorageExtractor1) GetExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.Expression
+}
+
+type CollectorGoogleCloudStorageGoogleCloudStorage1 struct {
+	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
+	AuthType *CollectorGoogleCloudStorageAuthenticationMethod1 `default:"manual" json:"authType"`
+	// Collector type: google_cloud_storage
+	Type CollectorGoogleCloudStorageType1 `json:"type"`
+	// Name of the predefined Destination that will be used to auto-populate Collector settings
+	OutputName *string `json:"outputName,omitempty"`
+	// Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+	Bucket string `json:"bucket"`
+	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+	Path *string `json:"path,omitempty"`
+	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+	Extractors []CollectorGoogleCloudStorageExtractor1 `json:"extractors,omitempty"`
+	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Used to disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
+	// Recurse through subdirectories
+	Recurse *bool `default:"true" json:"recurse"`
+	// Maximum number of metadata objects to batch before recording as results
+	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Select or create a stored text secret that references your credentials
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (c CollectorGoogleCloudStorageGoogleCloudStorage1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "bucket"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetAuthType() *CollectorGoogleCloudStorageAuthenticationMethod1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetType() CollectorGoogleCloudStorageType1 {
+	if c == nil {
+		return CollectorGoogleCloudStorageType1("")
+	}
+	return c.Type
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetOutputName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.OutputName
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Path
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetExtractors() []CollectorGoogleCloudStorageExtractor1 {
+	if c == nil {
+		return nil
+	}
+	return c.Extractors
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetRecurse() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Recurse
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetMaxBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxBatchSize
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetParquetChunkSizeMB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkSizeMB
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetParquetChunkDownloadTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkDownloadTimeout
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetServiceAccountCredentials() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ServiceAccountCredentials
+}
+
+func (c *CollectorGoogleCloudStorageGoogleCloudStorage1) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+type CollectorGoogleCloudStorageType string
+
+const (
+	CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage1 CollectorGoogleCloudStorageType = "CollectorGoogleCloudStorage_GoogleCloudStorage_1"
+	CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage2 CollectorGoogleCloudStorageType = "CollectorGoogleCloudStorage_GoogleCloudStorage_2"
+	CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage3 CollectorGoogleCloudStorageType = "CollectorGoogleCloudStorage_GoogleCloudStorage_3"
+)
+
+type CollectorGoogleCloudStorage struct {
+	CollectorGoogleCloudStorageGoogleCloudStorage1 *CollectorGoogleCloudStorageGoogleCloudStorage1 `queryParam:"inline,name=CollectorGoogleCloudStorage" union:"member"`
+	CollectorGoogleCloudStorageGoogleCloudStorage2 *CollectorGoogleCloudStorageGoogleCloudStorage2 `queryParam:"inline,name=CollectorGoogleCloudStorage" union:"member"`
+	CollectorGoogleCloudStorageGoogleCloudStorage3 *CollectorGoogleCloudStorageGoogleCloudStorage3 `queryParam:"inline,name=CollectorGoogleCloudStorage" union:"member"`
+
+	Type CollectorGoogleCloudStorageType
+}
+
+func CreateCollectorGoogleCloudStorageCollectorGoogleCloudStorageGoogleCloudStorage1(collectorGoogleCloudStorageGoogleCloudStorage1 CollectorGoogleCloudStorageGoogleCloudStorage1) CollectorGoogleCloudStorage {
+	typ := CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage1
+
+	return CollectorGoogleCloudStorage{
+		CollectorGoogleCloudStorageGoogleCloudStorage1: &collectorGoogleCloudStorageGoogleCloudStorage1,
+		Type: typ,
+	}
+}
+
+func CreateCollectorGoogleCloudStorageCollectorGoogleCloudStorageGoogleCloudStorage2(collectorGoogleCloudStorageGoogleCloudStorage2 CollectorGoogleCloudStorageGoogleCloudStorage2) CollectorGoogleCloudStorage {
+	typ := CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage2
+
+	return CollectorGoogleCloudStorage{
+		CollectorGoogleCloudStorageGoogleCloudStorage2: &collectorGoogleCloudStorageGoogleCloudStorage2,
+		Type: typ,
+	}
+}
+
+func CreateCollectorGoogleCloudStorageCollectorGoogleCloudStorageGoogleCloudStorage3(collectorGoogleCloudStorageGoogleCloudStorage3 CollectorGoogleCloudStorageGoogleCloudStorage3) CollectorGoogleCloudStorage {
+	typ := CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage3
+
+	return CollectorGoogleCloudStorage{
+		CollectorGoogleCloudStorageGoogleCloudStorage3: &collectorGoogleCloudStorageGoogleCloudStorage3,
+		Type: typ,
+	}
+}
+
+func (u *CollectorGoogleCloudStorage) UnmarshalJSON(data []byte) error {
+
+	var collectorGoogleCloudStorageGoogleCloudStorage2 CollectorGoogleCloudStorageGoogleCloudStorage2 = CollectorGoogleCloudStorageGoogleCloudStorage2{}
+	if err := utils.UnmarshalJSON(data, &collectorGoogleCloudStorageGoogleCloudStorage2, "", true, nil); err == nil {
+		u.CollectorGoogleCloudStorageGoogleCloudStorage2 = &collectorGoogleCloudStorageGoogleCloudStorage2
+		u.Type = CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage2
+		return nil
+	}
+
+	var collectorGoogleCloudStorageGoogleCloudStorage3 CollectorGoogleCloudStorageGoogleCloudStorage3 = CollectorGoogleCloudStorageGoogleCloudStorage3{}
+	if err := utils.UnmarshalJSON(data, &collectorGoogleCloudStorageGoogleCloudStorage3, "", true, nil); err == nil {
+		u.CollectorGoogleCloudStorageGoogleCloudStorage3 = &collectorGoogleCloudStorageGoogleCloudStorage3
+		u.Type = CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage3
+		return nil
+	}
+
+	var collectorGoogleCloudStorageGoogleCloudStorage1 CollectorGoogleCloudStorageGoogleCloudStorage1 = CollectorGoogleCloudStorageGoogleCloudStorage1{}
+	if err := utils.UnmarshalJSON(data, &collectorGoogleCloudStorageGoogleCloudStorage1, "", true, nil); err == nil {
+		u.CollectorGoogleCloudStorageGoogleCloudStorage1 = &collectorGoogleCloudStorageGoogleCloudStorage1
+		u.Type = CollectorGoogleCloudStorageTypeCollectorGoogleCloudStorageGoogleCloudStorage1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CollectorGoogleCloudStorage", string(data))
+}
+
+func (u CollectorGoogleCloudStorage) MarshalJSON() ([]byte, error) {
+	if u.CollectorGoogleCloudStorageGoogleCloudStorage1 != nil {
+		return utils.MarshalJSON(u.CollectorGoogleCloudStorageGoogleCloudStorage1, "", true)
+	}
+
+	if u.CollectorGoogleCloudStorageGoogleCloudStorage2 != nil {
+		return utils.MarshalJSON(u.CollectorGoogleCloudStorageGoogleCloudStorage2, "", true)
+	}
+
+	if u.CollectorGoogleCloudStorageGoogleCloudStorage3 != nil {
+		return utils.MarshalJSON(u.CollectorGoogleCloudStorageGoogleCloudStorage3, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type CollectorGoogleCloudStorage: all fields are null")
 }

@@ -4,50 +4,27 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// CollectorAzureBlobType - Collector type: azure_blob
-type CollectorAzureBlobType string
+// CollectorAzureBlobAuthenticationMethod4 - Enter authentication data directly, or select a secret referencing your auth data
+type CollectorAzureBlobAuthenticationMethod4 string
 
 const (
-	CollectorAzureBlobTypeAzureBlob CollectorAzureBlobType = "azure_blob"
+	CollectorAzureBlobAuthenticationMethod4Manual       CollectorAzureBlobAuthenticationMethod4 = "manual"
+	CollectorAzureBlobAuthenticationMethod4Secret       CollectorAzureBlobAuthenticationMethod4 = "secret"
+	CollectorAzureBlobAuthenticationMethod4ClientSecret CollectorAzureBlobAuthenticationMethod4 = "clientSecret"
+	CollectorAzureBlobAuthenticationMethod4ClientCert   CollectorAzureBlobAuthenticationMethod4 = "clientCert"
 )
 
-func (e CollectorAzureBlobType) ToPointer() *CollectorAzureBlobType {
-	return &e
-}
-func (e *CollectorAzureBlobType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "azure_blob":
-		*e = CollectorAzureBlobType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorAzureBlobType: %v", v)
-	}
-}
-
-// CollectorAzureBlobAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
-type CollectorAzureBlobAuthenticationMethod string
-
-const (
-	CollectorAzureBlobAuthenticationMethodManual       CollectorAzureBlobAuthenticationMethod = "manual"
-	CollectorAzureBlobAuthenticationMethodSecret       CollectorAzureBlobAuthenticationMethod = "secret"
-	CollectorAzureBlobAuthenticationMethodClientSecret CollectorAzureBlobAuthenticationMethod = "clientSecret"
-	CollectorAzureBlobAuthenticationMethodClientCert   CollectorAzureBlobAuthenticationMethod = "clientCert"
-)
-
-func (e CollectorAzureBlobAuthenticationMethod) ToPointer() *CollectorAzureBlobAuthenticationMethod {
+func (e CollectorAzureBlobAuthenticationMethod4) ToPointer() *CollectorAzureBlobAuthenticationMethod4 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorAzureBlobAuthenticationMethod) IsExact() bool {
+func (e *CollectorAzureBlobAuthenticationMethod4) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "manual", "secret", "clientSecret", "clientCert":
@@ -57,51 +34,109 @@ func (e *CollectorAzureBlobAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type CollectorAzureBlobExtractor struct {
+type CollectorAzureBlobCertificate4 struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+}
+
+func (c CollectorAzureBlobCertificate4) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobCertificate4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"certificateName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobCertificate4) GetCertificateName() string {
+	if c == nil {
+		return ""
+	}
+	return c.CertificateName
+}
+
+// CollectorAzureBlobType4 - Collector type: azure_blob
+type CollectorAzureBlobType4 string
+
+const (
+	CollectorAzureBlobType4AzureBlob CollectorAzureBlobType4 = "azure_blob"
+)
+
+func (e CollectorAzureBlobType4) ToPointer() *CollectorAzureBlobType4 {
+	return &e
+}
+func (e *CollectorAzureBlobType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "azure_blob":
+		*e = CollectorAzureBlobType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorAzureBlobType4: %v", v)
+	}
+}
+
+type CollectorAzureBlobExtractor4 struct {
 	// A token from the template path, such as epoch
 	Key string `json:"key"`
 	// A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
 	Expression string `json:"expression"`
 }
 
-func (c CollectorAzureBlobExtractor) MarshalJSON() ([]byte, error) {
+func (c CollectorAzureBlobExtractor4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CollectorAzureBlobExtractor) UnmarshalJSON(data []byte) error {
+func (c *CollectorAzureBlobExtractor4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CollectorAzureBlobExtractor) GetKey() string {
+func (c *CollectorAzureBlobExtractor4) GetKey() string {
 	if c == nil {
 		return ""
 	}
 	return c.Key
 }
 
-func (c *CollectorAzureBlobExtractor) GetExpression() string {
+func (c *CollectorAzureBlobExtractor4) GetExpression() string {
 	if c == nil {
 		return ""
 	}
 	return c.Expression
 }
 
-type CollectorAzureBlob struct {
+type CollectorAzureBlobAzureBlob4 struct {
+	// Enter authentication data directly, or select a secret referencing your auth data
+	AuthType *CollectorAzureBlobAuthenticationMethod4 `default:"manual" json:"authType"`
+	// The name of your Azure storage account
+	StorageAccountName string `json:"storageAccountName"`
+	// The service principal's tenant ID
+	TenantID string `json:"tenantId"`
+	// The service principal's client ID
+	ClientID    string                         `json:"clientId"`
+	Certificate CollectorAzureBlobCertificate4 `json:"certificate"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud *string `json:"azureCloud,omitempty"`
+	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
 	// Collector type: azure_blob
-	Type CollectorAzureBlobType `json:"type"`
+	Type CollectorAzureBlobType4 `json:"type"`
 	// An optional predefined Destination that will be used to auto-populate Collector settings
 	OutputName *string `json:"outputName,omitempty"`
-	// Enter authentication data directly, or select a secret referencing your auth data
-	AuthType *CollectorAzureBlobAuthenticationMethod `default:"manual" json:"authType"`
 	// Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
 	ContainerName string `json:"containerName"`
 	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
 	Path *string `json:"path,omitempty"`
 	// Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
-	Extractors []CollectorAzureBlobExtractor `json:"extractors,omitempty"`
+	Extractors []CollectorAzureBlobExtractor4 `json:"extractors,omitempty"`
 	// Recurse through subdirectories
 	Recurse *bool `default:"true" json:"recurse"`
 	// Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
@@ -114,99 +149,1193 @@ type CollectorAzureBlob struct {
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitempty"`
+	// Text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Text secret containing the client secret
+	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
 }
 
-func (c CollectorAzureBlob) MarshalJSON() ([]byte, error) {
+func (c CollectorAzureBlobAzureBlob4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CollectorAzureBlob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "containerName"}); err != nil {
+func (c *CollectorAzureBlobAzureBlob4) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"storageAccountName", "tenantId", "clientId", "certificate", "type", "containerName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CollectorAzureBlob) GetType() CollectorAzureBlobType {
-	if c == nil {
-		return CollectorAzureBlobType("")
-	}
-	return c.Type
-}
-
-func (c *CollectorAzureBlob) GetOutputName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.OutputName
-}
-
-func (c *CollectorAzureBlob) GetAuthType() *CollectorAzureBlobAuthenticationMethod {
+func (c *CollectorAzureBlobAzureBlob4) GetAuthType() *CollectorAzureBlobAuthenticationMethod4 {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CollectorAzureBlob) GetContainerName() string {
+func (c *CollectorAzureBlobAzureBlob4) GetStorageAccountName() string {
+	if c == nil {
+		return ""
+	}
+	return c.StorageAccountName
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetTenantID() string {
+	if c == nil {
+		return ""
+	}
+	return c.TenantID
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetClientID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ClientID
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetCertificate() CollectorAzureBlobCertificate4 {
+	if c == nil {
+		return CollectorAzureBlobCertificate4{}
+	}
+	return c.Certificate
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetAzureCloud() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AzureCloud
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetEndpointSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.EndpointSuffix
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetType() CollectorAzureBlobType4 {
+	if c == nil {
+		return CollectorAzureBlobType4("")
+	}
+	return c.Type
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetOutputName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.OutputName
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetContainerName() string {
 	if c == nil {
 		return ""
 	}
 	return c.ContainerName
 }
 
-func (c *CollectorAzureBlob) GetPath() *string {
+func (c *CollectorAzureBlobAzureBlob4) GetPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Path
 }
 
-func (c *CollectorAzureBlob) GetExtractors() []CollectorAzureBlobExtractor {
+func (c *CollectorAzureBlobAzureBlob4) GetExtractors() []CollectorAzureBlobExtractor4 {
 	if c == nil {
 		return nil
 	}
 	return c.Extractors
 }
 
-func (c *CollectorAzureBlob) GetRecurse() *bool {
+func (c *CollectorAzureBlobAzureBlob4) GetRecurse() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Recurse
 }
 
-func (c *CollectorAzureBlob) GetIncludeMetadata() *bool {
+func (c *CollectorAzureBlobAzureBlob4) GetIncludeMetadata() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IncludeMetadata
 }
 
-func (c *CollectorAzureBlob) GetIncludeTags() *bool {
+func (c *CollectorAzureBlobAzureBlob4) GetIncludeTags() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IncludeTags
 }
 
-func (c *CollectorAzureBlob) GetMaxBatchSize() *float64 {
+func (c *CollectorAzureBlobAzureBlob4) GetMaxBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxBatchSize
 }
 
-func (c *CollectorAzureBlob) GetParquetChunkSizeMB() *float64 {
+func (c *CollectorAzureBlobAzureBlob4) GetParquetChunkSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkSizeMB
 }
 
-func (c *CollectorAzureBlob) GetParquetChunkDownloadTimeout() *float64 {
+func (c *CollectorAzureBlobAzureBlob4) GetParquetChunkDownloadTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkDownloadTimeout
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetConnectionString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionString
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorAzureBlobAzureBlob4) GetClientTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientTextSecret
+}
+
+// CollectorAzureBlobAuthenticationMethod3 - Enter authentication data directly, or select a secret referencing your auth data
+type CollectorAzureBlobAuthenticationMethod3 string
+
+const (
+	CollectorAzureBlobAuthenticationMethod3Manual       CollectorAzureBlobAuthenticationMethod3 = "manual"
+	CollectorAzureBlobAuthenticationMethod3Secret       CollectorAzureBlobAuthenticationMethod3 = "secret"
+	CollectorAzureBlobAuthenticationMethod3ClientSecret CollectorAzureBlobAuthenticationMethod3 = "clientSecret"
+	CollectorAzureBlobAuthenticationMethod3ClientCert   CollectorAzureBlobAuthenticationMethod3 = "clientCert"
+)
+
+func (e CollectorAzureBlobAuthenticationMethod3) ToPointer() *CollectorAzureBlobAuthenticationMethod3 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectorAzureBlobAuthenticationMethod3) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "clientSecret", "clientCert":
+			return true
+		}
+	}
+	return false
+}
+
+// CollectorAzureBlobType3 - Collector type: azure_blob
+type CollectorAzureBlobType3 string
+
+const (
+	CollectorAzureBlobType3AzureBlob CollectorAzureBlobType3 = "azure_blob"
+)
+
+func (e CollectorAzureBlobType3) ToPointer() *CollectorAzureBlobType3 {
+	return &e
+}
+func (e *CollectorAzureBlobType3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "azure_blob":
+		*e = CollectorAzureBlobType3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorAzureBlobType3: %v", v)
+	}
+}
+
+type CollectorAzureBlobExtractor3 struct {
+	// A token from the template path, such as epoch
+	Key string `json:"key"`
+	// A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
+	Expression string `json:"expression"`
+}
+
+func (c CollectorAzureBlobExtractor3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobExtractor3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobExtractor3) GetKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.Key
+}
+
+func (c *CollectorAzureBlobExtractor3) GetExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.Expression
+}
+
+type CollectorAzureBlobCertificate3 struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+}
+
+func (c CollectorAzureBlobCertificate3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobCertificate3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"certificateName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobCertificate3) GetCertificateName() string {
+	if c == nil {
+		return ""
+	}
+	return c.CertificateName
+}
+
+type CollectorAzureBlobAzureBlob3 struct {
+	// Enter authentication data directly, or select a secret referencing your auth data
+	AuthType *CollectorAzureBlobAuthenticationMethod3 `default:"manual" json:"authType"`
+	// The name of your Azure storage account
+	StorageAccountName string `json:"storageAccountName"`
+	// The service principal's tenant ID
+	TenantID string `json:"tenantId"`
+	// The service principal's client ID
+	ClientID string `json:"clientId"`
+	// Text secret containing the client secret
+	ClientTextSecret string `json:"clientTextSecret"`
+	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud *string `json:"azureCloud,omitempty"`
+	// Collector type: azure_blob
+	Type CollectorAzureBlobType3 `json:"type"`
+	// An optional predefined Destination that will be used to auto-populate Collector settings
+	OutputName *string `json:"outputName,omitempty"`
+	// Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
+	ContainerName string `json:"containerName"`
+	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+	Path *string `json:"path,omitempty"`
+	// Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
+	Extractors []CollectorAzureBlobExtractor3 `json:"extractors,omitempty"`
+	// Recurse through subdirectories
+	Recurse *bool `default:"true" json:"recurse"`
+	// Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
+	IncludeMetadata *bool `default:"true" json:"includeMetadata"`
+	// Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
+	IncludeTags *bool `default:"true" json:"includeTags"`
+	// Maximum number of metadata objects to batch before recording as results
+	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitempty"`
+	// Text secret
+	TextSecret  *string                         `json:"textSecret,omitempty"`
+	Certificate *CollectorAzureBlobCertificate3 `json:"certificate,omitempty"`
+}
+
+func (c CollectorAzureBlobAzureBlob3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobAzureBlob3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"storageAccountName", "tenantId", "clientId", "clientTextSecret", "type", "containerName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetAuthType() *CollectorAzureBlobAuthenticationMethod3 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetStorageAccountName() string {
+	if c == nil {
+		return ""
+	}
+	return c.StorageAccountName
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetTenantID() string {
+	if c == nil {
+		return ""
+	}
+	return c.TenantID
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetClientID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ClientID
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetClientTextSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.ClientTextSecret
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetEndpointSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.EndpointSuffix
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetAzureCloud() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AzureCloud
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetType() CollectorAzureBlobType3 {
+	if c == nil {
+		return CollectorAzureBlobType3("")
+	}
+	return c.Type
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetOutputName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.OutputName
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetContainerName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContainerName
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Path
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetExtractors() []CollectorAzureBlobExtractor3 {
+	if c == nil {
+		return nil
+	}
+	return c.Extractors
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetRecurse() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Recurse
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetIncludeMetadata() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IncludeMetadata
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetIncludeTags() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IncludeTags
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetMaxBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxBatchSize
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetParquetChunkSizeMB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkSizeMB
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetParquetChunkDownloadTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkDownloadTimeout
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetConnectionString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionString
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorAzureBlobAzureBlob3) GetCertificate() *CollectorAzureBlobCertificate3 {
+	if c == nil {
+		return nil
+	}
+	return c.Certificate
+}
+
+// CollectorAzureBlobAuthenticationMethod2 - Enter authentication data directly, or select a secret referencing your auth data
+type CollectorAzureBlobAuthenticationMethod2 string
+
+const (
+	CollectorAzureBlobAuthenticationMethod2Manual       CollectorAzureBlobAuthenticationMethod2 = "manual"
+	CollectorAzureBlobAuthenticationMethod2Secret       CollectorAzureBlobAuthenticationMethod2 = "secret"
+	CollectorAzureBlobAuthenticationMethod2ClientSecret CollectorAzureBlobAuthenticationMethod2 = "clientSecret"
+	CollectorAzureBlobAuthenticationMethod2ClientCert   CollectorAzureBlobAuthenticationMethod2 = "clientCert"
+)
+
+func (e CollectorAzureBlobAuthenticationMethod2) ToPointer() *CollectorAzureBlobAuthenticationMethod2 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectorAzureBlobAuthenticationMethod2) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "clientSecret", "clientCert":
+			return true
+		}
+	}
+	return false
+}
+
+// CollectorAzureBlobType2 - Collector type: azure_blob
+type CollectorAzureBlobType2 string
+
+const (
+	CollectorAzureBlobType2AzureBlob CollectorAzureBlobType2 = "azure_blob"
+)
+
+func (e CollectorAzureBlobType2) ToPointer() *CollectorAzureBlobType2 {
+	return &e
+}
+func (e *CollectorAzureBlobType2) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "azure_blob":
+		*e = CollectorAzureBlobType2(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorAzureBlobType2: %v", v)
+	}
+}
+
+type CollectorAzureBlobExtractor2 struct {
+	// A token from the template path, such as epoch
+	Key string `json:"key"`
+	// A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
+	Expression string `json:"expression"`
+}
+
+func (c CollectorAzureBlobExtractor2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobExtractor2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobExtractor2) GetKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.Key
+}
+
+func (c *CollectorAzureBlobExtractor2) GetExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.Expression
+}
+
+type CollectorAzureBlobCertificate2 struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+}
+
+func (c CollectorAzureBlobCertificate2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobCertificate2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"certificateName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobCertificate2) GetCertificateName() string {
+	if c == nil {
+		return ""
+	}
+	return c.CertificateName
+}
+
+type CollectorAzureBlobAzureBlob2 struct {
+	// Enter authentication data directly, or select a secret referencing your auth data
+	AuthType *CollectorAzureBlobAuthenticationMethod2 `default:"manual" json:"authType"`
+	// Text secret
+	TextSecret string `json:"textSecret"`
+	// Collector type: azure_blob
+	Type CollectorAzureBlobType2 `json:"type"`
+	// An optional predefined Destination that will be used to auto-populate Collector settings
+	OutputName *string `json:"outputName,omitempty"`
+	// Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
+	ContainerName string `json:"containerName"`
+	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+	Path *string `json:"path,omitempty"`
+	// Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
+	Extractors []CollectorAzureBlobExtractor2 `json:"extractors,omitempty"`
+	// Recurse through subdirectories
+	Recurse *bool `default:"true" json:"recurse"`
+	// Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
+	IncludeMetadata *bool `default:"true" json:"includeMetadata"`
+	// Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
+	IncludeTags *bool `default:"true" json:"includeTags"`
+	// Maximum number of metadata objects to batch before recording as results
+	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitempty"`
+	// The name of your Azure storage account
+	StorageAccountName *string `json:"storageAccountName,omitempty"`
+	// The service principal's tenant ID
+	TenantID *string `json:"tenantId,omitempty"`
+	// The service principal's client ID
+	ClientID *string `json:"clientId,omitempty"`
+	// Text secret containing the client secret
+	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud  *string                         `json:"azureCloud,omitempty"`
+	Certificate *CollectorAzureBlobCertificate2 `json:"certificate,omitempty"`
+}
+
+func (c CollectorAzureBlobAzureBlob2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobAzureBlob2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"textSecret", "type", "containerName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetAuthType() *CollectorAzureBlobAuthenticationMethod2 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetTextSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetType() CollectorAzureBlobType2 {
+	if c == nil {
+		return CollectorAzureBlobType2("")
+	}
+	return c.Type
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetOutputName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.OutputName
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetContainerName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContainerName
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Path
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetExtractors() []CollectorAzureBlobExtractor2 {
+	if c == nil {
+		return nil
+	}
+	return c.Extractors
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetRecurse() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Recurse
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetIncludeMetadata() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IncludeMetadata
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetIncludeTags() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IncludeTags
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetMaxBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxBatchSize
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetParquetChunkSizeMB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkSizeMB
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetParquetChunkDownloadTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkDownloadTimeout
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetConnectionString() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionString
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetStorageAccountName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StorageAccountName
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TenantID
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientID
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetClientTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientTextSecret
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetEndpointSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.EndpointSuffix
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetAzureCloud() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AzureCloud
+}
+
+func (c *CollectorAzureBlobAzureBlob2) GetCertificate() *CollectorAzureBlobCertificate2 {
+	if c == nil {
+		return nil
+	}
+	return c.Certificate
+}
+
+// CollectorAzureBlobAuthenticationMethod1 - Enter authentication data directly, or select a secret referencing your auth data
+type CollectorAzureBlobAuthenticationMethod1 string
+
+const (
+	CollectorAzureBlobAuthenticationMethod1Manual       CollectorAzureBlobAuthenticationMethod1 = "manual"
+	CollectorAzureBlobAuthenticationMethod1Secret       CollectorAzureBlobAuthenticationMethod1 = "secret"
+	CollectorAzureBlobAuthenticationMethod1ClientSecret CollectorAzureBlobAuthenticationMethod1 = "clientSecret"
+	CollectorAzureBlobAuthenticationMethod1ClientCert   CollectorAzureBlobAuthenticationMethod1 = "clientCert"
+)
+
+func (e CollectorAzureBlobAuthenticationMethod1) ToPointer() *CollectorAzureBlobAuthenticationMethod1 {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectorAzureBlobAuthenticationMethod1) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret", "clientSecret", "clientCert":
+			return true
+		}
+	}
+	return false
+}
+
+// CollectorAzureBlobType1 - Collector type: azure_blob
+type CollectorAzureBlobType1 string
+
+const (
+	CollectorAzureBlobType1AzureBlob CollectorAzureBlobType1 = "azure_blob"
+)
+
+func (e CollectorAzureBlobType1) ToPointer() *CollectorAzureBlobType1 {
+	return &e
+}
+func (e *CollectorAzureBlobType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "azure_blob":
+		*e = CollectorAzureBlobType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorAzureBlobType1: %v", v)
+	}
+}
+
+type CollectorAzureBlobExtractor1 struct {
+	// A token from the template path, such as epoch
+	Key string `json:"key"`
+	// A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
+	Expression string `json:"expression"`
+}
+
+func (c CollectorAzureBlobExtractor1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobExtractor1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobExtractor1) GetKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.Key
+}
+
+func (c *CollectorAzureBlobExtractor1) GetExpression() string {
+	if c == nil {
+		return ""
+	}
+	return c.Expression
+}
+
+type CollectorAzureBlobCertificate1 struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+}
+
+func (c CollectorAzureBlobCertificate1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobCertificate1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"certificateName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobCertificate1) GetCertificateName() string {
+	if c == nil {
+		return ""
+	}
+	return c.CertificateName
+}
+
+type CollectorAzureBlobAzureBlob1 struct {
+	// Enter authentication data directly, or select a secret referencing your auth data
+	AuthType *CollectorAzureBlobAuthenticationMethod1 `default:"manual" json:"authType"`
+	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString string `json:"connectionString"`
+	// Collector type: azure_blob
+	Type CollectorAzureBlobType1 `json:"type"`
+	// An optional predefined Destination that will be used to auto-populate Collector settings
+	OutputName *string `json:"outputName,omitempty"`
+	// Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
+	ContainerName string `json:"containerName"`
+	// The directory from which to collect data. Templating is supported, such as myDir/${datacenter}/${host}/${app}/. Time-based tokens are supported, such as myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
+	Path *string `json:"path,omitempty"`
+	// Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
+	Extractors []CollectorAzureBlobExtractor1 `json:"extractors,omitempty"`
+	// Recurse through subdirectories
+	Recurse *bool `default:"true" json:"recurse"`
+	// Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
+	IncludeMetadata *bool `default:"true" json:"includeMetadata"`
+	// Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
+	IncludeTags *bool `default:"true" json:"includeTags"`
+	// Maximum number of metadata objects to batch before recording as results
+	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	// Text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// The name of your Azure storage account
+	StorageAccountName *string `json:"storageAccountName,omitempty"`
+	// The service principal's tenant ID
+	TenantID *string `json:"tenantId,omitempty"`
+	// The service principal's client ID
+	ClientID *string `json:"clientId,omitempty"`
+	// Text secret containing the client secret
+	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
+	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud  *string                         `json:"azureCloud,omitempty"`
+	Certificate *CollectorAzureBlobCertificate1 `json:"certificate,omitempty"`
+}
+
+func (c CollectorAzureBlobAzureBlob1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorAzureBlobAzureBlob1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"connectionString", "type", "containerName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetAuthType() *CollectorAzureBlobAuthenticationMethod1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthType
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetConnectionString() string {
+	if c == nil {
+		return ""
+	}
+	return c.ConnectionString
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetType() CollectorAzureBlobType1 {
+	if c == nil {
+		return CollectorAzureBlobType1("")
+	}
+	return c.Type
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetOutputName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.OutputName
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetContainerName() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContainerName
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Path
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetExtractors() []CollectorAzureBlobExtractor1 {
+	if c == nil {
+		return nil
+	}
+	return c.Extractors
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetRecurse() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Recurse
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetIncludeMetadata() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IncludeMetadata
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetIncludeTags() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IncludeTags
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetMaxBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxBatchSize
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetParquetChunkSizeMB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkSizeMB
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetParquetChunkDownloadTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetChunkDownloadTimeout
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetStorageAccountName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StorageAccountName
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TenantID
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientID
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetClientTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientTextSecret
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetEndpointSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.EndpointSuffix
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetAzureCloud() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AzureCloud
+}
+
+func (c *CollectorAzureBlobAzureBlob1) GetCertificate() *CollectorAzureBlobCertificate1 {
+	if c == nil {
+		return nil
+	}
+	return c.Certificate
+}
+
+type CollectorAzureBlobType string
+
+const (
+	CollectorAzureBlobTypeCollectorAzureBlobAzureBlob1 CollectorAzureBlobType = "CollectorAzureBlob_AzureBlob_1"
+	CollectorAzureBlobTypeCollectorAzureBlobAzureBlob2 CollectorAzureBlobType = "CollectorAzureBlob_AzureBlob_2"
+	CollectorAzureBlobTypeCollectorAzureBlobAzureBlob3 CollectorAzureBlobType = "CollectorAzureBlob_AzureBlob_3"
+	CollectorAzureBlobTypeCollectorAzureBlobAzureBlob4 CollectorAzureBlobType = "CollectorAzureBlob_AzureBlob_4"
+)
+
+type CollectorAzureBlob struct {
+	CollectorAzureBlobAzureBlob1 *CollectorAzureBlobAzureBlob1 `queryParam:"inline,name=CollectorAzureBlob" union:"member"`
+	CollectorAzureBlobAzureBlob2 *CollectorAzureBlobAzureBlob2 `queryParam:"inline,name=CollectorAzureBlob" union:"member"`
+	CollectorAzureBlobAzureBlob3 *CollectorAzureBlobAzureBlob3 `queryParam:"inline,name=CollectorAzureBlob" union:"member"`
+	CollectorAzureBlobAzureBlob4 *CollectorAzureBlobAzureBlob4 `queryParam:"inline,name=CollectorAzureBlob" union:"member"`
+
+	Type CollectorAzureBlobType
+}
+
+func CreateCollectorAzureBlobCollectorAzureBlobAzureBlob1(collectorAzureBlobAzureBlob1 CollectorAzureBlobAzureBlob1) CollectorAzureBlob {
+	typ := CollectorAzureBlobTypeCollectorAzureBlobAzureBlob1
+
+	return CollectorAzureBlob{
+		CollectorAzureBlobAzureBlob1: &collectorAzureBlobAzureBlob1,
+		Type:                         typ,
+	}
+}
+
+func CreateCollectorAzureBlobCollectorAzureBlobAzureBlob2(collectorAzureBlobAzureBlob2 CollectorAzureBlobAzureBlob2) CollectorAzureBlob {
+	typ := CollectorAzureBlobTypeCollectorAzureBlobAzureBlob2
+
+	return CollectorAzureBlob{
+		CollectorAzureBlobAzureBlob2: &collectorAzureBlobAzureBlob2,
+		Type:                         typ,
+	}
+}
+
+func CreateCollectorAzureBlobCollectorAzureBlobAzureBlob3(collectorAzureBlobAzureBlob3 CollectorAzureBlobAzureBlob3) CollectorAzureBlob {
+	typ := CollectorAzureBlobTypeCollectorAzureBlobAzureBlob3
+
+	return CollectorAzureBlob{
+		CollectorAzureBlobAzureBlob3: &collectorAzureBlobAzureBlob3,
+		Type:                         typ,
+	}
+}
+
+func CreateCollectorAzureBlobCollectorAzureBlobAzureBlob4(collectorAzureBlobAzureBlob4 CollectorAzureBlobAzureBlob4) CollectorAzureBlob {
+	typ := CollectorAzureBlobTypeCollectorAzureBlobAzureBlob4
+
+	return CollectorAzureBlob{
+		CollectorAzureBlobAzureBlob4: &collectorAzureBlobAzureBlob4,
+		Type:                         typ,
+	}
+}
+
+func (u *CollectorAzureBlob) UnmarshalJSON(data []byte) error {
+
+	var collectorAzureBlobAzureBlob3 CollectorAzureBlobAzureBlob3 = CollectorAzureBlobAzureBlob3{}
+	if err := utils.UnmarshalJSON(data, &collectorAzureBlobAzureBlob3, "", true, nil); err == nil {
+		u.CollectorAzureBlobAzureBlob3 = &collectorAzureBlobAzureBlob3
+		u.Type = CollectorAzureBlobTypeCollectorAzureBlobAzureBlob3
+		return nil
+	}
+
+	var collectorAzureBlobAzureBlob4 CollectorAzureBlobAzureBlob4 = CollectorAzureBlobAzureBlob4{}
+	if err := utils.UnmarshalJSON(data, &collectorAzureBlobAzureBlob4, "", true, nil); err == nil {
+		u.CollectorAzureBlobAzureBlob4 = &collectorAzureBlobAzureBlob4
+		u.Type = CollectorAzureBlobTypeCollectorAzureBlobAzureBlob4
+		return nil
+	}
+
+	var collectorAzureBlobAzureBlob1 CollectorAzureBlobAzureBlob1 = CollectorAzureBlobAzureBlob1{}
+	if err := utils.UnmarshalJSON(data, &collectorAzureBlobAzureBlob1, "", true, nil); err == nil {
+		u.CollectorAzureBlobAzureBlob1 = &collectorAzureBlobAzureBlob1
+		u.Type = CollectorAzureBlobTypeCollectorAzureBlobAzureBlob1
+		return nil
+	}
+
+	var collectorAzureBlobAzureBlob2 CollectorAzureBlobAzureBlob2 = CollectorAzureBlobAzureBlob2{}
+	if err := utils.UnmarshalJSON(data, &collectorAzureBlobAzureBlob2, "", true, nil); err == nil {
+		u.CollectorAzureBlobAzureBlob2 = &collectorAzureBlobAzureBlob2
+		u.Type = CollectorAzureBlobTypeCollectorAzureBlobAzureBlob2
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CollectorAzureBlob", string(data))
+}
+
+func (u CollectorAzureBlob) MarshalJSON() ([]byte, error) {
+	if u.CollectorAzureBlobAzureBlob1 != nil {
+		return utils.MarshalJSON(u.CollectorAzureBlobAzureBlob1, "", true)
+	}
+
+	if u.CollectorAzureBlobAzureBlob2 != nil {
+		return utils.MarshalJSON(u.CollectorAzureBlobAzureBlob2, "", true)
+	}
+
+	if u.CollectorAzureBlobAzureBlob3 != nil {
+		return utils.MarshalJSON(u.CollectorAzureBlobAzureBlob3, "", true)
+	}
+
+	if u.CollectorAzureBlobAzureBlob4 != nil {
+		return utils.MarshalJSON(u.CollectorAzureBlobAzureBlob4, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type CollectorAzureBlob: all fields are null")
 }
