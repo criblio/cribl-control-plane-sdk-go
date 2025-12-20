@@ -34,7 +34,7 @@ const (
 	PipelineFunctionConfInputTypeGenStats                  PipelineFunctionConfInputType = "gen_stats"
 	PipelineFunctionConfInputTypeGeoip                     PipelineFunctionConfInputType = "geoip"
 	PipelineFunctionConfInputTypeGrok                      PipelineFunctionConfInputType = "grok"
-	PipelineFunctionConfInputTypeHandlebar                 PipelineFunctionConfInputType = "handlebar"
+	PipelineFunctionConfInputTypeHandlebars                PipelineFunctionConfInputType = "handlebars"
 	PipelineFunctionConfInputTypeJoin                      PipelineFunctionConfInputType = "join"
 	PipelineFunctionConfInputTypeJSONUnroll                PipelineFunctionConfInputType = "json_unroll"
 	PipelineFunctionConfInputTypeLakeExport                PipelineFunctionConfInputType = "lake_export"
@@ -101,7 +101,7 @@ type PipelineFunctionConfInput struct {
 	PipelineFunctionGenStats                  *PipelineFunctionGenStats                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionGeoip                     *PipelineFunctionGeoip                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionGrok                      *PipelineFunctionGrok                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
-	PipelineFunctionHandlebar                 *PipelineFunctionHandlebar                 `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionHandlebars                *PipelineFunctionHandlebars                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionJoin                      *PipelineFunctionJoin                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionJSONUnroll                *PipelineFunctionJSONUnroll                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionLakeExport                *PipelineFunctionLakeExport                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
@@ -411,15 +411,15 @@ func CreatePipelineFunctionConfInputGrok(grok PipelineFunctionGrok) PipelineFunc
 	}
 }
 
-func CreatePipelineFunctionConfInputHandlebar(handlebar PipelineFunctionHandlebar) PipelineFunctionConfInput {
-	typ := PipelineFunctionConfInputTypeHandlebar
+func CreatePipelineFunctionConfInputHandlebars(handlebars PipelineFunctionHandlebars) PipelineFunctionConfInput {
+	typ := PipelineFunctionConfInputTypeHandlebars
 
-	typStr := PipelineFunctionHandlebarID(typ)
-	handlebar.ID = typStr
+	typStr := PipelineFunctionHandlebarsID(typ)
+	handlebars.ID = typStr
 
 	return PipelineFunctionConfInput{
-		PipelineFunctionHandlebar: &handlebar,
-		Type:                      typ,
+		PipelineFunctionHandlebars: &handlebars,
+		Type:                       typ,
 	}
 }
 
@@ -1125,14 +1125,14 @@ func (u *PipelineFunctionConfInput) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionGrok = pipelineFunctionGrok
 		u.Type = PipelineFunctionConfInputTypeGrok
 		return nil
-	case "handlebar":
-		pipelineFunctionHandlebar := new(PipelineFunctionHandlebar)
-		if err := utils.UnmarshalJSON(data, &pipelineFunctionHandlebar, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == handlebar) type PipelineFunctionHandlebar within PipelineFunctionConfInput: %w", string(data), err)
+	case "handlebars":
+		pipelineFunctionHandlebars := new(PipelineFunctionHandlebars)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionHandlebars, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == handlebars) type PipelineFunctionHandlebars within PipelineFunctionConfInput: %w", string(data), err)
 		}
 
-		u.PipelineFunctionHandlebar = pipelineFunctionHandlebar
-		u.Type = PipelineFunctionConfInputTypeHandlebar
+		u.PipelineFunctionHandlebars = pipelineFunctionHandlebars
+		u.Type = PipelineFunctionConfInputTypeHandlebars
 		return nil
 	case "join":
 		pipelineFunctionJoin := new(PipelineFunctionJoin)
@@ -1597,8 +1597,8 @@ func (u PipelineFunctionConfInput) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.PipelineFunctionGrok, "", true)
 	}
 
-	if u.PipelineFunctionHandlebar != nil {
-		return utils.MarshalJSON(u.PipelineFunctionHandlebar, "", true)
+	if u.PipelineFunctionHandlebars != nil {
+		return utils.MarshalJSON(u.PipelineFunctionHandlebars, "", true)
 	}
 
 	if u.PipelineFunctionJoin != nil {
