@@ -31,6 +31,670 @@ func (e *OutputMskType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputMskAcknowledgments - Control the number of required acknowledgments.
+type OutputMskAcknowledgments int64
+
+const (
+	// OutputMskAcknowledgmentsOne Leader
+	OutputMskAcknowledgmentsOne OutputMskAcknowledgments = 1
+	// OutputMskAcknowledgmentsZero None
+	OutputMskAcknowledgmentsZero OutputMskAcknowledgments = 0
+	// OutputMskAcknowledgmentsMinus1 All
+	OutputMskAcknowledgmentsMinus1 OutputMskAcknowledgments = -1
+)
+
+func (e OutputMskAcknowledgments) ToPointer() *OutputMskAcknowledgments {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskAcknowledgments) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case 1, 0, -1:
+			return true
+		}
+	}
+	return false
+}
+
+// OutputMskRecordDataFormat - Format to use to serialize events before writing to Kafka.
+type OutputMskRecordDataFormat string
+
+const (
+	// OutputMskRecordDataFormatJSON JSON
+	OutputMskRecordDataFormatJSON OutputMskRecordDataFormat = "json"
+	// OutputMskRecordDataFormatRaw Field _raw
+	OutputMskRecordDataFormatRaw OutputMskRecordDataFormat = "raw"
+	// OutputMskRecordDataFormatProtobuf Protobuf
+	OutputMskRecordDataFormatProtobuf OutputMskRecordDataFormat = "protobuf"
+)
+
+func (e OutputMskRecordDataFormat) ToPointer() *OutputMskRecordDataFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskRecordDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "protobuf":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputMskCompression - Codec to use to compress the data before sending to Kafka
+type OutputMskCompression string
+
+const (
+	// OutputMskCompressionNone None
+	OutputMskCompressionNone OutputMskCompression = "none"
+	// OutputMskCompressionGzip Gzip
+	OutputMskCompressionGzip OutputMskCompression = "gzip"
+	// OutputMskCompressionSnappy Snappy
+	OutputMskCompressionSnappy OutputMskCompression = "snappy"
+	// OutputMskCompressionLz4 LZ4
+	OutputMskCompressionLz4 OutputMskCompression = "lz4"
+	// OutputMskCompressionZstd ZSTD
+	OutputMskCompressionZstd OutputMskCompression = "zstd"
+)
+
+func (e OutputMskCompression) ToPointer() *OutputMskCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip", "snappy", "lz4", "zstd":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputMskAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
+type OutputMskAuth struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+}
+
+func (o OutputMskAuth) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMskAuth) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMskAuth) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *OutputMskAuth) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+type OutputMskKafkaSchemaRegistryMinimumTLSVersion string
+
+const (
+	OutputMskKafkaSchemaRegistryMinimumTLSVersionTlSv1  OutputMskKafkaSchemaRegistryMinimumTLSVersion = "TLSv1"
+	OutputMskKafkaSchemaRegistryMinimumTLSVersionTlSv11 OutputMskKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.1"
+	OutputMskKafkaSchemaRegistryMinimumTLSVersionTlSv12 OutputMskKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.2"
+	OutputMskKafkaSchemaRegistryMinimumTLSVersionTlSv13 OutputMskKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputMskKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *OutputMskKafkaSchemaRegistryMinimumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputMskKafkaSchemaRegistryMaximumTLSVersion string
+
+const (
+	OutputMskKafkaSchemaRegistryMaximumTLSVersionTlSv1  OutputMskKafkaSchemaRegistryMaximumTLSVersion = "TLSv1"
+	OutputMskKafkaSchemaRegistryMaximumTLSVersionTlSv11 OutputMskKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.1"
+	OutputMskKafkaSchemaRegistryMaximumTLSVersionTlSv12 OutputMskKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.2"
+	OutputMskKafkaSchemaRegistryMaximumTLSVersionTlSv13 OutputMskKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputMskKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *OutputMskKafkaSchemaRegistryMaximumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputMskKafkaSchemaRegistryTLSSettingsClientSide struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+	Servername *string `json:"servername,omitempty"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+	CaPath *string `json:"caPath,omitempty"`
+	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string                                        `json:"passphrase,omitempty"`
+	MinVersion *OutputMskKafkaSchemaRegistryMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *OutputMskKafkaSchemaRegistryMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (o OutputMskKafkaSchemaRegistryTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetServername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Servername
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetCertificateName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertificateName
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetCaPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CaPath
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetPrivKeyPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PrivKeyPath
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetCertPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertPath
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetPassphrase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Passphrase
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetMinVersion() *OutputMskKafkaSchemaRegistryMinimumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MinVersion
+}
+
+func (o *OutputMskKafkaSchemaRegistryTLSSettingsClientSide) GetMaxVersion() *OutputMskKafkaSchemaRegistryMaximumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MaxVersion
+}
+
+type OutputMskKafkaSchemaRegistryAuthentication struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
+	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
+	// Maximum time to wait for a Schema Registry connection to complete successfully
+	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
+	// Maximum time to wait for the Schema Registry to respond to a request
+	RequestTimeout *float64 `default:"30000" json:"requestTimeout"`
+	// Maximum number of times to try fetching schemas from the Schema Registry
+	MaxRetries *float64 `default:"1" json:"maxRetries"`
+	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
+	Auth *OutputMskAuth                                     `json:"auth,omitempty"`
+	TLS  *OutputMskKafkaSchemaRegistryTLSSettingsClientSide `json:"tls,omitempty"`
+	// Used when __keySchemaIdOut is not present, to transform key values, leave blank if key transformation is not required by default.
+	DefaultKeySchemaID *float64 `json:"defaultKeySchemaId,omitempty"`
+	// Used when __valueSchemaIdOut is not present, to transform _raw, leave blank if value transformation is not required by default.
+	DefaultValueSchemaID *float64 `json:"defaultValueSchemaId,omitempty"`
+}
+
+func (o OutputMskKafkaSchemaRegistryAuthentication) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SchemaRegistryURL
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetRequestTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.RequestTimeout
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetMaxRetries() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRetries
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetAuth() *OutputMskAuth {
+	if o == nil {
+		return nil
+	}
+	return o.Auth
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetTLS() *OutputMskKafkaSchemaRegistryTLSSettingsClientSide {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetDefaultKeySchemaID() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DefaultKeySchemaID
+}
+
+func (o *OutputMskKafkaSchemaRegistryAuthentication) GetDefaultValueSchemaID() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DefaultValueSchemaID
+}
+
+// OutputMskAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
+type OutputMskAuthenticationMethod string
+
+const (
+	// OutputMskAuthenticationMethodAuto Auto
+	OutputMskAuthenticationMethodAuto OutputMskAuthenticationMethod = "auto"
+	// OutputMskAuthenticationMethodManual Manual
+	OutputMskAuthenticationMethodManual OutputMskAuthenticationMethod = "manual"
+	// OutputMskAuthenticationMethodSecret Secret Key pair
+	OutputMskAuthenticationMethodSecret OutputMskAuthenticationMethod = "secret"
+)
+
+func (e OutputMskAuthenticationMethod) ToPointer() *OutputMskAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputMskSignatureVersion - Signature version to use for signing MSK cluster requests
+type OutputMskSignatureVersion string
+
+const (
+	OutputMskSignatureVersionV2 OutputMskSignatureVersion = "v2"
+	OutputMskSignatureVersionV4 OutputMskSignatureVersion = "v4"
+)
+
+func (e OutputMskSignatureVersion) ToPointer() *OutputMskSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputMskMinimumTLSVersion string
+
+const (
+	OutputMskMinimumTLSVersionTlSv1  OutputMskMinimumTLSVersion = "TLSv1"
+	OutputMskMinimumTLSVersionTlSv11 OutputMskMinimumTLSVersion = "TLSv1.1"
+	OutputMskMinimumTLSVersionTlSv12 OutputMskMinimumTLSVersion = "TLSv1.2"
+	OutputMskMinimumTLSVersionTlSv13 OutputMskMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputMskMinimumTLSVersion) ToPointer() *OutputMskMinimumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputMskMaximumTLSVersion string
+
+const (
+	OutputMskMaximumTLSVersionTlSv1  OutputMskMaximumTLSVersion = "TLSv1"
+	OutputMskMaximumTLSVersionTlSv11 OutputMskMaximumTLSVersion = "TLSv1.1"
+	OutputMskMaximumTLSVersionTlSv12 OutputMskMaximumTLSVersion = "TLSv1.2"
+	OutputMskMaximumTLSVersionTlSv13 OutputMskMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputMskMaximumTLSVersion) ToPointer() *OutputMskMaximumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputMskTLSSettingsClientSide struct {
+	Disabled *bool `default:"false" json:"disabled"`
+	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+	Servername *string `json:"servername,omitempty"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+	CaPath *string `json:"caPath,omitempty"`
+	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string                     `json:"passphrase,omitempty"`
+	MinVersion *OutputMskMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *OutputMskMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (o OutputMskTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputMskTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetServername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Servername
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetCertificateName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertificateName
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetCaPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CaPath
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetPrivKeyPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PrivKeyPath
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetCertPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertPath
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetPassphrase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Passphrase
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetMinVersion() *OutputMskMinimumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MinVersion
+}
+
+func (o *OutputMskTLSSettingsClientSide) GetMaxVersion() *OutputMskMaximumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MaxVersion
+}
+
+// OutputMskBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputMskBackpressureBehavior string
+
+const (
+	// OutputMskBackpressureBehaviorBlock Block
+	OutputMskBackpressureBehaviorBlock OutputMskBackpressureBehavior = "block"
+	// OutputMskBackpressureBehaviorDrop Drop
+	OutputMskBackpressureBehaviorDrop OutputMskBackpressureBehavior = "drop"
+	// OutputMskBackpressureBehaviorQueue Persistent Queue
+	OutputMskBackpressureBehaviorQueue OutputMskBackpressureBehavior = "queue"
+)
+
+func (e OutputMskBackpressureBehavior) ToPointer() *OutputMskBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputMskMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputMskMode string
+
+const (
+	// OutputMskModeError Error
+	OutputMskModeError OutputMskMode = "error"
+	// OutputMskModeAlways Backpressure
+	OutputMskModeAlways OutputMskMode = "always"
+	// OutputMskModeBackpressure Always On
+	OutputMskModeBackpressure OutputMskMode = "backpressure"
+)
+
+func (e OutputMskMode) ToPointer() *OutputMskMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputMskPqCompressCompression - Codec to use to compress the persisted data
+type OutputMskPqCompressCompression string
+
+const (
+	// OutputMskPqCompressCompressionNone None
+	OutputMskPqCompressCompressionNone OutputMskPqCompressCompression = "none"
+	// OutputMskPqCompressCompressionGzip Gzip
+	OutputMskPqCompressCompressionGzip OutputMskPqCompressCompression = "gzip"
+)
+
+func (e OutputMskPqCompressCompression) ToPointer() *OutputMskPqCompressCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputMskQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputMskQueueFullBehavior string
+
+const (
+	// OutputMskQueueFullBehaviorBlock Block
+	OutputMskQueueFullBehaviorBlock OutputMskQueueFullBehavior = "block"
+	// OutputMskQueueFullBehaviorDrop Drop new data
+	OutputMskQueueFullBehaviorDrop OutputMskQueueFullBehavior = "drop"
+)
+
+func (e OutputMskQueueFullBehavior) ToPointer() *OutputMskQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputMskQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputMskPqControls struct {
 }
 
@@ -62,18 +726,18 @@ type OutputMsk struct {
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *AcknowledgmentsOptions1 `default:"1" json:"ack"`
+	Ack *OutputMskAcknowledgments `default:"1" json:"ack"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *RecordDataFormatOptions1 `default:"json" json:"format"`
+	Format *OutputMskRecordDataFormat `default:"json" json:"format"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *CompressionOptions3 `default:"gzip" json:"compression"`
+	Compression *OutputMskCompression `default:"gzip" json:"compression"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
 	MaxRecordSizeKB *float64 `default:"768" json:"maxRecordSizeKB"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `default:"1000" json:"flushEventCount"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                `default:"1" json:"flushPeriodSec"`
-	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitempty"`
+	FlushPeriodSec      *float64                                    `default:"1" json:"flushPeriodSec"`
+	KafkaSchemaRegistry *OutputMskKafkaSchemaRegistryAuthentication `json:"kafkaSchemaRegistry,omitempty"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -91,14 +755,14 @@ type OutputMsk struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *OutputMskAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                        `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *OutputMskSignatureVersion `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -110,12 +774,12 @@ type OutputMsk struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                    `default:"3600" json:"durationSeconds"`
-	TLS             *TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	DurationSeconds *float64                        `default:"3600" json:"durationSeconds"`
+	TLS             *OutputMskTLSSettingsClientSide `json:"tls,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
-	Description    *string                      `json:"description,omitempty"`
-	AwsAPIKey      *string                      `json:"awsApiKey,omitempty"`
+	OnBackpressure *OutputMskBackpressureBehavior `default:"block" json:"onBackpressure"`
+	Description    *string                        `json:"description,omitempty"`
+	AwsAPIKey      *string                        `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Select a set of Protobuf definitions for the events you want to send
@@ -127,7 +791,7 @@ type OutputMsk struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputMskMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -139,10 +803,10 @@ type OutputMsk struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputMskPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputMskPqControls      `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputMskQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputMskPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputMsk) MarshalJSON() ([]byte, error) {
@@ -212,21 +876,21 @@ func (o *OutputMsk) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputMsk) GetAck() *AcknowledgmentsOptions1 {
+func (o *OutputMsk) GetAck() *OutputMskAcknowledgments {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputMsk) GetFormat() *RecordDataFormatOptions1 {
+func (o *OutputMsk) GetFormat() *OutputMskRecordDataFormat {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputMsk) GetCompression() *CompressionOptions3 {
+func (o *OutputMsk) GetCompression() *OutputMskCompression {
 	if o == nil {
 		return nil
 	}
@@ -254,7 +918,7 @@ func (o *OutputMsk) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputMsk) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType1 {
+func (o *OutputMsk) GetKafkaSchemaRegistry() *OutputMskKafkaSchemaRegistryAuthentication {
 	if o == nil {
 		return nil
 	}
@@ -317,7 +981,7 @@ func (o *OutputMsk) GetReauthenticationThreshold() *float64 {
 	return o.ReauthenticationThreshold
 }
 
-func (o *OutputMsk) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (o *OutputMsk) GetAwsAuthenticationMethod() *OutputMskAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
@@ -345,7 +1009,7 @@ func (o *OutputMsk) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputMsk) GetSignatureVersion() *SignatureVersionOptions1 {
+func (o *OutputMsk) GetSignatureVersion() *OutputMskSignatureVersion {
 	if o == nil {
 		return nil
 	}
@@ -394,14 +1058,14 @@ func (o *OutputMsk) GetDurationSeconds() *float64 {
 	return o.DurationSeconds
 }
 
-func (o *OutputMsk) GetTLS() *TLSSettingsClientSideType1 {
+func (o *OutputMsk) GetTLS() *OutputMskTLSSettingsClientSide {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputMsk) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputMsk) GetOnBackpressure() *OutputMskBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -457,7 +1121,7 @@ func (o *OutputMsk) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputMsk) GetPqMode() *ModeOptions {
+func (o *OutputMsk) GetPqMode() *OutputMskMode {
 	if o == nil {
 		return nil
 	}
@@ -499,14 +1163,14 @@ func (o *OutputMsk) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputMsk) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputMsk) GetPqCompress() *OutputMskPqCompressCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputMsk) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputMsk) GetPqOnBackpressure() *OutputMskQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

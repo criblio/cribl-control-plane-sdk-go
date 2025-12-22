@@ -110,27 +110,27 @@ func main() {
             Streamtags: []string{
                 "<value 1>",
             },
-            TLS: &components.TLSSettingsClientSideTypeKafkaSchemaRegistry{
+            TLS: &operations.TLSSettingsClientSideTcpjson{
                 Servername: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
-                MinVersion: components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv12.ToPointer(),
-                MaxVersion: components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv12.ToPointer(),
+                MinVersion: operations.CreateOutputMinimumTLSVersionTcpjsonTlSv12.ToPointer(),
+                MaxVersion: operations.CreateOutputMaximumTLSVersionTcpjsonTlSv12.ToPointer(),
             },
             Description: criblcontrolplanesdkgo.Pointer("hourly about into"),
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090),
-            Hosts: []components.ItemsTypeHosts{
-                components.ItemsTypeHosts{
+            Hosts: []operations.HostTcpjson{
+                operations.HostTcpjson{
                     Host: "chilly-exterior.net",
                     Port: 6458.17,
                     Servername: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             },
-            PqControls: &operations.PqControlsTcpjson{},
+            PqControls: &operations.CreateOutputPqControlsTcpjson{},
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))

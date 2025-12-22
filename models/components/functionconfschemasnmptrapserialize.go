@@ -6,11 +6,45 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol string
+
+const (
+	// FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolNone None
+	FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolNone FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol = "none"
+	// FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolMd5 MD5
+	FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolMd5 FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol = "md5"
+	// FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha SHA1
+	FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol = "sha"
+	// FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha224 SHA224
+	FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha224 FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol = "sha224"
+	// FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha256 SHA256
+	FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha256 FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol = "sha256"
+	// FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha384 SHA384
+	FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha384 FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol = "sha384"
+	// FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha512 SHA512
+	FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocolSha512 FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol = "sha512"
+)
+
+func (e FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol) ToPointer() *FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
+			return true
+		}
+	}
+	return false
+}
+
 type FunctionConfSchemaSnmpTrapSerializeV3User struct {
-	Name         *string                              `json:"name,omitempty"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `default:"none" json:"authProtocol"`
-	AuthKey      any                                  `json:"authKey,omitempty"`
-	PrivProtocol *string                              `default:"none" json:"privProtocol"`
+	Name         *string                                                    `json:"name,omitempty"`
+	AuthProtocol *FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol `default:"none" json:"authProtocol"`
+	AuthKey      any                                                        `json:"authKey,omitempty"`
+	PrivProtocol *string                                                    `default:"none" json:"privProtocol"`
 }
 
 func (f FunctionConfSchemaSnmpTrapSerializeV3User) MarshalJSON() ([]byte, error) {
@@ -31,7 +65,7 @@ func (f *FunctionConfSchemaSnmpTrapSerializeV3User) GetName() *string {
 	return f.Name
 }
 
-func (f *FunctionConfSchemaSnmpTrapSerializeV3User) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+func (f *FunctionConfSchemaSnmpTrapSerializeV3User) GetAuthProtocol() *FunctionConfSchemaSnmpTrapSerializeAuthenticationProtocol {
 	if f == nil {
 		return nil
 	}

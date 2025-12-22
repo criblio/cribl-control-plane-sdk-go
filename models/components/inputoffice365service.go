@@ -31,6 +31,270 @@ func (e *InputOffice365ServiceType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputOffice365ServiceConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputOffice365ServiceConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365ServiceConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOffice365ServiceConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOffice365ServiceConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputOffice365ServiceMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputOffice365ServiceMode string
+
+const (
+	// InputOffice365ServiceModeSmart Smart
+	InputOffice365ServiceModeSmart InputOffice365ServiceMode = "smart"
+	// InputOffice365ServiceModeAlways Always On
+	InputOffice365ServiceModeAlways InputOffice365ServiceMode = "always"
+)
+
+func (e InputOffice365ServiceMode) ToPointer() *InputOffice365ServiceMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputOffice365ServiceCompression - Codec to use to compress the persisted data
+type InputOffice365ServiceCompression string
+
+const (
+	// InputOffice365ServiceCompressionNone None
+	InputOffice365ServiceCompressionNone InputOffice365ServiceCompression = "none"
+	// InputOffice365ServiceCompressionGzip Gzip
+	InputOffice365ServiceCompressionGzip InputOffice365ServiceCompression = "gzip"
+)
+
+func (e InputOffice365ServiceCompression) ToPointer() *InputOffice365ServiceCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputOffice365ServicePqControls struct {
+}
+
+func (i InputOffice365ServicePqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365ServicePqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputOffice365ServicePq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputOffice365ServiceMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputOffice365ServiceCompression `default:"none" json:"compress"`
+	PqControls *InputOffice365ServicePqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputOffice365ServicePq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365ServicePq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOffice365ServicePq) GetMode() *InputOffice365ServiceMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputOffice365ServicePq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputOffice365ServicePq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputOffice365ServicePq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputOffice365ServicePq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputOffice365ServicePq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputOffice365ServicePq) GetCompress() *InputOffice365ServiceCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputOffice365ServicePq) GetPqControls() *InputOffice365ServicePqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+// InputOffice365ServiceSubscriptionPlan - Office 365 subscription plan for your organization, typically Office 365 Enterprise
+type InputOffice365ServiceSubscriptionPlan string
+
+const (
+	// InputOffice365ServiceSubscriptionPlanEnterpriseGcc Office 365 Enterprise
+	InputOffice365ServiceSubscriptionPlanEnterpriseGcc InputOffice365ServiceSubscriptionPlan = "enterprise_gcc"
+	// InputOffice365ServiceSubscriptionPlanGcc Office 365 GCC
+	InputOffice365ServiceSubscriptionPlanGcc InputOffice365ServiceSubscriptionPlan = "gcc"
+	// InputOffice365ServiceSubscriptionPlanGccHigh Office 365 GCC High
+	InputOffice365ServiceSubscriptionPlanGccHigh InputOffice365ServiceSubscriptionPlan = "gcc_high"
+	// InputOffice365ServiceSubscriptionPlanDod Office 365 DoD
+	InputOffice365ServiceSubscriptionPlanDod InputOffice365ServiceSubscriptionPlan = "dod"
+)
+
+func (e InputOffice365ServiceSubscriptionPlan) ToPointer() *InputOffice365ServiceSubscriptionPlan {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceSubscriptionPlan) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "enterprise_gcc", "gcc", "gcc_high", "dod":
+			return true
+		}
+	}
+	return false
+}
+
+type InputOffice365ServiceMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputOffice365ServiceMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365ServiceMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOffice365ServiceMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputOffice365ServiceMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+// InputOffice365ServiceLogLevel - Collector runtime Log Level
+type InputOffice365ServiceLogLevel string
+
+const (
+	InputOffice365ServiceLogLevelError InputOffice365ServiceLogLevel = "error"
+	InputOffice365ServiceLogLevelWarn  InputOffice365ServiceLogLevel = "warn"
+	InputOffice365ServiceLogLevelInfo  InputOffice365ServiceLogLevel = "info"
+	InputOffice365ServiceLogLevelDebug InputOffice365ServiceLogLevel = "debug"
+)
+
+func (e InputOffice365ServiceLogLevel) ToPointer() *InputOffice365ServiceLogLevel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug":
+			return true
+		}
+	}
+	return false
+}
+
 type InputOffice365ServiceContentConfig struct {
 	// Office 365 Services API Content Type
 	ContentType *string `json:"contentType,omitempty"`
@@ -38,8 +302,8 @@ type InputOffice365ServiceContentConfig struct {
 	Description *string  `json:"description,omitempty"`
 	Interval    *float64 `json:"interval,omitempty"`
 	// Collector runtime Log Level
-	LogLevel *LogLevelOptionsContentConfigItems `json:"logLevel,omitempty"`
-	Enabled  *bool                              `json:"enabled,omitempty"`
+	LogLevel *InputOffice365ServiceLogLevel `json:"logLevel,omitempty"`
+	Enabled  *bool                          `json:"enabled,omitempty"`
 }
 
 func (i InputOffice365ServiceContentConfig) MarshalJSON() ([]byte, error) {
@@ -74,7 +338,7 @@ func (i *InputOffice365ServiceContentConfig) GetInterval() *float64 {
 	return i.Interval
 }
 
-func (i *InputOffice365ServiceContentConfig) GetLogLevel() *LogLevelOptionsContentConfigItems {
+func (i *InputOffice365ServiceContentConfig) GetLogLevel() *InputOffice365ServiceLogLevel {
 	if i == nil {
 		return nil
 	}
@@ -86,6 +350,142 @@ func (i *InputOffice365ServiceContentConfig) GetEnabled() *bool {
 		return nil
 	}
 	return i.Enabled
+}
+
+// InputOffice365ServiceRetryType - The algorithm to use when performing HTTP retries
+type InputOffice365ServiceRetryType string
+
+const (
+	// InputOffice365ServiceRetryTypeNone Disabled
+	InputOffice365ServiceRetryTypeNone InputOffice365ServiceRetryType = "none"
+	// InputOffice365ServiceRetryTypeBackoff Backoff
+	InputOffice365ServiceRetryTypeBackoff InputOffice365ServiceRetryType = "backoff"
+	// InputOffice365ServiceRetryTypeStatic Static
+	InputOffice365ServiceRetryTypeStatic InputOffice365ServiceRetryType = "static"
+)
+
+func (e InputOffice365ServiceRetryType) ToPointer() *InputOffice365ServiceRetryType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
+}
+
+type InputOffice365ServiceRetryRules struct {
+	// The algorithm to use when performing HTTP retries
+	Type *InputOffice365ServiceRetryType `default:"backoff" json:"type"`
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `default:"1000" json:"interval"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `default:"5" json:"limit"`
+	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+	Multiplier *float64 `default:"2" json:"multiplier"`
+	// List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `default:"true" json:"enableHeader"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `default:"false" json:"retryConnectTimeout"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `default:"false" json:"retryConnectReset"`
+}
+
+func (i InputOffice365ServiceRetryRules) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365ServiceRetryRules) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOffice365ServiceRetryRules) GetType() *InputOffice365ServiceRetryType {
+	if i == nil {
+		return nil
+	}
+	return i.Type
+}
+
+func (i *InputOffice365ServiceRetryRules) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputOffice365ServiceRetryRules) GetLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Limit
+}
+
+func (i *InputOffice365ServiceRetryRules) GetMultiplier() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Multiplier
+}
+
+func (i *InputOffice365ServiceRetryRules) GetCodes() []float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Codes
+}
+
+func (i *InputOffice365ServiceRetryRules) GetEnableHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHeader
+}
+
+func (i *InputOffice365ServiceRetryRules) GetRetryConnectTimeout() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RetryConnectTimeout
+}
+
+func (i *InputOffice365ServiceRetryRules) GetRetryConnectReset() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RetryConnectReset
+}
+
+// InputOffice365ServiceAuthenticationMethod - Enter client secret directly, or select a stored secret
+type InputOffice365ServiceAuthenticationMethod string
+
+const (
+	InputOffice365ServiceAuthenticationMethodManual InputOffice365ServiceAuthenticationMethod = "manual"
+	InputOffice365ServiceAuthenticationMethodSecret InputOffice365ServiceAuthenticationMethod = "secret"
+)
+
+func (e InputOffice365ServiceAuthenticationMethod) ToPointer() *InputOffice365ServiceAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputOffice365ServiceAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
 }
 
 type InputOffice365Service struct {
@@ -104,10 +504,10 @@ type InputOffice365Service struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputOffice365ServiceConnection `json:"connections,omitempty"`
+	Pq          *InputOffice365ServicePq          `json:"pq,omitempty"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *SubscriptionPlanOptions `default:"enterprise_gcc" json:"planType"`
+	PlanType *InputOffice365ServiceSubscriptionPlan `default:"enterprise_gcc" json:"planType"`
 	// Office 365 Azure Tenant ID
 	TenantID string `json:"tenantId"`
 	// Office 365 Azure Application ID
@@ -125,13 +525,13 @@ type InputOffice365Service struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []InputOffice365ServiceMetadatum `json:"metadata,omitempty"`
 	// Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitempty"`
-	RetryRules    *RetryRulesType1                     `json:"retryRules,omitempty"`
+	RetryRules    *InputOffice365ServiceRetryRules     `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
-	Description *string                       `json:"description,omitempty"`
+	AuthType    *InputOffice365ServiceAuthenticationMethod `default:"manual" json:"authType"`
+	Description *string                                    `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
 	// Select or create a stored text secret
@@ -205,21 +605,21 @@ func (i *InputOffice365Service) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOffice365Service) GetConnections() []ItemsTypeConnections {
+func (i *InputOffice365Service) GetConnections() []InputOffice365ServiceConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOffice365Service) GetPq() *PqType {
+func (i *InputOffice365Service) GetPq() *InputOffice365ServicePq {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOffice365Service) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputOffice365Service) GetPlanType() *InputOffice365ServiceSubscriptionPlan {
 	if i == nil {
 		return nil
 	}
@@ -282,7 +682,7 @@ func (i *InputOffice365Service) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365Service) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365Service) GetMetadata() []InputOffice365ServiceMetadatum {
 	if i == nil {
 		return nil
 	}
@@ -296,14 +696,14 @@ func (i *InputOffice365Service) GetContentConfig() []InputOffice365ServiceConten
 	return i.ContentConfig
 }
 
-func (i *InputOffice365Service) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365Service) GetRetryRules() *InputOffice365ServiceRetryRules {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365Service) GetAuthType() *AuthenticationMethodOptions2 {
+func (i *InputOffice365Service) GetAuthType() *InputOffice365ServiceAuthenticationMethod {
 	if i == nil {
 		return nil
 	}

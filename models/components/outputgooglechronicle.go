@@ -83,6 +83,105 @@ func (e *OutputGoogleChronicleAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+type OutputGoogleChronicleResponseRetrySetting struct {
+	// The HTTP response status code that will trigger retries
+	HTTPStatus float64 `json:"httpStatus"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputGoogleChronicleResponseRetrySetting) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleResponseRetrySetting) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleResponseRetrySetting) GetHTTPStatus() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.HTTPStatus
+}
+
+func (o *OutputGoogleChronicleResponseRetrySetting) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputGoogleChronicleResponseRetrySetting) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputGoogleChronicleResponseRetrySetting) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+type OutputGoogleChronicleTimeoutRetrySettings struct {
+	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputGoogleChronicleTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleTimeoutRetrySettings) GetTimeoutRetry() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetry
+}
+
+func (o *OutputGoogleChronicleTimeoutRetrySettings) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputGoogleChronicleTimeoutRetrySettings) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputGoogleChronicleTimeoutRetrySettings) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
 type SendEventsAs string
 
 const (
@@ -101,6 +200,90 @@ func (e *SendEventsAs) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "unstructured", "udm":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputGoogleChronicleExtraHTTPHeader struct {
+	Name  *string `json:"name,omitempty"`
+	Value string  `json:"value"`
+}
+
+func (o OutputGoogleChronicleExtraHTTPHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleChronicleExtraHTTPHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleChronicleExtraHTTPHeader) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *OutputGoogleChronicleExtraHTTPHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+// OutputGoogleChronicleFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+type OutputGoogleChronicleFailedRequestLoggingMode string
+
+const (
+	// OutputGoogleChronicleFailedRequestLoggingModePayload Payload
+	OutputGoogleChronicleFailedRequestLoggingModePayload OutputGoogleChronicleFailedRequestLoggingMode = "payload"
+	// OutputGoogleChronicleFailedRequestLoggingModePayloadAndHeaders Payload + Headers
+	OutputGoogleChronicleFailedRequestLoggingModePayloadAndHeaders OutputGoogleChronicleFailedRequestLoggingMode = "payloadAndHeaders"
+	// OutputGoogleChronicleFailedRequestLoggingModeNone None
+	OutputGoogleChronicleFailedRequestLoggingModeNone OutputGoogleChronicleFailedRequestLoggingMode = "none"
+)
+
+func (e OutputGoogleChronicleFailedRequestLoggingMode) ToPointer() *OutputGoogleChronicleFailedRequestLoggingMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleChronicleBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputGoogleChronicleBackpressureBehavior string
+
+const (
+	// OutputGoogleChronicleBackpressureBehaviorBlock Block
+	OutputGoogleChronicleBackpressureBehaviorBlock OutputGoogleChronicleBackpressureBehavior = "block"
+	// OutputGoogleChronicleBackpressureBehaviorDrop Drop
+	OutputGoogleChronicleBackpressureBehaviorDrop OutputGoogleChronicleBackpressureBehavior = "drop"
+	// OutputGoogleChronicleBackpressureBehaviorQueue Persistent Queue
+	OutputGoogleChronicleBackpressureBehaviorQueue OutputGoogleChronicleBackpressureBehavior = "queue"
+)
+
+func (e OutputGoogleChronicleBackpressureBehavior) ToPointer() *OutputGoogleChronicleBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
 			return true
 		}
 	}
@@ -190,6 +373,83 @@ func (e *UDMType) IsExact() bool {
 	return false
 }
 
+// OutputGoogleChronicleMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputGoogleChronicleMode string
+
+const (
+	// OutputGoogleChronicleModeError Error
+	OutputGoogleChronicleModeError OutputGoogleChronicleMode = "error"
+	// OutputGoogleChronicleModeAlways Backpressure
+	OutputGoogleChronicleModeAlways OutputGoogleChronicleMode = "always"
+	// OutputGoogleChronicleModeBackpressure Always On
+	OutputGoogleChronicleModeBackpressure OutputGoogleChronicleMode = "backpressure"
+)
+
+func (e OutputGoogleChronicleMode) ToPointer() *OutputGoogleChronicleMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleChronicleCompression - Codec to use to compress the persisted data
+type OutputGoogleChronicleCompression string
+
+const (
+	// OutputGoogleChronicleCompressionNone None
+	OutputGoogleChronicleCompressionNone OutputGoogleChronicleCompression = "none"
+	// OutputGoogleChronicleCompressionGzip Gzip
+	OutputGoogleChronicleCompressionGzip OutputGoogleChronicleCompression = "gzip"
+)
+
+func (e OutputGoogleChronicleCompression) ToPointer() *OutputGoogleChronicleCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleChronicleQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputGoogleChronicleQueueFullBehavior string
+
+const (
+	// OutputGoogleChronicleQueueFullBehaviorBlock Block
+	OutputGoogleChronicleQueueFullBehaviorBlock OutputGoogleChronicleQueueFullBehavior = "block"
+	// OutputGoogleChronicleQueueFullBehaviorDrop Drop new data
+	OutputGoogleChronicleQueueFullBehaviorDrop OutputGoogleChronicleQueueFullBehavior = "drop"
+)
+
+func (e OutputGoogleChronicleQueueFullBehavior) ToPointer() *OutputGoogleChronicleQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleChronicleQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputGoogleChroniclePqControls struct {
 }
 
@@ -219,8 +479,8 @@ type OutputGoogleChronicle struct {
 	APIVersion           *OutputGoogleChronicleAPIVersion           `default:"v1" json:"apiVersion"`
 	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod `default:"serviceAccount" json:"authenticationMethod"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []OutputGoogleChronicleResponseRetrySetting `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *OutputGoogleChronicleTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool         `default:"false" json:"responseHonorRetryAfterHeader"`
 	LogFormatType                 *SendEventsAs `default:"unstructured" json:"logFormatType"`
@@ -243,15 +503,15 @@ type OutputGoogleChronicle struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []OutputGoogleChronicleExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *OutputGoogleChronicleFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputGoogleChronicleBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -282,7 +542,7 @@ type OutputGoogleChronicle struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputGoogleChronicleMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -294,10 +554,10 @@ type OutputGoogleChronicle struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputGoogleChronicleCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions        `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputGoogleChroniclePqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputGoogleChronicleQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputGoogleChroniclePqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputGoogleChronicle) MarshalJSON() ([]byte, error) {
@@ -367,14 +627,14 @@ func (o *OutputGoogleChronicle) GetAuthenticationMethod() *OutputGoogleChronicle
 	return o.AuthenticationMethod
 }
 
-func (o *OutputGoogleChronicle) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputGoogleChronicle) GetResponseRetrySettings() []OutputGoogleChronicleResponseRetrySetting {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputGoogleChronicle) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+func (o *OutputGoogleChronicle) GetTimeoutRetrySettings() *OutputGoogleChronicleTimeoutRetrySettings {
 	if o == nil {
 		return nil
 	}
@@ -451,14 +711,14 @@ func (o *OutputGoogleChronicle) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputGoogleChronicle) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputGoogleChronicle) GetExtraHTTPHeaders() []OutputGoogleChronicleExtraHTTPHeader {
 	if o == nil {
 		return nil
 	}
 	return o.ExtraHTTPHeaders
 }
 
-func (o *OutputGoogleChronicle) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+func (o *OutputGoogleChronicle) GetFailedRequestLoggingMode() *OutputGoogleChronicleFailedRequestLoggingMode {
 	if o == nil {
 		return nil
 	}
@@ -479,7 +739,7 @@ func (o *OutputGoogleChronicle) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputGoogleChronicle) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputGoogleChronicle) GetOnBackpressure() *OutputGoogleChronicleBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -591,7 +851,7 @@ func (o *OutputGoogleChronicle) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputGoogleChronicle) GetPqMode() *ModeOptions {
+func (o *OutputGoogleChronicle) GetPqMode() *OutputGoogleChronicleMode {
 	if o == nil {
 		return nil
 	}
@@ -633,14 +893,14 @@ func (o *OutputGoogleChronicle) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputGoogleChronicle) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputGoogleChronicle) GetPqCompress() *OutputGoogleChronicleCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputGoogleChronicle) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputGoogleChronicle) GetPqOnBackpressure() *OutputGoogleChronicleQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -18,63 +16,23 @@ const (
 func (e CollectorScriptType) ToPointer() *CollectorScriptType {
 	return &e
 }
-func (e *CollectorScriptType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectorScriptType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "script":
+			return true
+		}
 	}
-	switch v {
-	case "script":
-		*e = CollectorScriptType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorScriptType: %v", v)
-	}
+	return false
 }
 
-type EnvVar struct {
-	// Environment variable name
-	Name string `json:"name"`
-	// JavaScript expression to compute environment variable's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (e EnvVar) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EnvVar) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EnvVar) GetName() string {
-	if e == nil {
-		return ""
-	}
-	return e.Name
-}
-
-func (e *EnvVar) GetValue() string {
-	if e == nil {
-		return ""
-	}
-	return e.Value
-}
-
+// CollectorScript - Script collector configuration
 type CollectorScript struct {
 	// Collector type: script
 	Type CollectorScriptType `json:"type"`
-	// Script to discover what to collect. Should output one task per line in stdout.
-	DiscoverScript string `json:"discoverScript"`
-	// Script to run to perform data collections. Task passed in as $CRIBL_COLLECT_ARG. Should output results to stdout.
-	CollectScript string `json:"collectScript"`
-	// Shell to use to execute scripts.
-	Shell *string `default:"/bin/bash" json:"shell"`
-	// Environment variables to expose to the discover and collect scripts.
-	EnvVars []EnvVar `json:"envVars,omitempty"`
+	Conf ScriptCollectorConf `json:"conf"`
 }
 
 func (c CollectorScript) MarshalJSON() ([]byte, error) {
@@ -82,7 +40,7 @@ func (c CollectorScript) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorScript) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "discoverScript", "collectScript"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
 		return err
 	}
 	return nil
@@ -95,30 +53,9 @@ func (c *CollectorScript) GetType() CollectorScriptType {
 	return c.Type
 }
 
-func (c *CollectorScript) GetDiscoverScript() string {
+func (c *CollectorScript) GetConf() ScriptCollectorConf {
 	if c == nil {
-		return ""
+		return ScriptCollectorConf{}
 	}
-	return c.DiscoverScript
-}
-
-func (c *CollectorScript) GetCollectScript() string {
-	if c == nil {
-		return ""
-	}
-	return c.CollectScript
-}
-
-func (c *CollectorScript) GetShell() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Shell
-}
-
-func (c *CollectorScript) GetEnvVars() []EnvVar {
-	if c == nil {
-		return nil
-	}
-	return c.EnvVars
+	return c.Conf
 }

@@ -31,6 +31,248 @@ func (e *InputKubeEventsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputKubeEventsConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputKubeEventsConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeEventsConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeEventsConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputKubeEventsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputKubeEventsMode string
+
+const (
+	// InputKubeEventsModeSmart Smart
+	InputKubeEventsModeSmart InputKubeEventsMode = "smart"
+	// InputKubeEventsModeAlways Always On
+	InputKubeEventsModeAlways InputKubeEventsMode = "always"
+)
+
+func (e InputKubeEventsMode) ToPointer() *InputKubeEventsMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeEventsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputKubeEventsCompression - Codec to use to compress the persisted data
+type InputKubeEventsCompression string
+
+const (
+	// InputKubeEventsCompressionNone None
+	InputKubeEventsCompressionNone InputKubeEventsCompression = "none"
+	// InputKubeEventsCompressionGzip Gzip
+	InputKubeEventsCompressionGzip InputKubeEventsCompression = "gzip"
+)
+
+func (e InputKubeEventsCompression) ToPointer() *InputKubeEventsCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeEventsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputKubeEventsPqControls struct {
+}
+
+func (i InputKubeEventsPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputKubeEventsPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputKubeEventsMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputKubeEventsCompression `default:"none" json:"compress"`
+	PqControls *InputKubeEventsPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputKubeEventsPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeEventsPq) GetMode() *InputKubeEventsMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputKubeEventsPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputKubeEventsPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputKubeEventsPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputKubeEventsPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputKubeEventsPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputKubeEventsPq) GetCompress() *InputKubeEventsCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputKubeEventsPq) GetPqControls() *InputKubeEventsPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+type InputKubeEventsRule struct {
+	// JavaScript expression applied to Kubernetes objects. Return 'true' to include it.
+	Filter string `json:"filter"`
+	// Optional description of this rule's purpose
+	Description *string `json:"description,omitempty"`
+}
+
+func (i InputKubeEventsRule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsRule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"filter"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeEventsRule) GetFilter() string {
+	if i == nil {
+		return ""
+	}
+	return i.Filter
+}
+
+func (i *InputKubeEventsRule) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeEventsMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputKubeEventsMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeEventsMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputKubeEventsMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 type InputKubeEvents struct {
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
@@ -47,13 +289,13 @@ type InputKubeEvents struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputKubeEventsConnection `json:"connections,omitempty"`
+	Pq          *InputKubeEventsPq          `json:"pq,omitempty"`
 	// Filtering on event fields
-	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	Rules []InputKubeEventsRule `json:"rules,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []InputKubeEventsMetadatum `json:"metadata,omitempty"`
+	Description *string                    `json:"description,omitempty"`
 }
 
 func (i InputKubeEvents) MarshalJSON() ([]byte, error) {
@@ -123,28 +365,28 @@ func (i *InputKubeEvents) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputKubeEvents) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeEvents) GetConnections() []InputKubeEventsConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeEvents) GetPq() *PqType {
+func (i *InputKubeEvents) GetPq() *InputKubeEventsPq {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeEvents) GetRules() []ItemsTypeRules {
+func (i *InputKubeEvents) GetRules() []InputKubeEventsRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeEvents) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeEvents) GetMetadata() []InputKubeEventsMetadatum {
 	if i == nil {
 		return nil
 	}

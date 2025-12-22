@@ -31,6 +31,243 @@ func (e *InputGooglePubsubType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputGooglePubsubConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputGooglePubsubConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputGooglePubsubConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputGooglePubsubConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputGooglePubsubConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputGooglePubsubMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputGooglePubsubMode string
+
+const (
+	// InputGooglePubsubModeSmart Smart
+	InputGooglePubsubModeSmart InputGooglePubsubMode = "smart"
+	// InputGooglePubsubModeAlways Always On
+	InputGooglePubsubModeAlways InputGooglePubsubMode = "always"
+)
+
+func (e InputGooglePubsubMode) ToPointer() *InputGooglePubsubMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGooglePubsubMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputGooglePubsubCompression - Codec to use to compress the persisted data
+type InputGooglePubsubCompression string
+
+const (
+	// InputGooglePubsubCompressionNone None
+	InputGooglePubsubCompressionNone InputGooglePubsubCompression = "none"
+	// InputGooglePubsubCompressionGzip Gzip
+	InputGooglePubsubCompressionGzip InputGooglePubsubCompression = "gzip"
+)
+
+func (e InputGooglePubsubCompression) ToPointer() *InputGooglePubsubCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGooglePubsubCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputGooglePubsubPqControls struct {
+}
+
+func (i InputGooglePubsubPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputGooglePubsubPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputGooglePubsubPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputGooglePubsubMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputGooglePubsubCompression `default:"none" json:"compress"`
+	PqControls *InputGooglePubsubPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputGooglePubsubPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputGooglePubsubPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputGooglePubsubPq) GetMode() *InputGooglePubsubMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputGooglePubsubPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputGooglePubsubPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputGooglePubsubPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputGooglePubsubPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputGooglePubsubPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputGooglePubsubPq) GetCompress() *InputGooglePubsubCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputGooglePubsubPq) GetPqControls() *InputGooglePubsubPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+// InputGooglePubsubGoogleAuthenticationMethod - Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+type InputGooglePubsubGoogleAuthenticationMethod string
+
+const (
+	// InputGooglePubsubGoogleAuthenticationMethodAuto Auto
+	InputGooglePubsubGoogleAuthenticationMethodAuto InputGooglePubsubGoogleAuthenticationMethod = "auto"
+	// InputGooglePubsubGoogleAuthenticationMethodManual Manual
+	InputGooglePubsubGoogleAuthenticationMethodManual InputGooglePubsubGoogleAuthenticationMethod = "manual"
+	// InputGooglePubsubGoogleAuthenticationMethodSecret Secret
+	InputGooglePubsubGoogleAuthenticationMethodSecret InputGooglePubsubGoogleAuthenticationMethod = "secret"
+)
+
+func (e InputGooglePubsubGoogleAuthenticationMethod) ToPointer() *InputGooglePubsubGoogleAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputGooglePubsubGoogleAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+type InputGooglePubsubMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputGooglePubsubMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputGooglePubsubMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputGooglePubsubMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputGooglePubsubMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 type InputGooglePubsub struct {
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
@@ -47,8 +284,8 @@ type InputGooglePubsub struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputGooglePubsubConnection `json:"connections,omitempty"`
+	Pq          *InputGooglePubsubPq          `json:"pq,omitempty"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
 	TopicName *string `default:"cribl" json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
@@ -62,7 +299,7 @@ type InputGooglePubsub struct {
 	// Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
 	Region *string `json:"region,omitempty"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *GoogleAuthenticationMethodOptions `default:"manual" json:"googleAuthMethod"`
+	GoogleAuthMethod *InputGooglePubsubGoogleAuthenticationMethod `default:"manual" json:"googleAuthMethod"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
@@ -74,8 +311,8 @@ type InputGooglePubsub struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []InputGooglePubsubMetadatum `json:"metadata,omitempty"`
+	Description *string                      `json:"description,omitempty"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
 }
@@ -147,14 +384,14 @@ func (i *InputGooglePubsub) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputGooglePubsub) GetConnections() []ItemsTypeConnections {
+func (i *InputGooglePubsub) GetConnections() []InputGooglePubsubConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputGooglePubsub) GetPq() *PqType {
+func (i *InputGooglePubsub) GetPq() *InputGooglePubsubPq {
 	if i == nil {
 		return nil
 	}
@@ -203,7 +440,7 @@ func (i *InputGooglePubsub) GetRegion() *string {
 	return i.Region
 }
 
-func (i *InputGooglePubsub) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
+func (i *InputGooglePubsub) GetGoogleAuthMethod() *InputGooglePubsubGoogleAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
@@ -245,7 +482,7 @@ func (i *InputGooglePubsub) GetRequestTimeout() *float64 {
 	return i.RequestTimeout
 }
 
-func (i *InputGooglePubsub) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGooglePubsub) GetMetadata() []InputGooglePubsubMetadatum {
 	if i == nil {
 		return nil
 	}

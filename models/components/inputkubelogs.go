@@ -31,6 +31,185 @@ func (e *InputKubeLogsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputKubeLogsConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputKubeLogsConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeLogsConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeLogsConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeLogsConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputKubeLogsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputKubeLogsMode string
+
+const (
+	// InputKubeLogsModeSmart Smart
+	InputKubeLogsModeSmart InputKubeLogsMode = "smart"
+	// InputKubeLogsModeAlways Always On
+	InputKubeLogsModeAlways InputKubeLogsMode = "always"
+)
+
+func (e InputKubeLogsMode) ToPointer() *InputKubeLogsMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeLogsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputKubeLogsPqCompression - Codec to use to compress the persisted data
+type InputKubeLogsPqCompression string
+
+const (
+	// InputKubeLogsPqCompressionNone None
+	InputKubeLogsPqCompressionNone InputKubeLogsPqCompression = "none"
+	// InputKubeLogsPqCompressionGzip Gzip
+	InputKubeLogsPqCompressionGzip InputKubeLogsPqCompression = "gzip"
+)
+
+func (e InputKubeLogsPqCompression) ToPointer() *InputKubeLogsPqCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeLogsPqCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputKubeLogsPqControls struct {
+}
+
+func (i InputKubeLogsPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeLogsPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputKubeLogsPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputKubeLogsMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputKubeLogsPqCompression `default:"none" json:"compress"`
+	PqControls *InputKubeLogsPqControls    `json:"pqControls,omitempty"`
+}
+
+func (i InputKubeLogsPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeLogsPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeLogsPq) GetMode() *InputKubeLogsMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputKubeLogsPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputKubeLogsPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputKubeLogsPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputKubeLogsPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputKubeLogsPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputKubeLogsPq) GetCompress() *InputKubeLogsPqCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputKubeLogsPq) GetPqControls() *InputKubeLogsPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
 type InputKubeLogsRule struct {
 	// JavaScript expression applied to Pod objects. Return 'true' to include it.
 	Filter string `json:"filter"`
@@ -63,6 +242,119 @@ func (i *InputKubeLogsRule) GetDescription() *string {
 	return i.Description
 }
 
+type InputKubeLogsMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputKubeLogsMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeLogsMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeLogsMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputKubeLogsMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+// InputKubeLogsPersistenceCompression - Data compression format. Default is gzip.
+type InputKubeLogsPersistenceCompression string
+
+const (
+	InputKubeLogsPersistenceCompressionNone InputKubeLogsPersistenceCompression = "none"
+	InputKubeLogsPersistenceCompressionGzip InputKubeLogsPersistenceCompression = "gzip"
+)
+
+func (e InputKubeLogsPersistenceCompression) ToPointer() *InputKubeLogsPersistenceCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputKubeLogsPersistenceCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputKubeLogsDiskSpooling struct {
+	// Spool events on disk for Cribl Edge and Search. Default is disabled.
+	Enable *bool `default:"false" json:"enable"`
+	// Time period for grouping spooled events. Default is 10m.
+	TimeWindow *string `default:"10m" json:"timeWindow"`
+	// Maximum disk space that can be consumed before older buckets are deleted. Examples: 420MB, 4GB. Default is 1GB.
+	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
+	// Maximum amount of time to retain data before older buckets are deleted. Examples: 2h, 4d. Default is 24h.
+	MaxDataTime *string `default:"24h" json:"maxDataTime"`
+	// Data compression format. Default is gzip.
+	Compress *InputKubeLogsPersistenceCompression `default:"gzip" json:"compress"`
+}
+
+func (i InputKubeLogsDiskSpooling) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeLogsDiskSpooling) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeLogsDiskSpooling) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
+func (i *InputKubeLogsDiskSpooling) GetTimeWindow() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TimeWindow
+}
+
+func (i *InputKubeLogsDiskSpooling) GetMaxDataSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxDataSize
+}
+
+func (i *InputKubeLogsDiskSpooling) GetMaxDataTime() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxDataTime
+}
+
+func (i *InputKubeLogsDiskSpooling) GetCompress() *InputKubeLogsPersistenceCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
 type InputKubeLogs struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
@@ -79,8 +371,8 @@ type InputKubeLogs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputKubeLogsConnection `json:"connections,omitempty"`
+	Pq          *InputKubeLogsPq          `json:"pq,omitempty"`
 	// Time, in seconds, between checks for new containers. Default is 15 secs.
 	Interval *float64 `default:"15" json:"interval"`
 	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
@@ -88,8 +380,8 @@ type InputKubeLogs struct {
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `default:"false" json:"timestamps"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *DiskSpoolingType               `json:"persistence,omitempty"`
+	Metadata    []InputKubeLogsMetadatum   `json:"metadata,omitempty"`
+	Persistence *InputKubeLogsDiskSpooling `json:"persistence,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -166,14 +458,14 @@ func (i *InputKubeLogs) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputKubeLogs) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeLogs) GetConnections() []InputKubeLogsConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeLogs) GetPq() *PqType {
+func (i *InputKubeLogs) GetPq() *InputKubeLogsPq {
 	if i == nil {
 		return nil
 	}
@@ -201,14 +493,14 @@ func (i *InputKubeLogs) GetTimestamps() *bool {
 	return i.Timestamps
 }
 
-func (i *InputKubeLogs) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeLogs) GetMetadata() []InputKubeLogsMetadatum {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeLogs) GetPersistence() *DiskSpoolingType {
+func (i *InputKubeLogs) GetPersistence() *InputKubeLogsDiskSpooling {
 	if i == nil {
 		return nil
 	}

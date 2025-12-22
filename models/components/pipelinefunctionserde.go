@@ -57,15 +57,52 @@ func (e *PipelineFunctionSerdeOperationMode) IsExact() bool {
 	return false
 }
 
+// PipelineFunctionSerdeType - Parser or formatter type to use
+type PipelineFunctionSerdeType string
+
+const (
+	// PipelineFunctionSerdeTypeCsv CSV
+	PipelineFunctionSerdeTypeCsv PipelineFunctionSerdeType = "csv"
+	// PipelineFunctionSerdeTypeElff Extended Log File Format
+	PipelineFunctionSerdeTypeElff PipelineFunctionSerdeType = "elff"
+	// PipelineFunctionSerdeTypeClf Common Log Format
+	PipelineFunctionSerdeTypeClf PipelineFunctionSerdeType = "clf"
+	// PipelineFunctionSerdeTypeKvp Key=Value Pairs
+	PipelineFunctionSerdeTypeKvp PipelineFunctionSerdeType = "kvp"
+	// PipelineFunctionSerdeTypeJSON JSON Object
+	PipelineFunctionSerdeTypeJSON PipelineFunctionSerdeType = "json"
+	// PipelineFunctionSerdeTypeDelim Delimited values
+	PipelineFunctionSerdeTypeDelim PipelineFunctionSerdeType = "delim"
+	// PipelineFunctionSerdeTypeRegex Regular Expression
+	PipelineFunctionSerdeTypeRegex PipelineFunctionSerdeType = "regex"
+	// PipelineFunctionSerdeTypeGrok Grok
+	PipelineFunctionSerdeTypeGrok PipelineFunctionSerdeType = "grok"
+)
+
+func (e PipelineFunctionSerdeType) ToPointer() *PipelineFunctionSerdeType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PipelineFunctionSerdeType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
+}
+
 type PipelineFunctionSerdeConf struct {
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode *PipelineFunctionSerdeOperationMode `default:"extract" json:"mode"`
 	// Parser or formatter type to use
-	Type       *TypeOptions `default:"csv" json:"type"`
-	DelimChar  any          `json:"delimChar,omitempty"`
-	QuoteChar  any          `json:"quoteChar,omitempty"`
-	EscapeChar any          `json:"escapeChar,omitempty"`
-	NullValue  any          `json:"nullValue,omitempty"`
+	Type       *PipelineFunctionSerdeType `default:"csv" json:"type"`
+	DelimChar  any                        `json:"delimChar,omitempty"`
+	QuoteChar  any                        `json:"quoteChar,omitempty"`
+	EscapeChar any                        `json:"escapeChar,omitempty"`
+	NullValue  any                        `json:"nullValue,omitempty"`
 	// Field containing text to be parsed
 	SrcField *string `default:"_raw" json:"srcField"`
 	// Name of the field to add fields to. Extract mode only.
@@ -91,7 +128,7 @@ func (p *PipelineFunctionSerdeConf) GetMode() *PipelineFunctionSerdeOperationMod
 	return p.Mode
 }
 
-func (p *PipelineFunctionSerdeConf) GetType() *TypeOptions {
+func (p *PipelineFunctionSerdeConf) GetType() *PipelineFunctionSerdeType {
 	if p == nil {
 		return nil
 	}

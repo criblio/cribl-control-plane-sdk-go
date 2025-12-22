@@ -2,13 +2,48 @@
 
 package components
 
-type Audit struct {
-	Files *FilesTypeGitCommitSummary `json:"files,omitempty"`
-	Group *string                    `json:"group,omitempty"`
-	ID    string                     `json:"id"`
+type GitRevertResultFiles struct {
+	Created  []string `json:"created,omitempty"`
+	Deleted  []string `json:"deleted,omitempty"`
+	Modified []string `json:"modified,omitempty"`
+	Renamed  []string `json:"renamed,omitempty"`
 }
 
-func (a *Audit) GetFiles() *FilesTypeGitCommitSummary {
+func (g *GitRevertResultFiles) GetCreated() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Created
+}
+
+func (g *GitRevertResultFiles) GetDeleted() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Deleted
+}
+
+func (g *GitRevertResultFiles) GetModified() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Modified
+}
+
+func (g *GitRevertResultFiles) GetRenamed() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Renamed
+}
+
+type Audit struct {
+	Files *GitRevertResultFiles `json:"files,omitempty"`
+	Group *string               `json:"group,omitempty"`
+	ID    string                `json:"id"`
+}
+
+func (a *Audit) GetFiles() *GitRevertResultFiles {
 	if a == nil {
 		return nil
 	}

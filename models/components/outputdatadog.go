@@ -128,6 +128,289 @@ func (e *DatadogSite) IsExact() bool {
 	return false
 }
 
+type OutputDatadogExtraHTTPHeader struct {
+	Name  *string `json:"name,omitempty"`
+	Value string  `json:"value"`
+}
+
+func (o OutputDatadogExtraHTTPHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatadogExtraHTTPHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatadogExtraHTTPHeader) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *OutputDatadogExtraHTTPHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+// OutputDatadogFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+type OutputDatadogFailedRequestLoggingMode string
+
+const (
+	// OutputDatadogFailedRequestLoggingModePayload Payload
+	OutputDatadogFailedRequestLoggingModePayload OutputDatadogFailedRequestLoggingMode = "payload"
+	// OutputDatadogFailedRequestLoggingModePayloadAndHeaders Payload + Headers
+	OutputDatadogFailedRequestLoggingModePayloadAndHeaders OutputDatadogFailedRequestLoggingMode = "payloadAndHeaders"
+	// OutputDatadogFailedRequestLoggingModeNone None
+	OutputDatadogFailedRequestLoggingModeNone OutputDatadogFailedRequestLoggingMode = "none"
+)
+
+func (e OutputDatadogFailedRequestLoggingMode) ToPointer() *OutputDatadogFailedRequestLoggingMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputDatadogResponseRetrySetting struct {
+	// The HTTP response status code that will trigger retries
+	HTTPStatus float64 `json:"httpStatus"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputDatadogResponseRetrySetting) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatadogResponseRetrySetting) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatadogResponseRetrySetting) GetHTTPStatus() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.HTTPStatus
+}
+
+func (o *OutputDatadogResponseRetrySetting) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputDatadogResponseRetrySetting) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputDatadogResponseRetrySetting) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+type OutputDatadogTimeoutRetrySettings struct {
+	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputDatadogTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatadogTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatadogTimeoutRetrySettings) GetTimeoutRetry() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetry
+}
+
+func (o *OutputDatadogTimeoutRetrySettings) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputDatadogTimeoutRetrySettings) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputDatadogTimeoutRetrySettings) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+// OutputDatadogBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputDatadogBackpressureBehavior string
+
+const (
+	// OutputDatadogBackpressureBehaviorBlock Block
+	OutputDatadogBackpressureBehaviorBlock OutputDatadogBackpressureBehavior = "block"
+	// OutputDatadogBackpressureBehaviorDrop Drop
+	OutputDatadogBackpressureBehaviorDrop OutputDatadogBackpressureBehavior = "drop"
+	// OutputDatadogBackpressureBehaviorQueue Persistent Queue
+	OutputDatadogBackpressureBehaviorQueue OutputDatadogBackpressureBehavior = "queue"
+)
+
+func (e OutputDatadogBackpressureBehavior) ToPointer() *OutputDatadogBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatadogAuthenticationMethod - Enter API key directly, or select a stored secret
+type OutputDatadogAuthenticationMethod string
+
+const (
+	OutputDatadogAuthenticationMethodManual OutputDatadogAuthenticationMethod = "manual"
+	OutputDatadogAuthenticationMethodSecret OutputDatadogAuthenticationMethod = "secret"
+)
+
+func (e OutputDatadogAuthenticationMethod) ToPointer() *OutputDatadogAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatadogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputDatadogMode string
+
+const (
+	// OutputDatadogModeError Error
+	OutputDatadogModeError OutputDatadogMode = "error"
+	// OutputDatadogModeAlways Backpressure
+	OutputDatadogModeAlways OutputDatadogMode = "always"
+	// OutputDatadogModeBackpressure Always On
+	OutputDatadogModeBackpressure OutputDatadogMode = "backpressure"
+)
+
+func (e OutputDatadogMode) ToPointer() *OutputDatadogMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatadogCompression - Codec to use to compress the persisted data
+type OutputDatadogCompression string
+
+const (
+	// OutputDatadogCompressionNone None
+	OutputDatadogCompressionNone OutputDatadogCompression = "none"
+	// OutputDatadogCompressionGzip Gzip
+	OutputDatadogCompressionGzip OutputDatadogCompression = "gzip"
+)
+
+func (e OutputDatadogCompression) ToPointer() *OutputDatadogCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatadogQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputDatadogQueueFullBehavior string
+
+const (
+	// OutputDatadogQueueFullBehaviorBlock Block
+	OutputDatadogQueueFullBehaviorBlock OutputDatadogQueueFullBehavior = "block"
+	// OutputDatadogQueueFullBehaviorDrop Drop new data
+	OutputDatadogQueueFullBehaviorDrop OutputDatadogQueueFullBehavior = "drop"
+)
+
+func (e OutputDatadogQueueFullBehavior) ToPointer() *OutputDatadogQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatadogQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputDatadogPqControls struct {
 }
 
@@ -193,22 +476,22 @@ type OutputDatadog struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []OutputDatadogExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *OutputDatadogFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []OutputDatadogResponseRetrySetting `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *OutputDatadogTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputDatadogBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType *AuthenticationMethodOptions3 `default:"manual" json:"authType"`
+	AuthType *OutputDatadogAuthenticationMethod `default:"manual" json:"authType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -218,7 +501,7 @@ type OutputDatadog struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputDatadogMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -230,10 +513,10 @@ type OutputDatadog struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputDatadogCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputDatadogPqControls  `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputDatadogQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputDatadogPqControls        `json:"pqControls,omitempty"`
 	// Organization's API key in Datadog
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
@@ -419,7 +702,7 @@ func (o *OutputDatadog) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputDatadog) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputDatadog) GetExtraHTTPHeaders() []OutputDatadogExtraHTTPHeader {
 	if o == nil {
 		return nil
 	}
@@ -433,7 +716,7 @@ func (o *OutputDatadog) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputDatadog) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+func (o *OutputDatadog) GetFailedRequestLoggingMode() *OutputDatadogFailedRequestLoggingMode {
 	if o == nil {
 		return nil
 	}
@@ -447,14 +730,14 @@ func (o *OutputDatadog) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputDatadog) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputDatadog) GetResponseRetrySettings() []OutputDatadogResponseRetrySetting {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputDatadog) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+func (o *OutputDatadog) GetTimeoutRetrySettings() *OutputDatadogTimeoutRetrySettings {
 	if o == nil {
 		return nil
 	}
@@ -468,14 +751,14 @@ func (o *OutputDatadog) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputDatadog) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputDatadog) GetOnBackpressure() *OutputDatadogBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputDatadog) GetAuthType() *AuthenticationMethodOptions3 {
+func (o *OutputDatadog) GetAuthType() *OutputDatadogAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
@@ -517,7 +800,7 @@ func (o *OutputDatadog) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputDatadog) GetPqMode() *ModeOptions {
+func (o *OutputDatadog) GetPqMode() *OutputDatadogMode {
 	if o == nil {
 		return nil
 	}
@@ -559,14 +842,14 @@ func (o *OutputDatadog) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputDatadog) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputDatadog) GetPqCompress() *OutputDatadogCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputDatadog) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputDatadog) GetPqOnBackpressure() *OutputDatadogQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

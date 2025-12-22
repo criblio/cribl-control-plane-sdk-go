@@ -166,8 +166,8 @@ func main() {
                 Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
             },
         },
-        Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
-            "key": components.AdditionalPropertiesTypePipelineConfGroups{
+        Groups: map[string]components.RoutesGroups{
+            "key": components.RoutesGroups{
                 Name: "<value>",
                 Description: criblcontrolplanesdkgo.Pointer("ugh eyeliner authorized even burgeon chime expansion boldly midst and"),
                 Disabled: criblcontrolplanesdkgo.Pointer(false),

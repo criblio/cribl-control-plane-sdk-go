@@ -21,6 +21,41 @@ func (a *Author) GetName() string {
 	return a.Name
 }
 
+type GitCommitSummaryFiles struct {
+	Created  []string `json:"created,omitempty"`
+	Deleted  []string `json:"deleted,omitempty"`
+	Modified []string `json:"modified,omitempty"`
+	Renamed  []string `json:"renamed,omitempty"`
+}
+
+func (g *GitCommitSummaryFiles) GetCreated() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Created
+}
+
+func (g *GitCommitSummaryFiles) GetDeleted() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Deleted
+}
+
+func (g *GitCommitSummaryFiles) GetModified() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Modified
+}
+
+func (g *GitCommitSummaryFiles) GetRenamed() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Renamed
+}
+
 type Summary struct {
 	Changes    float64 `json:"changes"`
 	Deletions  float64 `json:"deletions"`
@@ -49,11 +84,11 @@ func (s *Summary) GetInsertions() float64 {
 }
 
 type GitCommitSummary struct {
-	Author  *Author                   `json:"author,omitempty"`
-	Branch  string                    `json:"branch"`
-	Commit  string                    `json:"commit"`
-	Files   FilesTypeGitCommitSummary `json:"files"`
-	Summary Summary                   `json:"summary"`
+	Author  *Author               `json:"author,omitempty"`
+	Branch  string                `json:"branch"`
+	Commit  string                `json:"commit"`
+	Files   GitCommitSummaryFiles `json:"files"`
+	Summary Summary               `json:"summary"`
 }
 
 func (g *GitCommitSummary) GetAuthor() *Author {
@@ -77,9 +112,9 @@ func (g *GitCommitSummary) GetCommit() string {
 	return g.Commit
 }
 
-func (g *GitCommitSummary) GetFiles() FilesTypeGitCommitSummary {
+func (g *GitCommitSummary) GetFiles() GitCommitSummaryFiles {
 	if g == nil {
-		return FilesTypeGitCommitSummary{}
+		return GitCommitSummaryFiles{}
 	}
 	return g.Files
 }

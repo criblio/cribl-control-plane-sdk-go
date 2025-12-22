@@ -40,7 +40,7 @@ func main() {
 		},
 		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
 		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
+		Format:            components.CriblLakeDatasetFormatDdss.ToPointer(),
 		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
 		ID:                "<id>",
 		Metrics: &components.LakeDatasetMetrics{

@@ -31,15 +31,52 @@ func (e *FunctionConfSchemaSerdeOperationMode) IsExact() bool {
 	return false
 }
 
+// FunctionConfSchemaSerdeType - Parser or formatter type to use
+type FunctionConfSchemaSerdeType string
+
+const (
+	// FunctionConfSchemaSerdeTypeCsv CSV
+	FunctionConfSchemaSerdeTypeCsv FunctionConfSchemaSerdeType = "csv"
+	// FunctionConfSchemaSerdeTypeElff Extended Log File Format
+	FunctionConfSchemaSerdeTypeElff FunctionConfSchemaSerdeType = "elff"
+	// FunctionConfSchemaSerdeTypeClf Common Log Format
+	FunctionConfSchemaSerdeTypeClf FunctionConfSchemaSerdeType = "clf"
+	// FunctionConfSchemaSerdeTypeKvp Key=Value Pairs
+	FunctionConfSchemaSerdeTypeKvp FunctionConfSchemaSerdeType = "kvp"
+	// FunctionConfSchemaSerdeTypeJSON JSON Object
+	FunctionConfSchemaSerdeTypeJSON FunctionConfSchemaSerdeType = "json"
+	// FunctionConfSchemaSerdeTypeDelim Delimited values
+	FunctionConfSchemaSerdeTypeDelim FunctionConfSchemaSerdeType = "delim"
+	// FunctionConfSchemaSerdeTypeRegex Regular Expression
+	FunctionConfSchemaSerdeTypeRegex FunctionConfSchemaSerdeType = "regex"
+	// FunctionConfSchemaSerdeTypeGrok Grok
+	FunctionConfSchemaSerdeTypeGrok FunctionConfSchemaSerdeType = "grok"
+)
+
+func (e FunctionConfSchemaSerdeType) ToPointer() *FunctionConfSchemaSerdeType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FunctionConfSchemaSerdeType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
+}
+
 type FunctionConfSchemaSerde struct {
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode *FunctionConfSchemaSerdeOperationMode `default:"extract" json:"mode"`
 	// Parser or formatter type to use
-	Type       *TypeOptions `default:"csv" json:"type"`
-	DelimChar  any          `json:"delimChar,omitempty"`
-	QuoteChar  any          `json:"quoteChar,omitempty"`
-	EscapeChar any          `json:"escapeChar,omitempty"`
-	NullValue  any          `json:"nullValue,omitempty"`
+	Type       *FunctionConfSchemaSerdeType `default:"csv" json:"type"`
+	DelimChar  any                          `json:"delimChar,omitempty"`
+	QuoteChar  any                          `json:"quoteChar,omitempty"`
+	EscapeChar any                          `json:"escapeChar,omitempty"`
+	NullValue  any                          `json:"nullValue,omitempty"`
 	// Field containing text to be parsed
 	SrcField *string `default:"_raw" json:"srcField"`
 	// Name of the field to add fields to. Extract mode only.
@@ -65,7 +102,7 @@ func (f *FunctionConfSchemaSerde) GetMode() *FunctionConfSchemaSerdeOperationMod
 	return f.Mode
 }
 
-func (f *FunctionConfSchemaSerde) GetType() *TypeOptions {
+func (f *FunctionConfSchemaSerde) GetType() *FunctionConfSchemaSerdeType {
 	if f == nil {
 		return nil
 	}

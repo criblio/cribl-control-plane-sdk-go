@@ -31,6 +31,29 @@ func (e *OutputGoogleCloudStorageType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputGoogleCloudStorageSignatureVersion - Signature version to use for signing Google Cloud Storage requests
+type OutputGoogleCloudStorageSignatureVersion string
+
+const (
+	OutputGoogleCloudStorageSignatureVersionV2 OutputGoogleCloudStorageSignatureVersion = "v2"
+	OutputGoogleCloudStorageSignatureVersionV4 OutputGoogleCloudStorageSignatureVersion = "v4"
+)
+
+func (e OutputGoogleCloudStorageSignatureVersion) ToPointer() *OutputGoogleCloudStorageSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputGoogleCloudStorageAuthenticationMethod string
 
 const (
@@ -57,6 +80,277 @@ func (e *OutputGoogleCloudStorageAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// OutputGoogleCloudStorageObjectACL - Object ACL to assign to uploaded objects
+type OutputGoogleCloudStorageObjectACL string
+
+const (
+	// OutputGoogleCloudStorageObjectACLPrivate private
+	OutputGoogleCloudStorageObjectACLPrivate OutputGoogleCloudStorageObjectACL = "private"
+	// OutputGoogleCloudStorageObjectACLBucketOwnerRead bucket-owner-read
+	OutputGoogleCloudStorageObjectACLBucketOwnerRead OutputGoogleCloudStorageObjectACL = "bucket-owner-read"
+	// OutputGoogleCloudStorageObjectACLBucketOwnerFullControl bucket-owner-full-control
+	OutputGoogleCloudStorageObjectACLBucketOwnerFullControl OutputGoogleCloudStorageObjectACL = "bucket-owner-full-control"
+	// OutputGoogleCloudStorageObjectACLProjectPrivate project-private
+	OutputGoogleCloudStorageObjectACLProjectPrivate OutputGoogleCloudStorageObjectACL = "project-private"
+	// OutputGoogleCloudStorageObjectACLAuthenticatedRead authenticated-read
+	OutputGoogleCloudStorageObjectACLAuthenticatedRead OutputGoogleCloudStorageObjectACL = "authenticated-read"
+	// OutputGoogleCloudStorageObjectACLPublicRead public-read
+	OutputGoogleCloudStorageObjectACLPublicRead OutputGoogleCloudStorageObjectACL = "public-read"
+)
+
+func (e OutputGoogleCloudStorageObjectACL) ToPointer() *OutputGoogleCloudStorageObjectACL {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageObjectACL) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "private", "bucket-owner-read", "bucket-owner-full-control", "project-private", "authenticated-read", "public-read":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleCloudStorageStorageClass - Storage class to select for uploaded objects
+type OutputGoogleCloudStorageStorageClass string
+
+const (
+	// OutputGoogleCloudStorageStorageClassStandard Standard Storage
+	OutputGoogleCloudStorageStorageClassStandard OutputGoogleCloudStorageStorageClass = "STANDARD"
+	// OutputGoogleCloudStorageStorageClassNearline Nearline Storage
+	OutputGoogleCloudStorageStorageClassNearline OutputGoogleCloudStorageStorageClass = "NEARLINE"
+	// OutputGoogleCloudStorageStorageClassColdline Coldline Storage
+	OutputGoogleCloudStorageStorageClassColdline OutputGoogleCloudStorageStorageClass = "COLDLINE"
+	// OutputGoogleCloudStorageStorageClassArchive Archive Storage
+	OutputGoogleCloudStorageStorageClassArchive OutputGoogleCloudStorageStorageClass = "ARCHIVE"
+)
+
+func (e OutputGoogleCloudStorageStorageClass) ToPointer() *OutputGoogleCloudStorageStorageClass {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageStorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "NEARLINE", "COLDLINE", "ARCHIVE":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleCloudStorageDataFormat - Format of the output data
+type OutputGoogleCloudStorageDataFormat string
+
+const (
+	// OutputGoogleCloudStorageDataFormatJSON JSON
+	OutputGoogleCloudStorageDataFormatJSON OutputGoogleCloudStorageDataFormat = "json"
+	// OutputGoogleCloudStorageDataFormatRaw Raw
+	OutputGoogleCloudStorageDataFormatRaw OutputGoogleCloudStorageDataFormat = "raw"
+	// OutputGoogleCloudStorageDataFormatParquet Parquet
+	OutputGoogleCloudStorageDataFormatParquet OutputGoogleCloudStorageDataFormat = "parquet"
+)
+
+func (e OutputGoogleCloudStorageDataFormat) ToPointer() *OutputGoogleCloudStorageDataFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleCloudStorageBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputGoogleCloudStorageBackpressureBehavior string
+
+const (
+	// OutputGoogleCloudStorageBackpressureBehaviorBlock Block
+	OutputGoogleCloudStorageBackpressureBehaviorBlock OutputGoogleCloudStorageBackpressureBehavior = "block"
+	// OutputGoogleCloudStorageBackpressureBehaviorDrop Drop
+	OutputGoogleCloudStorageBackpressureBehaviorDrop OutputGoogleCloudStorageBackpressureBehavior = "drop"
+)
+
+func (e OutputGoogleCloudStorageBackpressureBehavior) ToPointer() *OutputGoogleCloudStorageBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleCloudStorageDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
+type OutputGoogleCloudStorageDiskSpaceProtection string
+
+const (
+	// OutputGoogleCloudStorageDiskSpaceProtectionBlock Block
+	OutputGoogleCloudStorageDiskSpaceProtectionBlock OutputGoogleCloudStorageDiskSpaceProtection = "block"
+	// OutputGoogleCloudStorageDiskSpaceProtectionDrop Drop
+	OutputGoogleCloudStorageDiskSpaceProtectionDrop OutputGoogleCloudStorageDiskSpaceProtection = "drop"
+)
+
+func (e OutputGoogleCloudStorageDiskSpaceProtection) ToPointer() *OutputGoogleCloudStorageDiskSpaceProtection {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleCloudStorageCompression - Data compression format to apply to HTTP content before it is delivered
+type OutputGoogleCloudStorageCompression string
+
+const (
+	OutputGoogleCloudStorageCompressionNone OutputGoogleCloudStorageCompression = "none"
+	OutputGoogleCloudStorageCompressionGzip OutputGoogleCloudStorageCompression = "gzip"
+)
+
+func (e OutputGoogleCloudStorageCompression) ToPointer() *OutputGoogleCloudStorageCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleCloudStorageCompressionLevel - Compression level to apply before moving files to final destination
+type OutputGoogleCloudStorageCompressionLevel string
+
+const (
+	// OutputGoogleCloudStorageCompressionLevelBestSpeed Best Speed
+	OutputGoogleCloudStorageCompressionLevelBestSpeed OutputGoogleCloudStorageCompressionLevel = "best_speed"
+	// OutputGoogleCloudStorageCompressionLevelNormal Normal
+	OutputGoogleCloudStorageCompressionLevelNormal OutputGoogleCloudStorageCompressionLevel = "normal"
+	// OutputGoogleCloudStorageCompressionLevelBestCompression Best Compression
+	OutputGoogleCloudStorageCompressionLevelBestCompression OutputGoogleCloudStorageCompressionLevel = "best_compression"
+)
+
+func (e OutputGoogleCloudStorageCompressionLevel) ToPointer() *OutputGoogleCloudStorageCompressionLevel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageCompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleCloudStorageParquetVersion - Determines which data types are supported and how they are represented
+type OutputGoogleCloudStorageParquetVersion string
+
+const (
+	// OutputGoogleCloudStorageParquetVersionParquet10 1.0
+	OutputGoogleCloudStorageParquetVersionParquet10 OutputGoogleCloudStorageParquetVersion = "PARQUET_1_0"
+	// OutputGoogleCloudStorageParquetVersionParquet24 2.4
+	OutputGoogleCloudStorageParquetVersionParquet24 OutputGoogleCloudStorageParquetVersion = "PARQUET_2_4"
+	// OutputGoogleCloudStorageParquetVersionParquet26 2.6
+	OutputGoogleCloudStorageParquetVersionParquet26 OutputGoogleCloudStorageParquetVersion = "PARQUET_2_6"
+)
+
+func (e OutputGoogleCloudStorageParquetVersion) ToPointer() *OutputGoogleCloudStorageParquetVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputGoogleCloudStorageDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+type OutputGoogleCloudStorageDataPageVersion string
+
+const (
+	// OutputGoogleCloudStorageDataPageVersionDataPageV1 V1
+	OutputGoogleCloudStorageDataPageVersionDataPageV1 OutputGoogleCloudStorageDataPageVersion = "DATA_PAGE_V1"
+	// OutputGoogleCloudStorageDataPageVersionDataPageV2 V2
+	OutputGoogleCloudStorageDataPageVersionDataPageV2 OutputGoogleCloudStorageDataPageVersion = "DATA_PAGE_V2"
+)
+
+func (e OutputGoogleCloudStorageDataPageVersion) ToPointer() *OutputGoogleCloudStorageDataPageVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputGoogleCloudStorageDataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputGoogleCloudStorageKeyValueMetadatum struct {
+	Key   *string `default:"" json:"key"`
+	Value string  `json:"value"`
+}
+
+func (o OutputGoogleCloudStorageKeyValueMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputGoogleCloudStorageKeyValueMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputGoogleCloudStorageKeyValueMetadatum) GetKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Key
+}
+
+func (o *OutputGoogleCloudStorageKeyValueMetadatum) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
 type OutputGoogleCloudStorage struct {
 	// Unique ID for this output
 	ID   *string                      `json:"id,omitempty"`
@@ -76,7 +370,7 @@ type OutputGoogleCloudStorage struct {
 	// Google Cloud Storage service endpoint
 	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *SignatureVersionOptions5                     `default:"v4" json:"signatureVersion"`
+	SignatureVersion        *OutputGoogleCloudStorageSignatureVersion     `default:"v4" json:"signatureVersion"`
 	AwsAuthenticationMethod *OutputGoogleCloudStorageAuthenticationMethod `default:"manual" json:"awsAuthenticationMethod"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
@@ -85,9 +379,9 @@ type OutputGoogleCloudStorage struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions1 `default:"private" json:"objectACL"`
+	ObjectACL *OutputGoogleCloudStorageObjectACL `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptions1 `json:"storageClass,omitempty"`
+	StorageClass *OutputGoogleCloudStorageStorageClass `json:"storageClass,omitempty"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -99,7 +393,7 @@ type OutputGoogleCloudStorage struct {
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
 	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
 	// Format of the output data
-	Format *DataFormatOptions `default:"json" json:"format"`
+	Format *OutputGoogleCloudStorageDataFormat `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
 	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
@@ -117,26 +411,26 @@ type OutputGoogleCloudStorage struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputGoogleCloudStorageBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *DiskSpaceProtectionOptions `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *OutputGoogleCloudStorageDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool   `default:"false" json:"forceCloseOnShutdown"`
 	Description          *string `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `default:"gzip" json:"compress"`
+	Compress *OutputGoogleCloudStorageCompression `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	CompressionLevel *OutputGoogleCloudStorageCompressionLevel `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
 	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *OutputGoogleCloudStorageParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *DataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *OutputGoogleCloudStorageDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -144,7 +438,7 @@ type OutputGoogleCloudStorage struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []OutputGoogleCloudStorageKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -241,7 +535,7 @@ func (o *OutputGoogleCloudStorage) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputGoogleCloudStorage) GetSignatureVersion() *SignatureVersionOptions5 {
+func (o *OutputGoogleCloudStorage) GetSignatureVersion() *OutputGoogleCloudStorageSignatureVersion {
 	if o == nil {
 		return nil
 	}
@@ -276,14 +570,14 @@ func (o *OutputGoogleCloudStorage) GetVerifyPermissions() *bool {
 	return o.VerifyPermissions
 }
 
-func (o *OutputGoogleCloudStorage) GetObjectACL() *ObjectACLOptions1 {
+func (o *OutputGoogleCloudStorage) GetObjectACL() *OutputGoogleCloudStorageObjectACL {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputGoogleCloudStorage) GetStorageClass() *StorageClassOptions1 {
+func (o *OutputGoogleCloudStorage) GetStorageClass() *OutputGoogleCloudStorageStorageClass {
 	if o == nil {
 		return nil
 	}
@@ -325,7 +619,7 @@ func (o *OutputGoogleCloudStorage) GetPartitionExpr() *string {
 	return o.PartitionExpr
 }
 
-func (o *OutputGoogleCloudStorage) GetFormat() *DataFormatOptions {
+func (o *OutputGoogleCloudStorage) GetFormat() *OutputGoogleCloudStorageDataFormat {
 	if o == nil {
 		return nil
 	}
@@ -388,7 +682,7 @@ func (o *OutputGoogleCloudStorage) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputGoogleCloudStorage) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputGoogleCloudStorage) GetOnBackpressure() *OutputGoogleCloudStorageBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -402,7 +696,7 @@ func (o *OutputGoogleCloudStorage) GetDeadletterEnabled() *bool {
 	return o.DeadletterEnabled
 }
 
-func (o *OutputGoogleCloudStorage) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
+func (o *OutputGoogleCloudStorage) GetOnDiskFullBackpressure() *OutputGoogleCloudStorageDiskSpaceProtection {
 	if o == nil {
 		return nil
 	}
@@ -423,14 +717,14 @@ func (o *OutputGoogleCloudStorage) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputGoogleCloudStorage) GetCompress() *CompressionOptions2 {
+func (o *OutputGoogleCloudStorage) GetCompress() *OutputGoogleCloudStorageCompression {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputGoogleCloudStorage) GetCompressionLevel() *CompressionLevelOptions {
+func (o *OutputGoogleCloudStorage) GetCompressionLevel() *OutputGoogleCloudStorageCompressionLevel {
 	if o == nil {
 		return nil
 	}
@@ -451,14 +745,14 @@ func (o *OutputGoogleCloudStorage) GetParquetSchema() *string {
 	return o.ParquetSchema
 }
 
-func (o *OutputGoogleCloudStorage) GetParquetVersion() *ParquetVersionOptions {
+func (o *OutputGoogleCloudStorage) GetParquetVersion() *OutputGoogleCloudStorageParquetVersion {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputGoogleCloudStorage) GetParquetDataPageVersion() *DataPageVersionOptions {
+func (o *OutputGoogleCloudStorage) GetParquetDataPageVersion() *OutputGoogleCloudStorageDataPageVersion {
 	if o == nil {
 		return nil
 	}
@@ -486,7 +780,7 @@ func (o *OutputGoogleCloudStorage) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputGoogleCloudStorage) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputGoogleCloudStorage) GetKeyValueMetadata() []OutputGoogleCloudStorageKeyValueMetadatum {
 	if o == nil {
 		return nil
 	}

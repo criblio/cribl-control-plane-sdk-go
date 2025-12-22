@@ -2,11 +2,30 @@
 
 package components
 
+type UpdateHecTokenRequestMetadatum struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func (u *UpdateHecTokenRequestMetadatum) GetName() string {
+	if u == nil {
+		return ""
+	}
+	return u.Name
+}
+
+func (u *UpdateHecTokenRequestMetadatum) GetValue() string {
+	if u == nil {
+		return ""
+	}
+	return u.Value
+}
+
 type UpdateHecTokenRequest struct {
-	AllowedIndexesAtToken []string                 `json:"allowedIndexesAtToken,omitempty"`
-	Description           *string                  `json:"description,omitempty"`
-	Enabled               *bool                    `json:"enabled,omitempty"`
-	Metadata              []EventBreakerRuleFields `json:"metadata,omitempty"`
+	AllowedIndexesAtToken []string                         `json:"allowedIndexesAtToken,omitempty"`
+	Description           *string                          `json:"description,omitempty"`
+	Enabled               *bool                            `json:"enabled,omitempty"`
+	Metadata              []UpdateHecTokenRequestMetadatum `json:"metadata,omitempty"`
 }
 
 func (u *UpdateHecTokenRequest) GetAllowedIndexesAtToken() []string {
@@ -30,7 +49,7 @@ func (u *UpdateHecTokenRequest) GetEnabled() *bool {
 	return u.Enabled
 }
 
-func (u *UpdateHecTokenRequest) GetMetadata() []EventBreakerRuleFields {
+func (u *UpdateHecTokenRequest) GetMetadata() []UpdateHecTokenRequestMetadatum {
 	if u == nil {
 		return nil
 	}

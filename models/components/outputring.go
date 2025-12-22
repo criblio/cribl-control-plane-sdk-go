@@ -54,6 +54,53 @@ func (e *OutputRingDataFormat) IsExact() bool {
 	return false
 }
 
+type OutputRingDataCompressionFormat string
+
+const (
+	OutputRingDataCompressionFormatNone OutputRingDataCompressionFormat = "none"
+	OutputRingDataCompressionFormatGzip OutputRingDataCompressionFormat = "gzip"
+)
+
+func (e OutputRingDataCompressionFormat) ToPointer() *OutputRingDataCompressionFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputRingDataCompressionFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputRingBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputRingBackpressureBehavior string
+
+const (
+	// OutputRingBackpressureBehaviorBlock Block
+	OutputRingBackpressureBehaviorBlock OutputRingBackpressureBehavior = "block"
+	// OutputRingBackpressureBehaviorDrop Drop
+	OutputRingBackpressureBehaviorDrop OutputRingBackpressureBehavior = "drop"
+)
+
+func (e OutputRingBackpressureBehavior) ToPointer() *OutputRingBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputRingBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputRing struct {
 	// Unique ID for this output
 	ID   *string        `json:"id,omitempty"`
@@ -73,13 +120,13 @@ type OutputRing struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `default:"24h" json:"maxDataTime"`
-	Compress    *DataCompressionFormatOptionsPersistence `default:"gzip" json:"compress"`
+	MaxDataTime *string                          `default:"24h" json:"maxDataTime"`
+	Compress    *OutputRingDataCompressionFormat `default:"gzip" json:"compress"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
 	DestPath *string `json:"destPath,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `default:"block" json:"onBackpressure"`
-	Description    *string                       `json:"description,omitempty"`
+	OnBackpressure *OutputRingBackpressureBehavior `default:"block" json:"onBackpressure"`
+	Description    *string                         `json:"description,omitempty"`
 }
 
 func (o OutputRing) MarshalJSON() ([]byte, error) {
@@ -163,7 +210,7 @@ func (o *OutputRing) GetMaxDataTime() *string {
 	return o.MaxDataTime
 }
 
-func (o *OutputRing) GetCompress() *DataCompressionFormatOptionsPersistence {
+func (o *OutputRing) GetCompress() *OutputRingDataCompressionFormat {
 	if o == nil {
 		return nil
 	}
@@ -177,7 +224,7 @@ func (o *OutputRing) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputRing) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputRing) GetOnBackpressure() *OutputRingBackpressureBehavior {
 	if o == nil {
 		return nil
 	}

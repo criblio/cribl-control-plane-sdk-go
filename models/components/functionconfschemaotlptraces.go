@@ -6,9 +6,33 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type FunctionConfSchemaOTLPTracesOTLPVersion string
+
+const (
+	// FunctionConfSchemaOTLPTracesOTLPVersionZeroDot10Dot0 0.10.0
+	FunctionConfSchemaOTLPTracesOTLPVersionZeroDot10Dot0 FunctionConfSchemaOTLPTracesOTLPVersion = "0.10.0"
+	// FunctionConfSchemaOTLPTracesOTLPVersionOneDot3Dot1 1.3.1
+	FunctionConfSchemaOTLPTracesOTLPVersionOneDot3Dot1 FunctionConfSchemaOTLPTracesOTLPVersion = "1.3.1"
+)
+
+func (e FunctionConfSchemaOTLPTracesOTLPVersion) ToPointer() *FunctionConfSchemaOTLPTracesOTLPVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FunctionConfSchemaOTLPTracesOTLPVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "0.10.0", "1.3.1":
+			return true
+		}
+	}
+	return false
+}
+
 type FunctionConfSchemaOtlpTraces struct {
-	DropNonTraceEvents *bool               `default:"false" json:"dropNonTraceEvents"`
-	OtlpVersion        *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	DropNonTraceEvents *bool                                    `default:"false" json:"dropNonTraceEvents"`
+	OtlpVersion        *FunctionConfSchemaOTLPTracesOTLPVersion `default:"0.10.0" json:"otlpVersion"`
 	// Batch OTLP traces by shared top-level `resource` attributes
 	BatchOTLPTraces *bool `default:"false" json:"batchOTLPTraces"`
 }
@@ -31,7 +55,7 @@ func (f *FunctionConfSchemaOtlpTraces) GetDropNonTraceEvents() *bool {
 	return f.DropNonTraceEvents
 }
 
-func (f *FunctionConfSchemaOtlpTraces) GetOtlpVersion() *OtlpVersionOptions {
+func (f *FunctionConfSchemaOtlpTraces) GetOtlpVersion() *FunctionConfSchemaOTLPTracesOTLPVersion {
 	if f == nil {
 		return nil
 	}

@@ -136,22 +136,22 @@ func (e *OutputSyslogSeverity) IsExact() bool {
 	return false
 }
 
-// MessageFormat - The syslog message format depending on the receiver's support
-type MessageFormat string
+// OutputSyslogMessageFormat - The syslog message format depending on the receiver's support
+type OutputSyslogMessageFormat string
 
 const (
-	// MessageFormatRfc3164 RFC3164
-	MessageFormatRfc3164 MessageFormat = "rfc3164"
-	// MessageFormatRfc5424 RFC5424
-	MessageFormatRfc5424 MessageFormat = "rfc5424"
+	// OutputSyslogMessageFormatRfc3164 RFC3164
+	OutputSyslogMessageFormatRfc3164 OutputSyslogMessageFormat = "rfc3164"
+	// OutputSyslogMessageFormatRfc5424 RFC5424
+	OutputSyslogMessageFormatRfc5424 OutputSyslogMessageFormat = "rfc5424"
 )
 
-func (e MessageFormat) ToPointer() *MessageFormat {
+func (e OutputSyslogMessageFormat) ToPointer() *OutputSyslogMessageFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MessageFormat) IsExact() bool {
+func (e *OutputSyslogMessageFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "rfc3164", "rfc5424":
@@ -180,6 +180,342 @@ func (e *TimestampFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "syslog", "iso8601":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSyslogTLS - Whether to inherit TLS configs from group setting or disable TLS
+type OutputSyslogTLS string
+
+const (
+	OutputSyslogTLSInherit OutputSyslogTLS = "inherit"
+	OutputSyslogTLSOff     OutputSyslogTLS = "off"
+)
+
+func (e OutputSyslogTLS) ToPointer() *OutputSyslogTLS {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogTLS) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "inherit", "off":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputSyslogHost struct {
+	// The hostname of the receiver
+	Host string `json:"host"`
+	// The port to connect to on the provided host
+	Port float64 `json:"port"`
+	// Whether to inherit TLS configs from group setting or disable TLS
+	TLS *OutputSyslogTLS `default:"inherit" json:"tls"`
+	// Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
+	Servername *string `json:"servername,omitempty"`
+	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+	Weight *float64 `default:"1" json:"weight"`
+}
+
+func (o OutputSyslogHost) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSyslogHost) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSyslogHost) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputSyslogHost) GetPort() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Port
+}
+
+func (o *OutputSyslogHost) GetTLS() *OutputSyslogTLS {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputSyslogHost) GetServername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Servername
+}
+
+func (o *OutputSyslogHost) GetWeight() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Weight
+}
+
+type OutputSyslogMinimumTLSVersion string
+
+const (
+	OutputSyslogMinimumTLSVersionTlSv1  OutputSyslogMinimumTLSVersion = "TLSv1"
+	OutputSyslogMinimumTLSVersionTlSv11 OutputSyslogMinimumTLSVersion = "TLSv1.1"
+	OutputSyslogMinimumTLSVersionTlSv12 OutputSyslogMinimumTLSVersion = "TLSv1.2"
+	OutputSyslogMinimumTLSVersionTlSv13 OutputSyslogMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputSyslogMinimumTLSVersion) ToPointer() *OutputSyslogMinimumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputSyslogMaximumTLSVersion string
+
+const (
+	OutputSyslogMaximumTLSVersionTlSv1  OutputSyslogMaximumTLSVersion = "TLSv1"
+	OutputSyslogMaximumTLSVersionTlSv11 OutputSyslogMaximumTLSVersion = "TLSv1.1"
+	OutputSyslogMaximumTLSVersionTlSv12 OutputSyslogMaximumTLSVersion = "TLSv1.2"
+	OutputSyslogMaximumTLSVersionTlSv13 OutputSyslogMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputSyslogMaximumTLSVersion) ToPointer() *OutputSyslogMaximumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputSyslogTLSSettingsClientSide struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+	Servername *string `json:"servername,omitempty"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+	CaPath *string `json:"caPath,omitempty"`
+	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string                        `json:"passphrase,omitempty"`
+	MinVersion *OutputSyslogMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *OutputSyslogMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (o OutputSyslogTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetServername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Servername
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetCertificateName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertificateName
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetCaPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CaPath
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetPrivKeyPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PrivKeyPath
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetCertPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertPath
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetPassphrase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Passphrase
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetMinVersion() *OutputSyslogMinimumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MinVersion
+}
+
+func (o *OutputSyslogTLSSettingsClientSide) GetMaxVersion() *OutputSyslogMaximumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MaxVersion
+}
+
+// OutputSyslogBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputSyslogBackpressureBehavior string
+
+const (
+	// OutputSyslogBackpressureBehaviorBlock Block
+	OutputSyslogBackpressureBehaviorBlock OutputSyslogBackpressureBehavior = "block"
+	// OutputSyslogBackpressureBehaviorDrop Drop
+	OutputSyslogBackpressureBehaviorDrop OutputSyslogBackpressureBehavior = "drop"
+	// OutputSyslogBackpressureBehaviorQueue Persistent Queue
+	OutputSyslogBackpressureBehaviorQueue OutputSyslogBackpressureBehavior = "queue"
+)
+
+func (e OutputSyslogBackpressureBehavior) ToPointer() *OutputSyslogBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSyslogMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputSyslogMode string
+
+const (
+	// OutputSyslogModeError Error
+	OutputSyslogModeError OutputSyslogMode = "error"
+	// OutputSyslogModeAlways Backpressure
+	OutputSyslogModeAlways OutputSyslogMode = "always"
+	// OutputSyslogModeBackpressure Always On
+	OutputSyslogModeBackpressure OutputSyslogMode = "backpressure"
+)
+
+func (e OutputSyslogMode) ToPointer() *OutputSyslogMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSyslogCompression - Codec to use to compress the persisted data
+type OutputSyslogCompression string
+
+const (
+	// OutputSyslogCompressionNone None
+	OutputSyslogCompressionNone OutputSyslogCompression = "none"
+	// OutputSyslogCompressionGzip Gzip
+	OutputSyslogCompressionGzip OutputSyslogCompression = "gzip"
+)
+
+func (e OutputSyslogCompression) ToPointer() *OutputSyslogCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSyslogQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputSyslogQueueFullBehavior string
+
+const (
+	// OutputSyslogQueueFullBehaviorBlock Block
+	OutputSyslogQueueFullBehaviorBlock OutputSyslogQueueFullBehavior = "block"
+	// OutputSyslogQueueFullBehaviorDrop Drop new data
+	OutputSyslogQueueFullBehaviorDrop OutputSyslogQueueFullBehavior = "drop"
+)
+
+func (e OutputSyslogQueueFullBehavior) ToPointer() *OutputSyslogQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSyslogQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
 			return true
 		}
 	}
@@ -221,7 +557,7 @@ type OutputSyslog struct {
 	// Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
 	AppName *string `default:"Cribl" json:"appName"`
 	// The syslog message format depending on the receiver's support
-	MessageFormat *MessageFormat `default:"rfc3164" json:"messageFormat"`
+	MessageFormat *OutputSyslogMessageFormat `default:"rfc3164" json:"messageFormat"`
 	// Timestamp format to use when serializing event's time field
 	TimestampFormat *TimestampFormat `default:"syslog" json:"timestampFormat"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
@@ -240,7 +576,7 @@ type OutputSyslog struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `default:"false" json:"excludeSelf"`
 	// Set of hosts to load-balance data to
-	Hosts []ItemsTypeHosts `json:"hosts,omitempty"`
+	Hosts []OutputSyslogHost `json:"hosts,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -250,10 +586,10 @@ type OutputSyslog struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                      `default:"60000" json:"writeTimeout"`
-	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	WriteTimeout *float64                           `default:"60000" json:"writeTimeout"`
+	TLS          *OutputSyslogTLSSettingsClientSide `json:"tls,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputSyslogBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
 	MaxRecordSize *float64 `default:"1500" json:"maxRecordSize"`
 	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
@@ -265,7 +601,7 @@ type OutputSyslog struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputSyslogMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -277,10 +613,10 @@ type OutputSyslog struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputSyslogCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputSyslogPqControls   `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputSyslogQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputSyslogPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputSyslog) MarshalJSON() ([]byte, error) {
@@ -364,7 +700,7 @@ func (o *OutputSyslog) GetAppName() *string {
 	return o.AppName
 }
 
-func (o *OutputSyslog) GetMessageFormat() *MessageFormat {
+func (o *OutputSyslog) GetMessageFormat() *OutputSyslogMessageFormat {
 	if o == nil {
 		return nil
 	}
@@ -434,7 +770,7 @@ func (o *OutputSyslog) GetExcludeSelf() *bool {
 	return o.ExcludeSelf
 }
 
-func (o *OutputSyslog) GetHosts() []ItemsTypeHosts {
+func (o *OutputSyslog) GetHosts() []OutputSyslogHost {
 	if o == nil {
 		return nil
 	}
@@ -476,14 +812,14 @@ func (o *OutputSyslog) GetWriteTimeout() *float64 {
 	return o.WriteTimeout
 }
 
-func (o *OutputSyslog) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputSyslog) GetTLS() *OutputSyslogTLSSettingsClientSide {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputSyslog) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputSyslog) GetOnBackpressure() *OutputSyslogBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -525,7 +861,7 @@ func (o *OutputSyslog) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputSyslog) GetPqMode() *ModeOptions {
+func (o *OutputSyslog) GetPqMode() *OutputSyslogMode {
 	if o == nil {
 		return nil
 	}
@@ -567,14 +903,14 @@ func (o *OutputSyslog) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputSyslog) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputSyslog) GetPqCompress() *OutputSyslogCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputSyslog) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputSyslog) GetPqOnBackpressure() *OutputSyslogQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

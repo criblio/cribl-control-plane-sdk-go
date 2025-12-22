@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -18,65 +16,23 @@ const (
 func (e CollectorFilesystemType) ToPointer() *CollectorFilesystemType {
 	return &e
 }
-func (e *CollectorFilesystemType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectorFilesystemType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "filesystem":
+			return true
+		}
 	}
-	switch v {
-	case "filesystem":
-		*e = CollectorFilesystemType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorFilesystemType: %v", v)
-	}
+	return false
 }
 
-type CollectorFilesystemExtractor struct {
-	// A token from the template directory, such as epoch
-	Key string `json:"key"`
-	// JavaScript expression that receives token under "value" variable, and evaluates to populate event fields, such as {date: new Date(+value*1000)}
-	Expression string `json:"expression"`
-}
-
-func (c CollectorFilesystemExtractor) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorFilesystemExtractor) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"key", "expression"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorFilesystemExtractor) GetKey() string {
-	if c == nil {
-		return ""
-	}
-	return c.Key
-}
-
-func (c *CollectorFilesystemExtractor) GetExpression() string {
-	if c == nil {
-		return ""
-	}
-	return c.Expression
-}
-
+// CollectorFilesystem - Filesystem collector configuration
 type CollectorFilesystem struct {
 	// Collector type: filesystem
 	Type CollectorFilesystemType `json:"type"`
-	// Select a predefined configuration (a Destination) to auto-populate Collector settings
-	OutputName *string `json:"outputName,omitempty"`
-	// The directory from which to collect data. Templating is supported, such as /myDir/${datacenter}/${host}/${app}/. Time-based tokens are also supported, such as /myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/.
-	Path string `json:"path"`
-	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
-	Extractors []CollectorFilesystemExtractor `json:"extractors,omitempty"`
-	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
-	// Maximum number of metadata files to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	Conf FilesystemCollectorConf `json:"conf"`
 }
 
 func (c CollectorFilesystem) MarshalJSON() ([]byte, error) {
@@ -84,7 +40,7 @@ func (c CollectorFilesystem) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorFilesystem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "path"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
 		return err
 	}
 	return nil
@@ -97,37 +53,9 @@ func (c *CollectorFilesystem) GetType() CollectorFilesystemType {
 	return c.Type
 }
 
-func (c *CollectorFilesystem) GetOutputName() *string {
+func (c *CollectorFilesystem) GetConf() FilesystemCollectorConf {
 	if c == nil {
-		return nil
+		return FilesystemCollectorConf{}
 	}
-	return c.OutputName
-}
-
-func (c *CollectorFilesystem) GetPath() string {
-	if c == nil {
-		return ""
-	}
-	return c.Path
-}
-
-func (c *CollectorFilesystem) GetExtractors() []CollectorFilesystemExtractor {
-	if c == nil {
-		return nil
-	}
-	return c.Extractors
-}
-
-func (c *CollectorFilesystem) GetRecurse() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Recurse
-}
-
-func (c *CollectorFilesystem) GetMaxBatchSize() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxBatchSize
+	return c.Conf
 }

@@ -92,7 +92,7 @@ func main() {
     )
 
     res, err := s.System.Settings.Cribl.Update(ctx, components.SystemSettingsConf{
-        API: components.APITypeSystemSettingsConf{
+        API: components.API{
             BaseURL: criblcontrolplanesdkgo.Pointer("https://both-draw.com/"),
             DisableAPICache: criblcontrolplanesdkgo.Pointer(true),
             Disabled: false,
@@ -110,7 +110,7 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            Ssl: &components.SslTypeSystemSettingsConfAPI{
+            Ssl: &components.Ssl{
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: "<value>",
                 Disabled: true,
@@ -126,7 +126,7 @@ func main() {
                 BackupsDirectory: "<value>",
             },
         ),
-        CustomLogo: &components.CustomLogoTypeSystemSettingsConf{
+        CustomLogo: &components.CustomLogo{
             Enabled: false,
             LogoDescription: criblcontrolplanesdkgo.Pointer("<value>"),
             LogoImage: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -136,7 +136,7 @@ func main() {
                 EnablePiiDetection: false,
             },
         ),
-        Proxy: components.ProxyTypeSystemSettingsConf{
+        Proxy: components.Proxy{
             UseEnvVars: true,
         },
         Rollback: components.CreateRollbackSettingsUnionRollbackSettings1(
@@ -146,7 +146,7 @@ func main() {
                 RollbackTimeout: criblcontrolplanesdkgo.Pointer[float64](1506.54),
             },
         ),
-        Shutdown: components.ShutdownTypeSystemSettingsConf{
+        Shutdown: components.Shutdown{
             DrainTimeout: 3723.75,
         },
         Sni: components.CreateSniSettingsUnionSniSettings1(
@@ -154,20 +154,20 @@ func main() {
                 DisableSNIRouting: false,
             },
         ),
-        Sockets: &components.SocketsTypeSystemSettingsConf{
+        Sockets: &components.Sockets{
             Directory: criblcontrolplanesdkgo.Pointer("/usr/ports"),
         },
-        Support: &components.SupportTypeSystemSettingsConf{
-            FeatureFlagOverrides: []components.ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides{
-                components.ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides{
+        Support: &components.Support{
+            FeatureFlagOverrides: []components.FeatureFlagOverride{
+                components.FeatureFlagOverride{
                     Disabled: true,
                     FlagID: "<id>",
                 },
             },
         },
-        System: components.SystemTypeSystemSettingsConf{
+        System: components.SystemSettingsConfSystem{
             Intercom: false,
-            Upgrade: components.UpgradeOptionsSystemSettingsConfSystemAPI,
+            Upgrade: components.UpgradeAPI,
         },
         TLS: components.CreateTLSSettingsUnionTLSSettings1(
             components.TLSSettings1{
@@ -198,7 +198,7 @@ func main() {
             },
             UpgradeSource: criblcontrolplanesdkgo.Pointer("<value>"),
         },
-        Workers: components.WorkersTypeSystemSettingsConf{
+        Workers: components.SystemSettingsConfWorkers{
             Count: 2124.14,
             EnableHeapSnapshots: criblcontrolplanesdkgo.Pointer(true),
             LoadThrottlePerc: criblcontrolplanesdkgo.Pointer[float64](2538.71),

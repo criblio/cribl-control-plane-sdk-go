@@ -3,8 +3,6 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -18,76 +16,23 @@ const (
 func (e CollectorDatabaseType) ToPointer() *CollectorDatabaseType {
 	return &e
 }
-func (e *CollectorDatabaseType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectorDatabaseType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "database":
+			return true
+		}
 	}
-	switch v {
-	case "database":
-		*e = CollectorDatabaseType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorDatabaseType: %v", v)
-	}
+	return false
 }
 
-type CollectorDatabaseStateTracking struct {
-	// Enable tracking of collection progress between consecutive scheduled executions.
-	Enabled *bool `json:"enabled,omitempty"`
-}
-
-func (c CollectorDatabaseStateTracking) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorDatabaseStateTracking) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorDatabaseStateTracking) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-type CollectorDatabaseScheduling struct {
-	StateTracking *CollectorDatabaseStateTracking `json:"stateTracking,omitempty"`
-}
-
-func (c CollectorDatabaseScheduling) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorDatabaseScheduling) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorDatabaseScheduling) GetStateTracking() *CollectorDatabaseStateTracking {
-	if c == nil {
-		return nil
-	}
-	return c.StateTracking
-}
-
+// CollectorDatabase - Database collector configuration
 type CollectorDatabase struct {
 	// Collector type: database
 	Type CollectorDatabaseType `json:"type"`
-	// Select an existing Connection, or go to Knowledge > Database Connections to add one
-	ConnectionID string `json:"connectionId"`
-	// An expression that resolves to the query string for selecting data from the database. Has access to the special ${earliest} and ${latest} variables, which will resolve to the Collector run's start and end time.
-	Query string `json:"query"`
-	// Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
-	QueryValidationEnabled *bool                         `default:"true" json:"queryValidationEnabled"`
-	DefaultBreakers        *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
-	Scheduling             *CollectorDatabaseScheduling  `json:"__scheduling,omitempty"`
+	Conf DatabaseCollectorConf `json:"conf"`
 }
 
 func (c CollectorDatabase) MarshalJSON() ([]byte, error) {
@@ -95,7 +40,7 @@ func (c CollectorDatabase) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorDatabase) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "connectionId", "query"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
 		return err
 	}
 	return nil
@@ -108,37 +53,9 @@ func (c *CollectorDatabase) GetType() CollectorDatabaseType {
 	return c.Type
 }
 
-func (c *CollectorDatabase) GetConnectionID() string {
+func (c *CollectorDatabase) GetConf() DatabaseCollectorConf {
 	if c == nil {
-		return ""
+		return DatabaseCollectorConf{}
 	}
-	return c.ConnectionID
-}
-
-func (c *CollectorDatabase) GetQuery() string {
-	if c == nil {
-		return ""
-	}
-	return c.Query
-}
-
-func (c *CollectorDatabase) GetQueryValidationEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.QueryValidationEnabled
-}
-
-func (c *CollectorDatabase) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
-	if c == nil {
-		return nil
-	}
-	return c.DefaultBreakers
-}
-
-func (c *CollectorDatabase) GetScheduling() *CollectorDatabaseScheduling {
-	if c == nil {
-		return nil
-	}
-	return c.Scheduling
+	return c.Conf
 }

@@ -31,6 +31,216 @@ func (e *InputCriblType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputCriblConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputCriblConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputCriblMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputCriblMode string
+
+const (
+	// InputCriblModeSmart Smart
+	InputCriblModeSmart InputCriblMode = "smart"
+	// InputCriblModeAlways Always On
+	InputCriblModeAlways InputCriblMode = "always"
+)
+
+func (e InputCriblMode) ToPointer() *InputCriblMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputCriblCompression - Codec to use to compress the persisted data
+type InputCriblCompression string
+
+const (
+	// InputCriblCompressionNone None
+	InputCriblCompressionNone InputCriblCompression = "none"
+	// InputCriblCompressionGzip Gzip
+	InputCriblCompressionGzip InputCriblCompression = "gzip"
+)
+
+func (e InputCriblCompression) ToPointer() *InputCriblCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputCriblPqControls struct {
+}
+
+func (i InputCriblPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputCriblPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputCriblMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputCriblCompression `default:"none" json:"compress"`
+	PqControls *InputCriblPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputCriblPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblPq) GetMode() *InputCriblMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputCriblPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputCriblPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputCriblPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputCriblPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputCriblPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputCriblPq) GetCompress() *InputCriblCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputCriblPq) GetPqControls() *InputCriblPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+type InputCriblMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputCriblMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputCriblMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 type InputCribl struct {
 	// Unique ID for this input
 	ID       *string        `json:"id,omitempty"`
@@ -47,12 +257,12 @@ type InputCribl struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputCriblConnection `json:"connections,omitempty"`
+	Pq          *InputCriblPq          `json:"pq,omitempty"`
 	Filter      *string                `json:"filter,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []InputCriblMetadatum `json:"metadata,omitempty"`
+	Description *string               `json:"description,omitempty"`
 }
 
 func (i InputCribl) MarshalJSON() ([]byte, error) {
@@ -122,14 +332,14 @@ func (i *InputCribl) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCribl) GetConnections() []ItemsTypeConnections {
+func (i *InputCribl) GetConnections() []InputCriblConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCribl) GetPq() *PqType {
+func (i *InputCribl) GetPq() *InputCriblPq {
 	if i == nil {
 		return nil
 	}
@@ -143,7 +353,7 @@ func (i *InputCribl) GetFilter() *string {
 	return i.Filter
 }
 
-func (i *InputCribl) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCribl) GetMetadata() []InputCriblMetadatum {
 	if i == nil {
 		return nil
 	}

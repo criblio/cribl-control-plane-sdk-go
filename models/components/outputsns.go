@@ -31,6 +31,33 @@ func (e *OutputSnsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputSnsAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
+type OutputSnsAuthenticationMethod string
+
+const (
+	// OutputSnsAuthenticationMethodAuto Auto
+	OutputSnsAuthenticationMethodAuto OutputSnsAuthenticationMethod = "auto"
+	// OutputSnsAuthenticationMethodManual Manual
+	OutputSnsAuthenticationMethodManual OutputSnsAuthenticationMethod = "manual"
+	// OutputSnsAuthenticationMethodSecret Secret Key pair
+	OutputSnsAuthenticationMethodSecret OutputSnsAuthenticationMethod = "secret"
+)
+
+func (e OutputSnsAuthenticationMethod) ToPointer() *OutputSnsAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputSnsSignatureVersion - Signature version to use for signing SNS requests
 type OutputSnsSignatureVersion string
 
@@ -48,6 +75,110 @@ func (e *OutputSnsSignatureVersion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSnsBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputSnsBackpressureBehavior string
+
+const (
+	// OutputSnsBackpressureBehaviorBlock Block
+	OutputSnsBackpressureBehaviorBlock OutputSnsBackpressureBehavior = "block"
+	// OutputSnsBackpressureBehaviorDrop Drop
+	OutputSnsBackpressureBehaviorDrop OutputSnsBackpressureBehavior = "drop"
+	// OutputSnsBackpressureBehaviorQueue Persistent Queue
+	OutputSnsBackpressureBehaviorQueue OutputSnsBackpressureBehavior = "queue"
+)
+
+func (e OutputSnsBackpressureBehavior) ToPointer() *OutputSnsBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSnsMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputSnsMode string
+
+const (
+	// OutputSnsModeError Error
+	OutputSnsModeError OutputSnsMode = "error"
+	// OutputSnsModeAlways Backpressure
+	OutputSnsModeAlways OutputSnsMode = "always"
+	// OutputSnsModeBackpressure Always On
+	OutputSnsModeBackpressure OutputSnsMode = "backpressure"
+)
+
+func (e OutputSnsMode) ToPointer() *OutputSnsMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSnsCompression - Codec to use to compress the persisted data
+type OutputSnsCompression string
+
+const (
+	// OutputSnsCompressionNone None
+	OutputSnsCompressionNone OutputSnsCompression = "none"
+	// OutputSnsCompressionGzip Gzip
+	OutputSnsCompressionGzip OutputSnsCompression = "gzip"
+)
+
+func (e OutputSnsCompression) ToPointer() *OutputSnsCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSnsQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputSnsQueueFullBehavior string
+
+const (
+	// OutputSnsQueueFullBehaviorBlock Block
+	OutputSnsQueueFullBehaviorBlock OutputSnsQueueFullBehavior = "block"
+	// OutputSnsQueueFullBehaviorDrop Drop new data
+	OutputSnsQueueFullBehaviorDrop OutputSnsQueueFullBehavior = "drop"
+)
+
+func (e OutputSnsQueueFullBehavior) ToPointer() *OutputSnsQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSnsQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
 			return true
 		}
 	}
@@ -87,8 +218,8 @@ type OutputSns struct {
 	// Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
 	MaxRetries *float64 `json:"maxRetries,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *OutputSnsAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                        `json:"awsSecretKey,omitempty"`
 	// Region where the SNS is located
 	Region *string `json:"region,omitempty"`
 	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
@@ -108,9 +239,9 @@ type OutputSns struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
-	Description    *string                      `json:"description,omitempty"`
-	AwsAPIKey      *string                      `json:"awsApiKey,omitempty"`
+	OnBackpressure *OutputSnsBackpressureBehavior `default:"block" json:"onBackpressure"`
+	Description    *string                        `json:"description,omitempty"`
+	AwsAPIKey      *string                        `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -118,7 +249,7 @@ type OutputSns struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputSnsMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -130,10 +261,10 @@ type OutputSns struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputSnsCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputSnsPqControls      `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputSnsQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputSnsPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputSns) MarshalJSON() ([]byte, error) {
@@ -210,7 +341,7 @@ func (o *OutputSns) GetMaxRetries() *float64 {
 	return o.MaxRetries
 }
 
-func (o *OutputSns) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (o *OutputSns) GetAwsAuthenticationMethod() *OutputSnsAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
@@ -287,7 +418,7 @@ func (o *OutputSns) GetDurationSeconds() *float64 {
 	return o.DurationSeconds
 }
 
-func (o *OutputSns) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputSns) GetOnBackpressure() *OutputSnsBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -329,7 +460,7 @@ func (o *OutputSns) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputSns) GetPqMode() *ModeOptions {
+func (o *OutputSns) GetPqMode() *OutputSnsMode {
 	if o == nil {
 		return nil
 	}
@@ -371,14 +502,14 @@ func (o *OutputSns) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputSns) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputSns) GetPqCompress() *OutputSnsCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputSns) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputSns) GetPqOnBackpressure() *OutputSnsQueueFullBehavior {
 	if o == nil {
 		return nil
 	}
