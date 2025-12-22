@@ -27,10 +27,22 @@ collectorRest := components.CreateCollectorRestCollectorRestRest3(components.Col
 collectorRest := components.CreateCollectorRestCollectorRestRest4(components.CollectorRestRest4{/* values here */})
 ```
 
+### CollectorRestCollectorHealthCheckPart0Type
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestCollectorHealthCheckPart0Type(components.CollectorRestCollectorHealthCheckPart0Type{/* values here */})
+```
+
 ### CollectorRestRest5
 
 ```go
 collectorRest := components.CreateCollectorRestCollectorRestRest5(components.CollectorRestRest5{/* values here */})
+```
+
+### CollectorRestCollectorHealthCheckPart2Type
+
+```go
+collectorRest := components.CreateCollectorRestCollectorRestCollectorHealthCheckPart2Type(components.CollectorRestCollectorHealthCheckPart2Type{/* values here */})
 ```
 
 ### CollectorRestRest6
@@ -73,17 +85,5 @@ collectorRest := components.CreateCollectorRestCollectorRestRest11(components.Co
 
 ```go
 collectorRest := components.CreateCollectorRestCollectorRestRest12(components.CollectorRestRest12{/* values here */})
-```
-
-### CollectorRestRest13
-
-```go
-collectorRest := components.CreateCollectorRestCollectorRestRest13(components.CollectorRestRest13{/* values here */})
-```
-
-### CollectorRestRest14
-
-```go
-collectorRest := components.CreateCollectorRestCollectorRestRest14(components.CollectorRestRest14{/* values here */})
 ```
 

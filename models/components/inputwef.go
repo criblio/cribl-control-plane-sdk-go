@@ -31,185 +31,6 @@ func (e *InputWefType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputWefConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputWefConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWefConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputWefMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputWefMode string
-
-const (
-	// InputWefModeSmart Smart
-	InputWefModeSmart InputWefMode = "smart"
-	// InputWefModeAlways Always On
-	InputWefModeAlways InputWefMode = "always"
-)
-
-func (e InputWefMode) ToPointer() *InputWefMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWefMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputWefCompression - Codec to use to compress the persisted data
-type InputWefCompression string
-
-const (
-	// InputWefCompressionNone None
-	InputWefCompressionNone InputWefCompression = "none"
-	// InputWefCompressionGzip Gzip
-	InputWefCompressionGzip InputWefCompression = "gzip"
-)
-
-func (e InputWefCompression) ToPointer() *InputWefCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWefCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputWefPqControls struct {
-}
-
-func (i InputWefPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputWefPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputWefMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputWefCompression `default:"none" json:"compress"`
-	PqControls *InputWefPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputWefPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefPq) GetMode() *InputWefMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputWefPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputWefPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputWefPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputWefPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputWefPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputWefPq) GetCompress() *InputWefCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputWefPq) GetPqControls() *InputWefPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
 // InputWefAuthenticationMethod - How to authenticate incoming client connections
 type InputWefAuthenticationMethod string
 
@@ -235,54 +56,6 @@ func (e *InputWefAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type InputWefMinimumTLSVersion string
-
-const (
-	InputWefMinimumTLSVersionTlSv1  InputWefMinimumTLSVersion = "TLSv1"
-	InputWefMinimumTLSVersionTlSv11 InputWefMinimumTLSVersion = "TLSv1.1"
-	InputWefMinimumTLSVersionTlSv12 InputWefMinimumTLSVersion = "TLSv1.2"
-	InputWefMinimumTLSVersionTlSv13 InputWefMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputWefMinimumTLSVersion) ToPointer() *InputWefMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWefMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputWefMaximumTLSVersion string
-
-const (
-	InputWefMaximumTLSVersionTlSv1  InputWefMaximumTLSVersion = "TLSv1"
-	InputWefMaximumTLSVersionTlSv11 InputWefMaximumTLSVersion = "TLSv1.1"
-	InputWefMaximumTLSVersionTlSv12 InputWefMaximumTLSVersion = "TLSv1.2"
-	InputWefMaximumTLSVersionTlSv13 InputWefMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputWefMaximumTLSVersion) ToPointer() *InputWefMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWefMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
 type MTLSSettings struct {
 	// Enable TLS
 	Disabled *bool `default:"false" json:"disabled"`
@@ -301,9 +74,9 @@ type MTLSSettings struct {
 	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
 	CaPath string `json:"caPath"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string                    `default:"/.*/" json:"commonNameRegex"`
-	MinVersion      *InputWefMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion      *InputWefMaximumTLSVersion `json:"maxVersion,omitempty"`
+	CommonNameRegex *string                                         `default:"/.*/" json:"commonNameRegex"`
+	MinVersion      *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitempty"`
+	MaxVersion      *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitempty"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `default:"false" json:"ocspCheck"`
 	Keytab    any   `json:"keytab,omitempty"`
@@ -386,14 +159,14 @@ func (m *MTLSSettings) GetCommonNameRegex() *string {
 	return m.CommonNameRegex
 }
 
-func (m *MTLSSettings) GetMinVersion() *InputWefMinimumTLSVersion {
+func (m *MTLSSettings) GetMinVersion() *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS {
 	if m == nil {
 		return nil
 	}
 	return m.MinVersion
 }
 
-func (m *MTLSSettings) GetMaxVersion() *InputWefMaximumTLSVersion {
+func (m *MTLSSettings) GetMaxVersion() *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS {
 	if m == nil {
 		return nil
 	}
@@ -473,37 +246,6 @@ func (e *QueryBuilderMode) IsExact() bool {
 	return false
 }
 
-type SubscriptionMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (s SubscriptionMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SubscriptionMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SubscriptionMetadatum) GetName() string {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SubscriptionMetadatum) GetValue() string {
-	if s == nil {
-		return ""
-	}
-	return s.Value
-}
-
 type Query struct {
 	// The Path attribute from the relevant XML Select element
 	Path string `json:"path"`
@@ -558,8 +300,8 @@ type Subscription struct {
 	Locale        *string           `default:"en-US" json:"locale"`
 	QuerySelector *QueryBuilderMode `default:"simple" json:"querySelector"`
 	// Fields to add to events ingested under this subscription
-	Metadata []SubscriptionMetadatum `json:"metadata,omitempty"`
-	Queries  []Query                 `json:"queries,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Queries  []Query                         `json:"queries,omitempty"`
 	// The XPath query to use for selecting events
 	XMLQuery *string `json:"xmlQuery,omitempty"`
 }
@@ -652,7 +394,7 @@ func (s *Subscription) GetQuerySelector() *QueryBuilderMode {
 	return s.QuerySelector
 }
 
-func (s *Subscription) GetMetadata() []SubscriptionMetadatum {
+func (s *Subscription) GetMetadata() []ItemsTypeNotificationMetadata {
 	if s == nil {
 		return nil
 	}
@@ -673,37 +415,6 @@ func (s *Subscription) GetXMLQuery() *string {
 	return s.XMLQuery
 }
 
-type InputWefMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputWefMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWefMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputWef struct {
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
@@ -720,8 +431,8 @@ type InputWef struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputWefConnection `json:"connections,omitempty"`
-	Pq          *InputWefPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -758,8 +469,8 @@ type InputWef struct {
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []Subscription `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []InputWefMetadatum `json:"metadata,omitempty"`
-	Description *string             `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
 }
@@ -831,14 +542,14 @@ func (i *InputWef) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWef) GetConnections() []InputWefConnection {
+func (i *InputWef) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWef) GetPq() *InputWefPq {
+func (i *InputWef) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -971,7 +682,7 @@ func (i *InputWef) GetSubscriptions() []Subscription {
 	return i.Subscriptions
 }
 
-func (i *InputWef) GetMetadata() []InputWefMetadatum {
+func (i *InputWef) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

@@ -207,6 +207,8 @@ type Policy struct {
 	TemplateTargetPairs []TemplateTargetPair `json:"templateTargetPairs"`
 	// If true, stop evaluating further policies after this one matches
 	Final *bool `default:"false" json:"final"`
+	// Evaluation order of this policy (lower numbers evaluated first)
+	Order float64 `json:"order"`
 }
 
 func (p Policy) MarshalJSON() ([]byte, error) {
@@ -214,7 +216,7 @@ func (p Policy) MarshalJSON() ([]byte, error) {
 }
 
 func (p *Policy) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "templateTargetPairs"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "templateTargetPairs", "order"}); err != nil {
 		return err
 	}
 	return nil
@@ -267,6 +269,13 @@ func (p *Policy) GetFinal() *bool {
 		return nil
 	}
 	return p.Final
+}
+
+func (p *Policy) GetOrder() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Order
 }
 
 type FunctionConfSchemaNotificationPolicies struct {

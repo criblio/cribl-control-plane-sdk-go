@@ -135,10 +135,10 @@ pipelineFunctionConf := components.CreatePipelineFunctionConfGeoip(components.Pi
 pipelineFunctionConf := components.CreatePipelineFunctionConfGrok(components.PipelineFunctionGrok{/* values here */})
 ```
 
-### PipelineFunctionHandlebar
+### PipelineFunctionHandlebars
 
 ```go
-pipelineFunctionConf := components.CreatePipelineFunctionConfHandlebar(components.PipelineFunctionHandlebar{/* values here */})
+pipelineFunctionConf := components.CreatePipelineFunctionConfHandlebars(components.PipelineFunctionHandlebars{/* values here */})
 ```
 
 ### PipelineFunctionJoin

@@ -34,7 +34,7 @@ const (
 	PipelineFunctionConfTypeGenStats                  PipelineFunctionConfType = "gen_stats"
 	PipelineFunctionConfTypeGeoip                     PipelineFunctionConfType = "geoip"
 	PipelineFunctionConfTypeGrok                      PipelineFunctionConfType = "grok"
-	PipelineFunctionConfTypeHandlebar                 PipelineFunctionConfType = "handlebar"
+	PipelineFunctionConfTypeHandlebars                PipelineFunctionConfType = "handlebars"
 	PipelineFunctionConfTypeJoin                      PipelineFunctionConfType = "join"
 	PipelineFunctionConfTypeJSONUnroll                PipelineFunctionConfType = "json_unroll"
 	PipelineFunctionConfTypeLakeExport                PipelineFunctionConfType = "lake_export"
@@ -101,7 +101,7 @@ type PipelineFunctionConf struct {
 	PipelineFunctionGenStats                  *PipelineFunctionGenStats                  `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionGeoip                     *PipelineFunctionGeoip                     `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionGrok                      *PipelineFunctionGrok                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
-	PipelineFunctionHandlebar                 *PipelineFunctionHandlebar                 `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
+	PipelineFunctionHandlebars                *PipelineFunctionHandlebars                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionJoin                      *PipelineFunctionJoin                      `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionJSONUnroll                *PipelineFunctionJSONUnroll                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
 	PipelineFunctionLakeExport                *PipelineFunctionLakeExport                `queryParam:"inline,name=PipelineFunctionConf" union:"member"`
@@ -411,15 +411,15 @@ func CreatePipelineFunctionConfGrok(grok PipelineFunctionGrok) PipelineFunctionC
 	}
 }
 
-func CreatePipelineFunctionConfHandlebar(handlebar PipelineFunctionHandlebar) PipelineFunctionConf {
-	typ := PipelineFunctionConfTypeHandlebar
+func CreatePipelineFunctionConfHandlebars(handlebars PipelineFunctionHandlebars) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeHandlebars
 
-	typStr := PipelineFunctionHandlebarID(typ)
-	handlebar.ID = typStr
+	typStr := PipelineFunctionHandlebarsID(typ)
+	handlebars.ID = typStr
 
 	return PipelineFunctionConf{
-		PipelineFunctionHandlebar: &handlebar,
-		Type:                      typ,
+		PipelineFunctionHandlebars: &handlebars,
+		Type:                       typ,
 	}
 }
 
@@ -1125,14 +1125,14 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionGrok = pipelineFunctionGrok
 		u.Type = PipelineFunctionConfTypeGrok
 		return nil
-	case "handlebar":
-		pipelineFunctionHandlebar := new(PipelineFunctionHandlebar)
-		if err := utils.UnmarshalJSON(data, &pipelineFunctionHandlebar, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == handlebar) type PipelineFunctionHandlebar within PipelineFunctionConf: %w", string(data), err)
+	case "handlebars":
+		pipelineFunctionHandlebars := new(PipelineFunctionHandlebars)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionHandlebars, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == handlebars) type PipelineFunctionHandlebars within PipelineFunctionConf: %w", string(data), err)
 		}
 
-		u.PipelineFunctionHandlebar = pipelineFunctionHandlebar
-		u.Type = PipelineFunctionConfTypeHandlebar
+		u.PipelineFunctionHandlebars = pipelineFunctionHandlebars
+		u.Type = PipelineFunctionConfTypeHandlebars
 		return nil
 	case "join":
 		pipelineFunctionJoin := new(PipelineFunctionJoin)
@@ -1597,8 +1597,8 @@ func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.PipelineFunctionGrok, "", true)
 	}
 
-	if u.PipelineFunctionHandlebar != nil {
-		return utils.MarshalJSON(u.PipelineFunctionHandlebar, "", true)
+	if u.PipelineFunctionHandlebars != nil {
+		return utils.MarshalJSON(u.PipelineFunctionHandlebars, "", true)
 	}
 
 	if u.PipelineFunctionJoin != nil {

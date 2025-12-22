@@ -9,1851 +9,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// CollectorHealthCheckAuthentication10 - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-type CollectorHealthCheckAuthentication10 string
-
-const (
-	CollectorHealthCheckAuthentication10None        CollectorHealthCheckAuthentication10 = "none"
-	CollectorHealthCheckAuthentication10Basic       CollectorHealthCheckAuthentication10 = "basic"
-	CollectorHealthCheckAuthentication10BasicSecret CollectorHealthCheckAuthentication10 = "basicSecret"
-	CollectorHealthCheckAuthentication10Login       CollectorHealthCheckAuthentication10 = "login"
-	CollectorHealthCheckAuthentication10LoginSecret CollectorHealthCheckAuthentication10 = "loginSecret"
-	CollectorHealthCheckAuthentication10Oauth       CollectorHealthCheckAuthentication10 = "oauth"
-	CollectorHealthCheckAuthentication10OauthSecret CollectorHealthCheckAuthentication10 = "oauthSecret"
-)
-
-func (e CollectorHealthCheckAuthentication10) ToPointer() *CollectorHealthCheckAuthentication10 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckAuthentication10) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckAuthRequestParam10 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam10) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam10) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckAuthRequestHeader10 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader10) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader10) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorHealthCheckDiscoverType10 - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-type CollectorHealthCheckDiscoverType10 string
-
-const (
-	// CollectorHealthCheckDiscoverType10HTTP HTTP Request
-	CollectorHealthCheckDiscoverType10HTTP CollectorHealthCheckDiscoverType10 = "http"
-	// CollectorHealthCheckDiscoverType10JSON JSON Response
-	CollectorHealthCheckDiscoverType10JSON CollectorHealthCheckDiscoverType10 = "json"
-	// CollectorHealthCheckDiscoverType10List Item List
-	CollectorHealthCheckDiscoverType10List CollectorHealthCheckDiscoverType10 = "list"
-	// CollectorHealthCheckDiscoverType10None None
-	CollectorHealthCheckDiscoverType10None CollectorHealthCheckDiscoverType10 = "none"
-)
-
-func (e CollectorHealthCheckDiscoverType10) ToPointer() *CollectorHealthCheckDiscoverType10 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckDiscoverType10) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckDiscovery10 struct {
-	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *CollectorHealthCheckDiscoverType10 `default:"none" json:"discoverType"`
-}
-
-func (c CollectorHealthCheckDiscovery10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckDiscovery10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckDiscovery10) GetDiscoverType() *CollectorHealthCheckDiscoverType10 {
-	if c == nil {
-		return nil
-	}
-	return c.DiscoverType
-}
-
-// HealthCheckMethod10 - Health check HTTP method.
-type HealthCheckMethod10 string
-
-const (
-	// HealthCheckMethod10Get GET
-	HealthCheckMethod10Get HealthCheckMethod10 = "get"
-	// HealthCheckMethod10Post POST
-	HealthCheckMethod10Post HealthCheckMethod10 = "post"
-	// HealthCheckMethod10PostWithBody POST with Body
-	HealthCheckMethod10PostWithBody HealthCheckMethod10 = "post_with_body"
-)
-
-func (e HealthCheckMethod10) ToPointer() *HealthCheckMethod10 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckMethod10) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckCollectRequestParam10 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam10) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam10) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckCollectRequestHeader10 struct {
-	// Header Name
-	Name string `json:"name"`
-	// JavaScript expression to compute the header value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestHeader10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader10) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader10) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckHiddenDefaultBreakers10 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers10Cribl CollectorHealthCheckHiddenDefaultBreakers10 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers10) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers10 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers10) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType10 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType10 string
-
-const (
-	// CollectorHealthCheckRetryType10None Disabled
-	CollectorHealthCheckRetryType10None CollectorHealthCheckRetryType10 = "none"
-	// CollectorHealthCheckRetryType10Backoff Backoff
-	CollectorHealthCheckRetryType10Backoff CollectorHealthCheckRetryType10 = "backoff"
-	// CollectorHealthCheckRetryType10Static Static
-	CollectorHealthCheckRetryType10Static CollectorHealthCheckRetryType10 = "static"
-)
-
-func (e CollectorHealthCheckRetryType10) ToPointer() *CollectorHealthCheckRetryType10 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType10) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckRetryRules10 struct {
-	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType10 `default:"backoff" json:"type"`
-	Interval     any                              `json:"interval,omitempty"`
-	Limit        any                              `json:"limit,omitempty"`
-	Multiplier   any                              `json:"multiplier,omitempty"`
-	Codes        any                              `json:"codes,omitempty"`
-	EnableHeader any                              `json:"enableHeader,omitempty"`
-}
-
-func (c CollectorHealthCheckRetryRules10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckRetryRules10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckRetryRules10) GetType() *CollectorHealthCheckRetryType10 {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *CollectorHealthCheckRetryRules10) GetInterval() any {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CollectorHealthCheckRetryRules10) GetLimit() any {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
-func (c *CollectorHealthCheckRetryRules10) GetMultiplier() any {
-	if c == nil {
-		return nil
-	}
-	return c.Multiplier
-}
-
-func (c *CollectorHealthCheckRetryRules10) GetCodes() any {
-	if c == nil {
-		return nil
-	}
-	return c.Codes
-}
-
-func (c *CollectorHealthCheckRetryRules10) GetEnableHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHeader
-}
-
-// CollectorHealthCheckType10 - Collector type: health_check
-type CollectorHealthCheckType10 string
-
-const (
-	CollectorHealthCheckType10HealthCheck CollectorHealthCheckType10 = "health_check"
-)
-
-func (e CollectorHealthCheckType10) ToPointer() *CollectorHealthCheckType10 {
-	return &e
-}
-func (e *CollectorHealthCheckType10) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "health_check":
-		*e = CollectorHealthCheckType10(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorHealthCheckType10: %v", v)
-	}
-}
-
-type CollectorHealthCheckHealthCheck10 struct {
-	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *CollectorHealthCheckAuthentication10 `default:"none" json:"authentication"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
-	// Select or create a text secret that contains the client secret's value.
-	TextSecret string `json:"textSecret"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam10 `json:"authRequestParams,omitempty"`
-	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader10 `json:"authRequestHeaders,omitempty"`
-	Discovery          *CollectorHealthCheckDiscovery10          `json:"discovery,omitempty"`
-	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL string `json:"collectUrl"`
-	// Health check HTTP method.
-	CollectMethod *HealthCheckMethod10 `default:"get" json:"collectMethod"`
-	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam10 `json:"collectRequestParams,omitempty"`
-	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string `default:"{ }" json:"collectBody"`
-	// Optional health check request headers.
-	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader10 `json:"collectRequestHeaders,omitempty"`
-	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
-	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
-	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                        `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers10 `json:"defaultBreakers,omitempty"`
-	// List of headers that are safe to log in plain text.
-	SafeHeaders []string                          `json:"safeHeaders,omitempty"`
-	RetryRules  *CollectorHealthCheckRetryRules10 `json:"retryRules,omitempty"`
-	// Login username
-	Username *string `json:"username,omitempty"`
-	// Login password
-	Password *string `json:"password,omitempty"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
-	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// Collector type: health_check
-	Type CollectorHealthCheckType10 `json:"type"`
-}
-
-func (c CollectorHealthCheckHealthCheck10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckHealthCheck10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"textSecret", "collectUrl", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetAuthentication() *CollectorHealthCheckAuthentication10 {
-	if c == nil {
-		return nil
-	}
-	return c.Authentication
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetClientSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamName
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetTextSecret() string {
-	if c == nil {
-		return ""
-	}
-	return c.TextSecret
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam10 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader10 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetDiscovery() *CollectorHealthCheckDiscovery10 {
-	if c == nil {
-		return nil
-	}
-	return c.Discovery
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetCollectURL() string {
-	if c == nil {
-		return ""
-	}
-	return c.CollectURL
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetCollectMethod() *HealthCheckMethod10 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectMethod
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam10 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestParams
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetCollectBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CollectBody
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetCollectRequestHeaders() []CollectorHealthCheckCollectRequestHeader10 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetAuthenticateCollect() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.AuthenticateCollect
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Timeout
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers10 {
-	if c == nil {
-		return nil
-	}
-	return c.DefaultBreakers
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetSafeHeaders() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SafeHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetRetryRules() *CollectorHealthCheckRetryRules10 {
-	if c == nil {
-		return nil
-	}
-	return c.RetryRules
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetClientSecretParamValue() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamValue
-}
-
-func (c *CollectorHealthCheckHealthCheck10) GetType() CollectorHealthCheckType10 {
-	if c == nil {
-		return CollectorHealthCheckType10("")
-	}
-	return c.Type
-}
-
-// CollectorHealthCheckAuthentication9 - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-type CollectorHealthCheckAuthentication9 string
-
-const (
-	CollectorHealthCheckAuthentication9None        CollectorHealthCheckAuthentication9 = "none"
-	CollectorHealthCheckAuthentication9Basic       CollectorHealthCheckAuthentication9 = "basic"
-	CollectorHealthCheckAuthentication9BasicSecret CollectorHealthCheckAuthentication9 = "basicSecret"
-	CollectorHealthCheckAuthentication9Login       CollectorHealthCheckAuthentication9 = "login"
-	CollectorHealthCheckAuthentication9LoginSecret CollectorHealthCheckAuthentication9 = "loginSecret"
-	CollectorHealthCheckAuthentication9Oauth       CollectorHealthCheckAuthentication9 = "oauth"
-	CollectorHealthCheckAuthentication9OauthSecret CollectorHealthCheckAuthentication9 = "oauthSecret"
-)
-
-func (e CollectorHealthCheckAuthentication9) ToPointer() *CollectorHealthCheckAuthentication9 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckAuthentication9) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckAuthRequestParam9 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam9) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam9) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckAuthRequestHeader9 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader9) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader9) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorHealthCheckDiscoverType9 - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-type CollectorHealthCheckDiscoverType9 string
-
-const (
-	// CollectorHealthCheckDiscoverType9HTTP HTTP Request
-	CollectorHealthCheckDiscoverType9HTTP CollectorHealthCheckDiscoverType9 = "http"
-	// CollectorHealthCheckDiscoverType9JSON JSON Response
-	CollectorHealthCheckDiscoverType9JSON CollectorHealthCheckDiscoverType9 = "json"
-	// CollectorHealthCheckDiscoverType9List Item List
-	CollectorHealthCheckDiscoverType9List CollectorHealthCheckDiscoverType9 = "list"
-	// CollectorHealthCheckDiscoverType9None None
-	CollectorHealthCheckDiscoverType9None CollectorHealthCheckDiscoverType9 = "none"
-)
-
-func (e CollectorHealthCheckDiscoverType9) ToPointer() *CollectorHealthCheckDiscoverType9 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckDiscoverType9) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckDiscovery9 struct {
-	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *CollectorHealthCheckDiscoverType9 `default:"none" json:"discoverType"`
-}
-
-func (c CollectorHealthCheckDiscovery9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckDiscovery9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckDiscovery9) GetDiscoverType() *CollectorHealthCheckDiscoverType9 {
-	if c == nil {
-		return nil
-	}
-	return c.DiscoverType
-}
-
-// HealthCheckMethod9 - Health check HTTP method.
-type HealthCheckMethod9 string
-
-const (
-	// HealthCheckMethod9Get GET
-	HealthCheckMethod9Get HealthCheckMethod9 = "get"
-	// HealthCheckMethod9Post POST
-	HealthCheckMethod9Post HealthCheckMethod9 = "post"
-	// HealthCheckMethod9PostWithBody POST with Body
-	HealthCheckMethod9PostWithBody HealthCheckMethod9 = "post_with_body"
-)
-
-func (e HealthCheckMethod9) ToPointer() *HealthCheckMethod9 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckMethod9) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckCollectRequestParam9 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam9) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam9) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckCollectRequestHeader9 struct {
-	// Header Name
-	Name string `json:"name"`
-	// JavaScript expression to compute the header value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestHeader9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader9) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader9) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckHiddenDefaultBreakers9 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers9Cribl CollectorHealthCheckHiddenDefaultBreakers9 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers9) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers9 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers9) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType9 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType9 string
-
-const (
-	// CollectorHealthCheckRetryType9None Disabled
-	CollectorHealthCheckRetryType9None CollectorHealthCheckRetryType9 = "none"
-	// CollectorHealthCheckRetryType9Backoff Backoff
-	CollectorHealthCheckRetryType9Backoff CollectorHealthCheckRetryType9 = "backoff"
-	// CollectorHealthCheckRetryType9Static Static
-	CollectorHealthCheckRetryType9Static CollectorHealthCheckRetryType9 = "static"
-)
-
-func (e CollectorHealthCheckRetryType9) ToPointer() *CollectorHealthCheckRetryType9 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType9) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckRetryRules9 struct {
-	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType9 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
-}
-
-func (c CollectorHealthCheckRetryRules9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckRetryRules9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckRetryRules9) GetType() *CollectorHealthCheckRetryType9 {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *CollectorHealthCheckRetryRules9) GetInterval() any {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CollectorHealthCheckRetryRules9) GetLimit() any {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
-func (c *CollectorHealthCheckRetryRules9) GetMultiplier() any {
-	if c == nil {
-		return nil
-	}
-	return c.Multiplier
-}
-
-func (c *CollectorHealthCheckRetryRules9) GetCodes() any {
-	if c == nil {
-		return nil
-	}
-	return c.Codes
-}
-
-func (c *CollectorHealthCheckRetryRules9) GetEnableHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHeader
-}
-
-// CollectorHealthCheckType9 - Collector type: health_check
-type CollectorHealthCheckType9 string
-
-const (
-	CollectorHealthCheckType9HealthCheck CollectorHealthCheckType9 = "health_check"
-)
-
-func (e CollectorHealthCheckType9) ToPointer() *CollectorHealthCheckType9 {
-	return &e
-}
-func (e *CollectorHealthCheckType9) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "health_check":
-		*e = CollectorHealthCheckType9(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorHealthCheckType9: %v", v)
-	}
-}
-
-type CollectorHealthCheckHealthCheck9 struct {
-	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *CollectorHealthCheckAuthentication9 `default:"none" json:"authentication"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
-	ClientSecretParamValue string `json:"clientSecretParamValue"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam9 `json:"authRequestParams,omitempty"`
-	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader9 `json:"authRequestHeaders,omitempty"`
-	Discovery          *CollectorHealthCheckDiscovery9          `json:"discovery,omitempty"`
-	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL string `json:"collectUrl"`
-	// Health check HTTP method.
-	CollectMethod *HealthCheckMethod9 `default:"get" json:"collectMethod"`
-	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam9 `json:"collectRequestParams,omitempty"`
-	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string `default:"{ }" json:"collectBody"`
-	// Optional health check request headers.
-	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader9 `json:"collectRequestHeaders,omitempty"`
-	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
-	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
-	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers9 `json:"defaultBreakers,omitempty"`
-	// List of headers that are safe to log in plain text.
-	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
-	RetryRules  *CollectorHealthCheckRetryRules9 `json:"retryRules,omitempty"`
-	// Login username
-	Username *string `json:"username,omitempty"`
-	// Login password
-	Password *string `json:"password,omitempty"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Select or create a text secret that contains the client secret's value.
-	TextSecret *string `json:"textSecret,omitempty"`
-	// Collector type: health_check
-	Type CollectorHealthCheckType9 `json:"type"`
-}
-
-func (c CollectorHealthCheckHealthCheck9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckHealthCheck9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"clientSecretParamValue", "collectUrl", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetAuthentication() *CollectorHealthCheckAuthentication9 {
-	if c == nil {
-		return nil
-	}
-	return c.Authentication
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetClientSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamName
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetClientSecretParamValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.ClientSecretParamValue
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam9 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader9 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetDiscovery() *CollectorHealthCheckDiscovery9 {
-	if c == nil {
-		return nil
-	}
-	return c.Discovery
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetCollectURL() string {
-	if c == nil {
-		return ""
-	}
-	return c.CollectURL
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetCollectMethod() *HealthCheckMethod9 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectMethod
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam9 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestParams
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetCollectBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CollectBody
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetCollectRequestHeaders() []CollectorHealthCheckCollectRequestHeader9 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetAuthenticateCollect() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.AuthenticateCollect
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Timeout
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers9 {
-	if c == nil {
-		return nil
-	}
-	return c.DefaultBreakers
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetSafeHeaders() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SafeHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetRetryRules() *CollectorHealthCheckRetryRules9 {
-	if c == nil {
-		return nil
-	}
-	return c.RetryRules
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetTextSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TextSecret
-}
-
-func (c *CollectorHealthCheckHealthCheck9) GetType() CollectorHealthCheckType9 {
-	if c == nil {
-		return CollectorHealthCheckType9("")
-	}
-	return c.Type
-}
-
-// CollectorHealthCheckAuthentication8 - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-type CollectorHealthCheckAuthentication8 string
-
-const (
-	CollectorHealthCheckAuthentication8None        CollectorHealthCheckAuthentication8 = "none"
-	CollectorHealthCheckAuthentication8Basic       CollectorHealthCheckAuthentication8 = "basic"
-	CollectorHealthCheckAuthentication8BasicSecret CollectorHealthCheckAuthentication8 = "basicSecret"
-	CollectorHealthCheckAuthentication8Login       CollectorHealthCheckAuthentication8 = "login"
-	CollectorHealthCheckAuthentication8LoginSecret CollectorHealthCheckAuthentication8 = "loginSecret"
-	CollectorHealthCheckAuthentication8Oauth       CollectorHealthCheckAuthentication8 = "oauth"
-	CollectorHealthCheckAuthentication8OauthSecret CollectorHealthCheckAuthentication8 = "oauthSecret"
-)
-
-func (e CollectorHealthCheckAuthentication8) ToPointer() *CollectorHealthCheckAuthentication8 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckAuthentication8) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckAuthRequestHeader8 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader8) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader8) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorHealthCheckDiscoverType8 - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-type CollectorHealthCheckDiscoverType8 string
-
-const (
-	// CollectorHealthCheckDiscoverType8HTTP HTTP Request
-	CollectorHealthCheckDiscoverType8HTTP CollectorHealthCheckDiscoverType8 = "http"
-	// CollectorHealthCheckDiscoverType8JSON JSON Response
-	CollectorHealthCheckDiscoverType8JSON CollectorHealthCheckDiscoverType8 = "json"
-	// CollectorHealthCheckDiscoverType8List Item List
-	CollectorHealthCheckDiscoverType8List CollectorHealthCheckDiscoverType8 = "list"
-	// CollectorHealthCheckDiscoverType8None None
-	CollectorHealthCheckDiscoverType8None CollectorHealthCheckDiscoverType8 = "none"
-)
-
-func (e CollectorHealthCheckDiscoverType8) ToPointer() *CollectorHealthCheckDiscoverType8 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckDiscoverType8) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckDiscovery8 struct {
-	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *CollectorHealthCheckDiscoverType8 `default:"none" json:"discoverType"`
-}
-
-func (c CollectorHealthCheckDiscovery8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckDiscovery8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckDiscovery8) GetDiscoverType() *CollectorHealthCheckDiscoverType8 {
-	if c == nil {
-		return nil
-	}
-	return c.DiscoverType
-}
-
-// HealthCheckMethod8 - Health check HTTP method.
-type HealthCheckMethod8 string
-
-const (
-	// HealthCheckMethod8Get GET
-	HealthCheckMethod8Get HealthCheckMethod8 = "get"
-	// HealthCheckMethod8Post POST
-	HealthCheckMethod8Post HealthCheckMethod8 = "post"
-	// HealthCheckMethod8PostWithBody POST with Body
-	HealthCheckMethod8PostWithBody HealthCheckMethod8 = "post_with_body"
-)
-
-func (e HealthCheckMethod8) ToPointer() *HealthCheckMethod8 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckMethod8) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckCollectRequestParam8 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam8) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam8) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckCollectRequestHeader8 struct {
-	// Header Name
-	Name string `json:"name"`
-	// JavaScript expression to compute the header value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestHeader8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader8) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestHeader8) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckHiddenDefaultBreakers8 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers8Cribl CollectorHealthCheckHiddenDefaultBreakers8 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers8) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers8 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers8) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType8 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType8 string
-
-const (
-	// CollectorHealthCheckRetryType8None Disabled
-	CollectorHealthCheckRetryType8None CollectorHealthCheckRetryType8 = "none"
-	// CollectorHealthCheckRetryType8Backoff Backoff
-	CollectorHealthCheckRetryType8Backoff CollectorHealthCheckRetryType8 = "backoff"
-	// CollectorHealthCheckRetryType8Static Static
-	CollectorHealthCheckRetryType8Static CollectorHealthCheckRetryType8 = "static"
-)
-
-func (e CollectorHealthCheckRetryType8) ToPointer() *CollectorHealthCheckRetryType8 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType8) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorHealthCheckRetryRules8 struct {
-	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType8 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
-}
-
-func (c CollectorHealthCheckRetryRules8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckRetryRules8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckRetryRules8) GetType() *CollectorHealthCheckRetryType8 {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *CollectorHealthCheckRetryRules8) GetInterval() any {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CollectorHealthCheckRetryRules8) GetLimit() any {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
-func (c *CollectorHealthCheckRetryRules8) GetMultiplier() any {
-	if c == nil {
-		return nil
-	}
-	return c.Multiplier
-}
-
-func (c *CollectorHealthCheckRetryRules8) GetCodes() any {
-	if c == nil {
-		return nil
-	}
-	return c.Codes
-}
-
-func (c *CollectorHealthCheckRetryRules8) GetEnableHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHeader
-}
-
-type CollectorHealthCheckAuthRequestParam8 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam8) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam8) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorHealthCheckType8 - Collector type: health_check
-type CollectorHealthCheckType8 string
-
-const (
-	CollectorHealthCheckType8HealthCheck CollectorHealthCheckType8 = "health_check"
-)
-
-func (e CollectorHealthCheckType8) ToPointer() *CollectorHealthCheckType8 {
-	return &e
-}
-func (e *CollectorHealthCheckType8) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "health_check":
-		*e = CollectorHealthCheckType8(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorHealthCheckType8: %v", v)
-	}
-}
-
-type CollectorHealthCheckHealthCheck8 struct {
-	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *CollectorHealthCheckAuthentication8 `default:"none" json:"authentication"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret string `json:"credentialsSecret"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader8 `json:"authRequestHeaders,omitempty"`
-	Discovery          *CollectorHealthCheckDiscovery8          `json:"discovery,omitempty"`
-	// Expression to derive URL to use for the health check operation (can be a constant).
-	CollectURL string `json:"collectUrl"`
-	// Health check HTTP method.
-	CollectMethod *HealthCheckMethod8 `default:"get" json:"collectMethod"`
-	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam8 `json:"collectRequestParams,omitempty"`
-	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string `default:"{ }" json:"collectBody"`
-	// Optional health check request headers.
-	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader8 `json:"collectRequestHeaders,omitempty"`
-	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
-	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
-	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers8 `json:"defaultBreakers,omitempty"`
-	// List of headers that are safe to log in plain text.
-	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
-	RetryRules  *CollectorHealthCheckRetryRules8 `json:"retryRules,omitempty"`
-	// Login username
-	Username *string `json:"username,omitempty"`
-	// Login password
-	Password *string `json:"password,omitempty"`
-	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
-	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam8 `json:"authRequestParams,omitempty"`
-	// Select or create a text secret that contains the client secret's value.
-	TextSecret *string `json:"textSecret,omitempty"`
-	// Collector type: health_check
-	Type CollectorHealthCheckType8 `json:"type"`
-}
-
-func (c CollectorHealthCheckHealthCheck8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckHealthCheck8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "collectUrl", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetAuthentication() *CollectorHealthCheckAuthentication8 {
-	if c == nil {
-		return nil
-	}
-	return c.Authentication
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetCredentialsSecret() string {
-	if c == nil {
-		return ""
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader8 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetDiscovery() *CollectorHealthCheckDiscovery8 {
-	if c == nil {
-		return nil
-	}
-	return c.Discovery
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetCollectURL() string {
-	if c == nil {
-		return ""
-	}
-	return c.CollectURL
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetCollectMethod() *HealthCheckMethod8 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectMethod
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam8 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestParams
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetCollectBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CollectBody
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetCollectRequestHeaders() []CollectorHealthCheckCollectRequestHeader8 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetAuthenticateCollect() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.AuthenticateCollect
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Timeout
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers8 {
-	if c == nil {
-		return nil
-	}
-	return c.DefaultBreakers
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetSafeHeaders() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SafeHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetRetryRules() *CollectorHealthCheckRetryRules8 {
-	if c == nil {
-		return nil
-	}
-	return c.RetryRules
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetClientSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamName
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetClientSecretParamValue() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamValue
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam8 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetTextSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TextSecret
-}
-
-func (c *CollectorHealthCheckHealthCheck8) GetType() CollectorHealthCheckType8 {
-	if c == nil {
-		return CollectorHealthCheckType8("")
-	}
-	return c.Type
-}
-
 // CollectorHealthCheckAuthentication7 - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
 type CollectorHealthCheckAuthentication7 string
 
@@ -1880,38 +35,6 @@ func (e *CollectorHealthCheckAuthentication7) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type CollectorHealthCheckAuthRequestHeader7 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 // CollectorHealthCheckDiscoverType7 - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -1993,38 +116,6 @@ func (e *HealthCheckMethod7) IsExact() bool {
 	return false
 }
 
-type CollectorHealthCheckCollectRequestParam7 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorHealthCheckCollectRequestHeader7 struct {
 	// Header Name
 	Name string `json:"name"`
@@ -2057,62 +148,14 @@ func (c *CollectorHealthCheckCollectRequestHeader7) GetValue() string {
 	return c.Value
 }
 
-type CollectorHealthCheckHiddenDefaultBreakers7 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers7Cribl CollectorHealthCheckHiddenDefaultBreakers7 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers7) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers7 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers7) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType7 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType7 string
-
-const (
-	// CollectorHealthCheckRetryType7None Disabled
-	CollectorHealthCheckRetryType7None CollectorHealthCheckRetryType7 = "none"
-	// CollectorHealthCheckRetryType7Backoff Backoff
-	CollectorHealthCheckRetryType7Backoff CollectorHealthCheckRetryType7 = "backoff"
-	// CollectorHealthCheckRetryType7Static Static
-	CollectorHealthCheckRetryType7Static CollectorHealthCheckRetryType7 = "static"
-)
-
-func (e CollectorHealthCheckRetryType7) ToPointer() *CollectorHealthCheckRetryType7 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType7) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorHealthCheckRetryRules7 struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType7 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval     any                         `json:"interval,omitempty"`
+	Limit        any                         `json:"limit,omitempty"`
+	Multiplier   any                         `json:"multiplier,omitempty"`
+	Codes        any                         `json:"codes,omitempty"`
+	EnableHeader any                         `json:"enableHeader,omitempty"`
 }
 
 func (c CollectorHealthCheckRetryRules7) MarshalJSON() ([]byte, error) {
@@ -2126,7 +169,7 @@ func (c *CollectorHealthCheckRetryRules7) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorHealthCheckRetryRules7) GetType() *CollectorHealthCheckRetryType7 {
+func (c *CollectorHealthCheckRetryRules7) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -2168,59 +211,27 @@ func (c *CollectorHealthCheckRetryRules7) GetEnableHeader() any {
 	return c.EnableHeader
 }
 
-type CollectorHealthCheckAuthRequestParam7 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorHealthCheckType7 - Collector type: health_check
-type CollectorHealthCheckType7 string
+// CollectorHealthCheckType8 - Collector type: health_check
+type CollectorHealthCheckType8 string
 
 const (
-	CollectorHealthCheckType7HealthCheck CollectorHealthCheckType7 = "health_check"
+	CollectorHealthCheckType8HealthCheck CollectorHealthCheckType8 = "health_check"
 )
 
-func (e CollectorHealthCheckType7) ToPointer() *CollectorHealthCheckType7 {
+func (e CollectorHealthCheckType8) ToPointer() *CollectorHealthCheckType8 {
 	return &e
 }
-func (e *CollectorHealthCheckType7) UnmarshalJSON(data []byte) error {
+func (e *CollectorHealthCheckType8) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "health_check":
-		*e = CollectorHealthCheckType7(v)
+		*e = CollectorHealthCheckType8(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorHealthCheckType7: %v", v)
+		return fmt.Errorf("invalid value for CollectorHealthCheckType8: %v", v)
 	}
 }
 
@@ -2229,25 +240,25 @@ type CollectorHealthCheckHealthCheck7 struct {
 	Authentication *CollectorHealthCheckAuthentication7 `default:"none" json:"authentication"`
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
-	// Login username
-	Username string `json:"username"`
-	// Login password
-	Password string `json:"password"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret string `json:"textSecret"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
 	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader7 `json:"authRequestHeaders,omitempty"`
-	Discovery          *CollectorHealthCheckDiscovery7          `json:"discovery,omitempty"`
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders   `json:"authRequestHeaders,omitempty"`
+	Discovery          *CollectorHealthCheckDiscovery7 `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
 	CollectMethod *HealthCheckMethod7 `default:"get" json:"collectMethod"`
 	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam7 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
 	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
@@ -2257,23 +268,23 @@ type CollectorHealthCheckHealthCheck7 struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers7 `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorHealthCheckRetryRules7 `json:"retryRules,omitempty"`
+	// Login username
+	Username *string `json:"username,omitempty"`
+	// Login password
+	Password *string `json:"password,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam7 `json:"authRequestParams,omitempty"`
-	// Select or create a text secret that contains the client secret's value.
-	TextSecret *string `json:"textSecret,omitempty"`
 	// Collector type: health_check
-	Type CollectorHealthCheckType7 `json:"type"`
+	Type CollectorHealthCheckType8 `json:"type"`
 }
 
 func (c CollectorHealthCheckHealthCheck7) MarshalJSON() ([]byte, error) {
@@ -2281,7 +292,7 @@ func (c CollectorHealthCheckHealthCheck7) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorHealthCheckHealthCheck7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "collectUrl", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"textSecret", "collectUrl", "type"}); err != nil {
 		return err
 	}
 	return nil
@@ -2301,27 +312,6 @@ func (c *CollectorHealthCheckHealthCheck7) GetLoginURL() *string {
 	return c.LoginURL
 }
 
-func (c *CollectorHealthCheckHealthCheck7) GetUsername() string {
-	if c == nil {
-		return ""
-	}
-	return c.Username
-}
-
-func (c *CollectorHealthCheckHealthCheck7) GetPassword() string {
-	if c == nil {
-		return ""
-	}
-	return c.Password
-}
-
-func (c *CollectorHealthCheckHealthCheck7) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
 func (c *CollectorHealthCheckHealthCheck7) GetTokenRespAttribute() *string {
 	if c == nil {
 		return nil
@@ -2336,7 +326,28 @@ func (c *CollectorHealthCheckHealthCheck7) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorHealthCheckHealthCheck7) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader7 {
+func (c *CollectorHealthCheckHealthCheck7) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorHealthCheckHealthCheck7) GetTextSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorHealthCheckHealthCheck7) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorHealthCheckHealthCheck7) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
 	if c == nil {
 		return nil
 	}
@@ -2364,7 +375,7 @@ func (c *CollectorHealthCheckHealthCheck7) GetCollectMethod() *HealthCheckMethod
 	return c.CollectMethod
 }
 
-func (c *CollectorHealthCheckHealthCheck7) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam7 {
+func (c *CollectorHealthCheckHealthCheck7) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -2406,7 +417,7 @@ func (c *CollectorHealthCheckHealthCheck7) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
-func (c *CollectorHealthCheckHealthCheck7) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers7 {
+func (c *CollectorHealthCheckHealthCheck7) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
 	if c == nil {
 		return nil
 	}
@@ -2427,6 +438,20 @@ func (c *CollectorHealthCheckHealthCheck7) GetRetryRules() *CollectorHealthCheck
 	return c.RetryRules
 }
 
+func (c *CollectorHealthCheckHealthCheck7) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorHealthCheckHealthCheck7) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
 func (c *CollectorHealthCheckHealthCheck7) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
@@ -2434,11 +459,11 @@ func (c *CollectorHealthCheckHealthCheck7) GetCredentialsSecret() *string {
 	return c.CredentialsSecret
 }
 
-func (c *CollectorHealthCheckHealthCheck7) GetClientSecretParamName() *string {
+func (c *CollectorHealthCheckHealthCheck7) GetLoginBody() *string {
 	if c == nil {
 		return nil
 	}
-	return c.ClientSecretParamName
+	return c.LoginBody
 }
 
 func (c *CollectorHealthCheckHealthCheck7) GetClientSecretParamValue() *string {
@@ -2448,23 +473,9 @@ func (c *CollectorHealthCheckHealthCheck7) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorHealthCheckHealthCheck7) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam7 {
+func (c *CollectorHealthCheckHealthCheck7) GetType() CollectorHealthCheckType8 {
 	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
-}
-
-func (c *CollectorHealthCheckHealthCheck7) GetTextSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TextSecret
-}
-
-func (c *CollectorHealthCheckHealthCheck7) GetType() CollectorHealthCheckType7 {
-	if c == nil {
-		return CollectorHealthCheckType7("")
+		return CollectorHealthCheckType8("")
 	}
 	return c.Type
 }
@@ -2576,38 +587,6 @@ func (e *HealthCheckMethod6) IsExact() bool {
 	return false
 }
 
-type CollectorHealthCheckCollectRequestParam6 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorHealthCheckCollectRequestHeader6 struct {
 	// Header Name
 	Name string `json:"name"`
@@ -2640,62 +619,14 @@ func (c *CollectorHealthCheckCollectRequestHeader6) GetValue() string {
 	return c.Value
 }
 
-type CollectorHealthCheckHiddenDefaultBreakers6 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers6Cribl CollectorHealthCheckHiddenDefaultBreakers6 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers6) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers6 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers6) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType6 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType6 string
-
-const (
-	// CollectorHealthCheckRetryType6None Disabled
-	CollectorHealthCheckRetryType6None CollectorHealthCheckRetryType6 = "none"
-	// CollectorHealthCheckRetryType6Backoff Backoff
-	CollectorHealthCheckRetryType6Backoff CollectorHealthCheckRetryType6 = "backoff"
-	// CollectorHealthCheckRetryType6Static Static
-	CollectorHealthCheckRetryType6Static CollectorHealthCheckRetryType6 = "static"
-)
-
-func (e CollectorHealthCheckRetryType6) ToPointer() *CollectorHealthCheckRetryType6 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType6) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorHealthCheckRetryRules6 struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType6 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval     any                         `json:"interval,omitempty"`
+	Limit        any                         `json:"limit,omitempty"`
+	Multiplier   any                         `json:"multiplier,omitempty"`
+	Codes        any                         `json:"codes,omitempty"`
+	EnableHeader any                         `json:"enableHeader,omitempty"`
 }
 
 func (c CollectorHealthCheckRetryRules6) MarshalJSON() ([]byte, error) {
@@ -2709,7 +640,7 @@ func (c *CollectorHealthCheckRetryRules6) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorHealthCheckRetryRules6) GetType() *CollectorHealthCheckRetryType6 {
+func (c *CollectorHealthCheckRetryRules6) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -2751,106 +682,54 @@ func (c *CollectorHealthCheckRetryRules6) GetEnableHeader() any {
 	return c.EnableHeader
 }
 
-type CollectorHealthCheckAuthRequestHeader6 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckAuthRequestParam6 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorHealthCheckType6 - Collector type: health_check
-type CollectorHealthCheckType6 string
+// CollectorHealthCheckType7 - Collector type: health_check
+type CollectorHealthCheckType7 string
 
 const (
-	CollectorHealthCheckType6HealthCheck CollectorHealthCheckType6 = "health_check"
+	CollectorHealthCheckType7HealthCheck CollectorHealthCheckType7 = "health_check"
 )
 
-func (e CollectorHealthCheckType6) ToPointer() *CollectorHealthCheckType6 {
+func (e CollectorHealthCheckType7) ToPointer() *CollectorHealthCheckType7 {
 	return &e
 }
-func (e *CollectorHealthCheckType6) UnmarshalJSON(data []byte) error {
+func (e *CollectorHealthCheckType7) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "health_check":
-		*e = CollectorHealthCheckType6(v)
+		*e = CollectorHealthCheckType7(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorHealthCheckType6: %v", v)
+		return fmt.Errorf("invalid value for CollectorHealthCheckType7: %v", v)
 	}
 }
 
 type CollectorHealthCheckHealthCheck6 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorHealthCheckAuthentication6 `default:"none" json:"authentication"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret string                          `json:"credentialsSecret"`
-	Discovery         *CollectorHealthCheckDiscovery6 `json:"discovery,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue string `json:"clientSecretParamValue"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
+	// Optional authentication request headers.
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders   `json:"authRequestHeaders,omitempty"`
+	Discovery          *CollectorHealthCheckDiscovery6 `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
 	CollectMethod *HealthCheckMethod6 `default:"get" json:"collectMethod"`
 	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam6 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
 	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
@@ -2860,8 +739,8 @@ type CollectorHealthCheckHealthCheck6 struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers6 `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorHealthCheckRetryRules6 `json:"retryRules,omitempty"`
@@ -2869,26 +748,14 @@ type CollectorHealthCheckHealthCheck6 struct {
 	Username *string `json:"username,omitempty"`
 	// Login password
 	Password *string `json:"password,omitempty"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
 	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader6 `json:"authRequestHeaders,omitempty"`
-	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
-	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam6 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Collector type: health_check
-	Type CollectorHealthCheckType6 `json:"type"`
+	Type CollectorHealthCheckType7 `json:"type"`
 }
 
 func (c CollectorHealthCheckHealthCheck6) MarshalJSON() ([]byte, error) {
@@ -2896,7 +763,7 @@ func (c CollectorHealthCheckHealthCheck6) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorHealthCheckHealthCheck6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "collectUrl", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"clientSecretParamValue", "collectUrl", "type"}); err != nil {
 		return err
 	}
 	return nil
@@ -2909,11 +776,53 @@ func (c *CollectorHealthCheckHealthCheck6) GetAuthentication() *CollectorHealthC
 	return c.Authentication
 }
 
-func (c *CollectorHealthCheckHealthCheck6) GetCredentialsSecret() string {
+func (c *CollectorHealthCheckHealthCheck6) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorHealthCheckHealthCheck6) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorHealthCheckHealthCheck6) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorHealthCheckHealthCheck6) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorHealthCheckHealthCheck6) GetClientSecretParamValue() string {
 	if c == nil {
 		return ""
 	}
-	return c.CredentialsSecret
+	return c.ClientSecretParamValue
+}
+
+func (c *CollectorHealthCheckHealthCheck6) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorHealthCheckHealthCheck6) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
 }
 
 func (c *CollectorHealthCheckHealthCheck6) GetDiscovery() *CollectorHealthCheckDiscovery6 {
@@ -2937,7 +846,7 @@ func (c *CollectorHealthCheckHealthCheck6) GetCollectMethod() *HealthCheckMethod
 	return c.CollectMethod
 }
 
-func (c *CollectorHealthCheckHealthCheck6) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam6 {
+func (c *CollectorHealthCheckHealthCheck6) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -2979,7 +888,7 @@ func (c *CollectorHealthCheckHealthCheck6) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
-func (c *CollectorHealthCheckHealthCheck6) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers6 {
+func (c *CollectorHealthCheckHealthCheck6) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
 	if c == nil {
 		return nil
 	}
@@ -3014,11 +923,11 @@ func (c *CollectorHealthCheckHealthCheck6) GetPassword() *string {
 	return c.Password
 }
 
-func (c *CollectorHealthCheckHealthCheck6) GetLoginURL() *string {
+func (c *CollectorHealthCheckHealthCheck6) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
-	return c.LoginURL
+	return c.CredentialsSecret
 }
 
 func (c *CollectorHealthCheckHealthCheck6) GetLoginBody() *string {
@@ -3028,48 +937,6 @@ func (c *CollectorHealthCheckHealthCheck6) GetLoginBody() *string {
 	return c.LoginBody
 }
 
-func (c *CollectorHealthCheckHealthCheck6) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorHealthCheckHealthCheck6) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorHealthCheckHealthCheck6) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader6 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
-func (c *CollectorHealthCheckHealthCheck6) GetClientSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamName
-}
-
-func (c *CollectorHealthCheckHealthCheck6) GetClientSecretParamValue() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamValue
-}
-
-func (c *CollectorHealthCheckHealthCheck6) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam6 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
-}
-
 func (c *CollectorHealthCheckHealthCheck6) GetTextSecret() *string {
 	if c == nil {
 		return nil
@@ -3077,9 +944,9 @@ func (c *CollectorHealthCheckHealthCheck6) GetTextSecret() *string {
 	return c.TextSecret
 }
 
-func (c *CollectorHealthCheckHealthCheck6) GetType() CollectorHealthCheckType6 {
+func (c *CollectorHealthCheckHealthCheck6) GetType() CollectorHealthCheckType7 {
 	if c == nil {
-		return CollectorHealthCheckType6("")
+		return CollectorHealthCheckType7("")
 	}
 	return c.Type
 }
@@ -3191,38 +1058,6 @@ func (e *HealthCheckMethod5) IsExact() bool {
 	return false
 }
 
-type CollectorHealthCheckCollectRequestParam5 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam5) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorHealthCheckCollectRequestHeader5 struct {
 	// Header Name
 	Name string `json:"name"`
@@ -3255,62 +1090,14 @@ func (c *CollectorHealthCheckCollectRequestHeader5) GetValue() string {
 	return c.Value
 }
 
-type CollectorHealthCheckHiddenDefaultBreakers5 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers5Cribl CollectorHealthCheckHiddenDefaultBreakers5 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers5) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers5 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers5) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType5 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType5 string
-
-const (
-	// CollectorHealthCheckRetryType5None Disabled
-	CollectorHealthCheckRetryType5None CollectorHealthCheckRetryType5 = "none"
-	// CollectorHealthCheckRetryType5Backoff Backoff
-	CollectorHealthCheckRetryType5Backoff CollectorHealthCheckRetryType5 = "backoff"
-	// CollectorHealthCheckRetryType5Static Static
-	CollectorHealthCheckRetryType5Static CollectorHealthCheckRetryType5 = "static"
-)
-
-func (e CollectorHealthCheckRetryType5) ToPointer() *CollectorHealthCheckRetryType5 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType5) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorHealthCheckRetryRules5 struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType5 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval     any                         `json:"interval,omitempty"`
+	Limit        any                         `json:"limit,omitempty"`
+	Multiplier   any                         `json:"multiplier,omitempty"`
+	Codes        any                         `json:"codes,omitempty"`
+	EnableHeader any                         `json:"enableHeader,omitempty"`
 }
 
 func (c CollectorHealthCheckRetryRules5) MarshalJSON() ([]byte, error) {
@@ -3324,7 +1111,7 @@ func (c *CollectorHealthCheckRetryRules5) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorHealthCheckRetryRules5) GetType() *CollectorHealthCheckRetryType5 {
+func (c *CollectorHealthCheckRetryRules5) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -3366,108 +1153,52 @@ func (c *CollectorHealthCheckRetryRules5) GetEnableHeader() any {
 	return c.EnableHeader
 }
 
-type CollectorHealthCheckAuthRequestHeader5 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader5) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckAuthRequestParam5 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam5) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorHealthCheckType5 - Collector type: health_check
-type CollectorHealthCheckType5 string
+// CollectorHealthCheckType6 - Collector type: health_check
+type CollectorHealthCheckType6 string
 
 const (
-	CollectorHealthCheckType5HealthCheck CollectorHealthCheckType5 = "health_check"
+	CollectorHealthCheckType6HealthCheck CollectorHealthCheckType6 = "health_check"
 )
 
-func (e CollectorHealthCheckType5) ToPointer() *CollectorHealthCheckType5 {
+func (e CollectorHealthCheckType6) ToPointer() *CollectorHealthCheckType6 {
 	return &e
 }
-func (e *CollectorHealthCheckType5) UnmarshalJSON(data []byte) error {
+func (e *CollectorHealthCheckType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "health_check":
-		*e = CollectorHealthCheckType5(v)
+		*e = CollectorHealthCheckType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorHealthCheckType5: %v", v)
+		return fmt.Errorf("invalid value for CollectorHealthCheckType6: %v", v)
 	}
 }
 
 type CollectorHealthCheckHealthCheck5 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorHealthCheckAuthentication5 `default:"none" json:"authentication"`
-	// Login username
-	Username string `json:"username"`
-	// Login password
-	Password  string                          `json:"password"`
-	Discovery *CollectorHealthCheckDiscovery5 `json:"discovery,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Optional authentication request headers.
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders   `json:"authRequestHeaders,omitempty"`
+	Discovery          *CollectorHealthCheckDiscovery5 `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
 	CollectMethod *HealthCheckMethod5 `default:"get" json:"collectMethod"`
 	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam5 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
 	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
@@ -3477,33 +1208,25 @@ type CollectorHealthCheckHealthCheck5 struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers5 `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorHealthCheckRetryRules5 `json:"retryRules,omitempty"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader5 `json:"authRequestHeaders,omitempty"`
+	// Login username
+	Username *string `json:"username,omitempty"`
+	// Login password
+	Password *string `json:"password,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam5 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Collector type: health_check
-	Type CollectorHealthCheckType5 `json:"type"`
+	Type CollectorHealthCheckType6 `json:"type"`
 }
 
 func (c CollectorHealthCheckHealthCheck5) MarshalJSON() ([]byte, error) {
@@ -3511,7 +1234,7 @@ func (c CollectorHealthCheckHealthCheck5) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorHealthCheckHealthCheck5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "collectUrl", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "collectUrl", "type"}); err != nil {
 		return err
 	}
 	return nil
@@ -3524,18 +1247,46 @@ func (c *CollectorHealthCheckHealthCheck5) GetAuthentication() *CollectorHealthC
 	return c.Authentication
 }
 
-func (c *CollectorHealthCheckHealthCheck5) GetUsername() string {
+func (c *CollectorHealthCheckHealthCheck5) GetLoginURL() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
-	return c.Username
+	return c.LoginURL
 }
 
-func (c *CollectorHealthCheckHealthCheck5) GetPassword() string {
+func (c *CollectorHealthCheckHealthCheck5) GetCredentialsSecret() string {
 	if c == nil {
 		return ""
 	}
-	return c.Password
+	return c.CredentialsSecret
+}
+
+func (c *CollectorHealthCheckHealthCheck5) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorHealthCheckHealthCheck5) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorHealthCheckHealthCheck5) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorHealthCheckHealthCheck5) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
 }
 
 func (c *CollectorHealthCheckHealthCheck5) GetDiscovery() *CollectorHealthCheckDiscovery5 {
@@ -3559,7 +1310,7 @@ func (c *CollectorHealthCheckHealthCheck5) GetCollectMethod() *HealthCheckMethod
 	return c.CollectMethod
 }
 
-func (c *CollectorHealthCheckHealthCheck5) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam5 {
+func (c *CollectorHealthCheckHealthCheck5) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -3601,7 +1352,7 @@ func (c *CollectorHealthCheckHealthCheck5) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
-func (c *CollectorHealthCheckHealthCheck5) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers5 {
+func (c *CollectorHealthCheckHealthCheck5) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
 	if c == nil {
 		return nil
 	}
@@ -3622,46 +1373,18 @@ func (c *CollectorHealthCheckHealthCheck5) GetRetryRules() *CollectorHealthCheck
 	return c.RetryRules
 }
 
-func (c *CollectorHealthCheckHealthCheck5) GetCredentialsSecret() *string {
+func (c *CollectorHealthCheckHealthCheck5) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
-	return c.CredentialsSecret
+	return c.Username
 }
 
-func (c *CollectorHealthCheckHealthCheck5) GetLoginURL() *string {
+func (c *CollectorHealthCheckHealthCheck5) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
-	return c.LoginURL
-}
-
-func (c *CollectorHealthCheckHealthCheck5) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorHealthCheckHealthCheck5) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorHealthCheckHealthCheck5) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorHealthCheckHealthCheck5) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader5 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
+	return c.Password
 }
 
 func (c *CollectorHealthCheckHealthCheck5) GetClientSecretParamName() *string {
@@ -3678,7 +1401,7 @@ func (c *CollectorHealthCheckHealthCheck5) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorHealthCheckHealthCheck5) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam5 {
+func (c *CollectorHealthCheckHealthCheck5) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -3692,9 +1415,9 @@ func (c *CollectorHealthCheckHealthCheck5) GetTextSecret() *string {
 	return c.TextSecret
 }
 
-func (c *CollectorHealthCheckHealthCheck5) GetType() CollectorHealthCheckType5 {
+func (c *CollectorHealthCheckHealthCheck5) GetType() CollectorHealthCheckType6 {
 	if c == nil {
-		return CollectorHealthCheckType5("")
+		return CollectorHealthCheckType6("")
 	}
 	return c.Type
 }
@@ -3806,38 +1529,6 @@ func (e *HealthCheckMethod4) IsExact() bool {
 	return false
 }
 
-type CollectorHealthCheckCollectRequestParam4 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam4) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam4) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorHealthCheckCollectRequestHeader4 struct {
 	// Header Name
 	Name string `json:"name"`
@@ -3870,62 +1561,14 @@ func (c *CollectorHealthCheckCollectRequestHeader4) GetValue() string {
 	return c.Value
 }
 
-type CollectorHealthCheckHiddenDefaultBreakers4 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers4Cribl CollectorHealthCheckHiddenDefaultBreakers4 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers4) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers4 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers4) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType4 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType4 string
-
-const (
-	// CollectorHealthCheckRetryType4None Disabled
-	CollectorHealthCheckRetryType4None CollectorHealthCheckRetryType4 = "none"
-	// CollectorHealthCheckRetryType4Backoff Backoff
-	CollectorHealthCheckRetryType4Backoff CollectorHealthCheckRetryType4 = "backoff"
-	// CollectorHealthCheckRetryType4Static Static
-	CollectorHealthCheckRetryType4Static CollectorHealthCheckRetryType4 = "static"
-)
-
-func (e CollectorHealthCheckRetryType4) ToPointer() *CollectorHealthCheckRetryType4 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType4) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorHealthCheckRetryRules4 struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType4 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval     any                         `json:"interval,omitempty"`
+	Limit        any                         `json:"limit,omitempty"`
+	Multiplier   any                         `json:"multiplier,omitempty"`
+	Codes        any                         `json:"codes,omitempty"`
+	EnableHeader any                         `json:"enableHeader,omitempty"`
 }
 
 func (c CollectorHealthCheckRetryRules4) MarshalJSON() ([]byte, error) {
@@ -3939,7 +1582,7 @@ func (c *CollectorHealthCheckRetryRules4) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorHealthCheckRetryRules4) GetType() *CollectorHealthCheckRetryType4 {
+func (c *CollectorHealthCheckRetryRules4) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -3981,104 +1624,54 @@ func (c *CollectorHealthCheckRetryRules4) GetEnableHeader() any {
 	return c.EnableHeader
 }
 
-type CollectorHealthCheckAuthRequestHeader4 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader4) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader4) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckAuthRequestParam4 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam4) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam4) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorHealthCheckType4 - Collector type: health_check
-type CollectorHealthCheckType4 string
+// CollectorHealthCheckType5 - Collector type: health_check
+type CollectorHealthCheckType5 string
 
 const (
-	CollectorHealthCheckType4HealthCheck CollectorHealthCheckType4 = "health_check"
+	CollectorHealthCheckType5HealthCheck CollectorHealthCheckType5 = "health_check"
 )
 
-func (e CollectorHealthCheckType4) ToPointer() *CollectorHealthCheckType4 {
+func (e CollectorHealthCheckType5) ToPointer() *CollectorHealthCheckType5 {
 	return &e
 }
-func (e *CollectorHealthCheckType4) UnmarshalJSON(data []byte) error {
+func (e *CollectorHealthCheckType5) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "health_check":
-		*e = CollectorHealthCheckType4(v)
+		*e = CollectorHealthCheckType5(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorHealthCheckType4: %v", v)
+		return fmt.Errorf("invalid value for CollectorHealthCheckType5: %v", v)
 	}
 }
 
 type CollectorHealthCheckHealthCheck4 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorHealthCheckAuthentication4 `default:"none" json:"authentication"`
-	Discovery      *CollectorHealthCheckDiscovery4      `json:"discovery,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	// Login username
+	Username string `json:"username"`
+	// Login password
+	Password string `json:"password"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Optional authentication request headers.
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders   `json:"authRequestHeaders,omitempty"`
+	Discovery          *CollectorHealthCheckDiscovery4 `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
 	CollectMethod *HealthCheckMethod4 `default:"get" json:"collectMethod"`
 	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam4 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
 	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
@@ -4088,37 +1681,23 @@ type CollectorHealthCheckHealthCheck4 struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers4 `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorHealthCheckRetryRules4 `json:"retryRules,omitempty"`
-	// Login username
-	Username *string `json:"username,omitempty"`
-	// Login password
-	Password *string `json:"password,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader4 `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam4 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Collector type: health_check
-	Type CollectorHealthCheckType4 `json:"type"`
+	Type CollectorHealthCheckType5 `json:"type"`
 }
 
 func (c CollectorHealthCheckHealthCheck4) MarshalJSON() ([]byte, error) {
@@ -4126,7 +1705,7 @@ func (c CollectorHealthCheckHealthCheck4) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorHealthCheckHealthCheck4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"collectUrl", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "collectUrl", "type"}); err != nil {
 		return err
 	}
 	return nil
@@ -4137,6 +1716,55 @@ func (c *CollectorHealthCheckHealthCheck4) GetAuthentication() *CollectorHealthC
 		return nil
 	}
 	return c.Authentication
+}
+
+func (c *CollectorHealthCheckHealthCheck4) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorHealthCheckHealthCheck4) GetUsername() string {
+	if c == nil {
+		return ""
+	}
+	return c.Username
+}
+
+func (c *CollectorHealthCheckHealthCheck4) GetPassword() string {
+	if c == nil {
+		return ""
+	}
+	return c.Password
+}
+
+func (c *CollectorHealthCheckHealthCheck4) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorHealthCheckHealthCheck4) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorHealthCheckHealthCheck4) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorHealthCheckHealthCheck4) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
 }
 
 func (c *CollectorHealthCheckHealthCheck4) GetDiscovery() *CollectorHealthCheckDiscovery4 {
@@ -4160,7 +1788,7 @@ func (c *CollectorHealthCheckHealthCheck4) GetCollectMethod() *HealthCheckMethod
 	return c.CollectMethod
 }
 
-func (c *CollectorHealthCheckHealthCheck4) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam4 {
+func (c *CollectorHealthCheckHealthCheck4) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -4202,7 +1830,7 @@ func (c *CollectorHealthCheckHealthCheck4) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
-func (c *CollectorHealthCheckHealthCheck4) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers4 {
+func (c *CollectorHealthCheckHealthCheck4) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
 	if c == nil {
 		return nil
 	}
@@ -4223,60 +1851,11 @@ func (c *CollectorHealthCheckHealthCheck4) GetRetryRules() *CollectorHealthCheck
 	return c.RetryRules
 }
 
-func (c *CollectorHealthCheckHealthCheck4) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorHealthCheckHealthCheck4) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
 func (c *CollectorHealthCheckHealthCheck4) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
-}
-
-func (c *CollectorHealthCheckHealthCheck4) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorHealthCheckHealthCheck4) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorHealthCheckHealthCheck4) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorHealthCheckHealthCheck4) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorHealthCheckHealthCheck4) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader4 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
 }
 
 func (c *CollectorHealthCheckHealthCheck4) GetClientSecretParamName() *string {
@@ -4293,7 +1872,7 @@ func (c *CollectorHealthCheckHealthCheck4) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorHealthCheckHealthCheck4) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam4 {
+func (c *CollectorHealthCheckHealthCheck4) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -4307,7 +1886,968 @@ func (c *CollectorHealthCheckHealthCheck4) GetTextSecret() *string {
 	return c.TextSecret
 }
 
-func (c *CollectorHealthCheckHealthCheck4) GetType() CollectorHealthCheckType4 {
+func (c *CollectorHealthCheckHealthCheck4) GetType() CollectorHealthCheckType5 {
+	if c == nil {
+		return CollectorHealthCheckType5("")
+	}
+	return c.Type
+}
+
+type CollectorHealthCheckCollectorHealthCheckPart2Type struct {
+	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+	Authentication *AuthenticationHealthCheck `default:"none" json:"authentication"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret string                `json:"credentialsSecret"`
+	Discovery         *DiscoveryHealthCheck `json:"discovery,omitempty"`
+	// Expression to derive URL to use for the health check operation (can be a constant).
+	CollectURL string `json:"collectUrl"`
+	// Health check HTTP method.
+	CollectMethod *HealthCheckMethodHealthCheck `default:"get" json:"collectMethod"`
+	// Optional health check request parameters.
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
+	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+	CollectBody *string `default:"{ }" json:"collectBody"`
+	// Optional health check request headers.
+	CollectRequestHeaders []CollectRequestHeaderHealthCheck `json:"collectRequestHeaders,omitempty"`
+	// Enable to make auth health check call.
+	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	// HTTP request inactivity timeout, use 0 to disable
+	Timeout *float64 `default:"30" json:"timeout"`
+	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
+	// List of headers that are safe to log in plain text.
+	SafeHeaders []string               `json:"safeHeaders,omitempty"`
+	RetryRules  *RetryRulesHealthCheck `json:"retryRules,omitempty"`
+	// Login username
+	Username *string `json:"username,omitempty"`
+	// Login password
+	Password *string `json:"password,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Optional authentication request headers.
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
+	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Collector type: health_check
+	Type CollectorHealthCheckType4 `json:"type"`
+}
+
+func (c CollectorHealthCheckCollectorHealthCheckPart2Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "collectUrl", "type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetAuthentication() *AuthenticationHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.Authentication
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetCredentialsSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetDiscovery() *DiscoveryHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.Discovery
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetCollectURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.CollectURL
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetCollectMethod() *HealthCheckMethodHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.CollectMethod
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestParams
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetCollectBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CollectBody
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetCollectRequestHeaders() []CollectRequestHeaderHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetAuthenticateCollect() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AuthenticateCollect
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
+	if c == nil {
+		return nil
+	}
+	return c.DefaultBreakers
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetSafeHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SafeHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetRetryRules() *RetryRulesHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetClientSecretParamValue() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamValue
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart2Type) GetType() CollectorHealthCheckType4 {
+	if c == nil {
+		return CollectorHealthCheckType4("")
+	}
+	return c.Type
+}
+
+type CollectorHealthCheckCollectorHealthCheckPart1Type struct {
+	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+	Authentication *AuthenticationHealthCheck `default:"none" json:"authentication"`
+	// Login username
+	Username string `json:"username"`
+	// Login password
+	Password  string                `json:"password"`
+	Discovery *DiscoveryHealthCheck `json:"discovery,omitempty"`
+	// Expression to derive URL to use for the health check operation (can be a constant).
+	CollectURL string `json:"collectUrl"`
+	// Health check HTTP method.
+	CollectMethod *HealthCheckMethodHealthCheck `default:"get" json:"collectMethod"`
+	// Optional health check request parameters.
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
+	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+	CollectBody *string `default:"{ }" json:"collectBody"`
+	// Optional health check request headers.
+	CollectRequestHeaders []CollectRequestHeaderHealthCheck `json:"collectRequestHeaders,omitempty"`
+	// Enable to make auth health check call.
+	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	// HTTP request inactivity timeout, use 0 to disable
+	Timeout *float64 `default:"30" json:"timeout"`
+	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
+	// List of headers that are safe to log in plain text.
+	SafeHeaders []string               `json:"safeHeaders,omitempty"`
+	RetryRules  *RetryRulesHealthCheck `json:"retryRules,omitempty"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Optional authentication request headers.
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
+	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Collector type: health_check
+	Type CollectorHealthCheckType4 `json:"type"`
+}
+
+func (c CollectorHealthCheckCollectorHealthCheckPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "collectUrl", "type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetAuthentication() *AuthenticationHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.Authentication
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetUsername() string {
+	if c == nil {
+		return ""
+	}
+	return c.Username
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetPassword() string {
+	if c == nil {
+		return ""
+	}
+	return c.Password
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetDiscovery() *DiscoveryHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.Discovery
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetCollectURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.CollectURL
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetCollectMethod() *HealthCheckMethodHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.CollectMethod
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestParams
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetCollectBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CollectBody
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetCollectRequestHeaders() []CollectRequestHeaderHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetAuthenticateCollect() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AuthenticateCollect
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
+	if c == nil {
+		return nil
+	}
+	return c.DefaultBreakers
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetSafeHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SafeHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetRetryRules() *RetryRulesHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetClientSecretParamValue() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamValue
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart1Type) GetType() CollectorHealthCheckType4 {
+	if c == nil {
+		return CollectorHealthCheckType4("")
+	}
+	return c.Type
+}
+
+// AuthenticationHealthCheck - Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+type AuthenticationHealthCheck string
+
+const (
+	AuthenticationHealthCheckNone        AuthenticationHealthCheck = "none"
+	AuthenticationHealthCheckBasic       AuthenticationHealthCheck = "basic"
+	AuthenticationHealthCheckBasicSecret AuthenticationHealthCheck = "basicSecret"
+	AuthenticationHealthCheckLogin       AuthenticationHealthCheck = "login"
+	AuthenticationHealthCheckLoginSecret AuthenticationHealthCheck = "loginSecret"
+	AuthenticationHealthCheckOauth       AuthenticationHealthCheck = "oauth"
+	AuthenticationHealthCheckOauthSecret AuthenticationHealthCheck = "oauthSecret"
+)
+
+func (e AuthenticationHealthCheck) ToPointer() *AuthenticationHealthCheck {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AuthenticationHealthCheck) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret":
+			return true
+		}
+	}
+	return false
+}
+
+// DiscoverTypeHealthCheck - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
+type DiscoverTypeHealthCheck string
+
+const (
+	// DiscoverTypeHealthCheckHTTP HTTP Request
+	DiscoverTypeHealthCheckHTTP DiscoverTypeHealthCheck = "http"
+	// DiscoverTypeHealthCheckJSON JSON Response
+	DiscoverTypeHealthCheckJSON DiscoverTypeHealthCheck = "json"
+	// DiscoverTypeHealthCheckList Item List
+	DiscoverTypeHealthCheckList DiscoverTypeHealthCheck = "list"
+	// DiscoverTypeHealthCheckNone None
+	DiscoverTypeHealthCheckNone DiscoverTypeHealthCheck = "none"
+)
+
+func (e DiscoverTypeHealthCheck) ToPointer() *DiscoverTypeHealthCheck {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DiscoverTypeHealthCheck) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "json", "list", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type DiscoveryHealthCheck struct {
+	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
+	DiscoverType *DiscoverTypeHealthCheck `default:"none" json:"discoverType"`
+}
+
+func (d DiscoveryHealthCheck) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DiscoveryHealthCheck) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DiscoveryHealthCheck) GetDiscoverType() *DiscoverTypeHealthCheck {
+	if d == nil {
+		return nil
+	}
+	return d.DiscoverType
+}
+
+// HealthCheckMethodHealthCheck - Health check HTTP method.
+type HealthCheckMethodHealthCheck string
+
+const (
+	// HealthCheckMethodHealthCheckGet GET
+	HealthCheckMethodHealthCheckGet HealthCheckMethodHealthCheck = "get"
+	// HealthCheckMethodHealthCheckPost POST
+	HealthCheckMethodHealthCheckPost HealthCheckMethodHealthCheck = "post"
+	// HealthCheckMethodHealthCheckPostWithBody POST with Body
+	HealthCheckMethodHealthCheckPostWithBody HealthCheckMethodHealthCheck = "post_with_body"
+)
+
+func (e HealthCheckMethodHealthCheck) ToPointer() *HealthCheckMethodHealthCheck {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *HealthCheckMethodHealthCheck) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body":
+			return true
+		}
+	}
+	return false
+}
+
+type CollectRequestHeaderHealthCheck struct {
+	// Header Name
+	Name string `json:"name"`
+	// JavaScript expression to compute the header value (can be a constant).
+	Value string `json:"value"`
+}
+
+func (c CollectRequestHeaderHealthCheck) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectRequestHeaderHealthCheck) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectRequestHeaderHealthCheck) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
+}
+
+func (c *CollectRequestHeaderHealthCheck) GetValue() string {
+	if c == nil {
+		return ""
+	}
+	return c.Value
+}
+
+type RetryRulesHealthCheck struct {
+	// The algorithm to use when performing HTTP retries
+	Type         *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval     any                         `json:"interval,omitempty"`
+	Limit        any                         `json:"limit,omitempty"`
+	Multiplier   any                         `json:"multiplier,omitempty"`
+	Codes        any                         `json:"codes,omitempty"`
+	EnableHeader any                         `json:"enableHeader,omitempty"`
+}
+
+func (r RetryRulesHealthCheck) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RetryRulesHealthCheck) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RetryRulesHealthCheck) GetType() *RetryTypeOptionsRetryRules {
+	if r == nil {
+		return nil
+	}
+	return r.Type
+}
+
+func (r *RetryRulesHealthCheck) GetInterval() any {
+	if r == nil {
+		return nil
+	}
+	return r.Interval
+}
+
+func (r *RetryRulesHealthCheck) GetLimit() any {
+	if r == nil {
+		return nil
+	}
+	return r.Limit
+}
+
+func (r *RetryRulesHealthCheck) GetMultiplier() any {
+	if r == nil {
+		return nil
+	}
+	return r.Multiplier
+}
+
+func (r *RetryRulesHealthCheck) GetCodes() any {
+	if r == nil {
+		return nil
+	}
+	return r.Codes
+}
+
+func (r *RetryRulesHealthCheck) GetEnableHeader() any {
+	if r == nil {
+		return nil
+	}
+	return r.EnableHeader
+}
+
+// CollectorHealthCheckType4 - Collector type: health_check
+type CollectorHealthCheckType4 string
+
+const (
+	CollectorHealthCheckType4HealthCheck CollectorHealthCheckType4 = "health_check"
+)
+
+func (e CollectorHealthCheckType4) ToPointer() *CollectorHealthCheckType4 {
+	return &e
+}
+func (e *CollectorHealthCheckType4) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "health_check":
+		*e = CollectorHealthCheckType4(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorHealthCheckType4: %v", v)
+	}
+}
+
+type CollectorHealthCheckCollectorHealthCheckPart0Type struct {
+	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+	Authentication *AuthenticationHealthCheck `default:"none" json:"authentication"`
+	Discovery      *DiscoveryHealthCheck      `json:"discovery,omitempty"`
+	// Expression to derive URL to use for the health check operation (can be a constant).
+	CollectURL string `json:"collectUrl"`
+	// Health check HTTP method.
+	CollectMethod *HealthCheckMethodHealthCheck `default:"get" json:"collectMethod"`
+	// Optional health check request parameters.
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
+	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+	CollectBody *string `default:"{ }" json:"collectBody"`
+	// Optional health check request headers.
+	CollectRequestHeaders []CollectRequestHeaderHealthCheck `json:"collectRequestHeaders,omitempty"`
+	// Enable to make auth health check call.
+	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	// HTTP request inactivity timeout, use 0 to disable
+	Timeout *float64 `default:"30" json:"timeout"`
+	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
+	// List of headers that are safe to log in plain text.
+	SafeHeaders []string               `json:"safeHeaders,omitempty"`
+	RetryRules  *RetryRulesHealthCheck `json:"retryRules,omitempty"`
+	// Login username
+	Username *string `json:"username,omitempty"`
+	// Login password
+	Password *string `json:"password,omitempty"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Optional authentication request headers.
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
+	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
+	// Select or create a text secret that contains the client secret's value.
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Collector type: health_check
+	Type CollectorHealthCheckType4 `json:"type"`
+}
+
+func (c CollectorHealthCheckCollectorHealthCheckPart0Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"collectUrl", "type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetAuthentication() *AuthenticationHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.Authentication
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetDiscovery() *DiscoveryHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.Discovery
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetCollectURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.CollectURL
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetCollectMethod() *HealthCheckMethodHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.CollectMethod
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestParams
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetCollectBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CollectBody
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetCollectRequestHeaders() []CollectRequestHeaderHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetAuthenticateCollect() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AuthenticateCollect
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
+	if c == nil {
+		return nil
+	}
+	return c.DefaultBreakers
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetSafeHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SafeHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetRetryRules() *RetryRulesHealthCheck {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetClientSecretParamValue() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamValue
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorHealthCheckCollectorHealthCheckPart0Type) GetType() CollectorHealthCheckType4 {
 	if c == nil {
 		return CollectorHealthCheckType4("")
 	}
@@ -4393,38 +2933,6 @@ func (c *CollectorHealthCheckDiscovery3) GetDiscoverType() *CollectorHealthCheck
 	return c.DiscoverType
 }
 
-type CollectorHealthCheckCollectRequestParam3 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam3) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam3) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorHealthCheckCollectRequestHeader3 struct {
 	// Header Name
 	Name string `json:"name"`
@@ -4485,62 +2993,14 @@ func (e *CollectorHealthCheckAuthentication3) IsExact() bool {
 	return false
 }
 
-type CollectorHealthCheckHiddenDefaultBreakers3 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers3Cribl CollectorHealthCheckHiddenDefaultBreakers3 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers3) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers3 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers3) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType3 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType3 string
-
-const (
-	// CollectorHealthCheckRetryType3None Disabled
-	CollectorHealthCheckRetryType3None CollectorHealthCheckRetryType3 = "none"
-	// CollectorHealthCheckRetryType3Backoff Backoff
-	CollectorHealthCheckRetryType3Backoff CollectorHealthCheckRetryType3 = "backoff"
-	// CollectorHealthCheckRetryType3Static Static
-	CollectorHealthCheckRetryType3Static CollectorHealthCheckRetryType3 = "static"
-)
-
-func (e CollectorHealthCheckRetryType3) ToPointer() *CollectorHealthCheckRetryType3 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType3) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorHealthCheckRetryRules3 struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType3 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval     any                         `json:"interval,omitempty"`
+	Limit        any                         `json:"limit,omitempty"`
+	Multiplier   any                         `json:"multiplier,omitempty"`
+	Codes        any                         `json:"codes,omitempty"`
+	EnableHeader any                         `json:"enableHeader,omitempty"`
 }
 
 func (c CollectorHealthCheckRetryRules3) MarshalJSON() ([]byte, error) {
@@ -4554,7 +3014,7 @@ func (c *CollectorHealthCheckRetryRules3) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorHealthCheckRetryRules3) GetType() *CollectorHealthCheckRetryType3 {
+func (c *CollectorHealthCheckRetryRules3) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -4596,70 +3056,6 @@ func (c *CollectorHealthCheckRetryRules3) GetEnableHeader() any {
 	return c.EnableHeader
 }
 
-type CollectorHealthCheckAuthRequestHeader3 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader3) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader3) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckAuthRequestParam3 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam3) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam3) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 // CollectorHealthCheckType3 - Collector type: health_check
 type CollectorHealthCheckType3 string
 
@@ -4693,7 +3089,7 @@ type CollectorHealthCheckHealthCheck3 struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam3 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader3 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -4703,8 +3099,8 @@ type CollectorHealthCheckHealthCheck3 struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers3 `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorHealthCheckRetryRules3 `json:"retryRules,omitempty"`
@@ -4723,13 +3119,13 @@ type CollectorHealthCheckHealthCheck3 struct {
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader3 `json:"authRequestHeaders,omitempty"`
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam3 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Collector type: health_check
@@ -4775,7 +3171,7 @@ func (c *CollectorHealthCheckHealthCheck3) GetCollectURL() string {
 	return c.CollectURL
 }
 
-func (c *CollectorHealthCheckHealthCheck3) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam3 {
+func (c *CollectorHealthCheckHealthCheck3) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -4817,7 +3213,7 @@ func (c *CollectorHealthCheckHealthCheck3) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
-func (c *CollectorHealthCheckHealthCheck3) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers3 {
+func (c *CollectorHealthCheckHealthCheck3) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
 	if c == nil {
 		return nil
 	}
@@ -4887,7 +3283,7 @@ func (c *CollectorHealthCheckHealthCheck3) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorHealthCheckHealthCheck3) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader3 {
+func (c *CollectorHealthCheckHealthCheck3) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
 	if c == nil {
 		return nil
 	}
@@ -4908,7 +3304,7 @@ func (c *CollectorHealthCheckHealthCheck3) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorHealthCheckHealthCheck3) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam3 {
+func (c *CollectorHealthCheckHealthCheck3) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -4954,38 +3350,6 @@ func (e *HealthCheckMethod2) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type CollectorHealthCheckCollectRequestParam2 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam2) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam2) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 // CollectorHealthCheckDiscoverType2 - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -5100,62 +3464,14 @@ func (e *CollectorHealthCheckAuthentication2) IsExact() bool {
 	return false
 }
 
-type CollectorHealthCheckHiddenDefaultBreakers2 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers2Cribl CollectorHealthCheckHiddenDefaultBreakers2 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers2) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType2 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType2 string
-
-const (
-	// CollectorHealthCheckRetryType2None Disabled
-	CollectorHealthCheckRetryType2None CollectorHealthCheckRetryType2 = "none"
-	// CollectorHealthCheckRetryType2Backoff Backoff
-	CollectorHealthCheckRetryType2Backoff CollectorHealthCheckRetryType2 = "backoff"
-	// CollectorHealthCheckRetryType2Static Static
-	CollectorHealthCheckRetryType2Static CollectorHealthCheckRetryType2 = "static"
-)
-
-func (e CollectorHealthCheckRetryType2) ToPointer() *CollectorHealthCheckRetryType2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorHealthCheckRetryRules2 struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType2 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval     any                         `json:"interval,omitempty"`
+	Limit        any                         `json:"limit,omitempty"`
+	Multiplier   any                         `json:"multiplier,omitempty"`
+	Codes        any                         `json:"codes,omitempty"`
+	EnableHeader any                         `json:"enableHeader,omitempty"`
 }
 
 func (c CollectorHealthCheckRetryRules2) MarshalJSON() ([]byte, error) {
@@ -5169,7 +3485,7 @@ func (c *CollectorHealthCheckRetryRules2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorHealthCheckRetryRules2) GetType() *CollectorHealthCheckRetryType2 {
+func (c *CollectorHealthCheckRetryRules2) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -5211,70 +3527,6 @@ func (c *CollectorHealthCheckRetryRules2) GetEnableHeader() any {
 	return c.EnableHeader
 }
 
-type CollectorHealthCheckAuthRequestHeader2 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader2) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader2) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckAuthRequestParam2 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam2) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam2) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 // CollectorHealthCheckType2 - Collector type: health_check
 type CollectorHealthCheckType2 string
 
@@ -5303,8 +3555,8 @@ type CollectorHealthCheckHealthCheck2 struct {
 	// Health check HTTP method.
 	CollectMethod *HealthCheckMethod2 `default:"get" json:"collectMethod"`
 	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam2 `json:"collectRequestParams,omitempty"`
-	Discovery            *CollectorHealthCheckDiscovery2            `json:"discovery,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
+	Discovery            *CollectorHealthCheckDiscovery2 `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
@@ -5318,8 +3570,8 @@ type CollectorHealthCheckHealthCheck2 struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers2 `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorHealthCheckRetryRules2 `json:"retryRules,omitempty"`
@@ -5338,13 +3590,13 @@ type CollectorHealthCheckHealthCheck2 struct {
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader2 `json:"authRequestHeaders,omitempty"`
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam2 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Collector type: health_check
@@ -5369,7 +3621,7 @@ func (c *CollectorHealthCheckHealthCheck2) GetCollectMethod() *HealthCheckMethod
 	return c.CollectMethod
 }
 
-func (c *CollectorHealthCheckHealthCheck2) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam2 {
+func (c *CollectorHealthCheckHealthCheck2) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -5432,7 +3684,7 @@ func (c *CollectorHealthCheckHealthCheck2) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
-func (c *CollectorHealthCheckHealthCheck2) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers2 {
+func (c *CollectorHealthCheckHealthCheck2) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
 	if c == nil {
 		return nil
 	}
@@ -5502,7 +3754,7 @@ func (c *CollectorHealthCheckHealthCheck2) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorHealthCheckHealthCheck2) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader2 {
+func (c *CollectorHealthCheckHealthCheck2) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
 	if c == nil {
 		return nil
 	}
@@ -5523,7 +3775,7 @@ func (c *CollectorHealthCheckHealthCheck2) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorHealthCheckHealthCheck2) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam2 {
+func (c *CollectorHealthCheckHealthCheck2) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -5569,38 +3821,6 @@ func (e *HealthCheckMethod1) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type CollectorHealthCheckCollectRequestParam1 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckCollectRequestParam1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckCollectRequestParam1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckCollectRequestParam1) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckCollectRequestParam1) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 // CollectorHealthCheckDiscoverType1 - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -5715,62 +3935,14 @@ func (e *CollectorHealthCheckAuthentication1) IsExact() bool {
 	return false
 }
 
-type CollectorHealthCheckHiddenDefaultBreakers1 string
-
-const (
-	CollectorHealthCheckHiddenDefaultBreakers1Cribl CollectorHealthCheckHiddenDefaultBreakers1 = "Cribl"
-)
-
-func (e CollectorHealthCheckHiddenDefaultBreakers1) ToPointer() *CollectorHealthCheckHiddenDefaultBreakers1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckHiddenDefaultBreakers1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorHealthCheckRetryType1 - The algorithm to use when performing HTTP retries
-type CollectorHealthCheckRetryType1 string
-
-const (
-	// CollectorHealthCheckRetryType1None Disabled
-	CollectorHealthCheckRetryType1None CollectorHealthCheckRetryType1 = "none"
-	// CollectorHealthCheckRetryType1Backoff Backoff
-	CollectorHealthCheckRetryType1Backoff CollectorHealthCheckRetryType1 = "backoff"
-	// CollectorHealthCheckRetryType1Static Static
-	CollectorHealthCheckRetryType1Static CollectorHealthCheckRetryType1 = "static"
-)
-
-func (e CollectorHealthCheckRetryType1) ToPointer() *CollectorHealthCheckRetryType1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckRetryType1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorHealthCheckRetryRules1 struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *CollectorHealthCheckRetryType1 `default:"backoff" json:"type"`
-	Interval     any                             `json:"interval,omitempty"`
-	Limit        any                             `json:"limit,omitempty"`
-	Multiplier   any                             `json:"multiplier,omitempty"`
-	Codes        any                             `json:"codes,omitempty"`
-	EnableHeader any                             `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval     any                         `json:"interval,omitempty"`
+	Limit        any                         `json:"limit,omitempty"`
+	Multiplier   any                         `json:"multiplier,omitempty"`
+	Codes        any                         `json:"codes,omitempty"`
+	EnableHeader any                         `json:"enableHeader,omitempty"`
 }
 
 func (c CollectorHealthCheckRetryRules1) MarshalJSON() ([]byte, error) {
@@ -5784,7 +3956,7 @@ func (c *CollectorHealthCheckRetryRules1) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorHealthCheckRetryRules1) GetType() *CollectorHealthCheckRetryType1 {
+func (c *CollectorHealthCheckRetryRules1) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -5826,70 +3998,6 @@ func (c *CollectorHealthCheckRetryRules1) GetEnableHeader() any {
 	return c.EnableHeader
 }
 
-type CollectorHealthCheckAuthRequestHeader1 struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestHeader1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader1) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestHeader1) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorHealthCheckAuthRequestParam1 struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorHealthCheckAuthRequestParam1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorHealthCheckAuthRequestParam1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorHealthCheckAuthRequestParam1) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorHealthCheckAuthRequestParam1) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 // CollectorHealthCheckType1 - Collector type: health_check
 type CollectorHealthCheckType1 string
 
@@ -5918,8 +4026,8 @@ type CollectorHealthCheckHealthCheck1 struct {
 	// Health check HTTP method.
 	CollectMethod *HealthCheckMethod1 `default:"get" json:"collectMethod"`
 	// Optional health check request parameters.
-	CollectRequestParams []CollectorHealthCheckCollectRequestParam1 `json:"collectRequestParams,omitempty"`
-	Discovery            *CollectorHealthCheckDiscovery1            `json:"discovery,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams `json:"collectRequestParams,omitempty"`
+	Discovery            *CollectorHealthCheckDiscovery1 `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
@@ -5933,8 +4041,8 @@ type CollectorHealthCheckHealthCheck1 struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                       `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *CollectorHealthCheckHiddenDefaultBreakers1 `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                         `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                         `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorHealthCheckRetryRules1 `json:"retryRules,omitempty"`
@@ -5953,13 +4061,13 @@ type CollectorHealthCheckHealthCheck1 struct {
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
-	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader1 `json:"authRequestHeaders,omitempty"`
+	AuthRequestHeaders []ItemsTypeAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorHealthCheckAuthRequestParam1 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeAuthRequestParams `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Collector type: health_check
@@ -5984,7 +4092,7 @@ func (c *CollectorHealthCheckHealthCheck1) GetCollectMethod() *HealthCheckMethod
 	return c.CollectMethod
 }
 
-func (c *CollectorHealthCheckHealthCheck1) GetCollectRequestParams() []CollectorHealthCheckCollectRequestParam1 {
+func (c *CollectorHealthCheckHealthCheck1) GetCollectRequestParams() []ItemsTypeCollectRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -6047,7 +4155,7 @@ func (c *CollectorHealthCheckHealthCheck1) GetRejectUnauthorized() *bool {
 	return c.RejectUnauthorized
 }
 
-func (c *CollectorHealthCheckHealthCheck1) GetDefaultBreakers() *CollectorHealthCheckHiddenDefaultBreakers1 {
+func (c *CollectorHealthCheckHealthCheck1) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
 	if c == nil {
 		return nil
 	}
@@ -6117,7 +4225,7 @@ func (c *CollectorHealthCheckHealthCheck1) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorHealthCheckHealthCheck1) GetAuthRequestHeaders() []CollectorHealthCheckAuthRequestHeader1 {
+func (c *CollectorHealthCheckHealthCheck1) GetAuthRequestHeaders() []ItemsTypeAuthRequestHeaders {
 	if c == nil {
 		return nil
 	}
@@ -6138,7 +4246,7 @@ func (c *CollectorHealthCheckHealthCheck1) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorHealthCheckHealthCheck1) GetAuthRequestParams() []CollectorHealthCheckAuthRequestParam1 {
+func (c *CollectorHealthCheckHealthCheck1) GetAuthRequestParams() []ItemsTypeAuthRequestParams {
 	if c == nil {
 		return nil
 	}
@@ -6162,29 +4270,29 @@ func (c *CollectorHealthCheckHealthCheck1) GetType() CollectorHealthCheckType1 {
 type CollectorHealthCheckType string
 
 const (
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck1  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_1"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck2  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_2"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck3  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_3"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck4  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_4"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck5  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_5"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck6  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_6"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck7  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_7"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck8  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_8"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck9  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_9"
-	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck10 CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_10"
+	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck1                  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_1"
+	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck2                  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_2"
+	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck3                  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_3"
+	CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart0Type CollectorHealthCheckType = "CollectorHealthCheck_CollectorHealthCheckPart0Type"
+	CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart1Type CollectorHealthCheckType = "CollectorHealthCheck_CollectorHealthCheckPart1Type"
+	CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart2Type CollectorHealthCheckType = "CollectorHealthCheck_CollectorHealthCheckPart2Type"
+	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck4                  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_4"
+	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck5                  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_5"
+	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck6                  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_6"
+	CollectorHealthCheckTypeCollectorHealthCheckHealthCheck7                  CollectorHealthCheckType = "CollectorHealthCheck_HealthCheck_7"
 )
 
 type CollectorHealthCheck struct {
-	CollectorHealthCheckHealthCheck1  *CollectorHealthCheckHealthCheck1  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck2  *CollectorHealthCheckHealthCheck2  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck3  *CollectorHealthCheckHealthCheck3  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck4  *CollectorHealthCheckHealthCheck4  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck5  *CollectorHealthCheckHealthCheck5  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck6  *CollectorHealthCheckHealthCheck6  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck7  *CollectorHealthCheckHealthCheck7  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck8  *CollectorHealthCheckHealthCheck8  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck9  *CollectorHealthCheckHealthCheck9  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
-	CollectorHealthCheckHealthCheck10 *CollectorHealthCheckHealthCheck10 `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck1                  *CollectorHealthCheckHealthCheck1                  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck2                  *CollectorHealthCheckHealthCheck2                  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck3                  *CollectorHealthCheckHealthCheck3                  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckCollectorHealthCheckPart0Type *CollectorHealthCheckCollectorHealthCheckPart0Type `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckCollectorHealthCheckPart1Type *CollectorHealthCheckCollectorHealthCheckPart1Type `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckCollectorHealthCheckPart2Type *CollectorHealthCheckCollectorHealthCheckPart2Type `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck4                  *CollectorHealthCheckHealthCheck4                  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck5                  *CollectorHealthCheckHealthCheck5                  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck6                  *CollectorHealthCheckHealthCheck6                  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck7                  *CollectorHealthCheckHealthCheck7                  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
 
 	Type CollectorHealthCheckType
 }
@@ -6213,6 +4321,33 @@ func CreateCollectorHealthCheckCollectorHealthCheckHealthCheck3(collectorHealthC
 	return CollectorHealthCheck{
 		CollectorHealthCheckHealthCheck3: &collectorHealthCheckHealthCheck3,
 		Type:                             typ,
+	}
+}
+
+func CreateCollectorHealthCheckCollectorHealthCheckCollectorHealthCheckPart0Type(collectorHealthCheckCollectorHealthCheckPart0Type CollectorHealthCheckCollectorHealthCheckPart0Type) CollectorHealthCheck {
+	typ := CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart0Type
+
+	return CollectorHealthCheck{
+		CollectorHealthCheckCollectorHealthCheckPart0Type: &collectorHealthCheckCollectorHealthCheckPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateCollectorHealthCheckCollectorHealthCheckCollectorHealthCheckPart1Type(collectorHealthCheckCollectorHealthCheckPart1Type CollectorHealthCheckCollectorHealthCheckPart1Type) CollectorHealthCheck {
+	typ := CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart1Type
+
+	return CollectorHealthCheck{
+		CollectorHealthCheckCollectorHealthCheckPart1Type: &collectorHealthCheckCollectorHealthCheckPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateCollectorHealthCheckCollectorHealthCheckCollectorHealthCheckPart2Type(collectorHealthCheckCollectorHealthCheckPart2Type CollectorHealthCheckCollectorHealthCheckPart2Type) CollectorHealthCheck {
+	typ := CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart2Type
+
+	return CollectorHealthCheck{
+		CollectorHealthCheckCollectorHealthCheckPart2Type: &collectorHealthCheckCollectorHealthCheckPart2Type,
+		Type: typ,
 	}
 }
 
@@ -6252,46 +4387,33 @@ func CreateCollectorHealthCheckCollectorHealthCheckHealthCheck7(collectorHealthC
 	}
 }
 
-func CreateCollectorHealthCheckCollectorHealthCheckHealthCheck8(collectorHealthCheckHealthCheck8 CollectorHealthCheckHealthCheck8) CollectorHealthCheck {
-	typ := CollectorHealthCheckTypeCollectorHealthCheckHealthCheck8
-
-	return CollectorHealthCheck{
-		CollectorHealthCheckHealthCheck8: &collectorHealthCheckHealthCheck8,
-		Type:                             typ,
-	}
-}
-
-func CreateCollectorHealthCheckCollectorHealthCheckHealthCheck9(collectorHealthCheckHealthCheck9 CollectorHealthCheckHealthCheck9) CollectorHealthCheck {
-	typ := CollectorHealthCheckTypeCollectorHealthCheckHealthCheck9
-
-	return CollectorHealthCheck{
-		CollectorHealthCheckHealthCheck9: &collectorHealthCheckHealthCheck9,
-		Type:                             typ,
-	}
-}
-
-func CreateCollectorHealthCheckCollectorHealthCheckHealthCheck10(collectorHealthCheckHealthCheck10 CollectorHealthCheckHealthCheck10) CollectorHealthCheck {
-	typ := CollectorHealthCheckTypeCollectorHealthCheckHealthCheck10
-
-	return CollectorHealthCheck{
-		CollectorHealthCheckHealthCheck10: &collectorHealthCheckHealthCheck10,
-		Type:                              typ,
-	}
-}
-
 func (u *CollectorHealthCheck) UnmarshalJSON(data []byte) error {
+
+	var collectorHealthCheckCollectorHealthCheckPart1Type CollectorHealthCheckCollectorHealthCheckPart1Type = CollectorHealthCheckCollectorHealthCheckPart1Type{}
+	if err := utils.UnmarshalJSON(data, &collectorHealthCheckCollectorHealthCheckPart1Type, "", true, nil); err == nil {
+		u.CollectorHealthCheckCollectorHealthCheckPart1Type = &collectorHealthCheckCollectorHealthCheckPart1Type
+		u.Type = CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart1Type
+		return nil
+	}
+
+	var collectorHealthCheckHealthCheck4 CollectorHealthCheckHealthCheck4 = CollectorHealthCheckHealthCheck4{}
+	if err := utils.UnmarshalJSON(data, &collectorHealthCheckHealthCheck4, "", true, nil); err == nil {
+		u.CollectorHealthCheckHealthCheck4 = &collectorHealthCheckHealthCheck4
+		u.Type = CollectorHealthCheckTypeCollectorHealthCheckHealthCheck4
+		return nil
+	}
+
+	var collectorHealthCheckCollectorHealthCheckPart2Type CollectorHealthCheckCollectorHealthCheckPart2Type = CollectorHealthCheckCollectorHealthCheckPart2Type{}
+	if err := utils.UnmarshalJSON(data, &collectorHealthCheckCollectorHealthCheckPart2Type, "", true, nil); err == nil {
+		u.CollectorHealthCheckCollectorHealthCheckPart2Type = &collectorHealthCheckCollectorHealthCheckPart2Type
+		u.Type = CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart2Type
+		return nil
+	}
 
 	var collectorHealthCheckHealthCheck5 CollectorHealthCheckHealthCheck5 = CollectorHealthCheckHealthCheck5{}
 	if err := utils.UnmarshalJSON(data, &collectorHealthCheckHealthCheck5, "", true, nil); err == nil {
 		u.CollectorHealthCheckHealthCheck5 = &collectorHealthCheckHealthCheck5
 		u.Type = CollectorHealthCheckTypeCollectorHealthCheckHealthCheck5
-		return nil
-	}
-
-	var collectorHealthCheckHealthCheck7 CollectorHealthCheckHealthCheck7 = CollectorHealthCheckHealthCheck7{}
-	if err := utils.UnmarshalJSON(data, &collectorHealthCheckHealthCheck7, "", true, nil); err == nil {
-		u.CollectorHealthCheckHealthCheck7 = &collectorHealthCheckHealthCheck7
-		u.Type = CollectorHealthCheckTypeCollectorHealthCheckHealthCheck7
 		return nil
 	}
 
@@ -6302,24 +4424,10 @@ func (u *CollectorHealthCheck) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var collectorHealthCheckHealthCheck8 CollectorHealthCheckHealthCheck8 = CollectorHealthCheckHealthCheck8{}
-	if err := utils.UnmarshalJSON(data, &collectorHealthCheckHealthCheck8, "", true, nil); err == nil {
-		u.CollectorHealthCheckHealthCheck8 = &collectorHealthCheckHealthCheck8
-		u.Type = CollectorHealthCheckTypeCollectorHealthCheckHealthCheck8
-		return nil
-	}
-
-	var collectorHealthCheckHealthCheck9 CollectorHealthCheckHealthCheck9 = CollectorHealthCheckHealthCheck9{}
-	if err := utils.UnmarshalJSON(data, &collectorHealthCheckHealthCheck9, "", true, nil); err == nil {
-		u.CollectorHealthCheckHealthCheck9 = &collectorHealthCheckHealthCheck9
-		u.Type = CollectorHealthCheckTypeCollectorHealthCheckHealthCheck9
-		return nil
-	}
-
-	var collectorHealthCheckHealthCheck10 CollectorHealthCheckHealthCheck10 = CollectorHealthCheckHealthCheck10{}
-	if err := utils.UnmarshalJSON(data, &collectorHealthCheckHealthCheck10, "", true, nil); err == nil {
-		u.CollectorHealthCheckHealthCheck10 = &collectorHealthCheckHealthCheck10
-		u.Type = CollectorHealthCheckTypeCollectorHealthCheckHealthCheck10
+	var collectorHealthCheckHealthCheck7 CollectorHealthCheckHealthCheck7 = CollectorHealthCheckHealthCheck7{}
+	if err := utils.UnmarshalJSON(data, &collectorHealthCheckHealthCheck7, "", true, nil); err == nil {
+		u.CollectorHealthCheckHealthCheck7 = &collectorHealthCheckHealthCheck7
+		u.Type = CollectorHealthCheckTypeCollectorHealthCheckHealthCheck7
 		return nil
 	}
 
@@ -6344,10 +4452,10 @@ func (u *CollectorHealthCheck) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var collectorHealthCheckHealthCheck4 CollectorHealthCheckHealthCheck4 = CollectorHealthCheckHealthCheck4{}
-	if err := utils.UnmarshalJSON(data, &collectorHealthCheckHealthCheck4, "", true, nil); err == nil {
-		u.CollectorHealthCheckHealthCheck4 = &collectorHealthCheckHealthCheck4
-		u.Type = CollectorHealthCheckTypeCollectorHealthCheckHealthCheck4
+	var collectorHealthCheckCollectorHealthCheckPart0Type CollectorHealthCheckCollectorHealthCheckPart0Type = CollectorHealthCheckCollectorHealthCheckPart0Type{}
+	if err := utils.UnmarshalJSON(data, &collectorHealthCheckCollectorHealthCheckPart0Type, "", true, nil); err == nil {
+		u.CollectorHealthCheckCollectorHealthCheckPart0Type = &collectorHealthCheckCollectorHealthCheckPart0Type
+		u.Type = CollectorHealthCheckTypeCollectorHealthCheckCollectorHealthCheckPart0Type
 		return nil
 	}
 
@@ -6367,6 +4475,18 @@ func (u CollectorHealthCheck) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CollectorHealthCheckHealthCheck3, "", true)
 	}
 
+	if u.CollectorHealthCheckCollectorHealthCheckPart0Type != nil {
+		return utils.MarshalJSON(u.CollectorHealthCheckCollectorHealthCheckPart0Type, "", true)
+	}
+
+	if u.CollectorHealthCheckCollectorHealthCheckPart1Type != nil {
+		return utils.MarshalJSON(u.CollectorHealthCheckCollectorHealthCheckPart1Type, "", true)
+	}
+
+	if u.CollectorHealthCheckCollectorHealthCheckPart2Type != nil {
+		return utils.MarshalJSON(u.CollectorHealthCheckCollectorHealthCheckPart2Type, "", true)
+	}
+
 	if u.CollectorHealthCheckHealthCheck4 != nil {
 		return utils.MarshalJSON(u.CollectorHealthCheckHealthCheck4, "", true)
 	}
@@ -6381,18 +4501,6 @@ func (u CollectorHealthCheck) MarshalJSON() ([]byte, error) {
 
 	if u.CollectorHealthCheckHealthCheck7 != nil {
 		return utils.MarshalJSON(u.CollectorHealthCheckHealthCheck7, "", true)
-	}
-
-	if u.CollectorHealthCheckHealthCheck8 != nil {
-		return utils.MarshalJSON(u.CollectorHealthCheckHealthCheck8, "", true)
-	}
-
-	if u.CollectorHealthCheckHealthCheck9 != nil {
-		return utils.MarshalJSON(u.CollectorHealthCheckHealthCheck9, "", true)
-	}
-
-	if u.CollectorHealthCheckHealthCheck10 != nil {
-		return utils.MarshalJSON(u.CollectorHealthCheckHealthCheck10, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CollectorHealthCheck: all fields are null")

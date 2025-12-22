@@ -32,27 +32,6 @@ func (e *CollectorDatabaseType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type CollectorDatabaseHiddenDefaultBreakers string
-
-const (
-	CollectorDatabaseHiddenDefaultBreakersCribl CollectorDatabaseHiddenDefaultBreakers = "Cribl"
-)
-
-func (e CollectorDatabaseHiddenDefaultBreakers) ToPointer() *CollectorDatabaseHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorDatabaseHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorDatabaseStateTracking struct {
 	// Enable tracking of collection progress between consecutive scheduled executions.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -106,9 +85,9 @@ type CollectorDatabase struct {
 	// An expression that resolves to the query string for selecting data from the database. Has access to the special ${earliest} and ${latest} variables, which will resolve to the Collector run's start and end time.
 	Query string `json:"query"`
 	// Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
-	QueryValidationEnabled *bool                                   `default:"true" json:"queryValidationEnabled"`
-	DefaultBreakers        *CollectorDatabaseHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
-	Scheduling             *CollectorDatabaseScheduling            `json:"__scheduling,omitempty"`
+	QueryValidationEnabled *bool                         `default:"true" json:"queryValidationEnabled"`
+	DefaultBreakers        *HiddenDefaultBreakersOptions `json:"defaultBreakers,omitempty"`
+	Scheduling             *CollectorDatabaseScheduling  `json:"__scheduling,omitempty"`
 }
 
 func (c CollectorDatabase) MarshalJSON() ([]byte, error) {
@@ -150,7 +129,7 @@ func (c *CollectorDatabase) GetQueryValidationEnabled() *bool {
 	return c.QueryValidationEnabled
 }
 
-func (c *CollectorDatabase) GetDefaultBreakers() *CollectorDatabaseHiddenDefaultBreakers {
+func (c *CollectorDatabase) GetDefaultBreakers() *HiddenDefaultBreakersOptions {
 	if c == nil {
 		return nil
 	}

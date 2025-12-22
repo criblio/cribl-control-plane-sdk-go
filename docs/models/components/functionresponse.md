@@ -135,10 +135,10 @@ functionResponse := components.CreateFunctionResponseGeoip(components.FunctionGe
 functionResponse := components.CreateFunctionResponseGrok(components.FunctionGrok{/* values here */})
 ```
 
-### FunctionHandlebar
+### FunctionHandlebars
 
 ```go
-functionResponse := components.CreateFunctionResponseHandlebar(components.FunctionHandlebar{/* values here */})
+functionResponse := components.CreateFunctionResponseHandlebars(components.FunctionHandlebars{/* values here */})
 ```
 
 ### FunctionJoin

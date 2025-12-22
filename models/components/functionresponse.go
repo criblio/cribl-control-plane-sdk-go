@@ -34,7 +34,7 @@ const (
 	FunctionResponseTypeGenStats                  FunctionResponseType = "gen_stats"
 	FunctionResponseTypeGeoip                     FunctionResponseType = "geoip"
 	FunctionResponseTypeGrok                      FunctionResponseType = "grok"
-	FunctionResponseTypeHandlebar                 FunctionResponseType = "handlebar"
+	FunctionResponseTypeHandlebars                FunctionResponseType = "handlebars"
 	FunctionResponseTypeJoin                      FunctionResponseType = "join"
 	FunctionResponseTypeJSONUnroll                FunctionResponseType = "json_unroll"
 	FunctionResponseTypeLakeExport                FunctionResponseType = "lake_export"
@@ -101,7 +101,7 @@ type FunctionResponse struct {
 	FunctionGenStats                  *FunctionGenStats                  `queryParam:"inline,name=FunctionResponse" union:"member"`
 	FunctionGeoip                     *FunctionGeoip                     `queryParam:"inline,name=FunctionResponse" union:"member"`
 	FunctionGrok                      *FunctionGrok                      `queryParam:"inline,name=FunctionResponse" union:"member"`
-	FunctionHandlebar                 *FunctionHandlebar                 `queryParam:"inline,name=FunctionResponse" union:"member"`
+	FunctionHandlebars                *FunctionHandlebars                `queryParam:"inline,name=FunctionResponse" union:"member"`
 	FunctionJoin                      *FunctionJoin                      `queryParam:"inline,name=FunctionResponse" union:"member"`
 	FunctionJSONUnroll                *FunctionJSONUnroll                `queryParam:"inline,name=FunctionResponse" union:"member"`
 	FunctionLakeExport                *FunctionLakeExport                `queryParam:"inline,name=FunctionResponse" union:"member"`
@@ -411,15 +411,15 @@ func CreateFunctionResponseGrok(grok FunctionGrok) FunctionResponse {
 	}
 }
 
-func CreateFunctionResponseHandlebar(handlebar FunctionHandlebar) FunctionResponse {
-	typ := FunctionResponseTypeHandlebar
+func CreateFunctionResponseHandlebars(handlebars FunctionHandlebars) FunctionResponse {
+	typ := FunctionResponseTypeHandlebars
 
-	typStr := FunctionHandlebarID(typ)
-	handlebar.ID = typStr
+	typStr := FunctionHandlebarsID(typ)
+	handlebars.ID = typStr
 
 	return FunctionResponse{
-		FunctionHandlebar: &handlebar,
-		Type:              typ,
+		FunctionHandlebars: &handlebars,
+		Type:               typ,
 	}
 }
 
@@ -1125,14 +1125,14 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 		u.FunctionGrok = functionGrok
 		u.Type = FunctionResponseTypeGrok
 		return nil
-	case "handlebar":
-		functionHandlebar := new(FunctionHandlebar)
-		if err := utils.UnmarshalJSON(data, &functionHandlebar, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == handlebar) type FunctionHandlebar within FunctionResponse: %w", string(data), err)
+	case "handlebars":
+		functionHandlebars := new(FunctionHandlebars)
+		if err := utils.UnmarshalJSON(data, &functionHandlebars, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == handlebars) type FunctionHandlebars within FunctionResponse: %w", string(data), err)
 		}
 
-		u.FunctionHandlebar = functionHandlebar
-		u.Type = FunctionResponseTypeHandlebar
+		u.FunctionHandlebars = functionHandlebars
+		u.Type = FunctionResponseTypeHandlebars
 		return nil
 	case "join":
 		functionJoin := new(FunctionJoin)
@@ -1597,8 +1597,8 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.FunctionGrok, "", true)
 	}
 
-	if u.FunctionHandlebar != nil {
-		return utils.MarshalJSON(u.FunctionHandlebar, "", true)
+	if u.FunctionHandlebars != nil {
+		return utils.MarshalJSON(u.FunctionHandlebars, "", true)
 	}
 
 	if u.FunctionJoin != nil {
