@@ -31,6 +31,437 @@ func (e *InputTCPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputTCPConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputTCPConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputTCPConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputTCPMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputTCPMode string
+
+const (
+	// InputTCPModeSmart Smart
+	InputTCPModeSmart InputTCPMode = "smart"
+	// InputTCPModeAlways Always On
+	InputTCPModeAlways InputTCPMode = "always"
+)
+
+func (e InputTCPMode) ToPointer() *InputTCPMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTCPMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputTCPCompression - Codec to use to compress the persisted data
+type InputTCPCompression string
+
+const (
+	// InputTCPCompressionNone None
+	InputTCPCompressionNone InputTCPCompression = "none"
+	// InputTCPCompressionGzip Gzip
+	InputTCPCompressionGzip InputTCPCompression = "gzip"
+)
+
+func (e InputTCPCompression) ToPointer() *InputTCPCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTCPCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputTCPPqControls struct {
+}
+
+func (i InputTCPPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputTCPPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputTCPMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputTCPCompression `default:"none" json:"compress"`
+	PqControls *InputTCPPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputTCPPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPPq) GetMode() *InputTCPMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputTCPPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputTCPPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputTCPPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputTCPPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputTCPPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputTCPPq) GetCompress() *InputTCPCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputTCPPq) GetPqControls() *InputTCPPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+type InputTCPMinimumTLSVersion string
+
+const (
+	InputTCPMinimumTLSVersionTlSv1  InputTCPMinimumTLSVersion = "TLSv1"
+	InputTCPMinimumTLSVersionTlSv11 InputTCPMinimumTLSVersion = "TLSv1.1"
+	InputTCPMinimumTLSVersionTlSv12 InputTCPMinimumTLSVersion = "TLSv1.2"
+	InputTCPMinimumTLSVersionTlSv13 InputTCPMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e InputTCPMinimumTLSVersion) ToPointer() *InputTCPMinimumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTCPMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type InputTCPMaximumTLSVersion string
+
+const (
+	InputTCPMaximumTLSVersionTlSv1  InputTCPMaximumTLSVersion = "TLSv1"
+	InputTCPMaximumTLSVersionTlSv11 InputTCPMaximumTLSVersion = "TLSv1.1"
+	InputTCPMaximumTLSVersionTlSv12 InputTCPMaximumTLSVersion = "TLSv1.2"
+	InputTCPMaximumTLSVersionTlSv13 InputTCPMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e InputTCPMaximumTLSVersion) ToPointer() *InputTCPMaximumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTCPMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type InputTCPTLSSettingsServerSide struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+	CaPath     *string                    `json:"caPath,omitempty"`
+	MinVersion *InputTCPMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputTCPMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (i InputTCPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetCertificateName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CertificateName
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetPrivKeyPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.PrivKeyPath
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetCertPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CertPath
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetCaPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CaPath
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetMinVersion() *InputTCPMinimumTLSVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MinVersion
+}
+
+func (i *InputTCPTLSSettingsServerSide) GetMaxVersion() *InputTCPMaximumTLSVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MaxVersion
+}
+
+type InputTCPMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputTCPMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputTCPMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type InputTCPPreprocess struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Command to feed the data through (via stdin) and process its output (stdout)
+	Command *string `json:"command,omitempty"`
+	// Arguments to be added to the custom command
+	Args []string `json:"args,omitempty"`
+}
+
+func (i InputTCPPreprocess) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTCPPreprocess) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTCPPreprocess) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputTCPPreprocess) GetCommand() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Command
+}
+
+func (i *InputTCPPreprocess) GetArgs() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Args
+}
+
+// InputTCPAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+type InputTCPAuthenticationMethod string
+
+const (
+	InputTCPAuthenticationMethodManual InputTCPAuthenticationMethod = "manual"
+	InputTCPAuthenticationMethodSecret InputTCPAuthenticationMethod = "secret"
+)
+
+func (e InputTCPAuthenticationMethod) ToPointer() *InputTCPAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputTCPAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type InputTCP struct {
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
@@ -47,13 +478,13 @@ type InputTCP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputTCPConnection `json:"connections,omitempty"`
+	Pq          *InputTCPPq          `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	Port float64                        `json:"port"`
+	TLS  *InputTCPTLSSettingsServerSide `json:"tls,omitempty"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -67,19 +498,19 @@ type InputTCP struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []InputTCPMetadatum `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
 	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool                                  `default:"false" json:"enableHeader"`
-	Preprocess   *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
-	Description  *string                                `json:"description,omitempty"`
+	EnableHeader *bool               `default:"false" json:"enableHeader"`
+	Preprocess   *InputTCPPreprocess `json:"preprocess,omitempty"`
+	Description  *string             `json:"description,omitempty"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `default:"" json:"authToken"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	AuthType *InputTCPAuthenticationMethod `default:"manual" json:"authType"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
 }
@@ -151,14 +582,14 @@ func (i *InputTCP) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputTCP) GetConnections() []ItemsTypeConnections {
+func (i *InputTCP) GetConnections() []InputTCPConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputTCP) GetPq() *PqType {
+func (i *InputTCP) GetPq() *InputTCPPq {
 	if i == nil {
 		return nil
 	}
@@ -179,7 +610,7 @@ func (i *InputTCP) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputTCP) GetTLS() *TLSSettingsServerSideType {
+func (i *InputTCP) GetTLS() *InputTCPTLSSettingsServerSide {
 	if i == nil {
 		return nil
 	}
@@ -228,7 +659,7 @@ func (i *InputTCP) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputTCP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputTCP) GetMetadata() []InputTCPMetadatum {
 	if i == nil {
 		return nil
 	}
@@ -256,7 +687,7 @@ func (i *InputTCP) GetEnableHeader() *bool {
 	return i.EnableHeader
 }
 
-func (i *InputTCP) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputTCP) GetPreprocess() *InputTCPPreprocess {
 	if i == nil {
 		return nil
 	}
@@ -277,7 +708,7 @@ func (i *InputTCP) GetAuthToken() *string {
 	return i.AuthToken
 }
 
-func (i *InputTCP) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+func (i *InputTCP) GetAuthType() *InputTCPAuthenticationMethod {
 	if i == nil {
 		return nil
 	}

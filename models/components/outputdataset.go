@@ -66,6 +66,105 @@ func (e *OutputDatasetSeverity) IsExact() bool {
 	return false
 }
 
+type OutputDatasetResponseRetrySetting struct {
+	// The HTTP response status code that will trigger retries
+	HTTPStatus float64 `json:"httpStatus"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputDatasetResponseRetrySetting) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatasetResponseRetrySetting) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatasetResponseRetrySetting) GetHTTPStatus() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.HTTPStatus
+}
+
+func (o *OutputDatasetResponseRetrySetting) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputDatasetResponseRetrySetting) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputDatasetResponseRetrySetting) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+type OutputDatasetTimeoutRetrySettings struct {
+	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputDatasetTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatasetTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatasetTimeoutRetrySettings) GetTimeoutRetry() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetry
+}
+
+func (o *OutputDatasetTimeoutRetrySettings) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputDatasetTimeoutRetrySettings) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputDatasetTimeoutRetrySettings) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
 // DataSetSite - DataSet site to which events should be sent
 type DataSetSite string
 
@@ -87,6 +186,190 @@ func (e *DataSetSite) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "us", "eu", "custom":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputDatasetExtraHTTPHeader struct {
+	Name  *string `json:"name,omitempty"`
+	Value string  `json:"value"`
+}
+
+func (o OutputDatasetExtraHTTPHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatasetExtraHTTPHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatasetExtraHTTPHeader) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *OutputDatasetExtraHTTPHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+// OutputDatasetFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+type OutputDatasetFailedRequestLoggingMode string
+
+const (
+	// OutputDatasetFailedRequestLoggingModePayload Payload
+	OutputDatasetFailedRequestLoggingModePayload OutputDatasetFailedRequestLoggingMode = "payload"
+	// OutputDatasetFailedRequestLoggingModePayloadAndHeaders Payload + Headers
+	OutputDatasetFailedRequestLoggingModePayloadAndHeaders OutputDatasetFailedRequestLoggingMode = "payloadAndHeaders"
+	// OutputDatasetFailedRequestLoggingModeNone None
+	OutputDatasetFailedRequestLoggingModeNone OutputDatasetFailedRequestLoggingMode = "none"
+)
+
+func (e OutputDatasetFailedRequestLoggingMode) ToPointer() *OutputDatasetFailedRequestLoggingMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatasetFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatasetBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputDatasetBackpressureBehavior string
+
+const (
+	// OutputDatasetBackpressureBehaviorBlock Block
+	OutputDatasetBackpressureBehaviorBlock OutputDatasetBackpressureBehavior = "block"
+	// OutputDatasetBackpressureBehaviorDrop Drop
+	OutputDatasetBackpressureBehaviorDrop OutputDatasetBackpressureBehavior = "drop"
+	// OutputDatasetBackpressureBehaviorQueue Persistent Queue
+	OutputDatasetBackpressureBehaviorQueue OutputDatasetBackpressureBehavior = "queue"
+)
+
+func (e OutputDatasetBackpressureBehavior) ToPointer() *OutputDatasetBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatasetBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatasetAuthenticationMethod - Enter API key directly, or select a stored secret
+type OutputDatasetAuthenticationMethod string
+
+const (
+	OutputDatasetAuthenticationMethodManual OutputDatasetAuthenticationMethod = "manual"
+	OutputDatasetAuthenticationMethodSecret OutputDatasetAuthenticationMethod = "secret"
+)
+
+func (e OutputDatasetAuthenticationMethod) ToPointer() *OutputDatasetAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatasetAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatasetMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputDatasetMode string
+
+const (
+	// OutputDatasetModeError Error
+	OutputDatasetModeError OutputDatasetMode = "error"
+	// OutputDatasetModeAlways Backpressure
+	OutputDatasetModeAlways OutputDatasetMode = "always"
+	// OutputDatasetModeBackpressure Always On
+	OutputDatasetModeBackpressure OutputDatasetMode = "backpressure"
+)
+
+func (e OutputDatasetMode) ToPointer() *OutputDatasetMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatasetMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatasetCompression - Codec to use to compress the persisted data
+type OutputDatasetCompression string
+
+const (
+	// OutputDatasetCompressionNone None
+	OutputDatasetCompressionNone OutputDatasetCompression = "none"
+	// OutputDatasetCompressionGzip Gzip
+	OutputDatasetCompressionGzip OutputDatasetCompression = "gzip"
+)
+
+func (e OutputDatasetCompression) ToPointer() *OutputDatasetCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatasetCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatasetQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputDatasetQueueFullBehavior string
+
+const (
+	// OutputDatasetQueueFullBehaviorBlock Block
+	OutputDatasetQueueFullBehaviorBlock OutputDatasetQueueFullBehavior = "block"
+	// OutputDatasetQueueFullBehaviorDrop Drop new data
+	OutputDatasetQueueFullBehaviorDrop OutputDatasetQueueFullBehavior = "drop"
+)
+
+func (e OutputDatasetQueueFullBehavior) ToPointer() *OutputDatasetQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatasetQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
 			return true
 		}
 	}
@@ -130,8 +413,8 @@ type OutputDataset struct {
 	// Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
 	DefaultSeverity *OutputDatasetSeverity `default:"info" json:"defaultSeverity"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []OutputDatasetResponseRetrySetting `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *OutputDatasetTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
 	// DataSet site to which events should be sent
@@ -153,17 +436,17 @@ type OutputDataset struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []OutputDatasetExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *OutputDatasetFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputDatasetBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType *AuthenticationMethodOptions3 `default:"manual" json:"authType"`
+	AuthType *OutputDatasetAuthenticationMethod `default:"manual" json:"authType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -173,7 +456,7 @@ type OutputDataset struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputDatasetMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -185,10 +468,10 @@ type OutputDataset struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputDatasetCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputDatasetPqControls  `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputDatasetQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputDatasetPqControls        `json:"pqControls,omitempty"`
 	// A 'Log Write Access' API key for the DataSet account
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
@@ -283,14 +566,14 @@ func (o *OutputDataset) GetDefaultSeverity() *OutputDatasetSeverity {
 	return o.DefaultSeverity
 }
 
-func (o *OutputDataset) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputDataset) GetResponseRetrySettings() []OutputDatasetResponseRetrySetting {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputDataset) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+func (o *OutputDataset) GetTimeoutRetrySettings() *OutputDatasetTimeoutRetrySettings {
 	if o == nil {
 		return nil
 	}
@@ -360,7 +643,7 @@ func (o *OutputDataset) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputDataset) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputDataset) GetExtraHTTPHeaders() []OutputDatasetExtraHTTPHeader {
 	if o == nil {
 		return nil
 	}
@@ -374,7 +657,7 @@ func (o *OutputDataset) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputDataset) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+func (o *OutputDataset) GetFailedRequestLoggingMode() *OutputDatasetFailedRequestLoggingMode {
 	if o == nil {
 		return nil
 	}
@@ -388,14 +671,14 @@ func (o *OutputDataset) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputDataset) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputDataset) GetOnBackpressure() *OutputDatasetBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputDataset) GetAuthType() *AuthenticationMethodOptions3 {
+func (o *OutputDataset) GetAuthType() *OutputDatasetAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
@@ -437,7 +720,7 @@ func (o *OutputDataset) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputDataset) GetPqMode() *ModeOptions {
+func (o *OutputDataset) GetPqMode() *OutputDatasetMode {
 	if o == nil {
 		return nil
 	}
@@ -479,14 +762,14 @@ func (o *OutputDataset) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputDataset) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputDataset) GetPqCompress() *OutputDatasetCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputDataset) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputDataset) GetPqOnBackpressure() *OutputDatasetQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

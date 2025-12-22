@@ -31,6 +31,141 @@ func (e *OutputExabeamType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputExabeamSignatureVersion - Signature version to use for signing Google Cloud Storage requests
+type OutputExabeamSignatureVersion string
+
+const (
+	OutputExabeamSignatureVersionV2 OutputExabeamSignatureVersion = "v2"
+	OutputExabeamSignatureVersionV4 OutputExabeamSignatureVersion = "v4"
+)
+
+func (e OutputExabeamSignatureVersion) ToPointer() *OutputExabeamSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputExabeamObjectACL - Object ACL to assign to uploaded objects
+type OutputExabeamObjectACL string
+
+const (
+	// OutputExabeamObjectACLPrivate private
+	OutputExabeamObjectACLPrivate OutputExabeamObjectACL = "private"
+	// OutputExabeamObjectACLBucketOwnerRead bucket-owner-read
+	OutputExabeamObjectACLBucketOwnerRead OutputExabeamObjectACL = "bucket-owner-read"
+	// OutputExabeamObjectACLBucketOwnerFullControl bucket-owner-full-control
+	OutputExabeamObjectACLBucketOwnerFullControl OutputExabeamObjectACL = "bucket-owner-full-control"
+	// OutputExabeamObjectACLProjectPrivate project-private
+	OutputExabeamObjectACLProjectPrivate OutputExabeamObjectACL = "project-private"
+	// OutputExabeamObjectACLAuthenticatedRead authenticated-read
+	OutputExabeamObjectACLAuthenticatedRead OutputExabeamObjectACL = "authenticated-read"
+	// OutputExabeamObjectACLPublicRead public-read
+	OutputExabeamObjectACLPublicRead OutputExabeamObjectACL = "public-read"
+)
+
+func (e OutputExabeamObjectACL) ToPointer() *OutputExabeamObjectACL {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamObjectACL) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "private", "bucket-owner-read", "bucket-owner-full-control", "project-private", "authenticated-read", "public-read":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputExabeamStorageClass - Storage class to select for uploaded objects
+type OutputExabeamStorageClass string
+
+const (
+	// OutputExabeamStorageClassStandard Standard Storage
+	OutputExabeamStorageClassStandard OutputExabeamStorageClass = "STANDARD"
+	// OutputExabeamStorageClassNearline Nearline Storage
+	OutputExabeamStorageClassNearline OutputExabeamStorageClass = "NEARLINE"
+	// OutputExabeamStorageClassColdline Coldline Storage
+	OutputExabeamStorageClassColdline OutputExabeamStorageClass = "COLDLINE"
+	// OutputExabeamStorageClassArchive Archive Storage
+	OutputExabeamStorageClassArchive OutputExabeamStorageClass = "ARCHIVE"
+)
+
+func (e OutputExabeamStorageClass) ToPointer() *OutputExabeamStorageClass {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamStorageClass) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "STANDARD", "NEARLINE", "COLDLINE", "ARCHIVE":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputExabeamBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputExabeamBackpressureBehavior string
+
+const (
+	// OutputExabeamBackpressureBehaviorBlock Block
+	OutputExabeamBackpressureBehaviorBlock OutputExabeamBackpressureBehavior = "block"
+	// OutputExabeamBackpressureBehaviorDrop Drop
+	OutputExabeamBackpressureBehaviorDrop OutputExabeamBackpressureBehavior = "drop"
+)
+
+func (e OutputExabeamBackpressureBehavior) ToPointer() *OutputExabeamBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputExabeamDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
+type OutputExabeamDiskSpaceProtection string
+
+const (
+	// OutputExabeamDiskSpaceProtectionBlock Block
+	OutputExabeamDiskSpaceProtectionBlock OutputExabeamDiskSpaceProtection = "block"
+	// OutputExabeamDiskSpaceProtectionDrop Drop
+	OutputExabeamDiskSpaceProtectionDrop OutputExabeamDiskSpaceProtection = "drop"
+)
+
+func (e OutputExabeamDiskSpaceProtection) ToPointer() *OutputExabeamDiskSpaceProtection {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputExabeamDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputExabeam struct {
 	// Unique ID for this output
 	ID   *string           `json:"id,omitempty"`
@@ -52,11 +187,11 @@ type OutputExabeam struct {
 	// Google Cloud Storage service endpoint
 	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion *SignatureVersionOptions5 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *OutputExabeamSignatureVersion `default:"v4" json:"signatureVersion"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions1 `default:"private" json:"objectACL"`
+	ObjectACL *OutputExabeamObjectACL `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptions1 `json:"storageClass,omitempty"`
+	StorageClass *OutputExabeamStorageClass `json:"storageClass,omitempty"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -72,11 +207,11 @@ type OutputExabeam struct {
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputExabeamBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *DiskSpaceProtectionOptions `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *OutputExabeamDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"10" json:"maxFileSizeMB"`
 	// Enter an encoded string containing Exabeam configurations
@@ -185,21 +320,21 @@ func (o *OutputExabeam) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputExabeam) GetSignatureVersion() *SignatureVersionOptions5 {
+func (o *OutputExabeam) GetSignatureVersion() *OutputExabeamSignatureVersion {
 	if o == nil {
 		return nil
 	}
 	return o.SignatureVersion
 }
 
-func (o *OutputExabeam) GetObjectACL() *ObjectACLOptions1 {
+func (o *OutputExabeam) GetObjectACL() *OutputExabeamObjectACL {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputExabeam) GetStorageClass() *StorageClassOptions1 {
+func (o *OutputExabeam) GetStorageClass() *OutputExabeamStorageClass {
 	if o == nil {
 		return nil
 	}
@@ -255,7 +390,7 @@ func (o *OutputExabeam) GetMaxOpenFiles() *float64 {
 	return o.MaxOpenFiles
 }
 
-func (o *OutputExabeam) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputExabeam) GetOnBackpressure() *OutputExabeamBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -269,7 +404,7 @@ func (o *OutputExabeam) GetDeadletterEnabled() *bool {
 	return o.DeadletterEnabled
 }
 
-func (o *OutputExabeam) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
+func (o *OutputExabeam) GetOnDiskFullBackpressure() *OutputExabeamDiskSpaceProtection {
 	if o == nil {
 		return nil
 	}

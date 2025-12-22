@@ -8,113 +8,398 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type Os struct {
+type NodeProvidedInfoAws struct {
+	Enabled    bool              `json:"enabled"`
+	InstanceID string            `json:"instanceId"`
+	Region     string            `json:"region"`
+	Tags       map[string]string `json:"tags,omitempty"`
+	Type       string            `json:"type"`
+	Zone       string            `json:"zone"`
+}
+
+func (n *NodeProvidedInfoAws) GetEnabled() bool {
+	if n == nil {
+		return false
+	}
+	return n.Enabled
+}
+
+func (n *NodeProvidedInfoAws) GetInstanceID() string {
+	if n == nil {
+		return ""
+	}
+	return n.InstanceID
+}
+
+func (n *NodeProvidedInfoAws) GetRegion() string {
+	if n == nil {
+		return ""
+	}
+	return n.Region
+}
+
+func (n *NodeProvidedInfoAws) GetTags() map[string]string {
+	if n == nil {
+		return nil
+	}
+	return n.Tags
+}
+
+func (n *NodeProvidedInfoAws) GetType() string {
+	if n == nil {
+		return ""
+	}
+	return n.Type
+}
+
+func (n *NodeProvidedInfoAws) GetZone() string {
+	if n == nil {
+		return ""
+	}
+	return n.Zone
+}
+
+type NodeProvidedInfoAzure struct {
+	Enabled        bool              `json:"enabled"`
+	Hostname       *string           `json:"hostname,omitempty"`
+	InstanceID     *string           `json:"instanceId,omitempty"`
+	Name           *string           `json:"name,omitempty"`
+	Region         *string           `json:"region,omitempty"`
+	ResourceGroup  *string           `json:"resourceGroup,omitempty"`
+	SubscriptionID *string           `json:"subscriptionId,omitempty"`
+	Tags           map[string]string `json:"tags,omitempty"`
+	Type           *string           `json:"type,omitempty"`
+	Zone           *string           `json:"zone,omitempty"`
+}
+
+func (n *NodeProvidedInfoAzure) GetEnabled() bool {
+	if n == nil {
+		return false
+	}
+	return n.Enabled
+}
+
+func (n *NodeProvidedInfoAzure) GetHostname() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Hostname
+}
+
+func (n *NodeProvidedInfoAzure) GetInstanceID() *string {
+	if n == nil {
+		return nil
+	}
+	return n.InstanceID
+}
+
+func (n *NodeProvidedInfoAzure) GetName() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Name
+}
+
+func (n *NodeProvidedInfoAzure) GetRegion() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Region
+}
+
+func (n *NodeProvidedInfoAzure) GetResourceGroup() *string {
+	if n == nil {
+		return nil
+	}
+	return n.ResourceGroup
+}
+
+func (n *NodeProvidedInfoAzure) GetSubscriptionID() *string {
+	if n == nil {
+		return nil
+	}
+	return n.SubscriptionID
+}
+
+func (n *NodeProvidedInfoAzure) GetTags() map[string]string {
+	if n == nil {
+		return nil
+	}
+	return n.Tags
+}
+
+func (n *NodeProvidedInfoAzure) GetType() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Type
+}
+
+func (n *NodeProvidedInfoAzure) GetZone() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Zone
+}
+
+type NodeProvidedInfoHostOs struct {
+	Addresses []string `json:"addresses"`
+	Enabled   bool     `json:"enabled"`
+	ID        string   `json:"id"`
+	Version   string   `json:"version"`
+}
+
+func (n *NodeProvidedInfoHostOs) GetAddresses() []string {
+	if n == nil {
+		return []string{}
+	}
+	return n.Addresses
+}
+
+func (n *NodeProvidedInfoHostOs) GetEnabled() bool {
+	if n == nil {
+		return false
+	}
+	return n.Enabled
+}
+
+func (n *NodeProvidedInfoHostOs) GetID() string {
+	if n == nil {
+		return ""
+	}
+	return n.ID
+}
+
+func (n *NodeProvidedInfoHostOs) GetVersion() string {
+	if n == nil {
+		return ""
+	}
+	return n.Version
+}
+
+type NodeProvidedInfoOwner struct {
+	Kind string `json:"kind"`
+	Name string `json:"name"`
+}
+
+func (n *NodeProvidedInfoOwner) GetKind() string {
+	if n == nil {
+		return ""
+	}
+	return n.Kind
+}
+
+func (n *NodeProvidedInfoOwner) GetName() string {
+	if n == nil {
+		return ""
+	}
+	return n.Name
+}
+
+type NodeProvidedInfoKube struct {
+	Enabled   bool                   `json:"enabled"`
+	Namespace string                 `json:"namespace"`
+	Node      string                 `json:"node"`
+	Owner     *NodeProvidedInfoOwner `json:"owner,omitempty"`
+	Pod       string                 `json:"pod"`
+	Source    string                 `json:"source"`
+}
+
+func (n *NodeProvidedInfoKube) GetEnabled() bool {
+	if n == nil {
+		return false
+	}
+	return n.Enabled
+}
+
+func (n *NodeProvidedInfoKube) GetNamespace() string {
+	if n == nil {
+		return ""
+	}
+	return n.Namespace
+}
+
+func (n *NodeProvidedInfoKube) GetNode() string {
+	if n == nil {
+		return ""
+	}
+	return n.Node
+}
+
+func (n *NodeProvidedInfoKube) GetOwner() *NodeProvidedInfoOwner {
+	if n == nil {
+		return nil
+	}
+	return n.Owner
+}
+
+func (n *NodeProvidedInfoKube) GetPod() string {
+	if n == nil {
+		return ""
+	}
+	return n.Pod
+}
+
+func (n *NodeProvidedInfoKube) GetSource() string {
+	if n == nil {
+		return ""
+	}
+	return n.Source
+}
+
+type NodeProvidedInfoOs2 struct {
 	Addresses []string `json:"addresses"`
 }
 
-func (o Os) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
+func (n NodeProvidedInfoOs2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(n, "", false)
 }
 
-func (o *Os) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"addresses"}); err != nil {
+func (n *NodeProvidedInfoOs2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"addresses"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *Os) GetAddresses() []string {
-	if o == nil {
+func (n *NodeProvidedInfoOs2) GetAddresses() []string {
+	if n == nil {
 		return []string{}
 	}
-	return o.Addresses
+	return n.Addresses
 }
 
-type OsUnionType string
+type NodeProvidedInfoOs1 struct {
+	Addresses []string `json:"addresses"`
+	Enabled   bool     `json:"enabled"`
+	ID        string   `json:"id"`
+	Version   string   `json:"version"`
+}
+
+func (n NodeProvidedInfoOs1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(n, "", false)
+}
+
+func (n *NodeProvidedInfoOs1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"addresses", "enabled", "id", "version"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (n *NodeProvidedInfoOs1) GetAddresses() []string {
+	if n == nil {
+		return []string{}
+	}
+	return n.Addresses
+}
+
+func (n *NodeProvidedInfoOs1) GetEnabled() bool {
+	if n == nil {
+		return false
+	}
+	return n.Enabled
+}
+
+func (n *NodeProvidedInfoOs1) GetID() string {
+	if n == nil {
+		return ""
+	}
+	return n.ID
+}
+
+func (n *NodeProvidedInfoOs1) GetVersion() string {
+	if n == nil {
+		return ""
+	}
+	return n.Version
+}
+
+type OsType string
 
 const (
-	OsUnionTypeHostOsTypeHeartbeatMetadata OsUnionType = "HostOsTypeHeartbeatMetadata"
-	OsUnionTypeOs                          OsUnionType = "os"
+	OsTypeNodeProvidedInfoOs1 OsType = "NodeProvidedInfo_os_1"
+	OsTypeNodeProvidedInfoOs2 OsType = "NodeProvidedInfo_os_2"
 )
 
-type OsUnion struct {
-	HostOsTypeHeartbeatMetadata *HostOsTypeHeartbeatMetadata `queryParam:"inline,name=os" union:"member"`
-	Os                          *Os                          `queryParam:"inline,name=os" union:"member"`
+type Os struct {
+	NodeProvidedInfoOs1 *NodeProvidedInfoOs1 `queryParam:"inline,name=os" union:"member"`
+	NodeProvidedInfoOs2 *NodeProvidedInfoOs2 `queryParam:"inline,name=os" union:"member"`
 
-	Type OsUnionType
+	Type OsType
 }
 
-func CreateOsUnionHostOsTypeHeartbeatMetadata(hostOsTypeHeartbeatMetadata HostOsTypeHeartbeatMetadata) OsUnion {
-	typ := OsUnionTypeHostOsTypeHeartbeatMetadata
+func CreateOsNodeProvidedInfoOs1(nodeProvidedInfoOs1 NodeProvidedInfoOs1) Os {
+	typ := OsTypeNodeProvidedInfoOs1
 
-	return OsUnion{
-		HostOsTypeHeartbeatMetadata: &hostOsTypeHeartbeatMetadata,
-		Type:                        typ,
+	return Os{
+		NodeProvidedInfoOs1: &nodeProvidedInfoOs1,
+		Type:                typ,
 	}
 }
 
-func CreateOsUnionOs(os Os) OsUnion {
-	typ := OsUnionTypeOs
+func CreateOsNodeProvidedInfoOs2(nodeProvidedInfoOs2 NodeProvidedInfoOs2) Os {
+	typ := OsTypeNodeProvidedInfoOs2
 
-	return OsUnion{
-		Os:   &os,
-		Type: typ,
+	return Os{
+		NodeProvidedInfoOs2: &nodeProvidedInfoOs2,
+		Type:                typ,
 	}
 }
 
-func (u *OsUnion) UnmarshalJSON(data []byte) error {
+func (u *Os) UnmarshalJSON(data []byte) error {
 
-	var hostOsTypeHeartbeatMetadata HostOsTypeHeartbeatMetadata = HostOsTypeHeartbeatMetadata{}
-	if err := utils.UnmarshalJSON(data, &hostOsTypeHeartbeatMetadata, "", true, nil); err == nil {
-		u.HostOsTypeHeartbeatMetadata = &hostOsTypeHeartbeatMetadata
-		u.Type = OsUnionTypeHostOsTypeHeartbeatMetadata
+	var nodeProvidedInfoOs1 NodeProvidedInfoOs1 = NodeProvidedInfoOs1{}
+	if err := utils.UnmarshalJSON(data, &nodeProvidedInfoOs1, "", true, nil); err == nil {
+		u.NodeProvidedInfoOs1 = &nodeProvidedInfoOs1
+		u.Type = OsTypeNodeProvidedInfoOs1
 		return nil
 	}
 
-	var os Os = Os{}
-	if err := utils.UnmarshalJSON(data, &os, "", true, nil); err == nil {
-		u.Os = &os
-		u.Type = OsUnionTypeOs
+	var nodeProvidedInfoOs2 NodeProvidedInfoOs2 = NodeProvidedInfoOs2{}
+	if err := utils.UnmarshalJSON(data, &nodeProvidedInfoOs2, "", true, nil); err == nil {
+		u.NodeProvidedInfoOs2 = &nodeProvidedInfoOs2
+		u.Type = OsTypeNodeProvidedInfoOs2
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Os", string(data))
 }
 
-func (u OsUnion) MarshalJSON() ([]byte, error) {
-	if u.HostOsTypeHeartbeatMetadata != nil {
-		return utils.MarshalJSON(u.HostOsTypeHeartbeatMetadata, "", true)
+func (u Os) MarshalJSON() ([]byte, error) {
+	if u.NodeProvidedInfoOs1 != nil {
+		return utils.MarshalJSON(u.NodeProvidedInfoOs1, "", true)
 	}
 
-	if u.Os != nil {
-		return utils.MarshalJSON(u.Os, "", true)
+	if u.NodeProvidedInfoOs2 != nil {
+		return utils.MarshalJSON(u.NodeProvidedInfoOs2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type OsUnion: all fields are null")
+	return nil, errors.New("could not marshal union type Os: all fields are null")
 }
 
 type NodeProvidedInfo struct {
-	Architecture   string                       `json:"architecture"`
-	Aws            *AwsTypeHeartbeatMetadata    `json:"aws,omitempty"`
-	Azure          *AzureTypeHeartbeatMetadata  `json:"azure,omitempty"`
-	ConnIP         *string                      `json:"conn_ip,omitempty"`
-	Cpus           float64                      `json:"cpus"`
-	Cribl          HBCriblInfo                  `json:"cribl"`
-	Env            map[string]string            `json:"env"`
-	FreeDiskSpace  float64                      `json:"freeDiskSpace"`
-	HostOs         *HostOsTypeHeartbeatMetadata `json:"hostOs,omitempty"`
-	Hostname       string                       `json:"hostname"`
-	IsSaasWorker   *bool                        `json:"isSaasWorker,omitempty"`
-	Kube           *KubeTypeHeartbeatMetadata   `json:"kube,omitempty"`
-	LocalTime      *float64                     `json:"localTime,omitempty"`
-	Metadata       *HeartbeatMetadata           `json:"metadata,omitempty"`
-	Node           string                       `json:"node"`
-	Os             *OsUnion                     `json:"os,omitempty"`
-	Outpost        *OutpostNodeInfo             `json:"outpost,omitempty"`
-	Platform       string                       `json:"platform"`
-	Release        string                       `json:"release"`
-	TotalDiskSpace float64                      `json:"totalDiskSpace"`
-	Totalmem       float64                      `json:"totalmem"`
+	Architecture   string                  `json:"architecture"`
+	Aws            *NodeProvidedInfoAws    `json:"aws,omitempty"`
+	Azure          *NodeProvidedInfoAzure  `json:"azure,omitempty"`
+	ConnIP         *string                 `json:"conn_ip,omitempty"`
+	Cpus           float64                 `json:"cpus"`
+	Cribl          HBCriblInfo             `json:"cribl"`
+	Env            map[string]string       `json:"env"`
+	FreeDiskSpace  float64                 `json:"freeDiskSpace"`
+	HostOs         *NodeProvidedInfoHostOs `json:"hostOs,omitempty"`
+	Hostname       string                  `json:"hostname"`
+	IsSaasWorker   *bool                   `json:"isSaasWorker,omitempty"`
+	Kube           *NodeProvidedInfoKube   `json:"kube,omitempty"`
+	LocalTime      *float64                `json:"localTime,omitempty"`
+	Metadata       *HeartbeatMetadata      `json:"metadata,omitempty"`
+	Node           string                  `json:"node"`
+	Os             *Os                     `json:"os,omitempty"`
+	Outpost        *OutpostNodeInfo        `json:"outpost,omitempty"`
+	Platform       string                  `json:"platform"`
+	Release        string                  `json:"release"`
+	TotalDiskSpace float64                 `json:"totalDiskSpace"`
+	Totalmem       float64                 `json:"totalmem"`
 }
 
 func (n *NodeProvidedInfo) GetArchitecture() string {
@@ -124,14 +409,14 @@ func (n *NodeProvidedInfo) GetArchitecture() string {
 	return n.Architecture
 }
 
-func (n *NodeProvidedInfo) GetAws() *AwsTypeHeartbeatMetadata {
+func (n *NodeProvidedInfo) GetAws() *NodeProvidedInfoAws {
 	if n == nil {
 		return nil
 	}
 	return n.Aws
 }
 
-func (n *NodeProvidedInfo) GetAzure() *AzureTypeHeartbeatMetadata {
+func (n *NodeProvidedInfo) GetAzure() *NodeProvidedInfoAzure {
 	if n == nil {
 		return nil
 	}
@@ -173,7 +458,7 @@ func (n *NodeProvidedInfo) GetFreeDiskSpace() float64 {
 	return n.FreeDiskSpace
 }
 
-func (n *NodeProvidedInfo) GetHostOs() *HostOsTypeHeartbeatMetadata {
+func (n *NodeProvidedInfo) GetHostOs() *NodeProvidedInfoHostOs {
 	if n == nil {
 		return nil
 	}
@@ -194,7 +479,7 @@ func (n *NodeProvidedInfo) GetIsSaasWorker() *bool {
 	return n.IsSaasWorker
 }
 
-func (n *NodeProvidedInfo) GetKube() *KubeTypeHeartbeatMetadata {
+func (n *NodeProvidedInfo) GetKube() *NodeProvidedInfoKube {
 	if n == nil {
 		return nil
 	}
@@ -222,7 +507,7 @@ func (n *NodeProvidedInfo) GetNode() string {
 	return n.Node
 }
 
-func (n *NodeProvidedInfo) GetOs() *OsUnion {
+func (n *NodeProvidedInfo) GetOs() *Os {
 	if n == nil {
 		return nil
 	}

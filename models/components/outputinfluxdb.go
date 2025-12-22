@@ -64,6 +64,189 @@ func (e *TimestampPrecision) IsExact() bool {
 	return false
 }
 
+type OutputInfluxdbExtraHTTPHeader struct {
+	Name  *string `json:"name,omitempty"`
+	Value string  `json:"value"`
+}
+
+func (o OutputInfluxdbExtraHTTPHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbExtraHTTPHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbExtraHTTPHeader) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *OutputInfluxdbExtraHTTPHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+// OutputInfluxdbFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+type OutputInfluxdbFailedRequestLoggingMode string
+
+const (
+	// OutputInfluxdbFailedRequestLoggingModePayload Payload
+	OutputInfluxdbFailedRequestLoggingModePayload OutputInfluxdbFailedRequestLoggingMode = "payload"
+	// OutputInfluxdbFailedRequestLoggingModePayloadAndHeaders Payload + Headers
+	OutputInfluxdbFailedRequestLoggingModePayloadAndHeaders OutputInfluxdbFailedRequestLoggingMode = "payloadAndHeaders"
+	// OutputInfluxdbFailedRequestLoggingModeNone None
+	OutputInfluxdbFailedRequestLoggingModeNone OutputInfluxdbFailedRequestLoggingMode = "none"
+)
+
+func (e OutputInfluxdbFailedRequestLoggingMode) ToPointer() *OutputInfluxdbFailedRequestLoggingMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputInfluxdbResponseRetrySetting struct {
+	// The HTTP response status code that will trigger retries
+	HTTPStatus float64 `json:"httpStatus"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputInfluxdbResponseRetrySetting) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbResponseRetrySetting) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbResponseRetrySetting) GetHTTPStatus() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.HTTPStatus
+}
+
+func (o *OutputInfluxdbResponseRetrySetting) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputInfluxdbResponseRetrySetting) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputInfluxdbResponseRetrySetting) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+type OutputInfluxdbTimeoutRetrySettings struct {
+	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputInfluxdbTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbTimeoutRetrySettings) GetTimeoutRetry() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetry
+}
+
+func (o *OutputInfluxdbTimeoutRetrySettings) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputInfluxdbTimeoutRetrySettings) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputInfluxdbTimeoutRetrySettings) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+// OutputInfluxdbBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputInfluxdbBackpressureBehavior string
+
+const (
+	// OutputInfluxdbBackpressureBehaviorBlock Block
+	OutputInfluxdbBackpressureBehaviorBlock OutputInfluxdbBackpressureBehavior = "block"
+	// OutputInfluxdbBackpressureBehaviorDrop Drop
+	OutputInfluxdbBackpressureBehaviorDrop OutputInfluxdbBackpressureBehavior = "drop"
+	// OutputInfluxdbBackpressureBehaviorQueue Persistent Queue
+	OutputInfluxdbBackpressureBehaviorQueue OutputInfluxdbBackpressureBehavior = "queue"
+)
+
+func (e OutputInfluxdbBackpressureBehavior) ToPointer() *OutputInfluxdbBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputInfluxdbAuthenticationType - InfluxDB authentication type
 type OutputInfluxdbAuthenticationType string
 
@@ -91,6 +274,83 @@ func (e *OutputInfluxdbAuthenticationType) IsExact() bool {
 	return false
 }
 
+// OutputInfluxdbMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputInfluxdbMode string
+
+const (
+	// OutputInfluxdbModeError Error
+	OutputInfluxdbModeError OutputInfluxdbMode = "error"
+	// OutputInfluxdbModeAlways Backpressure
+	OutputInfluxdbModeAlways OutputInfluxdbMode = "always"
+	// OutputInfluxdbModeBackpressure Always On
+	OutputInfluxdbModeBackpressure OutputInfluxdbMode = "backpressure"
+)
+
+func (e OutputInfluxdbMode) ToPointer() *OutputInfluxdbMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputInfluxdbCompression - Codec to use to compress the persisted data
+type OutputInfluxdbCompression string
+
+const (
+	// OutputInfluxdbCompressionNone None
+	OutputInfluxdbCompressionNone OutputInfluxdbCompression = "none"
+	// OutputInfluxdbCompressionGzip Gzip
+	OutputInfluxdbCompressionGzip OutputInfluxdbCompression = "gzip"
+)
+
+func (e OutputInfluxdbCompression) ToPointer() *OutputInfluxdbCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputInfluxdbQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputInfluxdbQueueFullBehavior string
+
+const (
+	// OutputInfluxdbQueueFullBehaviorBlock Block
+	OutputInfluxdbQueueFullBehaviorBlock OutputInfluxdbQueueFullBehavior = "block"
+	// OutputInfluxdbQueueFullBehaviorDrop Drop new data
+	OutputInfluxdbQueueFullBehaviorDrop OutputInfluxdbQueueFullBehavior = "drop"
+)
+
+func (e OutputInfluxdbQueueFullBehavior) ToPointer() *OutputInfluxdbQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputInfluxdbQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputInfluxdbPqControls struct {
 }
 
@@ -103,6 +363,70 @@ func (o *OutputInfluxdbPqControls) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+type OutputInfluxdbOauthParam struct {
+	// OAuth parameter name
+	Name string `json:"name"`
+	// OAuth parameter value
+	Value string `json:"value"`
+}
+
+func (o OutputInfluxdbOauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbOauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbOauthParam) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *OutputInfluxdbOauthParam) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+type OutputInfluxdbOauthHeader struct {
+	// OAuth header name
+	Name string `json:"name"`
+	// OAuth header value
+	Value string `json:"value"`
+}
+
+func (o OutputInfluxdbOauthHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputInfluxdbOauthHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputInfluxdbOauthHeader) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
+func (o *OutputInfluxdbOauthHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
 }
 
 type OutputInfluxdb struct {
@@ -144,20 +468,20 @@ type OutputInfluxdb struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []OutputInfluxdbExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *OutputInfluxdbFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []OutputInfluxdbResponseRetrySetting `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *OutputInfluxdbTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputInfluxdbBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// InfluxDB authentication type
 	AuthType    *OutputInfluxdbAuthenticationType `default:"none" json:"authType"`
 	Description *string                           `json:"description,omitempty"`
@@ -172,7 +496,7 @@ type OutputInfluxdb struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputInfluxdbMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -184,12 +508,12 @@ type OutputInfluxdb struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputInfluxdbCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputInfluxdbPqControls `json:"pqControls,omitempty"`
-	Username         *string                   `json:"username,omitempty"`
-	Password         *string                   `json:"password,omitempty"`
+	PqOnBackpressure *OutputInfluxdbQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputInfluxdbPqControls        `json:"pqControls,omitempty"`
+	Username         *string                          `json:"username,omitempty"`
+	Password         *string                          `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -209,9 +533,9 @@ type OutputInfluxdb struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []OutputInfluxdbOauthParam `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []OutputInfluxdbOauthHeader `json:"oauthHeaders,omitempty"`
 }
 
 func (o OutputInfluxdb) MarshalJSON() ([]byte, error) {
@@ -351,7 +675,7 @@ func (o *OutputInfluxdb) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputInfluxdb) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputInfluxdb) GetExtraHTTPHeaders() []OutputInfluxdbExtraHTTPHeader {
 	if o == nil {
 		return nil
 	}
@@ -365,7 +689,7 @@ func (o *OutputInfluxdb) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputInfluxdb) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+func (o *OutputInfluxdb) GetFailedRequestLoggingMode() *OutputInfluxdbFailedRequestLoggingMode {
 	if o == nil {
 		return nil
 	}
@@ -379,14 +703,14 @@ func (o *OutputInfluxdb) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputInfluxdb) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputInfluxdb) GetResponseRetrySettings() []OutputInfluxdbResponseRetrySetting {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputInfluxdb) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+func (o *OutputInfluxdb) GetTimeoutRetrySettings() *OutputInfluxdbTimeoutRetrySettings {
 	if o == nil {
 		return nil
 	}
@@ -400,7 +724,7 @@ func (o *OutputInfluxdb) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputInfluxdb) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputInfluxdb) GetOnBackpressure() *OutputInfluxdbBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -456,7 +780,7 @@ func (o *OutputInfluxdb) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputInfluxdb) GetPqMode() *ModeOptions {
+func (o *OutputInfluxdb) GetPqMode() *OutputInfluxdbMode {
 	if o == nil {
 		return nil
 	}
@@ -498,14 +822,14 @@ func (o *OutputInfluxdb) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputInfluxdb) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputInfluxdb) GetPqCompress() *OutputInfluxdbCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputInfluxdb) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputInfluxdb) GetPqOnBackpressure() *OutputInfluxdbQueueFullBehavior {
 	if o == nil {
 		return nil
 	}
@@ -596,14 +920,14 @@ func (o *OutputInfluxdb) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputInfluxdb) GetOauthParams() []ItemsTypeOauthParams {
+func (o *OutputInfluxdb) GetOauthParams() []OutputInfluxdbOauthParam {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputInfluxdb) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (o *OutputInfluxdb) GetOauthHeaders() []OutputInfluxdbOauthHeader {
 	if o == nil {
 		return nil
 	}

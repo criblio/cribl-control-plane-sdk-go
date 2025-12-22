@@ -31,6 +31,189 @@ func (e *OutputAzureLogsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type OutputAzureLogsExtraHTTPHeader struct {
+	Name  *string `json:"name,omitempty"`
+	Value string  `json:"value"`
+}
+
+func (o OutputAzureLogsExtraHTTPHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputAzureLogsExtraHTTPHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputAzureLogsExtraHTTPHeader) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *OutputAzureLogsExtraHTTPHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+// OutputAzureLogsFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+type OutputAzureLogsFailedRequestLoggingMode string
+
+const (
+	// OutputAzureLogsFailedRequestLoggingModePayload Payload
+	OutputAzureLogsFailedRequestLoggingModePayload OutputAzureLogsFailedRequestLoggingMode = "payload"
+	// OutputAzureLogsFailedRequestLoggingModePayloadAndHeaders Payload + Headers
+	OutputAzureLogsFailedRequestLoggingModePayloadAndHeaders OutputAzureLogsFailedRequestLoggingMode = "payloadAndHeaders"
+	// OutputAzureLogsFailedRequestLoggingModeNone None
+	OutputAzureLogsFailedRequestLoggingModeNone OutputAzureLogsFailedRequestLoggingMode = "none"
+)
+
+func (e OutputAzureLogsFailedRequestLoggingMode) ToPointer() *OutputAzureLogsFailedRequestLoggingMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputAzureLogsResponseRetrySetting struct {
+	// The HTTP response status code that will trigger retries
+	HTTPStatus float64 `json:"httpStatus"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputAzureLogsResponseRetrySetting) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputAzureLogsResponseRetrySetting) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputAzureLogsResponseRetrySetting) GetHTTPStatus() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.HTTPStatus
+}
+
+func (o *OutputAzureLogsResponseRetrySetting) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputAzureLogsResponseRetrySetting) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputAzureLogsResponseRetrySetting) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+type OutputAzureLogsTimeoutRetrySettings struct {
+	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputAzureLogsTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputAzureLogsTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputAzureLogsTimeoutRetrySettings) GetTimeoutRetry() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetry
+}
+
+func (o *OutputAzureLogsTimeoutRetrySettings) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputAzureLogsTimeoutRetrySettings) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputAzureLogsTimeoutRetrySettings) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+// OutputAzureLogsBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputAzureLogsBackpressureBehavior string
+
+const (
+	// OutputAzureLogsBackpressureBehaviorBlock Block
+	OutputAzureLogsBackpressureBehaviorBlock OutputAzureLogsBackpressureBehavior = "block"
+	// OutputAzureLogsBackpressureBehaviorDrop Drop
+	OutputAzureLogsBackpressureBehaviorDrop OutputAzureLogsBackpressureBehavior = "drop"
+	// OutputAzureLogsBackpressureBehaviorQueue Persistent Queue
+	OutputAzureLogsBackpressureBehaviorQueue OutputAzureLogsBackpressureBehavior = "queue"
+)
+
+func (e OutputAzureLogsBackpressureBehavior) ToPointer() *OutputAzureLogsBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputAzureLogsAuthenticationMethod - Enter workspace ID and workspace key directly, or select a stored secret
 type OutputAzureLogsAuthenticationMethod string
 
@@ -48,6 +231,83 @@ func (e *OutputAzureLogsAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputAzureLogsMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputAzureLogsMode string
+
+const (
+	// OutputAzureLogsModeError Error
+	OutputAzureLogsModeError OutputAzureLogsMode = "error"
+	// OutputAzureLogsModeAlways Backpressure
+	OutputAzureLogsModeAlways OutputAzureLogsMode = "always"
+	// OutputAzureLogsModeBackpressure Always On
+	OutputAzureLogsModeBackpressure OutputAzureLogsMode = "backpressure"
+)
+
+func (e OutputAzureLogsMode) ToPointer() *OutputAzureLogsMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputAzureLogsCompression - Codec to use to compress the persisted data
+type OutputAzureLogsCompression string
+
+const (
+	// OutputAzureLogsCompressionNone None
+	OutputAzureLogsCompressionNone OutputAzureLogsCompression = "none"
+	// OutputAzureLogsCompressionGzip Gzip
+	OutputAzureLogsCompressionGzip OutputAzureLogsCompression = "gzip"
+)
+
+func (e OutputAzureLogsCompression) ToPointer() *OutputAzureLogsCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputAzureLogsQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputAzureLogsQueueFullBehavior string
+
+const (
+	// OutputAzureLogsQueueFullBehaviorBlock Block
+	OutputAzureLogsQueueFullBehaviorBlock OutputAzureLogsQueueFullBehavior = "block"
+	// OutputAzureLogsQueueFullBehaviorDrop Drop new data
+	OutputAzureLogsQueueFullBehaviorDrop OutputAzureLogsQueueFullBehavior = "drop"
+)
+
+func (e OutputAzureLogsQueueFullBehavior) ToPointer() *OutputAzureLogsQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAzureLogsQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
 			return true
 		}
 	}
@@ -100,22 +360,22 @@ type OutputAzureLogs struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []OutputAzureLogsExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *OutputAzureLogsFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// The DNS name of the Log API endpoint that sends log data to a Log Analytics workspace in Azure Monitor. Defaults to .ods.opinsights.azure.com. @{product} will add a prefix and suffix to construct a URI in this format: <https://<Workspace_ID><your_DNS_name>/api/logs?api-version=<API version>.
 	APIURL *string `default:".ods.opinsights.azure.com" json:"apiUrl"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []OutputAzureLogsResponseRetrySetting `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *OutputAzureLogsTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputAzureLogsBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// Enter workspace ID and workspace key directly, or select a stored secret
 	AuthType    *OutputAzureLogsAuthenticationMethod `default:"manual" json:"authType"`
 	Description *string                              `json:"description,omitempty"`
@@ -124,7 +384,7 @@ type OutputAzureLogs struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputAzureLogsMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -136,10 +396,10 @@ type OutputAzureLogs struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputAzureLogsCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions  `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputAzureLogsPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputAzureLogsQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputAzureLogsPqControls        `json:"pqControls,omitempty"`
 	// Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
 	WorkspaceID *string `json:"workspaceId,omitempty"`
 	// Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.
@@ -264,7 +524,7 @@ func (o *OutputAzureLogs) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputAzureLogs) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputAzureLogs) GetExtraHTTPHeaders() []OutputAzureLogsExtraHTTPHeader {
 	if o == nil {
 		return nil
 	}
@@ -278,7 +538,7 @@ func (o *OutputAzureLogs) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputAzureLogs) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+func (o *OutputAzureLogs) GetFailedRequestLoggingMode() *OutputAzureLogsFailedRequestLoggingMode {
 	if o == nil {
 		return nil
 	}
@@ -299,14 +559,14 @@ func (o *OutputAzureLogs) GetAPIURL() *string {
 	return o.APIURL
 }
 
-func (o *OutputAzureLogs) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputAzureLogs) GetResponseRetrySettings() []OutputAzureLogsResponseRetrySetting {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputAzureLogs) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+func (o *OutputAzureLogs) GetTimeoutRetrySettings() *OutputAzureLogsTimeoutRetrySettings {
 	if o == nil {
 		return nil
 	}
@@ -320,7 +580,7 @@ func (o *OutputAzureLogs) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputAzureLogs) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputAzureLogs) GetOnBackpressure() *OutputAzureLogsBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -355,7 +615,7 @@ func (o *OutputAzureLogs) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputAzureLogs) GetPqMode() *ModeOptions {
+func (o *OutputAzureLogs) GetPqMode() *OutputAzureLogsMode {
 	if o == nil {
 		return nil
 	}
@@ -397,14 +657,14 @@ func (o *OutputAzureLogs) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputAzureLogs) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputAzureLogs) GetPqCompress() *OutputAzureLogsCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputAzureLogs) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputAzureLogs) GetPqOnBackpressure() *OutputAzureLogsQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

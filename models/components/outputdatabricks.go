@@ -31,6 +31,215 @@ func (e *OutputDatabricksType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputDatabricksDataFormat - Format of the output data
+type OutputDatabricksDataFormat string
+
+const (
+	// OutputDatabricksDataFormatJSON JSON
+	OutputDatabricksDataFormatJSON OutputDatabricksDataFormat = "json"
+	// OutputDatabricksDataFormatRaw Raw
+	OutputDatabricksDataFormatRaw OutputDatabricksDataFormat = "raw"
+	// OutputDatabricksDataFormatParquet Parquet
+	OutputDatabricksDataFormatParquet OutputDatabricksDataFormat = "parquet"
+)
+
+func (e OutputDatabricksDataFormat) ToPointer() *OutputDatabricksDataFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksDataFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "raw", "parquet":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatabricksBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputDatabricksBackpressureBehavior string
+
+const (
+	// OutputDatabricksBackpressureBehaviorBlock Block
+	OutputDatabricksBackpressureBehaviorBlock OutputDatabricksBackpressureBehavior = "block"
+	// OutputDatabricksBackpressureBehaviorDrop Drop
+	OutputDatabricksBackpressureBehaviorDrop OutputDatabricksBackpressureBehavior = "drop"
+)
+
+func (e OutputDatabricksBackpressureBehavior) ToPointer() *OutputDatabricksBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatabricksDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
+type OutputDatabricksDiskSpaceProtection string
+
+const (
+	// OutputDatabricksDiskSpaceProtectionBlock Block
+	OutputDatabricksDiskSpaceProtectionBlock OutputDatabricksDiskSpaceProtection = "block"
+	// OutputDatabricksDiskSpaceProtectionDrop Drop
+	OutputDatabricksDiskSpaceProtectionDrop OutputDatabricksDiskSpaceProtection = "drop"
+)
+
+func (e OutputDatabricksDiskSpaceProtection) ToPointer() *OutputDatabricksDiskSpaceProtection {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksDiskSpaceProtection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatabricksCompression - Data compression format to apply to HTTP content before it is delivered
+type OutputDatabricksCompression string
+
+const (
+	OutputDatabricksCompressionNone OutputDatabricksCompression = "none"
+	OutputDatabricksCompressionGzip OutputDatabricksCompression = "gzip"
+)
+
+func (e OutputDatabricksCompression) ToPointer() *OutputDatabricksCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatabricksCompressionLevel - Compression level to apply before moving files to final destination
+type OutputDatabricksCompressionLevel string
+
+const (
+	// OutputDatabricksCompressionLevelBestSpeed Best Speed
+	OutputDatabricksCompressionLevelBestSpeed OutputDatabricksCompressionLevel = "best_speed"
+	// OutputDatabricksCompressionLevelNormal Normal
+	OutputDatabricksCompressionLevelNormal OutputDatabricksCompressionLevel = "normal"
+	// OutputDatabricksCompressionLevelBestCompression Best Compression
+	OutputDatabricksCompressionLevelBestCompression OutputDatabricksCompressionLevel = "best_compression"
+)
+
+func (e OutputDatabricksCompressionLevel) ToPointer() *OutputDatabricksCompressionLevel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksCompressionLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "best_speed", "normal", "best_compression":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatabricksParquetVersion - Determines which data types are supported and how they are represented
+type OutputDatabricksParquetVersion string
+
+const (
+	// OutputDatabricksParquetVersionParquet10 1.0
+	OutputDatabricksParquetVersionParquet10 OutputDatabricksParquetVersion = "PARQUET_1_0"
+	// OutputDatabricksParquetVersionParquet24 2.4
+	OutputDatabricksParquetVersionParquet24 OutputDatabricksParquetVersion = "PARQUET_2_4"
+	// OutputDatabricksParquetVersionParquet26 2.6
+	OutputDatabricksParquetVersionParquet26 OutputDatabricksParquetVersion = "PARQUET_2_6"
+)
+
+func (e OutputDatabricksParquetVersion) ToPointer() *OutputDatabricksParquetVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksParquetVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputDatabricksDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+type OutputDatabricksDataPageVersion string
+
+const (
+	// OutputDatabricksDataPageVersionDataPageV1 V1
+	OutputDatabricksDataPageVersionDataPageV1 OutputDatabricksDataPageVersion = "DATA_PAGE_V1"
+	// OutputDatabricksDataPageVersionDataPageV2 V2
+	OutputDatabricksDataPageVersionDataPageV2 OutputDatabricksDataPageVersion = "DATA_PAGE_V2"
+)
+
+func (e OutputDatabricksDataPageVersion) ToPointer() *OutputDatabricksDataPageVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDatabricksDataPageVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "DATA_PAGE_V1", "DATA_PAGE_V2":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputDatabricksKeyValueMetadatum struct {
+	Key   *string `default:"" json:"key"`
+	Value string  `json:"value"`
+}
+
+func (o OutputDatabricksKeyValueMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputDatabricksKeyValueMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputDatabricksKeyValueMetadatum) GetKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Key
+}
+
+func (o *OutputDatabricksKeyValueMetadatum) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
 type OutputDatabricks struct {
 	// Unique ID for this output
 	ID   *string              `json:"id,omitempty"`
@@ -54,7 +263,7 @@ type OutputDatabricks struct {
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
 	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
 	// Format of the output data
-	Format *DataFormatOptions `default:"json" json:"format"`
+	Format *OutputDatabricksDataFormat `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
 	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
@@ -72,11 +281,11 @@ type OutputDatabricks struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `default:"block" json:"onBackpressure"`
+	OnBackpressure *OutputDatabricksBackpressureBehavior `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *DiskSpaceProtectionOptions `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *OutputDatabricksDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Databricks workspace ID
@@ -97,17 +306,17 @@ type OutputDatabricks struct {
 	TimeoutSec  *float64 `default:"60" json:"timeoutSec"`
 	Description *string  `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `default:"gzip" json:"compress"`
+	Compress *OutputDatabricksCompression `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
+	CompressionLevel *OutputDatabricksCompressionLevel `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
 	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *OutputDatabricksParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *DataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *OutputDatabricksDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -115,7 +324,7 @@ type OutputDatabricks struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []OutputDatabricksKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -220,7 +429,7 @@ func (o *OutputDatabricks) GetPartitionExpr() *string {
 	return o.PartitionExpr
 }
 
-func (o *OutputDatabricks) GetFormat() *DataFormatOptions {
+func (o *OutputDatabricks) GetFormat() *OutputDatabricksDataFormat {
 	if o == nil {
 		return nil
 	}
@@ -283,7 +492,7 @@ func (o *OutputDatabricks) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputDatabricks) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputDatabricks) GetOnBackpressure() *OutputDatabricksBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -297,7 +506,7 @@ func (o *OutputDatabricks) GetDeadletterEnabled() *bool {
 	return o.DeadletterEnabled
 }
 
-func (o *OutputDatabricks) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
+func (o *OutputDatabricks) GetOnDiskFullBackpressure() *OutputDatabricksDiskSpaceProtection {
 	if o == nil {
 		return nil
 	}
@@ -374,14 +583,14 @@ func (o *OutputDatabricks) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputDatabricks) GetCompress() *CompressionOptions2 {
+func (o *OutputDatabricks) GetCompress() *OutputDatabricksCompression {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputDatabricks) GetCompressionLevel() *CompressionLevelOptions {
+func (o *OutputDatabricks) GetCompressionLevel() *OutputDatabricksCompressionLevel {
 	if o == nil {
 		return nil
 	}
@@ -402,14 +611,14 @@ func (o *OutputDatabricks) GetParquetSchema() *string {
 	return o.ParquetSchema
 }
 
-func (o *OutputDatabricks) GetParquetVersion() *ParquetVersionOptions {
+func (o *OutputDatabricks) GetParquetVersion() *OutputDatabricksParquetVersion {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputDatabricks) GetParquetDataPageVersion() *DataPageVersionOptions {
+func (o *OutputDatabricks) GetParquetDataPageVersion() *OutputDatabricksDataPageVersion {
 	if o == nil {
 		return nil
 	}
@@ -437,7 +646,7 @@ func (o *OutputDatabricks) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputDatabricks) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputDatabricks) GetKeyValueMetadata() []OutputDatabricksKeyValueMetadatum {
 	if o == nil {
 		return nil
 	}

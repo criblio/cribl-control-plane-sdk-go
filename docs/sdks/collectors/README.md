@@ -44,55 +44,53 @@ func main() {
         components.SavedJobCollection{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
-            Type: components.JobTypeOptionsSavedJobCollectionExecutor,
+            Type: components.SavedJobCollectionJobTypeExecutor,
             RemoveFields: []string{
                 "<value 1>",
                 "<value 2>",
             },
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.SavedJobCollectionSchedule{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Run: &components.ScheduleTypeSavedJobCollectionRunSettings{
-                    Type: components.ScheduleTypeSavedJobCollectionTypeCollection.ToPointer(),
+                Run: &components.SavedJobCollectionRunSettings{
+                    Type: components.SavedJobCollectionRunTypeCollection.ToPointer(),
                     Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
                     Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.TimeWarning{},
+                    TimeWarning: &components.SavedJobCollectionTimeWarning{},
                 },
             },
             Streamtags: []string{
                 "<value 1>",
                 "<value 2>",
             },
-            Collector: components.CollectorTypeSavedJobCollection{
-                Type: "<value>",
-                Conf: components.CreateCollectorConfScript(
-                    components.CollectorScript{
-                        Type: components.CollectorScriptTypeScript,
-                        DiscoverScript: "<value>",
-                        CollectScript: "<value>",
-                        EnvVars: []components.EnvVar{
-                            components.EnvVar{
-                                Name: "<value>",
-                                Value: "<value>",
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                        DefaultBreakers: components.DatabaseCollectorConfHiddenDefaultBreakersCribl.ToPointer(),
+                        Scheduling: &components.DatabaseCollectorConfScheduling{
+                            StateTracking: &components.DatabaseCollectorConfStateTracking{
+                                Enabled: criblcontrolplanesdkgo.Pointer(true),
                             },
                         },
                     },
-                ),
-                Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
-            },
-            Input: &components.InputTypeSavedJobCollection{
+                },
+            ),
+            Input: &components.SavedJobCollectionInput{
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
-                Preprocess: &components.PreprocessTypeSavedJobCollectionInput{
+                Preprocess: &components.SavedJobCollectionPreprocess{
                     Command: criblcontrolplanesdkgo.Pointer("<value>"),
                     Args: []string{
                         "<value 1>",
                     },
                 },
-                Metadata: []components.ItemsTypeNotificationMetadata{
-                    components.ItemsTypeNotificationMetadata{
+                Metadata: []components.SavedJobCollectionMetadatum{
+                    components.SavedJobCollectionMetadatum{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -339,97 +337,56 @@ func main() {
         components.SavedJobCollection{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
-            Type: components.JobTypeOptionsSavedJobCollectionScheduledSearch,
+            Type: components.SavedJobCollectionJobTypeScheduledSearch,
             RemoveFields: []string{
                 "<value 1>",
                 "<value 2>",
             },
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.ScheduleTypeSavedJobCollection{
+            Schedule: &components.SavedJobCollectionSchedule{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Run: &components.ScheduleTypeSavedJobCollectionRunSettings{
-                    Type: components.ScheduleTypeSavedJobCollectionTypeCollection.ToPointer(),
+                Run: &components.SavedJobCollectionRunSettings{
+                    Type: components.SavedJobCollectionRunTypeCollection.ToPointer(),
                     Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
                     Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.TimeWarning{},
+                    TimeWarning: &components.SavedJobCollectionTimeWarning{},
                 },
             },
             Streamtags: []string{
                 "<value 1>",
                 "<value 2>",
             },
-            Collector: components.CollectorTypeSavedJobCollection{
-                Type: "<value>",
-                Conf: components.CreateCollectorConfHealthCheck(
-                    components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck1(
-                        components.CollectorHealthCheckHealthCheck1{
-                            CollectRequestParams: []components.ItemsTypeCollectRequestParams{
-                                components.ItemsTypeCollectRequestParams{
-                                    Name: "<value>",
-                                    Value: "<value>",
-                                },
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                        DefaultBreakers: components.DatabaseCollectorConfHiddenDefaultBreakersCribl.ToPointer(),
+                        Scheduling: &components.DatabaseCollectorConfScheduling{
+                            StateTracking: &components.DatabaseCollectorConfStateTracking{
+                                Enabled: criblcontrolplanesdkgo.Pointer(false),
                             },
-                            Discovery: &components.CollectorHealthCheckDiscovery1{},
-                            CollectURL: "https://shameful-vicinity.com/",
-                            CollectRequestHeaders: []components.CollectorHealthCheckCollectRequestHeader1{
-                                components.CollectorHealthCheckCollectRequestHeader1{
-                                    Name: "<value>",
-                                    Value: "<value>",
-                                },
-                            },
-                            DefaultBreakers: components.HiddenDefaultBreakersOptionsCribl.ToPointer(),
-                            SafeHeaders: []string{
-                                "<value 1>",
-                                "<value 2>",
-                                "<value 3>",
-                            },
-                            RetryRules: &components.CollectorHealthCheckRetryRules1{
-                                Interval: "<value>",
-                                Limit: "<value>",
-                                Multiplier: "<value>",
-                                Codes: "<value>",
-                                EnableHeader: "<value>",
-                            },
-                            Username: criblcontrolplanesdkgo.Pointer("Daphnee_Schimmel-Wolf26"),
-                            Password: criblcontrolplanesdkgo.Pointer("qwZ927mZOVqnV8W"),
-                            CredentialsSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-                            TokenRespAttribute: criblcontrolplanesdkgo.Pointer("<value>"),
-                            AuthRequestHeaders: []components.ItemsTypeAuthRequestHeaders{
-                                components.ItemsTypeAuthRequestHeaders{
-                                    Name: "<value>",
-                                    Value: "<value>",
-                                },
-                            },
-                            ClientSecretParamValue: criblcontrolplanesdkgo.Pointer("<value>"),
-                            AuthRequestParams: []components.ItemsTypeAuthRequestParams{
-                                components.ItemsTypeAuthRequestParams{
-                                    Name: "<value>",
-                                    Value: "<value>",
-                                },
-                            },
-                            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-                            Type: components.CollectorHealthCheckType1HealthCheck,
                         },
-                    ),
-                ),
-                Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
-            },
-            Input: &components.InputTypeSavedJobCollection{
+                    },
+                },
+            ),
+            Input: &components.SavedJobCollectionInput{
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
                     "<value 3>",
                 },
-                Preprocess: &components.PreprocessTypeSavedJobCollectionInput{
+                Preprocess: &components.SavedJobCollectionPreprocess{
                     Command: criblcontrolplanesdkgo.Pointer("<value>"),
                     Args: []string{
                         "<value 1>",
                         "<value 2>",
                     },
                 },
-                Metadata: []components.ItemsTypeNotificationMetadata{
-                    components.ItemsTypeNotificationMetadata{
+                Metadata: []components.SavedJobCollectionMetadatum{
+                    components.SavedJobCollectionMetadatum{
                         Name: "<value>",
                         Value: "<value>",
                     },

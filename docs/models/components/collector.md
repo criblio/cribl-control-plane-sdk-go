@@ -1,11 +1,67 @@
 # Collector
 
+Collector config wrapper
 
-## Fields
 
-| Field                                                                                                                                                     | Type                                                                                                                                                      | Required                                                                                                                                                  | Description                                                                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Type`                                                                                                                                                    | *string*                                                                                                                                                  | :heavy_check_mark:                                                                                                                                        | The type of collector to run                                                                                                                              |
-| `Conf`                                                                                                                                                    | [components.CollectorSpecificSettings](../../models/components/collectorspecificsettings.md)                                                              | :heavy_check_mark:                                                                                                                                        | N/A                                                                                                                                                       |
-| `Destructive`                                                                                                                                             | **bool*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                        | Delete any files collected (where applicable)                                                                                                             |
-| `Encoding`                                                                                                                                                | **string*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                        | Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters. |
+## Supported Types
+
+### CollectorAzureBlob
+
+```go
+collector := components.CreateCollectorAzureBlob(components.CollectorAzureBlob{/* values here */})
+```
+
+### CollectorCriblLake
+
+```go
+collector := components.CreateCollectorCriblLake(components.CollectorCriblLake{/* values here */})
+```
+
+### CollectorDatabase
+
+```go
+collector := components.CreateCollectorDatabase(components.CollectorDatabase{/* values here */})
+```
+
+### CollectorFilesystem
+
+```go
+collector := components.CreateCollectorFilesystem(components.CollectorFilesystem{/* values here */})
+```
+
+### CollectorGoogleCloudStorage
+
+```go
+collector := components.CreateCollectorGoogleCloudStorage(components.CollectorGoogleCloudStorage{/* values here */})
+```
+
+### CollectorHealthCheck
+
+```go
+collector := components.CreateCollectorHealthCheck(components.CollectorHealthCheck{/* values here */})
+```
+
+### CollectorRest
+
+```go
+collector := components.CreateCollectorRest(components.CollectorRest{/* values here */})
+```
+
+### CollectorS3
+
+```go
+collector := components.CreateCollectorS3(components.CollectorS3{/* values here */})
+```
+
+### CollectorScript
+
+```go
+collector := components.CreateCollectorScript(components.CollectorScript{/* values here */})
+```
+
+### CollectorSplunk
+
+```go
+collector := components.CreateCollectorSplunk(components.CollectorSplunk{/* values here */})
+```
+

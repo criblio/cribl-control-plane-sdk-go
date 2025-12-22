@@ -31,6 +31,56 @@ func (e *OutputKinesisType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputKinesisAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
+type OutputKinesisAuthenticationMethod string
+
+const (
+	// OutputKinesisAuthenticationMethodAuto Auto
+	OutputKinesisAuthenticationMethodAuto OutputKinesisAuthenticationMethod = "auto"
+	// OutputKinesisAuthenticationMethodManual Manual
+	OutputKinesisAuthenticationMethodManual OutputKinesisAuthenticationMethod = "manual"
+	// OutputKinesisAuthenticationMethodSecret Secret Key pair
+	OutputKinesisAuthenticationMethodSecret OutputKinesisAuthenticationMethod = "secret"
+)
+
+func (e OutputKinesisAuthenticationMethod) ToPointer() *OutputKinesisAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputKinesisSignatureVersion - Signature version to use for signing Kinesis stream requests
+type OutputKinesisSignatureVersion string
+
+const (
+	OutputKinesisSignatureVersionV2 OutputKinesisSignatureVersion = "v2"
+	OutputKinesisSignatureVersionV4 OutputKinesisSignatureVersion = "v4"
+)
+
+func (e OutputKinesisSignatureVersion) ToPointer() *OutputKinesisSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 // OutputKinesisCompression - Compression type to use for records
 type OutputKinesisCompression string
 
@@ -50,6 +100,110 @@ func (e *OutputKinesisCompression) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputKinesisBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputKinesisBackpressureBehavior string
+
+const (
+	// OutputKinesisBackpressureBehaviorBlock Block
+	OutputKinesisBackpressureBehaviorBlock OutputKinesisBackpressureBehavior = "block"
+	// OutputKinesisBackpressureBehaviorDrop Drop
+	OutputKinesisBackpressureBehaviorDrop OutputKinesisBackpressureBehavior = "drop"
+	// OutputKinesisBackpressureBehaviorQueue Persistent Queue
+	OutputKinesisBackpressureBehaviorQueue OutputKinesisBackpressureBehavior = "queue"
+)
+
+func (e OutputKinesisBackpressureBehavior) ToPointer() *OutputKinesisBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputKinesisMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputKinesisMode string
+
+const (
+	// OutputKinesisModeError Error
+	OutputKinesisModeError OutputKinesisMode = "error"
+	// OutputKinesisModeAlways Backpressure
+	OutputKinesisModeAlways OutputKinesisMode = "always"
+	// OutputKinesisModeBackpressure Always On
+	OutputKinesisModeBackpressure OutputKinesisMode = "backpressure"
+)
+
+func (e OutputKinesisMode) ToPointer() *OutputKinesisMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputKinesisPqCompressCompression - Codec to use to compress the persisted data
+type OutputKinesisPqCompressCompression string
+
+const (
+	// OutputKinesisPqCompressCompressionNone None
+	OutputKinesisPqCompressCompressionNone OutputKinesisPqCompressCompression = "none"
+	// OutputKinesisPqCompressCompressionGzip Gzip
+	OutputKinesisPqCompressCompressionGzip OutputKinesisPqCompressCompression = "gzip"
+)
+
+func (e OutputKinesisPqCompressCompression) ToPointer() *OutputKinesisPqCompressCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputKinesisQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputKinesisQueueFullBehavior string
+
+const (
+	// OutputKinesisQueueFullBehaviorBlock Block
+	OutputKinesisQueueFullBehaviorBlock OutputKinesisQueueFullBehavior = "block"
+	// OutputKinesisQueueFullBehaviorDrop Drop new data
+	OutputKinesisQueueFullBehaviorDrop OutputKinesisQueueFullBehavior = "drop"
+)
+
+func (e OutputKinesisQueueFullBehavior) ToPointer() *OutputKinesisQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputKinesisQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
 			return true
 		}
 	}
@@ -85,14 +239,14 @@ type OutputKinesis struct {
 	// Kinesis stream name to send events to.
 	StreamName string `json:"streamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *OutputKinesisAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                            `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptions3 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *OutputKinesisSignatureVersion `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -118,9 +272,9 @@ type OutputKinesis struct {
 	// Batch events into a single record as NDJSON
 	AsNdjson *bool `default:"true" json:"asNdjson"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
-	Description    *string                      `json:"description,omitempty"`
-	AwsAPIKey      *string                      `json:"awsApiKey,omitempty"`
+	OnBackpressure *OutputKinesisBackpressureBehavior `default:"block" json:"onBackpressure"`
+	Description    *string                            `json:"description,omitempty"`
+	AwsAPIKey      *string                            `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Maximum number of records to send in a single request
@@ -130,7 +284,7 @@ type OutputKinesis struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputKinesisMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -142,10 +296,10 @@ type OutputKinesis struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputKinesisPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputKinesisPqControls  `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputKinesisQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputKinesisPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputKinesis) MarshalJSON() ([]byte, error) {
@@ -208,7 +362,7 @@ func (o *OutputKinesis) GetStreamName() string {
 	return o.StreamName
 }
 
-func (o *OutputKinesis) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (o *OutputKinesis) GetAwsAuthenticationMethod() *OutputKinesisAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
@@ -236,7 +390,7 @@ func (o *OutputKinesis) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputKinesis) GetSignatureVersion() *SignatureVersionOptions3 {
+func (o *OutputKinesis) GetSignatureVersion() *OutputKinesisSignatureVersion {
 	if o == nil {
 		return nil
 	}
@@ -327,7 +481,7 @@ func (o *OutputKinesis) GetAsNdjson() *bool {
 	return o.AsNdjson
 }
 
-func (o *OutputKinesis) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputKinesis) GetOnBackpressure() *OutputKinesisBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -376,7 +530,7 @@ func (o *OutputKinesis) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputKinesis) GetPqMode() *ModeOptions {
+func (o *OutputKinesis) GetPqMode() *OutputKinesisMode {
 	if o == nil {
 		return nil
 	}
@@ -418,14 +572,14 @@ func (o *OutputKinesis) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputKinesis) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputKinesis) GetPqCompress() *OutputKinesisPqCompressCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputKinesis) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputKinesis) GetPqOnBackpressure() *OutputKinesisQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

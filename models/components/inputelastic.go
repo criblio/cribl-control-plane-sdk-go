@@ -31,6 +31,343 @@ func (e *InputElasticType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputElasticConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputElasticConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputElasticConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputElasticConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputElasticMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputElasticMode string
+
+const (
+	// InputElasticModeSmart Smart
+	InputElasticModeSmart InputElasticMode = "smart"
+	// InputElasticModeAlways Always On
+	InputElasticModeAlways InputElasticMode = "always"
+)
+
+func (e InputElasticMode) ToPointer() *InputElasticMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputElasticCompression - Codec to use to compress the persisted data
+type InputElasticCompression string
+
+const (
+	// InputElasticCompressionNone None
+	InputElasticCompressionNone InputElasticCompression = "none"
+	// InputElasticCompressionGzip Gzip
+	InputElasticCompressionGzip InputElasticCompression = "gzip"
+)
+
+func (e InputElasticCompression) ToPointer() *InputElasticCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputElasticPqControls struct {
+}
+
+func (i InputElasticPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputElasticPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputElasticMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputElasticCompression `default:"none" json:"compress"`
+	PqControls *InputElasticPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputElasticPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputElasticPq) GetMode() *InputElasticMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputElasticPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputElasticPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputElasticPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputElasticPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputElasticPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputElasticPq) GetCompress() *InputElasticCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputElasticPq) GetPqControls() *InputElasticPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+type InputElasticMinimumTLSVersion string
+
+const (
+	InputElasticMinimumTLSVersionTlSv1  InputElasticMinimumTLSVersion = "TLSv1"
+	InputElasticMinimumTLSVersionTlSv11 InputElasticMinimumTLSVersion = "TLSv1.1"
+	InputElasticMinimumTLSVersionTlSv12 InputElasticMinimumTLSVersion = "TLSv1.2"
+	InputElasticMinimumTLSVersionTlSv13 InputElasticMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e InputElasticMinimumTLSVersion) ToPointer() *InputElasticMinimumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type InputElasticMaximumTLSVersion string
+
+const (
+	InputElasticMaximumTLSVersionTlSv1  InputElasticMaximumTLSVersion = "TLSv1"
+	InputElasticMaximumTLSVersionTlSv11 InputElasticMaximumTLSVersion = "TLSv1.1"
+	InputElasticMaximumTLSVersionTlSv12 InputElasticMaximumTLSVersion = "TLSv1.2"
+	InputElasticMaximumTLSVersionTlSv13 InputElasticMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e InputElasticMaximumTLSVersion) ToPointer() *InputElasticMaximumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputElasticMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type InputElasticTLSSettingsServerSide struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+	CaPath     *string                        `json:"caPath,omitempty"`
+	MinVersion *InputElasticMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputElasticMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (i InputElasticTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetCertificateName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CertificateName
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetPrivKeyPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.PrivKeyPath
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetCertPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CertPath
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetCaPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CaPath
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetMinVersion() *InputElasticMinimumTLSVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MinVersion
+}
+
+func (i *InputElasticTLSSettingsServerSide) GetMaxVersion() *InputElasticMaximumTLSVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MaxVersion
+}
+
 type InputElasticAuthenticationType string
 
 const (
@@ -84,6 +421,67 @@ func (e *InputElasticAPIVersion) IsExact() bool {
 		}
 	}
 	return false
+}
+
+type InputElasticExtraHTTPHeader struct {
+	Name  *string `json:"name,omitempty"`
+	Value string  `json:"value"`
+}
+
+func (i InputElasticExtraHTTPHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticExtraHTTPHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputElasticExtraHTTPHeader) GetName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Name
+}
+
+func (i *InputElasticExtraHTTPHeader) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type InputElasticMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputElasticMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputElasticMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputElasticMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
 }
 
 // InputElasticAuthenticationMethod - Enter credentials directly, or select a stored secret
@@ -219,13 +617,13 @@ type InputElastic struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputElasticConnection `json:"connections,omitempty"`
+	Pq          *InputElasticPq          `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	Port float64                            `json:"port"`
+	TLS  *InputElasticTLSSettingsServerSide `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -254,13 +652,13 @@ type InputElastic struct {
 	// The API version to use for communicating with the server
 	APIVersion *InputElasticAPIVersion `default:"8.3.2" json:"apiVersion"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []InputElasticExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	ProxyMode   *InputElasticProxyMode          `json:"proxyMode,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-	Username    *string                         `json:"username,omitempty"`
-	Password    *string                         `json:"password,omitempty"`
+	Metadata    []InputElasticMetadatum `json:"metadata,omitempty"`
+	ProxyMode   *InputElasticProxyMode  `json:"proxyMode,omitempty"`
+	Description *string                 `json:"description,omitempty"`
+	Username    *string                 `json:"username,omitempty"`
+	Password    *string                 `json:"password,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Bearer tokens to include in the authorization header
@@ -336,14 +734,14 @@ func (i *InputElastic) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputElastic) GetConnections() []ItemsTypeConnections {
+func (i *InputElastic) GetConnections() []InputElasticConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputElastic) GetPq() *PqType {
+func (i *InputElastic) GetPq() *InputElasticPq {
 	if i == nil {
 		return nil
 	}
@@ -364,7 +762,7 @@ func (i *InputElastic) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputElastic) GetTLS() *TLSSettingsServerSideType {
+func (i *InputElastic) GetTLS() *InputElasticTLSSettingsServerSide {
 	if i == nil {
 		return nil
 	}
@@ -469,14 +867,14 @@ func (i *InputElastic) GetAPIVersion() *InputElasticAPIVersion {
 	return i.APIVersion
 }
 
-func (i *InputElastic) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (i *InputElastic) GetExtraHTTPHeaders() []InputElasticExtraHTTPHeader {
 	if i == nil {
 		return nil
 	}
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElastic) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputElastic) GetMetadata() []InputElasticMetadatum {
 	if i == nil {
 		return nil
 	}

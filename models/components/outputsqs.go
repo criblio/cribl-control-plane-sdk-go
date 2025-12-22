@@ -56,6 +56,160 @@ func (e *OutputSqsQueueType) IsExact() bool {
 	return false
 }
 
+// OutputSqsAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
+type OutputSqsAuthenticationMethod string
+
+const (
+	// OutputSqsAuthenticationMethodAuto Auto
+	OutputSqsAuthenticationMethodAuto OutputSqsAuthenticationMethod = "auto"
+	// OutputSqsAuthenticationMethodManual Manual
+	OutputSqsAuthenticationMethodManual OutputSqsAuthenticationMethod = "manual"
+	// OutputSqsAuthenticationMethodSecret Secret Key pair
+	OutputSqsAuthenticationMethodSecret OutputSqsAuthenticationMethod = "secret"
+)
+
+func (e OutputSqsAuthenticationMethod) ToPointer() *OutputSqsAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSqsSignatureVersion - Signature version to use for signing SQS requests
+type OutputSqsSignatureVersion string
+
+const (
+	OutputSqsSignatureVersionV2 OutputSqsSignatureVersion = "v2"
+	OutputSqsSignatureVersionV4 OutputSqsSignatureVersion = "v4"
+)
+
+func (e OutputSqsSignatureVersion) ToPointer() *OutputSqsSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSqsBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputSqsBackpressureBehavior string
+
+const (
+	// OutputSqsBackpressureBehaviorBlock Block
+	OutputSqsBackpressureBehaviorBlock OutputSqsBackpressureBehavior = "block"
+	// OutputSqsBackpressureBehaviorDrop Drop
+	OutputSqsBackpressureBehaviorDrop OutputSqsBackpressureBehavior = "drop"
+	// OutputSqsBackpressureBehaviorQueue Persistent Queue
+	OutputSqsBackpressureBehaviorQueue OutputSqsBackpressureBehavior = "queue"
+)
+
+func (e OutputSqsBackpressureBehavior) ToPointer() *OutputSqsBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSqsMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputSqsMode string
+
+const (
+	// OutputSqsModeError Error
+	OutputSqsModeError OutputSqsMode = "error"
+	// OutputSqsModeAlways Backpressure
+	OutputSqsModeAlways OutputSqsMode = "always"
+	// OutputSqsModeBackpressure Always On
+	OutputSqsModeBackpressure OutputSqsMode = "backpressure"
+)
+
+func (e OutputSqsMode) ToPointer() *OutputSqsMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSqsCompression - Codec to use to compress the persisted data
+type OutputSqsCompression string
+
+const (
+	// OutputSqsCompressionNone None
+	OutputSqsCompressionNone OutputSqsCompression = "none"
+	// OutputSqsCompressionGzip Gzip
+	OutputSqsCompressionGzip OutputSqsCompression = "gzip"
+)
+
+func (e OutputSqsCompression) ToPointer() *OutputSqsCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputSqsQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputSqsQueueFullBehavior string
+
+const (
+	// OutputSqsQueueFullBehaviorBlock Block
+	OutputSqsQueueFullBehaviorBlock OutputSqsQueueFullBehavior = "block"
+	// OutputSqsQueueFullBehaviorDrop Drop new data
+	OutputSqsQueueFullBehaviorDrop OutputSqsQueueFullBehavior = "drop"
+)
+
+func (e OutputSqsQueueFullBehavior) ToPointer() *OutputSqsQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputSqsQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputSqsPqControls struct {
 }
 
@@ -93,14 +247,14 @@ type OutputSqs struct {
 	// Create queue if it does not exist.
 	CreateQueue *bool `default:"true" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *OutputSqsAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                        `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing SQS requests
-	SignatureVersion *SignatureVersionOptions4 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *OutputSqsSignatureVersion `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -122,9 +276,9 @@ type OutputSqs struct {
 	// The maximum number of in-progress API requests before backpressure is applied.
 	MaxInProgress *float64 `default:"10" json:"maxInProgress"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
-	Description    *string                      `json:"description,omitempty"`
-	AwsAPIKey      *string                      `json:"awsApiKey,omitempty"`
+	OnBackpressure *OutputSqsBackpressureBehavior `default:"block" json:"onBackpressure"`
+	Description    *string                        `json:"description,omitempty"`
+	AwsAPIKey      *string                        `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -132,7 +286,7 @@ type OutputSqs struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputSqsMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -144,10 +298,10 @@ type OutputSqs struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputSqsCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputSqsPqControls      `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputSqsQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputSqsPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputSqs) MarshalJSON() ([]byte, error) {
@@ -238,7 +392,7 @@ func (o *OutputSqs) GetCreateQueue() *bool {
 	return o.CreateQueue
 }
 
-func (o *OutputSqs) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (o *OutputSqs) GetAwsAuthenticationMethod() *OutputSqsAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
@@ -266,7 +420,7 @@ func (o *OutputSqs) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputSqs) GetSignatureVersion() *SignatureVersionOptions4 {
+func (o *OutputSqs) GetSignatureVersion() *OutputSqsSignatureVersion {
 	if o == nil {
 		return nil
 	}
@@ -343,7 +497,7 @@ func (o *OutputSqs) GetMaxInProgress() *float64 {
 	return o.MaxInProgress
 }
 
-func (o *OutputSqs) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputSqs) GetOnBackpressure() *OutputSqsBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -385,7 +539,7 @@ func (o *OutputSqs) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputSqs) GetPqMode() *ModeOptions {
+func (o *OutputSqs) GetPqMode() *OutputSqsMode {
 	if o == nil {
 		return nil
 	}
@@ -427,14 +581,14 @@ func (o *OutputSqs) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputSqs) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputSqs) GetPqCompress() *OutputSqsCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputSqs) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputSqs) GetPqOnBackpressure() *OutputSqsQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

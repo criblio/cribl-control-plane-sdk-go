@@ -6,11 +6,359 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type SavedJobExecutorJobType string
+
+const (
+	SavedJobExecutorJobTypeCollection      SavedJobExecutorJobType = "collection"
+	SavedJobExecutorJobTypeExecutor        SavedJobExecutorJobType = "executor"
+	SavedJobExecutorJobTypeScheduledSearch SavedJobExecutorJobType = "scheduledSearch"
+)
+
+func (e SavedJobExecutorJobType) ToPointer() *SavedJobExecutorJobType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SavedJobExecutorJobType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection", "executor", "scheduledSearch":
+			return true
+		}
+	}
+	return false
+}
+
+type SavedJobExecutorType string
+
+const (
+	SavedJobExecutorTypeCollection SavedJobExecutorType = "collection"
+)
+
+func (e SavedJobExecutorType) ToPointer() *SavedJobExecutorType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SavedJobExecutorType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "collection":
+			return true
+		}
+	}
+	return false
+}
+
+// SavedJobExecutorLogLevel - Level at which to set task logging
+type SavedJobExecutorLogLevel string
+
+const (
+	SavedJobExecutorLogLevelError SavedJobExecutorLogLevel = "error"
+	SavedJobExecutorLogLevelWarn  SavedJobExecutorLogLevel = "warn"
+	SavedJobExecutorLogLevelInfo  SavedJobExecutorLogLevel = "info"
+	SavedJobExecutorLogLevelDebug SavedJobExecutorLogLevel = "debug"
+	SavedJobExecutorLogLevelSilly SavedJobExecutorLogLevel = "silly"
+)
+
+func (e SavedJobExecutorLogLevel) ToPointer() *SavedJobExecutorLogLevel {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SavedJobExecutorLogLevel) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "warn", "info", "debug", "silly":
+			return true
+		}
+	}
+	return false
+}
+
+type SavedJobExecutorTimeWarning struct {
+}
+
+func (s SavedJobExecutorTimeWarning) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobExecutorTimeWarning) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type SavedJobExecutorRunSettings struct {
+	Type *SavedJobExecutorType `json:"type,omitempty"`
+	// Reschedule tasks that failed with non-fatal errors
+	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
+	// Maximum number of times a task can be rescheduled
+	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
+	// Level at which to set task logging
+	LogLevel *SavedJobExecutorLogLevel `default:"info" json:"logLevel"`
+	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `default:"0" json:"jobTimeout"`
+	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
+	Mode          *string `default:"list" json:"mode"`
+	TimeRangeType *string `default:"relative" json:"timeRangeType"`
+	// Earliest time to collect data for the selected timezone
+	Earliest *float64 `json:"earliest,omitempty"`
+	// Latest time to collect data for the selected timezone
+	Latest            *float64                     `json:"latest,omitempty"`
+	TimestampTimezone any                          `json:"timestampTimezone,omitempty"`
+	TimeWarning       *SavedJobExecutorTimeWarning `json:"timeWarning,omitempty"`
+	// A filter for tokens in the provided collect path and/or the events being collected
+	Expression *string `default:"true" json:"expression"`
+	// Limits the bundle size for small tasks. For example,
+	//
+	//
+	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
+	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
+	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
+	//
+	//
+	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
+	MaxTaskSize *string `default:"10MB" json:"maxTaskSize"`
+}
+
+func (s SavedJobExecutorRunSettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobExecutorRunSettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedJobExecutorRunSettings) GetType() *SavedJobExecutorType {
+	if s == nil {
+		return nil
+	}
+	return s.Type
+}
+
+func (s *SavedJobExecutorRunSettings) GetRescheduleDroppedTasks() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.RescheduleDroppedTasks
+}
+
+func (s *SavedJobExecutorRunSettings) GetMaxTaskReschedule() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.MaxTaskReschedule
+}
+
+func (s *SavedJobExecutorRunSettings) GetLogLevel() *SavedJobExecutorLogLevel {
+	if s == nil {
+		return nil
+	}
+	return s.LogLevel
+}
+
+func (s *SavedJobExecutorRunSettings) GetJobTimeout() *string {
+	if s == nil {
+		return nil
+	}
+	return s.JobTimeout
+}
+
+func (s *SavedJobExecutorRunSettings) GetMode() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Mode
+}
+
+func (s *SavedJobExecutorRunSettings) GetTimeRangeType() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TimeRangeType
+}
+
+func (s *SavedJobExecutorRunSettings) GetEarliest() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Earliest
+}
+
+func (s *SavedJobExecutorRunSettings) GetLatest() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Latest
+}
+
+func (s *SavedJobExecutorRunSettings) GetTimestampTimezone() any {
+	if s == nil {
+		return nil
+	}
+	return s.TimestampTimezone
+}
+
+func (s *SavedJobExecutorRunSettings) GetTimeWarning() *SavedJobExecutorTimeWarning {
+	if s == nil {
+		return nil
+	}
+	return s.TimeWarning
+}
+
+func (s *SavedJobExecutorRunSettings) GetExpression() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Expression
+}
+
+func (s *SavedJobExecutorRunSettings) GetMinTaskSize() *string {
+	if s == nil {
+		return nil
+	}
+	return s.MinTaskSize
+}
+
+func (s *SavedJobExecutorRunSettings) GetMaxTaskSize() *string {
+	if s == nil {
+		return nil
+	}
+	return s.MaxTaskSize
+}
+
+// SavedJobExecutorSchedule - Configuration for a scheduled job
+type SavedJobExecutorSchedule struct {
+	// Enable to configure scheduling for this Collector
+	Enabled *bool `json:"enabled,omitempty"`
+	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
+	Skippable *bool `default:"true" json:"skippable"`
+	// If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
+	ResumeMissed *bool `default:"false" json:"resumeMissed"`
+	// A cron schedule on which to run this job
+	CronSchedule *string `default:"*/5 * * * *" json:"cronSchedule"`
+	// The maximum number of instances of this scheduled job that may be running at any time
+	MaxConcurrentRuns *float64                     `default:"1" json:"maxConcurrentRuns"`
+	Run               *SavedJobExecutorRunSettings `json:"run,omitempty"`
+}
+
+func (s SavedJobExecutorSchedule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobExecutorSchedule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedJobExecutorSchedule) GetEnabled() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Enabled
+}
+
+func (s *SavedJobExecutorSchedule) GetSkippable() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Skippable
+}
+
+func (s *SavedJobExecutorSchedule) GetResumeMissed() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.ResumeMissed
+}
+
+func (s *SavedJobExecutorSchedule) GetCronSchedule() *string {
+	if s == nil {
+		return nil
+	}
+	return s.CronSchedule
+}
+
+func (s *SavedJobExecutorSchedule) GetMaxConcurrentRuns() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.MaxConcurrentRuns
+}
+
+func (s *SavedJobExecutorSchedule) GetRun() *SavedJobExecutorRunSettings {
+	if s == nil {
+		return nil
+	}
+	return s.Run
+}
+
+type SavedJobExecutorExecutorSpecificSettings struct {
+}
+
+func (s SavedJobExecutorExecutorSpecificSettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobExecutorExecutorSpecificSettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type SavedJobExecutorExecutor struct {
+	// The type of executor to run
+	Type string `json:"type"`
+	// Determines whether or not to write task results to disk
+	StoreTaskResults *bool                                     `default:"true" json:"storeTaskResults"`
+	Conf             *SavedJobExecutorExecutorSpecificSettings `json:"conf,omitempty"`
+}
+
+func (s SavedJobExecutorExecutor) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SavedJobExecutorExecutor) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SavedJobExecutorExecutor) GetType() string {
+	if s == nil {
+		return ""
+	}
+	return s.Type
+}
+
+func (s *SavedJobExecutorExecutor) GetStoreTaskResults() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.StoreTaskResults
+}
+
+func (s *SavedJobExecutorExecutor) GetConf() *SavedJobExecutorExecutorSpecificSettings {
+	if s == nil {
+		return nil
+	}
+	return s.Conf
+}
+
 type SavedJobExecutor struct {
 	// Unique ID for this Job
-	ID          *string                          `json:"id,omitempty"`
-	Description *string                          `json:"description,omitempty"`
-	Type        JobTypeOptionsSavedJobCollection `json:"type"`
+	ID          *string                 `json:"id,omitempty"`
+	Description *string                 `json:"description,omitempty"`
+	Type        SavedJobExecutorJobType `json:"type"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `default:"4h" json:"ttl"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -22,10 +370,10 @@ type SavedJobExecutor struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Configuration for a scheduled job
-	Schedule *ScheduleTypeSavedJobCollection `json:"schedule,omitempty"`
+	Schedule *SavedJobExecutorSchedule `json:"schedule,omitempty"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string                     `json:"streamtags,omitempty"`
-	Executor   ExecutorTypeSavedJobExecutor `json:"executor"`
+	Streamtags []string                 `json:"streamtags,omitempty"`
+	Executor   SavedJobExecutorExecutor `json:"executor"`
 }
 
 func (s SavedJobExecutor) MarshalJSON() ([]byte, error) {
@@ -53,9 +401,9 @@ func (s *SavedJobExecutor) GetDescription() *string {
 	return s.Description
 }
 
-func (s *SavedJobExecutor) GetType() JobTypeOptionsSavedJobCollection {
+func (s *SavedJobExecutor) GetType() SavedJobExecutorJobType {
 	if s == nil {
-		return JobTypeOptionsSavedJobCollection("")
+		return SavedJobExecutorJobType("")
 	}
 	return s.Type
 }
@@ -95,7 +443,7 @@ func (s *SavedJobExecutor) GetEnvironment() *string {
 	return s.Environment
 }
 
-func (s *SavedJobExecutor) GetSchedule() *ScheduleTypeSavedJobCollection {
+func (s *SavedJobExecutor) GetSchedule() *SavedJobExecutorSchedule {
 	if s == nil {
 		return nil
 	}
@@ -109,9 +457,9 @@ func (s *SavedJobExecutor) GetStreamtags() []string {
 	return s.Streamtags
 }
 
-func (s *SavedJobExecutor) GetExecutor() ExecutorTypeSavedJobExecutor {
+func (s *SavedJobExecutor) GetExecutor() SavedJobExecutorExecutor {
 	if s == nil {
-		return ExecutorTypeSavedJobExecutor{}
+		return SavedJobExecutorExecutor{}
 	}
 	return s.Executor
 }

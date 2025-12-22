@@ -2,22 +2,57 @@
 
 package components
 
+type PackInfoTags struct {
+	DataType   []string `json:"dataType,omitempty"`
+	Domain     []string `json:"domain,omitempty"`
+	Streamtags []string `json:"streamtags,omitempty"`
+	Technology []string `json:"technology,omitempty"`
+}
+
+func (p *PackInfoTags) GetDataType() []string {
+	if p == nil {
+		return nil
+	}
+	return p.DataType
+}
+
+func (p *PackInfoTags) GetDomain() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Domain
+}
+
+func (p *PackInfoTags) GetStreamtags() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Streamtags
+}
+
+func (p *PackInfoTags) GetTechnology() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Technology
+}
+
 type PackInfo struct {
-	Author              *string                  `json:"author,omitempty"`
-	Dependencies        map[string]string        `json:"dependencies,omitempty"`
-	Description         *string                  `json:"description,omitempty"`
-	DisplayName         *string                  `json:"displayName,omitempty"`
-	Exports             []string                 `json:"exports,omitempty"`
-	ID                  string                   `json:"id"`
-	Inputs              *float64                 `json:"inputs,omitempty"`
-	IsDisabled          *bool                    `json:"isDisabled,omitempty"`
-	MinLogStreamVersion *string                  `json:"minLogStreamVersion,omitempty"`
-	Outputs             *float64                 `json:"outputs,omitempty"`
-	Settings            map[string]any           `json:"settings,omitempty"`
-	Source              string                   `json:"source"`
-	Spec                *string                  `json:"spec,omitempty"`
-	Tags                *TagsTypePackInstallInfo `json:"tags,omitempty"`
-	Version             *string                  `json:"version,omitempty"`
+	Author              *string           `json:"author,omitempty"`
+	Dependencies        map[string]string `json:"dependencies,omitempty"`
+	Description         *string           `json:"description,omitempty"`
+	DisplayName         *string           `json:"displayName,omitempty"`
+	Exports             []string          `json:"exports,omitempty"`
+	ID                  string            `json:"id"`
+	Inputs              *float64          `json:"inputs,omitempty"`
+	IsDisabled          *bool             `json:"isDisabled,omitempty"`
+	MinLogStreamVersion *string           `json:"minLogStreamVersion,omitempty"`
+	Outputs             *float64          `json:"outputs,omitempty"`
+	Settings            map[string]any    `json:"settings,omitempty"`
+	Source              string            `json:"source"`
+	Spec                *string           `json:"spec,omitempty"`
+	Tags                *PackInfoTags     `json:"tags,omitempty"`
+	Version             *string           `json:"version,omitempty"`
 }
 
 func (p *PackInfo) GetAuthor() *string {
@@ -111,7 +146,7 @@ func (p *PackInfo) GetSpec() *string {
 	return p.Spec
 }
 
-func (p *PackInfo) GetTags() *TagsTypePackInstallInfo {
+func (p *PackInfo) GetTags() *PackInfoTags {
 	if p == nil {
 		return nil
 	}

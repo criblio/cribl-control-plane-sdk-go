@@ -2,12 +2,31 @@
 
 package components
 
+type AddHecTokenRequestMetadatum struct {
+	Name  string `json:"name"`
+	Value string `json:"value"`
+}
+
+func (a *AddHecTokenRequestMetadatum) GetName() string {
+	if a == nil {
+		return ""
+	}
+	return a.Name
+}
+
+func (a *AddHecTokenRequestMetadatum) GetValue() string {
+	if a == nil {
+		return ""
+	}
+	return a.Value
+}
+
 type AddHecTokenRequest struct {
-	AllowedIndexesAtToken []string                 `json:"allowedIndexesAtToken,omitempty"`
-	Description           *string                  `json:"description,omitempty"`
-	Enabled               *bool                    `json:"enabled,omitempty"`
-	Metadata              []EventBreakerRuleFields `json:"metadata,omitempty"`
-	Token                 string                   `json:"token"`
+	AllowedIndexesAtToken []string                      `json:"allowedIndexesAtToken,omitempty"`
+	Description           *string                       `json:"description,omitempty"`
+	Enabled               *bool                         `json:"enabled,omitempty"`
+	Metadata              []AddHecTokenRequestMetadatum `json:"metadata,omitempty"`
+	Token                 string                        `json:"token"`
 }
 
 func (a *AddHecTokenRequest) GetAllowedIndexesAtToken() []string {
@@ -31,7 +50,7 @@ func (a *AddHecTokenRequest) GetEnabled() *bool {
 	return a.Enabled
 }
 
-func (a *AddHecTokenRequest) GetMetadata() []EventBreakerRuleFields {
+func (a *AddHecTokenRequest) GetMetadata() []AddHecTokenRequestMetadatum {
 	if a == nil {
 		return nil
 	}

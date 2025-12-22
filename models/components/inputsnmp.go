@@ -31,6 +31,219 @@ func (e *InputSnmpType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputSnmpConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputSnmpConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSnmpConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSnmpConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputSnmpMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputSnmpMode string
+
+const (
+	// InputSnmpModeSmart Smart
+	InputSnmpModeSmart InputSnmpMode = "smart"
+	// InputSnmpModeAlways Always On
+	InputSnmpModeAlways InputSnmpMode = "always"
+)
+
+func (e InputSnmpMode) ToPointer() *InputSnmpMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSnmpMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputSnmpCompression - Codec to use to compress the persisted data
+type InputSnmpCompression string
+
+const (
+	// InputSnmpCompressionNone None
+	InputSnmpCompressionNone InputSnmpCompression = "none"
+	// InputSnmpCompressionGzip Gzip
+	InputSnmpCompressionGzip InputSnmpCompression = "gzip"
+)
+
+func (e InputSnmpCompression) ToPointer() *InputSnmpCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSnmpCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputSnmpPqControls struct {
+}
+
+func (i InputSnmpPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputSnmpPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputSnmpMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputSnmpCompression `default:"none" json:"compress"`
+	PqControls *InputSnmpPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputSnmpPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSnmpPq) GetMode() *InputSnmpMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSnmpPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSnmpPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputSnmpPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputSnmpPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputSnmpPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputSnmpPq) GetCompress() *InputSnmpCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputSnmpPq) GetPqControls() *InputSnmpPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+type InputSnmpAuthenticationProtocol string
+
+const (
+	// InputSnmpAuthenticationProtocolNone None
+	InputSnmpAuthenticationProtocolNone InputSnmpAuthenticationProtocol = "none"
+	// InputSnmpAuthenticationProtocolMd5 MD5
+	InputSnmpAuthenticationProtocolMd5 InputSnmpAuthenticationProtocol = "md5"
+	// InputSnmpAuthenticationProtocolSha SHA1
+	InputSnmpAuthenticationProtocolSha InputSnmpAuthenticationProtocol = "sha"
+	// InputSnmpAuthenticationProtocolSha224 SHA224
+	InputSnmpAuthenticationProtocolSha224 InputSnmpAuthenticationProtocol = "sha224"
+	// InputSnmpAuthenticationProtocolSha256 SHA256
+	InputSnmpAuthenticationProtocolSha256 InputSnmpAuthenticationProtocol = "sha256"
+	// InputSnmpAuthenticationProtocolSha384 SHA384
+	InputSnmpAuthenticationProtocolSha384 InputSnmpAuthenticationProtocol = "sha384"
+	// InputSnmpAuthenticationProtocolSha512 SHA512
+	InputSnmpAuthenticationProtocolSha512 InputSnmpAuthenticationProtocol = "sha512"
+)
+
+func (e InputSnmpAuthenticationProtocol) ToPointer() *InputSnmpAuthenticationProtocol {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSnmpAuthenticationProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
+			return true
+		}
+	}
+	return false
+}
+
 type PrivacyProtocol string
 
 const (
@@ -62,11 +275,11 @@ func (e *PrivacyProtocol) IsExact() bool {
 }
 
 type InputSnmpV3User struct {
-	Name         string                               `json:"name"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `default:"none" json:"authProtocol"`
-	AuthKey      *string                              `json:"authKey,omitempty"`
-	PrivProtocol *PrivacyProtocol                     `default:"none" json:"privProtocol"`
-	PrivKey      *string                              `json:"privKey,omitempty"`
+	Name         string                           `json:"name"`
+	AuthProtocol *InputSnmpAuthenticationProtocol `default:"none" json:"authProtocol"`
+	AuthKey      *string                          `json:"authKey,omitempty"`
+	PrivProtocol *PrivacyProtocol                 `default:"none" json:"privProtocol"`
+	PrivKey      *string                          `json:"privKey,omitempty"`
 }
 
 func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
@@ -87,7 +300,7 @@ func (i *InputSnmpV3User) GetName() string {
 	return i.Name
 }
 
-func (i *InputSnmpV3User) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+func (i *InputSnmpV3User) GetAuthProtocol() *InputSnmpAuthenticationProtocol {
 	if i == nil {
 		return nil
 	}
@@ -156,6 +369,37 @@ func (s *SNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 	return s.V3Users
 }
 
+type InputSnmpMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputSnmpMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSnmpMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputSnmpMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 type InputSnmp struct {
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
@@ -172,8 +416,8 @@ type InputSnmp struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputSnmpConnection `json:"connections,omitempty"`
+	Pq          *InputSnmpPq          `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
@@ -185,7 +429,7 @@ type InputSnmp struct {
 	// Regex matching IP addresses that are allowed to send data
 	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []InputSnmpMetadatum `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
@@ -262,14 +506,14 @@ func (i *InputSnmp) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSnmp) GetConnections() []ItemsTypeConnections {
+func (i *InputSnmp) GetConnections() []InputSnmpConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSnmp) GetPq() *PqType {
+func (i *InputSnmp) GetPq() *InputSnmpPq {
 	if i == nil {
 		return nil
 	}
@@ -311,7 +555,7 @@ func (i *InputSnmp) GetIPWhitelistRegex() *string {
 	return i.IPWhitelistRegex
 }
 
-func (i *InputSnmp) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSnmp) GetMetadata() []InputSnmpMetadatum {
 	if i == nil {
 		return nil
 	}

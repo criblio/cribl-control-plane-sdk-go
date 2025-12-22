@@ -6,6 +6,37 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type FunctionConfSchemaAggregationAdd struct {
+	Name *string `json:"name,omitempty"`
+	// JavaScript expression to compute the value (can be constant)
+	Value string `json:"value"`
+}
+
+func (f FunctionConfSchemaAggregationAdd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FunctionConfSchemaAggregationAdd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FunctionConfSchemaAggregationAdd) GetName() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Name
+}
+
+func (f *FunctionConfSchemaAggregationAdd) GetValue() string {
+	if f == nil {
+		return ""
+	}
+	return f.Value
+}
+
 type FunctionConfSchemaAggregation struct {
 	// Pass through the original events along with the aggregation events
 	Passthrough *bool `default:"false" json:"passthrough"`
@@ -32,7 +63,7 @@ type FunctionConfSchemaAggregation struct {
 	// Allows Cribl Search-specific aggregation configuration
 	SearchAggMode *string `json:"searchAggMode,omitempty"`
 	// Set of key-value pairs to evaluate and add/set
-	Add []ItemsTypeAdd `json:"add,omitempty"`
+	Add []FunctionConfSchemaAggregationAdd `json:"add,omitempty"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
 	ShouldTreatDotsAsLiterals *bool `default:"false" json:"shouldTreatDotsAsLiterals"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
@@ -134,7 +165,7 @@ func (f *FunctionConfSchemaAggregation) GetSearchAggMode() *string {
 	return f.SearchAggMode
 }
 
-func (f *FunctionConfSchemaAggregation) GetAdd() []ItemsTypeAdd {
+func (f *FunctionConfSchemaAggregation) GetAdd() []FunctionConfSchemaAggregationAdd {
 	if f == nil {
 		return nil
 	}

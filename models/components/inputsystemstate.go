@@ -31,6 +31,216 @@ func (e *InputSystemStateType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputSystemStateConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputSystemStateConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputSystemStateMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputSystemStateMode string
+
+const (
+	// InputSystemStateModeSmart Smart
+	InputSystemStateModeSmart InputSystemStateMode = "smart"
+	// InputSystemStateModeAlways Always On
+	InputSystemStateModeAlways InputSystemStateMode = "always"
+)
+
+func (e InputSystemStateMode) ToPointer() *InputSystemStateMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemStateMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputSystemStateCompression - Codec to use to compress the persisted data
+type InputSystemStateCompression string
+
+const (
+	// InputSystemStateCompressionNone None
+	InputSystemStateCompressionNone InputSystemStateCompression = "none"
+	// InputSystemStateCompressionGzip Gzip
+	InputSystemStateCompressionGzip InputSystemStateCompression = "gzip"
+)
+
+func (e InputSystemStateCompression) ToPointer() *InputSystemStateCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSystemStateCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputSystemStatePqControls struct {
+}
+
+func (i InputSystemStatePqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStatePqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputSystemStatePq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputSystemStateMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputSystemStateCompression `default:"none" json:"compress"`
+	PqControls *InputSystemStatePqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputSystemStatePq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStatePq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStatePq) GetMode() *InputSystemStateMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSystemStatePq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSystemStatePq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputSystemStatePq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputSystemStatePq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputSystemStatePq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputSystemStatePq) GetCompress() *InputSystemStateCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputSystemStatePq) GetPqControls() *InputSystemStatePqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+type InputSystemStateMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputSystemStateMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputSystemStateMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 // HostsFile - Creates events based on entries collected from the hosts file
 type HostsFile struct {
 	Enable *bool `default:"true" json:"enable"`
@@ -397,19 +607,19 @@ func (c *Collectors) GetLoginUsers() *LoggedInUsers {
 	return c.LoginUsers
 }
 
-type DataCompressionFormat string
+type InputSystemStateDataCompressionFormat string
 
 const (
-	DataCompressionFormatNone DataCompressionFormat = "none"
-	DataCompressionFormatGzip DataCompressionFormat = "gzip"
+	InputSystemStateDataCompressionFormatNone InputSystemStateDataCompressionFormat = "none"
+	InputSystemStateDataCompressionFormatGzip InputSystemStateDataCompressionFormat = "gzip"
 )
 
-func (e DataCompressionFormat) ToPointer() *DataCompressionFormat {
+func (e InputSystemStateDataCompressionFormat) ToPointer() *InputSystemStateDataCompressionFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DataCompressionFormat) IsExact() bool {
+func (e *InputSystemStateDataCompressionFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "gzip":
@@ -427,8 +637,8 @@ type InputSystemStatePersistence struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                `default:"24h" json:"maxDataTime"`
-	Compress    *DataCompressionFormat `default:"none" json:"compress"`
+	MaxDataTime *string                                `default:"24h" json:"maxDataTime"`
+	Compress    *InputSystemStateDataCompressionFormat `default:"none" json:"compress"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
 	DestPath *string `default:"$CRIBL_HOME/state/system_state" json:"destPath"`
 }
@@ -472,7 +682,7 @@ func (i *InputSystemStatePersistence) GetMaxDataTime() *string {
 	return i.MaxDataTime
 }
 
-func (i *InputSystemStatePersistence) GetCompress() *DataCompressionFormat {
+func (i *InputSystemStatePersistence) GetCompress() *InputSystemStateDataCompressionFormat {
 	if i == nil {
 		return nil
 	}
@@ -502,14 +712,14 @@ type InputSystemState struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputSystemStateConnection `json:"connections,omitempty"`
+	Pq          *InputSystemStatePq          `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `default:"300" json:"interval"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Collectors  *Collectors                     `json:"collectors,omitempty"`
-	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
+	Metadata    []InputSystemStateMetadatum  `json:"metadata,omitempty"`
+	Collectors  *Collectors                  `json:"collectors,omitempty"`
+	Persistence *InputSystemStatePersistence `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
 	Description         *string `json:"description,omitempty"`
@@ -582,14 +792,14 @@ func (i *InputSystemState) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSystemState) GetConnections() []ItemsTypeConnections {
+func (i *InputSystemState) GetConnections() []InputSystemStateConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSystemState) GetPq() *PqType {
+func (i *InputSystemState) GetPq() *InputSystemStatePq {
 	if i == nil {
 		return nil
 	}
@@ -603,7 +813,7 @@ func (i *InputSystemState) GetInterval() *float64 {
 	return i.Interval
 }
 
-func (i *InputSystemState) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSystemState) GetMetadata() []InputSystemStateMetadatum {
 	if i == nil {
 		return nil
 	}

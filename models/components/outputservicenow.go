@@ -31,6 +31,537 @@ func (e *OutputServiceNowType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputServiceNowOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
+type OutputServiceNowOTLPVersion string
+
+const (
+	// OutputServiceNowOTLPVersionOneDot3Dot1 1.3.1
+	OutputServiceNowOTLPVersionOneDot3Dot1 OutputServiceNowOTLPVersion = "1.3.1"
+)
+
+func (e OutputServiceNowOTLPVersion) ToPointer() *OutputServiceNowOTLPVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowOTLPVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "1.3.1":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputServiceNowProtocol - Select a transport option for OpenTelemetry
+type OutputServiceNowProtocol string
+
+const (
+	// OutputServiceNowProtocolGrpc gRPC
+	OutputServiceNowProtocolGrpc OutputServiceNowProtocol = "grpc"
+	// OutputServiceNowProtocolHTTP HTTP
+	OutputServiceNowProtocolHTTP OutputServiceNowProtocol = "http"
+)
+
+func (e OutputServiceNowProtocol) ToPointer() *OutputServiceNowProtocol {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "grpc", "http":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputServiceNowCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
+type OutputServiceNowCompressCompression string
+
+const (
+	// OutputServiceNowCompressCompressionNone None
+	OutputServiceNowCompressCompressionNone OutputServiceNowCompressCompression = "none"
+	// OutputServiceNowCompressCompressionDeflate Deflate
+	OutputServiceNowCompressCompressionDeflate OutputServiceNowCompressCompression = "deflate"
+	// OutputServiceNowCompressCompressionGzip Gzip
+	OutputServiceNowCompressCompressionGzip OutputServiceNowCompressCompression = "gzip"
+)
+
+func (e OutputServiceNowCompressCompression) ToPointer() *OutputServiceNowCompressCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "deflate", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputServiceNowHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
+type OutputServiceNowHTTPCompressCompression string
+
+const (
+	// OutputServiceNowHTTPCompressCompressionNone None
+	OutputServiceNowHTTPCompressCompressionNone OutputServiceNowHTTPCompressCompression = "none"
+	// OutputServiceNowHTTPCompressCompressionGzip Gzip
+	OutputServiceNowHTTPCompressCompressionGzip OutputServiceNowHTTPCompressCompression = "gzip"
+)
+
+func (e OutputServiceNowHTTPCompressCompression) ToPointer() *OutputServiceNowHTTPCompressCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowHTTPCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputServiceNowMetadatum struct {
+	Key   *string `default:"" json:"key"`
+	Value string  `json:"value"`
+}
+
+func (o OutputServiceNowMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputServiceNowMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputServiceNowMetadatum) GetKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Key
+}
+
+func (o *OutputServiceNowMetadatum) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+// OutputServiceNowFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+type OutputServiceNowFailedRequestLoggingMode string
+
+const (
+	// OutputServiceNowFailedRequestLoggingModePayload Payload
+	OutputServiceNowFailedRequestLoggingModePayload OutputServiceNowFailedRequestLoggingMode = "payload"
+	// OutputServiceNowFailedRequestLoggingModePayloadAndHeaders Payload + Headers
+	OutputServiceNowFailedRequestLoggingModePayloadAndHeaders OutputServiceNowFailedRequestLoggingMode = "payloadAndHeaders"
+	// OutputServiceNowFailedRequestLoggingModeNone None
+	OutputServiceNowFailedRequestLoggingModeNone OutputServiceNowFailedRequestLoggingMode = "none"
+)
+
+func (e OutputServiceNowFailedRequestLoggingMode) ToPointer() *OutputServiceNowFailedRequestLoggingMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowFailedRequestLoggingMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payload", "payloadAndHeaders", "none":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputServiceNowBackpressureBehavior - How to handle events when all receivers are exerting backpressure
+type OutputServiceNowBackpressureBehavior string
+
+const (
+	// OutputServiceNowBackpressureBehaviorBlock Block
+	OutputServiceNowBackpressureBehaviorBlock OutputServiceNowBackpressureBehavior = "block"
+	// OutputServiceNowBackpressureBehaviorDrop Drop
+	OutputServiceNowBackpressureBehaviorDrop OutputServiceNowBackpressureBehavior = "drop"
+	// OutputServiceNowBackpressureBehaviorQueue Persistent Queue
+	OutputServiceNowBackpressureBehaviorQueue OutputServiceNowBackpressureBehavior = "queue"
+)
+
+func (e OutputServiceNowBackpressureBehavior) ToPointer() *OutputServiceNowBackpressureBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowBackpressureBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop", "queue":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputServiceNowExtraHTTPHeader struct {
+	Name  *string `json:"name,omitempty"`
+	Value string  `json:"value"`
+}
+
+func (o OutputServiceNowExtraHTTPHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputServiceNowExtraHTTPHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputServiceNowExtraHTTPHeader) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *OutputServiceNowExtraHTTPHeader) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
+type OutputServiceNowResponseRetrySetting struct {
+	// The HTTP response status code that will trigger retries
+	HTTPStatus float64 `json:"httpStatus"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputServiceNowResponseRetrySetting) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputServiceNowResponseRetrySetting) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputServiceNowResponseRetrySetting) GetHTTPStatus() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.HTTPStatus
+}
+
+func (o *OutputServiceNowResponseRetrySetting) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputServiceNowResponseRetrySetting) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputServiceNowResponseRetrySetting) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+type OutputServiceNowTimeoutRetrySettings struct {
+	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
+	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+}
+
+func (o OutputServiceNowTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputServiceNowTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputServiceNowTimeoutRetrySettings) GetTimeoutRetry() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetry
+}
+
+func (o *OutputServiceNowTimeoutRetrySettings) GetInitialBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.InitialBackoff
+}
+
+func (o *OutputServiceNowTimeoutRetrySettings) GetBackoffRate() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.BackoffRate
+}
+
+func (o *OutputServiceNowTimeoutRetrySettings) GetMaxBackoff() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxBackoff
+}
+
+type OutputServiceNowMinimumTLSVersion string
+
+const (
+	OutputServiceNowMinimumTLSVersionTlSv1  OutputServiceNowMinimumTLSVersion = "TLSv1"
+	OutputServiceNowMinimumTLSVersionTlSv11 OutputServiceNowMinimumTLSVersion = "TLSv1.1"
+	OutputServiceNowMinimumTLSVersionTlSv12 OutputServiceNowMinimumTLSVersion = "TLSv1.2"
+	OutputServiceNowMinimumTLSVersionTlSv13 OutputServiceNowMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputServiceNowMinimumTLSVersion) ToPointer() *OutputServiceNowMinimumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputServiceNowMaximumTLSVersion string
+
+const (
+	OutputServiceNowMaximumTLSVersionTlSv1  OutputServiceNowMaximumTLSVersion = "TLSv1"
+	OutputServiceNowMaximumTLSVersionTlSv11 OutputServiceNowMaximumTLSVersion = "TLSv1.1"
+	OutputServiceNowMaximumTLSVersionTlSv12 OutputServiceNowMaximumTLSVersion = "TLSv1.2"
+	OutputServiceNowMaximumTLSVersionTlSv13 OutputServiceNowMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e OutputServiceNowMaximumTLSVersion) ToPointer() *OutputServiceNowMaximumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputServiceNowTLSSettingsClientSide struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+	CaPath *string `json:"caPath,omitempty"`
+	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string                            `json:"passphrase,omitempty"`
+	MinVersion *OutputServiceNowMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *OutputServiceNowMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (o OutputServiceNowTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetDisabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Disabled
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetCertificateName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertificateName
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetCaPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CaPath
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetPrivKeyPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PrivKeyPath
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetCertPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CertPath
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetPassphrase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Passphrase
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetMinVersion() *OutputServiceNowMinimumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MinVersion
+}
+
+func (o *OutputServiceNowTLSSettingsClientSide) GetMaxVersion() *OutputServiceNowMaximumTLSVersion {
+	if o == nil {
+		return nil
+	}
+	return o.MaxVersion
+}
+
+// OutputServiceNowMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+type OutputServiceNowMode string
+
+const (
+	// OutputServiceNowModeError Error
+	OutputServiceNowModeError OutputServiceNowMode = "error"
+	// OutputServiceNowModeAlways Backpressure
+	OutputServiceNowModeAlways OutputServiceNowMode = "always"
+	// OutputServiceNowModeBackpressure Always On
+	OutputServiceNowModeBackpressure OutputServiceNowMode = "backpressure"
+)
+
+func (e OutputServiceNowMode) ToPointer() *OutputServiceNowMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "always", "backpressure":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputServiceNowPqCompressCompression - Codec to use to compress the persisted data
+type OutputServiceNowPqCompressCompression string
+
+const (
+	// OutputServiceNowPqCompressCompressionNone None
+	OutputServiceNowPqCompressCompressionNone OutputServiceNowPqCompressCompression = "none"
+	// OutputServiceNowPqCompressCompressionGzip Gzip
+	OutputServiceNowPqCompressCompressionGzip OutputServiceNowPqCompressCompression = "gzip"
+)
+
+func (e OutputServiceNowPqCompressCompression) ToPointer() *OutputServiceNowPqCompressCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowPqCompressCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+// OutputServiceNowQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+type OutputServiceNowQueueFullBehavior string
+
+const (
+	// OutputServiceNowQueueFullBehaviorBlock Block
+	OutputServiceNowQueueFullBehaviorBlock OutputServiceNowQueueFullBehavior = "block"
+	// OutputServiceNowQueueFullBehaviorDrop Drop new data
+	OutputServiceNowQueueFullBehaviorDrop OutputServiceNowQueueFullBehavior = "drop"
+)
+
+func (e OutputServiceNowQueueFullBehavior) ToPointer() *OutputServiceNowQueueFullBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputServiceNowQueueFullBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "block", "drop":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputServiceNowPqControls struct {
 }
 
@@ -63,15 +594,15 @@ type OutputServiceNow struct {
 	TokenSecret   string  `json:"tokenSecret"`
 	AuthTokenName *string `default:"lightstep-access-token" json:"authTokenName"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *OtlpVersionOptions1 `default:"1.3.1" json:"otlpVersion"`
+	OtlpVersion *OutputServiceNowOTLPVersion `default:"1.3.1" json:"otlpVersion"`
 	// Maximum size, in KB, of the request body
 	MaxPayloadSizeKB *float64 `default:"2048" json:"maxPayloadSizeKB"`
 	// Select a transport option for OpenTelemetry
-	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	Protocol *OutputServiceNowProtocol `default:"grpc" json:"protocol"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *CompressionOptions4 `default:"gzip" json:"compress"`
+	Compress *OutputServiceNowCompressCompression `default:"gzip" json:"compress"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptions5 `default:"gzip" json:"httpCompress"`
+	HTTPCompress *OutputServiceNowHTTPCompressCompression `default:"gzip" json:"httpCompress"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -79,7 +610,7 @@ type OutputServiceNow struct {
 	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
-	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitempty"`
+	Metadata []OutputServiceNowMetadatum `json:"metadata,omitempty"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
@@ -87,7 +618,7 @@ type OutputServiceNow struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *OutputServiceNowFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// How often the sender should ping the peer to keep the connection open
@@ -95,8 +626,8 @@ type OutputServiceNow struct {
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `default:"true" json:"keepAlive"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
-	Description    *string                      `json:"description,omitempty"`
+	OnBackpressure *OutputServiceNowBackpressureBehavior `default:"block" json:"onBackpressure"`
+	Description    *string                               `json:"description,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
@@ -104,21 +635,21 @@ type OutputServiceNow struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []OutputServiceNowExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []OutputServiceNowResponseRetrySetting `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *OutputServiceNowTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                       `default:"true" json:"responseHonorRetryAfterHeader"`
-	TLS                           *TLSSettingsClientSideType3 `json:"tls,omitempty"`
+	ResponseHonorRetryAfterHeader *bool                                  `default:"true" json:"responseHonorRetryAfterHeader"`
+	TLS                           *OutputServiceNowTLSSettingsClientSide `json:"tls,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *OutputServiceNowMode `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -130,10 +661,10 @@ type OutputServiceNow struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *OutputServiceNowPqCompressCompression `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions   `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputServiceNowPqControls `json:"pqControls,omitempty"`
+	PqOnBackpressure *OutputServiceNowQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputServiceNowPqControls        `json:"pqControls,omitempty"`
 }
 
 func (o OutputServiceNow) MarshalJSON() ([]byte, error) {
@@ -210,7 +741,7 @@ func (o *OutputServiceNow) GetAuthTokenName() *string {
 	return o.AuthTokenName
 }
 
-func (o *OutputServiceNow) GetOtlpVersion() *OtlpVersionOptions1 {
+func (o *OutputServiceNow) GetOtlpVersion() *OutputServiceNowOTLPVersion {
 	if o == nil {
 		return nil
 	}
@@ -224,21 +755,21 @@ func (o *OutputServiceNow) GetMaxPayloadSizeKB() *float64 {
 	return o.MaxPayloadSizeKB
 }
 
-func (o *OutputServiceNow) GetProtocol() *ProtocolOptions {
+func (o *OutputServiceNow) GetProtocol() *OutputServiceNowProtocol {
 	if o == nil {
 		return nil
 	}
 	return o.Protocol
 }
 
-func (o *OutputServiceNow) GetCompress() *CompressionOptions4 {
+func (o *OutputServiceNow) GetCompress() *OutputServiceNowCompressCompression {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputServiceNow) GetHTTPCompress() *CompressionOptions5 {
+func (o *OutputServiceNow) GetHTTPCompress() *OutputServiceNowHTTPCompressCompression {
 	if o == nil {
 		return nil
 	}
@@ -266,7 +797,7 @@ func (o *OutputServiceNow) GetHTTPLogsEndpointOverride() *string {
 	return o.HTTPLogsEndpointOverride
 }
 
-func (o *OutputServiceNow) GetMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputServiceNow) GetMetadata() []OutputServiceNowMetadatum {
 	if o == nil {
 		return nil
 	}
@@ -294,7 +825,7 @@ func (o *OutputServiceNow) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputServiceNow) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+func (o *OutputServiceNow) GetFailedRequestLoggingMode() *OutputServiceNowFailedRequestLoggingMode {
 	if o == nil {
 		return nil
 	}
@@ -322,7 +853,7 @@ func (o *OutputServiceNow) GetKeepAlive() *bool {
 	return o.KeepAlive
 }
 
-func (o *OutputServiceNow) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputServiceNow) GetOnBackpressure() *OutputServiceNowBackpressureBehavior {
 	if o == nil {
 		return nil
 	}
@@ -350,7 +881,7 @@ func (o *OutputServiceNow) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputServiceNow) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputServiceNow) GetExtraHTTPHeaders() []OutputServiceNowExtraHTTPHeader {
 	if o == nil {
 		return nil
 	}
@@ -364,14 +895,14 @@ func (o *OutputServiceNow) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputServiceNow) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputServiceNow) GetResponseRetrySettings() []OutputServiceNowResponseRetrySetting {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputServiceNow) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+func (o *OutputServiceNow) GetTimeoutRetrySettings() *OutputServiceNowTimeoutRetrySettings {
 	if o == nil {
 		return nil
 	}
@@ -385,7 +916,7 @@ func (o *OutputServiceNow) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputServiceNow) GetTLS() *TLSSettingsClientSideType3 {
+func (o *OutputServiceNow) GetTLS() *OutputServiceNowTLSSettingsClientSide {
 	if o == nil {
 		return nil
 	}
@@ -406,7 +937,7 @@ func (o *OutputServiceNow) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputServiceNow) GetPqMode() *ModeOptions {
+func (o *OutputServiceNow) GetPqMode() *OutputServiceNowMode {
 	if o == nil {
 		return nil
 	}
@@ -448,14 +979,14 @@ func (o *OutputServiceNow) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputServiceNow) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputServiceNow) GetPqCompress() *OutputServiceNowPqCompressCompression {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputServiceNow) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputServiceNow) GetPqOnBackpressure() *OutputServiceNowQueueFullBehavior {
 	if o == nil {
 		return nil
 	}

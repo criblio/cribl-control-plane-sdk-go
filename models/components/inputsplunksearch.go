@@ -31,6 +31,208 @@ func (e *InputSplunkSearchType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputSplunkSearchConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputSplunkSearchConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputSplunkSearchMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputSplunkSearchMode string
+
+const (
+	// InputSplunkSearchModeSmart Smart
+	InputSplunkSearchModeSmart InputSplunkSearchMode = "smart"
+	// InputSplunkSearchModeAlways Always On
+	InputSplunkSearchModeAlways InputSplunkSearchMode = "always"
+)
+
+func (e InputSplunkSearchMode) ToPointer() *InputSplunkSearchMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputSplunkSearchCompression - Codec to use to compress the persisted data
+type InputSplunkSearchCompression string
+
+const (
+	// InputSplunkSearchCompressionNone None
+	InputSplunkSearchCompressionNone InputSplunkSearchCompression = "none"
+	// InputSplunkSearchCompressionGzip Gzip
+	InputSplunkSearchCompressionGzip InputSplunkSearchCompression = "gzip"
+)
+
+func (e InputSplunkSearchCompression) ToPointer() *InputSplunkSearchCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputSplunkSearchPqControls struct {
+}
+
+func (i InputSplunkSearchPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputSplunkSearchPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputSplunkSearchMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputSplunkSearchCompression `default:"none" json:"compress"`
+	PqControls *InputSplunkSearchPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputSplunkSearchPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchPq) GetMode() *InputSplunkSearchMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSplunkSearchPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSplunkSearchPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputSplunkSearchPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputSplunkSearchPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputSplunkSearchPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputSplunkSearchPq) GetCompress() *InputSplunkSearchCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputSplunkSearchPq) GetPqControls() *InputSplunkSearchPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+// InputSplunkSearchOutputMode - Format of the returned output
+type InputSplunkSearchOutputMode string
+
+const (
+	InputSplunkSearchOutputModeCsv  InputSplunkSearchOutputMode = "csv"
+	InputSplunkSearchOutputModeJSON InputSplunkSearchOutputMode = "json"
+)
+
+func (e InputSplunkSearchOutputMode) ToPointer() *InputSplunkSearchOutputMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchOutputMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "csv", "json":
+			return true
+		}
+	}
+	return false
+}
+
 type EndpointParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
@@ -118,6 +320,150 @@ func (e *InputSplunkSearchLogLevel) IsExact() bool {
 	return false
 }
 
+type InputSplunkSearchMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputSplunkSearchMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputSplunkSearchMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+// InputSplunkSearchRetryType - The algorithm to use when performing HTTP retries
+type InputSplunkSearchRetryType string
+
+const (
+	// InputSplunkSearchRetryTypeNone Disabled
+	InputSplunkSearchRetryTypeNone InputSplunkSearchRetryType = "none"
+	// InputSplunkSearchRetryTypeBackoff Backoff
+	InputSplunkSearchRetryTypeBackoff InputSplunkSearchRetryType = "backoff"
+	// InputSplunkSearchRetryTypeStatic Static
+	InputSplunkSearchRetryTypeStatic InputSplunkSearchRetryType = "static"
+)
+
+func (e InputSplunkSearchRetryType) ToPointer() *InputSplunkSearchRetryType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSplunkSearchRetryType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "backoff", "static":
+			return true
+		}
+	}
+	return false
+}
+
+type InputSplunkSearchRetryRules struct {
+	// The algorithm to use when performing HTTP retries
+	Type *InputSplunkSearchRetryType `default:"backoff" json:"type"`
+	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+	Interval *float64 `default:"1000" json:"interval"`
+	// The maximum number of times to retry a failed HTTP request
+	Limit *float64 `default:"5" json:"limit"`
+	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+	Multiplier *float64 `default:"2" json:"multiplier"`
+	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+	Codes []float64 `json:"codes,omitempty"`
+	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+	EnableHeader *bool `default:"true" json:"enableHeader"`
+	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+	RetryConnectTimeout *bool `default:"false" json:"retryConnectTimeout"`
+	// Retry request when a connection reset (ECONNRESET) error occurs
+	RetryConnectReset *bool `default:"false" json:"retryConnectReset"`
+}
+
+func (i InputSplunkSearchRetryRules) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchRetryRules) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchRetryRules) GetType() *InputSplunkSearchRetryType {
+	if i == nil {
+		return nil
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchRetryRules) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSplunkSearchRetryRules) GetLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Limit
+}
+
+func (i *InputSplunkSearchRetryRules) GetMultiplier() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Multiplier
+}
+
+func (i *InputSplunkSearchRetryRules) GetCodes() []float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Codes
+}
+
+func (i *InputSplunkSearchRetryRules) GetEnableHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHeader
+}
+
+func (i *InputSplunkSearchRetryRules) GetRetryConnectTimeout() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RetryConnectTimeout
+}
+
+func (i *InputSplunkSearchRetryRules) GetRetryConnectReset() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RetryConnectReset
+}
+
 // InputSplunkSearchAuthenticationType - Splunk Search authentication type
 type InputSplunkSearchAuthenticationType string
 
@@ -145,6 +491,70 @@ func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
 	return false
 }
 
+type InputSplunkSearchOauthParam struct {
+	// OAuth parameter name
+	Name string `json:"name"`
+	// OAuth parameter value
+	Value string `json:"value"`
+}
+
+func (i InputSplunkSearchOauthParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchOauthParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchOauthParam) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputSplunkSearchOauthParam) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type InputSplunkSearchOauthHeader struct {
+	// OAuth header name
+	Name string `json:"name"`
+	// OAuth header value
+	Value string `json:"value"`
+}
+
+func (i InputSplunkSearchOauthHeader) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkSearchOauthHeader) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkSearchOauthHeader) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputSplunkSearchOauthHeader) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 type InputSplunkSearch struct {
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
@@ -161,8 +571,8 @@ type InputSplunkSearch struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputSplunkSearchConnection `json:"connections,omitempty"`
+	Pq          *InputSplunkSearchPq          `json:"pq,omitempty"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -176,7 +586,7 @@ type InputSplunkSearch struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptions `default:"json" json:"outputMode"`
+	OutputMode *InputSplunkSearchOutputMode `default:"json" json:"outputMode"`
 	// Optional request parameters to send to the endpoint
 	EndpointParams []EndpointParam `json:"endpointParams,omitempty"`
 	// Optional request headers to send to the endpoint
@@ -202,8 +612,8 @@ type InputSplunkSearch struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
+	Metadata   []InputSplunkSearchMetadatum `json:"metadata,omitempty"`
+	RetryRules *InputSplunkSearchRetryRules `json:"retryRules,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -232,9 +642,9 @@ type InputSplunkSearch struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	OauthParams []InputSplunkSearchOauthParam `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	OauthHeaders []InputSplunkSearchOauthHeader `json:"oauthHeaders,omitempty"`
 }
 
 func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -304,14 +714,14 @@ func (i *InputSplunkSearch) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSplunkSearch) GetConnections() []ItemsTypeConnections {
+func (i *InputSplunkSearch) GetConnections() []InputSplunkSearchConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSplunkSearch) GetPq() *PqType {
+func (i *InputSplunkSearch) GetPq() *InputSplunkSearchPq {
 	if i == nil {
 		return nil
 	}
@@ -360,7 +770,7 @@ func (i *InputSplunkSearch) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearch) GetOutputMode() *OutputModeOptions {
+func (i *InputSplunkSearch) GetOutputMode() *InputSplunkSearchOutputMode {
 	if i == nil {
 		return nil
 	}
@@ -451,14 +861,14 @@ func (i *InputSplunkSearch) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearch) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkSearch) GetMetadata() []InputSplunkSearchMetadatum {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkSearch) GetRetryRules() *RetryRulesType {
+func (i *InputSplunkSearch) GetRetryRules() *InputSplunkSearchRetryRules {
 	if i == nil {
 		return nil
 	}
@@ -570,14 +980,14 @@ func (i *InputSplunkSearch) GetTokenTimeoutSecs() *float64 {
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputSplunkSearch) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputSplunkSearch) GetOauthParams() []InputSplunkSearchOauthParam {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputSplunkSearch) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputSplunkSearch) GetOauthHeaders() []InputSplunkSearchOauthHeader {
 	if i == nil {
 		return nil
 	}

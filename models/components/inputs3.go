@@ -31,6 +31,338 @@ func (e *InputS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputS3Connection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputS3Connection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3Connection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3Connection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3Connection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputS3Mode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputS3Mode string
+
+const (
+	// InputS3ModeSmart Smart
+	InputS3ModeSmart InputS3Mode = "smart"
+	// InputS3ModeAlways Always On
+	InputS3ModeAlways InputS3Mode = "always"
+)
+
+func (e InputS3Mode) ToPointer() *InputS3Mode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3Mode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputS3Compression - Codec to use to compress the persisted data
+type InputS3Compression string
+
+const (
+	// InputS3CompressionNone None
+	InputS3CompressionNone InputS3Compression = "none"
+	// InputS3CompressionGzip Gzip
+	InputS3CompressionGzip InputS3Compression = "gzip"
+)
+
+func (e InputS3Compression) ToPointer() *InputS3Compression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3Compression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputS3PqControls struct {
+}
+
+func (i InputS3PqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3PqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputS3Pq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputS3Mode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputS3Compression `default:"none" json:"compress"`
+	PqControls *InputS3PqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputS3Pq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3Pq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3Pq) GetMode() *InputS3Mode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputS3Pq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputS3Pq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputS3Pq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputS3Pq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputS3Pq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputS3Pq) GetCompress() *InputS3Compression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputS3Pq) GetPqControls() *InputS3PqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+// InputS3AuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
+type InputS3AuthenticationMethod string
+
+const (
+	// InputS3AuthenticationMethodAuto Auto
+	InputS3AuthenticationMethodAuto InputS3AuthenticationMethod = "auto"
+	// InputS3AuthenticationMethodManual Manual
+	InputS3AuthenticationMethodManual InputS3AuthenticationMethod = "manual"
+	// InputS3AuthenticationMethodSecret Secret Key pair
+	InputS3AuthenticationMethodSecret InputS3AuthenticationMethod = "secret"
+)
+
+func (e InputS3AuthenticationMethod) ToPointer() *InputS3AuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3AuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// InputS3SignatureVersion - Signature version to use for signing S3 requests
+type InputS3SignatureVersion string
+
+const (
+	InputS3SignatureVersionV2 InputS3SignatureVersion = "v2"
+	InputS3SignatureVersionV4 InputS3SignatureVersion = "v4"
+)
+
+func (e InputS3SignatureVersion) ToPointer() *InputS3SignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputS3SignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
+type InputS3Preprocess struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Command to feed the data through (via stdin) and process its output (stdout)
+	Command *string `json:"command,omitempty"`
+	// Arguments to be added to the custom command
+	Args []string `json:"args,omitempty"`
+}
+
+func (i InputS3Preprocess) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3Preprocess) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3Preprocess) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3Preprocess) GetCommand() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Command
+}
+
+func (i *InputS3Preprocess) GetArgs() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Args
+}
+
+type InputS3Metadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputS3Metadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3Metadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3Metadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputS3Metadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type InputS3Checkpointing struct {
+	// Resume processing files after an interruption
+	Enabled *bool `default:"false" json:"enabled"`
+	// The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
+	Retries *float64 `default:"5" json:"retries"`
+}
+
+func (i InputS3Checkpointing) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputS3Checkpointing) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputS3Checkpointing) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputS3Checkpointing) GetRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Retries
+}
+
 type InputS3 struct {
 	// Unique ID for this input
 	ID       *string     `json:"id,omitempty"`
@@ -47,8 +379,8 @@ type InputS3 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputS3Connection `json:"connections,omitempty"`
+	Pq          *InputS3Pq          `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -56,14 +388,14 @@ type InputS3 struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *InputS3AuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
 	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	SignatureVersion *InputS3SignatureVersion `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -93,15 +425,15 @@ type InputS3 struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                  `default:"false" json:"enableSQSAssumeRole"`
-	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
+	EnableSQSAssumeRole *bool              `default:"false" json:"enableSQSAssumeRole"`
+	Preprocess          *InputS3Preprocess `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []InputS3Metadatum `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
-	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
+	ParquetChunkDownloadTimeout *float64              `default:"600" json:"parquetChunkDownloadTimeout"`
+	Checkpointing               *InputS3Checkpointing `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `default:"10" json:"pollTimeout"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
@@ -185,14 +517,14 @@ func (i *InputS3) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputS3) GetConnections() []ItemsTypeConnections {
+func (i *InputS3) GetConnections() []InputS3Connection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputS3) GetPq() *PqType {
+func (i *InputS3) GetPq() *InputS3Pq {
 	if i == nil {
 		return nil
 	}
@@ -220,7 +552,7 @@ func (i *InputS3) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputS3) GetAwsAuthenticationMethod() *InputS3AuthenticationMethod {
 	if i == nil {
 		return nil
 	}
@@ -248,7 +580,7 @@ func (i *InputS3) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputS3) GetSignatureVersion() *SignatureVersionOptions {
+func (i *InputS3) GetSignatureVersion() *InputS3SignatureVersion {
 	if i == nil {
 		return nil
 	}
@@ -360,14 +692,14 @@ func (i *InputS3) GetEnableSQSAssumeRole() *bool {
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputS3) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputS3) GetPreprocess() *InputS3Preprocess {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputS3) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputS3) GetMetadata() []InputS3Metadatum {
 	if i == nil {
 		return nil
 	}
@@ -388,7 +720,7 @@ func (i *InputS3) GetParquetChunkDownloadTimeout() *float64 {
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputS3) GetCheckpointing() *CheckpointingType {
+func (i *InputS3) GetCheckpointing() *InputS3Checkpointing {
 	if i == nil {
 		return nil
 	}

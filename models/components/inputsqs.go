@@ -31,6 +31,185 @@ func (e *InputSqsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputSqsConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputSqsConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputSqsMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputSqsMode string
+
+const (
+	// InputSqsModeSmart Smart
+	InputSqsModeSmart InputSqsMode = "smart"
+	// InputSqsModeAlways Always On
+	InputSqsModeAlways InputSqsMode = "always"
+)
+
+func (e InputSqsMode) ToPointer() *InputSqsMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputSqsCompression - Codec to use to compress the persisted data
+type InputSqsCompression string
+
+const (
+	// InputSqsCompressionNone None
+	InputSqsCompressionNone InputSqsCompression = "none"
+	// InputSqsCompressionGzip Gzip
+	InputSqsCompressionGzip InputSqsCompression = "gzip"
+)
+
+func (e InputSqsCompression) ToPointer() *InputSqsCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputSqsPqControls struct {
+}
+
+func (i InputSqsPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputSqsPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputSqsMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputSqsCompression `default:"none" json:"compress"`
+	PqControls *InputSqsPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputSqsPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsPq) GetMode() *InputSqsMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputSqsPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSqsPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputSqsPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputSqsPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputSqsPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputSqsPq) GetCompress() *InputSqsCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputSqsPq) GetPqControls() *InputSqsPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
 // InputSqsQueueType - The queue type used (or created)
 type InputSqsQueueType string
 
@@ -56,6 +235,87 @@ func (e *InputSqsQueueType) IsExact() bool {
 	return false
 }
 
+// InputSqsAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
+type InputSqsAuthenticationMethod string
+
+const (
+	// InputSqsAuthenticationMethodAuto Auto
+	InputSqsAuthenticationMethodAuto InputSqsAuthenticationMethod = "auto"
+	// InputSqsAuthenticationMethodManual Manual
+	InputSqsAuthenticationMethodManual InputSqsAuthenticationMethod = "manual"
+	// InputSqsAuthenticationMethodSecret Secret Key pair
+	InputSqsAuthenticationMethodSecret InputSqsAuthenticationMethod = "secret"
+)
+
+func (e InputSqsAuthenticationMethod) ToPointer() *InputSqsAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "manual", "secret":
+			return true
+		}
+	}
+	return false
+}
+
+// InputSqsSignatureVersion - Signature version to use for signing SQS requests
+type InputSqsSignatureVersion string
+
+const (
+	InputSqsSignatureVersionV2 InputSqsSignatureVersion = "v2"
+	InputSqsSignatureVersionV4 InputSqsSignatureVersion = "v4"
+)
+
+func (e InputSqsSignatureVersion) ToPointer() *InputSqsSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSqsSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
+type InputSqsMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputSqsMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSqsMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSqsMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputSqsMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 type InputSqs struct {
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
@@ -72,8 +332,8 @@ type InputSqs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputSqsConnection `json:"connections,omitempty"`
+	Pq          *InputSqsPq          `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created)
@@ -83,14 +343,14 @@ type InputSqs struct {
 	// Create queue if it does not exist
 	CreateQueue *bool `default:"false" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *InputSqsAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                       `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing SQS requests
-	SignatureVersion *SignatureVersionOptions4 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *InputSqsSignatureVersion `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -108,7 +368,7 @@ type InputSqs struct {
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
 	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Metadata []InputSqsMetadatum `json:"metadata,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `default:"10" json:"pollTimeout"`
 	Description *string  `json:"description,omitempty"`
@@ -186,14 +446,14 @@ func (i *InputSqs) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSqs) GetConnections() []ItemsTypeConnections {
+func (i *InputSqs) GetConnections() []InputSqsConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSqs) GetPq() *PqType {
+func (i *InputSqs) GetPq() *InputSqsPq {
 	if i == nil {
 		return nil
 	}
@@ -228,7 +488,7 @@ func (i *InputSqs) GetCreateQueue() *bool {
 	return i.CreateQueue
 }
 
-func (i *InputSqs) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputSqs) GetAwsAuthenticationMethod() *InputSqsAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
@@ -256,7 +516,7 @@ func (i *InputSqs) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputSqs) GetSignatureVersion() *SignatureVersionOptions4 {
+func (i *InputSqs) GetSignatureVersion() *InputSqsSignatureVersion {
 	if i == nil {
 		return nil
 	}
@@ -319,7 +579,7 @@ func (i *InputSqs) GetVisibilityTimeout() *float64 {
 	return i.VisibilityTimeout
 }
 
-func (i *InputSqs) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSqs) GetMetadata() []InputSqsMetadatum {
 	if i == nil {
 		return nil
 	}

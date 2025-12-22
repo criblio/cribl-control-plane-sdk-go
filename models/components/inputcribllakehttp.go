@@ -31,6 +31,405 @@ func (e *InputCriblLakeHTTPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputCriblLakeHTTPConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputCriblLakeHTTPConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblLakeHTTPConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblLakeHTTPConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputCriblLakeHTTPMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputCriblLakeHTTPMode string
+
+const (
+	// InputCriblLakeHTTPModeSmart Smart
+	InputCriblLakeHTTPModeSmart InputCriblLakeHTTPMode = "smart"
+	// InputCriblLakeHTTPModeAlways Always On
+	InputCriblLakeHTTPModeAlways InputCriblLakeHTTPMode = "always"
+)
+
+func (e InputCriblLakeHTTPMode) ToPointer() *InputCriblLakeHTTPMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblLakeHTTPMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputCriblLakeHTTPCompression - Codec to use to compress the persisted data
+type InputCriblLakeHTTPCompression string
+
+const (
+	// InputCriblLakeHTTPCompressionNone None
+	InputCriblLakeHTTPCompressionNone InputCriblLakeHTTPCompression = "none"
+	// InputCriblLakeHTTPCompressionGzip Gzip
+	InputCriblLakeHTTPCompressionGzip InputCriblLakeHTTPCompression = "gzip"
+)
+
+func (e InputCriblLakeHTTPCompression) ToPointer() *InputCriblLakeHTTPCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblLakeHTTPCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputCriblLakeHTTPPqControls struct {
+}
+
+func (i InputCriblLakeHTTPPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputCriblLakeHTTPPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputCriblLakeHTTPMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputCriblLakeHTTPCompression `default:"none" json:"compress"`
+	PqControls *InputCriblLakeHTTPPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputCriblLakeHTTPPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblLakeHTTPPq) GetMode() *InputCriblLakeHTTPMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputCriblLakeHTTPPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputCriblLakeHTTPPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputCriblLakeHTTPPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputCriblLakeHTTPPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputCriblLakeHTTPPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputCriblLakeHTTPPq) GetCompress() *InputCriblLakeHTTPCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputCriblLakeHTTPPq) GetPqControls() *InputCriblLakeHTTPPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+type InputCriblLakeHTTPMinimumTLSVersion string
+
+const (
+	InputCriblLakeHTTPMinimumTLSVersionTlSv1  InputCriblLakeHTTPMinimumTLSVersion = "TLSv1"
+	InputCriblLakeHTTPMinimumTLSVersionTlSv11 InputCriblLakeHTTPMinimumTLSVersion = "TLSv1.1"
+	InputCriblLakeHTTPMinimumTLSVersionTlSv12 InputCriblLakeHTTPMinimumTLSVersion = "TLSv1.2"
+	InputCriblLakeHTTPMinimumTLSVersionTlSv13 InputCriblLakeHTTPMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e InputCriblLakeHTTPMinimumTLSVersion) ToPointer() *InputCriblLakeHTTPMinimumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblLakeHTTPMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type InputCriblLakeHTTPMaximumTLSVersion string
+
+const (
+	InputCriblLakeHTTPMaximumTLSVersionTlSv1  InputCriblLakeHTTPMaximumTLSVersion = "TLSv1"
+	InputCriblLakeHTTPMaximumTLSVersionTlSv11 InputCriblLakeHTTPMaximumTLSVersion = "TLSv1.1"
+	InputCriblLakeHTTPMaximumTLSVersionTlSv12 InputCriblLakeHTTPMaximumTLSVersion = "TLSv1.2"
+	InputCriblLakeHTTPMaximumTLSVersionTlSv13 InputCriblLakeHTTPMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e InputCriblLakeHTTPMaximumTLSVersion) ToPointer() *InputCriblLakeHTTPMaximumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCriblLakeHTTPMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type InputCriblLakeHTTPTLSSettingsServerSide struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+	CaPath     *string                              `json:"caPath,omitempty"`
+	MinVersion *InputCriblLakeHTTPMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputCriblLakeHTTPMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (i InputCriblLakeHTTPTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetCertificateName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CertificateName
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetPrivKeyPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.PrivKeyPath
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetCertPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CertPath
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetCaPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CaPath
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetMinVersion() *InputCriblLakeHTTPMinimumTLSVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MinVersion
+}
+
+func (i *InputCriblLakeHTTPTLSSettingsServerSide) GetMaxVersion() *InputCriblLakeHTTPMaximumTLSVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MaxVersion
+}
+
+type InputCriblLakeHTTPMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputCriblLakeHTTPMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblLakeHTTPMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputCriblLakeHTTPMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
+type InputCriblLakeHTTPAuthTokensExtMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputCriblLakeHTTPAuthTokensExtMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPAuthTokensExtMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblLakeHTTPAuthTokensExtMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputCriblLakeHTTPAuthTokensExtMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 type SplunkHecMetadata struct {
 	Enabled               *bool    `json:"enabled,omitempty"`
 	DefaultDataset        *string  `json:"defaultDataset,omitempty"`
@@ -99,59 +498,59 @@ func (e *ElasticsearchMetadata) GetDefaultDataset() *string {
 	return e.DefaultDataset
 }
 
-type AuthTokensExt struct {
+type InputCriblLakeHTTPAuthTokensExt struct {
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata              []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	SplunkHecMetadata     *SplunkHecMetadata              `json:"splunkHecMetadata,omitempty"`
-	ElasticsearchMetadata *ElasticsearchMetadata          `json:"elasticsearchMetadata,omitempty"`
+	Metadata              []InputCriblLakeHTTPAuthTokensExtMetadatum `json:"metadata,omitempty"`
+	SplunkHecMetadata     *SplunkHecMetadata                         `json:"splunkHecMetadata,omitempty"`
+	ElasticsearchMetadata *ElasticsearchMetadata                     `json:"elasticsearchMetadata,omitempty"`
 }
 
-func (a AuthTokensExt) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (i InputCriblLakeHTTPAuthTokensExt) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (a *AuthTokensExt) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"token"}); err != nil {
+func (i *InputCriblLakeHTTPAuthTokensExt) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"token"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AuthTokensExt) GetToken() string {
-	if a == nil {
+func (i *InputCriblLakeHTTPAuthTokensExt) GetToken() string {
+	if i == nil {
 		return ""
 	}
-	return a.Token
+	return i.Token
 }
 
-func (a *AuthTokensExt) GetDescription() *string {
-	if a == nil {
+func (i *InputCriblLakeHTTPAuthTokensExt) GetDescription() *string {
+	if i == nil {
 		return nil
 	}
-	return a.Description
+	return i.Description
 }
 
-func (a *AuthTokensExt) GetMetadata() []ItemsTypeNotificationMetadata {
-	if a == nil {
+func (i *InputCriblLakeHTTPAuthTokensExt) GetMetadata() []InputCriblLakeHTTPAuthTokensExtMetadatum {
+	if i == nil {
 		return nil
 	}
-	return a.Metadata
+	return i.Metadata
 }
 
-func (a *AuthTokensExt) GetSplunkHecMetadata() *SplunkHecMetadata {
-	if a == nil {
+func (i *InputCriblLakeHTTPAuthTokensExt) GetSplunkHecMetadata() *SplunkHecMetadata {
+	if i == nil {
 		return nil
 	}
-	return a.SplunkHecMetadata
+	return i.SplunkHecMetadata
 }
 
-func (a *AuthTokensExt) GetElasticsearchMetadata() *ElasticsearchMetadata {
-	if a == nil {
+func (i *InputCriblLakeHTTPAuthTokensExt) GetElasticsearchMetadata() *ElasticsearchMetadata {
+	if i == nil {
 		return nil
 	}
-	return a.ElasticsearchMetadata
+	return i.ElasticsearchMetadata
 }
 
 type InputCriblLakeHTTP struct {
@@ -170,15 +569,15 @@ type InputCriblLakeHTTP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputCriblLakeHTTPConnection `json:"connections,omitempty"`
+	Pq          *InputCriblLakeHTTPPq          `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                   `json:"authTokens,omitempty"`
-	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	AuthTokens []string                                 `json:"authTokens,omitempty"`
+	TLS        *InputCriblLakeHTTPTLSSettingsServerSide `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -209,9 +608,9 @@ type InputCriblLakeHTTP struct {
 	SplunkHecAPI  *string `default:"/services/collector" json:"splunkHecAPI"`
 	SplunkHecAcks *bool   `default:"false" json:"splunkHecAcks"`
 	// Fields to add to events from this input
-	Metadata      []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	AuthTokensExt []AuthTokensExt                 `json:"authTokensExt,omitempty"`
-	Description   *string                         `json:"description,omitempty"`
+	Metadata      []InputCriblLakeHTTPMetadatum     `json:"metadata,omitempty"`
+	AuthTokensExt []InputCriblLakeHTTPAuthTokensExt `json:"authTokensExt,omitempty"`
+	Description   *string                           `json:"description,omitempty"`
 }
 
 func (i InputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
@@ -281,14 +680,14 @@ func (i *InputCriblLakeHTTP) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCriblLakeHTTP) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblLakeHTTP) GetConnections() []InputCriblLakeHTTPConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblLakeHTTP) GetPq() *PqType {
+func (i *InputCriblLakeHTTP) GetPq() *InputCriblLakeHTTPPq {
 	if i == nil {
 		return nil
 	}
@@ -316,7 +715,7 @@ func (i *InputCriblLakeHTTP) GetAuthTokens() []string {
 	return i.AuthTokens
 }
 
-func (i *InputCriblLakeHTTP) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCriblLakeHTTP) GetTLS() *InputCriblLakeHTTPTLSSettingsServerSide {
 	if i == nil {
 		return nil
 	}
@@ -428,14 +827,14 @@ func (i *InputCriblLakeHTTP) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputCriblLakeHTTP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblLakeHTTP) GetMetadata() []InputCriblLakeHTTPMetadatum {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblLakeHTTP) GetAuthTokensExt() []AuthTokensExt {
+func (i *InputCriblLakeHTTP) GetAuthTokensExt() []InputCriblLakeHTTPAuthTokensExt {
 	if i == nil {
 		return nil
 	}

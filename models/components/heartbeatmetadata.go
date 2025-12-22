@@ -2,43 +2,317 @@
 
 package components
 
-type HeartbeatMetadata struct {
-	Aws    *AwsTypeHeartbeatMetadata    `json:"aws,omitempty"`
-	Azure  *AzureTypeHeartbeatMetadata  `json:"azure,omitempty"`
-	HostOs *HostOsTypeHeartbeatMetadata `json:"hostOs,omitempty"`
-	Kube   *KubeTypeHeartbeatMetadata   `json:"kube,omitempty"`
-	Os     *HostOsTypeHeartbeatMetadata `json:"os,omitempty"`
+type HeartbeatMetadataAws struct {
+	Enabled    bool              `json:"enabled"`
+	InstanceID string            `json:"instanceId"`
+	Region     string            `json:"region"`
+	Tags       map[string]string `json:"tags,omitempty"`
+	Type       string            `json:"type"`
+	Zone       string            `json:"zone"`
 }
 
-func (h *HeartbeatMetadata) GetAws() *AwsTypeHeartbeatMetadata {
+func (h *HeartbeatMetadataAws) GetEnabled() bool {
+	if h == nil {
+		return false
+	}
+	return h.Enabled
+}
+
+func (h *HeartbeatMetadataAws) GetInstanceID() string {
+	if h == nil {
+		return ""
+	}
+	return h.InstanceID
+}
+
+func (h *HeartbeatMetadataAws) GetRegion() string {
+	if h == nil {
+		return ""
+	}
+	return h.Region
+}
+
+func (h *HeartbeatMetadataAws) GetTags() map[string]string {
+	if h == nil {
+		return nil
+	}
+	return h.Tags
+}
+
+func (h *HeartbeatMetadataAws) GetType() string {
+	if h == nil {
+		return ""
+	}
+	return h.Type
+}
+
+func (h *HeartbeatMetadataAws) GetZone() string {
+	if h == nil {
+		return ""
+	}
+	return h.Zone
+}
+
+type HeartbeatMetadataAzure struct {
+	Enabled        bool              `json:"enabled"`
+	Hostname       *string           `json:"hostname,omitempty"`
+	InstanceID     *string           `json:"instanceId,omitempty"`
+	Name           *string           `json:"name,omitempty"`
+	Region         *string           `json:"region,omitempty"`
+	ResourceGroup  *string           `json:"resourceGroup,omitempty"`
+	SubscriptionID *string           `json:"subscriptionId,omitempty"`
+	Tags           map[string]string `json:"tags,omitempty"`
+	Type           *string           `json:"type,omitempty"`
+	Zone           *string           `json:"zone,omitempty"`
+}
+
+func (h *HeartbeatMetadataAzure) GetEnabled() bool {
+	if h == nil {
+		return false
+	}
+	return h.Enabled
+}
+
+func (h *HeartbeatMetadataAzure) GetHostname() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Hostname
+}
+
+func (h *HeartbeatMetadataAzure) GetInstanceID() *string {
+	if h == nil {
+		return nil
+	}
+	return h.InstanceID
+}
+
+func (h *HeartbeatMetadataAzure) GetName() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Name
+}
+
+func (h *HeartbeatMetadataAzure) GetRegion() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Region
+}
+
+func (h *HeartbeatMetadataAzure) GetResourceGroup() *string {
+	if h == nil {
+		return nil
+	}
+	return h.ResourceGroup
+}
+
+func (h *HeartbeatMetadataAzure) GetSubscriptionID() *string {
+	if h == nil {
+		return nil
+	}
+	return h.SubscriptionID
+}
+
+func (h *HeartbeatMetadataAzure) GetTags() map[string]string {
+	if h == nil {
+		return nil
+	}
+	return h.Tags
+}
+
+func (h *HeartbeatMetadataAzure) GetType() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Type
+}
+
+func (h *HeartbeatMetadataAzure) GetZone() *string {
+	if h == nil {
+		return nil
+	}
+	return h.Zone
+}
+
+type HeartbeatMetadataHostOs struct {
+	Addresses []string `json:"addresses"`
+	Enabled   bool     `json:"enabled"`
+	ID        string   `json:"id"`
+	Version   string   `json:"version"`
+}
+
+func (h *HeartbeatMetadataHostOs) GetAddresses() []string {
+	if h == nil {
+		return []string{}
+	}
+	return h.Addresses
+}
+
+func (h *HeartbeatMetadataHostOs) GetEnabled() bool {
+	if h == nil {
+		return false
+	}
+	return h.Enabled
+}
+
+func (h *HeartbeatMetadataHostOs) GetID() string {
+	if h == nil {
+		return ""
+	}
+	return h.ID
+}
+
+func (h *HeartbeatMetadataHostOs) GetVersion() string {
+	if h == nil {
+		return ""
+	}
+	return h.Version
+}
+
+type HeartbeatMetadataOwner struct {
+	Kind string `json:"kind"`
+	Name string `json:"name"`
+}
+
+func (h *HeartbeatMetadataOwner) GetKind() string {
+	if h == nil {
+		return ""
+	}
+	return h.Kind
+}
+
+func (h *HeartbeatMetadataOwner) GetName() string {
+	if h == nil {
+		return ""
+	}
+	return h.Name
+}
+
+type HeartbeatMetadataKube struct {
+	Enabled   bool                    `json:"enabled"`
+	Namespace string                  `json:"namespace"`
+	Node      string                  `json:"node"`
+	Owner     *HeartbeatMetadataOwner `json:"owner,omitempty"`
+	Pod       string                  `json:"pod"`
+	Source    string                  `json:"source"`
+}
+
+func (h *HeartbeatMetadataKube) GetEnabled() bool {
+	if h == nil {
+		return false
+	}
+	return h.Enabled
+}
+
+func (h *HeartbeatMetadataKube) GetNamespace() string {
+	if h == nil {
+		return ""
+	}
+	return h.Namespace
+}
+
+func (h *HeartbeatMetadataKube) GetNode() string {
+	if h == nil {
+		return ""
+	}
+	return h.Node
+}
+
+func (h *HeartbeatMetadataKube) GetOwner() *HeartbeatMetadataOwner {
+	if h == nil {
+		return nil
+	}
+	return h.Owner
+}
+
+func (h *HeartbeatMetadataKube) GetPod() string {
+	if h == nil {
+		return ""
+	}
+	return h.Pod
+}
+
+func (h *HeartbeatMetadataKube) GetSource() string {
+	if h == nil {
+		return ""
+	}
+	return h.Source
+}
+
+type HeartbeatMetadataOs struct {
+	Addresses []string `json:"addresses"`
+	Enabled   bool     `json:"enabled"`
+	ID        string   `json:"id"`
+	Version   string   `json:"version"`
+}
+
+func (h *HeartbeatMetadataOs) GetAddresses() []string {
+	if h == nil {
+		return []string{}
+	}
+	return h.Addresses
+}
+
+func (h *HeartbeatMetadataOs) GetEnabled() bool {
+	if h == nil {
+		return false
+	}
+	return h.Enabled
+}
+
+func (h *HeartbeatMetadataOs) GetID() string {
+	if h == nil {
+		return ""
+	}
+	return h.ID
+}
+
+func (h *HeartbeatMetadataOs) GetVersion() string {
+	if h == nil {
+		return ""
+	}
+	return h.Version
+}
+
+type HeartbeatMetadata struct {
+	Aws    *HeartbeatMetadataAws    `json:"aws,omitempty"`
+	Azure  *HeartbeatMetadataAzure  `json:"azure,omitempty"`
+	HostOs *HeartbeatMetadataHostOs `json:"hostOs,omitempty"`
+	Kube   *HeartbeatMetadataKube   `json:"kube,omitempty"`
+	Os     *HeartbeatMetadataOs     `json:"os,omitempty"`
+}
+
+func (h *HeartbeatMetadata) GetAws() *HeartbeatMetadataAws {
 	if h == nil {
 		return nil
 	}
 	return h.Aws
 }
 
-func (h *HeartbeatMetadata) GetAzure() *AzureTypeHeartbeatMetadata {
+func (h *HeartbeatMetadata) GetAzure() *HeartbeatMetadataAzure {
 	if h == nil {
 		return nil
 	}
 	return h.Azure
 }
 
-func (h *HeartbeatMetadata) GetHostOs() *HostOsTypeHeartbeatMetadata {
+func (h *HeartbeatMetadata) GetHostOs() *HeartbeatMetadataHostOs {
 	if h == nil {
 		return nil
 	}
 	return h.HostOs
 }
 
-func (h *HeartbeatMetadata) GetKube() *KubeTypeHeartbeatMetadata {
+func (h *HeartbeatMetadata) GetKube() *HeartbeatMetadataKube {
 	if h == nil {
 		return nil
 	}
 	return h.Kube
 }
 
-func (h *HeartbeatMetadata) GetOs() *HostOsTypeHeartbeatMetadata {
+func (h *HeartbeatMetadata) GetOs() *HeartbeatMetadataOs {
 	if h == nil {
 		return nil
 	}

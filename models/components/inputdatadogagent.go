@@ -31,6 +31,374 @@ func (e *InputDatadogAgentType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputDatadogAgentConnection struct {
+	Pipeline *string `json:"pipeline,omitempty"`
+	Output   string  `json:"output"`
+}
+
+func (i InputDatadogAgentConnection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentConnection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentConnection) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatadogAgentConnection) GetOutput() string {
+	if i == nil {
+		return ""
+	}
+	return i.Output
+}
+
+// InputDatadogAgentMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+type InputDatadogAgentMode string
+
+const (
+	// InputDatadogAgentModeSmart Smart
+	InputDatadogAgentModeSmart InputDatadogAgentMode = "smart"
+	// InputDatadogAgentModeAlways Always On
+	InputDatadogAgentModeAlways InputDatadogAgentMode = "always"
+)
+
+func (e InputDatadogAgentMode) ToPointer() *InputDatadogAgentMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatadogAgentMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "smart", "always":
+			return true
+		}
+	}
+	return false
+}
+
+// InputDatadogAgentCompression - Codec to use to compress the persisted data
+type InputDatadogAgentCompression string
+
+const (
+	// InputDatadogAgentCompressionNone None
+	InputDatadogAgentCompressionNone InputDatadogAgentCompression = "none"
+	// InputDatadogAgentCompressionGzip Gzip
+	InputDatadogAgentCompressionGzip InputDatadogAgentCompression = "gzip"
+)
+
+func (e InputDatadogAgentCompression) ToPointer() *InputDatadogAgentCompression {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatadogAgentCompression) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "gzip":
+			return true
+		}
+	}
+	return false
+}
+
+type InputDatadogAgentPqControls struct {
+}
+
+func (i InputDatadogAgentPqControls) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentPqControls) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type InputDatadogAgentPq struct {
+	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	Mode *InputDatadogAgentMode `default:"always" json:"mode"`
+	// The maximum number of events to hold in memory before writing the events to disk
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// The number of events to send downstream before committing that Stream has read them
+	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	MaxSize *string `default:"5GB" json:"maxSize"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	// Codec to use to compress the persisted data
+	Compress   *InputDatadogAgentCompression `default:"none" json:"compress"`
+	PqControls *InputDatadogAgentPqControls  `json:"pqControls,omitempty"`
+}
+
+func (i InputDatadogAgentPq) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentPq) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentPq) GetMode() *InputDatadogAgentMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputDatadogAgentPq) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputDatadogAgentPq) GetCommitFrequency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.CommitFrequency
+}
+
+func (i *InputDatadogAgentPq) GetMaxFileSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxFileSize
+}
+
+func (i *InputDatadogAgentPq) GetMaxSize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSize
+}
+
+func (i *InputDatadogAgentPq) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputDatadogAgentPq) GetCompress() *InputDatadogAgentCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputDatadogAgentPq) GetPqControls() *InputDatadogAgentPqControls {
+	if i == nil {
+		return nil
+	}
+	return i.PqControls
+}
+
+type InputDatadogAgentMinimumTLSVersion string
+
+const (
+	InputDatadogAgentMinimumTLSVersionTlSv1  InputDatadogAgentMinimumTLSVersion = "TLSv1"
+	InputDatadogAgentMinimumTLSVersionTlSv11 InputDatadogAgentMinimumTLSVersion = "TLSv1.1"
+	InputDatadogAgentMinimumTLSVersionTlSv12 InputDatadogAgentMinimumTLSVersion = "TLSv1.2"
+	InputDatadogAgentMinimumTLSVersionTlSv13 InputDatadogAgentMinimumTLSVersion = "TLSv1.3"
+)
+
+func (e InputDatadogAgentMinimumTLSVersion) ToPointer() *InputDatadogAgentMinimumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatadogAgentMinimumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type InputDatadogAgentMaximumTLSVersion string
+
+const (
+	InputDatadogAgentMaximumTLSVersionTlSv1  InputDatadogAgentMaximumTLSVersion = "TLSv1"
+	InputDatadogAgentMaximumTLSVersionTlSv11 InputDatadogAgentMaximumTLSVersion = "TLSv1.1"
+	InputDatadogAgentMaximumTLSVersionTlSv12 InputDatadogAgentMaximumTLSVersion = "TLSv1.2"
+	InputDatadogAgentMaximumTLSVersionTlSv13 InputDatadogAgentMaximumTLSVersion = "TLSv1.3"
+)
+
+func (e InputDatadogAgentMaximumTLSVersion) ToPointer() *InputDatadogAgentMaximumTLSVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputDatadogAgentMaximumTLSVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
+			return true
+		}
+	}
+	return false
+}
+
+type InputDatadogAgentTLSSettingsServerSide struct {
+	Disabled *bool `default:"true" json:"disabled"`
+	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
+	RequestCert *bool `default:"false" json:"requestCert"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Regex matching allowable common names in peer certificates' subject attribute
+	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
+	// The name of the predefined certificate
+	CertificateName *string `json:"certificateName,omitempty"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath *string `json:"privKeyPath,omitempty"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitempty"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath *string `json:"certPath,omitempty"`
+	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+	CaPath     *string                             `json:"caPath,omitempty"`
+	MinVersion *InputDatadogAgentMinimumTLSVersion `json:"minVersion,omitempty"`
+	MaxVersion *InputDatadogAgentMaximumTLSVersion `json:"maxVersion,omitempty"`
+}
+
+func (i InputDatadogAgentTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetRequestCert() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RequestCert
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetCommonNameRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CommonNameRegex
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetCertificateName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CertificateName
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetPrivKeyPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.PrivKeyPath
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetCertPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CertPath
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetCaPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CaPath
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetMinVersion() *InputDatadogAgentMinimumTLSVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MinVersion
+}
+
+func (i *InputDatadogAgentTLSSettingsServerSide) GetMaxVersion() *InputDatadogAgentMaximumTLSVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MaxVersion
+}
+
+type InputDatadogAgentMetadatum struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+	Value string `json:"value"`
+}
+
+func (i InputDatadogAgentMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentMetadatum) GetName() string {
+	if i == nil {
+		return ""
+	}
+	return i.Name
+}
+
+func (i *InputDatadogAgentMetadatum) GetValue() string {
+	if i == nil {
+		return ""
+	}
+	return i.Value
+}
+
 type InputDatadogAgentProxyMode struct {
 	// Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
 	Enabled *bool `default:"false" json:"enabled"`
@@ -79,13 +447,13 @@ type InputDatadogAgent struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []InputDatadogAgentConnection `json:"connections,omitempty"`
+	Pq          *InputDatadogAgentPq          `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	Port float64                                 `json:"port"`
+	TLS  *InputDatadogAgentTLSSettingsServerSide `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -111,9 +479,9 @@ type InputDatadogAgent struct {
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	ProxyMode   *InputDatadogAgentProxyMode     `json:"proxyMode,omitempty"`
-	Description *string                         `json:"description,omitempty"`
+	Metadata    []InputDatadogAgentMetadatum `json:"metadata,omitempty"`
+	ProxyMode   *InputDatadogAgentProxyMode  `json:"proxyMode,omitempty"`
+	Description *string                      `json:"description,omitempty"`
 }
 
 func (i InputDatadogAgent) MarshalJSON() ([]byte, error) {
@@ -183,14 +551,14 @@ func (i *InputDatadogAgent) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputDatadogAgent) GetConnections() []ItemsTypeConnections {
+func (i *InputDatadogAgent) GetConnections() []InputDatadogAgentConnection {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputDatadogAgent) GetPq() *PqType {
+func (i *InputDatadogAgent) GetPq() *InputDatadogAgentPq {
 	if i == nil {
 		return nil
 	}
@@ -211,7 +579,7 @@ func (i *InputDatadogAgent) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputDatadogAgent) GetTLS() *TLSSettingsServerSideType {
+func (i *InputDatadogAgent) GetTLS() *InputDatadogAgentTLSSettingsServerSide {
 	if i == nil {
 		return nil
 	}
@@ -302,7 +670,7 @@ func (i *InputDatadogAgent) GetExtractMetrics() *bool {
 	return i.ExtractMetrics
 }
 
-func (i *InputDatadogAgent) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputDatadogAgent) GetMetadata() []InputDatadogAgentMetadatum {
 	if i == nil {
 		return nil
 	}
