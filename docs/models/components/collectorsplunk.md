@@ -3,6 +3,24 @@
 
 ## Supported Types
 
+### CollectorSplunkCollectorHealthCheckPart0Type
+
+```go
+collectorSplunk := components.CreateCollectorSplunkCollectorSplunkCollectorHealthCheckPart0Type(components.CollectorSplunkCollectorHealthCheckPart0Type{/* values here */})
+```
+
+### CollectorSplunkCollectorHealthCheckPart1Type
+
+```go
+collectorSplunk := components.CreateCollectorSplunkCollectorSplunkCollectorHealthCheckPart1Type(components.CollectorSplunkCollectorHealthCheckPart1Type{/* values here */})
+```
+
+### CollectorSplunkCollectorHealthCheckPart2Type
+
+```go
+collectorSplunk := components.CreateCollectorSplunkCollectorSplunkCollectorHealthCheckPart2Type(components.CollectorSplunkCollectorHealthCheckPart2Type{/* values here */})
+```
+
 ### CollectorSplunkSplunk1
 
 ```go
@@ -25,23 +43,5 @@ collectorSplunk := components.CreateCollectorSplunkCollectorSplunkSplunk3(compon
 
 ```go
 collectorSplunk := components.CreateCollectorSplunkCollectorSplunkSplunk4(components.CollectorSplunkSplunk4{/* values here */})
-```
-
-### CollectorSplunkSplunk5
-
-```go
-collectorSplunk := components.CreateCollectorSplunkCollectorSplunkSplunk5(components.CollectorSplunkSplunk5{/* values here */})
-```
-
-### CollectorSplunkSplunk6
-
-```go
-collectorSplunk := components.CreateCollectorSplunkCollectorSplunkSplunk6(components.CollectorSplunkSplunk6{/* values here */})
-```
-
-### CollectorSplunkSplunk7
-
-```go
-collectorSplunk := components.CreateCollectorSplunkCollectorSplunkSplunk7(components.CollectorSplunkSplunk7{/* values here */})
 ```
 

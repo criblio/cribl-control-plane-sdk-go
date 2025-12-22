@@ -96,7 +96,7 @@ func main() {
 		Type:    operations.InputSyslogType2Syslog,
 		TCPPort: float64(SYSLOG_PORT),
 		UDPPort: &udpPort,
-		TLS: &operations.InputSyslogTLSSettingsServerSide2{
+		TLS: &components.TLSSettingsServerSideType{
 			Disabled: criblcontrolplanesdkgo.Bool(true),
 		},
 	})
@@ -121,7 +121,7 @@ func main() {
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
-		Compress:       operations.CreateOutputCompressionS3Gzip.ToPointer(),
+		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
 

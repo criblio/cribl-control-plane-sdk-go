@@ -9,990 +9,28 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// CollectorSplunkAuthentication7 - Authentication method for Discover and Collect REST calls
-type CollectorSplunkAuthentication7 string
+// CollectorSplunkAuthentication4 - Authentication method for Discover and Collect REST calls
+type CollectorSplunkAuthentication4 string
 
 const (
-	// CollectorSplunkAuthentication7None None
-	CollectorSplunkAuthentication7None CollectorSplunkAuthentication7 = "none"
-	// CollectorSplunkAuthentication7Basic Basic
-	CollectorSplunkAuthentication7Basic CollectorSplunkAuthentication7 = "basic"
-	// CollectorSplunkAuthentication7BasicSecret Basic (credentials secret)
-	CollectorSplunkAuthentication7BasicSecret CollectorSplunkAuthentication7 = "basicSecret"
-	// CollectorSplunkAuthentication7Token Bearer Token
-	CollectorSplunkAuthentication7Token CollectorSplunkAuthentication7 = "token"
-	// CollectorSplunkAuthentication7TokenSecret Bearer Token (text secret)
-	CollectorSplunkAuthentication7TokenSecret CollectorSplunkAuthentication7 = "tokenSecret"
+	// CollectorSplunkAuthentication4None None
+	CollectorSplunkAuthentication4None CollectorSplunkAuthentication4 = "none"
+	// CollectorSplunkAuthentication4Basic Basic
+	CollectorSplunkAuthentication4Basic CollectorSplunkAuthentication4 = "basic"
+	// CollectorSplunkAuthentication4BasicSecret Basic (credentials secret)
+	CollectorSplunkAuthentication4BasicSecret CollectorSplunkAuthentication4 = "basicSecret"
+	// CollectorSplunkAuthentication4Token Bearer Token
+	CollectorSplunkAuthentication4Token CollectorSplunkAuthentication4 = "token"
+	// CollectorSplunkAuthentication4TokenSecret Bearer Token (text secret)
+	CollectorSplunkAuthentication4TokenSecret CollectorSplunkAuthentication4 = "tokenSecret"
 )
 
-func (e CollectorSplunkAuthentication7) ToPointer() *CollectorSplunkAuthentication7 {
+func (e CollectorSplunkAuthentication4) ToPointer() *CollectorSplunkAuthentication4 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkAuthentication7) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorSplunkType7 - Collector type: splunk
-type CollectorSplunkType7 string
-
-const (
-	CollectorSplunkType7Splunk CollectorSplunkType7 = "splunk"
-)
-
-func (e CollectorSplunkType7) ToPointer() *CollectorSplunkType7 {
-	return &e
-}
-func (e *CollectorSplunkType7) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk":
-		*e = CollectorSplunkType7(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorSplunkType7: %v", v)
-	}
-}
-
-// CollectorSplunkOutputMode7 - Format of the returned output
-type CollectorSplunkOutputMode7 string
-
-const (
-	CollectorSplunkOutputMode7Csv  CollectorSplunkOutputMode7 = "csv"
-	CollectorSplunkOutputMode7JSON CollectorSplunkOutputMode7 = "json"
-)
-
-func (e CollectorSplunkOutputMode7) ToPointer() *CollectorSplunkOutputMode7 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkOutputMode7) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkCollectRequestParam7 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorSplunkCollectRequestParam7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkCollectRequestParam7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkCollectRequestParam7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorSplunkCollectRequestParam7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorSplunkCollectRequestHeader7 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorSplunkCollectRequestHeader7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkCollectRequestHeader7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkCollectRequestHeader7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorSplunkCollectRequestHeader7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorSplunkRetryType7 - Algorithm to use when performing HTTP retries
-type CollectorSplunkRetryType7 string
-
-const (
-	// CollectorSplunkRetryType7None Disabled
-	CollectorSplunkRetryType7None CollectorSplunkRetryType7 = "none"
-	// CollectorSplunkRetryType7Backoff Backoff
-	CollectorSplunkRetryType7Backoff CollectorSplunkRetryType7 = "backoff"
-	// CollectorSplunkRetryType7Static Static
-	CollectorSplunkRetryType7Static CollectorSplunkRetryType7 = "static"
-)
-
-func (e CollectorSplunkRetryType7) ToPointer() *CollectorSplunkRetryType7 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkRetryType7) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkRetryRules7 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorSplunkRetryType7 `default:"backoff" json:"type"`
-	Interval            any                        `json:"interval,omitempty"`
-	Limit               any                        `json:"limit,omitempty"`
-	Multiplier          any                        `json:"multiplier,omitempty"`
-	Codes               any                        `json:"codes,omitempty"`
-	EnableHeader        any                        `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                        `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                        `json:"retryConnectReset,omitempty"`
-}
-
-func (c CollectorSplunkRetryRules7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkRetryRules7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkRetryRules7) GetType() *CollectorSplunkRetryType7 {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *CollectorSplunkRetryRules7) GetInterval() any {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CollectorSplunkRetryRules7) GetLimit() any {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
-func (c *CollectorSplunkRetryRules7) GetMultiplier() any {
-	if c == nil {
-		return nil
-	}
-	return c.Multiplier
-}
-
-func (c *CollectorSplunkRetryRules7) GetCodes() any {
-	if c == nil {
-		return nil
-	}
-	return c.Codes
-}
-
-func (c *CollectorSplunkRetryRules7) GetEnableHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHeader
-}
-
-func (c *CollectorSplunkRetryRules7) GetRetryConnectTimeout() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectTimeout
-}
-
-func (c *CollectorSplunkRetryRules7) GetRetryConnectReset() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectReset
-}
-
-type CollectorSplunkSplunk7 struct {
-	// Authentication method for Discover and Collect REST calls
-	Authentication *CollectorSplunkAuthentication7 `default:"basic" json:"authentication"`
-	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret string `json:"credentialsSecret"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Collector type: splunk
-	Type CollectorSplunkType7 `json:"type"`
-	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
-	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
-	Search string `json:"search"`
-	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
-	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
-	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
-	// Format of the returned output
-	OutputMode *CollectorSplunkOutputMode7 `default:"json" json:"outputMode"`
-	// Optional collect request parameters
-	CollectRequestParams []CollectorSplunkCollectRequestParam7 `json:"collectRequestParams,omitempty"`
-	// Optional collect request headers
-	CollectRequestHeaders []CollectorSplunkCollectRequestHeader7 `json:"collectRequestHeaders,omitempty"`
-	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
-	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
-	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                       `default:"false" json:"handleEscapedChars"`
-	RetryRules         *CollectorSplunkRetryRules7 `json:"retryRules,omitempty"`
-	Username           *string                     `json:"username,omitempty"`
-	Password           *string                     `json:"password,omitempty"`
-	Token              *string                     `json:"token,omitempty"`
-	// Select or create a stored secret that references your Bearer token
-	TokenSecret *string `json:"tokenSecret,omitempty"`
-}
-
-func (c CollectorSplunkSplunk7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkSplunk7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "type", "search"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkSplunk7) GetAuthentication() *CollectorSplunkAuthentication7 {
-	if c == nil {
-		return nil
-	}
-	return c.Authentication
-}
-
-func (c *CollectorSplunkSplunk7) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorSplunkSplunk7) GetCredentialsSecret() string {
-	if c == nil {
-		return ""
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorSplunkSplunk7) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorSplunkSplunk7) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorSplunkSplunk7) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorSplunkSplunk7) GetType() CollectorSplunkType7 {
-	if c == nil {
-		return CollectorSplunkType7("")
-	}
-	return c.Type
-}
-
-func (c *CollectorSplunkSplunk7) GetSearchHead() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SearchHead
-}
-
-func (c *CollectorSplunkSplunk7) GetSearch() string {
-	if c == nil {
-		return ""
-	}
-	return c.Search
-}
-
-func (c *CollectorSplunkSplunk7) GetEarliest() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Earliest
-}
-
-func (c *CollectorSplunkSplunk7) GetLatest() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Latest
-}
-
-func (c *CollectorSplunkSplunk7) GetEndpoint() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Endpoint
-}
-
-func (c *CollectorSplunkSplunk7) GetOutputMode() *CollectorSplunkOutputMode7 {
-	if c == nil {
-		return nil
-	}
-	return c.OutputMode
-}
-
-func (c *CollectorSplunkSplunk7) GetCollectRequestParams() []CollectorSplunkCollectRequestParam7 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestParams
-}
-
-func (c *CollectorSplunkSplunk7) GetCollectRequestHeaders() []CollectorSplunkCollectRequestHeader7 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestHeaders
-}
-
-func (c *CollectorSplunkSplunk7) GetTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Timeout
-}
-
-func (c *CollectorSplunkSplunk7) GetUseRoundRobinDNS() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.UseRoundRobinDNS
-}
-
-func (c *CollectorSplunkSplunk7) GetDisableTimeFilter() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.DisableTimeFilter
-}
-
-func (c *CollectorSplunkSplunk7) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CollectorSplunkSplunk7) GetHandleEscapedChars() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.HandleEscapedChars
-}
-
-func (c *CollectorSplunkSplunk7) GetRetryRules() *CollectorSplunkRetryRules7 {
-	if c == nil {
-		return nil
-	}
-	return c.RetryRules
-}
-
-func (c *CollectorSplunkSplunk7) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorSplunkSplunk7) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CollectorSplunkSplunk7) GetToken() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Token
-}
-
-func (c *CollectorSplunkSplunk7) GetTokenSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenSecret
-}
-
-// CollectorSplunkAuthentication6 - Authentication method for Discover and Collect REST calls
-type CollectorSplunkAuthentication6 string
-
-const (
-	// CollectorSplunkAuthentication6None None
-	CollectorSplunkAuthentication6None CollectorSplunkAuthentication6 = "none"
-	// CollectorSplunkAuthentication6Basic Basic
-	CollectorSplunkAuthentication6Basic CollectorSplunkAuthentication6 = "basic"
-	// CollectorSplunkAuthentication6BasicSecret Basic (credentials secret)
-	CollectorSplunkAuthentication6BasicSecret CollectorSplunkAuthentication6 = "basicSecret"
-	// CollectorSplunkAuthentication6Token Bearer Token
-	CollectorSplunkAuthentication6Token CollectorSplunkAuthentication6 = "token"
-	// CollectorSplunkAuthentication6TokenSecret Bearer Token (text secret)
-	CollectorSplunkAuthentication6TokenSecret CollectorSplunkAuthentication6 = "tokenSecret"
-)
-
-func (e CollectorSplunkAuthentication6) ToPointer() *CollectorSplunkAuthentication6 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkAuthentication6) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorSplunkType6 - Collector type: splunk
-type CollectorSplunkType6 string
-
-const (
-	CollectorSplunkType6Splunk CollectorSplunkType6 = "splunk"
-)
-
-func (e CollectorSplunkType6) ToPointer() *CollectorSplunkType6 {
-	return &e
-}
-func (e *CollectorSplunkType6) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk":
-		*e = CollectorSplunkType6(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorSplunkType6: %v", v)
-	}
-}
-
-// CollectorSplunkOutputMode6 - Format of the returned output
-type CollectorSplunkOutputMode6 string
-
-const (
-	CollectorSplunkOutputMode6Csv  CollectorSplunkOutputMode6 = "csv"
-	CollectorSplunkOutputMode6JSON CollectorSplunkOutputMode6 = "json"
-)
-
-func (e CollectorSplunkOutputMode6) ToPointer() *CollectorSplunkOutputMode6 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkOutputMode6) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkCollectRequestParam6 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorSplunkCollectRequestParam6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkCollectRequestParam6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkCollectRequestParam6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorSplunkCollectRequestParam6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorSplunkCollectRequestHeader6 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorSplunkCollectRequestHeader6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkCollectRequestHeader6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkCollectRequestHeader6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorSplunkCollectRequestHeader6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorSplunkRetryType6 - Algorithm to use when performing HTTP retries
-type CollectorSplunkRetryType6 string
-
-const (
-	// CollectorSplunkRetryType6None Disabled
-	CollectorSplunkRetryType6None CollectorSplunkRetryType6 = "none"
-	// CollectorSplunkRetryType6Backoff Backoff
-	CollectorSplunkRetryType6Backoff CollectorSplunkRetryType6 = "backoff"
-	// CollectorSplunkRetryType6Static Static
-	CollectorSplunkRetryType6Static CollectorSplunkRetryType6 = "static"
-)
-
-func (e CollectorSplunkRetryType6) ToPointer() *CollectorSplunkRetryType6 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkRetryType6) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkRetryRules6 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorSplunkRetryType6 `default:"backoff" json:"type"`
-	Interval            any                        `json:"interval,omitempty"`
-	Limit               any                        `json:"limit,omitempty"`
-	Multiplier          any                        `json:"multiplier,omitempty"`
-	Codes               any                        `json:"codes,omitempty"`
-	EnableHeader        any                        `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                        `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                        `json:"retryConnectReset,omitempty"`
-}
-
-func (c CollectorSplunkRetryRules6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkRetryRules6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkRetryRules6) GetType() *CollectorSplunkRetryType6 {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *CollectorSplunkRetryRules6) GetInterval() any {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CollectorSplunkRetryRules6) GetLimit() any {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
-func (c *CollectorSplunkRetryRules6) GetMultiplier() any {
-	if c == nil {
-		return nil
-	}
-	return c.Multiplier
-}
-
-func (c *CollectorSplunkRetryRules6) GetCodes() any {
-	if c == nil {
-		return nil
-	}
-	return c.Codes
-}
-
-func (c *CollectorSplunkRetryRules6) GetEnableHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHeader
-}
-
-func (c *CollectorSplunkRetryRules6) GetRetryConnectTimeout() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectTimeout
-}
-
-func (c *CollectorSplunkRetryRules6) GetRetryConnectReset() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectReset
-}
-
-type CollectorSplunkSplunk6 struct {
-	// Authentication method for Discover and Collect REST calls
-	Authentication *CollectorSplunkAuthentication6 `default:"basic" json:"authentication"`
-	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
-	Username string  `json:"username"`
-	Password string  `json:"password"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Collector type: splunk
-	Type CollectorSplunkType6 `json:"type"`
-	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
-	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
-	Search string `json:"search"`
-	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
-	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
-	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
-	// Format of the returned output
-	OutputMode *CollectorSplunkOutputMode6 `default:"json" json:"outputMode"`
-	// Optional collect request parameters
-	CollectRequestParams []CollectorSplunkCollectRequestParam6 `json:"collectRequestParams,omitempty"`
-	// Optional collect request headers
-	CollectRequestHeaders []CollectorSplunkCollectRequestHeader6 `json:"collectRequestHeaders,omitempty"`
-	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
-	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
-	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                       `default:"false" json:"handleEscapedChars"`
-	RetryRules         *CollectorSplunkRetryRules6 `json:"retryRules,omitempty"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	Token             *string `json:"token,omitempty"`
-	// Select or create a stored secret that references your Bearer token
-	TokenSecret *string `json:"tokenSecret,omitempty"`
-}
-
-func (c CollectorSplunkSplunk6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkSplunk6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "type", "search"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkSplunk6) GetAuthentication() *CollectorSplunkAuthentication6 {
-	if c == nil {
-		return nil
-	}
-	return c.Authentication
-}
-
-func (c *CollectorSplunkSplunk6) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorSplunkSplunk6) GetUsername() string {
-	if c == nil {
-		return ""
-	}
-	return c.Username
-}
-
-func (c *CollectorSplunkSplunk6) GetPassword() string {
-	if c == nil {
-		return ""
-	}
-	return c.Password
-}
-
-func (c *CollectorSplunkSplunk6) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorSplunkSplunk6) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorSplunkSplunk6) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorSplunkSplunk6) GetType() CollectorSplunkType6 {
-	if c == nil {
-		return CollectorSplunkType6("")
-	}
-	return c.Type
-}
-
-func (c *CollectorSplunkSplunk6) GetSearchHead() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SearchHead
-}
-
-func (c *CollectorSplunkSplunk6) GetSearch() string {
-	if c == nil {
-		return ""
-	}
-	return c.Search
-}
-
-func (c *CollectorSplunkSplunk6) GetEarliest() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Earliest
-}
-
-func (c *CollectorSplunkSplunk6) GetLatest() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Latest
-}
-
-func (c *CollectorSplunkSplunk6) GetEndpoint() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Endpoint
-}
-
-func (c *CollectorSplunkSplunk6) GetOutputMode() *CollectorSplunkOutputMode6 {
-	if c == nil {
-		return nil
-	}
-	return c.OutputMode
-}
-
-func (c *CollectorSplunkSplunk6) GetCollectRequestParams() []CollectorSplunkCollectRequestParam6 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestParams
-}
-
-func (c *CollectorSplunkSplunk6) GetCollectRequestHeaders() []CollectorSplunkCollectRequestHeader6 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestHeaders
-}
-
-func (c *CollectorSplunkSplunk6) GetTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Timeout
-}
-
-func (c *CollectorSplunkSplunk6) GetUseRoundRobinDNS() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.UseRoundRobinDNS
-}
-
-func (c *CollectorSplunkSplunk6) GetDisableTimeFilter() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.DisableTimeFilter
-}
-
-func (c *CollectorSplunkSplunk6) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CollectorSplunkSplunk6) GetHandleEscapedChars() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.HandleEscapedChars
-}
-
-func (c *CollectorSplunkSplunk6) GetRetryRules() *CollectorSplunkRetryRules6 {
-	if c == nil {
-		return nil
-	}
-	return c.RetryRules
-}
-
-func (c *CollectorSplunkSplunk6) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorSplunkSplunk6) GetToken() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Token
-}
-
-func (c *CollectorSplunkSplunk6) GetTokenSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenSecret
-}
-
-// CollectorSplunkAuthentication5 - Authentication method for Discover and Collect REST calls
-type CollectorSplunkAuthentication5 string
-
-const (
-	// CollectorSplunkAuthentication5None None
-	CollectorSplunkAuthentication5None CollectorSplunkAuthentication5 = "none"
-	// CollectorSplunkAuthentication5Basic Basic
-	CollectorSplunkAuthentication5Basic CollectorSplunkAuthentication5 = "basic"
-	// CollectorSplunkAuthentication5BasicSecret Basic (credentials secret)
-	CollectorSplunkAuthentication5BasicSecret CollectorSplunkAuthentication5 = "basicSecret"
-	// CollectorSplunkAuthentication5Token Bearer Token
-	CollectorSplunkAuthentication5Token CollectorSplunkAuthentication5 = "token"
-	// CollectorSplunkAuthentication5TokenSecret Bearer Token (text secret)
-	CollectorSplunkAuthentication5TokenSecret CollectorSplunkAuthentication5 = "tokenSecret"
-)
-
-func (e CollectorSplunkAuthentication5) ToPointer() *CollectorSplunkAuthentication5 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkAuthentication5) IsExact() bool {
+func (e *CollectorSplunkAuthentication4) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "basic", "basicSecret", "token", "tokenSecret":
@@ -1026,535 +64,31 @@ func (e *CollectorSplunkType5) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// CollectorSplunkOutputMode5 - Format of the returned output
-type CollectorSplunkOutputMode5 string
-
-const (
-	CollectorSplunkOutputMode5Csv  CollectorSplunkOutputMode5 = "csv"
-	CollectorSplunkOutputMode5JSON CollectorSplunkOutputMode5 = "json"
-)
-
-func (e CollectorSplunkOutputMode5) ToPointer() *CollectorSplunkOutputMode5 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkOutputMode5) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkCollectRequestParam5 struct {
+type CollectRequestParam4 struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
 }
 
-func (c CollectorSplunkCollectRequestParam5) MarshalJSON() ([]byte, error) {
+func (c CollectRequestParam4) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CollectorSplunkCollectRequestParam5) UnmarshalJSON(data []byte) error {
+func (c *CollectRequestParam4) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CollectorSplunkCollectRequestParam5) GetName() string {
+func (c *CollectRequestParam4) GetName() string {
 	if c == nil {
 		return ""
 	}
 	return c.Name
 }
 
-func (c *CollectorSplunkCollectRequestParam5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorSplunkCollectRequestHeader5 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorSplunkCollectRequestHeader5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkCollectRequestHeader5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkCollectRequestHeader5) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorSplunkCollectRequestHeader5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorSplunkRetryType5 - Algorithm to use when performing HTTP retries
-type CollectorSplunkRetryType5 string
-
-const (
-	// CollectorSplunkRetryType5None Disabled
-	CollectorSplunkRetryType5None CollectorSplunkRetryType5 = "none"
-	// CollectorSplunkRetryType5Backoff Backoff
-	CollectorSplunkRetryType5Backoff CollectorSplunkRetryType5 = "backoff"
-	// CollectorSplunkRetryType5Static Static
-	CollectorSplunkRetryType5Static CollectorSplunkRetryType5 = "static"
-)
-
-func (e CollectorSplunkRetryType5) ToPointer() *CollectorSplunkRetryType5 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkRetryType5) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkRetryRules5 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorSplunkRetryType5 `default:"backoff" json:"type"`
-	Interval            any                        `json:"interval,omitempty"`
-	Limit               any                        `json:"limit,omitempty"`
-	Multiplier          any                        `json:"multiplier,omitempty"`
-	Codes               any                        `json:"codes,omitempty"`
-	EnableHeader        any                        `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                        `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                        `json:"retryConnectReset,omitempty"`
-}
-
-func (c CollectorSplunkRetryRules5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkRetryRules5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkRetryRules5) GetType() *CollectorSplunkRetryType5 {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *CollectorSplunkRetryRules5) GetInterval() any {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CollectorSplunkRetryRules5) GetLimit() any {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
-func (c *CollectorSplunkRetryRules5) GetMultiplier() any {
-	if c == nil {
-		return nil
-	}
-	return c.Multiplier
-}
-
-func (c *CollectorSplunkRetryRules5) GetCodes() any {
-	if c == nil {
-		return nil
-	}
-	return c.Codes
-}
-
-func (c *CollectorSplunkRetryRules5) GetEnableHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHeader
-}
-
-func (c *CollectorSplunkRetryRules5) GetRetryConnectTimeout() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectTimeout
-}
-
-func (c *CollectorSplunkRetryRules5) GetRetryConnectReset() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectReset
-}
-
-type CollectorSplunkSplunk5 struct {
-	// Authentication method for Discover and Collect REST calls
-	Authentication *CollectorSplunkAuthentication5 `default:"basic" json:"authentication"`
-	// Select or create a stored secret that references your Bearer token
-	TokenSecret string `json:"tokenSecret"`
-	// Collector type: splunk
-	Type CollectorSplunkType5 `json:"type"`
-	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
-	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
-	Search string `json:"search"`
-	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `json:"earliest,omitempty"`
-	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `json:"latest,omitempty"`
-	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
-	// Format of the returned output
-	OutputMode *CollectorSplunkOutputMode5 `default:"json" json:"outputMode"`
-	// Optional collect request parameters
-	CollectRequestParams []CollectorSplunkCollectRequestParam5 `json:"collectRequestParams,omitempty"`
-	// Optional collect request headers
-	CollectRequestHeaders []CollectorSplunkCollectRequestHeader5 `json:"collectRequestHeaders,omitempty"`
-	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
-	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
-	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                       `default:"false" json:"handleEscapedChars"`
-	RetryRules         *CollectorSplunkRetryRules5 `json:"retryRules,omitempty"`
-	Username           *string                     `json:"username,omitempty"`
-	Password           *string                     `json:"password,omitempty"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	Token             *string `json:"token,omitempty"`
-	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-}
-
-func (c CollectorSplunkSplunk5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkSplunk5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"tokenSecret", "type", "search"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkSplunk5) GetAuthentication() *CollectorSplunkAuthentication5 {
-	if c == nil {
-		return nil
-	}
-	return c.Authentication
-}
-
-func (c *CollectorSplunkSplunk5) GetTokenSecret() string {
-	if c == nil {
-		return ""
-	}
-	return c.TokenSecret
-}
-
-func (c *CollectorSplunkSplunk5) GetType() CollectorSplunkType5 {
-	if c == nil {
-		return CollectorSplunkType5("")
-	}
-	return c.Type
-}
-
-func (c *CollectorSplunkSplunk5) GetSearchHead() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SearchHead
-}
-
-func (c *CollectorSplunkSplunk5) GetSearch() string {
-	if c == nil {
-		return ""
-	}
-	return c.Search
-}
-
-func (c *CollectorSplunkSplunk5) GetEarliest() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Earliest
-}
-
-func (c *CollectorSplunkSplunk5) GetLatest() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Latest
-}
-
-func (c *CollectorSplunkSplunk5) GetEndpoint() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Endpoint
-}
-
-func (c *CollectorSplunkSplunk5) GetOutputMode() *CollectorSplunkOutputMode5 {
-	if c == nil {
-		return nil
-	}
-	return c.OutputMode
-}
-
-func (c *CollectorSplunkSplunk5) GetCollectRequestParams() []CollectorSplunkCollectRequestParam5 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestParams
-}
-
-func (c *CollectorSplunkSplunk5) GetCollectRequestHeaders() []CollectorSplunkCollectRequestHeader5 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestHeaders
-}
-
-func (c *CollectorSplunkSplunk5) GetTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Timeout
-}
-
-func (c *CollectorSplunkSplunk5) GetUseRoundRobinDNS() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.UseRoundRobinDNS
-}
-
-func (c *CollectorSplunkSplunk5) GetDisableTimeFilter() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.DisableTimeFilter
-}
-
-func (c *CollectorSplunkSplunk5) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CollectorSplunkSplunk5) GetHandleEscapedChars() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.HandleEscapedChars
-}
-
-func (c *CollectorSplunkSplunk5) GetRetryRules() *CollectorSplunkRetryRules5 {
-	if c == nil {
-		return nil
-	}
-	return c.RetryRules
-}
-
-func (c *CollectorSplunkSplunk5) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorSplunkSplunk5) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CollectorSplunkSplunk5) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorSplunkSplunk5) GetToken() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Token
-}
-
-func (c *CollectorSplunkSplunk5) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorSplunkSplunk5) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorSplunkSplunk5) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorSplunkSplunk5) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-// CollectorSplunkAuthentication4 - Authentication method for Discover and Collect REST calls
-type CollectorSplunkAuthentication4 string
-
-const (
-	// CollectorSplunkAuthentication4None None
-	CollectorSplunkAuthentication4None CollectorSplunkAuthentication4 = "none"
-	// CollectorSplunkAuthentication4Basic Basic
-	CollectorSplunkAuthentication4Basic CollectorSplunkAuthentication4 = "basic"
-	// CollectorSplunkAuthentication4BasicSecret Basic (credentials secret)
-	CollectorSplunkAuthentication4BasicSecret CollectorSplunkAuthentication4 = "basicSecret"
-	// CollectorSplunkAuthentication4Token Bearer Token
-	CollectorSplunkAuthentication4Token CollectorSplunkAuthentication4 = "token"
-	// CollectorSplunkAuthentication4TokenSecret Bearer Token (text secret)
-	CollectorSplunkAuthentication4TokenSecret CollectorSplunkAuthentication4 = "tokenSecret"
-)
-
-func (e CollectorSplunkAuthentication4) ToPointer() *CollectorSplunkAuthentication4 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkAuthentication4) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorSplunkType4 - Collector type: splunk
-type CollectorSplunkType4 string
-
-const (
-	CollectorSplunkType4Splunk CollectorSplunkType4 = "splunk"
-)
-
-func (e CollectorSplunkType4) ToPointer() *CollectorSplunkType4 {
-	return &e
-}
-func (e *CollectorSplunkType4) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk":
-		*e = CollectorSplunkType4(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorSplunkType4: %v", v)
-	}
-}
-
-// CollectorSplunkOutputMode4 - Format of the returned output
-type CollectorSplunkOutputMode4 string
-
-const (
-	CollectorSplunkOutputMode4Csv  CollectorSplunkOutputMode4 = "csv"
-	CollectorSplunkOutputMode4JSON CollectorSplunkOutputMode4 = "json"
-)
-
-func (e CollectorSplunkOutputMode4) ToPointer() *CollectorSplunkOutputMode4 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkOutputMode4) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkCollectRequestParam4 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (c CollectorSplunkCollectRequestParam4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorSplunkCollectRequestParam4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorSplunkCollectRequestParam4) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorSplunkCollectRequestParam4) GetValue() string {
+func (c *CollectRequestParam4) GetValue() string {
 	if c == nil {
 		return ""
 	}
@@ -1592,43 +126,16 @@ func (c *CollectorSplunkCollectRequestHeader4) GetValue() string {
 	return c.Value
 }
 
-// CollectorSplunkRetryType4 - Algorithm to use when performing HTTP retries
-type CollectorSplunkRetryType4 string
-
-const (
-	// CollectorSplunkRetryType4None Disabled
-	CollectorSplunkRetryType4None CollectorSplunkRetryType4 = "none"
-	// CollectorSplunkRetryType4Backoff Backoff
-	CollectorSplunkRetryType4Backoff CollectorSplunkRetryType4 = "backoff"
-	// CollectorSplunkRetryType4Static Static
-	CollectorSplunkRetryType4Static CollectorSplunkRetryType4 = "static"
-)
-
-func (e CollectorSplunkRetryType4) ToPointer() *CollectorSplunkRetryType4 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkRetryType4) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorSplunkRetryRules4 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorSplunkRetryType4 `default:"backoff" json:"type"`
-	Interval            any                        `json:"interval,omitempty"`
-	Limit               any                        `json:"limit,omitempty"`
-	Multiplier          any                        `json:"multiplier,omitempty"`
-	Codes               any                        `json:"codes,omitempty"`
-	EnableHeader        any                        `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                        `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                        `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorSplunkRetryRules4) MarshalJSON() ([]byte, error) {
@@ -1642,7 +149,7 @@ func (c *CollectorSplunkRetryRules4) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorSplunkRetryRules4) GetType() *CollectorSplunkRetryType4 {
+func (c *CollectorSplunkRetryRules4) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -1701,9 +208,18 @@ func (c *CollectorSplunkRetryRules4) GetRetryConnectReset() any {
 type CollectorSplunkSplunk4 struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication *CollectorSplunkAuthentication4 `default:"basic" json:"authentication"`
-	Token          string                          `json:"token"`
+	// URL to use for login API call, this call is expected to be a POST.
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Collector type: splunk
-	Type CollectorSplunkType4 `json:"type"`
+	Type CollectorSplunkType5 `json:"type"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -1715,9 +231,9 @@ type CollectorSplunkSplunk4 struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *CollectorSplunkOutputMode4 `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptions `default:"json" json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []CollectorSplunkCollectRequestParam4 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []CollectRequestParam4 `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []CollectorSplunkCollectRequestHeader4 `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
@@ -1733,18 +249,9 @@ type CollectorSplunkSplunk4 struct {
 	RetryRules         *CollectorSplunkRetryRules4 `json:"retryRules,omitempty"`
 	Username           *string                     `json:"username,omitempty"`
 	Password           *string                     `json:"password,omitempty"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	Token              *string                     `json:"token,omitempty"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitempty"`
-	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 }
 
 func (c CollectorSplunkSplunk4) MarshalJSON() ([]byte, error) {
@@ -1752,7 +259,7 @@ func (c CollectorSplunkSplunk4) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorSplunkSplunk4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"token", "type", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "type", "search"}); err != nil {
 		return err
 	}
 	return nil
@@ -1765,16 +272,44 @@ func (c *CollectorSplunkSplunk4) GetAuthentication() *CollectorSplunkAuthenticat
 	return c.Authentication
 }
 
-func (c *CollectorSplunkSplunk4) GetToken() string {
+func (c *CollectorSplunkSplunk4) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorSplunkSplunk4) GetCredentialsSecret() string {
 	if c == nil {
 		return ""
 	}
-	return c.Token
+	return c.CredentialsSecret
 }
 
-func (c *CollectorSplunkSplunk4) GetType() CollectorSplunkType4 {
+func (c *CollectorSplunkSplunk4) GetLoginBody() *string {
 	if c == nil {
-		return CollectorSplunkType4("")
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorSplunkSplunk4) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorSplunkSplunk4) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorSplunkSplunk4) GetType() CollectorSplunkType5 {
+	if c == nil {
+		return CollectorSplunkType5("")
 	}
 	return c.Type
 }
@@ -1814,14 +349,14 @@ func (c *CollectorSplunkSplunk4) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorSplunkSplunk4) GetOutputMode() *CollectorSplunkOutputMode4 {
+func (c *CollectorSplunkSplunk4) GetOutputMode() *OutputModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OutputMode
 }
 
-func (c *CollectorSplunkSplunk4) GetCollectRequestParams() []CollectorSplunkCollectRequestParam4 {
+func (c *CollectorSplunkSplunk4) GetCollectRequestParams() []CollectRequestParam4 {
 	if c == nil {
 		return nil
 	}
@@ -1891,11 +426,11 @@ func (c *CollectorSplunkSplunk4) GetPassword() *string {
 	return c.Password
 }
 
-func (c *CollectorSplunkSplunk4) GetCredentialsSecret() *string {
+func (c *CollectorSplunkSplunk4) GetToken() *string {
 	if c == nil {
 		return nil
 	}
-	return c.CredentialsSecret
+	return c.Token
 }
 
 func (c *CollectorSplunkSplunk4) GetTokenSecret() *string {
@@ -1903,34 +438,6 @@ func (c *CollectorSplunkSplunk4) GetTokenSecret() *string {
 		return nil
 	}
 	return c.TokenSecret
-}
-
-func (c *CollectorSplunkSplunk4) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorSplunkSplunk4) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorSplunkSplunk4) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorSplunkSplunk4) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
 }
 
 // CollectorSplunkAuthentication3 - Authentication method for Discover and Collect REST calls
@@ -1964,78 +471,55 @@ func (e *CollectorSplunkAuthentication3) IsExact() bool {
 	return false
 }
 
-// CollectorSplunkType3 - Collector type: splunk
-type CollectorSplunkType3 string
+// CollectorSplunkType4 - Collector type: splunk
+type CollectorSplunkType4 string
 
 const (
-	CollectorSplunkType3Splunk CollectorSplunkType3 = "splunk"
+	CollectorSplunkType4Splunk CollectorSplunkType4 = "splunk"
 )
 
-func (e CollectorSplunkType3) ToPointer() *CollectorSplunkType3 {
+func (e CollectorSplunkType4) ToPointer() *CollectorSplunkType4 {
 	return &e
 }
-func (e *CollectorSplunkType3) UnmarshalJSON(data []byte) error {
+func (e *CollectorSplunkType4) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "splunk":
-		*e = CollectorSplunkType3(v)
+		*e = CollectorSplunkType4(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorSplunkType3: %v", v)
+		return fmt.Errorf("invalid value for CollectorSplunkType4: %v", v)
 	}
 }
 
-// CollectorSplunkOutputMode3 - Format of the returned output
-type CollectorSplunkOutputMode3 string
-
-const (
-	CollectorSplunkOutputMode3Csv  CollectorSplunkOutputMode3 = "csv"
-	CollectorSplunkOutputMode3JSON CollectorSplunkOutputMode3 = "json"
-)
-
-func (e CollectorSplunkOutputMode3) ToPointer() *CollectorSplunkOutputMode3 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkOutputMode3) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkCollectRequestParam3 struct {
+type CollectRequestParam3 struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
 }
 
-func (c CollectorSplunkCollectRequestParam3) MarshalJSON() ([]byte, error) {
+func (c CollectRequestParam3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CollectorSplunkCollectRequestParam3) UnmarshalJSON(data []byte) error {
+func (c *CollectRequestParam3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CollectorSplunkCollectRequestParam3) GetName() string {
+func (c *CollectRequestParam3) GetName() string {
 	if c == nil {
 		return ""
 	}
 	return c.Name
 }
 
-func (c *CollectorSplunkCollectRequestParam3) GetValue() string {
+func (c *CollectRequestParam3) GetValue() string {
 	if c == nil {
 		return ""
 	}
@@ -2073,43 +557,16 @@ func (c *CollectorSplunkCollectRequestHeader3) GetValue() string {
 	return c.Value
 }
 
-// CollectorSplunkRetryType3 - Algorithm to use when performing HTTP retries
-type CollectorSplunkRetryType3 string
-
-const (
-	// CollectorSplunkRetryType3None Disabled
-	CollectorSplunkRetryType3None CollectorSplunkRetryType3 = "none"
-	// CollectorSplunkRetryType3Backoff Backoff
-	CollectorSplunkRetryType3Backoff CollectorSplunkRetryType3 = "backoff"
-	// CollectorSplunkRetryType3Static Static
-	CollectorSplunkRetryType3Static CollectorSplunkRetryType3 = "static"
-)
-
-func (e CollectorSplunkRetryType3) ToPointer() *CollectorSplunkRetryType3 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkRetryType3) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorSplunkRetryRules3 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorSplunkRetryType3 `default:"backoff" json:"type"`
-	Interval            any                        `json:"interval,omitempty"`
-	Limit               any                        `json:"limit,omitempty"`
-	Multiplier          any                        `json:"multiplier,omitempty"`
-	Codes               any                        `json:"codes,omitempty"`
-	EnableHeader        any                        `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                        `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                        `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorSplunkRetryRules3) MarshalJSON() ([]byte, error) {
@@ -2123,7 +580,7 @@ func (c *CollectorSplunkRetryRules3) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorSplunkRetryRules3) GetType() *CollectorSplunkRetryType3 {
+func (c *CollectorSplunkRetryRules3) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -2182,10 +639,18 @@ func (c *CollectorSplunkRetryRules3) GetRetryConnectReset() any {
 type CollectorSplunkSplunk3 struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication *CollectorSplunkAuthentication3 `default:"basic" json:"authentication"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret string `json:"credentialsSecret"`
+	// URL to use for login API call, this call is expected to be a POST.
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	Username string  `json:"username"`
+	Password string  `json:"password"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Collector type: splunk
-	Type CollectorSplunkType3 `json:"type"`
+	Type CollectorSplunkType4 `json:"type"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -2197,9 +662,9 @@ type CollectorSplunkSplunk3 struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *CollectorSplunkOutputMode3 `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptions `default:"json" json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []CollectorSplunkCollectRequestParam3 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []CollectRequestParam3 `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []CollectorSplunkCollectRequestHeader3 `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
@@ -2213,19 +678,11 @@ type CollectorSplunkSplunk3 struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                       `default:"false" json:"handleEscapedChars"`
 	RetryRules         *CollectorSplunkRetryRules3 `json:"retryRules,omitempty"`
-	Username           *string                     `json:"username,omitempty"`
-	Password           *string                     `json:"password,omitempty"`
-	Token              *string                     `json:"token,omitempty"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	Token             *string `json:"token,omitempty"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitempty"`
-	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
-	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
-	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 }
 
 func (c CollectorSplunkSplunk3) MarshalJSON() ([]byte, error) {
@@ -2233,7 +690,7 @@ func (c CollectorSplunkSplunk3) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorSplunkSplunk3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "type", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "type", "search"}); err != nil {
 		return err
 	}
 	return nil
@@ -2246,16 +703,51 @@ func (c *CollectorSplunkSplunk3) GetAuthentication() *CollectorSplunkAuthenticat
 	return c.Authentication
 }
 
-func (c *CollectorSplunkSplunk3) GetCredentialsSecret() string {
+func (c *CollectorSplunkSplunk3) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorSplunkSplunk3) GetUsername() string {
 	if c == nil {
 		return ""
 	}
-	return c.CredentialsSecret
+	return c.Username
 }
 
-func (c *CollectorSplunkSplunk3) GetType() CollectorSplunkType3 {
+func (c *CollectorSplunkSplunk3) GetPassword() string {
 	if c == nil {
-		return CollectorSplunkType3("")
+		return ""
+	}
+	return c.Password
+}
+
+func (c *CollectorSplunkSplunk3) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorSplunkSplunk3) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorSplunkSplunk3) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorSplunkSplunk3) GetType() CollectorSplunkType4 {
+	if c == nil {
+		return CollectorSplunkType4("")
 	}
 	return c.Type
 }
@@ -2295,14 +787,14 @@ func (c *CollectorSplunkSplunk3) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorSplunkSplunk3) GetOutputMode() *CollectorSplunkOutputMode3 {
+func (c *CollectorSplunkSplunk3) GetOutputMode() *OutputModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OutputMode
 }
 
-func (c *CollectorSplunkSplunk3) GetCollectRequestParams() []CollectorSplunkCollectRequestParam3 {
+func (c *CollectorSplunkSplunk3) GetCollectRequestParams() []CollectRequestParam3 {
 	if c == nil {
 		return nil
 	}
@@ -2358,18 +850,11 @@ func (c *CollectorSplunkSplunk3) GetRetryRules() *CollectorSplunkRetryRules3 {
 	return c.RetryRules
 }
 
-func (c *CollectorSplunkSplunk3) GetUsername() *string {
+func (c *CollectorSplunkSplunk3) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
-	return c.Username
-}
-
-func (c *CollectorSplunkSplunk3) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
+	return c.CredentialsSecret
 }
 
 func (c *CollectorSplunkSplunk3) GetToken() *string {
@@ -2384,34 +869,6 @@ func (c *CollectorSplunkSplunk3) GetTokenSecret() *string {
 		return nil
 	}
 	return c.TokenSecret
-}
-
-func (c *CollectorSplunkSplunk3) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorSplunkSplunk3) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorSplunkSplunk3) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorSplunkSplunk3) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
 }
 
 // CollectorSplunkAuthentication2 - Authentication method for Discover and Collect REST calls
@@ -2445,78 +902,55 @@ func (e *CollectorSplunkAuthentication2) IsExact() bool {
 	return false
 }
 
-// CollectorSplunkType2 - Collector type: splunk
-type CollectorSplunkType2 string
+// CollectorSplunkType3 - Collector type: splunk
+type CollectorSplunkType3 string
 
 const (
-	CollectorSplunkType2Splunk CollectorSplunkType2 = "splunk"
+	CollectorSplunkType3Splunk CollectorSplunkType3 = "splunk"
 )
 
-func (e CollectorSplunkType2) ToPointer() *CollectorSplunkType2 {
+func (e CollectorSplunkType3) ToPointer() *CollectorSplunkType3 {
 	return &e
 }
-func (e *CollectorSplunkType2) UnmarshalJSON(data []byte) error {
+func (e *CollectorSplunkType3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "splunk":
-		*e = CollectorSplunkType2(v)
+		*e = CollectorSplunkType3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorSplunkType2: %v", v)
+		return fmt.Errorf("invalid value for CollectorSplunkType3: %v", v)
 	}
 }
 
-// CollectorSplunkOutputMode2 - Format of the returned output
-type CollectorSplunkOutputMode2 string
-
-const (
-	CollectorSplunkOutputMode2Csv  CollectorSplunkOutputMode2 = "csv"
-	CollectorSplunkOutputMode2JSON CollectorSplunkOutputMode2 = "json"
-)
-
-func (e CollectorSplunkOutputMode2) ToPointer() *CollectorSplunkOutputMode2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkOutputMode2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkCollectRequestParam2 struct {
+type CollectRequestParam2 struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
 }
 
-func (c CollectorSplunkCollectRequestParam2) MarshalJSON() ([]byte, error) {
+func (c CollectRequestParam2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CollectorSplunkCollectRequestParam2) UnmarshalJSON(data []byte) error {
+func (c *CollectRequestParam2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CollectorSplunkCollectRequestParam2) GetName() string {
+func (c *CollectRequestParam2) GetName() string {
 	if c == nil {
 		return ""
 	}
 	return c.Name
 }
 
-func (c *CollectorSplunkCollectRequestParam2) GetValue() string {
+func (c *CollectRequestParam2) GetValue() string {
 	if c == nil {
 		return ""
 	}
@@ -2554,43 +988,16 @@ func (c *CollectorSplunkCollectRequestHeader2) GetValue() string {
 	return c.Value
 }
 
-// CollectorSplunkRetryType2 - Algorithm to use when performing HTTP retries
-type CollectorSplunkRetryType2 string
-
-const (
-	// CollectorSplunkRetryType2None Disabled
-	CollectorSplunkRetryType2None CollectorSplunkRetryType2 = "none"
-	// CollectorSplunkRetryType2Backoff Backoff
-	CollectorSplunkRetryType2Backoff CollectorSplunkRetryType2 = "backoff"
-	// CollectorSplunkRetryType2Static Static
-	CollectorSplunkRetryType2Static CollectorSplunkRetryType2 = "static"
-)
-
-func (e CollectorSplunkRetryType2) ToPointer() *CollectorSplunkRetryType2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkRetryType2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorSplunkRetryRules2 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorSplunkRetryType2 `default:"backoff" json:"type"`
-	Interval            any                        `json:"interval,omitempty"`
-	Limit               any                        `json:"limit,omitempty"`
-	Multiplier          any                        `json:"multiplier,omitempty"`
-	Codes               any                        `json:"codes,omitempty"`
-	EnableHeader        any                        `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                        `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                        `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorSplunkRetryRules2) MarshalJSON() ([]byte, error) {
@@ -2604,7 +1011,7 @@ func (c *CollectorSplunkRetryRules2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorSplunkRetryRules2) GetType() *CollectorSplunkRetryType2 {
+func (c *CollectorSplunkRetryRules2) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -2663,10 +1070,10 @@ func (c *CollectorSplunkRetryRules2) GetRetryConnectReset() any {
 type CollectorSplunkSplunk2 struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication *CollectorSplunkAuthentication2 `default:"basic" json:"authentication"`
-	Username       string                          `json:"username"`
-	Password       string                          `json:"password"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret string `json:"tokenSecret"`
 	// Collector type: splunk
-	Type CollectorSplunkType2 `json:"type"`
+	Type CollectorSplunkType3 `json:"type"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -2678,9 +1085,9 @@ type CollectorSplunkSplunk2 struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *CollectorSplunkOutputMode2 `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptions `default:"json" json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []CollectorSplunkCollectRequestParam2 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []CollectRequestParam2 `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []CollectorSplunkCollectRequestHeader2 `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
@@ -2694,11 +1101,11 @@ type CollectorSplunkSplunk2 struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                       `default:"false" json:"handleEscapedChars"`
 	RetryRules         *CollectorSplunkRetryRules2 `json:"retryRules,omitempty"`
+	Username           *string                     `json:"username,omitempty"`
+	Password           *string                     `json:"password,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	Token             *string `json:"token,omitempty"`
-	// Select or create a stored secret that references your Bearer token
-	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// URL to use for login API call, this call is expected to be a POST.
 	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
@@ -2714,7 +1121,7 @@ func (c CollectorSplunkSplunk2) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorSplunkSplunk2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "type", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"tokenSecret", "type", "search"}); err != nil {
 		return err
 	}
 	return nil
@@ -2727,23 +1134,16 @@ func (c *CollectorSplunkSplunk2) GetAuthentication() *CollectorSplunkAuthenticat
 	return c.Authentication
 }
 
-func (c *CollectorSplunkSplunk2) GetUsername() string {
+func (c *CollectorSplunkSplunk2) GetTokenSecret() string {
 	if c == nil {
 		return ""
 	}
-	return c.Username
+	return c.TokenSecret
 }
 
-func (c *CollectorSplunkSplunk2) GetPassword() string {
+func (c *CollectorSplunkSplunk2) GetType() CollectorSplunkType3 {
 	if c == nil {
-		return ""
-	}
-	return c.Password
-}
-
-func (c *CollectorSplunkSplunk2) GetType() CollectorSplunkType2 {
-	if c == nil {
-		return CollectorSplunkType2("")
+		return CollectorSplunkType3("")
 	}
 	return c.Type
 }
@@ -2783,14 +1183,14 @@ func (c *CollectorSplunkSplunk2) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorSplunkSplunk2) GetOutputMode() *CollectorSplunkOutputMode2 {
+func (c *CollectorSplunkSplunk2) GetOutputMode() *OutputModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OutputMode
 }
 
-func (c *CollectorSplunkSplunk2) GetCollectRequestParams() []CollectorSplunkCollectRequestParam2 {
+func (c *CollectorSplunkSplunk2) GetCollectRequestParams() []CollectRequestParam2 {
 	if c == nil {
 		return nil
 	}
@@ -2846,6 +1246,20 @@ func (c *CollectorSplunkSplunk2) GetRetryRules() *CollectorSplunkRetryRules2 {
 	return c.RetryRules
 }
 
+func (c *CollectorSplunkSplunk2) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorSplunkSplunk2) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
 func (c *CollectorSplunkSplunk2) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
@@ -2858,13 +1272,6 @@ func (c *CollectorSplunkSplunk2) GetToken() *string {
 		return nil
 	}
 	return c.Token
-}
-
-func (c *CollectorSplunkSplunk2) GetTokenSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenSecret
 }
 
 func (c *CollectorSplunkSplunk2) GetLoginURL() *string {
@@ -2926,78 +1333,55 @@ func (e *CollectorSplunkAuthentication1) IsExact() bool {
 	return false
 }
 
-// CollectorSplunkType1 - Collector type: splunk
-type CollectorSplunkType1 string
+// CollectorSplunkType2 - Collector type: splunk
+type CollectorSplunkType2 string
 
 const (
-	CollectorSplunkType1Splunk CollectorSplunkType1 = "splunk"
+	CollectorSplunkType2Splunk CollectorSplunkType2 = "splunk"
 )
 
-func (e CollectorSplunkType1) ToPointer() *CollectorSplunkType1 {
+func (e CollectorSplunkType2) ToPointer() *CollectorSplunkType2 {
 	return &e
 }
-func (e *CollectorSplunkType1) UnmarshalJSON(data []byte) error {
+func (e *CollectorSplunkType2) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "splunk":
-		*e = CollectorSplunkType1(v)
+		*e = CollectorSplunkType2(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorSplunkType1: %v", v)
+		return fmt.Errorf("invalid value for CollectorSplunkType2: %v", v)
 	}
 }
 
-// CollectorSplunkOutputMode1 - Format of the returned output
-type CollectorSplunkOutputMode1 string
-
-const (
-	CollectorSplunkOutputMode1Csv  CollectorSplunkOutputMode1 = "csv"
-	CollectorSplunkOutputMode1JSON CollectorSplunkOutputMode1 = "json"
-)
-
-func (e CollectorSplunkOutputMode1) ToPointer() *CollectorSplunkOutputMode1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkOutputMode1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorSplunkCollectRequestParam1 struct {
+type CollectRequestParam1 struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
 }
 
-func (c CollectorSplunkCollectRequestParam1) MarshalJSON() ([]byte, error) {
+func (c CollectRequestParam1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CollectorSplunkCollectRequestParam1) UnmarshalJSON(data []byte) error {
+func (c *CollectRequestParam1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CollectorSplunkCollectRequestParam1) GetName() string {
+func (c *CollectRequestParam1) GetName() string {
 	if c == nil {
 		return ""
 	}
 	return c.Name
 }
 
-func (c *CollectorSplunkCollectRequestParam1) GetValue() string {
+func (c *CollectRequestParam1) GetValue() string {
 	if c == nil {
 		return ""
 	}
@@ -3035,43 +1419,16 @@ func (c *CollectorSplunkCollectRequestHeader1) GetValue() string {
 	return c.Value
 }
 
-// CollectorSplunkRetryType1 - Algorithm to use when performing HTTP retries
-type CollectorSplunkRetryType1 string
-
-const (
-	// CollectorSplunkRetryType1None Disabled
-	CollectorSplunkRetryType1None CollectorSplunkRetryType1 = "none"
-	// CollectorSplunkRetryType1Backoff Backoff
-	CollectorSplunkRetryType1Backoff CollectorSplunkRetryType1 = "backoff"
-	// CollectorSplunkRetryType1Static Static
-	CollectorSplunkRetryType1Static CollectorSplunkRetryType1 = "static"
-)
-
-func (e CollectorSplunkRetryType1) ToPointer() *CollectorSplunkRetryType1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkRetryType1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorSplunkRetryRules1 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorSplunkRetryType1 `default:"backoff" json:"type"`
-	Interval            any                        `json:"interval,omitempty"`
-	Limit               any                        `json:"limit,omitempty"`
-	Multiplier          any                        `json:"multiplier,omitempty"`
-	Codes               any                        `json:"codes,omitempty"`
-	EnableHeader        any                        `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                        `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                        `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorSplunkRetryRules1) MarshalJSON() ([]byte, error) {
@@ -3085,7 +1442,7 @@ func (c *CollectorSplunkRetryRules1) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorSplunkRetryRules1) GetType() *CollectorSplunkRetryType1 {
+func (c *CollectorSplunkRetryRules1) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -3144,8 +1501,9 @@ func (c *CollectorSplunkRetryRules1) GetRetryConnectReset() any {
 type CollectorSplunkSplunk1 struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication *CollectorSplunkAuthentication1 `default:"basic" json:"authentication"`
+	Token          string                          `json:"token"`
 	// Collector type: splunk
-	Type CollectorSplunkType1 `json:"type"`
+	Type CollectorSplunkType2 `json:"type"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -3157,9 +1515,9 @@ type CollectorSplunkSplunk1 struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *CollectorSplunkOutputMode1 `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptions `default:"json" json:"outputMode"`
 	// Optional collect request parameters
-	CollectRequestParams []CollectorSplunkCollectRequestParam1 `json:"collectRequestParams,omitempty"`
+	CollectRequestParams []CollectRequestParam1 `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []CollectorSplunkCollectRequestHeader1 `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
@@ -3177,7 +1535,6 @@ type CollectorSplunkSplunk1 struct {
 	Password           *string                     `json:"password,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	Token             *string `json:"token,omitempty"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// URL to use for login API call, this call is expected to be a POST.
@@ -3195,7 +1552,7 @@ func (c CollectorSplunkSplunk1) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorSplunkSplunk1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"token", "type", "search"}); err != nil {
 		return err
 	}
 	return nil
@@ -3208,9 +1565,16 @@ func (c *CollectorSplunkSplunk1) GetAuthentication() *CollectorSplunkAuthenticat
 	return c.Authentication
 }
 
-func (c *CollectorSplunkSplunk1) GetType() CollectorSplunkType1 {
+func (c *CollectorSplunkSplunk1) GetToken() string {
 	if c == nil {
-		return CollectorSplunkType1("")
+		return ""
+	}
+	return c.Token
+}
+
+func (c *CollectorSplunkSplunk1) GetType() CollectorSplunkType2 {
+	if c == nil {
+		return CollectorSplunkType2("")
 	}
 	return c.Type
 }
@@ -3250,14 +1614,14 @@ func (c *CollectorSplunkSplunk1) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorSplunkSplunk1) GetOutputMode() *CollectorSplunkOutputMode1 {
+func (c *CollectorSplunkSplunk1) GetOutputMode() *OutputModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OutputMode
 }
 
-func (c *CollectorSplunkSplunk1) GetCollectRequestParams() []CollectorSplunkCollectRequestParam1 {
+func (c *CollectorSplunkSplunk1) GetCollectRequestParams() []CollectRequestParam1 {
 	if c == nil {
 		return nil
 	}
@@ -3334,13 +1698,6 @@ func (c *CollectorSplunkSplunk1) GetCredentialsSecret() *string {
 	return c.CredentialsSecret
 }
 
-func (c *CollectorSplunkSplunk1) GetToken() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Token
-}
-
 func (c *CollectorSplunkSplunk1) GetTokenSecret() *string {
 	if c == nil {
 		return nil
@@ -3376,28 +1733,956 @@ func (c *CollectorSplunkSplunk1) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
+type CollectorSplunkCollectorHealthCheckPart2Type struct {
+	// Authentication method for Discover and Collect REST calls
+	Authentication *AuthenticationSplunk `default:"basic" json:"authentication"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Collector type: splunk
+	Type CollectorSplunkType1 `json:"type"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `json:"earliest,omitempty"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `json:"latest,omitempty"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputModeOptions `default:"json" json:"outputMode"`
+	// Optional collect request parameters
+	CollectRequestParams []CollectRequestParamSplunk `json:"collectRequestParams,omitempty"`
+	// Optional collect request headers
+	CollectRequestHeaders []CollectRequestHeaderSplunk `json:"collectRequestHeaders,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	Timeout *float64 `default:"0" json:"timeout"`
+	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Disable collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Escape characters (\") in search queries will be passed directly to Splunk
+	HandleEscapedChars *bool             `default:"false" json:"handleEscapedChars"`
+	RetryRules         *RetryRulesSplunk `json:"retryRules,omitempty"`
+	Username           *string           `json:"username,omitempty"`
+	Password           *string           `json:"password,omitempty"`
+	Token              *string           `json:"token,omitempty"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// URL to use for login API call, this call is expected to be a POST.
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+}
+
+func (c CollectorSplunkCollectorHealthCheckPart2Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "type", "search"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetAuthentication() *AuthenticationSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.Authentication
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetCredentialsSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetType() CollectorSplunkType1 {
+	if c == nil {
+		return CollectorSplunkType1("")
+	}
+	return c.Type
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetSearchHead() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SearchHead
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetSearch() string {
+	if c == nil {
+		return ""
+	}
+	return c.Search
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetEarliest() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Earliest
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetLatest() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Latest
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetOutputMode() *OutputModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OutputMode
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetCollectRequestParams() []CollectRequestParamSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestParams
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetCollectRequestHeaders() []CollectRequestHeaderSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestHeaders
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetHandleEscapedChars() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HandleEscapedChars
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetRetryRules() *RetryRulesSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Token
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetTokenSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenSecret
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart2Type) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+type CollectorSplunkCollectorHealthCheckPart1Type struct {
+	// Authentication method for Discover and Collect REST calls
+	Authentication *AuthenticationSplunk `default:"basic" json:"authentication"`
+	Username       string                `json:"username"`
+	Password       string                `json:"password"`
+	// Collector type: splunk
+	Type CollectorSplunkType1 `json:"type"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `json:"earliest,omitempty"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `json:"latest,omitempty"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputModeOptions `default:"json" json:"outputMode"`
+	// Optional collect request parameters
+	CollectRequestParams []CollectRequestParamSplunk `json:"collectRequestParams,omitempty"`
+	// Optional collect request headers
+	CollectRequestHeaders []CollectRequestHeaderSplunk `json:"collectRequestHeaders,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	Timeout *float64 `default:"0" json:"timeout"`
+	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Disable collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Escape characters (\") in search queries will be passed directly to Splunk
+	HandleEscapedChars *bool             `default:"false" json:"handleEscapedChars"`
+	RetryRules         *RetryRulesSplunk `json:"retryRules,omitempty"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	Token             *string `json:"token,omitempty"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// URL to use for login API call, this call is expected to be a POST.
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+}
+
+func (c CollectorSplunkCollectorHealthCheckPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "type", "search"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetAuthentication() *AuthenticationSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.Authentication
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetUsername() string {
+	if c == nil {
+		return ""
+	}
+	return c.Username
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetPassword() string {
+	if c == nil {
+		return ""
+	}
+	return c.Password
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetType() CollectorSplunkType1 {
+	if c == nil {
+		return CollectorSplunkType1("")
+	}
+	return c.Type
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetSearchHead() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SearchHead
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetSearch() string {
+	if c == nil {
+		return ""
+	}
+	return c.Search
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetEarliest() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Earliest
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetLatest() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Latest
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetOutputMode() *OutputModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OutputMode
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetCollectRequestParams() []CollectRequestParamSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestParams
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetCollectRequestHeaders() []CollectRequestHeaderSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestHeaders
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetHandleEscapedChars() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HandleEscapedChars
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetRetryRules() *RetryRulesSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Token
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetTokenSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenSecret
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart1Type) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+// AuthenticationSplunk - Authentication method for Discover and Collect REST calls
+type AuthenticationSplunk string
+
+const (
+	// AuthenticationSplunkNone None
+	AuthenticationSplunkNone AuthenticationSplunk = "none"
+	// AuthenticationSplunkBasic Basic
+	AuthenticationSplunkBasic AuthenticationSplunk = "basic"
+	// AuthenticationSplunkBasicSecret Basic (credentials secret)
+	AuthenticationSplunkBasicSecret AuthenticationSplunk = "basicSecret"
+	// AuthenticationSplunkToken Bearer Token
+	AuthenticationSplunkToken AuthenticationSplunk = "token"
+	// AuthenticationSplunkTokenSecret Bearer Token (text secret)
+	AuthenticationSplunkTokenSecret AuthenticationSplunk = "tokenSecret"
+)
+
+func (e AuthenticationSplunk) ToPointer() *AuthenticationSplunk {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AuthenticationSplunk) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "basicSecret", "token", "tokenSecret":
+			return true
+		}
+	}
+	return false
+}
+
+// CollectorSplunkType1 - Collector type: splunk
+type CollectorSplunkType1 string
+
+const (
+	CollectorSplunkType1Splunk CollectorSplunkType1 = "splunk"
+)
+
+func (e CollectorSplunkType1) ToPointer() *CollectorSplunkType1 {
+	return &e
+}
+func (e *CollectorSplunkType1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "splunk":
+		*e = CollectorSplunkType1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorSplunkType1: %v", v)
+	}
+}
+
+type CollectRequestParamSplunk struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+	Value string `json:"value"`
+}
+
+func (c CollectRequestParamSplunk) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectRequestParamSplunk) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectRequestParamSplunk) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
+}
+
+func (c *CollectRequestParamSplunk) GetValue() string {
+	if c == nil {
+		return ""
+	}
+	return c.Value
+}
+
+type CollectRequestHeaderSplunk struct {
+	Name string `json:"name"`
+	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+	Value string `json:"value"`
+}
+
+func (c CollectRequestHeaderSplunk) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectRequestHeaderSplunk) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectRequestHeaderSplunk) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
+}
+
+func (c *CollectRequestHeaderSplunk) GetValue() string {
+	if c == nil {
+		return ""
+	}
+	return c.Value
+}
+
+type RetryRulesSplunk struct {
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
+}
+
+func (r RetryRulesSplunk) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RetryRulesSplunk) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RetryRulesSplunk) GetType() *RetryTypeOptionsRetryRules {
+	if r == nil {
+		return nil
+	}
+	return r.Type
+}
+
+func (r *RetryRulesSplunk) GetInterval() any {
+	if r == nil {
+		return nil
+	}
+	return r.Interval
+}
+
+func (r *RetryRulesSplunk) GetLimit() any {
+	if r == nil {
+		return nil
+	}
+	return r.Limit
+}
+
+func (r *RetryRulesSplunk) GetMultiplier() any {
+	if r == nil {
+		return nil
+	}
+	return r.Multiplier
+}
+
+func (r *RetryRulesSplunk) GetCodes() any {
+	if r == nil {
+		return nil
+	}
+	return r.Codes
+}
+
+func (r *RetryRulesSplunk) GetEnableHeader() any {
+	if r == nil {
+		return nil
+	}
+	return r.EnableHeader
+}
+
+func (r *RetryRulesSplunk) GetRetryConnectTimeout() any {
+	if r == nil {
+		return nil
+	}
+	return r.RetryConnectTimeout
+}
+
+func (r *RetryRulesSplunk) GetRetryConnectReset() any {
+	if r == nil {
+		return nil
+	}
+	return r.RetryConnectReset
+}
+
+type CollectorSplunkCollectorHealthCheckPart0Type struct {
+	// Authentication method for Discover and Collect REST calls
+	Authentication *AuthenticationSplunk `default:"basic" json:"authentication"`
+	// Collector type: splunk
+	Type CollectorSplunkType1 `json:"type"`
+	// Search head base URL. Can be an expression. Default is https://localhost:8089.
+	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+	Search string `json:"search"`
+	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+	Earliest *string `json:"earliest,omitempty"`
+	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+	Latest *string `json:"latest,omitempty"`
+	// REST API used to create a search
+	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	// Format of the returned output
+	OutputMode *OutputModeOptions `default:"json" json:"outputMode"`
+	// Optional collect request parameters
+	CollectRequestParams []CollectRequestParamSplunk `json:"collectRequestParams,omitempty"`
+	// Optional collect request headers
+	CollectRequestHeaders []CollectRequestHeaderSplunk `json:"collectRequestHeaders,omitempty"`
+	// HTTP request inactivity timeout. Use 0 for no timeout.
+	Timeout *float64 `default:"0" json:"timeout"`
+	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Disable collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Escape characters (\") in search queries will be passed directly to Splunk
+	HandleEscapedChars *bool             `default:"false" json:"handleEscapedChars"`
+	RetryRules         *RetryRulesSplunk `json:"retryRules,omitempty"`
+	Username           *string           `json:"username,omitempty"`
+	Password           *string           `json:"password,omitempty"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	Token             *string `json:"token,omitempty"`
+	// Select or create a stored secret that references your Bearer token
+	TokenSecret *string `json:"tokenSecret,omitempty"`
+	// URL to use for login API call, this call is expected to be a POST.
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+}
+
+func (c CollectorSplunkCollectorHealthCheckPart0Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "search"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetAuthentication() *AuthenticationSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.Authentication
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetType() CollectorSplunkType1 {
+	if c == nil {
+		return CollectorSplunkType1("")
+	}
+	return c.Type
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetSearchHead() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SearchHead
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetSearch() string {
+	if c == nil {
+		return ""
+	}
+	return c.Search
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetEarliest() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Earliest
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetLatest() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Latest
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Endpoint
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetOutputMode() *OutputModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OutputMode
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetCollectRequestParams() []CollectRequestParamSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestParams
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetCollectRequestHeaders() []CollectRequestHeaderSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestHeaders
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetHandleEscapedChars() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HandleEscapedChars
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetRetryRules() *RetryRulesSplunk {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Token
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetTokenSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenSecret
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorSplunkCollectorHealthCheckPart0Type) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
 type CollectorSplunkType string
 
 const (
-	CollectorSplunkTypeCollectorSplunkSplunk1 CollectorSplunkType = "CollectorSplunk_Splunk_1"
-	CollectorSplunkTypeCollectorSplunkSplunk2 CollectorSplunkType = "CollectorSplunk_Splunk_2"
-	CollectorSplunkTypeCollectorSplunkSplunk3 CollectorSplunkType = "CollectorSplunk_Splunk_3"
-	CollectorSplunkTypeCollectorSplunkSplunk4 CollectorSplunkType = "CollectorSplunk_Splunk_4"
-	CollectorSplunkTypeCollectorSplunkSplunk5 CollectorSplunkType = "CollectorSplunk_Splunk_5"
-	CollectorSplunkTypeCollectorSplunkSplunk6 CollectorSplunkType = "CollectorSplunk_Splunk_6"
-	CollectorSplunkTypeCollectorSplunkSplunk7 CollectorSplunkType = "CollectorSplunk_Splunk_7"
+	CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart0Type CollectorSplunkType = "CollectorSplunk_CollectorHealthCheckPart0Type"
+	CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart1Type CollectorSplunkType = "CollectorSplunk_CollectorHealthCheckPart1Type"
+	CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart2Type CollectorSplunkType = "CollectorSplunk_CollectorHealthCheckPart2Type"
+	CollectorSplunkTypeCollectorSplunkSplunk1                       CollectorSplunkType = "CollectorSplunk_Splunk_1"
+	CollectorSplunkTypeCollectorSplunkSplunk2                       CollectorSplunkType = "CollectorSplunk_Splunk_2"
+	CollectorSplunkTypeCollectorSplunkSplunk3                       CollectorSplunkType = "CollectorSplunk_Splunk_3"
+	CollectorSplunkTypeCollectorSplunkSplunk4                       CollectorSplunkType = "CollectorSplunk_Splunk_4"
 )
 
 type CollectorSplunk struct {
-	CollectorSplunkSplunk1 *CollectorSplunkSplunk1 `queryParam:"inline,name=CollectorSplunk" union:"member"`
-	CollectorSplunkSplunk2 *CollectorSplunkSplunk2 `queryParam:"inline,name=CollectorSplunk" union:"member"`
-	CollectorSplunkSplunk3 *CollectorSplunkSplunk3 `queryParam:"inline,name=CollectorSplunk" union:"member"`
-	CollectorSplunkSplunk4 *CollectorSplunkSplunk4 `queryParam:"inline,name=CollectorSplunk" union:"member"`
-	CollectorSplunkSplunk5 *CollectorSplunkSplunk5 `queryParam:"inline,name=CollectorSplunk" union:"member"`
-	CollectorSplunkSplunk6 *CollectorSplunkSplunk6 `queryParam:"inline,name=CollectorSplunk" union:"member"`
-	CollectorSplunkSplunk7 *CollectorSplunkSplunk7 `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkCollectorHealthCheckPart0Type *CollectorSplunkCollectorHealthCheckPart0Type `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkCollectorHealthCheckPart1Type *CollectorSplunkCollectorHealthCheckPart1Type `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkCollectorHealthCheckPart2Type *CollectorSplunkCollectorHealthCheckPart2Type `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk1                       *CollectorSplunkSplunk1                       `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk2                       *CollectorSplunkSplunk2                       `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk3                       *CollectorSplunkSplunk3                       `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk4                       *CollectorSplunkSplunk4                       `queryParam:"inline,name=CollectorSplunk" union:"member"`
 
 	Type CollectorSplunkType
+}
+
+func CreateCollectorSplunkCollectorSplunkCollectorHealthCheckPart0Type(collectorSplunkCollectorHealthCheckPart0Type CollectorSplunkCollectorHealthCheckPart0Type) CollectorSplunk {
+	typ := CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart0Type
+
+	return CollectorSplunk{
+		CollectorSplunkCollectorHealthCheckPart0Type: &collectorSplunkCollectorHealthCheckPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateCollectorSplunkCollectorSplunkCollectorHealthCheckPart1Type(collectorSplunkCollectorHealthCheckPart1Type CollectorSplunkCollectorHealthCheckPart1Type) CollectorSplunk {
+	typ := CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart1Type
+
+	return CollectorSplunk{
+		CollectorSplunkCollectorHealthCheckPart1Type: &collectorSplunkCollectorHealthCheckPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateCollectorSplunkCollectorSplunkCollectorHealthCheckPart2Type(collectorSplunkCollectorHealthCheckPart2Type CollectorSplunkCollectorHealthCheckPart2Type) CollectorSplunk {
+	typ := CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart2Type
+
+	return CollectorSplunk{
+		CollectorSplunkCollectorHealthCheckPart2Type: &collectorSplunkCollectorHealthCheckPart2Type,
+		Type: typ,
+	}
 }
 
 func CreateCollectorSplunkCollectorSplunkSplunk1(collectorSplunkSplunk1 CollectorSplunkSplunk1) CollectorSplunk {
@@ -3436,46 +2721,12 @@ func CreateCollectorSplunkCollectorSplunkSplunk4(collectorSplunkSplunk4 Collecto
 	}
 }
 
-func CreateCollectorSplunkCollectorSplunkSplunk5(collectorSplunkSplunk5 CollectorSplunkSplunk5) CollectorSplunk {
-	typ := CollectorSplunkTypeCollectorSplunkSplunk5
-
-	return CollectorSplunk{
-		CollectorSplunkSplunk5: &collectorSplunkSplunk5,
-		Type:                   typ,
-	}
-}
-
-func CreateCollectorSplunkCollectorSplunkSplunk6(collectorSplunkSplunk6 CollectorSplunkSplunk6) CollectorSplunk {
-	typ := CollectorSplunkTypeCollectorSplunkSplunk6
-
-	return CollectorSplunk{
-		CollectorSplunkSplunk6: &collectorSplunkSplunk6,
-		Type:                   typ,
-	}
-}
-
-func CreateCollectorSplunkCollectorSplunkSplunk7(collectorSplunkSplunk7 CollectorSplunkSplunk7) CollectorSplunk {
-	typ := CollectorSplunkTypeCollectorSplunkSplunk7
-
-	return CollectorSplunk{
-		CollectorSplunkSplunk7: &collectorSplunkSplunk7,
-		Type:                   typ,
-	}
-}
-
 func (u *CollectorSplunk) UnmarshalJSON(data []byte) error {
 
-	var collectorSplunkSplunk2 CollectorSplunkSplunk2 = CollectorSplunkSplunk2{}
-	if err := utils.UnmarshalJSON(data, &collectorSplunkSplunk2, "", true, nil); err == nil {
-		u.CollectorSplunkSplunk2 = &collectorSplunkSplunk2
-		u.Type = CollectorSplunkTypeCollectorSplunkSplunk2
-		return nil
-	}
-
-	var collectorSplunkSplunk6 CollectorSplunkSplunk6 = CollectorSplunkSplunk6{}
-	if err := utils.UnmarshalJSON(data, &collectorSplunkSplunk6, "", true, nil); err == nil {
-		u.CollectorSplunkSplunk6 = &collectorSplunkSplunk6
-		u.Type = CollectorSplunkTypeCollectorSplunkSplunk6
+	var collectorSplunkCollectorHealthCheckPart1Type CollectorSplunkCollectorHealthCheckPart1Type = CollectorSplunkCollectorHealthCheckPart1Type{}
+	if err := utils.UnmarshalJSON(data, &collectorSplunkCollectorHealthCheckPart1Type, "", true, nil); err == nil {
+		u.CollectorSplunkCollectorHealthCheckPart1Type = &collectorSplunkCollectorHealthCheckPart1Type
+		u.Type = CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart1Type
 		return nil
 	}
 
@@ -3486,24 +2737,10 @@ func (u *CollectorSplunk) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var collectorSplunkSplunk4 CollectorSplunkSplunk4 = CollectorSplunkSplunk4{}
-	if err := utils.UnmarshalJSON(data, &collectorSplunkSplunk4, "", true, nil); err == nil {
-		u.CollectorSplunkSplunk4 = &collectorSplunkSplunk4
-		u.Type = CollectorSplunkTypeCollectorSplunkSplunk4
-		return nil
-	}
-
-	var collectorSplunkSplunk5 CollectorSplunkSplunk5 = CollectorSplunkSplunk5{}
-	if err := utils.UnmarshalJSON(data, &collectorSplunkSplunk5, "", true, nil); err == nil {
-		u.CollectorSplunkSplunk5 = &collectorSplunkSplunk5
-		u.Type = CollectorSplunkTypeCollectorSplunkSplunk5
-		return nil
-	}
-
-	var collectorSplunkSplunk7 CollectorSplunkSplunk7 = CollectorSplunkSplunk7{}
-	if err := utils.UnmarshalJSON(data, &collectorSplunkSplunk7, "", true, nil); err == nil {
-		u.CollectorSplunkSplunk7 = &collectorSplunkSplunk7
-		u.Type = CollectorSplunkTypeCollectorSplunkSplunk7
+	var collectorSplunkCollectorHealthCheckPart2Type CollectorSplunkCollectorHealthCheckPart2Type = CollectorSplunkCollectorHealthCheckPart2Type{}
+	if err := utils.UnmarshalJSON(data, &collectorSplunkCollectorHealthCheckPart2Type, "", true, nil); err == nil {
+		u.CollectorSplunkCollectorHealthCheckPart2Type = &collectorSplunkCollectorHealthCheckPart2Type
+		u.Type = CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart2Type
 		return nil
 	}
 
@@ -3514,10 +2751,43 @@ func (u *CollectorSplunk) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var collectorSplunkSplunk2 CollectorSplunkSplunk2 = CollectorSplunkSplunk2{}
+	if err := utils.UnmarshalJSON(data, &collectorSplunkSplunk2, "", true, nil); err == nil {
+		u.CollectorSplunkSplunk2 = &collectorSplunkSplunk2
+		u.Type = CollectorSplunkTypeCollectorSplunkSplunk2
+		return nil
+	}
+
+	var collectorSplunkSplunk4 CollectorSplunkSplunk4 = CollectorSplunkSplunk4{}
+	if err := utils.UnmarshalJSON(data, &collectorSplunkSplunk4, "", true, nil); err == nil {
+		u.CollectorSplunkSplunk4 = &collectorSplunkSplunk4
+		u.Type = CollectorSplunkTypeCollectorSplunkSplunk4
+		return nil
+	}
+
+	var collectorSplunkCollectorHealthCheckPart0Type CollectorSplunkCollectorHealthCheckPart0Type = CollectorSplunkCollectorHealthCheckPart0Type{}
+	if err := utils.UnmarshalJSON(data, &collectorSplunkCollectorHealthCheckPart0Type, "", true, nil); err == nil {
+		u.CollectorSplunkCollectorHealthCheckPart0Type = &collectorSplunkCollectorHealthCheckPart0Type
+		u.Type = CollectorSplunkTypeCollectorSplunkCollectorHealthCheckPart0Type
+		return nil
+	}
+
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CollectorSplunk", string(data))
 }
 
 func (u CollectorSplunk) MarshalJSON() ([]byte, error) {
+	if u.CollectorSplunkCollectorHealthCheckPart0Type != nil {
+		return utils.MarshalJSON(u.CollectorSplunkCollectorHealthCheckPart0Type, "", true)
+	}
+
+	if u.CollectorSplunkCollectorHealthCheckPart1Type != nil {
+		return utils.MarshalJSON(u.CollectorSplunkCollectorHealthCheckPart1Type, "", true)
+	}
+
+	if u.CollectorSplunkCollectorHealthCheckPart2Type != nil {
+		return utils.MarshalJSON(u.CollectorSplunkCollectorHealthCheckPart2Type, "", true)
+	}
+
 	if u.CollectorSplunkSplunk1 != nil {
 		return utils.MarshalJSON(u.CollectorSplunkSplunk1, "", true)
 	}
@@ -3532,18 +2802,6 @@ func (u CollectorSplunk) MarshalJSON() ([]byte, error) {
 
 	if u.CollectorSplunkSplunk4 != nil {
 		return utils.MarshalJSON(u.CollectorSplunkSplunk4, "", true)
-	}
-
-	if u.CollectorSplunkSplunk5 != nil {
-		return utils.MarshalJSON(u.CollectorSplunkSplunk5, "", true)
-	}
-
-	if u.CollectorSplunkSplunk6 != nil {
-		return utils.MarshalJSON(u.CollectorSplunkSplunk6, "", true)
-	}
-
-	if u.CollectorSplunkSplunk7 != nil {
-		return utils.MarshalJSON(u.CollectorSplunkSplunk7, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CollectorSplunk: all fields are null")

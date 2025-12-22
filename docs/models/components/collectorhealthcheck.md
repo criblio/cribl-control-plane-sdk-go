@@ -21,6 +21,24 @@ collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthChec
 collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck3(components.CollectorHealthCheckHealthCheck3{/* values here */})
 ```
 
+### CollectorHealthCheckCollectorHealthCheckPart0Type
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckCollectorHealthCheckPart0Type(components.CollectorHealthCheckCollectorHealthCheckPart0Type{/* values here */})
+```
+
+### CollectorHealthCheckCollectorHealthCheckPart1Type
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckCollectorHealthCheckPart1Type(components.CollectorHealthCheckCollectorHealthCheckPart1Type{/* values here */})
+```
+
+### CollectorHealthCheckCollectorHealthCheckPart2Type
+
+```go
+collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckCollectorHealthCheckPart2Type(components.CollectorHealthCheckCollectorHealthCheckPart2Type{/* values here */})
+```
+
 ### CollectorHealthCheckHealthCheck4
 
 ```go
@@ -43,23 +61,5 @@ collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthChec
 
 ```go
 collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck7(components.CollectorHealthCheckHealthCheck7{/* values here */})
-```
-
-### CollectorHealthCheckHealthCheck8
-
-```go
-collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck8(components.CollectorHealthCheckHealthCheck8{/* values here */})
-```
-
-### CollectorHealthCheckHealthCheck9
-
-```go
-collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck9(components.CollectorHealthCheckHealthCheck9{/* values here */})
-```
-
-### CollectorHealthCheckHealthCheck10
-
-```go
-collectorHealthCheck := components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck10(components.CollectorHealthCheckHealthCheck10{/* values here */})
 ```
 

@@ -94,7 +94,7 @@ func main() {
 	}
 
 	// Create TCP JSON Source in Pack
-	authType := operations.CreateInputAuthenticationMethodTcpjsonManual
+	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
 	tcpJSONSource := operations.InputTcpjson{
 		ID:        "my-tcp-json",
@@ -124,7 +124,7 @@ func main() {
 		Region:         &region,
 		AwsSecretKey:   &secretKey,
 		AwsAPIKey:      &apiKey,
-		Compress:       operations.CreateOutputCompressionS3Gzip.ToPointer(),
+		Compress:       components.CompressionOptions2Gzip.ToPointer(),
 		FileNameSuffix: &fileNameSuffix,
 	}
 

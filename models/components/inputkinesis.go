@@ -31,185 +31,6 @@ func (e *InputKinesisType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputKinesisConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputKinesisConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKinesisConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputKinesisConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKinesisConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputKinesisMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputKinesisMode string
-
-const (
-	// InputKinesisModeSmart Smart
-	InputKinesisModeSmart InputKinesisMode = "smart"
-	// InputKinesisModeAlways Always On
-	InputKinesisModeAlways InputKinesisMode = "always"
-)
-
-func (e InputKinesisMode) ToPointer() *InputKinesisMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputKinesisMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputKinesisCompression - Codec to use to compress the persisted data
-type InputKinesisCompression string
-
-const (
-	// InputKinesisCompressionNone None
-	InputKinesisCompressionNone InputKinesisCompression = "none"
-	// InputKinesisCompressionGzip Gzip
-	InputKinesisCompressionGzip InputKinesisCompression = "gzip"
-)
-
-func (e InputKinesisCompression) ToPointer() *InputKinesisCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputKinesisCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputKinesisPqControls struct {
-}
-
-func (i InputKinesisPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKinesisPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputKinesisPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputKinesisMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputKinesisCompression `default:"none" json:"compress"`
-	PqControls *InputKinesisPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputKinesisPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKinesisPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputKinesisPq) GetMode() *InputKinesisMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputKinesisPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputKinesisPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputKinesisPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputKinesisPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputKinesisPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputKinesisPq) GetCompress() *InputKinesisCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputKinesisPq) GetPqControls() *InputKinesisPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
 // ShardIteratorStart - Location at which to start reading a shard for the first time
 type ShardIteratorStart string
 
@@ -235,26 +56,26 @@ func (e *ShardIteratorStart) IsExact() bool {
 	return false
 }
 
-// InputKinesisRecordDataFormat - Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-type InputKinesisRecordDataFormat string
+// RecordDataFormat - Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+type RecordDataFormat string
 
 const (
-	// InputKinesisRecordDataFormatCribl Cribl
-	InputKinesisRecordDataFormatCribl InputKinesisRecordDataFormat = "cribl"
-	// InputKinesisRecordDataFormatNdjson Newline JSON
-	InputKinesisRecordDataFormatNdjson InputKinesisRecordDataFormat = "ndjson"
-	// InputKinesisRecordDataFormatCloudwatch Cloudwatch Logs
-	InputKinesisRecordDataFormatCloudwatch InputKinesisRecordDataFormat = "cloudwatch"
-	// InputKinesisRecordDataFormatLine Event per line
-	InputKinesisRecordDataFormatLine InputKinesisRecordDataFormat = "line"
+	// RecordDataFormatCribl Cribl
+	RecordDataFormatCribl RecordDataFormat = "cribl"
+	// RecordDataFormatNdjson Newline JSON
+	RecordDataFormatNdjson RecordDataFormat = "ndjson"
+	// RecordDataFormatCloudwatch Cloudwatch Logs
+	RecordDataFormatCloudwatch RecordDataFormat = "cloudwatch"
+	// RecordDataFormatLine Event per line
+	RecordDataFormatLine RecordDataFormat = "line"
 )
 
-func (e InputKinesisRecordDataFormat) ToPointer() *InputKinesisRecordDataFormat {
+func (e RecordDataFormat) ToPointer() *RecordDataFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputKinesisRecordDataFormat) IsExact() bool {
+func (e *RecordDataFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cribl", "ndjson", "cloudwatch", "line":
@@ -289,87 +110,6 @@ func (e *ShardLoadBalancing) IsExact() bool {
 	return false
 }
 
-// InputKinesisAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type InputKinesisAuthenticationMethod string
-
-const (
-	// InputKinesisAuthenticationMethodAuto Auto
-	InputKinesisAuthenticationMethodAuto InputKinesisAuthenticationMethod = "auto"
-	// InputKinesisAuthenticationMethodManual Manual
-	InputKinesisAuthenticationMethodManual InputKinesisAuthenticationMethod = "manual"
-	// InputKinesisAuthenticationMethodSecret Secret Key pair
-	InputKinesisAuthenticationMethodSecret InputKinesisAuthenticationMethod = "secret"
-)
-
-func (e InputKinesisAuthenticationMethod) ToPointer() *InputKinesisAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputKinesisAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// InputKinesisSignatureVersion - Signature version to use for signing Kinesis stream requests
-type InputKinesisSignatureVersion string
-
-const (
-	InputKinesisSignatureVersionV2 InputKinesisSignatureVersion = "v2"
-	InputKinesisSignatureVersionV4 InputKinesisSignatureVersion = "v4"
-)
-
-func (e InputKinesisSignatureVersion) ToPointer() *InputKinesisSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputKinesisSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
-type InputKinesisMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputKinesisMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKinesisMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputKinesisMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputKinesisMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputKinesis struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
@@ -386,8 +126,8 @@ type InputKinesis struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputKinesisConnection `json:"connections,omitempty"`
-	Pq          *InputKinesisPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -397,7 +137,7 @@ type InputKinesis struct {
 	// Location at which to start reading a shard for the first time
 	ShardIteratorType *ShardIteratorStart `default:"TRIM_HORIZON" json:"shardIteratorType"`
 	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-	PayloadFormat *InputKinesisRecordDataFormat `default:"cribl" json:"payloadFormat"`
+	PayloadFormat *RecordDataFormat `default:"cribl" json:"payloadFormat"`
 	// Maximum number of records per getRecords call
 	GetRecordsLimit *float64 `default:"5000" json:"getRecordsLimit"`
 	// Maximum number of records, across all shards, to pull down at once per Worker Process
@@ -405,14 +145,14 @@ type InputKinesis struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *InputKinesisAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                           `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *InputKinesisSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions3 `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -430,9 +170,9 @@ type InputKinesis struct {
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
 	AvoidDuplicates *bool `default:"false" json:"avoidDuplicates"`
 	// Fields to add to events from this input
-	Metadata    []InputKinesisMetadatum `json:"metadata,omitempty"`
-	Description *string                 `json:"description,omitempty"`
-	AwsAPIKey   *string                 `json:"awsApiKey,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	AwsAPIKey   *string                         `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
@@ -504,14 +244,14 @@ func (i *InputKinesis) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputKinesis) GetConnections() []InputKinesisConnection {
+func (i *InputKinesis) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKinesis) GetPq() *InputKinesisPq {
+func (i *InputKinesis) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -546,7 +286,7 @@ func (i *InputKinesis) GetShardIteratorType() *ShardIteratorStart {
 	return i.ShardIteratorType
 }
 
-func (i *InputKinesis) GetPayloadFormat() *InputKinesisRecordDataFormat {
+func (i *InputKinesis) GetPayloadFormat() *RecordDataFormat {
 	if i == nil {
 		return nil
 	}
@@ -574,7 +314,7 @@ func (i *InputKinesis) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesis) GetAwsAuthenticationMethod() *InputKinesisAuthenticationMethod {
+func (i *InputKinesis) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -602,7 +342,7 @@ func (i *InputKinesis) GetEndpoint() *string {
 	return i.Endpoint
 }
 
-func (i *InputKinesis) GetSignatureVersion() *InputKinesisSignatureVersion {
+func (i *InputKinesis) GetSignatureVersion() *SignatureVersionOptions3 {
 	if i == nil {
 		return nil
 	}
@@ -665,7 +405,7 @@ func (i *InputKinesis) GetAvoidDuplicates() *bool {
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesis) GetMetadata() []InputKinesisMetadatum {
+func (i *InputKinesis) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

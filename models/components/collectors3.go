@@ -9,33 +9,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// CollectorS3AuthenticationMethod5 - AWS authentication method. Choose Auto to use IAM roles.
-type CollectorS3AuthenticationMethod5 string
-
-const (
-	// CollectorS3AuthenticationMethod5Auto Auto
-	CollectorS3AuthenticationMethod5Auto CollectorS3AuthenticationMethod5 = "auto"
-	// CollectorS3AuthenticationMethod5Manual Manual
-	CollectorS3AuthenticationMethod5Manual CollectorS3AuthenticationMethod5 = "manual"
-	// CollectorS3AuthenticationMethod5Secret Secret Key pair
-	CollectorS3AuthenticationMethod5Secret CollectorS3AuthenticationMethod5 = "secret"
-)
-
-func (e CollectorS3AuthenticationMethod5) ToPointer() *CollectorS3AuthenticationMethod5 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3AuthenticationMethod5) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 // CollectorS3Type5 - Collector type: s3
 type CollectorS3Type5 string
 
@@ -117,32 +90,9 @@ func (c *CollectorS3Extractor5) GetExpression() string {
 	return c.Expression
 }
 
-// CollectorS3SignatureVersion5 - Signature version to use for signing S3 requests
-type CollectorS3SignatureVersion5 string
-
-const (
-	CollectorS3SignatureVersion5V2 CollectorS3SignatureVersion5 = "v2"
-	CollectorS3SignatureVersion5V4 CollectorS3SignatureVersion5 = "v4"
-)
-
-func (e CollectorS3SignatureVersion5) ToPointer() *CollectorS3SignatureVersion5 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3SignatureVersion5) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorS3S35 struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *CollectorS3AuthenticationMethod5 `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Select or create a stored secret that references AWS access key and secret key.
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Collector type: s3
@@ -166,7 +116,7 @@ type CollectorS3S35 struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *CollectorS3SignatureVersion5 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -204,7 +154,7 @@ func (c *CollectorS3S35) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorS3S35) GetAwsAuthenticationMethod() *CollectorS3AuthenticationMethod5 {
+func (c *CollectorS3S35) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if c == nil {
 		return nil
 	}
@@ -288,7 +238,7 @@ func (c *CollectorS3S35) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorS3S35) GetSignatureVersion() *CollectorS3SignatureVersion5 {
+func (c *CollectorS3S35) GetSignatureVersion() *SignatureVersionOptions {
 	if c == nil {
 		return nil
 	}
@@ -379,33 +329,6 @@ func (c *CollectorS3S35) GetAwsSecretKey() *string {
 	return c.AwsSecretKey
 }
 
-// CollectorS3AuthenticationMethod4 - AWS authentication method. Choose Auto to use IAM roles.
-type CollectorS3AuthenticationMethod4 string
-
-const (
-	// CollectorS3AuthenticationMethod4Auto Auto
-	CollectorS3AuthenticationMethod4Auto CollectorS3AuthenticationMethod4 = "auto"
-	// CollectorS3AuthenticationMethod4Manual Manual
-	CollectorS3AuthenticationMethod4Manual CollectorS3AuthenticationMethod4 = "manual"
-	// CollectorS3AuthenticationMethod4Secret Secret Key pair
-	CollectorS3AuthenticationMethod4Secret CollectorS3AuthenticationMethod4 = "secret"
-)
-
-func (e CollectorS3AuthenticationMethod4) ToPointer() *CollectorS3AuthenticationMethod4 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3AuthenticationMethod4) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 // CollectorS3Type4 - Collector type: s3
 type CollectorS3Type4 string
 
@@ -487,32 +410,9 @@ func (c *CollectorS3Extractor4) GetExpression() string {
 	return c.Expression
 }
 
-// CollectorS3SignatureVersion4 - Signature version to use for signing S3 requests
-type CollectorS3SignatureVersion4 string
-
-const (
-	CollectorS3SignatureVersion4V2 CollectorS3SignatureVersion4 = "v2"
-	CollectorS3SignatureVersion4V4 CollectorS3SignatureVersion4 = "v4"
-)
-
-func (e CollectorS3SignatureVersion4) ToPointer() *CollectorS3SignatureVersion4 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3SignatureVersion4) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorS3S34 struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *CollectorS3AuthenticationMethod4 `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
 	AwsAPIKey *string `json:"awsApiKey,omitempty"`
 	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
@@ -538,7 +438,7 @@ type CollectorS3S34 struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *CollectorS3SignatureVersion4 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -574,7 +474,7 @@ func (c *CollectorS3S34) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorS3S34) GetAwsAuthenticationMethod() *CollectorS3AuthenticationMethod4 {
+func (c *CollectorS3S34) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if c == nil {
 		return nil
 	}
@@ -665,7 +565,7 @@ func (c *CollectorS3S34) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorS3S34) GetSignatureVersion() *CollectorS3SignatureVersion4 {
+func (c *CollectorS3S34) GetSignatureVersion() *SignatureVersionOptions {
 	if c == nil {
 		return nil
 	}
@@ -749,33 +649,6 @@ func (c *CollectorS3S34) GetAwsSecret() *string {
 	return c.AwsSecret
 }
 
-// CollectorS3AuthenticationMethod3 - AWS authentication method. Choose Auto to use IAM roles.
-type CollectorS3AuthenticationMethod3 string
-
-const (
-	// CollectorS3AuthenticationMethod3Auto Auto
-	CollectorS3AuthenticationMethod3Auto CollectorS3AuthenticationMethod3 = "auto"
-	// CollectorS3AuthenticationMethod3Manual Manual
-	CollectorS3AuthenticationMethod3Manual CollectorS3AuthenticationMethod3 = "manual"
-	// CollectorS3AuthenticationMethod3Secret Secret Key pair
-	CollectorS3AuthenticationMethod3Secret CollectorS3AuthenticationMethod3 = "secret"
-)
-
-func (e CollectorS3AuthenticationMethod3) ToPointer() *CollectorS3AuthenticationMethod3 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3AuthenticationMethod3) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 // CollectorS3Type3 - Collector type: s3
 type CollectorS3Type3 string
 
@@ -857,32 +730,9 @@ func (c *CollectorS3Extractor3) GetExpression() string {
 	return c.Expression
 }
 
-// CollectorS3SignatureVersion3 - Signature version to use for signing S3 requests
-type CollectorS3SignatureVersion3 string
-
-const (
-	CollectorS3SignatureVersion3V2 CollectorS3SignatureVersion3 = "v2"
-	CollectorS3SignatureVersion3V4 CollectorS3SignatureVersion3 = "v4"
-)
-
-func (e CollectorS3SignatureVersion3) ToPointer() *CollectorS3SignatureVersion3 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3SignatureVersion3) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorS3S33 struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *CollectorS3AuthenticationMethod3 `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Collector type: s3
 	Type CollectorS3Type3 `json:"type"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
@@ -904,7 +754,7 @@ type CollectorS3S33 struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *CollectorS3SignatureVersion3 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -944,7 +794,7 @@ func (c *CollectorS3S33) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorS3S33) GetAwsAuthenticationMethod() *CollectorS3AuthenticationMethod3 {
+func (c *CollectorS3S33) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if c == nil {
 		return nil
 	}
@@ -1021,7 +871,7 @@ func (c *CollectorS3S33) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorS3S33) GetSignatureVersion() *CollectorS3SignatureVersion3 {
+func (c *CollectorS3S33) GetSignatureVersion() *SignatureVersionOptions {
 	if c == nil {
 		return nil
 	}
@@ -1200,56 +1050,6 @@ func (c *CollectorS3Extractor2) GetExpression() string {
 	return c.Expression
 }
 
-// CollectorS3AuthenticationMethod2 - AWS authentication method. Choose Auto to use IAM roles.
-type CollectorS3AuthenticationMethod2 string
-
-const (
-	// CollectorS3AuthenticationMethod2Auto Auto
-	CollectorS3AuthenticationMethod2Auto CollectorS3AuthenticationMethod2 = "auto"
-	// CollectorS3AuthenticationMethod2Manual Manual
-	CollectorS3AuthenticationMethod2Manual CollectorS3AuthenticationMethod2 = "manual"
-	// CollectorS3AuthenticationMethod2Secret Secret Key pair
-	CollectorS3AuthenticationMethod2Secret CollectorS3AuthenticationMethod2 = "secret"
-)
-
-func (e CollectorS3AuthenticationMethod2) ToPointer() *CollectorS3AuthenticationMethod2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3AuthenticationMethod2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorS3SignatureVersion2 - Signature version to use for signing S3 requests
-type CollectorS3SignatureVersion2 string
-
-const (
-	CollectorS3SignatureVersion2V2 CollectorS3SignatureVersion2 = "v2"
-	CollectorS3SignatureVersion2V4 CollectorS3SignatureVersion2 = "v4"
-)
-
-func (e CollectorS3SignatureVersion2) ToPointer() *CollectorS3SignatureVersion2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3SignatureVersion2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorS3S32 struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 	PartitioningScheme *PartitioningScheme2 `default:"none" json:"partitioningScheme"`
@@ -1272,11 +1072,11 @@ type CollectorS3S32 struct {
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
 	Extractors []CollectorS3Extractor2 `json:"extractors,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *CollectorS3AuthenticationMethod2 `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *CollectorS3SignatureVersion2 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -1384,7 +1184,7 @@ func (c *CollectorS3S32) GetExtractors() []CollectorS3Extractor2 {
 	return c.Extractors
 }
 
-func (c *CollectorS3S32) GetAwsAuthenticationMethod() *CollectorS3AuthenticationMethod2 {
+func (c *CollectorS3S32) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if c == nil {
 		return nil
 	}
@@ -1398,7 +1198,7 @@ func (c *CollectorS3S32) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorS3S32) GetSignatureVersion() *CollectorS3SignatureVersion2 {
+func (c *CollectorS3S32) GetSignatureVersion() *SignatureVersionOptions {
 	if c == nil {
 		return nil
 	}
@@ -1570,56 +1370,6 @@ func (c *CollectorS3Extractor1) GetExpression() string {
 	return c.Expression
 }
 
-// CollectorS3AuthenticationMethod1 - AWS authentication method. Choose Auto to use IAM roles.
-type CollectorS3AuthenticationMethod1 string
-
-const (
-	// CollectorS3AuthenticationMethod1Auto Auto
-	CollectorS3AuthenticationMethod1Auto CollectorS3AuthenticationMethod1 = "auto"
-	// CollectorS3AuthenticationMethod1Manual Manual
-	CollectorS3AuthenticationMethod1Manual CollectorS3AuthenticationMethod1 = "manual"
-	// CollectorS3AuthenticationMethod1Secret Secret Key pair
-	CollectorS3AuthenticationMethod1Secret CollectorS3AuthenticationMethod1 = "secret"
-)
-
-func (e CollectorS3AuthenticationMethod1) ToPointer() *CollectorS3AuthenticationMethod1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3AuthenticationMethod1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorS3SignatureVersion1 - Signature version to use for signing S3 requests
-type CollectorS3SignatureVersion1 string
-
-const (
-	CollectorS3SignatureVersion1V2 CollectorS3SignatureVersion1 = "v2"
-	CollectorS3SignatureVersion1V4 CollectorS3SignatureVersion1 = "v4"
-)
-
-func (e CollectorS3SignatureVersion1) ToPointer() *CollectorS3SignatureVersion1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3SignatureVersion1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorS3S31 struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 	PartitioningScheme *PartitioningScheme1 `default:"none" json:"partitioningScheme"`
@@ -1640,11 +1390,11 @@ type CollectorS3S31 struct {
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
 	Extractors []CollectorS3Extractor1 `json:"extractors,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *CollectorS3AuthenticationMethod1 `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *CollectorS3SignatureVersion1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -1747,7 +1497,7 @@ func (c *CollectorS3S31) GetExtractors() []CollectorS3Extractor1 {
 	return c.Extractors
 }
 
-func (c *CollectorS3S31) GetAwsAuthenticationMethod() *CollectorS3AuthenticationMethod1 {
+func (c *CollectorS3S31) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if c == nil {
 		return nil
 	}
@@ -1761,7 +1511,7 @@ func (c *CollectorS3S31) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CollectorS3S31) GetSignatureVersion() *CollectorS3SignatureVersion1 {
+func (c *CollectorS3S31) GetSignatureVersion() *SignatureVersionOptions {
 	if c == nil {
 		return nil
 	}

@@ -34,29 +34,6 @@ func (e *CollectorAzureBlobAuthenticationMethod4) IsExact() bool {
 	return false
 }
 
-type CollectorAzureBlobCertificate4 struct {
-	// The certificate you registered as credentials for your app in the Azure portal
-	CertificateName string `json:"certificateName"`
-}
-
-func (c CollectorAzureBlobCertificate4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorAzureBlobCertificate4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"certificateName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorAzureBlobCertificate4) GetCertificateName() string {
-	if c == nil {
-		return ""
-	}
-	return c.CertificateName
-}
-
 // CollectorAzureBlobType4 - Collector type: azure_blob
 type CollectorAzureBlobType4 string
 
@@ -121,8 +98,8 @@ type CollectorAzureBlobAzureBlob4 struct {
 	// The service principal's tenant ID
 	TenantID string `json:"tenantId"`
 	// The service principal's client ID
-	ClientID    string                         `json:"clientId"`
-	Certificate CollectorAzureBlobCertificate4 `json:"certificate"`
+	ClientID    string          `json:"clientId"`
+	Certificate CertificateType `json:"certificate"`
 	// The Azure cloud to use. Defaults to Azure Public Cloud.
 	AzureCloud *string `json:"azureCloud,omitempty"`
 	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
@@ -196,9 +173,9 @@ func (c *CollectorAzureBlobAzureBlob4) GetClientID() string {
 	return c.ClientID
 }
 
-func (c *CollectorAzureBlobAzureBlob4) GetCertificate() CollectorAzureBlobCertificate4 {
+func (c *CollectorAzureBlobAzureBlob4) GetCertificate() CertificateType {
 	if c == nil {
-		return CollectorAzureBlobCertificate4{}
+		return CertificateType{}
 	}
 	return c.Certificate
 }
@@ -396,29 +373,6 @@ func (c *CollectorAzureBlobExtractor3) GetExpression() string {
 	return c.Expression
 }
 
-type CollectorAzureBlobCertificate3 struct {
-	// The certificate you registered as credentials for your app in the Azure portal
-	CertificateName string `json:"certificateName"`
-}
-
-func (c CollectorAzureBlobCertificate3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorAzureBlobCertificate3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"certificateName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorAzureBlobCertificate3) GetCertificateName() string {
-	if c == nil {
-		return ""
-	}
-	return c.CertificateName
-}
-
 type CollectorAzureBlobAzureBlob3 struct {
 	// Enter authentication data directly, or select a secret referencing your auth data
 	AuthType *CollectorAzureBlobAuthenticationMethod3 `default:"manual" json:"authType"`
@@ -459,8 +413,8 @@ type CollectorAzureBlobAzureBlob3 struct {
 	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Text secret
-	TextSecret  *string                         `json:"textSecret,omitempty"`
-	Certificate *CollectorAzureBlobCertificate3 `json:"certificate,omitempty"`
+	TextSecret  *string          `json:"textSecret,omitempty"`
+	Certificate *CertificateType `json:"certificate,omitempty"`
 }
 
 func (c CollectorAzureBlobAzureBlob3) MarshalJSON() ([]byte, error) {
@@ -614,7 +568,7 @@ func (c *CollectorAzureBlobAzureBlob3) GetTextSecret() *string {
 	return c.TextSecret
 }
 
-func (c *CollectorAzureBlobAzureBlob3) GetCertificate() *CollectorAzureBlobCertificate3 {
+func (c *CollectorAzureBlobAzureBlob3) GetCertificate() *CertificateType {
 	if c == nil {
 		return nil
 	}
@@ -702,29 +656,6 @@ func (c *CollectorAzureBlobExtractor2) GetExpression() string {
 	return c.Expression
 }
 
-type CollectorAzureBlobCertificate2 struct {
-	// The certificate you registered as credentials for your app in the Azure portal
-	CertificateName string `json:"certificateName"`
-}
-
-func (c CollectorAzureBlobCertificate2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorAzureBlobCertificate2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"certificateName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorAzureBlobCertificate2) GetCertificateName() string {
-	if c == nil {
-		return ""
-	}
-	return c.CertificateName
-}
-
 type CollectorAzureBlobAzureBlob2 struct {
 	// Enter authentication data directly, or select a secret referencing your auth data
 	AuthType *CollectorAzureBlobAuthenticationMethod2 `default:"manual" json:"authType"`
@@ -765,8 +696,8 @@ type CollectorAzureBlobAzureBlob2 struct {
 	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
 	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
 	// The Azure cloud to use. Defaults to Azure Public Cloud.
-	AzureCloud  *string                         `json:"azureCloud,omitempty"`
-	Certificate *CollectorAzureBlobCertificate2 `json:"certificate,omitempty"`
+	AzureCloud  *string          `json:"azureCloud,omitempty"`
+	Certificate *CertificateType `json:"certificate,omitempty"`
 }
 
 func (c CollectorAzureBlobAzureBlob2) MarshalJSON() ([]byte, error) {
@@ -920,7 +851,7 @@ func (c *CollectorAzureBlobAzureBlob2) GetAzureCloud() *string {
 	return c.AzureCloud
 }
 
-func (c *CollectorAzureBlobAzureBlob2) GetCertificate() *CollectorAzureBlobCertificate2 {
+func (c *CollectorAzureBlobAzureBlob2) GetCertificate() *CertificateType {
 	if c == nil {
 		return nil
 	}
@@ -1008,29 +939,6 @@ func (c *CollectorAzureBlobExtractor1) GetExpression() string {
 	return c.Expression
 }
 
-type CollectorAzureBlobCertificate1 struct {
-	// The certificate you registered as credentials for your app in the Azure portal
-	CertificateName string `json:"certificateName"`
-}
-
-func (c CollectorAzureBlobCertificate1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorAzureBlobCertificate1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"certificateName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorAzureBlobCertificate1) GetCertificateName() string {
-	if c == nil {
-		return ""
-	}
-	return c.CertificateName
-}
-
 type CollectorAzureBlobAzureBlob1 struct {
 	// Enter authentication data directly, or select a secret referencing your auth data
 	AuthType *CollectorAzureBlobAuthenticationMethod1 `default:"manual" json:"authType"`
@@ -1071,8 +979,8 @@ type CollectorAzureBlobAzureBlob1 struct {
 	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
 	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
 	// The Azure cloud to use. Defaults to Azure Public Cloud.
-	AzureCloud  *string                         `json:"azureCloud,omitempty"`
-	Certificate *CollectorAzureBlobCertificate1 `json:"certificate,omitempty"`
+	AzureCloud  *string          `json:"azureCloud,omitempty"`
+	Certificate *CertificateType `json:"certificate,omitempty"`
 }
 
 func (c CollectorAzureBlobAzureBlob1) MarshalJSON() ([]byte, error) {
@@ -1226,7 +1134,7 @@ func (c *CollectorAzureBlobAzureBlob1) GetAzureCloud() *string {
 	return c.AzureCloud
 }
 
-func (c *CollectorAzureBlobAzureBlob1) GetCertificate() *CollectorAzureBlobCertificate1 {
+func (c *CollectorAzureBlobAzureBlob1) GetCertificate() *CertificateType {
 	if c == nil {
 		return nil
 	}

@@ -9,1634 +9,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// CollectorRestAuthentication14 - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-type CollectorRestAuthentication14 string
-
-const (
-	CollectorRestAuthentication14None              CollectorRestAuthentication14 = "none"
-	CollectorRestAuthentication14Basic             CollectorRestAuthentication14 = "basic"
-	CollectorRestAuthentication14BasicSecret       CollectorRestAuthentication14 = "basicSecret"
-	CollectorRestAuthentication14Login             CollectorRestAuthentication14 = "login"
-	CollectorRestAuthentication14LoginSecret       CollectorRestAuthentication14 = "loginSecret"
-	CollectorRestAuthentication14Oauth             CollectorRestAuthentication14 = "oauth"
-	CollectorRestAuthentication14OauthSecret       CollectorRestAuthentication14 = "oauthSecret"
-	CollectorRestAuthentication14GoogleOauth       CollectorRestAuthentication14 = "google_oauth"
-	CollectorRestAuthentication14GoogleOauthSecret CollectorRestAuthentication14 = "google_oauthSecret"
-	CollectorRestAuthentication14Hmac              CollectorRestAuthentication14 = "hmac"
-)
-
-func (e CollectorRestAuthentication14) ToPointer() *CollectorRestAuthentication14 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestAuthentication14) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret", "google_oauth", "google_oauthSecret", "hmac":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorRestType14 - Collector type: rest
-type CollectorRestType14 string
-
-const (
-	CollectorRestType14Rest CollectorRestType14 = "rest"
-)
-
-func (e CollectorRestType14) ToPointer() *CollectorRestType14 {
-	return &e
-}
-func (e *CollectorRestType14) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "rest":
-		*e = CollectorRestType14(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorRestType14: %v", v)
-	}
-}
-
-// CollectorRestDiscoverType14 - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type CollectorRestDiscoverType14 string
-
-const (
-	CollectorRestDiscoverType14HTTP CollectorRestDiscoverType14 = "http"
-	CollectorRestDiscoverType14JSON CollectorRestDiscoverType14 = "json"
-	CollectorRestDiscoverType14List CollectorRestDiscoverType14 = "list"
-	CollectorRestDiscoverType14None CollectorRestDiscoverType14 = "none"
-)
-
-func (e CollectorRestDiscoverType14) ToPointer() *CollectorRestDiscoverType14 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestDiscoverType14) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorRestDiscovery14 struct {
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType *CollectorRestDiscoverType14 `default:"none" json:"discoverType"`
-}
-
-func (c CollectorRestDiscovery14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestDiscovery14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestDiscovery14) GetDiscoverType() *CollectorRestDiscoverType14 {
-	if c == nil {
-		return nil
-	}
-	return c.DiscoverType
-}
-
-type CollectMethod14 string
-
-const (
-	// CollectMethod14Get GET
-	CollectMethod14Get CollectMethod14 = "get"
-	// CollectMethod14Post POST
-	CollectMethod14Post CollectMethod14 = "post"
-	// CollectMethod14PostWithBody POST with Body
-	CollectMethod14PostWithBody CollectMethod14 = "post_with_body"
-	// CollectMethod14Other Other
-	CollectMethod14Other CollectMethod14 = "other"
-)
-
-func (e CollectMethod14) ToPointer() *CollectMethod14 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectMethod14) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body", "other":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorRestCollectRequestParam14 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam14) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam14) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader14 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader14) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader14) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type PaginationEnum14 string
-
-const (
-	// PaginationEnum14None None
-	PaginationEnum14None PaginationEnum14 = "none"
-	// PaginationEnum14ResponseBody Response Body Attribute
-	PaginationEnum14ResponseBody PaginationEnum14 = "response_body"
-	// PaginationEnum14ResponseHeader Response Header Attribute
-	PaginationEnum14ResponseHeader PaginationEnum14 = "response_header"
-	// PaginationEnum14ResponseHeaderLink RFC 5988 - Web Linking
-	PaginationEnum14ResponseHeaderLink PaginationEnum14 = "response_header_link"
-	// PaginationEnum14RequestOffset Offset/Limit
-	PaginationEnum14RequestOffset PaginationEnum14 = "request_offset"
-	// PaginationEnum14RequestPage Page/Size
-	PaginationEnum14RequestPage PaginationEnum14 = "request_page"
-)
-
-func (e PaginationEnum14) ToPointer() *PaginationEnum14 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PaginationEnum14) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "response_body", "response_header", "response_header_link", "request_offset", "request_page":
-			return true
-		}
-	}
-	return false
-}
-
-type Pagination14 struct {
-	Type *PaginationEnum14 `default:"none" json:"type"`
-}
-
-func (p Pagination14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *Pagination14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *Pagination14) GetType() *PaginationEnum14 {
-	if p == nil {
-		return nil
-	}
-	return p.Type
-}
-
-// CollectorRestRetryType14 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType14 string
-
-const (
-	// CollectorRestRetryType14None Disabled
-	CollectorRestRetryType14None CollectorRestRetryType14 = "none"
-	// CollectorRestRetryType14Backoff Backoff
-	CollectorRestRetryType14Backoff CollectorRestRetryType14 = "backoff"
-	// CollectorRestRetryType14Static Static
-	CollectorRestRetryType14Static CollectorRestRetryType14 = "static"
-)
-
-func (e CollectorRestRetryType14) ToPointer() *CollectorRestRetryType14 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType14) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorRestRetryRules14 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType14 `default:"backoff" json:"type"`
-	Interval            any                       `json:"interval,omitempty"`
-	Limit               any                       `json:"limit,omitempty"`
-	Multiplier          any                       `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                       `json:"maxIntervalMs,omitempty"`
-	Codes               any                       `json:"codes,omitempty"`
-	EnableHeader        any                       `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                       `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                       `json:"retryConnectReset,omitempty"`
-}
-
-func (c CollectorRestRetryRules14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestRetryRules14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestRetryRules14) GetType() *CollectorRestRetryType14 {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *CollectorRestRetryRules14) GetInterval() any {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CollectorRestRetryRules14) GetLimit() any {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
-func (c *CollectorRestRetryRules14) GetMultiplier() any {
-	if c == nil {
-		return nil
-	}
-	return c.Multiplier
-}
-
-func (c *CollectorRestRetryRules14) GetMaxIntervalMs() any {
-	if c == nil {
-		return nil
-	}
-	return c.MaxIntervalMs
-}
-
-func (c *CollectorRestRetryRules14) GetCodes() any {
-	if c == nil {
-		return nil
-	}
-	return c.Codes
-}
-
-func (c *CollectorRestRetryRules14) GetEnableHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHeader
-}
-
-func (c *CollectorRestRetryRules14) GetRetryConnectTimeout() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectTimeout
-}
-
-func (c *CollectorRestRetryRules14) GetRetryConnectReset() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectReset
-}
-
-type CollectorRestStateTracking14 struct {
-	// Track collection progress between consecutive scheduled executions
-	Enabled *bool `json:"enabled,omitempty"`
-}
-
-func (c CollectorRestStateTracking14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestStateTracking14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestStateTracking14) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-type CollectorRestScheduling14 struct {
-	StateTracking *CollectorRestStateTracking14 `json:"stateTracking,omitempty"`
-}
-
-func (c CollectorRestScheduling14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestScheduling14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestScheduling14) GetStateTracking() *CollectorRestStateTracking14 {
-	if c == nil {
-		return nil
-	}
-	return c.StateTracking
-}
-
-type CollectorRestAuthRequestHeader14 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader14) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader14) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam14 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam14) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam14) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestRest14 struct {
-	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-	Authentication *CollectorRestAuthentication14 `default:"none" json:"authentication"`
-	// Select or create an HMAC Function to use with authentication
-	HmacFunctionID string `json:"hmacFunctionId"`
-	// Collector type: rest
-	Type      CollectorRestType14       `json:"type"`
-	Discovery *CollectorRestDiscovery14 `json:"discovery,omitempty"`
-	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL    string           `json:"collectUrl"`
-	CollectMethod *CollectMethod14 `default:"get" json:"collectMethod"`
-	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                              `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam14 `json:"collectRequestParams,omitempty"`
-	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                               `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader14 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination14                         `json:"pagination,omitempty"`
-	// HTTP request inactivity timeout. Use 0 to disable.
-	Timeout *float64 `default:"0" json:"timeout"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
-	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
-	// Decode the URL before sending requests (including pagination requests)
-	DecodeURL *bool `default:"true" json:"decodeUrl"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
-	// Enable to add response headers to the resHeaders field under the __collectible object
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
-	// Stop pagination when the Event Breaker produces no events
-	StopOnEmptyResults *bool `default:"false" json:"stopOnEmptyResults"`
-	// List of headers that are safe to log in plain text
-	SafeHeaders []string                   `json:"safeHeaders,omitempty"`
-	RetryRules  *CollectorRestRetryRules14 `json:"retryRules,omitempty"`
-	Scheduling  *CollectorRestScheduling14 `json:"__scheduling,omitempty"`
-	Username    *string                    `json:"username,omitempty"`
-	Password    *string                    `json:"password,omitempty"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                            `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader14 `json:"authRequestHeaders,omitempty"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
-	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam14 `json:"authRequestParams,omitempty"`
-	// Select or create a text secret that contains the Google service account credentials value
-	TextSecret *string `json:"textSecret,omitempty"`
-	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
-	Scopes []string `json:"scopes,omitempty"`
-	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
-	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
-	Subject *string `json:"subject,omitempty"`
-}
-
-func (c CollectorRestRest14) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestRest14) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"hmacFunctionId", "type", "collectUrl"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestRest14) GetAuthentication() *CollectorRestAuthentication14 {
-	if c == nil {
-		return nil
-	}
-	return c.Authentication
-}
-
-func (c *CollectorRestRest14) GetHmacFunctionID() string {
-	if c == nil {
-		return ""
-	}
-	return c.HmacFunctionID
-}
-
-func (c *CollectorRestRest14) GetType() CollectorRestType14 {
-	if c == nil {
-		return CollectorRestType14("")
-	}
-	return c.Type
-}
-
-func (c *CollectorRestRest14) GetDiscovery() *CollectorRestDiscovery14 {
-	if c == nil {
-		return nil
-	}
-	return c.Discovery
-}
-
-func (c *CollectorRestRest14) GetCollectURL() string {
-	if c == nil {
-		return ""
-	}
-	return c.CollectURL
-}
-
-func (c *CollectorRestRest14) GetCollectMethod() *CollectMethod14 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectMethod
-}
-
-func (c *CollectorRestRest14) GetCollectVerb() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CollectVerb
-}
-
-func (c *CollectorRestRest14) GetCollectRequestParams() []CollectorRestCollectRequestParam14 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestParams
-}
-
-func (c *CollectorRestRest14) GetCollectBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CollectBody
-}
-
-func (c *CollectorRestRest14) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader14 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestHeaders
-}
-
-func (c *CollectorRestRest14) GetPagination() *Pagination14 {
-	if c == nil {
-		return nil
-	}
-	return c.Pagination
-}
-
-func (c *CollectorRestRest14) GetTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Timeout
-}
-
-func (c *CollectorRestRest14) GetUseRoundRobinDNS() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.UseRoundRobinDNS
-}
-
-func (c *CollectorRestRest14) GetDisableTimeFilter() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.DisableTimeFilter
-}
-
-func (c *CollectorRestRest14) GetDecodeURL() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.DecodeURL
-}
-
-func (c *CollectorRestRest14) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CollectorRestRest14) GetCaptureHeaders() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.CaptureHeaders
-}
-
-func (c *CollectorRestRest14) GetStopOnEmptyResults() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.StopOnEmptyResults
-}
-
-func (c *CollectorRestRest14) GetSafeHeaders() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SafeHeaders
-}
-
-func (c *CollectorRestRest14) GetRetryRules() *CollectorRestRetryRules14 {
-	if c == nil {
-		return nil
-	}
-	return c.RetryRules
-}
-
-func (c *CollectorRestRest14) GetScheduling() *CollectorRestScheduling14 {
-	if c == nil {
-		return nil
-	}
-	return c.Scheduling
-}
-
-func (c *CollectorRestRest14) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorRestRest14) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CollectorRestRest14) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorRestRest14) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorRestRest14) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorRestRest14) GetGetAuthTokenFromHeader() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.GetAuthTokenFromHeader
-}
-
-func (c *CollectorRestRest14) GetAuthHeaderKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderKey
-}
-
-func (c *CollectorRestRest14) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorRestRest14) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader14 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
-func (c *CollectorRestRest14) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorRestRest14) GetClientSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamName
-}
-
-func (c *CollectorRestRest14) GetClientSecretParamValue() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamValue
-}
-
-func (c *CollectorRestRest14) GetAuthRequestParams() []CollectorRestAuthRequestParam14 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
-}
-
-func (c *CollectorRestRest14) GetTextSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TextSecret
-}
-
-func (c *CollectorRestRest14) GetScopes() []string {
-	if c == nil {
-		return nil
-	}
-	return c.Scopes
-}
-
-func (c *CollectorRestRest14) GetServiceAccountCredentials() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ServiceAccountCredentials
-}
-
-func (c *CollectorRestRest14) GetSubject() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Subject
-}
-
-// CollectorRestAuthentication13 - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-type CollectorRestAuthentication13 string
-
-const (
-	CollectorRestAuthentication13None              CollectorRestAuthentication13 = "none"
-	CollectorRestAuthentication13Basic             CollectorRestAuthentication13 = "basic"
-	CollectorRestAuthentication13BasicSecret       CollectorRestAuthentication13 = "basicSecret"
-	CollectorRestAuthentication13Login             CollectorRestAuthentication13 = "login"
-	CollectorRestAuthentication13LoginSecret       CollectorRestAuthentication13 = "loginSecret"
-	CollectorRestAuthentication13Oauth             CollectorRestAuthentication13 = "oauth"
-	CollectorRestAuthentication13OauthSecret       CollectorRestAuthentication13 = "oauthSecret"
-	CollectorRestAuthentication13GoogleOauth       CollectorRestAuthentication13 = "google_oauth"
-	CollectorRestAuthentication13GoogleOauthSecret CollectorRestAuthentication13 = "google_oauthSecret"
-	CollectorRestAuthentication13Hmac              CollectorRestAuthentication13 = "hmac"
-)
-
-func (e CollectorRestAuthentication13) ToPointer() *CollectorRestAuthentication13 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestAuthentication13) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret", "google_oauth", "google_oauthSecret", "hmac":
-			return true
-		}
-	}
-	return false
-}
-
-// CollectorRestType13 - Collector type: rest
-type CollectorRestType13 string
-
-const (
-	CollectorRestType13Rest CollectorRestType13 = "rest"
-)
-
-func (e CollectorRestType13) ToPointer() *CollectorRestType13 {
-	return &e
-}
-func (e *CollectorRestType13) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "rest":
-		*e = CollectorRestType13(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CollectorRestType13: %v", v)
-	}
-}
-
-// CollectorRestDiscoverType13 - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type CollectorRestDiscoverType13 string
-
-const (
-	CollectorRestDiscoverType13HTTP CollectorRestDiscoverType13 = "http"
-	CollectorRestDiscoverType13JSON CollectorRestDiscoverType13 = "json"
-	CollectorRestDiscoverType13List CollectorRestDiscoverType13 = "list"
-	CollectorRestDiscoverType13None CollectorRestDiscoverType13 = "none"
-)
-
-func (e CollectorRestDiscoverType13) ToPointer() *CollectorRestDiscoverType13 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestDiscoverType13) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorRestDiscovery13 struct {
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType *CollectorRestDiscoverType13 `default:"none" json:"discoverType"`
-}
-
-func (c CollectorRestDiscovery13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestDiscovery13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestDiscovery13) GetDiscoverType() *CollectorRestDiscoverType13 {
-	if c == nil {
-		return nil
-	}
-	return c.DiscoverType
-}
-
-type CollectMethod13 string
-
-const (
-	// CollectMethod13Get GET
-	CollectMethod13Get CollectMethod13 = "get"
-	// CollectMethod13Post POST
-	CollectMethod13Post CollectMethod13 = "post"
-	// CollectMethod13PostWithBody POST with Body
-	CollectMethod13PostWithBody CollectMethod13 = "post_with_body"
-	// CollectMethod13Other Other
-	CollectMethod13Other CollectMethod13 = "other"
-)
-
-func (e CollectMethod13) ToPointer() *CollectMethod13 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectMethod13) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body", "other":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorRestCollectRequestParam13 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam13) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam13) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader13 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader13) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader13) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type PaginationEnum13 string
-
-const (
-	// PaginationEnum13None None
-	PaginationEnum13None PaginationEnum13 = "none"
-	// PaginationEnum13ResponseBody Response Body Attribute
-	PaginationEnum13ResponseBody PaginationEnum13 = "response_body"
-	// PaginationEnum13ResponseHeader Response Header Attribute
-	PaginationEnum13ResponseHeader PaginationEnum13 = "response_header"
-	// PaginationEnum13ResponseHeaderLink RFC 5988 - Web Linking
-	PaginationEnum13ResponseHeaderLink PaginationEnum13 = "response_header_link"
-	// PaginationEnum13RequestOffset Offset/Limit
-	PaginationEnum13RequestOffset PaginationEnum13 = "request_offset"
-	// PaginationEnum13RequestPage Page/Size
-	PaginationEnum13RequestPage PaginationEnum13 = "request_page"
-)
-
-func (e PaginationEnum13) ToPointer() *PaginationEnum13 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PaginationEnum13) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "response_body", "response_header", "response_header_link", "request_offset", "request_page":
-			return true
-		}
-	}
-	return false
-}
-
-type Pagination13 struct {
-	Type *PaginationEnum13 `default:"none" json:"type"`
-}
-
-func (p Pagination13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *Pagination13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *Pagination13) GetType() *PaginationEnum13 {
-	if p == nil {
-		return nil
-	}
-	return p.Type
-}
-
-// CollectorRestRetryType13 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType13 string
-
-const (
-	// CollectorRestRetryType13None Disabled
-	CollectorRestRetryType13None CollectorRestRetryType13 = "none"
-	// CollectorRestRetryType13Backoff Backoff
-	CollectorRestRetryType13Backoff CollectorRestRetryType13 = "backoff"
-	// CollectorRestRetryType13Static Static
-	CollectorRestRetryType13Static CollectorRestRetryType13 = "static"
-)
-
-func (e CollectorRestRetryType13) ToPointer() *CollectorRestRetryType13 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType13) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type CollectorRestRetryRules13 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType13 `default:"backoff" json:"type"`
-	Interval            any                       `json:"interval,omitempty"`
-	Limit               any                       `json:"limit,omitempty"`
-	Multiplier          any                       `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                       `json:"maxIntervalMs,omitempty"`
-	Codes               any                       `json:"codes,omitempty"`
-	EnableHeader        any                       `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                       `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                       `json:"retryConnectReset,omitempty"`
-}
-
-func (c CollectorRestRetryRules13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestRetryRules13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestRetryRules13) GetType() *CollectorRestRetryType13 {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *CollectorRestRetryRules13) GetInterval() any {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CollectorRestRetryRules13) GetLimit() any {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
-func (c *CollectorRestRetryRules13) GetMultiplier() any {
-	if c == nil {
-		return nil
-	}
-	return c.Multiplier
-}
-
-func (c *CollectorRestRetryRules13) GetMaxIntervalMs() any {
-	if c == nil {
-		return nil
-	}
-	return c.MaxIntervalMs
-}
-
-func (c *CollectorRestRetryRules13) GetCodes() any {
-	if c == nil {
-		return nil
-	}
-	return c.Codes
-}
-
-func (c *CollectorRestRetryRules13) GetEnableHeader() any {
-	if c == nil {
-		return nil
-	}
-	return c.EnableHeader
-}
-
-func (c *CollectorRestRetryRules13) GetRetryConnectTimeout() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectTimeout
-}
-
-func (c *CollectorRestRetryRules13) GetRetryConnectReset() any {
-	if c == nil {
-		return nil
-	}
-	return c.RetryConnectReset
-}
-
-type CollectorRestStateTracking13 struct {
-	// Track collection progress between consecutive scheduled executions
-	Enabled *bool `json:"enabled,omitempty"`
-}
-
-func (c CollectorRestStateTracking13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestStateTracking13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestStateTracking13) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-type CollectorRestScheduling13 struct {
-	StateTracking *CollectorRestStateTracking13 `json:"stateTracking,omitempty"`
-}
-
-func (c CollectorRestScheduling13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestScheduling13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestScheduling13) GetStateTracking() *CollectorRestStateTracking13 {
-	if c == nil {
-		return nil
-	}
-	return c.StateTracking
-}
-
-type CollectorRestAuthRequestHeader13 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader13) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader13) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam13 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam13) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam13) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestRest13 struct {
-	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-	Authentication *CollectorRestAuthentication13 `default:"none" json:"authentication"`
-	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
-	Scopes []string `json:"scopes"`
-	// Select or create a text secret that contains the Google service account credentials value
-	TextSecret string `json:"textSecret"`
-	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
-	Subject string `json:"subject"`
-	// Collector type: rest
-	Type      CollectorRestType13       `json:"type"`
-	Discovery *CollectorRestDiscovery13 `json:"discovery,omitempty"`
-	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL    string           `json:"collectUrl"`
-	CollectMethod *CollectMethod13 `default:"get" json:"collectMethod"`
-	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                              `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam13 `json:"collectRequestParams,omitempty"`
-	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                               `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader13 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination13                         `json:"pagination,omitempty"`
-	// HTTP request inactivity timeout. Use 0 to disable.
-	Timeout *float64 `default:"0" json:"timeout"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
-	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
-	// Decode the URL before sending requests (including pagination requests)
-	DecodeURL *bool `default:"true" json:"decodeUrl"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
-	// Enable to add response headers to the resHeaders field under the __collectible object
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
-	// Stop pagination when the Event Breaker produces no events
-	StopOnEmptyResults *bool `default:"false" json:"stopOnEmptyResults"`
-	// List of headers that are safe to log in plain text
-	SafeHeaders []string                   `json:"safeHeaders,omitempty"`
-	RetryRules  *CollectorRestRetryRules13 `json:"retryRules,omitempty"`
-	Scheduling  *CollectorRestScheduling13 `json:"__scheduling,omitempty"`
-	Username    *string                    `json:"username,omitempty"`
-	Password    *string                    `json:"password,omitempty"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                            `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader13 `json:"authRequestHeaders,omitempty"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
-	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam13 `json:"authRequestParams,omitempty"`
-	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
-	// Select or create an HMAC Function to use with authentication
-	HmacFunctionID *string `json:"hmacFunctionId,omitempty"`
-}
-
-func (c CollectorRestRest13) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestRest13) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"scopes", "textSecret", "subject", "type", "collectUrl"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestRest13) GetAuthentication() *CollectorRestAuthentication13 {
-	if c == nil {
-		return nil
-	}
-	return c.Authentication
-}
-
-func (c *CollectorRestRest13) GetScopes() []string {
-	if c == nil {
-		return []string{}
-	}
-	return c.Scopes
-}
-
-func (c *CollectorRestRest13) GetTextSecret() string {
-	if c == nil {
-		return ""
-	}
-	return c.TextSecret
-}
-
-func (c *CollectorRestRest13) GetSubject() string {
-	if c == nil {
-		return ""
-	}
-	return c.Subject
-}
-
-func (c *CollectorRestRest13) GetType() CollectorRestType13 {
-	if c == nil {
-		return CollectorRestType13("")
-	}
-	return c.Type
-}
-
-func (c *CollectorRestRest13) GetDiscovery() *CollectorRestDiscovery13 {
-	if c == nil {
-		return nil
-	}
-	return c.Discovery
-}
-
-func (c *CollectorRestRest13) GetCollectURL() string {
-	if c == nil {
-		return ""
-	}
-	return c.CollectURL
-}
-
-func (c *CollectorRestRest13) GetCollectMethod() *CollectMethod13 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectMethod
-}
-
-func (c *CollectorRestRest13) GetCollectVerb() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CollectVerb
-}
-
-func (c *CollectorRestRest13) GetCollectRequestParams() []CollectorRestCollectRequestParam13 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestParams
-}
-
-func (c *CollectorRestRest13) GetCollectBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CollectBody
-}
-
-func (c *CollectorRestRest13) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader13 {
-	if c == nil {
-		return nil
-	}
-	return c.CollectRequestHeaders
-}
-
-func (c *CollectorRestRest13) GetPagination() *Pagination13 {
-	if c == nil {
-		return nil
-	}
-	return c.Pagination
-}
-
-func (c *CollectorRestRest13) GetTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Timeout
-}
-
-func (c *CollectorRestRest13) GetUseRoundRobinDNS() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.UseRoundRobinDNS
-}
-
-func (c *CollectorRestRest13) GetDisableTimeFilter() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.DisableTimeFilter
-}
-
-func (c *CollectorRestRest13) GetDecodeURL() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.DecodeURL
-}
-
-func (c *CollectorRestRest13) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CollectorRestRest13) GetCaptureHeaders() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.CaptureHeaders
-}
-
-func (c *CollectorRestRest13) GetStopOnEmptyResults() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.StopOnEmptyResults
-}
-
-func (c *CollectorRestRest13) GetSafeHeaders() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SafeHeaders
-}
-
-func (c *CollectorRestRest13) GetRetryRules() *CollectorRestRetryRules13 {
-	if c == nil {
-		return nil
-	}
-	return c.RetryRules
-}
-
-func (c *CollectorRestRest13) GetScheduling() *CollectorRestScheduling13 {
-	if c == nil {
-		return nil
-	}
-	return c.Scheduling
-}
-
-func (c *CollectorRestRest13) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorRestRest13) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CollectorRestRest13) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorRestRest13) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorRestRest13) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorRestRest13) GetGetAuthTokenFromHeader() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.GetAuthTokenFromHeader
-}
-
-func (c *CollectorRestRest13) GetAuthHeaderKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderKey
-}
-
-func (c *CollectorRestRest13) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorRestRest13) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader13 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
-func (c *CollectorRestRest13) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorRestRest13) GetClientSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamName
-}
-
-func (c *CollectorRestRest13) GetClientSecretParamValue() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamValue
-}
-
-func (c *CollectorRestRest13) GetAuthRequestParams() []CollectorRestAuthRequestParam13 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
-}
-
-func (c *CollectorRestRest13) GetServiceAccountCredentials() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ServiceAccountCredentials
-}
-
-func (c *CollectorRestRest13) GetHmacFunctionID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.HmacFunctionID
-}
-
 // CollectorRestAuthentication12 - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 type CollectorRestAuthentication12 string
 
@@ -1668,27 +40,27 @@ func (e *CollectorRestAuthentication12) IsExact() bool {
 	return false
 }
 
-// CollectorRestType12 - Collector type: rest
-type CollectorRestType12 string
+// CollectorRestType13 - Collector type: rest
+type CollectorRestType13 string
 
 const (
-	CollectorRestType12Rest CollectorRestType12 = "rest"
+	CollectorRestType13Rest CollectorRestType13 = "rest"
 )
 
-func (e CollectorRestType12) ToPointer() *CollectorRestType12 {
+func (e CollectorRestType13) ToPointer() *CollectorRestType13 {
 	return &e
 }
-func (e *CollectorRestType12) UnmarshalJSON(data []byte) error {
+func (e *CollectorRestType13) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "rest":
-		*e = CollectorRestType12(v)
+		*e = CollectorRestType13(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorRestType12: %v", v)
+		return fmt.Errorf("invalid value for CollectorRestType13: %v", v)
 	}
 }
 
@@ -1768,68 +140,6 @@ func (e *CollectMethod12) IsExact() bool {
 	return false
 }
 
-type CollectorRestCollectRequestParam12 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam12) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam12) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam12) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam12) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader12 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader12) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader12) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader12) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader12) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum12 string
 
 const (
@@ -1884,44 +194,17 @@ func (p *Pagination12) GetType() *PaginationEnum12 {
 	return p.Type
 }
 
-// CollectorRestRetryType12 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType12 string
-
-const (
-	// CollectorRestRetryType12None Disabled
-	CollectorRestRetryType12None CollectorRestRetryType12 = "none"
-	// CollectorRestRetryType12Backoff Backoff
-	CollectorRestRetryType12Backoff CollectorRestRetryType12 = "backoff"
-	// CollectorRestRetryType12Static Static
-	CollectorRestRetryType12Static CollectorRestRetryType12 = "static"
-)
-
-func (e CollectorRestRetryType12) ToPointer() *CollectorRestRetryType12 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType12) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules12 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType12 `default:"backoff" json:"type"`
-	Interval            any                       `json:"interval,omitempty"`
-	Limit               any                       `json:"limit,omitempty"`
-	Multiplier          any                       `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                       `json:"maxIntervalMs,omitempty"`
-	Codes               any                       `json:"codes,omitempty"`
-	EnableHeader        any                       `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                       `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                       `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules12) MarshalJSON() ([]byte, error) {
@@ -1935,7 +218,7 @@ func (c *CollectorRestRetryRules12) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules12) GetType() *CollectorRestRetryType12 {
+func (c *CollectorRestRetryRules12) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -2043,90 +326,24 @@ func (c *CollectorRestScheduling12) GetStateTracking() *CollectorRestStateTracki
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestHeader12 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader12) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader12) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader12) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader12) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam12 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam12) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam12) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam12) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam12) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest12 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication12 `default:"none" json:"authentication"`
-	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
-	Scopes []string `json:"scopes"`
-	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
-	ServiceAccountCredentials string `json:"serviceAccountCredentials"`
-	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
-	Subject string `json:"subject"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID string `json:"hmacFunctionId"`
 	// Collector type: rest
-	Type      CollectorRestType12       `json:"type"`
+	Type      CollectorRestType13       `json:"type"`
 	Discovery *CollectorRestDiscovery12 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL    string           `json:"collectUrl"`
 	CollectMethod *CollectMethod12 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                              `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam12 `json:"collectRequestParams,omitempty"`
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                               `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader12 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination12                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination12                    `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `default:"0" json:"timeout"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -2158,8 +375,8 @@ type CollectorRestRest12 struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                            `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader12 `json:"authRequestHeaders,omitempty"`
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
@@ -2167,11 +384,15 @@ type CollectorRestRest12 struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam12 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Select or create an HMAC Function to use with authentication
-	HmacFunctionID *string `json:"hmacFunctionId,omitempty"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes,omitempty"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject *string `json:"subject,omitempty"`
 }
 
 func (c CollectorRestRest12) MarshalJSON() ([]byte, error) {
@@ -2179,7 +400,7 @@ func (c CollectorRestRest12) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorRestRest12) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"scopes", "serviceAccountCredentials", "subject", "type", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"hmacFunctionId", "type", "collectUrl"}); err != nil {
 		return err
 	}
 	return nil
@@ -2192,30 +413,16 @@ func (c *CollectorRestRest12) GetAuthentication() *CollectorRestAuthentication12
 	return c.Authentication
 }
 
-func (c *CollectorRestRest12) GetScopes() []string {
-	if c == nil {
-		return []string{}
-	}
-	return c.Scopes
-}
-
-func (c *CollectorRestRest12) GetServiceAccountCredentials() string {
+func (c *CollectorRestRest12) GetHmacFunctionID() string {
 	if c == nil {
 		return ""
 	}
-	return c.ServiceAccountCredentials
+	return c.HmacFunctionID
 }
 
-func (c *CollectorRestRest12) GetSubject() string {
+func (c *CollectorRestRest12) GetType() CollectorRestType13 {
 	if c == nil {
-		return ""
-	}
-	return c.Subject
-}
-
-func (c *CollectorRestRest12) GetType() CollectorRestType12 {
-	if c == nil {
-		return CollectorRestType12("")
+		return CollectorRestType13("")
 	}
 	return c.Type
 }
@@ -2248,7 +455,7 @@ func (c *CollectorRestRest12) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest12) GetCollectRequestParams() []CollectorRestCollectRequestParam12 {
+func (c *CollectorRestRest12) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -2262,7 +469,7 @@ func (c *CollectorRestRest12) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest12) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader12 {
+func (c *CollectorRestRest12) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -2402,7 +609,7 @@ func (c *CollectorRestRest12) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorRestRest12) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader12 {
+func (c *CollectorRestRest12) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -2430,7 +637,7 @@ func (c *CollectorRestRest12) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest12) GetAuthRequestParams() []CollectorRestAuthRequestParam12 {
+func (c *CollectorRestRest12) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -2444,11 +651,25 @@ func (c *CollectorRestRest12) GetTextSecret() *string {
 	return c.TextSecret
 }
 
-func (c *CollectorRestRest12) GetHmacFunctionID() *string {
+func (c *CollectorRestRest12) GetScopes() []string {
 	if c == nil {
 		return nil
 	}
-	return c.HmacFunctionID
+	return c.Scopes
+}
+
+func (c *CollectorRestRest12) GetServiceAccountCredentials() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ServiceAccountCredentials
+}
+
+func (c *CollectorRestRest12) GetSubject() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Subject
 }
 
 // CollectorRestAuthentication11 - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -2482,89 +703,27 @@ func (e *CollectorRestAuthentication11) IsExact() bool {
 	return false
 }
 
-type CollectorRestAuthRequestParam11 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam11) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam11) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam11) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam11) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestHeader11 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader11) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader11) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader11) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader11) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorRestType11 - Collector type: rest
-type CollectorRestType11 string
+// CollectorRestType12 - Collector type: rest
+type CollectorRestType12 string
 
 const (
-	CollectorRestType11Rest CollectorRestType11 = "rest"
+	CollectorRestType12Rest CollectorRestType12 = "rest"
 )
 
-func (e CollectorRestType11) ToPointer() *CollectorRestType11 {
+func (e CollectorRestType12) ToPointer() *CollectorRestType12 {
 	return &e
 }
-func (e *CollectorRestType11) UnmarshalJSON(data []byte) error {
+func (e *CollectorRestType12) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "rest":
-		*e = CollectorRestType11(v)
+		*e = CollectorRestType12(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorRestType11: %v", v)
+		return fmt.Errorf("invalid value for CollectorRestType12: %v", v)
 	}
 }
 
@@ -2644,68 +803,6 @@ func (e *CollectMethod11) IsExact() bool {
 	return false
 }
 
-type CollectorRestCollectRequestParam11 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam11) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam11) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam11) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam11) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader11 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader11) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader11) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader11) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader11) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum11 string
 
 const (
@@ -2760,44 +857,17 @@ func (p *Pagination11) GetType() *PaginationEnum11 {
 	return p.Type
 }
 
-// CollectorRestRetryType11 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType11 string
-
-const (
-	// CollectorRestRetryType11None Disabled
-	CollectorRestRetryType11None CollectorRestRetryType11 = "none"
-	// CollectorRestRetryType11Backoff Backoff
-	CollectorRestRetryType11Backoff CollectorRestRetryType11 = "backoff"
-	// CollectorRestRetryType11Static Static
-	CollectorRestRetryType11Static CollectorRestRetryType11 = "static"
-)
-
-func (e CollectorRestRetryType11) ToPointer() *CollectorRestRetryType11 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType11) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules11 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType11 `default:"backoff" json:"type"`
-	Interval            any                       `json:"interval,omitempty"`
-	Limit               any                       `json:"limit,omitempty"`
-	Multiplier          any                       `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                       `json:"maxIntervalMs,omitempty"`
-	Codes               any                       `json:"codes,omitempty"`
-	EnableHeader        any                       `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                       `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                       `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules11) MarshalJSON() ([]byte, error) {
@@ -2811,7 +881,7 @@ func (c *CollectorRestRetryRules11) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules11) GetType() *CollectorRestRetryType11 {
+func (c *CollectorRestRetryRules11) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -2922,34 +992,25 @@ func (c *CollectorRestScheduling11) GetStateTracking() *CollectorRestStateTracki
 type CollectorRestRest11 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication11 `default:"none" json:"authentication"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret string `json:"textSecret"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams  []CollectorRestAuthRequestParam11  `json:"authRequestParams,omitempty"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader11 `json:"authRequestHeaders,omitempty"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject string `json:"subject"`
 	// Collector type: rest
-	Type      CollectorRestType11       `json:"type"`
+	Type      CollectorRestType12       `json:"type"`
 	Discovery *CollectorRestDiscovery11 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL    string           `json:"collectUrl"`
 	CollectMethod *CollectMethod11 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                              `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam11 `json:"collectRequestParams,omitempty"`
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                               `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader11 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination11                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination11                    `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `default:"0" json:"timeout"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -2972,18 +1033,27 @@ type CollectorRestRest11 struct {
 	Password    *string                    `json:"password,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
 	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
+	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
+	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
-	Scopes []string `json:"scopes,omitempty"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
-	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
-	Subject *string `json:"subject,omitempty"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitempty"`
 }
@@ -2993,7 +1063,7 @@ func (c CollectorRestRest11) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorRestRest11) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"textSecret", "type", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"scopes", "textSecret", "subject", "type", "collectUrl"}); err != nil {
 		return err
 	}
 	return nil
@@ -3006,39 +1076,11 @@ func (c *CollectorRestRest11) GetAuthentication() *CollectorRestAuthentication11
 	return c.Authentication
 }
 
-func (c *CollectorRestRest11) GetLoginURL() *string {
+func (c *CollectorRestRest11) GetScopes() []string {
 	if c == nil {
-		return nil
+		return []string{}
 	}
-	return c.LoginURL
-}
-
-func (c *CollectorRestRest11) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorRestRest11) GetAuthHeaderKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderKey
-}
-
-func (c *CollectorRestRest11) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorRestRest11) GetClientSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamName
+	return c.Scopes
 }
 
 func (c *CollectorRestRest11) GetTextSecret() string {
@@ -3048,23 +1090,16 @@ func (c *CollectorRestRest11) GetTextSecret() string {
 	return c.TextSecret
 }
 
-func (c *CollectorRestRest11) GetAuthRequestParams() []CollectorRestAuthRequestParam11 {
+func (c *CollectorRestRest11) GetSubject() string {
 	if c == nil {
-		return nil
+		return ""
 	}
-	return c.AuthRequestParams
+	return c.Subject
 }
 
-func (c *CollectorRestRest11) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader11 {
+func (c *CollectorRestRest11) GetType() CollectorRestType12 {
 	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
-func (c *CollectorRestRest11) GetType() CollectorRestType11 {
-	if c == nil {
-		return CollectorRestType11("")
+		return CollectorRestType12("")
 	}
 	return c.Type
 }
@@ -3097,7 +1132,7 @@ func (c *CollectorRestRest11) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest11) GetCollectRequestParams() []CollectorRestCollectRequestParam11 {
+func (c *CollectorRestRest11) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -3111,7 +1146,7 @@ func (c *CollectorRestRest11) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest11) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader11 {
+func (c *CollectorRestRest11) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -3216,6 +1251,13 @@ func (c *CollectorRestRest11) GetCredentialsSecret() *string {
 	return c.CredentialsSecret
 }
 
+func (c *CollectorRestRest11) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
 func (c *CollectorRestRest11) GetLoginBody() *string {
 	if c == nil {
 		return nil
@@ -3230,6 +1272,41 @@ func (c *CollectorRestRest11) GetGetAuthTokenFromHeader() *bool {
 	return c.GetAuthTokenFromHeader
 }
 
+func (c *CollectorRestRest11) GetAuthHeaderKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderKey
+}
+
+func (c *CollectorRestRest11) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorRestRest11) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorRestRest11) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorRestRest11) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
 func (c *CollectorRestRest11) GetClientSecretParamValue() *string {
 	if c == nil {
 		return nil
@@ -3237,11 +1314,11 @@ func (c *CollectorRestRest11) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest11) GetScopes() []string {
+func (c *CollectorRestRest11) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
-	return c.Scopes
+	return c.AuthRequestParams
 }
 
 func (c *CollectorRestRest11) GetServiceAccountCredentials() *string {
@@ -3249,13 +1326,6 @@ func (c *CollectorRestRest11) GetServiceAccountCredentials() *string {
 		return nil
 	}
 	return c.ServiceAccountCredentials
-}
-
-func (c *CollectorRestRest11) GetSubject() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Subject
 }
 
 func (c *CollectorRestRest11) GetHmacFunctionID() *string {
@@ -3296,89 +1366,27 @@ func (e *CollectorRestAuthentication10) IsExact() bool {
 	return false
 }
 
-type CollectorRestAuthRequestParam10 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam10) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam10) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestHeader10 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader10) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader10) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorRestType10 - Collector type: rest
-type CollectorRestType10 string
+// CollectorRestType11 - Collector type: rest
+type CollectorRestType11 string
 
 const (
-	CollectorRestType10Rest CollectorRestType10 = "rest"
+	CollectorRestType11Rest CollectorRestType11 = "rest"
 )
 
-func (e CollectorRestType10) ToPointer() *CollectorRestType10 {
+func (e CollectorRestType11) ToPointer() *CollectorRestType11 {
 	return &e
 }
-func (e *CollectorRestType10) UnmarshalJSON(data []byte) error {
+func (e *CollectorRestType11) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "rest":
-		*e = CollectorRestType10(v)
+		*e = CollectorRestType11(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorRestType10: %v", v)
+		return fmt.Errorf("invalid value for CollectorRestType11: %v", v)
 	}
 }
 
@@ -3458,68 +1466,6 @@ func (e *CollectMethod10) IsExact() bool {
 	return false
 }
 
-type CollectorRestCollectRequestParam10 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam10) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam10) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader10 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader10) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader10) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader10) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum10 string
 
 const (
@@ -3574,44 +1520,17 @@ func (p *Pagination10) GetType() *PaginationEnum10 {
 	return p.Type
 }
 
-// CollectorRestRetryType10 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType10 string
-
-const (
-	// CollectorRestRetryType10None Disabled
-	CollectorRestRetryType10None CollectorRestRetryType10 = "none"
-	// CollectorRestRetryType10Backoff Backoff
-	CollectorRestRetryType10Backoff CollectorRestRetryType10 = "backoff"
-	// CollectorRestRetryType10Static Static
-	CollectorRestRetryType10Static CollectorRestRetryType10 = "static"
-)
-
-func (e CollectorRestRetryType10) ToPointer() *CollectorRestRetryType10 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType10) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules10 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType10 `default:"backoff" json:"type"`
-	Interval            any                       `json:"interval,omitempty"`
-	Limit               any                       `json:"limit,omitempty"`
-	Multiplier          any                       `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                       `json:"maxIntervalMs,omitempty"`
-	Codes               any                       `json:"codes,omitempty"`
-	EnableHeader        any                       `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                       `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                       `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules10) MarshalJSON() ([]byte, error) {
@@ -3625,7 +1544,7 @@ func (c *CollectorRestRetryRules10) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules10) GetType() *CollectorRestRetryType10 {
+func (c *CollectorRestRetryRules10) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -3736,34 +1655,25 @@ func (c *CollectorRestScheduling10) GetStateTracking() *CollectorRestStateTracki
 type CollectorRestRest10 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication10 `default:"none" json:"authentication"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
-	ClientSecretParamValue string `json:"clientSecretParamValue"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams  []CollectorRestAuthRequestParam10  `json:"authRequestParams,omitempty"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader10 `json:"authRequestHeaders,omitempty"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials string `json:"serviceAccountCredentials"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject string `json:"subject"`
 	// Collector type: rest
-	Type      CollectorRestType10       `json:"type"`
+	Type      CollectorRestType11       `json:"type"`
 	Discovery *CollectorRestDiscovery10 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL    string           `json:"collectUrl"`
 	CollectMethod *CollectMethod10 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                              `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam10 `json:"collectRequestParams,omitempty"`
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                               `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader10 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination10                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination10                    `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `default:"0" json:"timeout"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -3786,18 +1696,27 @@ type CollectorRestRest10 struct {
 	Password    *string                    `json:"password,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
 	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
+	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
+	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
-	Scopes []string `json:"scopes,omitempty"`
-	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
-	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
-	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
-	Subject *string `json:"subject,omitempty"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitempty"`
 }
@@ -3807,7 +1726,7 @@ func (c CollectorRestRest10) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorRestRest10) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"clientSecretParamValue", "type", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"scopes", "serviceAccountCredentials", "subject", "type", "collectUrl"}); err != nil {
 		return err
 	}
 	return nil
@@ -3820,65 +1739,30 @@ func (c *CollectorRestRest10) GetAuthentication() *CollectorRestAuthentication10
 	return c.Authentication
 }
 
-func (c *CollectorRestRest10) GetLoginURL() *string {
+func (c *CollectorRestRest10) GetScopes() []string {
 	if c == nil {
-		return nil
+		return []string{}
 	}
-	return c.LoginURL
+	return c.Scopes
 }
 
-func (c *CollectorRestRest10) GetTokenRespAttribute() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenRespAttribute
-}
-
-func (c *CollectorRestRest10) GetAuthHeaderKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderKey
-}
-
-func (c *CollectorRestRest10) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorRestRest10) GetClientSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamName
-}
-
-func (c *CollectorRestRest10) GetClientSecretParamValue() string {
+func (c *CollectorRestRest10) GetServiceAccountCredentials() string {
 	if c == nil {
 		return ""
 	}
-	return c.ClientSecretParamValue
+	return c.ServiceAccountCredentials
 }
 
-func (c *CollectorRestRest10) GetAuthRequestParams() []CollectorRestAuthRequestParam10 {
+func (c *CollectorRestRest10) GetSubject() string {
 	if c == nil {
-		return nil
+		return ""
 	}
-	return c.AuthRequestParams
+	return c.Subject
 }
 
-func (c *CollectorRestRest10) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader10 {
+func (c *CollectorRestRest10) GetType() CollectorRestType11 {
 	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
-func (c *CollectorRestRest10) GetType() CollectorRestType10 {
-	if c == nil {
-		return CollectorRestType10("")
+		return CollectorRestType11("")
 	}
 	return c.Type
 }
@@ -3911,7 +1795,7 @@ func (c *CollectorRestRest10) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest10) GetCollectRequestParams() []CollectorRestCollectRequestParam10 {
+func (c *CollectorRestRest10) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -3925,7 +1809,7 @@ func (c *CollectorRestRest10) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest10) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader10 {
+func (c *CollectorRestRest10) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -4030,6 +1914,13 @@ func (c *CollectorRestRest10) GetCredentialsSecret() *string {
 	return c.CredentialsSecret
 }
 
+func (c *CollectorRestRest10) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
 func (c *CollectorRestRest10) GetLoginBody() *string {
 	if c == nil {
 		return nil
@@ -4044,32 +1935,60 @@ func (c *CollectorRestRest10) GetGetAuthTokenFromHeader() *bool {
 	return c.GetAuthTokenFromHeader
 }
 
+func (c *CollectorRestRest10) GetAuthHeaderKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderKey
+}
+
+func (c *CollectorRestRest10) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorRestRest10) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorRestRest10) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorRestRest10) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorRestRest10) GetClientSecretParamValue() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamValue
+}
+
+func (c *CollectorRestRest10) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
 func (c *CollectorRestRest10) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
-}
-
-func (c *CollectorRestRest10) GetScopes() []string {
-	if c == nil {
-		return nil
-	}
-	return c.Scopes
-}
-
-func (c *CollectorRestRest10) GetServiceAccountCredentials() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ServiceAccountCredentials
-}
-
-func (c *CollectorRestRest10) GetSubject() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Subject
 }
 
 func (c *CollectorRestRest10) GetHmacFunctionID() *string {
@@ -4110,58 +2029,27 @@ func (e *CollectorRestAuthentication9) IsExact() bool {
 	return false
 }
 
-type CollectorRestAuthRequestHeader9 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader9) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader9) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorRestType9 - Collector type: rest
-type CollectorRestType9 string
+// CollectorRestType10 - Collector type: rest
+type CollectorRestType10 string
 
 const (
-	CollectorRestType9Rest CollectorRestType9 = "rest"
+	CollectorRestType10Rest CollectorRestType10 = "rest"
 )
 
-func (e CollectorRestType9) ToPointer() *CollectorRestType9 {
+func (e CollectorRestType10) ToPointer() *CollectorRestType10 {
 	return &e
 }
-func (e *CollectorRestType9) UnmarshalJSON(data []byte) error {
+func (e *CollectorRestType10) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "rest":
-		*e = CollectorRestType9(v)
+		*e = CollectorRestType10(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorRestType9: %v", v)
+		return fmt.Errorf("invalid value for CollectorRestType10: %v", v)
 	}
 }
 
@@ -4241,68 +2129,6 @@ func (e *CollectMethod9) IsExact() bool {
 	return false
 }
 
-type CollectorRestCollectRequestParam9 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam9) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam9) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader9 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader9) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader9) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum9 string
 
 const (
@@ -4357,44 +2183,17 @@ func (p *Pagination9) GetType() *PaginationEnum9 {
 	return p.Type
 }
 
-// CollectorRestRetryType9 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType9 string
-
-const (
-	// CollectorRestRetryType9None Disabled
-	CollectorRestRetryType9None CollectorRestRetryType9 = "none"
-	// CollectorRestRetryType9Backoff Backoff
-	CollectorRestRetryType9Backoff CollectorRestRetryType9 = "backoff"
-	// CollectorRestRetryType9Static Static
-	CollectorRestRetryType9Static CollectorRestRetryType9 = "static"
-)
-
-func (e CollectorRestRetryType9) ToPointer() *CollectorRestRetryType9 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType9) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules9 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType9 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules9) MarshalJSON() ([]byte, error) {
@@ -4408,7 +2207,7 @@ func (c *CollectorRestRetryRules9) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules9) GetType() *CollectorRestRetryType9 {
+func (c *CollectorRestRetryRules9) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -4516,66 +2315,37 @@ func (c *CollectorRestScheduling9) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestParam9 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam9) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam9) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam9) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest9 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication9 `default:"none" json:"authentication"`
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret string `json:"credentialsSecret"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader9 `json:"authRequestHeaders,omitempty"`
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Select or create a text secret that contains the Google service account credentials value
+	TextSecret string `json:"textSecret"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams  []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Collector type: rest
-	Type      CollectorRestType9       `json:"type"`
+	Type      CollectorRestType10      `json:"type"`
 	Discovery *CollectorRestDiscovery9 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL    string          `json:"collectUrl"`
 	CollectMethod *CollectMethod9 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                             `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam9 `json:"collectRequestParams,omitempty"`
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                              `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader9 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination9                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination9                     `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `default:"0" json:"timeout"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -4596,16 +2366,14 @@ type CollectorRestRest9 struct {
 	Scheduling  *CollectorRestScheduling9 `json:"__scheduling,omitempty"`
 	Username    *string                   `json:"username,omitempty"`
 	Password    *string                   `json:"password,omitempty"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam9 `json:"authRequestParams,omitempty"`
-	// Select or create a text secret that contains the Google service account credentials value
-	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
 	Scopes []string `json:"scopes,omitempty"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
@@ -4621,7 +2389,7 @@ func (c CollectorRestRest9) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorRestRest9) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "type", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"textSecret", "type", "collectUrl"}); err != nil {
 		return err
 	}
 	return nil
@@ -4641,25 +2409,11 @@ func (c *CollectorRestRest9) GetLoginURL() *string {
 	return c.LoginURL
 }
 
-func (c *CollectorRestRest9) GetCredentialsSecret() string {
-	if c == nil {
-		return ""
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CollectorRestRest9) GetLoginBody() *string {
+func (c *CollectorRestRest9) GetTokenRespAttribute() *string {
 	if c == nil {
 		return nil
 	}
-	return c.LoginBody
-}
-
-func (c *CollectorRestRest9) GetGetAuthTokenFromHeader() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.GetAuthTokenFromHeader
+	return c.TokenRespAttribute
 }
 
 func (c *CollectorRestRest9) GetAuthHeaderKey() *string {
@@ -4676,16 +2430,37 @@ func (c *CollectorRestRest9) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorRestRest9) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader9 {
+func (c *CollectorRestRest9) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorRestRest9) GetTextSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorRestRest9) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorRestRest9) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
 	return c.AuthRequestHeaders
 }
 
-func (c *CollectorRestRest9) GetType() CollectorRestType9 {
+func (c *CollectorRestRest9) GetType() CollectorRestType10 {
 	if c == nil {
-		return CollectorRestType9("")
+		return CollectorRestType10("")
 	}
 	return c.Type
 }
@@ -4718,7 +2493,7 @@ func (c *CollectorRestRest9) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest9) GetCollectRequestParams() []CollectorRestCollectRequestParam9 {
+func (c *CollectorRestRest9) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -4732,7 +2507,7 @@ func (c *CollectorRestRest9) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest9) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader9 {
+func (c *CollectorRestRest9) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -4830,18 +2605,25 @@ func (c *CollectorRestRest9) GetPassword() *string {
 	return c.Password
 }
 
-func (c *CollectorRestRest9) GetTokenRespAttribute() *string {
+func (c *CollectorRestRest9) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
-	return c.TokenRespAttribute
+	return c.CredentialsSecret
 }
 
-func (c *CollectorRestRest9) GetClientSecretParamName() *string {
+func (c *CollectorRestRest9) GetLoginBody() *string {
 	if c == nil {
 		return nil
 	}
-	return c.ClientSecretParamName
+	return c.LoginBody
+}
+
+func (c *CollectorRestRest9) GetGetAuthTokenFromHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.GetAuthTokenFromHeader
 }
 
 func (c *CollectorRestRest9) GetClientSecretParamValue() *string {
@@ -4849,20 +2631,6 @@ func (c *CollectorRestRest9) GetClientSecretParamValue() *string {
 		return nil
 	}
 	return c.ClientSecretParamValue
-}
-
-func (c *CollectorRestRest9) GetAuthRequestParams() []CollectorRestAuthRequestParam9 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
-}
-
-func (c *CollectorRestRest9) GetTextSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TextSecret
 }
 
 func (c *CollectorRestRest9) GetScopes() []string {
@@ -4924,58 +2692,27 @@ func (e *CollectorRestAuthentication8) IsExact() bool {
 	return false
 }
 
-type CollectorRestAuthRequestHeader8 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader8) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader8) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-// CollectorRestType8 - Collector type: rest
-type CollectorRestType8 string
+// CollectorRestType9 - Collector type: rest
+type CollectorRestType9 string
 
 const (
-	CollectorRestType8Rest CollectorRestType8 = "rest"
+	CollectorRestType9Rest CollectorRestType9 = "rest"
 )
 
-func (e CollectorRestType8) ToPointer() *CollectorRestType8 {
+func (e CollectorRestType9) ToPointer() *CollectorRestType9 {
 	return &e
 }
-func (e *CollectorRestType8) UnmarshalJSON(data []byte) error {
+func (e *CollectorRestType9) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "rest":
-		*e = CollectorRestType8(v)
+		*e = CollectorRestType9(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorRestType8: %v", v)
+		return fmt.Errorf("invalid value for CollectorRestType9: %v", v)
 	}
 }
 
@@ -5055,68 +2792,6 @@ func (e *CollectMethod8) IsExact() bool {
 	return false
 }
 
-type CollectorRestCollectRequestParam8 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam8) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam8) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader8 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader8) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader8) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum8 string
 
 const (
@@ -5171,44 +2846,17 @@ func (p *Pagination8) GetType() *PaginationEnum8 {
 	return p.Type
 }
 
-// CollectorRestRetryType8 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType8 string
-
-const (
-	// CollectorRestRetryType8None Disabled
-	CollectorRestRetryType8None CollectorRestRetryType8 = "none"
-	// CollectorRestRetryType8Backoff Backoff
-	CollectorRestRetryType8Backoff CollectorRestRetryType8 = "backoff"
-	// CollectorRestRetryType8Static Static
-	CollectorRestRetryType8Static CollectorRestRetryType8 = "static"
-)
-
-func (e CollectorRestRetryType8) ToPointer() *CollectorRestRetryType8 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType8) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules8 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType8 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules8) MarshalJSON() ([]byte, error) {
@@ -5222,7 +2870,7 @@ func (c *CollectorRestRetryRules8) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules8) GetType() *CollectorRestRetryType8 {
+func (c *CollectorRestRetryRules8) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -5330,66 +2978,37 @@ func (c *CollectorRestScheduling8) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestParam8 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam8) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam8) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam8) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest8 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication8 `default:"none" json:"authentication"`
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
-	Username string  `json:"username"`
-	Password string  `json:"password"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader8 `json:"authRequestHeaders,omitempty"`
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue string `json:"clientSecretParamValue"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams  []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Collector type: rest
-	Type      CollectorRestType8       `json:"type"`
+	Type      CollectorRestType9       `json:"type"`
 	Discovery *CollectorRestDiscovery8 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL    string          `json:"collectUrl"`
 	CollectMethod *CollectMethod8 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                             `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam8 `json:"collectRequestParams,omitempty"`
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                              `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader8 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination8                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination8                     `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `default:"0" json:"timeout"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -5408,16 +3027,14 @@ type CollectorRestRest8 struct {
 	SafeHeaders []string                  `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorRestRetryRules8 `json:"retryRules,omitempty"`
 	Scheduling  *CollectorRestScheduling8 `json:"__scheduling,omitempty"`
+	Username    *string                   `json:"username,omitempty"`
+	Password    *string                   `json:"password,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
-	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
-	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
-	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam8 `json:"authRequestParams,omitempty"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -5435,7 +3052,7 @@ func (c CollectorRestRest8) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorRestRest8) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "type", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"clientSecretParamValue", "type", "collectUrl"}); err != nil {
 		return err
 	}
 	return nil
@@ -5455,32 +3072,11 @@ func (c *CollectorRestRest8) GetLoginURL() *string {
 	return c.LoginURL
 }
 
-func (c *CollectorRestRest8) GetUsername() string {
-	if c == nil {
-		return ""
-	}
-	return c.Username
-}
-
-func (c *CollectorRestRest8) GetPassword() string {
-	if c == nil {
-		return ""
-	}
-	return c.Password
-}
-
-func (c *CollectorRestRest8) GetLoginBody() *string {
+func (c *CollectorRestRest8) GetTokenRespAttribute() *string {
 	if c == nil {
 		return nil
 	}
-	return c.LoginBody
-}
-
-func (c *CollectorRestRest8) GetGetAuthTokenFromHeader() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.GetAuthTokenFromHeader
+	return c.TokenRespAttribute
 }
 
 func (c *CollectorRestRest8) GetAuthHeaderKey() *string {
@@ -5497,16 +3093,37 @@ func (c *CollectorRestRest8) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorRestRest8) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader8 {
+func (c *CollectorRestRest8) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorRestRest8) GetClientSecretParamValue() string {
+	if c == nil {
+		return ""
+	}
+	return c.ClientSecretParamValue
+}
+
+func (c *CollectorRestRest8) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorRestRest8) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
 	return c.AuthRequestHeaders
 }
 
-func (c *CollectorRestRest8) GetType() CollectorRestType8 {
+func (c *CollectorRestRest8) GetType() CollectorRestType9 {
 	if c == nil {
-		return CollectorRestType8("")
+		return CollectorRestType9("")
 	}
 	return c.Type
 }
@@ -5539,7 +3156,7 @@ func (c *CollectorRestRest8) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest8) GetCollectRequestParams() []CollectorRestCollectRequestParam8 {
+func (c *CollectorRestRest8) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -5553,7 +3170,7 @@ func (c *CollectorRestRest8) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest8) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader8 {
+func (c *CollectorRestRest8) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -5637,6 +3254,20 @@ func (c *CollectorRestRest8) GetScheduling() *CollectorRestScheduling8 {
 	return c.Scheduling
 }
 
+func (c *CollectorRestRest8) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorRestRest8) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
 func (c *CollectorRestRest8) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
@@ -5644,32 +3275,18 @@ func (c *CollectorRestRest8) GetCredentialsSecret() *string {
 	return c.CredentialsSecret
 }
 
-func (c *CollectorRestRest8) GetTokenRespAttribute() *string {
+func (c *CollectorRestRest8) GetLoginBody() *string {
 	if c == nil {
 		return nil
 	}
-	return c.TokenRespAttribute
+	return c.LoginBody
 }
 
-func (c *CollectorRestRest8) GetClientSecretParamName() *string {
+func (c *CollectorRestRest8) GetGetAuthTokenFromHeader() *bool {
 	if c == nil {
 		return nil
 	}
-	return c.ClientSecretParamName
-}
-
-func (c *CollectorRestRest8) GetClientSecretParamValue() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ClientSecretParamValue
-}
-
-func (c *CollectorRestRest8) GetAuthRequestParams() []CollectorRestAuthRequestParam8 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestParams
+	return c.GetAuthTokenFromHeader
 }
 
 func (c *CollectorRestRest8) GetTextSecret() *string {
@@ -5738,27 +3355,27 @@ func (e *CollectorRestAuthentication7) IsExact() bool {
 	return false
 }
 
-// CollectorRestType7 - Collector type: rest
-type CollectorRestType7 string
+// CollectorRestType8 - Collector type: rest
+type CollectorRestType8 string
 
 const (
-	CollectorRestType7Rest CollectorRestType7 = "rest"
+	CollectorRestType8Rest CollectorRestType8 = "rest"
 )
 
-func (e CollectorRestType7) ToPointer() *CollectorRestType7 {
+func (e CollectorRestType8) ToPointer() *CollectorRestType8 {
 	return &e
 }
-func (e *CollectorRestType7) UnmarshalJSON(data []byte) error {
+func (e *CollectorRestType8) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "rest":
-		*e = CollectorRestType7(v)
+		*e = CollectorRestType8(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorRestType7: %v", v)
+		return fmt.Errorf("invalid value for CollectorRestType8: %v", v)
 	}
 }
 
@@ -5838,68 +3455,6 @@ func (e *CollectMethod7) IsExact() bool {
 	return false
 }
 
-type CollectorRestCollectRequestParam7 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader7 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum7 string
 
 const (
@@ -5954,44 +3509,17 @@ func (p *Pagination7) GetType() *PaginationEnum7 {
 	return p.Type
 }
 
-// CollectorRestRetryType7 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType7 string
-
-const (
-	// CollectorRestRetryType7None Disabled
-	CollectorRestRetryType7None CollectorRestRetryType7 = "none"
-	// CollectorRestRetryType7Backoff Backoff
-	CollectorRestRetryType7Backoff CollectorRestRetryType7 = "backoff"
-	// CollectorRestRetryType7Static Static
-	CollectorRestRetryType7Static CollectorRestRetryType7 = "static"
-)
-
-func (e CollectorRestRetryType7) ToPointer() *CollectorRestRetryType7 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType7) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules7 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType7 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules7) MarshalJSON() ([]byte, error) {
@@ -6005,7 +3533,7 @@ func (c *CollectorRestRetryRules7) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules7) GetType() *CollectorRestRetryType7 {
+func (c *CollectorRestRetryRules7) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -6113,86 +3641,35 @@ func (c *CollectorRestScheduling7) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestHeader7 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam7 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam7) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam7) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam7) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam7) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest7 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication7 `default:"none" json:"authentication"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
+	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
+	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Collector type: rest
-	Type      CollectorRestType7       `json:"type"`
+	Type      CollectorRestType8       `json:"type"`
 	Discovery *CollectorRestDiscovery7 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL    string          `json:"collectUrl"`
 	CollectMethod *CollectMethod7 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                             `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam7 `json:"collectRequestParams,omitempty"`
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                              `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader7 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination7                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination7                     `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `default:"0" json:"timeout"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -6213,17 +3690,6 @@ type CollectorRestRest7 struct {
 	Scheduling  *CollectorRestScheduling7 `json:"__scheduling,omitempty"`
 	Username    *string                   `json:"username,omitempty"`
 	Password    *string                   `json:"password,omitempty"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader7 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
@@ -6231,7 +3697,7 @@ type CollectorRestRest7 struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam7 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -6262,6 +3728,13 @@ func (c *CollectorRestRest7) GetAuthentication() *CollectorRestAuthentication7 {
 	return c.Authentication
 }
 
+func (c *CollectorRestRest7) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
 func (c *CollectorRestRest7) GetCredentialsSecret() string {
 	if c == nil {
 		return ""
@@ -6269,9 +3742,44 @@ func (c *CollectorRestRest7) GetCredentialsSecret() string {
 	return c.CredentialsSecret
 }
 
-func (c *CollectorRestRest7) GetType() CollectorRestType7 {
+func (c *CollectorRestRest7) GetLoginBody() *string {
 	if c == nil {
-		return CollectorRestType7("")
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorRestRest7) GetGetAuthTokenFromHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.GetAuthTokenFromHeader
+}
+
+func (c *CollectorRestRest7) GetAuthHeaderKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderKey
+}
+
+func (c *CollectorRestRest7) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorRestRest7) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorRestRest7) GetType() CollectorRestType8 {
+	if c == nil {
+		return CollectorRestType8("")
 	}
 	return c.Type
 }
@@ -6304,7 +3812,7 @@ func (c *CollectorRestRest7) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest7) GetCollectRequestParams() []CollectorRestCollectRequestParam7 {
+func (c *CollectorRestRest7) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -6318,7 +3826,7 @@ func (c *CollectorRestRest7) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest7) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader7 {
+func (c *CollectorRestRest7) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -6416,48 +3924,6 @@ func (c *CollectorRestRest7) GetPassword() *string {
 	return c.Password
 }
 
-func (c *CollectorRestRest7) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorRestRest7) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorRestRest7) GetGetAuthTokenFromHeader() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.GetAuthTokenFromHeader
-}
-
-func (c *CollectorRestRest7) GetAuthHeaderKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderKey
-}
-
-func (c *CollectorRestRest7) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorRestRest7) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader7 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
 func (c *CollectorRestRest7) GetTokenRespAttribute() *string {
 	if c == nil {
 		return nil
@@ -6479,7 +3945,7 @@ func (c *CollectorRestRest7) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest7) GetAuthRequestParams() []CollectorRestAuthRequestParam7 {
+func (c *CollectorRestRest7) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -6552,27 +4018,27 @@ func (e *CollectorRestAuthentication6) IsExact() bool {
 	return false
 }
 
-// CollectorRestType6 - Collector type: rest
-type CollectorRestType6 string
+// CollectorRestType7 - Collector type: rest
+type CollectorRestType7 string
 
 const (
-	CollectorRestType6Rest CollectorRestType6 = "rest"
+	CollectorRestType7Rest CollectorRestType7 = "rest"
 )
 
-func (e CollectorRestType6) ToPointer() *CollectorRestType6 {
+func (e CollectorRestType7) ToPointer() *CollectorRestType7 {
 	return &e
 }
-func (e *CollectorRestType6) UnmarshalJSON(data []byte) error {
+func (e *CollectorRestType7) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "rest":
-		*e = CollectorRestType6(v)
+		*e = CollectorRestType7(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorRestType6: %v", v)
+		return fmt.Errorf("invalid value for CollectorRestType7: %v", v)
 	}
 }
 
@@ -6652,68 +4118,6 @@ func (e *CollectMethod6) IsExact() bool {
 	return false
 }
 
-type CollectorRestCollectRequestParam6 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader6 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum6 string
 
 const (
@@ -6768,44 +4172,17 @@ func (p *Pagination6) GetType() *PaginationEnum6 {
 	return p.Type
 }
 
-// CollectorRestRetryType6 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType6 string
-
-const (
-	// CollectorRestRetryType6None Disabled
-	CollectorRestRetryType6None CollectorRestRetryType6 = "none"
-	// CollectorRestRetryType6Backoff Backoff
-	CollectorRestRetryType6Backoff CollectorRestRetryType6 = "backoff"
-	// CollectorRestRetryType6Static Static
-	CollectorRestRetryType6Static CollectorRestRetryType6 = "static"
-)
-
-func (e CollectorRestRetryType6) ToPointer() *CollectorRestRetryType6 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType6) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules6 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType6 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules6) MarshalJSON() ([]byte, error) {
@@ -6819,7 +4196,7 @@ func (c *CollectorRestRetryRules6) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules6) GetType() *CollectorRestRetryType6 {
+func (c *CollectorRestRetryRules6) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -6927,86 +4304,35 @@ func (c *CollectorRestScheduling6) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestHeader6 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam6 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam6) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam6) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam6) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam6) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest6 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication6 `default:"none" json:"authentication"`
-	Username       string                        `json:"username"`
-	Password       string                        `json:"password"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	Username string  `json:"username"`
+	Password string  `json:"password"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
+	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
+	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Collector type: rest
-	Type      CollectorRestType6       `json:"type"`
+	Type      CollectorRestType7       `json:"type"`
 	Discovery *CollectorRestDiscovery6 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL    string          `json:"collectUrl"`
 	CollectMethod *CollectMethod6 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                             `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam6 `json:"collectRequestParams,omitempty"`
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                              `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader6 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination6                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination6                     `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `default:"0" json:"timeout"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -7027,17 +4353,6 @@ type CollectorRestRest6 struct {
 	Scheduling  *CollectorRestScheduling6 `json:"__scheduling,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader6 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
@@ -7045,7 +4360,7 @@ type CollectorRestRest6 struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam6 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -7076,6 +4391,13 @@ func (c *CollectorRestRest6) GetAuthentication() *CollectorRestAuthentication6 {
 	return c.Authentication
 }
 
+func (c *CollectorRestRest6) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
 func (c *CollectorRestRest6) GetUsername() string {
 	if c == nil {
 		return ""
@@ -7090,9 +4412,44 @@ func (c *CollectorRestRest6) GetPassword() string {
 	return c.Password
 }
 
-func (c *CollectorRestRest6) GetType() CollectorRestType6 {
+func (c *CollectorRestRest6) GetLoginBody() *string {
 	if c == nil {
-		return CollectorRestType6("")
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorRestRest6) GetGetAuthTokenFromHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.GetAuthTokenFromHeader
+}
+
+func (c *CollectorRestRest6) GetAuthHeaderKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderKey
+}
+
+func (c *CollectorRestRest6) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorRestRest6) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorRestRest6) GetType() CollectorRestType7 {
+	if c == nil {
+		return CollectorRestType7("")
 	}
 	return c.Type
 }
@@ -7125,7 +4482,7 @@ func (c *CollectorRestRest6) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest6) GetCollectRequestParams() []CollectorRestCollectRequestParam6 {
+func (c *CollectorRestRest6) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -7139,7 +4496,7 @@ func (c *CollectorRestRest6) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest6) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader6 {
+func (c *CollectorRestRest6) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -7230,48 +4587,6 @@ func (c *CollectorRestRest6) GetCredentialsSecret() *string {
 	return c.CredentialsSecret
 }
 
-func (c *CollectorRestRest6) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CollectorRestRest6) GetLoginBody() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginBody
-}
-
-func (c *CollectorRestRest6) GetGetAuthTokenFromHeader() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.GetAuthTokenFromHeader
-}
-
-func (c *CollectorRestRest6) GetAuthHeaderKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderKey
-}
-
-func (c *CollectorRestRest6) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CollectorRestRest6) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader6 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthRequestHeaders
-}
-
 func (c *CollectorRestRest6) GetTokenRespAttribute() *string {
 	if c == nil {
 		return nil
@@ -7293,7 +4608,7 @@ func (c *CollectorRestRest6) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest6) GetAuthRequestParams() []CollectorRestAuthRequestParam6 {
+func (c *CollectorRestRest6) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -7335,6 +4650,352 @@ func (c *CollectorRestRest6) GetHmacFunctionID() *string {
 	return c.HmacFunctionID
 }
 
+type CollectorRestCollectorHealthCheckPart2Type struct {
+	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+	Authentication *AuthenticationRest `default:"none" json:"authentication"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret string `json:"credentialsSecret"`
+	// Collector type: rest
+	Type      CollectorRestType5 `json:"type"`
+	Discovery *DiscoveryRest     `json:"discovery,omitempty"`
+	// URL (constant or JavaScript expression) to use for the Collect operation
+	CollectURL    string             `json:"collectUrl"`
+	CollectMethod *CollectMethodRest `default:"get" json:"collectMethod"`
+	// Custom HTTP method to use for the Collect operation
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
+	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *PaginationRest                  `json:"pagination,omitempty"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	Timeout *float64 `default:"0" json:"timeout"`
+	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
+	// Decode the URL before sending requests (including pagination requests)
+	DecodeURL *bool `default:"true" json:"decodeUrl"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Enable to add response headers to the resHeaders field under the __collectible object
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// Stop pagination when the Event Breaker produces no events
+	StopOnEmptyResults *bool `default:"false" json:"stopOnEmptyResults"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string        `json:"safeHeaders,omitempty"`
+	RetryRules  *RetryRulesRest `json:"retryRules,omitempty"`
+	Scheduling  *SchedulingRest `json:"__scheduling,omitempty"`
+	Username    *string         `json:"username,omitempty"`
+	Password    *string         `json:"password,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
+	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
+	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
+	// Select or create a text secret that contains the Google service account credentials value
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes,omitempty"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject *string `json:"subject,omitempty"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitempty"`
+}
+
+func (c CollectorRestCollectorHealthCheckPart2Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"credentialsSecret", "type", "collectUrl"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetAuthentication() *AuthenticationRest {
+	if c == nil {
+		return nil
+	}
+	return c.Authentication
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetCredentialsSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetType() CollectorRestType5 {
+	if c == nil {
+		return CollectorRestType5("")
+	}
+	return c.Type
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetDiscovery() *DiscoveryRest {
+	if c == nil {
+		return nil
+	}
+	return c.Discovery
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetCollectURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.CollectURL
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetCollectMethod() *CollectMethodRest {
+	if c == nil {
+		return nil
+	}
+	return c.CollectMethod
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetCollectVerb() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CollectVerb
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestParams
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetCollectBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CollectBody
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestHeaders
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetPagination() *PaginationRest {
+	if c == nil {
+		return nil
+	}
+	return c.Pagination
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetDecodeURL() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DecodeURL
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetCaptureHeaders() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.CaptureHeaders
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetStopOnEmptyResults() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.StopOnEmptyResults
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetSafeHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SafeHeaders
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetRetryRules() *RetryRulesRest {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetScheduling() *SchedulingRest {
+	if c == nil {
+		return nil
+	}
+	return c.Scheduling
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetGetAuthTokenFromHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.GetAuthTokenFromHeader
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetAuthHeaderKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderKey
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetClientSecretParamValue() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamValue
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetScopes() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Scopes
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetServiceAccountCredentials() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ServiceAccountCredentials
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetSubject() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Subject
+}
+
+func (c *CollectorRestCollectorHealthCheckPart2Type) GetHmacFunctionID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HmacFunctionID
+}
+
 // CollectorRestAuthentication5 - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 type CollectorRestAuthentication5 string
 
@@ -7366,27 +5027,27 @@ func (e *CollectorRestAuthentication5) IsExact() bool {
 	return false
 }
 
-// CollectorRestType5 - Collector type: rest
-type CollectorRestType5 string
+// CollectorRestType6 - Collector type: rest
+type CollectorRestType6 string
 
 const (
-	CollectorRestType5Rest CollectorRestType5 = "rest"
+	CollectorRestType6Rest CollectorRestType6 = "rest"
 )
 
-func (e CollectorRestType5) ToPointer() *CollectorRestType5 {
+func (e CollectorRestType6) ToPointer() *CollectorRestType6 {
 	return &e
 }
-func (e *CollectorRestType5) UnmarshalJSON(data []byte) error {
+func (e *CollectorRestType6) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "rest":
-		*e = CollectorRestType5(v)
+		*e = CollectorRestType6(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CollectorRestType5: %v", v)
+		return fmt.Errorf("invalid value for CollectorRestType6: %v", v)
 	}
 }
 
@@ -7466,68 +5127,6 @@ func (e *CollectMethod5) IsExact() bool {
 	return false
 }
 
-type CollectorRestCollectRequestParam5 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam5) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader5 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader5) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum5 string
 
 const (
@@ -7582,44 +5181,17 @@ func (p *Pagination5) GetType() *PaginationEnum5 {
 	return p.Type
 }
 
-// CollectorRestRetryType5 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType5 string
-
-const (
-	// CollectorRestRetryType5None Disabled
-	CollectorRestRetryType5None CollectorRestRetryType5 = "none"
-	// CollectorRestRetryType5Backoff Backoff
-	CollectorRestRetryType5Backoff CollectorRestRetryType5 = "backoff"
-	// CollectorRestRetryType5Static Static
-	CollectorRestRetryType5Static CollectorRestRetryType5 = "static"
-)
-
-func (e CollectorRestRetryType5) ToPointer() *CollectorRestRetryType5 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType5) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules5 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType5 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules5) MarshalJSON() ([]byte, error) {
@@ -7633,7 +5205,7 @@ func (c *CollectorRestRetryRules5) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules5) GetType() *CollectorRestRetryType5 {
+func (c *CollectorRestRetryRules5) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -7741,84 +5313,24 @@ func (c *CollectorRestScheduling5) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestHeader5 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader5) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam5 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam5) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam5) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam5) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest5 struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication5 `default:"none" json:"authentication"`
+	Username       string                        `json:"username"`
+	Password       string                        `json:"password"`
 	// Collector type: rest
-	Type      CollectorRestType5       `json:"type"`
+	Type      CollectorRestType6       `json:"type"`
 	Discovery *CollectorRestDiscovery5 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL    string          `json:"collectUrl"`
 	CollectMethod *CollectMethod5 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb          *string                             `json:"collectVerb,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam5 `json:"collectRequestParams,omitempty"`
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                              `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader5 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination5                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination5                     `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `default:"0" json:"timeout"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -7837,8 +5349,6 @@ type CollectorRestRest5 struct {
 	SafeHeaders []string                  `json:"safeHeaders,omitempty"`
 	RetryRules  *CollectorRestRetryRules5 `json:"retryRules,omitempty"`
 	Scheduling  *CollectorRestScheduling5 `json:"__scheduling,omitempty"`
-	Username    *string                   `json:"username,omitempty"`
-	Password    *string                   `json:"password,omitempty"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// URL to use for the OAuth API call. This call is expected to be a POST.
@@ -7850,8 +5360,8 @@ type CollectorRestRest5 struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader5 `json:"authRequestHeaders,omitempty"`
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
@@ -7859,7 +5369,7 @@ type CollectorRestRest5 struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam5 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -7877,7 +5387,7 @@ func (c CollectorRestRest5) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorRestRest5) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"username", "password", "type", "collectUrl"}); err != nil {
 		return err
 	}
 	return nil
@@ -7890,9 +5400,23 @@ func (c *CollectorRestRest5) GetAuthentication() *CollectorRestAuthentication5 {
 	return c.Authentication
 }
 
-func (c *CollectorRestRest5) GetType() CollectorRestType5 {
+func (c *CollectorRestRest5) GetUsername() string {
 	if c == nil {
-		return CollectorRestType5("")
+		return ""
+	}
+	return c.Username
+}
+
+func (c *CollectorRestRest5) GetPassword() string {
+	if c == nil {
+		return ""
+	}
+	return c.Password
+}
+
+func (c *CollectorRestRest5) GetType() CollectorRestType6 {
+	if c == nil {
+		return CollectorRestType6("")
 	}
 	return c.Type
 }
@@ -7925,7 +5449,7 @@ func (c *CollectorRestRest5) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest5) GetCollectRequestParams() []CollectorRestCollectRequestParam5 {
+func (c *CollectorRestRest5) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -7939,7 +5463,7 @@ func (c *CollectorRestRest5) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest5) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader5 {
+func (c *CollectorRestRest5) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -8023,20 +5547,6 @@ func (c *CollectorRestRest5) GetScheduling() *CollectorRestScheduling5 {
 	return c.Scheduling
 }
 
-func (c *CollectorRestRest5) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CollectorRestRest5) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
 func (c *CollectorRestRest5) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
@@ -8079,7 +5589,7 @@ func (c *CollectorRestRest5) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorRestRest5) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader5 {
+func (c *CollectorRestRest5) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -8107,7 +5617,7 @@ func (c *CollectorRestRest5) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest5) GetAuthRequestParams() []CollectorRestAuthRequestParam5 {
+func (c *CollectorRestRest5) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -8149,6 +5659,669 @@ func (c *CollectorRestRest5) GetHmacFunctionID() *string {
 	return c.HmacFunctionID
 }
 
+// AuthenticationRest - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+type AuthenticationRest string
+
+const (
+	AuthenticationRestNone              AuthenticationRest = "none"
+	AuthenticationRestBasic             AuthenticationRest = "basic"
+	AuthenticationRestBasicSecret       AuthenticationRest = "basicSecret"
+	AuthenticationRestLogin             AuthenticationRest = "login"
+	AuthenticationRestLoginSecret       AuthenticationRest = "loginSecret"
+	AuthenticationRestOauth             AuthenticationRest = "oauth"
+	AuthenticationRestOauthSecret       AuthenticationRest = "oauthSecret"
+	AuthenticationRestGoogleOauth       AuthenticationRest = "google_oauth"
+	AuthenticationRestGoogleOauthSecret AuthenticationRest = "google_oauthSecret"
+	AuthenticationRestHmac              AuthenticationRest = "hmac"
+)
+
+func (e AuthenticationRest) ToPointer() *AuthenticationRest {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AuthenticationRest) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret", "google_oauth", "google_oauthSecret", "hmac":
+			return true
+		}
+	}
+	return false
+}
+
+// CollectorRestType5 - Collector type: rest
+type CollectorRestType5 string
+
+const (
+	CollectorRestType5Rest CollectorRestType5 = "rest"
+)
+
+func (e CollectorRestType5) ToPointer() *CollectorRestType5 {
+	return &e
+}
+func (e *CollectorRestType5) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "rest":
+		*e = CollectorRestType5(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorRestType5: %v", v)
+	}
+}
+
+// DiscoverTypeRest - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type DiscoverTypeRest string
+
+const (
+	DiscoverTypeRestHTTP DiscoverTypeRest = "http"
+	DiscoverTypeRestJSON DiscoverTypeRest = "json"
+	DiscoverTypeRestList DiscoverTypeRest = "list"
+	DiscoverTypeRestNone DiscoverTypeRest = "none"
+)
+
+func (e DiscoverTypeRest) ToPointer() *DiscoverTypeRest {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DiscoverTypeRest) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "json", "list", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type DiscoveryRest struct {
+	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+	DiscoverType *DiscoverTypeRest `default:"none" json:"discoverType"`
+}
+
+func (d DiscoveryRest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DiscoveryRest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DiscoveryRest) GetDiscoverType() *DiscoverTypeRest {
+	if d == nil {
+		return nil
+	}
+	return d.DiscoverType
+}
+
+type CollectMethodRest string
+
+const (
+	// CollectMethodRestGet GET
+	CollectMethodRestGet CollectMethodRest = "get"
+	// CollectMethodRestPost POST
+	CollectMethodRestPost CollectMethodRest = "post"
+	// CollectMethodRestPostWithBody POST with Body
+	CollectMethodRestPostWithBody CollectMethodRest = "post_with_body"
+	// CollectMethodRestOther Other
+	CollectMethodRestOther CollectMethodRest = "other"
+)
+
+func (e CollectMethodRest) ToPointer() *CollectMethodRest {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CollectMethodRest) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
+	}
+	return false
+}
+
+type PaginationRestEnum string
+
+const (
+	// PaginationRestEnumNone None
+	PaginationRestEnumNone PaginationRestEnum = "none"
+	// PaginationRestEnumResponseBody Response Body Attribute
+	PaginationRestEnumResponseBody PaginationRestEnum = "response_body"
+	// PaginationRestEnumResponseHeader Response Header Attribute
+	PaginationRestEnumResponseHeader PaginationRestEnum = "response_header"
+	// PaginationRestEnumResponseHeaderLink RFC 5988 - Web Linking
+	PaginationRestEnumResponseHeaderLink PaginationRestEnum = "response_header_link"
+	// PaginationRestEnumRequestOffset Offset/Limit
+	PaginationRestEnumRequestOffset PaginationRestEnum = "request_offset"
+	// PaginationRestEnumRequestPage Page/Size
+	PaginationRestEnumRequestPage PaginationRestEnum = "request_page"
+)
+
+func (e PaginationRestEnum) ToPointer() *PaginationRestEnum {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PaginationRestEnum) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "response_body", "response_header", "response_header_link", "request_offset", "request_page":
+			return true
+		}
+	}
+	return false
+}
+
+type PaginationRest struct {
+	Type *PaginationRestEnum `default:"none" json:"type"`
+}
+
+func (p PaginationRest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PaginationRest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PaginationRest) GetType() *PaginationRestEnum {
+	if p == nil {
+		return nil
+	}
+	return p.Type
+}
+
+type RetryRulesRest struct {
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
+}
+
+func (r RetryRulesRest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RetryRulesRest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RetryRulesRest) GetType() *RetryTypeOptionsRetryRules {
+	if r == nil {
+		return nil
+	}
+	return r.Type
+}
+
+func (r *RetryRulesRest) GetInterval() any {
+	if r == nil {
+		return nil
+	}
+	return r.Interval
+}
+
+func (r *RetryRulesRest) GetLimit() any {
+	if r == nil {
+		return nil
+	}
+	return r.Limit
+}
+
+func (r *RetryRulesRest) GetMultiplier() any {
+	if r == nil {
+		return nil
+	}
+	return r.Multiplier
+}
+
+func (r *RetryRulesRest) GetMaxIntervalMs() any {
+	if r == nil {
+		return nil
+	}
+	return r.MaxIntervalMs
+}
+
+func (r *RetryRulesRest) GetCodes() any {
+	if r == nil {
+		return nil
+	}
+	return r.Codes
+}
+
+func (r *RetryRulesRest) GetEnableHeader() any {
+	if r == nil {
+		return nil
+	}
+	return r.EnableHeader
+}
+
+func (r *RetryRulesRest) GetRetryConnectTimeout() any {
+	if r == nil {
+		return nil
+	}
+	return r.RetryConnectTimeout
+}
+
+func (r *RetryRulesRest) GetRetryConnectReset() any {
+	if r == nil {
+		return nil
+	}
+	return r.RetryConnectReset
+}
+
+type StateTrackingRest struct {
+	// Track collection progress between consecutive scheduled executions
+	Enabled *bool `json:"enabled,omitempty"`
+}
+
+func (s StateTrackingRest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StateTrackingRest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *StateTrackingRest) GetEnabled() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Enabled
+}
+
+type SchedulingRest struct {
+	StateTracking *StateTrackingRest `json:"stateTracking,omitempty"`
+}
+
+func (s SchedulingRest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SchedulingRest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SchedulingRest) GetStateTracking() *StateTrackingRest {
+	if s == nil {
+		return nil
+	}
+	return s.StateTracking
+}
+
+type CollectorRestCollectorHealthCheckPart0Type struct {
+	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+	Authentication *AuthenticationRest `default:"none" json:"authentication"`
+	// Collector type: rest
+	Type      CollectorRestType5 `json:"type"`
+	Discovery *DiscoveryRest     `json:"discovery,omitempty"`
+	// URL (constant or JavaScript expression) to use for the Collect operation
+	CollectURL    string             `json:"collectUrl"`
+	CollectMethod *CollectMethodRest `default:"get" json:"collectMethod"`
+	// Custom HTTP method to use for the Collect operation
+	CollectVerb          *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
+	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *PaginationRest                  `json:"pagination,omitempty"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	Timeout *float64 `default:"0" json:"timeout"`
+	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	// Disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
+	// Decode the URL before sending requests (including pagination requests)
+	DecodeURL *bool `default:"true" json:"decodeUrl"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	// Enable to add response headers to the resHeaders field under the __collectible object
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// Stop pagination when the Event Breaker produces no events
+	StopOnEmptyResults *bool `default:"false" json:"stopOnEmptyResults"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string        `json:"safeHeaders,omitempty"`
+	RetryRules  *RetryRulesRest `json:"retryRules,omitempty"`
+	Scheduling  *SchedulingRest `json:"__scheduling,omitempty"`
+	Username    *string         `json:"username,omitempty"`
+	Password    *string         `json:"password,omitempty"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// URL to use for the OAuth API call. This call is expected to be a POST.
+	LoginURL *string `default:"" json:"loginUrl"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
+	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
+	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
+	// Select or create a text secret that contains the Google service account credentials value
+	TextSecret *string `json:"textSecret,omitempty"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes,omitempty"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject *string `json:"subject,omitempty"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitempty"`
+}
+
+func (c CollectorRestCollectorHealthCheckPart0Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "collectUrl"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetAuthentication() *AuthenticationRest {
+	if c == nil {
+		return nil
+	}
+	return c.Authentication
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetType() CollectorRestType5 {
+	if c == nil {
+		return CollectorRestType5("")
+	}
+	return c.Type
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetDiscovery() *DiscoveryRest {
+	if c == nil {
+		return nil
+	}
+	return c.Discovery
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetCollectURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.CollectURL
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetCollectMethod() *CollectMethodRest {
+	if c == nil {
+		return nil
+	}
+	return c.CollectMethod
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetCollectVerb() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CollectVerb
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestParams
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetCollectBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CollectBody
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.CollectRequestHeaders
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetPagination() *PaginationRest {
+	if c == nil {
+		return nil
+	}
+	return c.Pagination
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Timeout
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetUseRoundRobinDNS() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.UseRoundRobinDNS
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetDisableTimeFilter() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableTimeFilter
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetDecodeURL() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DecodeURL
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetCaptureHeaders() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.CaptureHeaders
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetStopOnEmptyResults() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.StopOnEmptyResults
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetSafeHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SafeHeaders
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetRetryRules() *RetryRulesRest {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetScheduling() *SchedulingRest {
+	if c == nil {
+		return nil
+	}
+	return c.Scheduling
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetUsername() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Username
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetPassword() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Password
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetCredentialsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CredentialsSecret
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetLoginURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginURL
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetLoginBody() *string {
+	if c == nil {
+		return nil
+	}
+	return c.LoginBody
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetGetAuthTokenFromHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.GetAuthTokenFromHeader
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetAuthHeaderKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderKey
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetAuthHeaderExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AuthHeaderExpr
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestHeaders
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetTokenRespAttribute() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TokenRespAttribute
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetClientSecretParamName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamName
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetClientSecretParamValue() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretParamValue
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
+	if c == nil {
+		return nil
+	}
+	return c.AuthRequestParams
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TextSecret
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetScopes() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Scopes
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetServiceAccountCredentials() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ServiceAccountCredentials
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetSubject() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Subject
+}
+
+func (c *CollectorRestCollectorHealthCheckPart0Type) GetHmacFunctionID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HmacFunctionID
+}
+
 type CollectMethod4 string
 
 const (
@@ -8175,37 +6348,6 @@ func (e *CollectMethod4) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type CollectorRestCollectRequestParam4 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam4) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam4) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 // CollectorRestType4 - Collector type: rest
@@ -8278,37 +6420,6 @@ func (c *CollectorRestDiscovery4) GetDiscoverType() *CollectorRestDiscoverType4 
 		return nil
 	}
 	return c.DiscoverType
-}
-
-type CollectorRestCollectRequestHeader4 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader4) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader4) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 type PaginationEnum4 string
@@ -8396,44 +6507,17 @@ func (e *CollectorRestAuthentication4) IsExact() bool {
 	return false
 }
 
-// CollectorRestRetryType4 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType4 string
-
-const (
-	// CollectorRestRetryType4None Disabled
-	CollectorRestRetryType4None CollectorRestRetryType4 = "none"
-	// CollectorRestRetryType4Backoff Backoff
-	CollectorRestRetryType4Backoff CollectorRestRetryType4 = "backoff"
-	// CollectorRestRetryType4Static Static
-	CollectorRestRetryType4Static CollectorRestRetryType4 = "static"
-)
-
-func (e CollectorRestRetryType4) ToPointer() *CollectorRestRetryType4 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType4) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules4 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType4 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules4) MarshalJSON() ([]byte, error) {
@@ -8447,7 +6531,7 @@ func (c *CollectorRestRetryRules4) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules4) GetType() *CollectorRestRetryType4 {
+func (c *CollectorRestRetryRules4) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -8555,82 +6639,20 @@ func (c *CollectorRestScheduling4) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestHeader4 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader4) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader4) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam4 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam4) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam4) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam4) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam4) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest4 struct {
 	CollectMethod *CollectMethod4 `default:"get" json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
 	CollectVerb string `json:"collectVerb"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody          *string                             `json:"collectBody,omitempty"`
-	CollectRequestParams []CollectorRestCollectRequestParam4 `json:"collectRequestParams,omitempty"`
+	CollectBody          *string                          `json:"collectBody,omitempty"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Collector type: rest
 	Type      CollectorRestType4       `json:"type"`
 	Discovery *CollectorRestDiscovery4 `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                               `json:"collectUrl"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader4 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination4                         `json:"pagination,omitempty"`
+	CollectURL            string                           `json:"collectUrl"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination4                     `json:"pagination,omitempty"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication4 `default:"none" json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -8664,8 +6686,8 @@ type CollectorRestRest4 struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader4 `json:"authRequestHeaders,omitempty"`
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
@@ -8673,7 +6695,7 @@ type CollectorRestRest4 struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam4 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -8718,7 +6740,7 @@ func (c *CollectorRestRest4) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest4) GetCollectRequestParams() []CollectorRestCollectRequestParam4 {
+func (c *CollectorRestRest4) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -8746,7 +6768,7 @@ func (c *CollectorRestRest4) GetCollectURL() string {
 	return c.CollectURL
 }
 
-func (c *CollectorRestRest4) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader4 {
+func (c *CollectorRestRest4) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -8893,7 +6915,7 @@ func (c *CollectorRestRest4) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorRestRest4) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader4 {
+func (c *CollectorRestRest4) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -8921,7 +6943,7 @@ func (c *CollectorRestRest4) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest4) GetAuthRequestParams() []CollectorRestAuthRequestParam4 {
+func (c *CollectorRestRest4) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -9063,68 +7085,6 @@ func (c *CollectorRestDiscovery3) GetDiscoverType() *CollectorRestDiscoverType3 
 	return c.DiscoverType
 }
 
-type CollectorRestCollectRequestParam3 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam3) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam3) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestCollectRequestHeader3 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader3) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader3) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type PaginationEnum3 string
 
 const (
@@ -9210,44 +7170,17 @@ func (e *CollectorRestAuthentication3) IsExact() bool {
 	return false
 }
 
-// CollectorRestRetryType3 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType3 string
-
-const (
-	// CollectorRestRetryType3None Disabled
-	CollectorRestRetryType3None CollectorRestRetryType3 = "none"
-	// CollectorRestRetryType3Backoff Backoff
-	CollectorRestRetryType3Backoff CollectorRestRetryType3 = "backoff"
-	// CollectorRestRetryType3Static Static
-	CollectorRestRetryType3Static CollectorRestRetryType3 = "static"
-)
-
-func (e CollectorRestRetryType3) ToPointer() *CollectorRestRetryType3 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType3) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules3 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType3 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules3) MarshalJSON() ([]byte, error) {
@@ -9261,7 +7194,7 @@ func (c *CollectorRestRetryRules3) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules3) GetType() *CollectorRestRetryType3 {
+func (c *CollectorRestRetryRules3) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -9369,68 +7302,6 @@ func (c *CollectorRestScheduling3) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestHeader3 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader3) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader3) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam3 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam3) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam3) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam3) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam3) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest3 struct {
 	CollectMethod *CollectMethod3 `default:"get" json:"collectMethod"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
@@ -9441,10 +7312,10 @@ type CollectorRestRest3 struct {
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL string `json:"collectUrl"`
 	// Custom HTTP method to use for the Collect operation
-	CollectVerb           *string                              `json:"collectVerb,omitempty"`
-	CollectRequestParams  []CollectorRestCollectRequestParam3  `json:"collectRequestParams,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader3 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination3                         `json:"pagination,omitempty"`
+	CollectVerb           *string                          `json:"collectVerb,omitempty"`
+	CollectRequestParams  []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination3                     `json:"pagination,omitempty"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication3 `default:"none" json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -9478,8 +7349,8 @@ type CollectorRestRest3 struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader3 `json:"authRequestHeaders,omitempty"`
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
@@ -9487,7 +7358,7 @@ type CollectorRestRest3 struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam3 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -9553,14 +7424,14 @@ func (c *CollectorRestRest3) GetCollectVerb() *string {
 	return c.CollectVerb
 }
 
-func (c *CollectorRestRest3) GetCollectRequestParams() []CollectorRestCollectRequestParam3 {
+func (c *CollectorRestRest3) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
 	return c.CollectRequestParams
 }
 
-func (c *CollectorRestRest3) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader3 {
+func (c *CollectorRestRest3) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -9707,7 +7578,7 @@ func (c *CollectorRestRest3) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorRestRest3) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader3 {
+func (c *CollectorRestRest3) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -9735,7 +7606,7 @@ func (c *CollectorRestRest3) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest3) GetAuthRequestParams() []CollectorRestAuthRequestParam3 {
+func (c *CollectorRestRest3) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -9803,37 +7674,6 @@ func (e *CollectMethod2) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type CollectorRestCollectRequestParam2 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam2) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam2) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 // CollectorRestType2 - Collector type: rest
@@ -9906,37 +7746,6 @@ func (c *CollectorRestDiscovery2) GetDiscoverType() *CollectorRestDiscoverType2 
 		return nil
 	}
 	return c.DiscoverType
-}
-
-type CollectorRestCollectRequestHeader2 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader2) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader2) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 type PaginationEnum2 string
@@ -10024,44 +7833,17 @@ func (e *CollectorRestAuthentication2) IsExact() bool {
 	return false
 }
 
-// CollectorRestRetryType2 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType2 string
-
-const (
-	// CollectorRestRetryType2None Disabled
-	CollectorRestRetryType2None CollectorRestRetryType2 = "none"
-	// CollectorRestRetryType2Backoff Backoff
-	CollectorRestRetryType2Backoff CollectorRestRetryType2 = "backoff"
-	// CollectorRestRetryType2Static Static
-	CollectorRestRetryType2Static CollectorRestRetryType2 = "static"
-)
-
-func (e CollectorRestRetryType2) ToPointer() *CollectorRestRetryType2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules2 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType2 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules2) MarshalJSON() ([]byte, error) {
@@ -10075,7 +7857,7 @@ func (c *CollectorRestRetryRules2) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules2) GetType() *CollectorRestRetryType2 {
+func (c *CollectorRestRetryRules2) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -10183,71 +7965,9 @@ func (c *CollectorRestScheduling2) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestHeader2 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader2) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader2) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam2 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam2) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam2) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest2 struct {
-	CollectMethod        *CollectMethod2                     `default:"get" json:"collectMethod"`
-	CollectRequestParams []CollectorRestCollectRequestParam2 `json:"collectRequestParams,omitempty"`
+	CollectMethod        *CollectMethod2                  `default:"get" json:"collectMethod"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Collector type: rest
 	Type      CollectorRestType2       `json:"type"`
 	Discovery *CollectorRestDiscovery2 `json:"discovery,omitempty"`
@@ -10256,9 +7976,9 @@ type CollectorRestRest2 struct {
 	// Custom HTTP method to use for the Collect operation
 	CollectVerb *string `json:"collectVerb,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                              `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader2 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination2                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination2                     `json:"pagination,omitempty"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication2 `default:"none" json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -10292,8 +8012,8 @@ type CollectorRestRest2 struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader2 `json:"authRequestHeaders,omitempty"`
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
@@ -10301,7 +8021,7 @@ type CollectorRestRest2 struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam2 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -10332,7 +8052,7 @@ func (c *CollectorRestRest2) GetCollectMethod() *CollectMethod2 {
 	return c.CollectMethod
 }
 
-func (c *CollectorRestRest2) GetCollectRequestParams() []CollectorRestCollectRequestParam2 {
+func (c *CollectorRestRest2) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -10374,7 +8094,7 @@ func (c *CollectorRestRest2) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest2) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader2 {
+func (c *CollectorRestRest2) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -10521,7 +8241,7 @@ func (c *CollectorRestRest2) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorRestRest2) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader2 {
+func (c *CollectorRestRest2) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -10549,7 +8269,7 @@ func (c *CollectorRestRest2) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest2) GetAuthRequestParams() []CollectorRestAuthRequestParam2 {
+func (c *CollectorRestRest2) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -10617,37 +8337,6 @@ func (e *CollectMethod1) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type CollectorRestCollectRequestParam1 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestParam1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestParam1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestParam1) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestParam1) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 // CollectorRestType1 - Collector type: rest
@@ -10720,37 +8409,6 @@ func (c *CollectorRestDiscovery1) GetDiscoverType() *CollectorRestDiscoverType1 
 		return nil
 	}
 	return c.DiscoverType
-}
-
-type CollectorRestCollectRequestHeader1 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestCollectRequestHeader1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestCollectRequestHeader1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestCollectRequestHeader1) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestCollectRequestHeader1) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
 }
 
 type PaginationEnum1 string
@@ -10838,44 +8496,17 @@ func (e *CollectorRestAuthentication1) IsExact() bool {
 	return false
 }
 
-// CollectorRestRetryType1 - Algorithm to use when performing HTTP retries
-type CollectorRestRetryType1 string
-
-const (
-	// CollectorRestRetryType1None Disabled
-	CollectorRestRetryType1None CollectorRestRetryType1 = "none"
-	// CollectorRestRetryType1Backoff Backoff
-	CollectorRestRetryType1Backoff CollectorRestRetryType1 = "backoff"
-	// CollectorRestRetryType1Static Static
-	CollectorRestRetryType1Static CollectorRestRetryType1 = "static"
-)
-
-func (e CollectorRestRetryType1) ToPointer() *CollectorRestRetryType1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestRetryType1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type CollectorRestRetryRules1 struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *CollectorRestRetryType1 `default:"backoff" json:"type"`
-	Interval            any                      `json:"interval,omitempty"`
-	Limit               any                      `json:"limit,omitempty"`
-	Multiplier          any                      `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                      `json:"maxIntervalMs,omitempty"`
-	Codes               any                      `json:"codes,omitempty"`
-	EnableHeader        any                      `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                      `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                      `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsRetryRules `default:"backoff" json:"type"`
+	Interval            any                         `json:"interval,omitempty"`
+	Limit               any                         `json:"limit,omitempty"`
+	Multiplier          any                         `json:"multiplier,omitempty"`
+	MaxIntervalMs       any                         `json:"maxIntervalMs,omitempty"`
+	Codes               any                         `json:"codes,omitempty"`
+	EnableHeader        any                         `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                         `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                         `json:"retryConnectReset,omitempty"`
 }
 
 func (c CollectorRestRetryRules1) MarshalJSON() ([]byte, error) {
@@ -10889,7 +8520,7 @@ func (c *CollectorRestRetryRules1) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CollectorRestRetryRules1) GetType() *CollectorRestRetryType1 {
+func (c *CollectorRestRetryRules1) GetType() *RetryTypeOptionsRetryRules {
 	if c == nil {
 		return nil
 	}
@@ -10997,71 +8628,9 @@ func (c *CollectorRestScheduling1) GetStateTracking() *CollectorRestStateTrackin
 	return c.StateTracking
 }
 
-type CollectorRestAuthRequestHeader1 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestHeader1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestHeader1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestHeader1) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestHeader1) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
-type CollectorRestAuthRequestParam1 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
-	Value string `json:"value"`
-}
-
-func (c CollectorRestAuthRequestParam1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CollectorRestAuthRequestParam1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CollectorRestAuthRequestParam1) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CollectorRestAuthRequestParam1) GetValue() string {
-	if c == nil {
-		return ""
-	}
-	return c.Value
-}
-
 type CollectorRestRest1 struct {
-	CollectMethod        *CollectMethod1                     `default:"get" json:"collectMethod"`
-	CollectRequestParams []CollectorRestCollectRequestParam1 `json:"collectRequestParams,omitempty"`
+	CollectMethod        *CollectMethod1                  `default:"get" json:"collectMethod"`
+	CollectRequestParams []ItemsTypeCollectRequestParams1 `json:"collectRequestParams,omitempty"`
 	// Collector type: rest
 	Type      CollectorRestType1       `json:"type"`
 	Discovery *CollectorRestDiscovery1 `json:"discovery,omitempty"`
@@ -11070,9 +8639,9 @@ type CollectorRestRest1 struct {
 	// Custom HTTP method to use for the Collect operation
 	CollectVerb *string `json:"collectVerb,omitempty"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody           *string                              `json:"collectBody,omitempty"`
-	CollectRequestHeaders []CollectorRestCollectRequestHeader1 `json:"collectRequestHeaders,omitempty"`
-	Pagination            *Pagination1                         `json:"pagination,omitempty"`
+	CollectBody           *string                          `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeCollectRequestParams1 `json:"collectRequestHeaders,omitempty"`
+	Pagination            *Pagination1                     `json:"pagination,omitempty"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *CollectorRestAuthentication1 `default:"none" json:"authentication"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -11106,8 +8675,8 @@ type CollectorRestRest1 struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
-	AuthRequestHeaders []CollectorRestAuthRequestHeader1 `json:"authRequestHeaders,omitempty"`
+	AuthHeaderExpr     *string                          `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeCollectRequestParams1 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
@@ -11115,7 +8684,7 @@ type CollectorRestRest1 struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []CollectorRestAuthRequestParam1 `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeCollectRequestParams1 `json:"authRequestParams,omitempty"`
 	// Select or create a text secret that contains the Google service account credentials value
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -11146,7 +8715,7 @@ func (c *CollectorRestRest1) GetCollectMethod() *CollectMethod1 {
 	return c.CollectMethod
 }
 
-func (c *CollectorRestRest1) GetCollectRequestParams() []CollectorRestCollectRequestParam1 {
+func (c *CollectorRestRest1) GetCollectRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -11188,7 +8757,7 @@ func (c *CollectorRestRest1) GetCollectBody() *string {
 	return c.CollectBody
 }
 
-func (c *CollectorRestRest1) GetCollectRequestHeaders() []CollectorRestCollectRequestHeader1 {
+func (c *CollectorRestRest1) GetCollectRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -11335,7 +8904,7 @@ func (c *CollectorRestRest1) GetAuthHeaderExpr() *string {
 	return c.AuthHeaderExpr
 }
 
-func (c *CollectorRestRest1) GetAuthRequestHeaders() []CollectorRestAuthRequestHeader1 {
+func (c *CollectorRestRest1) GetAuthRequestHeaders() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -11363,7 +8932,7 @@ func (c *CollectorRestRest1) GetClientSecretParamValue() *string {
 	return c.ClientSecretParamValue
 }
 
-func (c *CollectorRestRest1) GetAuthRequestParams() []CollectorRestAuthRequestParam1 {
+func (c *CollectorRestRest1) GetAuthRequestParams() []ItemsTypeCollectRequestParams1 {
 	if c == nil {
 		return nil
 	}
@@ -11408,37 +8977,37 @@ func (c *CollectorRestRest1) GetHmacFunctionID() *string {
 type CollectorRestType string
 
 const (
-	CollectorRestTypeCollectorRestRest1  CollectorRestType = "CollectorRest_Rest_1"
-	CollectorRestTypeCollectorRestRest2  CollectorRestType = "CollectorRest_Rest_2"
-	CollectorRestTypeCollectorRestRest3  CollectorRestType = "CollectorRest_Rest_3"
-	CollectorRestTypeCollectorRestRest4  CollectorRestType = "CollectorRest_Rest_4"
-	CollectorRestTypeCollectorRestRest5  CollectorRestType = "CollectorRest_Rest_5"
-	CollectorRestTypeCollectorRestRest6  CollectorRestType = "CollectorRest_Rest_6"
-	CollectorRestTypeCollectorRestRest7  CollectorRestType = "CollectorRest_Rest_7"
-	CollectorRestTypeCollectorRestRest8  CollectorRestType = "CollectorRest_Rest_8"
-	CollectorRestTypeCollectorRestRest9  CollectorRestType = "CollectorRest_Rest_9"
-	CollectorRestTypeCollectorRestRest10 CollectorRestType = "CollectorRest_Rest_10"
-	CollectorRestTypeCollectorRestRest11 CollectorRestType = "CollectorRest_Rest_11"
-	CollectorRestTypeCollectorRestRest12 CollectorRestType = "CollectorRest_Rest_12"
-	CollectorRestTypeCollectorRestRest13 CollectorRestType = "CollectorRest_Rest_13"
-	CollectorRestTypeCollectorRestRest14 CollectorRestType = "CollectorRest_Rest_14"
+	CollectorRestTypeCollectorRestRest1                         CollectorRestType = "CollectorRest_Rest_1"
+	CollectorRestTypeCollectorRestRest2                         CollectorRestType = "CollectorRest_Rest_2"
+	CollectorRestTypeCollectorRestRest3                         CollectorRestType = "CollectorRest_Rest_3"
+	CollectorRestTypeCollectorRestRest4                         CollectorRestType = "CollectorRest_Rest_4"
+	CollectorRestTypeCollectorRestCollectorHealthCheckPart0Type CollectorRestType = "CollectorRest_CollectorHealthCheckPart0Type"
+	CollectorRestTypeCollectorRestRest5                         CollectorRestType = "CollectorRest_Rest_5"
+	CollectorRestTypeCollectorRestCollectorHealthCheckPart2Type CollectorRestType = "CollectorRest_CollectorHealthCheckPart2Type"
+	CollectorRestTypeCollectorRestRest6                         CollectorRestType = "CollectorRest_Rest_6"
+	CollectorRestTypeCollectorRestRest7                         CollectorRestType = "CollectorRest_Rest_7"
+	CollectorRestTypeCollectorRestRest8                         CollectorRestType = "CollectorRest_Rest_8"
+	CollectorRestTypeCollectorRestRest9                         CollectorRestType = "CollectorRest_Rest_9"
+	CollectorRestTypeCollectorRestRest10                        CollectorRestType = "CollectorRest_Rest_10"
+	CollectorRestTypeCollectorRestRest11                        CollectorRestType = "CollectorRest_Rest_11"
+	CollectorRestTypeCollectorRestRest12                        CollectorRestType = "CollectorRest_Rest_12"
 )
 
 type CollectorRest struct {
-	CollectorRestRest1  *CollectorRestRest1  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest2  *CollectorRestRest2  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest3  *CollectorRestRest3  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest4  *CollectorRestRest4  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest5  *CollectorRestRest5  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest6  *CollectorRestRest6  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest7  *CollectorRestRest7  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest8  *CollectorRestRest8  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest9  *CollectorRestRest9  `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest10 *CollectorRestRest10 `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest11 *CollectorRestRest11 `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest12 *CollectorRestRest12 `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest13 *CollectorRestRest13 `queryParam:"inline,name=CollectorRest" union:"member"`
-	CollectorRestRest14 *CollectorRestRest14 `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest1                         *CollectorRestRest1                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest2                         *CollectorRestRest2                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest3                         *CollectorRestRest3                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest4                         *CollectorRestRest4                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestCollectorHealthCheckPart0Type *CollectorRestCollectorHealthCheckPart0Type `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest5                         *CollectorRestRest5                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestCollectorHealthCheckPart2Type *CollectorRestCollectorHealthCheckPart2Type `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest6                         *CollectorRestRest6                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest7                         *CollectorRestRest7                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest8                         *CollectorRestRest8                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest9                         *CollectorRestRest9                         `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest10                        *CollectorRestRest10                        `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest11                        *CollectorRestRest11                        `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest12                        *CollectorRestRest12                        `queryParam:"inline,name=CollectorRest" union:"member"`
 
 	Type CollectorRestType
 }
@@ -11479,12 +9048,30 @@ func CreateCollectorRestCollectorRestRest4(collectorRestRest4 CollectorRestRest4
 	}
 }
 
+func CreateCollectorRestCollectorRestCollectorHealthCheckPart0Type(collectorRestCollectorHealthCheckPart0Type CollectorRestCollectorHealthCheckPart0Type) CollectorRest {
+	typ := CollectorRestTypeCollectorRestCollectorHealthCheckPart0Type
+
+	return CollectorRest{
+		CollectorRestCollectorHealthCheckPart0Type: &collectorRestCollectorHealthCheckPart0Type,
+		Type: typ,
+	}
+}
+
 func CreateCollectorRestCollectorRestRest5(collectorRestRest5 CollectorRestRest5) CollectorRest {
 	typ := CollectorRestTypeCollectorRestRest5
 
 	return CollectorRest{
 		CollectorRestRest5: &collectorRestRest5,
 		Type:               typ,
+	}
+}
+
+func CreateCollectorRestCollectorRestCollectorHealthCheckPart2Type(collectorRestCollectorHealthCheckPart2Type CollectorRestCollectorHealthCheckPart2Type) CollectorRest {
+	typ := CollectorRestTypeCollectorRestCollectorHealthCheckPart2Type
+
+	return CollectorRest{
+		CollectorRestCollectorHealthCheckPart2Type: &collectorRestCollectorHealthCheckPart2Type,
+		Type: typ,
 	}
 }
 
@@ -11551,37 +9138,26 @@ func CreateCollectorRestCollectorRestRest12(collectorRestRest12 CollectorRestRes
 	}
 }
 
-func CreateCollectorRestCollectorRestRest13(collectorRestRest13 CollectorRestRest13) CollectorRest {
-	typ := CollectorRestTypeCollectorRestRest13
-
-	return CollectorRest{
-		CollectorRestRest13: &collectorRestRest13,
-		Type:                typ,
-	}
-}
-
-func CreateCollectorRestCollectorRestRest14(collectorRestRest14 CollectorRestRest14) CollectorRest {
-	typ := CollectorRestTypeCollectorRestRest14
-
-	return CollectorRest{
-		CollectorRestRest14: &collectorRestRest14,
-		Type:                typ,
-	}
-}
-
 func (u *CollectorRest) UnmarshalJSON(data []byte) error {
 
-	var collectorRestRest12 CollectorRestRest12 = CollectorRestRest12{}
-	if err := utils.UnmarshalJSON(data, &collectorRestRest12, "", true, nil); err == nil {
-		u.CollectorRestRest12 = &collectorRestRest12
-		u.Type = CollectorRestTypeCollectorRestRest12
+	var collectorRestRest10 CollectorRestRest10 = CollectorRestRest10{}
+	if err := utils.UnmarshalJSON(data, &collectorRestRest10, "", true, nil); err == nil {
+		u.CollectorRestRest10 = &collectorRestRest10
+		u.Type = CollectorRestTypeCollectorRestRest10
 		return nil
 	}
 
-	var collectorRestRest13 CollectorRestRest13 = CollectorRestRest13{}
-	if err := utils.UnmarshalJSON(data, &collectorRestRest13, "", true, nil); err == nil {
-		u.CollectorRestRest13 = &collectorRestRest13
-		u.Type = CollectorRestTypeCollectorRestRest13
+	var collectorRestRest11 CollectorRestRest11 = CollectorRestRest11{}
+	if err := utils.UnmarshalJSON(data, &collectorRestRest11, "", true, nil); err == nil {
+		u.CollectorRestRest11 = &collectorRestRest11
+		u.Type = CollectorRestTypeCollectorRestRest11
+		return nil
+	}
+
+	var collectorRestRest5 CollectorRestRest5 = CollectorRestRest5{}
+	if err := utils.UnmarshalJSON(data, &collectorRestRest5, "", true, nil); err == nil {
+		u.CollectorRestRest5 = &collectorRestRest5
+		u.Type = CollectorRestTypeCollectorRestRest5
 		return nil
 	}
 
@@ -11589,13 +9165,6 @@ func (u *CollectorRest) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &collectorRestRest6, "", true, nil); err == nil {
 		u.CollectorRestRest6 = &collectorRestRest6
 		u.Type = CollectorRestTypeCollectorRestRest6
-		return nil
-	}
-
-	var collectorRestRest8 CollectorRestRest8 = CollectorRestRest8{}
-	if err := utils.UnmarshalJSON(data, &collectorRestRest8, "", true, nil); err == nil {
-		u.CollectorRestRest8 = &collectorRestRest8
-		u.Type = CollectorRestTypeCollectorRestRest8
 		return nil
 	}
 
@@ -11613,10 +9182,24 @@ func (u *CollectorRest) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	var collectorRestCollectorHealthCheckPart2Type CollectorRestCollectorHealthCheckPart2Type = CollectorRestCollectorHealthCheckPart2Type{}
+	if err := utils.UnmarshalJSON(data, &collectorRestCollectorHealthCheckPart2Type, "", true, nil); err == nil {
+		u.CollectorRestCollectorHealthCheckPart2Type = &collectorRestCollectorHealthCheckPart2Type
+		u.Type = CollectorRestTypeCollectorRestCollectorHealthCheckPart2Type
+		return nil
+	}
+
 	var collectorRestRest7 CollectorRestRest7 = CollectorRestRest7{}
 	if err := utils.UnmarshalJSON(data, &collectorRestRest7, "", true, nil); err == nil {
 		u.CollectorRestRest7 = &collectorRestRest7
 		u.Type = CollectorRestTypeCollectorRestRest7
+		return nil
+	}
+
+	var collectorRestRest8 CollectorRestRest8 = CollectorRestRest8{}
+	if err := utils.UnmarshalJSON(data, &collectorRestRest8, "", true, nil); err == nil {
+		u.CollectorRestRest8 = &collectorRestRest8
+		u.Type = CollectorRestTypeCollectorRestRest8
 		return nil
 	}
 
@@ -11627,24 +9210,10 @@ func (u *CollectorRest) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var collectorRestRest10 CollectorRestRest10 = CollectorRestRest10{}
-	if err := utils.UnmarshalJSON(data, &collectorRestRest10, "", true, nil); err == nil {
-		u.CollectorRestRest10 = &collectorRestRest10
-		u.Type = CollectorRestTypeCollectorRestRest10
-		return nil
-	}
-
-	var collectorRestRest11 CollectorRestRest11 = CollectorRestRest11{}
-	if err := utils.UnmarshalJSON(data, &collectorRestRest11, "", true, nil); err == nil {
-		u.CollectorRestRest11 = &collectorRestRest11
-		u.Type = CollectorRestTypeCollectorRestRest11
-		return nil
-	}
-
-	var collectorRestRest14 CollectorRestRest14 = CollectorRestRest14{}
-	if err := utils.UnmarshalJSON(data, &collectorRestRest14, "", true, nil); err == nil {
-		u.CollectorRestRest14 = &collectorRestRest14
-		u.Type = CollectorRestTypeCollectorRestRest14
+	var collectorRestRest12 CollectorRestRest12 = CollectorRestRest12{}
+	if err := utils.UnmarshalJSON(data, &collectorRestRest12, "", true, nil); err == nil {
+		u.CollectorRestRest12 = &collectorRestRest12
+		u.Type = CollectorRestTypeCollectorRestRest12
 		return nil
 	}
 
@@ -11662,10 +9231,10 @@ func (u *CollectorRest) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var collectorRestRest5 CollectorRestRest5 = CollectorRestRest5{}
-	if err := utils.UnmarshalJSON(data, &collectorRestRest5, "", true, nil); err == nil {
-		u.CollectorRestRest5 = &collectorRestRest5
-		u.Type = CollectorRestTypeCollectorRestRest5
+	var collectorRestCollectorHealthCheckPart0Type CollectorRestCollectorHealthCheckPart0Type = CollectorRestCollectorHealthCheckPart0Type{}
+	if err := utils.UnmarshalJSON(data, &collectorRestCollectorHealthCheckPart0Type, "", true, nil); err == nil {
+		u.CollectorRestCollectorHealthCheckPart0Type = &collectorRestCollectorHealthCheckPart0Type
+		u.Type = CollectorRestTypeCollectorRestCollectorHealthCheckPart0Type
 		return nil
 	}
 
@@ -11689,8 +9258,16 @@ func (u CollectorRest) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CollectorRestRest4, "", true)
 	}
 
+	if u.CollectorRestCollectorHealthCheckPart0Type != nil {
+		return utils.MarshalJSON(u.CollectorRestCollectorHealthCheckPart0Type, "", true)
+	}
+
 	if u.CollectorRestRest5 != nil {
 		return utils.MarshalJSON(u.CollectorRestRest5, "", true)
+	}
+
+	if u.CollectorRestCollectorHealthCheckPart2Type != nil {
+		return utils.MarshalJSON(u.CollectorRestCollectorHealthCheckPart2Type, "", true)
 	}
 
 	if u.CollectorRestRest6 != nil {
@@ -11719,14 +9296,6 @@ func (u CollectorRest) MarshalJSON() ([]byte, error) {
 
 	if u.CollectorRestRest12 != nil {
 		return utils.MarshalJSON(u.CollectorRestRest12, "", true)
-	}
-
-	if u.CollectorRestRest13 != nil {
-		return utils.MarshalJSON(u.CollectorRestRest13, "", true)
-	}
-
-	if u.CollectorRestRest14 != nil {
-		return utils.MarshalJSON(u.CollectorRestRest14, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CollectorRest: all fields are null")

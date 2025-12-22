@@ -106,8 +106,8 @@ func main() {
         },
         DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](5631.58),
         Description: criblcontrolplanesdkgo.Pointer("ack resort boohoo"),
-        EstimatedIngestRate: components.GroupCreateRequestEstimatedIngestRateRate24MbPerSec.ToPointer(),
-        Git: &components.GroupCreateRequestGit{
+        EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate24MbPerSec.ToPointer(),
+        Git: &components.GitTypeConfigGroup{
             Commit: criblcontrolplanesdkgo.Pointer("<value>"),
             LocalChanges: criblcontrolplanesdkgo.Pointer[float64](2413.01),
             Log: []components.Commit{
@@ -149,7 +149,7 @@ func main() {
             "<value 3>",
         },
         Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.GroupCreateRequestTypeLakeAccess.ToPointer(),
+        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
         UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         WorkerCount: criblcontrolplanesdkgo.Pointer[float64](4980.41),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
@@ -278,8 +278,8 @@ func main() {
         ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](7786.61),
         Description: criblcontrolplanesdkgo.Pointer("Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity"),
-        EstimatedIngestRate: components.ConfigGroupEstimatedIngestRateRate48MbPerSec.ToPointer(),
-        Git: &components.ConfigGroupGit{
+        EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer(),
+        Git: &components.GitTypeConfigGroup{
             Commit: criblcontrolplanesdkgo.Pointer("<value>"),
             LocalChanges: criblcontrolplanesdkgo.Pointer[float64](776.15),
             Log: []components.Commit{
@@ -314,7 +314,7 @@ func main() {
             "<value 3>",
         },
         Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
+        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
         UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         WorkerCount: criblcontrolplanesdkgo.Pointer[float64](835.08),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),

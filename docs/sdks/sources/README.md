@@ -108,17 +108,17 @@ func main() {
                 "<value 2>",
                 "<value 3>",
             },
-            Connections: []operations.ConnectionAppscope{
-                operations.ConnectionAppscope{
+            Connections: []components.ItemsTypeConnections{
+                components.ItemsTypeConnections{
                     Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
-            Pq: &operations.PqAppscope{
-                PqControls: &operations.PqControlsAppscope{},
+            Pq: &components.PqType{
+                PqControls: &components.PqTypePqControls{},
             },
-            Metadata: []operations.MetadatumAppscope{
-                operations.MetadatumAppscope{
+            Metadata: []components.ItemsTypeNotificationMetadata{
+                components.ItemsTypeNotificationMetadata{
                     Name: "<value>",
                     Value: "<value>",
                 },
@@ -140,14 +140,14 @@ func main() {
             Description: criblcontrolplanesdkgo.Pointer("if deserted boohoo red chops excepting know stay bah"),
             Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
             Port: criblcontrolplanesdkgo.Pointer[float64](9109),
-            TLS: &operations.TLSSettingsServerSideAppscope{
+            TLS: &components.TLSSettingsServerSideType{
                 CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                 PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                MinVersion: operations.MinimumTLSVersionAppscopeTlSv11.ToPointer(),
-                MaxVersion: operations.MaximumTLSVersionAppscopeTlSv1.ToPointer(),
+                MinVersion: components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv11.ToPointer(),
+                MaxVersion: components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv1.ToPointer(),
             },
             UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -276,17 +276,17 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            Connections: []components.InputAppscopeConnection{
-                components.InputAppscopeConnection{
+            Connections: []components.ItemsTypeConnections{
+                components.ItemsTypeConnections{
                     Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                     Output: "<value>",
                 },
             },
-            Pq: &components.InputAppscopePq{
-                PqControls: &components.InputAppscopePqControls{},
+            Pq: &components.PqType{
+                PqControls: &components.PqTypePqControls{},
             },
-            Metadata: []components.InputAppscopeMetadatum{
-                components.InputAppscopeMetadatum{
+            Metadata: []components.ItemsTypeNotificationMetadata{
+                components.ItemsTypeNotificationMetadata{
                     Name: "<value>",
                     Value: "<value>",
                 },
@@ -308,14 +308,14 @@ func main() {
             Description: criblcontrolplanesdkgo.Pointer("beyond hidden supposing ghost fictionalize disarm geez"),
             Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
             Port: criblcontrolplanesdkgo.Pointer[float64](9109),
-            TLS: &components.InputAppscopeTLSSettingsServerSide{
+            TLS: &components.TLSSettingsServerSideType{
                 CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                 PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
                 CertPath: criblcontrolplanesdkgo.Pointer("<value>"),
                 CaPath: criblcontrolplanesdkgo.Pointer("<value>"),
-                MinVersion: components.InputAppscopeMinimumTLSVersionTlSv11.ToPointer(),
-                MaxVersion: components.InputAppscopeMaximumTLSVersionTlSv12.ToPointer(),
+                MinVersion: components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv11.ToPointer(),
+                MaxVersion: components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv12.ToPointer(),
             },
             UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),

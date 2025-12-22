@@ -31,343 +31,6 @@ func (e *InputOpenTelemetryType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputOpenTelemetryConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputOpenTelemetryConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputOpenTelemetryConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputOpenTelemetryConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputOpenTelemetryConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputOpenTelemetryMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputOpenTelemetryMode string
-
-const (
-	// InputOpenTelemetryModeSmart Smart
-	InputOpenTelemetryModeSmart InputOpenTelemetryMode = "smart"
-	// InputOpenTelemetryModeAlways Always On
-	InputOpenTelemetryModeAlways InputOpenTelemetryMode = "always"
-)
-
-func (e InputOpenTelemetryMode) ToPointer() *InputOpenTelemetryMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputOpenTelemetryMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputOpenTelemetryCompression - Codec to use to compress the persisted data
-type InputOpenTelemetryCompression string
-
-const (
-	// InputOpenTelemetryCompressionNone None
-	InputOpenTelemetryCompressionNone InputOpenTelemetryCompression = "none"
-	// InputOpenTelemetryCompressionGzip Gzip
-	InputOpenTelemetryCompressionGzip InputOpenTelemetryCompression = "gzip"
-)
-
-func (e InputOpenTelemetryCompression) ToPointer() *InputOpenTelemetryCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputOpenTelemetryCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputOpenTelemetryPqControls struct {
-}
-
-func (i InputOpenTelemetryPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputOpenTelemetryPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputOpenTelemetryPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputOpenTelemetryMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputOpenTelemetryCompression `default:"none" json:"compress"`
-	PqControls *InputOpenTelemetryPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputOpenTelemetryPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputOpenTelemetryPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputOpenTelemetryPq) GetMode() *InputOpenTelemetryMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputOpenTelemetryPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputOpenTelemetryPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputOpenTelemetryPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputOpenTelemetryPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputOpenTelemetryPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputOpenTelemetryPq) GetCompress() *InputOpenTelemetryCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputOpenTelemetryPq) GetPqControls() *InputOpenTelemetryPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputOpenTelemetryMinimumTLSVersion string
-
-const (
-	InputOpenTelemetryMinimumTLSVersionTlSv1  InputOpenTelemetryMinimumTLSVersion = "TLSv1"
-	InputOpenTelemetryMinimumTLSVersionTlSv11 InputOpenTelemetryMinimumTLSVersion = "TLSv1.1"
-	InputOpenTelemetryMinimumTLSVersionTlSv12 InputOpenTelemetryMinimumTLSVersion = "TLSv1.2"
-	InputOpenTelemetryMinimumTLSVersionTlSv13 InputOpenTelemetryMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputOpenTelemetryMinimumTLSVersion) ToPointer() *InputOpenTelemetryMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputOpenTelemetryMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputOpenTelemetryMaximumTLSVersion string
-
-const (
-	InputOpenTelemetryMaximumTLSVersionTlSv1  InputOpenTelemetryMaximumTLSVersion = "TLSv1"
-	InputOpenTelemetryMaximumTLSVersionTlSv11 InputOpenTelemetryMaximumTLSVersion = "TLSv1.1"
-	InputOpenTelemetryMaximumTLSVersionTlSv12 InputOpenTelemetryMaximumTLSVersion = "TLSv1.2"
-	InputOpenTelemetryMaximumTLSVersionTlSv13 InputOpenTelemetryMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputOpenTelemetryMaximumTLSVersion) ToPointer() *InputOpenTelemetryMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputOpenTelemetryMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputOpenTelemetryTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                              `json:"caPath,omitempty"`
-	MinVersion *InputOpenTelemetryMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputOpenTelemetryMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputOpenTelemetryTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetMinVersion() *InputOpenTelemetryMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputOpenTelemetryTLSSettingsServerSide) GetMaxVersion() *InputOpenTelemetryMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
 // InputOpenTelemetryProtocol - Select whether to leverage gRPC or HTTP for OpenTelemetry
 type InputOpenTelemetryProtocol string
 
@@ -418,128 +81,6 @@ func (e *InputOpenTelemetryOTLPVersion) IsExact() bool {
 	return false
 }
 
-// InputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
-type InputOpenTelemetryAuthenticationType string
-
-const (
-	InputOpenTelemetryAuthenticationTypeNone              InputOpenTelemetryAuthenticationType = "none"
-	InputOpenTelemetryAuthenticationTypeBasic             InputOpenTelemetryAuthenticationType = "basic"
-	InputOpenTelemetryAuthenticationTypeCredentialsSecret InputOpenTelemetryAuthenticationType = "credentialsSecret"
-	InputOpenTelemetryAuthenticationTypeToken             InputOpenTelemetryAuthenticationType = "token"
-	InputOpenTelemetryAuthenticationTypeTextSecret        InputOpenTelemetryAuthenticationType = "textSecret"
-	InputOpenTelemetryAuthenticationTypeOauth             InputOpenTelemetryAuthenticationType = "oauth"
-)
-
-func (e InputOpenTelemetryAuthenticationType) ToPointer() *InputOpenTelemetryAuthenticationType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputOpenTelemetryAuthenticationType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
-			return true
-		}
-	}
-	return false
-}
-
-type InputOpenTelemetryMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputOpenTelemetryMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputOpenTelemetryMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputOpenTelemetryMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputOpenTelemetryMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputOpenTelemetryOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (i InputOpenTelemetryOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputOpenTelemetryOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputOpenTelemetryOauthParam) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputOpenTelemetryOauthParam) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputOpenTelemetryOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (i InputOpenTelemetryOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputOpenTelemetryOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputOpenTelemetryOauthHeader) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputOpenTelemetryOauthHeader) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputOpenTelemetry struct {
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
@@ -556,13 +97,13 @@ type InputOpenTelemetry struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputOpenTelemetryConnection `json:"connections,omitempty"`
-	Pq          *InputOpenTelemetryPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port *float64                                 `default:"4317" json:"port"`
-	TLS  *InputOpenTelemetryTLSSettingsServerSide `json:"tls,omitempty"`
+	Port *float64                   `default:"4317" json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -591,9 +132,9 @@ type InputOpenTelemetry struct {
 	// The version of OTLP Protobuf definitions to use when interpreting received data
 	OtlpVersion *InputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
 	// OpenTelemetry authentication type
-	AuthType *InputOpenTelemetryAuthenticationType `default:"none" json:"authType"`
+	AuthType *AuthenticationTypeOptions `default:"none" json:"authType"`
 	// Fields to add to events from this input
-	Metadata []InputOpenTelemetryMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
 	Description  *string  `json:"description,omitempty"`
@@ -618,9 +159,9 @@ type InputOpenTelemetry struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []InputOpenTelemetryOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []InputOpenTelemetryOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Enable to extract each incoming log record to a separate event
 	ExtractLogs *bool `default:"false" json:"extractLogs"`
 }
@@ -692,14 +233,14 @@ func (i *InputOpenTelemetry) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOpenTelemetry) GetConnections() []InputOpenTelemetryConnection {
+func (i *InputOpenTelemetry) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOpenTelemetry) GetPq() *InputOpenTelemetryPq {
+func (i *InputOpenTelemetry) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -720,7 +261,7 @@ func (i *InputOpenTelemetry) GetPort() *float64 {
 	return i.Port
 }
 
-func (i *InputOpenTelemetry) GetTLS() *InputOpenTelemetryTLSSettingsServerSide {
+func (i *InputOpenTelemetry) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
@@ -832,14 +373,14 @@ func (i *InputOpenTelemetry) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
 	return i.OtlpVersion
 }
 
-func (i *InputOpenTelemetry) GetAuthType() *InputOpenTelemetryAuthenticationType {
+func (i *InputOpenTelemetry) GetAuthType() *AuthenticationTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOpenTelemetry) GetMetadata() []InputOpenTelemetryMetadatum {
+func (i *InputOpenTelemetry) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
@@ -937,14 +478,14 @@ func (i *InputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputOpenTelemetry) GetOauthParams() []InputOpenTelemetryOauthParam {
+func (i *InputOpenTelemetry) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputOpenTelemetry) GetOauthHeaders() []InputOpenTelemetryOauthHeader {
+func (i *InputOpenTelemetry) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}

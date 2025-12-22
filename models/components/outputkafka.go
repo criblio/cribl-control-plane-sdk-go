@@ -31,885 +31,6 @@ func (e *OutputKafkaType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputKafkaAcknowledgments - Control the number of required acknowledgments.
-type OutputKafkaAcknowledgments int64
-
-const (
-	// OutputKafkaAcknowledgmentsOne Leader
-	OutputKafkaAcknowledgmentsOne OutputKafkaAcknowledgments = 1
-	// OutputKafkaAcknowledgmentsZero None
-	OutputKafkaAcknowledgmentsZero OutputKafkaAcknowledgments = 0
-	// OutputKafkaAcknowledgmentsMinus1 All
-	OutputKafkaAcknowledgmentsMinus1 OutputKafkaAcknowledgments = -1
-)
-
-func (e OutputKafkaAcknowledgments) ToPointer() *OutputKafkaAcknowledgments {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaAcknowledgments) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case 1, 0, -1:
-			return true
-		}
-	}
-	return false
-}
-
-// OutputKafkaRecordDataFormat - Format to use to serialize events before writing to Kafka.
-type OutputKafkaRecordDataFormat string
-
-const (
-	// OutputKafkaRecordDataFormatJSON JSON
-	OutputKafkaRecordDataFormatJSON OutputKafkaRecordDataFormat = "json"
-	// OutputKafkaRecordDataFormatRaw Field _raw
-	OutputKafkaRecordDataFormatRaw OutputKafkaRecordDataFormat = "raw"
-	// OutputKafkaRecordDataFormatProtobuf Protobuf
-	OutputKafkaRecordDataFormatProtobuf OutputKafkaRecordDataFormat = "protobuf"
-)
-
-func (e OutputKafkaRecordDataFormat) ToPointer() *OutputKafkaRecordDataFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaRecordDataFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "raw", "protobuf":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputKafkaCompression - Codec to use to compress the data before sending to Kafka
-type OutputKafkaCompression string
-
-const (
-	// OutputKafkaCompressionNone None
-	OutputKafkaCompressionNone OutputKafkaCompression = "none"
-	// OutputKafkaCompressionGzip Gzip
-	OutputKafkaCompressionGzip OutputKafkaCompression = "gzip"
-	// OutputKafkaCompressionSnappy Snappy
-	OutputKafkaCompressionSnappy OutputKafkaCompression = "snappy"
-	// OutputKafkaCompressionLz4 LZ4
-	OutputKafkaCompressionLz4 OutputKafkaCompression = "lz4"
-	// OutputKafkaCompressionZstd ZSTD
-	OutputKafkaCompressionZstd OutputKafkaCompression = "zstd"
-)
-
-func (e OutputKafkaCompression) ToPointer() *OutputKafkaCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip", "snappy", "lz4", "zstd":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputKafkaAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
-type OutputKafkaAuth struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-}
-
-func (o OutputKafkaAuth) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputKafkaAuth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputKafkaAuth) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputKafkaAuth) GetCredentialsSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CredentialsSecret
-}
-
-type OutputKafkaKafkaSchemaRegistryMinimumTLSVersion string
-
-const (
-	OutputKafkaKafkaSchemaRegistryMinimumTLSVersionTlSv1  OutputKafkaKafkaSchemaRegistryMinimumTLSVersion = "TLSv1"
-	OutputKafkaKafkaSchemaRegistryMinimumTLSVersionTlSv11 OutputKafkaKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.1"
-	OutputKafkaKafkaSchemaRegistryMinimumTLSVersionTlSv12 OutputKafkaKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.2"
-	OutputKafkaKafkaSchemaRegistryMinimumTLSVersionTlSv13 OutputKafkaKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputKafkaKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *OutputKafkaKafkaSchemaRegistryMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputKafkaKafkaSchemaRegistryMaximumTLSVersion string
-
-const (
-	OutputKafkaKafkaSchemaRegistryMaximumTLSVersionTlSv1  OutputKafkaKafkaSchemaRegistryMaximumTLSVersion = "TLSv1"
-	OutputKafkaKafkaSchemaRegistryMaximumTLSVersionTlSv11 OutputKafkaKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.1"
-	OutputKafkaKafkaSchemaRegistryMaximumTLSVersionTlSv12 OutputKafkaKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.2"
-	OutputKafkaKafkaSchemaRegistryMaximumTLSVersionTlSv13 OutputKafkaKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputKafkaKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *OutputKafkaKafkaSchemaRegistryMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                                          `json:"passphrase,omitempty"`
-	MinVersion *OutputKafkaKafkaSchemaRegistryMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputKafkaKafkaSchemaRegistryMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetMinVersion() *OutputKafkaKafkaSchemaRegistryMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide) GetMaxVersion() *OutputKafkaKafkaSchemaRegistryMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-type OutputKafkaKafkaSchemaRegistryAuthentication struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
-	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// Maximum time to wait for a Schema Registry connection to complete successfully
-	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
-	// Maximum time to wait for the Schema Registry to respond to a request
-	RequestTimeout *float64 `default:"30000" json:"requestTimeout"`
-	// Maximum number of times to try fetching schemas from the Schema Registry
-	MaxRetries *float64 `default:"1" json:"maxRetries"`
-	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
-	Auth *OutputKafkaAuth                                     `json:"auth,omitempty"`
-	TLS  *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide `json:"tls,omitempty"`
-	// Used when __keySchemaIdOut is not present, to transform key values, leave blank if key transformation is not required by default.
-	DefaultKeySchemaID *float64 `json:"defaultKeySchemaId,omitempty"`
-	// Used when __valueSchemaIdOut is not present, to transform _raw, leave blank if value transformation is not required by default.
-	DefaultValueSchemaID *float64 `json:"defaultValueSchemaId,omitempty"`
-}
-
-func (o OutputKafkaKafkaSchemaRegistryAuthentication) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SchemaRegistryURL
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.ConnectionTimeout
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetRequestTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.RequestTimeout
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetMaxRetries() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxRetries
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetAuth() *OutputKafkaAuth {
-	if o == nil {
-		return nil
-	}
-	return o.Auth
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetTLS() *OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide {
-	if o == nil {
-		return nil
-	}
-	return o.TLS
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetDefaultKeySchemaID() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DefaultKeySchemaID
-}
-
-func (o *OutputKafkaKafkaSchemaRegistryAuthentication) GetDefaultValueSchemaID() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DefaultValueSchemaID
-}
-
-// OutputKafkaAuthenticationMethod - Enter credentials directly, or select a stored secret
-type OutputKafkaAuthenticationMethod string
-
-const (
-	OutputKafkaAuthenticationMethodManual OutputKafkaAuthenticationMethod = "manual"
-	OutputKafkaAuthenticationMethodSecret OutputKafkaAuthenticationMethod = "secret"
-)
-
-func (e OutputKafkaAuthenticationMethod) ToPointer() *OutputKafkaAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputKafkaSASLMechanism string
-
-const (
-	// OutputKafkaSASLMechanismPlain PLAIN
-	OutputKafkaSASLMechanismPlain OutputKafkaSASLMechanism = "plain"
-	// OutputKafkaSASLMechanismScramSha256 SCRAM-SHA-256
-	OutputKafkaSASLMechanismScramSha256 OutputKafkaSASLMechanism = "scram-sha-256"
-	// OutputKafkaSASLMechanismScramSha512 SCRAM-SHA-512
-	OutputKafkaSASLMechanismScramSha512 OutputKafkaSASLMechanism = "scram-sha-512"
-	// OutputKafkaSASLMechanismKerberos GSSAPI/Kerberos
-	OutputKafkaSASLMechanismKerberos OutputKafkaSASLMechanism = "kerberos"
-)
-
-func (e OutputKafkaSASLMechanism) ToPointer() *OutputKafkaSASLMechanism {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaSASLMechanism) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "plain", "scram-sha-256", "scram-sha-512", "kerberos":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputKafkaOauthParam struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (o OutputKafkaOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputKafkaOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputKafkaOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputKafkaOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputKafkaSaslExtension struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (o OutputKafkaSaslExtension) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputKafkaSaslExtension) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputKafkaSaslExtension) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputKafkaSaslExtension) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputKafkaAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-type OutputKafkaAuthentication struct {
-	Disabled *bool   `default:"true" json:"disabled"`
-	Username *string `json:"username,omitempty"`
-	Password *string `json:"password,omitempty"`
-	// Enter credentials directly, or select a stored secret
-	AuthType *OutputKafkaAuthenticationMethod `default:"manual" json:"authType"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string                   `json:"credentialsSecret,omitempty"`
-	Mechanism         *OutputKafkaSASLMechanism `default:"plain" json:"mechanism"`
-	// Location of keytab file for authentication principal
-	KeytabLocation *string `json:"keytabLocation,omitempty"`
-	// Authentication principal, such as `kafka_user@example.com`
-	Principal *string `json:"principal,omitempty"`
-	// Kerberos service class for Kafka brokers, such as `kafka`
-	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
-	// Enable OAuth authentication
-	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
-	// URL of the token endpoint to use for OAuth authentication
-	TokenURL *string `json:"tokenUrl,omitempty"`
-	// Client ID to use for OAuth authentication
-	ClientID        *string `json:"clientId,omitempty"`
-	OauthSecretType *string `default:"secret" json:"oauthSecretType"`
-	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
-	// Additional fields to send to the token endpoint, such as scope or audience
-	OauthParams []OutputKafkaOauthParam `json:"oauthParams,omitempty"`
-	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
-	SaslExtensions []OutputKafkaSaslExtension `json:"saslExtensions,omitempty"`
-}
-
-func (o OutputKafkaAuthentication) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputKafkaAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputKafkaAuthentication) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputKafkaAuthentication) GetUsername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Username
-}
-
-func (o *OutputKafkaAuthentication) GetPassword() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Password
-}
-
-func (o *OutputKafkaAuthentication) GetAuthType() *OutputKafkaAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputKafkaAuthentication) GetCredentialsSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CredentialsSecret
-}
-
-func (o *OutputKafkaAuthentication) GetMechanism() *OutputKafkaSASLMechanism {
-	if o == nil {
-		return nil
-	}
-	return o.Mechanism
-}
-
-func (o *OutputKafkaAuthentication) GetKeytabLocation() *string {
-	if o == nil {
-		return nil
-	}
-	return o.KeytabLocation
-}
-
-func (o *OutputKafkaAuthentication) GetPrincipal() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Principal
-}
-
-func (o *OutputKafkaAuthentication) GetBrokerServiceClass() *string {
-	if o == nil {
-		return nil
-	}
-	return o.BrokerServiceClass
-}
-
-func (o *OutputKafkaAuthentication) GetOauthEnabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.OauthEnabled
-}
-
-func (o *OutputKafkaAuthentication) GetTokenURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenURL
-}
-
-func (o *OutputKafkaAuthentication) GetClientID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientID
-}
-
-func (o *OutputKafkaAuthentication) GetOauthSecretType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.OauthSecretType
-}
-
-func (o *OutputKafkaAuthentication) GetClientTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientTextSecret
-}
-
-func (o *OutputKafkaAuthentication) GetOauthParams() []OutputKafkaOauthParam {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputKafkaAuthentication) GetSaslExtensions() []OutputKafkaSaslExtension {
-	if o == nil {
-		return nil
-	}
-	return o.SaslExtensions
-}
-
-type OutputKafkaMinimumTLSVersion string
-
-const (
-	OutputKafkaMinimumTLSVersionTlSv1  OutputKafkaMinimumTLSVersion = "TLSv1"
-	OutputKafkaMinimumTLSVersionTlSv11 OutputKafkaMinimumTLSVersion = "TLSv1.1"
-	OutputKafkaMinimumTLSVersionTlSv12 OutputKafkaMinimumTLSVersion = "TLSv1.2"
-	OutputKafkaMinimumTLSVersionTlSv13 OutputKafkaMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputKafkaMinimumTLSVersion) ToPointer() *OutputKafkaMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputKafkaMaximumTLSVersion string
-
-const (
-	OutputKafkaMaximumTLSVersionTlSv1  OutputKafkaMaximumTLSVersion = "TLSv1"
-	OutputKafkaMaximumTLSVersionTlSv11 OutputKafkaMaximumTLSVersion = "TLSv1.1"
-	OutputKafkaMaximumTLSVersionTlSv12 OutputKafkaMaximumTLSVersion = "TLSv1.2"
-	OutputKafkaMaximumTLSVersionTlSv13 OutputKafkaMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputKafkaMaximumTLSVersion) ToPointer() *OutputKafkaMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputKafkaTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                       `json:"passphrase,omitempty"`
-	MinVersion *OutputKafkaMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputKafkaMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputKafkaTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetMinVersion() *OutputKafkaMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputKafkaTLSSettingsClientSide) GetMaxVersion() *OutputKafkaMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputKafkaBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputKafkaBackpressureBehavior string
-
-const (
-	// OutputKafkaBackpressureBehaviorBlock Block
-	OutputKafkaBackpressureBehaviorBlock OutputKafkaBackpressureBehavior = "block"
-	// OutputKafkaBackpressureBehaviorDrop Drop
-	OutputKafkaBackpressureBehaviorDrop OutputKafkaBackpressureBehavior = "drop"
-	// OutputKafkaBackpressureBehaviorQueue Persistent Queue
-	OutputKafkaBackpressureBehaviorQueue OutputKafkaBackpressureBehavior = "queue"
-)
-
-func (e OutputKafkaBackpressureBehavior) ToPointer() *OutputKafkaBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputKafkaMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputKafkaMode string
-
-const (
-	// OutputKafkaModeError Error
-	OutputKafkaModeError OutputKafkaMode = "error"
-	// OutputKafkaModeAlways Backpressure
-	OutputKafkaModeAlways OutputKafkaMode = "always"
-	// OutputKafkaModeBackpressure Always On
-	OutputKafkaModeBackpressure OutputKafkaMode = "backpressure"
-)
-
-func (e OutputKafkaMode) ToPointer() *OutputKafkaMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputKafkaPqCompressCompression - Codec to use to compress the persisted data
-type OutputKafkaPqCompressCompression string
-
-const (
-	// OutputKafkaPqCompressCompressionNone None
-	OutputKafkaPqCompressCompressionNone OutputKafkaPqCompressCompression = "none"
-	// OutputKafkaPqCompressCompressionGzip Gzip
-	OutputKafkaPqCompressCompressionGzip OutputKafkaPqCompressCompression = "gzip"
-)
-
-func (e OutputKafkaPqCompressCompression) ToPointer() *OutputKafkaPqCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaPqCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputKafkaQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputKafkaQueueFullBehavior string
-
-const (
-	// OutputKafkaQueueFullBehaviorBlock Block
-	OutputKafkaQueueFullBehaviorBlock OutputKafkaQueueFullBehavior = "block"
-	// OutputKafkaQueueFullBehaviorDrop Drop new data
-	OutputKafkaQueueFullBehaviorDrop OutputKafkaQueueFullBehavior = "drop"
-)
-
-func (e OutputKafkaQueueFullBehavior) ToPointer() *OutputKafkaQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputKafkaQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputKafkaPqControls struct {
 }
 
@@ -941,18 +62,18 @@ type OutputKafka struct {
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *OutputKafkaAcknowledgments `default:"1" json:"ack"`
+	Ack *AcknowledgmentsOptions1 `default:"1" json:"ack"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *OutputKafkaRecordDataFormat `default:"json" json:"format"`
+	Format *RecordDataFormatOptions1 `default:"json" json:"format"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *OutputKafkaCompression `default:"gzip" json:"compression"`
+	Compression *CompressionOptions3 `default:"gzip" json:"compression"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
 	MaxRecordSizeKB *float64 `default:"768" json:"maxRecordSizeKB"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `default:"1000" json:"flushEventCount"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                      `default:"1" json:"flushPeriodSec"`
-	KafkaSchemaRegistry *OutputKafkaKafkaSchemaRegistryAuthentication `json:"kafkaSchemaRegistry,omitempty"`
+	FlushPeriodSec      *float64                                `default:"1" json:"flushPeriodSec"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitempty"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// Maximum time to wait for Kafka to respond to a request
@@ -970,11 +91,11 @@ type OutputKafka struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *OutputKafkaAuthentication        `json:"sasl,omitempty"`
-	TLS  *OutputKafkaTLSSettingsClientSide `json:"tls,omitempty"`
+	Sasl *AuthenticationType                           `json:"sasl,omitempty"`
+	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputKafkaBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                          `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	Description    *string                      `json:"description,omitempty"`
 	// Select a set of Protobuf definitions for the events you want to send
 	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
 	// Select the type of object you want the Protobuf definitions to use for event encoding
@@ -984,7 +105,7 @@ type OutputKafka struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputKafkaMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -996,10 +117,10 @@ type OutputKafka struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputKafkaPqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputKafkaQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputKafkaPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputKafkaPqControls    `json:"pqControls,omitempty"`
 }
 
 func (o OutputKafka) MarshalJSON() ([]byte, error) {
@@ -1069,21 +190,21 @@ func (o *OutputKafka) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputKafka) GetAck() *OutputKafkaAcknowledgments {
+func (o *OutputKafka) GetAck() *AcknowledgmentsOptions1 {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputKafka) GetFormat() *OutputKafkaRecordDataFormat {
+func (o *OutputKafka) GetFormat() *RecordDataFormatOptions1 {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputKafka) GetCompression() *OutputKafkaCompression {
+func (o *OutputKafka) GetCompression() *CompressionOptions3 {
 	if o == nil {
 		return nil
 	}
@@ -1111,7 +232,7 @@ func (o *OutputKafka) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputKafka) GetKafkaSchemaRegistry() *OutputKafkaKafkaSchemaRegistryAuthentication {
+func (o *OutputKafka) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType1 {
 	if o == nil {
 		return nil
 	}
@@ -1174,21 +295,21 @@ func (o *OutputKafka) GetReauthenticationThreshold() *float64 {
 	return o.ReauthenticationThreshold
 }
 
-func (o *OutputKafka) GetSasl() *OutputKafkaAuthentication {
+func (o *OutputKafka) GetSasl() *AuthenticationType {
 	if o == nil {
 		return nil
 	}
 	return o.Sasl
 }
 
-func (o *OutputKafka) GetTLS() *OutputKafkaTLSSettingsClientSide {
+func (o *OutputKafka) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputKafka) GetOnBackpressure() *OutputKafkaBackpressureBehavior {
+func (o *OutputKafka) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -1230,7 +351,7 @@ func (o *OutputKafka) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputKafka) GetPqMode() *OutputKafkaMode {
+func (o *OutputKafka) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -1272,14 +393,14 @@ func (o *OutputKafka) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputKafka) GetPqCompress() *OutputKafkaPqCompressCompression {
+func (o *OutputKafka) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputKafka) GetPqOnBackpressure() *OutputKafkaQueueFullBehavior {
+func (o *OutputKafka) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

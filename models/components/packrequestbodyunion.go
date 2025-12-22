@@ -8,52 +8,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type PackRequestBodyTags2 struct {
-	DataType   []string `json:"dataType,omitempty"`
-	Domain     []string `json:"domain,omitempty"`
-	Technology []string `json:"technology,omitempty"`
-	Streamtags []string `json:"streamtags,omitempty"`
-}
-
-func (p PackRequestBodyTags2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PackRequestBodyTags2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PackRequestBodyTags2) GetDataType() []string {
-	if p == nil {
-		return nil
-	}
-	return p.DataType
-}
-
-func (p *PackRequestBodyTags2) GetDomain() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Domain
-}
-
-func (p *PackRequestBodyTags2) GetTechnology() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Technology
-}
-
-func (p *PackRequestBodyTags2) GetStreamtags() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Streamtags
-}
-
 type PackRequestBody2 struct {
 	ID                  *string `json:"id,omitempty"`
 	Spec                *string `json:"spec,omitempty"`
@@ -63,10 +17,10 @@ type PackRequestBody2 struct {
 	Author              *string `json:"author,omitempty"`
 	Description         *string `json:"description,omitempty"`
 	// The source of the pack. If not present, an empty pack will be created
-	Source               string                `json:"source"`
-	Tags                 *PackRequestBodyTags2 `json:"tags,omitempty"`
-	AllowCustomFunctions *bool                 `json:"allowCustomFunctions,omitempty"`
-	Force                *bool                 `json:"force,omitempty"`
+	Source               string                   `json:"source"`
+	Tags                 *TagsTypePackInstallInfo `json:"tags,omitempty"`
+	AllowCustomFunctions *bool                    `json:"allowCustomFunctions,omitempty"`
+	Force                *bool                    `json:"force,omitempty"`
 }
 
 func (p PackRequestBody2) MarshalJSON() ([]byte, error) {
@@ -136,7 +90,7 @@ func (p *PackRequestBody2) GetSource() string {
 	return p.Source
 }
 
-func (p *PackRequestBody2) GetTags() *PackRequestBodyTags2 {
+func (p *PackRequestBody2) GetTags() *TagsTypePackInstallInfo {
 	if p == nil {
 		return nil
 	}
@@ -157,52 +111,6 @@ func (p *PackRequestBody2) GetForce() *bool {
 	return p.Force
 }
 
-type PackRequestBodyTags1 struct {
-	DataType   []string `json:"dataType,omitempty"`
-	Domain     []string `json:"domain,omitempty"`
-	Technology []string `json:"technology,omitempty"`
-	Streamtags []string `json:"streamtags,omitempty"`
-}
-
-func (p PackRequestBodyTags1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PackRequestBodyTags1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PackRequestBodyTags1) GetDataType() []string {
-	if p == nil {
-		return nil
-	}
-	return p.DataType
-}
-
-func (p *PackRequestBodyTags1) GetDomain() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Domain
-}
-
-func (p *PackRequestBodyTags1) GetTechnology() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Technology
-}
-
-func (p *PackRequestBodyTags1) GetStreamtags() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Streamtags
-}
-
 type PackRequestBody1 struct {
 	ID                  string  `json:"id"`
 	Spec                *string `json:"spec,omitempty"`
@@ -212,10 +120,10 @@ type PackRequestBody1 struct {
 	Author              *string `json:"author,omitempty"`
 	Description         *string `json:"description,omitempty"`
 	// The source of the pack. If not present, an empty pack will be created
-	Source               *string               `json:"source,omitempty"`
-	Tags                 *PackRequestBodyTags1 `json:"tags,omitempty"`
-	AllowCustomFunctions *bool                 `json:"allowCustomFunctions,omitempty"`
-	Force                *bool                 `json:"force,omitempty"`
+	Source               *string                  `json:"source,omitempty"`
+	Tags                 *TagsTypePackInstallInfo `json:"tags,omitempty"`
+	AllowCustomFunctions *bool                    `json:"allowCustomFunctions,omitempty"`
+	Force                *bool                    `json:"force,omitempty"`
 }
 
 func (p PackRequestBody1) MarshalJSON() ([]byte, error) {
@@ -285,7 +193,7 @@ func (p *PackRequestBody1) GetSource() *string {
 	return p.Source
 }
 
-func (p *PackRequestBody1) GetTags() *PackRequestBodyTags1 {
+func (p *PackRequestBody1) GetTags() *TagsTypePackInstallInfo {
 	if p == nil {
 		return nil
 	}
