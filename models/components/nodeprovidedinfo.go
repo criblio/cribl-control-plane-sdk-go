@@ -386,7 +386,7 @@ type NodeProvidedInfo struct {
 	Cpus           float64                 `json:"cpus"`
 	Cribl          HBCriblInfo             `json:"cribl"`
 	Env            map[string]string       `json:"env"`
-	FreeDiskSpace  float64                 `json:"freeDiskSpace"`
+	FreeDiskSpace  *float64                `json:"freeDiskSpace,omitempty"`
 	HostOs         *NodeProvidedInfoHostOs `json:"hostOs,omitempty"`
 	Hostname       string                  `json:"hostname"`
 	IsSaasWorker   *bool                   `json:"isSaasWorker,omitempty"`
@@ -398,7 +398,7 @@ type NodeProvidedInfo struct {
 	Outpost        *OutpostNodeInfo        `json:"outpost,omitempty"`
 	Platform       string                  `json:"platform"`
 	Release        string                  `json:"release"`
-	TotalDiskSpace float64                 `json:"totalDiskSpace"`
+	TotalDiskSpace *float64                `json:"totalDiskSpace,omitempty"`
 	Totalmem       float64                 `json:"totalmem"`
 }
 
@@ -451,9 +451,9 @@ func (n *NodeProvidedInfo) GetEnv() map[string]string {
 	return n.Env
 }
 
-func (n *NodeProvidedInfo) GetFreeDiskSpace() float64 {
+func (n *NodeProvidedInfo) GetFreeDiskSpace() *float64 {
 	if n == nil {
-		return 0.0
+		return nil
 	}
 	return n.FreeDiskSpace
 }
@@ -535,9 +535,9 @@ func (n *NodeProvidedInfo) GetRelease() string {
 	return n.Release
 }
 
-func (n *NodeProvidedInfo) GetTotalDiskSpace() float64 {
+func (n *NodeProvidedInfo) GetTotalDiskSpace() *float64 {
 	if n == nil {
-		return 0.0
+		return nil
 	}
 	return n.TotalDiskSpace
 }
