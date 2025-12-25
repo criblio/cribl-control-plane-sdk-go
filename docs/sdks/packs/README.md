@@ -253,7 +253,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedPackInstallInfo != nil {
+    if res.CountedPackUninstallInfo != nil {
         // handle response
     }
 }

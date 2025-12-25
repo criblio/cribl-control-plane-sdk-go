@@ -1,26 +1,65 @@
 # RestCollectorConf
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Discovery`                                                                                                                                        | [*components.RestCollectorConfDiscovery](../../models/components/restcollectorconfdiscovery.md)                                                    | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectURL`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `CollectMethod`                                                                                                                                    | [*components.CollectMethod](../../models/components/collectmethod.md)                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `CollectRequestHeaders`                                                                                                                            | [][components.RestCollectorConfCollectRequestHeader](../../models/components/restcollectorconfcollectrequestheader.md)                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `Pagination`                                                                                                                                       | [*components.Pagination](../../models/components/pagination.md)                                                                                    | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `Authentication`                                                                                                                                   | [*components.RestCollectorConfAuthentication](../../models/components/restcollectorconfauthentication.md)                                          | :heavy_minus_sign:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
-| `Timeout`                                                                                                                                          | **float64*                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
-| `UseRoundRobinDNS`                                                                                                                                 | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
-| `DisableTimeFilter`                                                                                                                                | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Disable Collector event time filtering when a date range is specified                                                                              |
-| `DecodeURL`                                                                                                                                        | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Decode the URL before sending requests (including pagination requests)                                                                             |
-| `RejectUnauthorized`                                                                                                                               | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)                                                  |
-| `CaptureHeaders`                                                                                                                                   | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Enable to add response headers to the resHeaders field under the __collectible object                                                              |
-| `StopOnEmptyResults`                                                                                                                               | **bool*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                 | Stop pagination when the Event Breaker produces no events                                                                                          |
-| `SafeHeaders`                                                                                                                                      | []*string*                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text                                                                                                 |
-| `RetryRules`                                                                                                                                       | [*components.RestCollectorConfRetryRules](../../models/components/restcollectorconfretryrules.md)                                                  | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `Scheduling`                                                                                                                                       | [*components.RestCollectorConfScheduling](../../models/components/restcollectorconfscheduling.md)                                                  | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+### RestAuthenticationNone
+
+```go
+restCollectorConf := components.CreateRestCollectorConfNone(components.RestAuthenticationNone{/* values here */})
+```
+
+### RestAuthenticationBasic
+
+```go
+restCollectorConf := components.CreateRestCollectorConfBasic(components.RestAuthenticationBasic{/* values here */})
+```
+
+### RestAuthenticationBasicSecret
+
+```go
+restCollectorConf := components.CreateRestCollectorConfBasicSecret(components.RestAuthenticationBasicSecret{/* values here */})
+```
+
+### RestAuthenticationLogin
+
+```go
+restCollectorConf := components.CreateRestCollectorConfLogin(components.RestAuthenticationLogin{/* values here */})
+```
+
+### RestAuthenticationLoginSecret
+
+```go
+restCollectorConf := components.CreateRestCollectorConfLoginSecret(components.RestAuthenticationLoginSecret{/* values here */})
+```
+
+### RestAuthenticationOauth
+
+```go
+restCollectorConf := components.CreateRestCollectorConfOauth(components.RestAuthenticationOauth{/* values here */})
+```
+
+### RestAuthenticationOauthSecret
+
+```go
+restCollectorConf := components.CreateRestCollectorConfOauthSecret(components.RestAuthenticationOauthSecret{/* values here */})
+```
+
+### RestAuthenticationGoogleOauth
+
+```go
+restCollectorConf := components.CreateRestCollectorConfGoogleOauth(components.RestAuthenticationGoogleOauth{/* values here */})
+```
+
+### RestAuthenticationGoogleOauthSecret
+
+```go
+restCollectorConf := components.CreateRestCollectorConfGoogleOauthSecret(components.RestAuthenticationGoogleOauthSecret{/* values here */})
+```
+
+### RestAuthenticationHmac
+
+```go
+restCollectorConf := components.CreateRestCollectorConfHmac(components.RestAuthenticationHmac{/* values here */})
+```
+

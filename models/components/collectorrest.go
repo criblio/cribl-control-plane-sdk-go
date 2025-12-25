@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,16 +18,18 @@ const (
 func (e CollectorRestType) ToPointer() *CollectorRestType {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorRestType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "rest":
-			return true
-		}
+func (e *CollectorRestType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "rest":
+		*e = CollectorRestType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorRestType: %v", v)
+	}
 }
 
 // CollectorRest - Rest collector configuration
@@ -58,4 +62,44 @@ func (c *CollectorRest) GetConf() RestCollectorConf {
 		return RestCollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *CollectorRest) GetConfNone() *RestAuthenticationNone {
+	return c.GetConf().RestAuthenticationNone
+}
+
+func (c *CollectorRest) GetConfBasic() *RestAuthenticationBasic {
+	return c.GetConf().RestAuthenticationBasic
+}
+
+func (c *CollectorRest) GetConfBasicSecret() *RestAuthenticationBasicSecret {
+	return c.GetConf().RestAuthenticationBasicSecret
+}
+
+func (c *CollectorRest) GetConfLogin() *RestAuthenticationLogin {
+	return c.GetConf().RestAuthenticationLogin
+}
+
+func (c *CollectorRest) GetConfLoginSecret() *RestAuthenticationLoginSecret {
+	return c.GetConf().RestAuthenticationLoginSecret
+}
+
+func (c *CollectorRest) GetConfOauth() *RestAuthenticationOauth {
+	return c.GetConf().RestAuthenticationOauth
+}
+
+func (c *CollectorRest) GetConfOauthSecret() *RestAuthenticationOauthSecret {
+	return c.GetConf().RestAuthenticationOauthSecret
+}
+
+func (c *CollectorRest) GetConfGoogleOauth() *RestAuthenticationGoogleOauth {
+	return c.GetConf().RestAuthenticationGoogleOauth
+}
+
+func (c *CollectorRest) GetConfGoogleOauthSecret() *RestAuthenticationGoogleOauthSecret {
+	return c.GetConf().RestAuthenticationGoogleOauthSecret
+}
+
+func (c *CollectorRest) GetConfHmac() *RestAuthenticationHmac {
+	return c.GetConf().RestAuthenticationHmac
 }

@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,16 +18,18 @@ const (
 func (e CollectorDatabaseType) ToPointer() *CollectorDatabaseType {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorDatabaseType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "database":
-			return true
-		}
+func (e *CollectorDatabaseType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "database":
+		*e = CollectorDatabaseType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorDatabaseType: %v", v)
+	}
 }
 
 // CollectorDatabase - Database collector configuration

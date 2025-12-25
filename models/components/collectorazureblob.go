@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,16 +18,18 @@ const (
 func (e CollectorAzureBlobType) ToPointer() *CollectorAzureBlobType {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorAzureBlobType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "azure_blob":
-			return true
-		}
+func (e *CollectorAzureBlobType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "azure_blob":
+		*e = CollectorAzureBlobType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorAzureBlobType: %v", v)
+	}
 }
 
 // CollectorAzureBlob - AzureBlob collector configuration
@@ -58,4 +62,20 @@ func (c *CollectorAzureBlob) GetConf() AzureBlobCollectorConf {
 		return AzureBlobCollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *CollectorAzureBlob) GetConfManual() *AzureBlobAuthTypeManual {
+	return c.GetConf().AzureBlobAuthTypeManual
+}
+
+func (c *CollectorAzureBlob) GetConfSecret() *AzureBlobAuthTypeSecret {
+	return c.GetConf().AzureBlobAuthTypeSecret
+}
+
+func (c *CollectorAzureBlob) GetConfClientSecret() *AzureBlobAuthTypeClientSecret {
+	return c.GetConf().AzureBlobAuthTypeClientSecret
+}
+
+func (c *CollectorAzureBlob) GetConfClientCert() *AzureBlobAuthTypeClientCert {
+	return c.GetConf().AzureBlobAuthTypeClientCert
 }

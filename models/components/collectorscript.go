@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,16 +18,18 @@ const (
 func (e CollectorScriptType) ToPointer() *CollectorScriptType {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorScriptType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "script":
-			return true
-		}
+func (e *CollectorScriptType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "script":
+		*e = CollectorScriptType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorScriptType: %v", v)
+	}
 }
 
 // CollectorScript - Script collector configuration
