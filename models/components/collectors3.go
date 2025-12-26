@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,16 +18,18 @@ const (
 func (e CollectorS3Type) ToPointer() *CollectorS3Type {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorS3Type) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "s3":
-			return true
-		}
+func (e *CollectorS3Type) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "s3":
+		*e = CollectorS3Type(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorS3Type: %v", v)
+	}
 }
 
 // CollectorS3 - S3 collector configuration
@@ -58,4 +62,16 @@ func (c *CollectorS3) GetConf() S3CollectorConf {
 		return S3CollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *CollectorS3) GetConfAuto() *S3AwsAuthenticationMethodAuto {
+	return c.GetConf().S3AwsAuthenticationMethodAuto
+}
+
+func (c *CollectorS3) GetConfManual() *S3AwsAuthenticationMethodManual {
+	return c.GetConf().S3AwsAuthenticationMethodManual
+}
+
+func (c *CollectorS3) GetConfSecret() *S3AwsAuthenticationMethodSecret {
+	return c.GetConf().S3AwsAuthenticationMethodSecret
 }

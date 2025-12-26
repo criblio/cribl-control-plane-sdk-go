@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,16 +18,18 @@ const (
 func (e CollectorHealthCheckType) ToPointer() *CollectorHealthCheckType {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorHealthCheckType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "health_check":
-			return true
-		}
+func (e *CollectorHealthCheckType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "health_check":
+		*e = CollectorHealthCheckType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorHealthCheckType: %v", v)
+	}
 }
 
 // CollectorHealthCheck - HealthCheck collector configuration
@@ -58,4 +62,32 @@ func (c *CollectorHealthCheck) GetConf() HealthCheckCollectorConf {
 		return HealthCheckCollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *CollectorHealthCheck) GetConfNone() *HealthCheckAuthenticationNone {
+	return c.GetConf().HealthCheckAuthenticationNone
+}
+
+func (c *CollectorHealthCheck) GetConfBasic() *HealthCheckAuthenticationBasic {
+	return c.GetConf().HealthCheckAuthenticationBasic
+}
+
+func (c *CollectorHealthCheck) GetConfBasicSecret() *HealthCheckAuthenticationBasicSecret {
+	return c.GetConf().HealthCheckAuthenticationBasicSecret
+}
+
+func (c *CollectorHealthCheck) GetConfLogin() *HealthCheckAuthenticationLogin {
+	return c.GetConf().HealthCheckAuthenticationLogin
+}
+
+func (c *CollectorHealthCheck) GetConfLoginSecret() *HealthCheckAuthenticationLoginSecret {
+	return c.GetConf().HealthCheckAuthenticationLoginSecret
+}
+
+func (c *CollectorHealthCheck) GetConfOauth() *HealthCheckAuthenticationOauth {
+	return c.GetConf().HealthCheckAuthenticationOauth
+}
+
+func (c *CollectorHealthCheck) GetConfOauthSecret() *HealthCheckAuthenticationOauthSecret {
+	return c.GetConf().HealthCheckAuthenticationOauthSecret
 }

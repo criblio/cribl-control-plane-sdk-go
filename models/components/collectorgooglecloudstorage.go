@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,16 +18,18 @@ const (
 func (e CollectorGoogleCloudStorageType) ToPointer() *CollectorGoogleCloudStorageType {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorGoogleCloudStorageType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "google_cloud_storage":
-			return true
-		}
+func (e *CollectorGoogleCloudStorageType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "google_cloud_storage":
+		*e = CollectorGoogleCloudStorageType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorGoogleCloudStorageType: %v", v)
+	}
 }
 
 // CollectorGoogleCloudStorage - GoogleCloudStorage collector configuration
@@ -58,4 +62,16 @@ func (c *CollectorGoogleCloudStorage) GetConf() GoogleCloudStorageCollectorConf 
 		return GoogleCloudStorageCollectorConf{}
 	}
 	return c.Conf
+}
+
+func (c *CollectorGoogleCloudStorage) GetConfAuto() *GoogleCloudStorageAuthTypeAuto {
+	return c.GetConf().GoogleCloudStorageAuthTypeAuto
+}
+
+func (c *CollectorGoogleCloudStorage) GetConfManual() *GoogleCloudStorageAuthTypeManual {
+	return c.GetConf().GoogleCloudStorageAuthTypeManual
+}
+
+func (c *CollectorGoogleCloudStorage) GetConfSecret() *GoogleCloudStorageAuthTypeSecret {
+	return c.GetConf().GoogleCloudStorageAuthTypeSecret
 }

@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
@@ -16,16 +18,18 @@ const (
 func (e CollectorSplunkType) ToPointer() *CollectorSplunkType {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CollectorSplunkType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "splunk":
-			return true
-		}
+func (e *CollectorSplunkType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "splunk":
+		*e = CollectorSplunkType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CollectorSplunkType: %v", v)
+	}
 }
 
 // CollectorSplunk - Splunk collector configuration

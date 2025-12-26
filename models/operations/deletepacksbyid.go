@@ -20,8 +20,8 @@ func (d *DeletePacksByIDRequest) GetID() string {
 
 type DeletePacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of PackInstallInfo objects
-	CountedPackInstallInfo *components.CountedPackInstallInfo
+	// a list of PackUninstallInfo objects
+	CountedPackUninstallInfo *components.CountedPackUninstallInfo
 }
 
 func (d *DeletePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -31,9 +31,9 @@ func (d *DeletePacksByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return d.HTTPMeta
 }
 
-func (d *DeletePacksByIDResponse) GetCountedPackInstallInfo() *components.CountedPackInstallInfo {
+func (d *DeletePacksByIDResponse) GetCountedPackUninstallInfo() *components.CountedPackUninstallInfo {
 	if d == nil {
 		return nil
 	}
-	return d.CountedPackInstallInfo
+	return d.CountedPackUninstallInfo
 }
