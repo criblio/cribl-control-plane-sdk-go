@@ -59,4 +59,4 @@ go:
   respectRequiredFields: false
   responseFormat: envelope-http
   sdkPackageName: ""
-  unionStrategy: left-to-right
+  unionStrategy: populated-fields
