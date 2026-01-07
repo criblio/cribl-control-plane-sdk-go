@@ -520,13 +520,13 @@ type CollectorRestRest14 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                            "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                            `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader14 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -1338,13 +1338,13 @@ type CollectorRestRest13 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                            "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                            `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader13 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -2152,13 +2152,13 @@ type CollectorRestRest12 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                            "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                            `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader12 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -2929,7 +2929,7 @@ type CollectorRestRest11 struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Select or create a text secret that contains the Google service account credentials value
@@ -2973,7 +2973,7 @@ type CollectorRestRest11 struct {
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
@@ -3743,7 +3743,7 @@ type CollectorRestRest10 struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
@@ -3787,7 +3787,7 @@ type CollectorRestRest10 struct {
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Select or create a text secret that contains the Google service account credentials value
@@ -4555,13 +4555,13 @@ type CollectorRestRest9 struct {
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader9 `json:"authRequestHeaders,omitempty"`
 	// Collector type: rest
 	Type      CollectorRestType9       `json:"type"`
@@ -5369,13 +5369,13 @@ type CollectorRestRest8 struct {
 	Username string  `json:"username"`
 	Password string  `json:"password"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader8 `json:"authRequestHeaders,omitempty"`
 	// Collector type: rest
 	Type      CollectorRestType8       `json:"type"`
@@ -6216,13 +6216,13 @@ type CollectorRestRest7 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader7 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -7030,13 +7030,13 @@ type CollectorRestRest6 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader6 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -7844,13 +7844,13 @@ type CollectorRestRest5 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader5 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -8658,13 +8658,13 @@ type CollectorRestRest4 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader4 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -9472,13 +9472,13 @@ type CollectorRestRest3 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader3 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -10286,13 +10286,13 @@ type CollectorRestRest2 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader2 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -11100,13 +11100,13 @@ type CollectorRestRest1 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
 	GetAuthTokenFromHeader *bool `default:"false" json:"getAuthTokenFromHeader"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr     *string                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectorRestAuthRequestHeader1 `json:"authRequestHeaders,omitempty"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
@@ -11425,20 +11425,20 @@ const (
 )
 
 type CollectorRest struct {
-	CollectorRestRest1  *CollectorRestRest1  `queryParam:"inline" union:"member"`
-	CollectorRestRest2  *CollectorRestRest2  `queryParam:"inline" union:"member"`
-	CollectorRestRest3  *CollectorRestRest3  `queryParam:"inline" union:"member"`
-	CollectorRestRest4  *CollectorRestRest4  `queryParam:"inline" union:"member"`
-	CollectorRestRest5  *CollectorRestRest5  `queryParam:"inline" union:"member"`
-	CollectorRestRest6  *CollectorRestRest6  `queryParam:"inline" union:"member"`
-	CollectorRestRest7  *CollectorRestRest7  `queryParam:"inline" union:"member"`
-	CollectorRestRest8  *CollectorRestRest8  `queryParam:"inline" union:"member"`
-	CollectorRestRest9  *CollectorRestRest9  `queryParam:"inline" union:"member"`
-	CollectorRestRest10 *CollectorRestRest10 `queryParam:"inline" union:"member"`
-	CollectorRestRest11 *CollectorRestRest11 `queryParam:"inline" union:"member"`
-	CollectorRestRest12 *CollectorRestRest12 `queryParam:"inline" union:"member"`
-	CollectorRestRest13 *CollectorRestRest13 `queryParam:"inline" union:"member"`
-	CollectorRestRest14 *CollectorRestRest14 `queryParam:"inline" union:"member"`
+	CollectorRestRest1  *CollectorRestRest1  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest2  *CollectorRestRest2  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest3  *CollectorRestRest3  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest4  *CollectorRestRest4  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest5  *CollectorRestRest5  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest6  *CollectorRestRest6  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest7  *CollectorRestRest7  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest8  *CollectorRestRest8  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest9  *CollectorRestRest9  `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest10 *CollectorRestRest10 `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest11 *CollectorRestRest11 `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest12 *CollectorRestRest12 `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest13 *CollectorRestRest13 `queryParam:"inline,name=CollectorRest" union:"member"`
+	CollectorRestRest14 *CollectorRestRest14 `queryParam:"inline,name=CollectorRest" union:"member"`
 
 	Type CollectorRestType
 }

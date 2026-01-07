@@ -1243,10 +1243,10 @@ const (
 )
 
 type CollectorAzureBlob struct {
-	CollectorAzureBlobAzureBlob1 *CollectorAzureBlobAzureBlob1 `queryParam:"inline" union:"member"`
-	CollectorAzureBlobAzureBlob2 *CollectorAzureBlobAzureBlob2 `queryParam:"inline" union:"member"`
-	CollectorAzureBlobAzureBlob3 *CollectorAzureBlobAzureBlob3 `queryParam:"inline" union:"member"`
-	CollectorAzureBlobAzureBlob4 *CollectorAzureBlobAzureBlob4 `queryParam:"inline" union:"member"`
+	CollectorAzureBlobAzureBlob1 *CollectorAzureBlobAzureBlob1 `queryParam:"inline,name=CollectorAzureBlob" union:"member"`
+	CollectorAzureBlobAzureBlob2 *CollectorAzureBlobAzureBlob2 `queryParam:"inline,name=CollectorAzureBlob" union:"member"`
+	CollectorAzureBlobAzureBlob3 *CollectorAzureBlobAzureBlob3 `queryParam:"inline,name=CollectorAzureBlob" union:"member"`
+	CollectorAzureBlobAzureBlob4 *CollectorAzureBlobAzureBlob4 `queryParam:"inline,name=CollectorAzureBlob" union:"member"`
 
 	Type CollectorAzureBlobType
 }

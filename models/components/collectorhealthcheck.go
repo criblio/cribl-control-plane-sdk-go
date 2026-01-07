@@ -387,7 +387,7 @@ type CollectorHealthCheckHealthCheck10 struct {
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Select or create a text secret that contains the client secret's value.
@@ -404,7 +404,7 @@ type CollectorHealthCheckHealthCheck10 struct {
 	// Optional health check request parameters.
 	CollectRequestParams []CollectorHealthCheckCollectRequestParam10 `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader10 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -424,7 +424,7 @@ type CollectorHealthCheckHealthCheck10 struct {
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitempty"`
 	// Collector type: health_check
@@ -1002,7 +1002,7 @@ type CollectorHealthCheckHealthCheck9 struct {
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
@@ -1019,7 +1019,7 @@ type CollectorHealthCheckHealthCheck9 struct {
 	// Optional health check request parameters.
 	CollectRequestParams []CollectorHealthCheckCollectRequestParam9 `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader9 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -1039,7 +1039,7 @@ type CollectorHealthCheckHealthCheck9 struct {
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitempty"`
 	// Collector type: health_check
@@ -1617,11 +1617,11 @@ type CollectorHealthCheckHealthCheck8 struct {
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader8 `json:"authRequestHeaders,omitempty"`
 	Discovery          *CollectorHealthCheckDiscovery8          `json:"discovery,omitempty"`
@@ -1632,7 +1632,7 @@ type CollectorHealthCheckHealthCheck8 struct {
 	// Optional health check request parameters.
 	CollectRequestParams []CollectorHealthCheckCollectRequestParam8 `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader8 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -2234,11 +2234,11 @@ type CollectorHealthCheckHealthCheck7 struct {
 	// Login password
 	Password string `json:"password"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader7 `json:"authRequestHeaders,omitempty"`
 	Discovery          *CollectorHealthCheckDiscovery7          `json:"discovery,omitempty"`
@@ -2249,7 +2249,7 @@ type CollectorHealthCheckHealthCheck7 struct {
 	// Optional health check request parameters.
 	CollectRequestParams []CollectorHealthCheckCollectRequestParam7 `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader7 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -2852,7 +2852,7 @@ type CollectorHealthCheckHealthCheck6 struct {
 	// Optional health check request parameters.
 	CollectRequestParams []CollectorHealthCheckCollectRequestParam6 `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader6 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -2872,11 +2872,11 @@ type CollectorHealthCheckHealthCheck6 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader6 `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
@@ -3469,7 +3469,7 @@ type CollectorHealthCheckHealthCheck5 struct {
 	// Optional health check request parameters.
 	CollectRequestParams []CollectorHealthCheckCollectRequestParam5 `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader5 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -3487,11 +3487,11 @@ type CollectorHealthCheckHealthCheck5 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader5 `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
@@ -4080,7 +4080,7 @@ type CollectorHealthCheckHealthCheck4 struct {
 	// Optional health check request parameters.
 	CollectRequestParams []CollectorHealthCheckCollectRequestParam4 `json:"collectRequestParams,omitempty"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader4 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -4102,11 +4102,11 @@ type CollectorHealthCheckHealthCheck4 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader4 `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
@@ -4688,7 +4688,7 @@ type CollectorHealthCheckHealthCheck3 struct {
 	// Health check HTTP method.
 	CollectMethod *HealthCheckMethod3 `default:"get" json:"collectMethod"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string                         "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string                         `default:"{ }" json:"collectBody"`
 	Discovery   *CollectorHealthCheckDiscovery3 `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
@@ -4717,11 +4717,11 @@ type CollectorHealthCheckHealthCheck3 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader3 `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
@@ -5308,7 +5308,7 @@ type CollectorHealthCheckHealthCheck2 struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader2 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -5332,11 +5332,11 @@ type CollectorHealthCheckHealthCheck2 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader2 `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
@@ -5923,7 +5923,7 @@ type CollectorHealthCheckHealthCheck1 struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-	CollectBody *string "default:\"`{ }`\" json:\"collectBody\""
+	CollectBody *string `default:"{ }" json:"collectBody"`
 	// Optional health check request headers.
 	CollectRequestHeaders []CollectorHealthCheckCollectRequestHeader1 `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
@@ -5947,11 +5947,11 @@ type CollectorHealthCheckHealthCheck1 struct {
 	// URL to use for the OAuth API call. This call is expected to be a POST.
 	LoginURL *string `default:"" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []CollectorHealthCheckAuthRequestHeader1 `json:"authRequestHeaders,omitempty"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
@@ -6175,16 +6175,16 @@ const (
 )
 
 type CollectorHealthCheck struct {
-	CollectorHealthCheckHealthCheck1  *CollectorHealthCheckHealthCheck1  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck2  *CollectorHealthCheckHealthCheck2  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck3  *CollectorHealthCheckHealthCheck3  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck4  *CollectorHealthCheckHealthCheck4  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck5  *CollectorHealthCheckHealthCheck5  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck6  *CollectorHealthCheckHealthCheck6  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck7  *CollectorHealthCheckHealthCheck7  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck8  *CollectorHealthCheckHealthCheck8  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck9  *CollectorHealthCheckHealthCheck9  `queryParam:"inline" union:"member"`
-	CollectorHealthCheckHealthCheck10 *CollectorHealthCheckHealthCheck10 `queryParam:"inline" union:"member"`
+	CollectorHealthCheckHealthCheck1  *CollectorHealthCheckHealthCheck1  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck2  *CollectorHealthCheckHealthCheck2  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck3  *CollectorHealthCheckHealthCheck3  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck4  *CollectorHealthCheckHealthCheck4  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck5  *CollectorHealthCheckHealthCheck5  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck6  *CollectorHealthCheckHealthCheck6  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck7  *CollectorHealthCheckHealthCheck7  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck8  *CollectorHealthCheckHealthCheck8  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck9  *CollectorHealthCheckHealthCheck9  `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
+	CollectorHealthCheckHealthCheck10 *CollectorHealthCheckHealthCheck10 `queryParam:"inline,name=CollectorHealthCheck" union:"member"`
 
 	Type CollectorHealthCheckType
 }

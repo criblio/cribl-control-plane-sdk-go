@@ -259,15 +259,15 @@ type CollectorSplunkSplunk7 struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication *CollectorSplunkAuthentication7 `default:"basic" json:"authentication"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Collector type: splunk
 	Type CollectorSplunkType7 `json:"type"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
@@ -740,15 +740,15 @@ type CollectorSplunkSplunk6 struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication *CollectorSplunkAuthentication6 `default:"basic" json:"authentication"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
 	Username string  `json:"username"`
 	Password string  `json:"password"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Collector type: splunk
 	Type CollectorSplunkType6 `json:"type"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
@@ -1257,13 +1257,13 @@ type CollectorSplunkSplunk5 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 	Token             *string `json:"token,omitempty"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 }
 
 func (c CollectorSplunkSplunk5) MarshalJSON() ([]byte, error) {
@@ -1738,13 +1738,13 @@ type CollectorSplunkSplunk4 struct {
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 }
 
 func (c CollectorSplunkSplunk4) MarshalJSON() ([]byte, error) {
@@ -2219,13 +2219,13 @@ type CollectorSplunkSplunk3 struct {
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 }
 
 func (c CollectorSplunkSplunk3) MarshalJSON() ([]byte, error) {
@@ -2700,13 +2700,13 @@ type CollectorSplunkSplunk2 struct {
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 }
 
 func (c CollectorSplunkSplunk2) MarshalJSON() ([]byte, error) {
@@ -3181,13 +3181,13 @@ type CollectorSplunkSplunk1 struct {
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \"username\": \"${username}\", \"password\": \"${password}\" }`\" json:\"loginBody\""
+	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 }
 
 func (c CollectorSplunkSplunk1) MarshalJSON() ([]byte, error) {
@@ -3389,13 +3389,13 @@ const (
 )
 
 type CollectorSplunk struct {
-	CollectorSplunkSplunk1 *CollectorSplunkSplunk1 `queryParam:"inline" union:"member"`
-	CollectorSplunkSplunk2 *CollectorSplunkSplunk2 `queryParam:"inline" union:"member"`
-	CollectorSplunkSplunk3 *CollectorSplunkSplunk3 `queryParam:"inline" union:"member"`
-	CollectorSplunkSplunk4 *CollectorSplunkSplunk4 `queryParam:"inline" union:"member"`
-	CollectorSplunkSplunk5 *CollectorSplunkSplunk5 `queryParam:"inline" union:"member"`
-	CollectorSplunkSplunk6 *CollectorSplunkSplunk6 `queryParam:"inline" union:"member"`
-	CollectorSplunkSplunk7 *CollectorSplunkSplunk7 `queryParam:"inline" union:"member"`
+	CollectorSplunkSplunk1 *CollectorSplunkSplunk1 `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk2 *CollectorSplunkSplunk2 `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk3 *CollectorSplunkSplunk3 `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk4 *CollectorSplunkSplunk4 `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk5 *CollectorSplunkSplunk5 `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk6 *CollectorSplunkSplunk6 `queryParam:"inline,name=CollectorSplunk" union:"member"`
+	CollectorSplunkSplunk7 *CollectorSplunkSplunk7 `queryParam:"inline,name=CollectorSplunk" union:"member"`
 
 	Type CollectorSplunkType
 }

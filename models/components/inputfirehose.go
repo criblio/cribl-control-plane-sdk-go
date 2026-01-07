@@ -445,7 +445,7 @@ type InputFirehose struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
 	// Fields to add to events from this input
 	Metadata    []InputFirehoseMetadatum `json:"metadata,omitempty"`
 	Description *string                  `json:"description,omitempty"`
