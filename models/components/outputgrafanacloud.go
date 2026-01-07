@@ -1867,8 +1867,8 @@ const (
 )
 
 type OutputGrafanaCloud struct {
-	OutputGrafanaCloudGrafanaCloud1 *OutputGrafanaCloudGrafanaCloud1 `queryParam:"inline,name=OutputGrafanaCloud" union:"member"`
-	OutputGrafanaCloudGrafanaCloud2 *OutputGrafanaCloudGrafanaCloud2 `queryParam:"inline,name=OutputGrafanaCloud" union:"member"`
+	OutputGrafanaCloudGrafanaCloud1 *OutputGrafanaCloudGrafanaCloud1 `queryParam:"inline" union:"member"`
+	OutputGrafanaCloudGrafanaCloud2 *OutputGrafanaCloudGrafanaCloud2 `queryParam:"inline" union:"member"`
 
 	Type OutputGrafanaCloudType
 }
