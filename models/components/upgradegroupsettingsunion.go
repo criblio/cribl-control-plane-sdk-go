@@ -76,8 +76,8 @@ const (
 )
 
 type UpgradeGroupSettingsUnion struct {
-	UpgradeGroupSettings1 *UpgradeGroupSettings1 `queryParam:"inline" union:"member"`
-	UpgradeGroupSettings2 *UpgradeGroupSettings2 `queryParam:"inline" union:"member"`
+	UpgradeGroupSettings1 *UpgradeGroupSettings1 `queryParam:"inline,name=UpgradeGroupSettings" union:"member"`
+	UpgradeGroupSettings2 *UpgradeGroupSettings2 `queryParam:"inline,name=UpgradeGroupSettings" union:"member"`
 
 	Type UpgradeGroupSettingsUnionType
 }

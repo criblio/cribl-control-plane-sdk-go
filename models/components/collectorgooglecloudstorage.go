@@ -678,9 +678,9 @@ const (
 )
 
 type CollectorGoogleCloudStorage struct {
-	CollectorGoogleCloudStorageGoogleCloudStorage1 *CollectorGoogleCloudStorageGoogleCloudStorage1 `queryParam:"inline" union:"member"`
-	CollectorGoogleCloudStorageGoogleCloudStorage2 *CollectorGoogleCloudStorageGoogleCloudStorage2 `queryParam:"inline" union:"member"`
-	CollectorGoogleCloudStorageGoogleCloudStorage3 *CollectorGoogleCloudStorageGoogleCloudStorage3 `queryParam:"inline" union:"member"`
+	CollectorGoogleCloudStorageGoogleCloudStorage1 *CollectorGoogleCloudStorageGoogleCloudStorage1 `queryParam:"inline,name=CollectorGoogleCloudStorage" union:"member"`
+	CollectorGoogleCloudStorageGoogleCloudStorage2 *CollectorGoogleCloudStorageGoogleCloudStorage2 `queryParam:"inline,name=CollectorGoogleCloudStorage" union:"member"`
+	CollectorGoogleCloudStorageGoogleCloudStorage3 *CollectorGoogleCloudStorageGoogleCloudStorage3 `queryParam:"inline,name=CollectorGoogleCloudStorage" union:"member"`
 
 	Type CollectorGoogleCloudStorageType
 }
