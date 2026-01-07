@@ -32,11 +32,11 @@ func (e *CollectorCriblLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// CollectorCriblLake - CriblLake collector configuration
 type CollectorCriblLake struct {
 	// Collector type: cribl_lake
 	Type CollectorCriblLakeType `json:"type"`
-	Conf CriblLakeCollectorConf `json:"conf"`
+	// Lake dataset to collect data from.
+	Dataset string `json:"dataset"`
 }
 
 func (c CollectorCriblLake) MarshalJSON() ([]byte, error) {
@@ -44,7 +44,7 @@ func (c CollectorCriblLake) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorCriblLake) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "dataset"}); err != nil {
 		return err
 	}
 	return nil
@@ -57,9 +57,9 @@ func (c *CollectorCriblLake) GetType() CollectorCriblLakeType {
 	return c.Type
 }
 
-func (c *CollectorCriblLake) GetConf() CriblLakeCollectorConf {
+func (c *CollectorCriblLake) GetDataset() string {
 	if c == nil {
-		return CriblLakeCollectorConf{}
+		return ""
 	}
-	return c.Conf
+	return c.Dataset
 }
