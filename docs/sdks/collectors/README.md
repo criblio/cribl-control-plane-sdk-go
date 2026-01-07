@@ -64,21 +64,23 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            Collector: components.CreateCollectorDatabase(
-                components.CollectorDatabase{
-                    Type: components.CollectorDatabaseTypeDatabase,
-                    Conf: components.DatabaseCollectorConf{
+            Collector: components.SavedJobCollectionCollector{
+                Type: "database",
+                Conf: components.CreateCollectorConfDatabase(
+                    components.CollectorDatabase{
+                        Type: components.CollectorDatabaseTypeDatabase,
                         ConnectionID: "<id>",
                         Query: "<value>",
-                        DefaultBreakers: components.DatabaseCollectorConfHiddenDefaultBreakersCribl.ToPointer(),
-                        Scheduling: &components.DatabaseCollectorConfScheduling{
-                            StateTracking: &components.DatabaseCollectorConfStateTracking{
+                        DefaultBreakers: components.CollectorDatabaseHiddenDefaultBreakersCribl.ToPointer(),
+                        Scheduling: &components.CollectorDatabaseScheduling{
+                            StateTracking: &components.CollectorDatabaseStateTracking{
                                 Enabled: criblcontrolplanesdkgo.Pointer(true),
                             },
                         },
                     },
-                },
-            ),
+                ),
+                Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
+            },
             Input: &components.SavedJobCollectionInput{
                 BreakerRulesets: []string{
                     "<value 1>",
@@ -357,21 +359,23 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            Collector: components.CreateCollectorDatabase(
-                components.CollectorDatabase{
-                    Type: components.CollectorDatabaseTypeDatabase,
-                    Conf: components.DatabaseCollectorConf{
+            Collector: components.SavedJobCollectionCollector{
+                Type: "database",
+                Conf: components.CreateCollectorConfDatabase(
+                    components.CollectorDatabase{
+                        Type: components.CollectorDatabaseTypeDatabase,
                         ConnectionID: "<id>",
                         Query: "<value>",
-                        DefaultBreakers: components.DatabaseCollectorConfHiddenDefaultBreakersCribl.ToPointer(),
-                        Scheduling: &components.DatabaseCollectorConfScheduling{
-                            StateTracking: &components.DatabaseCollectorConfStateTracking{
+                        DefaultBreakers: components.CollectorDatabaseHiddenDefaultBreakersCribl.ToPointer(),
+                        Scheduling: &components.CollectorDatabaseScheduling{
+                            StateTracking: &components.CollectorDatabaseStateTracking{
                                 Enabled: criblcontrolplanesdkgo.Pointer(false),
                             },
                         },
                     },
-                },
-            ),
+                ),
+                Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
+            },
             Input: &components.SavedJobCollectionInput{
                 BreakerRulesets: []string{
                     "<value 1>",

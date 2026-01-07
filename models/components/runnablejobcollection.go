@@ -300,6 +300,96 @@ func (r *RunnableJobCollectionSchedule) GetRun() *RunnableJobCollectionRunSettin
 	return r.Run
 }
 
+type RunnableJobCollectionCollector struct {
+	// The type of collector to run
+	Type string `json:"type"`
+	// Collector configuration
+	Conf CollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `default:"false" json:"destructive"`
+	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+	Encoding *string `json:"encoding,omitempty"`
+}
+
+func (r RunnableJobCollectionCollector) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RunnableJobCollectionCollector) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type", "conf"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RunnableJobCollectionCollector) GetType() string {
+	if r == nil {
+		return ""
+	}
+	return r.Type
+}
+
+func (r *RunnableJobCollectionCollector) GetConf() CollectorConf {
+	if r == nil {
+		return CollectorConf{}
+	}
+	return r.Conf
+}
+
+func (r *RunnableJobCollectionCollector) GetConfAzureBlob() *CollectorAzureBlob {
+	return r.GetConf().CollectorAzureBlob
+}
+
+func (r *RunnableJobCollectionCollector) GetConfCriblLake() *CollectorCriblLake {
+	return r.GetConf().CollectorCriblLake
+}
+
+func (r *RunnableJobCollectionCollector) GetConfDatabase() *CollectorDatabase {
+	return r.GetConf().CollectorDatabase
+}
+
+func (r *RunnableJobCollectionCollector) GetConfFilesystem() *CollectorFilesystem {
+	return r.GetConf().CollectorFilesystem
+}
+
+func (r *RunnableJobCollectionCollector) GetConfGoogleCloudStorage() *CollectorGoogleCloudStorage {
+	return r.GetConf().CollectorGoogleCloudStorage
+}
+
+func (r *RunnableJobCollectionCollector) GetConfHealthCheck() *CollectorHealthCheck {
+	return r.GetConf().CollectorHealthCheck
+}
+
+func (r *RunnableJobCollectionCollector) GetConfRest() *CollectorRest {
+	return r.GetConf().CollectorRest
+}
+
+func (r *RunnableJobCollectionCollector) GetConfS3() *CollectorS3 {
+	return r.GetConf().CollectorS3
+}
+
+func (r *RunnableJobCollectionCollector) GetConfScript() *CollectorScript {
+	return r.GetConf().CollectorScript
+}
+
+func (r *RunnableJobCollectionCollector) GetConfSplunk() *CollectorSplunk {
+	return r.GetConf().CollectorSplunk
+}
+
+func (r *RunnableJobCollectionCollector) GetDestructive() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Destructive
+}
+
+func (r *RunnableJobCollectionCollector) GetEncoding() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Encoding
+}
+
 type RunnableJobCollectionInputType string
 
 const (
@@ -811,11 +901,10 @@ type RunnableJobCollection struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// If enabled, tasks are created and run by the same Worker Node
-	WorkerAffinity *bool `default:"false" json:"workerAffinity"`
-	// Collector config wrapper
-	Collector Collector                   `json:"collector"`
-	Input     *RunnableJobCollectionInput `json:"input,omitempty"`
-	Run       RunnableJobCollectionRun    `json:"run"`
+	WorkerAffinity *bool                          `default:"false" json:"workerAffinity"`
+	Collector      RunnableJobCollectionCollector `json:"collector"`
+	Input          *RunnableJobCollectionInput    `json:"input,omitempty"`
+	Run            RunnableJobCollectionRun       `json:"run"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -906,51 +995,11 @@ func (r *RunnableJobCollection) GetWorkerAffinity() *bool {
 	return r.WorkerAffinity
 }
 
-func (r *RunnableJobCollection) GetCollector() Collector {
+func (r *RunnableJobCollection) GetCollector() RunnableJobCollectionCollector {
 	if r == nil {
-		return Collector{}
+		return RunnableJobCollectionCollector{}
 	}
 	return r.Collector
-}
-
-func (r *RunnableJobCollection) GetCollectorAzureBlob() *CollectorAzureBlob {
-	return r.GetCollector().CollectorAzureBlob
-}
-
-func (r *RunnableJobCollection) GetCollectorCriblLake() *CollectorCriblLake {
-	return r.GetCollector().CollectorCriblLake
-}
-
-func (r *RunnableJobCollection) GetCollectorDatabase() *CollectorDatabase {
-	return r.GetCollector().CollectorDatabase
-}
-
-func (r *RunnableJobCollection) GetCollectorFilesystem() *CollectorFilesystem {
-	return r.GetCollector().CollectorFilesystem
-}
-
-func (r *RunnableJobCollection) GetCollectorGoogleCloudStorage() *CollectorGoogleCloudStorage {
-	return r.GetCollector().CollectorGoogleCloudStorage
-}
-
-func (r *RunnableJobCollection) GetCollectorHealthCheck() *CollectorHealthCheck {
-	return r.GetCollector().CollectorHealthCheck
-}
-
-func (r *RunnableJobCollection) GetCollectorRest() *CollectorRest {
-	return r.GetCollector().CollectorRest
-}
-
-func (r *RunnableJobCollection) GetCollectorS3() *CollectorS3 {
-	return r.GetCollector().CollectorS3
-}
-
-func (r *RunnableJobCollection) GetCollectorScript() *CollectorScript {
-	return r.GetCollector().CollectorScript
-}
-
-func (r *RunnableJobCollection) GetCollectorSplunk() *CollectorSplunk {
-	return r.GetCollector().CollectorSplunk
 }
 
 func (r *RunnableJobCollection) GetInput() *RunnableJobCollectionInput {

@@ -1,11 +1,23 @@
 # CollectorGoogleCloudStorage
 
-GoogleCloudStorage collector configuration
 
+## Supported Types
 
-## Fields
+### CollectorGoogleCloudStorageGoogleCloudStorage1
 
-| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `Type`                                                                                                   | [components.CollectorGoogleCloudStorageType](../../models/components/collectorgooglecloudstoragetype.md) | :heavy_check_mark:                                                                                       | Collector type: google_cloud_storage                                                                     |
-| `Conf`                                                                                                   | [components.GoogleCloudStorageCollectorConf](../../models/components/googlecloudstoragecollectorconf.md) | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+```go
+collectorGoogleCloudStorage := components.CreateCollectorGoogleCloudStorageCollectorGoogleCloudStorageGoogleCloudStorage1(components.CollectorGoogleCloudStorageGoogleCloudStorage1{/* values here */})
+```
+
+### CollectorGoogleCloudStorageGoogleCloudStorage2
+
+```go
+collectorGoogleCloudStorage := components.CreateCollectorGoogleCloudStorageCollectorGoogleCloudStorageGoogleCloudStorage2(components.CollectorGoogleCloudStorageGoogleCloudStorage2{/* values here */})
+```
+
+### CollectorGoogleCloudStorageGoogleCloudStorage3
+
+```go
+collectorGoogleCloudStorage := components.CreateCollectorGoogleCloudStorageCollectorGoogleCloudStorageGoogleCloudStorage3(components.CollectorGoogleCloudStorageGoogleCloudStorage3{/* values here */})
+```
+
