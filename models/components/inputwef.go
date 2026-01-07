@@ -695,7 +695,7 @@ type InputWef struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
 	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain

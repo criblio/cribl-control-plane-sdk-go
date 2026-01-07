@@ -17,9 +17,9 @@ const (
 )
 
 type RunnableJob struct {
-	RunnableJobCollection      *RunnableJobCollection      `queryParam:"inline" union:"member"`
-	RunnableJobExecutor        *RunnableJobExecutor        `queryParam:"inline" union:"member"`
-	RunnableJobScheduledSearch *RunnableJobScheduledSearch `queryParam:"inline" union:"member"`
+	RunnableJobCollection      *RunnableJobCollection      `queryParam:"inline,name=RunnableJob" union:"member"`
+	RunnableJobExecutor        *RunnableJobExecutor        `queryParam:"inline,name=RunnableJob" union:"member"`
+	RunnableJobScheduledSearch *RunnableJobScheduledSearch `queryParam:"inline,name=RunnableJob" union:"member"`
 
 	Type RunnableJobType
 }
