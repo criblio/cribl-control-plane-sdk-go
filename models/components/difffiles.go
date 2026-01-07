@@ -115,9 +115,9 @@ const (
 )
 
 type LineUnion struct {
-	Line1 *Line1 `queryParam:"inline,name=line" union:"member"`
-	Line2 *Line2 `queryParam:"inline,name=line" union:"member"`
-	Line3 *Line3 `queryParam:"inline,name=line" union:"member"`
+	Line1 *Line1 `queryParam:"inline" union:"member"`
+	Line2 *Line2 `queryParam:"inline" union:"member"`
+	Line3 *Line3 `queryParam:"inline" union:"member"`
 
 	Type LineUnionType
 }
@@ -242,8 +242,8 @@ const (
 )
 
 type ChecksumBefore struct {
-	Str        *string  `queryParam:"inline,name=checksumBefore" union:"member"`
-	ArrayOfStr []string `queryParam:"inline,name=checksumBefore" union:"member"`
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
 
 	Type ChecksumBeforeType
 }
@@ -305,8 +305,8 @@ const (
 )
 
 type OldMode struct {
-	Str        *string  `queryParam:"inline,name=oldMode" union:"member"`
-	ArrayOfStr []string `queryParam:"inline,name=oldMode" union:"member"`
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
 
 	Type OldModeType
 }
