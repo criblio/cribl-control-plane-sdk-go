@@ -444,7 +444,7 @@ type OutputSentinel struct {
 	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
 	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
 	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
-	CustomPayloadExpression *string "default:\"`${events}`\" json:\"customPayloadExpression\""
+	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
 	// HTTP content-type header value
 	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
 	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.

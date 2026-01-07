@@ -37,8 +37,8 @@ const (
 )
 
 type Remote struct {
-	Str        *string     `queryParam:"inline" union:"member"`
-	RemoteEnum *RemoteEnum `queryParam:"inline" union:"member"`
+	Str        *string     `queryParam:"inline,name=remote" union:"member"`
+	RemoteEnum *RemoteEnum `queryParam:"inline,name=remote" union:"member"`
 
 	Type RemoteType
 }
