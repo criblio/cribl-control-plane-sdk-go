@@ -1870,11 +1870,11 @@ const (
 )
 
 type CollectorS3 struct {
-	CollectorS3S31 *CollectorS3S31 `queryParam:"inline,name=CollectorS3" union:"member"`
-	CollectorS3S32 *CollectorS3S32 `queryParam:"inline,name=CollectorS3" union:"member"`
-	CollectorS3S33 *CollectorS3S33 `queryParam:"inline,name=CollectorS3" union:"member"`
-	CollectorS3S34 *CollectorS3S34 `queryParam:"inline,name=CollectorS3" union:"member"`
-	CollectorS3S35 *CollectorS3S35 `queryParam:"inline,name=CollectorS3" union:"member"`
+	CollectorS3S31 *CollectorS3S31 `queryParam:"inline" union:"member"`
+	CollectorS3S32 *CollectorS3S32 `queryParam:"inline" union:"member"`
+	CollectorS3S33 *CollectorS3S33 `queryParam:"inline" union:"member"`
+	CollectorS3S34 *CollectorS3S34 `queryParam:"inline" union:"member"`
+	CollectorS3S35 *CollectorS3S35 `queryParam:"inline" union:"member"`
 
 	Type CollectorS3Type
 }
