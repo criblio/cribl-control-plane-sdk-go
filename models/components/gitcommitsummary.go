@@ -84,11 +84,11 @@ func (s *Summary) GetInsertions() float64 {
 }
 
 type GitCommitSummary struct {
-	Author  *Author               `json:"author,omitempty"`
-	Branch  string                `json:"branch"`
-	Commit  string                `json:"commit"`
-	Files   GitCommitSummaryFiles `json:"files"`
-	Summary Summary               `json:"summary"`
+	Author  *Author                `json:"author,omitempty"`
+	Branch  string                 `json:"branch"`
+	Commit  string                 `json:"commit"`
+	Files   *GitCommitSummaryFiles `json:"files,omitempty"`
+	Summary Summary                `json:"summary"`
 }
 
 func (g *GitCommitSummary) GetAuthor() *Author {
@@ -112,9 +112,9 @@ func (g *GitCommitSummary) GetCommit() string {
 	return g.Commit
 }
 
-func (g *GitCommitSummary) GetFiles() GitCommitSummaryFiles {
+func (g *GitCommitSummary) GetFiles() *GitCommitSummaryFiles {
 	if g == nil {
-		return GitCommitSummaryFiles{}
+		return nil
 	}
 	return g.Files
 }
