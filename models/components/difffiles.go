@@ -60,8 +60,8 @@ const (
 )
 
 type ChecksumBefore struct {
-	Str        *string  `queryParam:"inline,name=checksumBefore" union:"member"`
-	ArrayOfStr []string `queryParam:"inline,name=checksumBefore" union:"member"`
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
 
 	Type ChecksumBeforeType
 }
@@ -123,8 +123,8 @@ const (
 )
 
 type OldMode struct {
-	Str        *string  `queryParam:"inline,name=oldMode" union:"member"`
-	ArrayOfStr []string `queryParam:"inline,name=oldMode" union:"member"`
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
 
 	Type OldModeType
 }

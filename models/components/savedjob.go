@@ -17,9 +17,9 @@ const (
 )
 
 type SavedJob struct {
-	SavedJobCollection      *SavedJobCollection      `queryParam:"inline,name=SavedJob" union:"member"`
-	SavedJobExecutor        *SavedJobExecutor        `queryParam:"inline,name=SavedJob" union:"member"`
-	SavedJobScheduledSearch *SavedJobScheduledSearch `queryParam:"inline,name=SavedJob" union:"member"`
+	SavedJobCollection      *SavedJobCollection      `queryParam:"inline" union:"member"`
+	SavedJobExecutor        *SavedJobExecutor        `queryParam:"inline" union:"member"`
+	SavedJobScheduledSearch *SavedJobScheduledSearch `queryParam:"inline" union:"member"`
 
 	Type SavedJobType
 }

@@ -26,16 +26,16 @@ const (
 
 // CollectorConf - Collector configuration
 type CollectorConf struct {
-	CollectorAzureBlob          *CollectorAzureBlob          `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorCriblLake          *CollectorCriblLake          `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorDatabase           *CollectorDatabase           `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorFilesystem         *CollectorFilesystem         `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorGoogleCloudStorage *CollectorGoogleCloudStorage `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorHealthCheck        *CollectorHealthCheck        `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorRest               *CollectorRest               `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorS3                 *CollectorS3                 `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorScript             *CollectorScript             `queryParam:"inline,name=CollectorConf" union:"member"`
-	CollectorSplunk             *CollectorSplunk             `queryParam:"inline,name=CollectorConf" union:"member"`
+	CollectorAzureBlob          *CollectorAzureBlob          `queryParam:"inline" union:"member"`
+	CollectorCriblLake          *CollectorCriblLake          `queryParam:"inline" union:"member"`
+	CollectorDatabase           *CollectorDatabase           `queryParam:"inline" union:"member"`
+	CollectorFilesystem         *CollectorFilesystem         `queryParam:"inline" union:"member"`
+	CollectorGoogleCloudStorage *CollectorGoogleCloudStorage `queryParam:"inline" union:"member"`
+	CollectorHealthCheck        *CollectorHealthCheck        `queryParam:"inline" union:"member"`
+	CollectorRest               *CollectorRest               `queryParam:"inline" union:"member"`
+	CollectorS3                 *CollectorS3                 `queryParam:"inline" union:"member"`
+	CollectorScript             *CollectorScript             `queryParam:"inline" union:"member"`
+	CollectorSplunk             *CollectorSplunk             `queryParam:"inline" union:"member"`
 
 	Type CollectorConfType
 }

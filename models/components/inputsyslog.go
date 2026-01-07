@@ -1411,8 +1411,8 @@ const (
 )
 
 type InputSyslog struct {
-	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline,name=InputSyslog" union:"member"`
-	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline,name=InputSyslog" union:"member"`
+	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline" union:"member"`
+	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline" union:"member"`
 
 	Type InputSyslogType
 }

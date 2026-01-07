@@ -52,8 +52,8 @@ const (
 )
 
 type PiiSettingsUnion struct {
-	PiiSettings1 *PiiSettings1 `queryParam:"inline,name=PiiSettings" union:"member"`
-	PiiSettings2 *PiiSettings2 `queryParam:"inline,name=PiiSettings" union:"member"`
+	PiiSettings1 *PiiSettings1 `queryParam:"inline" union:"member"`
+	PiiSettings2 *PiiSettings2 `queryParam:"inline" union:"member"`
 
 	Type PiiSettingsUnionType
 }
