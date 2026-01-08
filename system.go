@@ -8,7 +8,6 @@ import (
 )
 
 type System struct {
-	Captures *Captures
 	Settings *Settings
 
 	rootSDK          *CriblControlPlane
@@ -21,7 +20,6 @@ func newSystem(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Captures:         newCaptures(rootSDK, sdkConfig, hooks),
 		Settings:         newSettings(rootSDK, sdkConfig, hooks),
 	}
 }
