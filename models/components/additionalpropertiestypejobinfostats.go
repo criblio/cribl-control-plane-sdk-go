@@ -16,8 +16,8 @@ const (
 )
 
 type AdditionalPropertiesTypeJobInfoStats struct {
-	Number      *float64           `queryParam:"inline,name=AdditionalPropertiesTypeJobInfoStats" union:"member"`
-	MapOfNumber map[string]float64 `queryParam:"inline,name=AdditionalPropertiesTypeJobInfoStats" union:"member"`
+	Number      *float64           `queryParam:"inline" union:"member"`
+	MapOfNumber map[string]float64 `queryParam:"inline" union:"member"`
 
 	Type AdditionalPropertiesTypeJobInfoStatsType
 }

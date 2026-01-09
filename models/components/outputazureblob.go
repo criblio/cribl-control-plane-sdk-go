@@ -92,9 +92,9 @@ type OutputAzureBlob struct {
 	// Format of the output data
 	Format *DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.

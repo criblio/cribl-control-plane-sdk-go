@@ -543,9 +543,9 @@ const (
 )
 
 type GoogleCloudStorageCollectorConf struct {
-	GoogleCloudStorageAuthTypeAuto   *GoogleCloudStorageAuthTypeAuto   `queryParam:"inline,name=GoogleCloudStorageCollectorConf" union:"member"`
-	GoogleCloudStorageAuthTypeManual *GoogleCloudStorageAuthTypeManual `queryParam:"inline,name=GoogleCloudStorageCollectorConf" union:"member"`
-	GoogleCloudStorageAuthTypeSecret *GoogleCloudStorageAuthTypeSecret `queryParam:"inline,name=GoogleCloudStorageCollectorConf" union:"member"`
+	GoogleCloudStorageAuthTypeAuto   *GoogleCloudStorageAuthTypeAuto   `queryParam:"inline" union:"member"`
+	GoogleCloudStorageAuthTypeManual *GoogleCloudStorageAuthTypeManual `queryParam:"inline" union:"member"`
+	GoogleCloudStorageAuthTypeSecret *GoogleCloudStorageAuthTypeSecret `queryParam:"inline" union:"member"`
 
 	Type GoogleCloudStorageCollectorConfType
 }

@@ -104,9 +104,9 @@ type OutputCriblLake struct {
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"64" json:"maxFileSizeMB"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.

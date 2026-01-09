@@ -1782,7 +1782,7 @@ type RestAuthenticationOauthSecret struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Select or create a text secret that contains the client secret's value
@@ -2322,7 +2322,7 @@ type RestAuthenticationOauth struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
@@ -2858,15 +2858,15 @@ type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication `default:"none" json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                                                           `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr     *string                                                           "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams               `json:"authRequestHeaders,omitempty"`
 	Discovery          *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
@@ -3391,15 +3391,15 @@ type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication `default:"none" json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                                                            `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr     *string                                                            "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                `json:"authRequestHeaders,omitempty"`
 	Discovery          *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
@@ -3638,8 +3638,8 @@ const (
 )
 
 type RestAuthenticationLoginSecret struct {
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse `queryParam:"inline,name=RestAuthenticationLoginSecret" union:"member"`
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue  `queryParam:"inline,name=RestAuthenticationLoginSecret" union:"member"`
+	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse `queryParam:"inline" union:"member"`
+	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue  `queryParam:"inline" union:"member"`
 
 	Type RestAuthenticationLoginSecretType
 }
@@ -3992,15 +3992,15 @@ type RestAuthenticationLoginGetAuthTokenFromHeaderTrue struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication `default:"none" json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
 	Username string  `json:"username"`
 	Password string  `json:"password"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                                                     `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr     *string                                                     "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams         `json:"authRequestHeaders,omitempty"`
 	Discovery          *RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
@@ -4532,15 +4532,15 @@ type RestAuthenticationLoginGetAuthTokenFromHeaderFalse struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication *RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication `default:"none" json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
 	Username string  `json:"username"`
 	Password string  `json:"password"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `default:"Authorization" json:"authHeaderKey"`
 	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                                                      `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr     *string                                                      "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams          `json:"authRequestHeaders,omitempty"`
 	Discovery          *RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
@@ -4786,8 +4786,8 @@ const (
 )
 
 type RestAuthenticationLogin struct {
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalse *RestAuthenticationLoginGetAuthTokenFromHeaderFalse `queryParam:"inline,name=RestAuthenticationLogin" union:"member"`
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrue  *RestAuthenticationLoginGetAuthTokenFromHeaderTrue  `queryParam:"inline,name=RestAuthenticationLogin" union:"member"`
+	RestAuthenticationLoginGetAuthTokenFromHeaderFalse *RestAuthenticationLoginGetAuthTokenFromHeaderFalse `queryParam:"inline" union:"member"`
+	RestAuthenticationLoginGetAuthTokenFromHeaderTrue  *RestAuthenticationLoginGetAuthTokenFromHeaderTrue  `queryParam:"inline" union:"member"`
 
 	Type RestAuthenticationLoginType
 }
@@ -8165,20 +8165,20 @@ const (
 )
 
 type RestCollectorConf struct {
-	RestCollectMethodGet                *RestCollectMethodGet                `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestCollectMethodPost               *RestCollectMethodPost               `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestCollectMethodPostWithBody       *RestCollectMethodPostWithBody       `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestCollectMethodOther              *RestCollectMethodOther              `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationNone              *RestAuthenticationNone              `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationBasic             *RestAuthenticationBasic             `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationBasicSecret       *RestAuthenticationBasicSecret       `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationLogin             *RestAuthenticationLogin             `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationLoginSecret       *RestAuthenticationLoginSecret       `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationOauth             *RestAuthenticationOauth             `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationOauthSecret       *RestAuthenticationOauthSecret       `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationGoogleOauth       *RestAuthenticationGoogleOauth       `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationGoogleOauthSecret *RestAuthenticationGoogleOauthSecret `queryParam:"inline,name=RestCollectorConf" union:"member"`
-	RestAuthenticationHmac              *RestAuthenticationHmac              `queryParam:"inline,name=RestCollectorConf" union:"member"`
+	RestCollectMethodGet                *RestCollectMethodGet                `queryParam:"inline" union:"member"`
+	RestCollectMethodPost               *RestCollectMethodPost               `queryParam:"inline" union:"member"`
+	RestCollectMethodPostWithBody       *RestCollectMethodPostWithBody       `queryParam:"inline" union:"member"`
+	RestCollectMethodOther              *RestCollectMethodOther              `queryParam:"inline" union:"member"`
+	RestAuthenticationNone              *RestAuthenticationNone              `queryParam:"inline" union:"member"`
+	RestAuthenticationBasic             *RestAuthenticationBasic             `queryParam:"inline" union:"member"`
+	RestAuthenticationBasicSecret       *RestAuthenticationBasicSecret       `queryParam:"inline" union:"member"`
+	RestAuthenticationLogin             *RestAuthenticationLogin             `queryParam:"inline" union:"member"`
+	RestAuthenticationLoginSecret       *RestAuthenticationLoginSecret       `queryParam:"inline" union:"member"`
+	RestAuthenticationOauth             *RestAuthenticationOauth             `queryParam:"inline" union:"member"`
+	RestAuthenticationOauthSecret       *RestAuthenticationOauthSecret       `queryParam:"inline" union:"member"`
+	RestAuthenticationGoogleOauth       *RestAuthenticationGoogleOauth       `queryParam:"inline" union:"member"`
+	RestAuthenticationGoogleOauthSecret *RestAuthenticationGoogleOauthSecret `queryParam:"inline" union:"member"`
+	RestAuthenticationHmac              *RestAuthenticationHmac              `queryParam:"inline" union:"member"`
 
 	Type RestCollectorConfType
 }

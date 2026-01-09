@@ -104,9 +104,9 @@ type OutputCloudflareR2 struct {
 	// Format of the output data
 	Format *components.DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
@@ -1156,9 +1156,9 @@ type OutputDatabricks struct {
 	// Format of the output data
 	Format *components.DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
@@ -4699,7 +4699,7 @@ type OutputClickHouse struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -5415,9 +5415,9 @@ type OutputCriblLake struct {
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"64" json:"maxFileSizeMB"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
@@ -5892,7 +5892,7 @@ type OutputSecurityLake struct {
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
@@ -6461,9 +6461,9 @@ type OutputDlS3 struct {
 	// Format of the output data
 	Format *components.DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
@@ -10180,7 +10180,7 @@ type OutputOpenTelemetry struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -10953,7 +10953,7 @@ type OutputPrometheus struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -12646,8 +12646,8 @@ const (
 )
 
 type OutputGrafanaCloud struct {
-	OutputGrafanaCloudGrafanaCloud1 *OutputGrafanaCloudGrafanaCloud1 `queryParam:"inline,name=OutputGrafanaCloud" union:"member"`
-	OutputGrafanaCloudGrafanaCloud2 *OutputGrafanaCloudGrafanaCloud2 `queryParam:"inline,name=OutputGrafanaCloud" union:"member"`
+	OutputGrafanaCloudGrafanaCloud1 *OutputGrafanaCloudGrafanaCloud1 `queryParam:"inline" union:"member"`
+	OutputGrafanaCloudGrafanaCloud2 *OutputGrafanaCloudGrafanaCloud2 `queryParam:"inline" union:"member"`
 
 	Type OutputGrafanaCloudType
 }
@@ -15804,9 +15804,9 @@ type OutputMinio struct {
 	// Format of the output data
 	Format *components.DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
@@ -16847,7 +16847,7 @@ type OutputInfluxdb struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -22073,9 +22073,9 @@ type OutputGoogleCloudStorage struct {
 	// Format of the output data
 	Format *components.DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
@@ -25157,7 +25157,7 @@ type OutputAzureDataExplorer struct {
 	// Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
@@ -25908,9 +25908,9 @@ type OutputAzureBlob struct {
 	// Format of the output data
 	Format *components.DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
@@ -26469,9 +26469,9 @@ type OutputS3 struct {
 	// Format of the output data
 	Format *components.DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
@@ -27039,9 +27039,9 @@ type OutputFilesystem struct {
 	// Format of the output data
 	Format *components.DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
-	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
+	BaseFileName *string "default:\"`CriblOut`\" json:\"baseFileName\""
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
-	FileNameSuffix *string `default:".\\${C.env[\"CRIBL_WORKER_ID\"]}.\\${__format}\\${__compression === \"gzip\" ? \".gz\" : \"\"}" json:"fileNameSuffix"`
+	FileNameSuffix *string "default:\"`.${C.env[\\\"CRIBL_WORKER_ID\\\"]}.${__format}${__compression === \\\"gzip\\\" ? \\\".gz\\\" : \\\"\\\"}`\" json:\"fileNameSuffix\""
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `default:"32" json:"maxFileSizeMB"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
@@ -30861,7 +30861,7 @@ type OutputSentinel struct {
 	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
 	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
 	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
-	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	CustomPayloadExpression *string "default:\"`${events}`\" json:\"customPayloadExpression\""
 	// HTTP content-type header value
 	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
 	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -31485,7 +31485,7 @@ type OutputWebhook struct {
 	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
 	CustomContentType *string `default:"application/x-ndjson" json:"customContentType"`
 	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
-	CustomPayloadExpression *string `default:"\\${events}" json:"customPayloadExpression"`
+	CustomPayloadExpression *string "default:\"`${events}`\" json:\"customPayloadExpression\""
 	// HTTP content-type header value
 	AdvancedContentType *string `default:"application/json" json:"advancedContentType"`
 	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -31530,7 +31530,7 @@ type OutputWebhook struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -32196,75 +32196,75 @@ const (
 
 // CreateOutputRequest - Output object
 type CreateOutputRequest struct {
-	OutputDefault                *OutputDefault                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputWebhook                *OutputWebhook                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSentinel               *OutputSentinel               `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputDevnull                *OutputDevnull                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSyslog                 *OutputSyslog                 `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSplunk                 *OutputSplunk                 `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSplunkLb               *OutputSplunkLb               `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSplunkHec              *OutputSplunkHec              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputTcpjson                *OutputTcpjson                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputWavefront              *OutputWavefront              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSignalfx               *OutputSignalfx               `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputFilesystem             *OutputFilesystem             `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputS3                     *OutputS3                     `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputAzureBlob              *OutputAzureBlob              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputAzureDataExplorer      *OutputAzureDataExplorer      `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputAzureLogs              *OutputAzureLogs              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputKinesis                *OutputKinesis                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputHoneycomb              *OutputHoneycomb              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputAzureEventhub          *OutputAzureEventhub          `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputGoogleChronicle        *OutputGoogleChronicle        `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputGoogleCloudStorage     *OutputGoogleCloudStorage     `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputGoogleCloudLogging     *OutputGoogleCloudLogging     `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputGooglePubsub           *OutputGooglePubsub           `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputExabeam                *OutputExabeam                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputKafka                  *OutputKafka                  `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputConfluentCloud         *OutputConfluentCloud         `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputMsk                    *OutputMsk                    `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputElastic                *OutputElastic                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputElasticCloud           *OutputElasticCloud           `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputNewrelic               *OutputNewrelic               `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputNewrelicEvents         *OutputNewrelicEvents         `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputInfluxdb               *OutputInfluxdb               `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputCloudwatch             *OutputCloudwatch             `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputMinio                  *OutputMinio                  `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputStatsd                 *OutputStatsd                 `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputStatsdExt              *OutputStatsdExt              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputGraphite               *OutputGraphite               `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputRouter                 *OutputRouter                 `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSns                    *OutputSns                    `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSqs                    *OutputSqs                    `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSnmp                   *OutputSnmp                   `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSumoLogic              *OutputSumoLogic              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputDatadog                *OutputDatadog                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputGrafanaCloud           *OutputGrafanaCloud           `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputLoki                   *OutputLoki                   `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputPrometheus             *OutputPrometheus             `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputRing                   *OutputRing                   `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputOpenTelemetry          *OutputOpenTelemetry          `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputServiceNow             *OutputServiceNow             `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputDataset                *OutputDataset                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputCriblTCP               *OutputCriblTCP               `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputCriblHTTP              *OutputCriblHTTP              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputCriblSearchEngine      *OutputCriblSearchEngine      `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputHumioHec               *OutputHumioHec               `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputCrowdstrikeNextGenSiem *OutputCrowdstrikeNextGenSiem `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputDlS3                   *OutputDlS3                   `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSecurityLake           *OutputSecurityLake           `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputCriblLake              *OutputCriblLake              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputDiskSpool              *OutputDiskSpool              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputClickHouse             *OutputClickHouse             `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputXsiam                  *OutputXsiam                  `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputNetflow                *OutputNetflow                `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputDynatraceOtlp          *OutputDynatraceOtlp          `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputSentinelOneAiSiem      *OutputSentinelOneAiSiem      `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputChronicle              *OutputChronicle              `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputDatabricks             *OutputDatabricks             `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline,name=RequestBody" union:"member"`
-	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline,name=RequestBody" union:"member"`
+	OutputDefault                *OutputDefault                `queryParam:"inline" union:"member"`
+	OutputWebhook                *OutputWebhook                `queryParam:"inline" union:"member"`
+	OutputSentinel               *OutputSentinel               `queryParam:"inline" union:"member"`
+	OutputDevnull                *OutputDevnull                `queryParam:"inline" union:"member"`
+	OutputSyslog                 *OutputSyslog                 `queryParam:"inline" union:"member"`
+	OutputSplunk                 *OutputSplunk                 `queryParam:"inline" union:"member"`
+	OutputSplunkLb               *OutputSplunkLb               `queryParam:"inline" union:"member"`
+	OutputSplunkHec              *OutputSplunkHec              `queryParam:"inline" union:"member"`
+	OutputTcpjson                *OutputTcpjson                `queryParam:"inline" union:"member"`
+	OutputWavefront              *OutputWavefront              `queryParam:"inline" union:"member"`
+	OutputSignalfx               *OutputSignalfx               `queryParam:"inline" union:"member"`
+	OutputFilesystem             *OutputFilesystem             `queryParam:"inline" union:"member"`
+	OutputS3                     *OutputS3                     `queryParam:"inline" union:"member"`
+	OutputAzureBlob              *OutputAzureBlob              `queryParam:"inline" union:"member"`
+	OutputAzureDataExplorer      *OutputAzureDataExplorer      `queryParam:"inline" union:"member"`
+	OutputAzureLogs              *OutputAzureLogs              `queryParam:"inline" union:"member"`
+	OutputKinesis                *OutputKinesis                `queryParam:"inline" union:"member"`
+	OutputHoneycomb              *OutputHoneycomb              `queryParam:"inline" union:"member"`
+	OutputAzureEventhub          *OutputAzureEventhub          `queryParam:"inline" union:"member"`
+	OutputGoogleChronicle        *OutputGoogleChronicle        `queryParam:"inline" union:"member"`
+	OutputGoogleCloudStorage     *OutputGoogleCloudStorage     `queryParam:"inline" union:"member"`
+	OutputGoogleCloudLogging     *OutputGoogleCloudLogging     `queryParam:"inline" union:"member"`
+	OutputGooglePubsub           *OutputGooglePubsub           `queryParam:"inline" union:"member"`
+	OutputExabeam                *OutputExabeam                `queryParam:"inline" union:"member"`
+	OutputKafka                  *OutputKafka                  `queryParam:"inline" union:"member"`
+	OutputConfluentCloud         *OutputConfluentCloud         `queryParam:"inline" union:"member"`
+	OutputMsk                    *OutputMsk                    `queryParam:"inline" union:"member"`
+	OutputElastic                *OutputElastic                `queryParam:"inline" union:"member"`
+	OutputElasticCloud           *OutputElasticCloud           `queryParam:"inline" union:"member"`
+	OutputNewrelic               *OutputNewrelic               `queryParam:"inline" union:"member"`
+	OutputNewrelicEvents         *OutputNewrelicEvents         `queryParam:"inline" union:"member"`
+	OutputInfluxdb               *OutputInfluxdb               `queryParam:"inline" union:"member"`
+	OutputCloudwatch             *OutputCloudwatch             `queryParam:"inline" union:"member"`
+	OutputMinio                  *OutputMinio                  `queryParam:"inline" union:"member"`
+	OutputStatsd                 *OutputStatsd                 `queryParam:"inline" union:"member"`
+	OutputStatsdExt              *OutputStatsdExt              `queryParam:"inline" union:"member"`
+	OutputGraphite               *OutputGraphite               `queryParam:"inline" union:"member"`
+	OutputRouter                 *OutputRouter                 `queryParam:"inline" union:"member"`
+	OutputSns                    *OutputSns                    `queryParam:"inline" union:"member"`
+	OutputSqs                    *OutputSqs                    `queryParam:"inline" union:"member"`
+	OutputSnmp                   *OutputSnmp                   `queryParam:"inline" union:"member"`
+	OutputSumoLogic              *OutputSumoLogic              `queryParam:"inline" union:"member"`
+	OutputDatadog                *OutputDatadog                `queryParam:"inline" union:"member"`
+	OutputGrafanaCloud           *OutputGrafanaCloud           `queryParam:"inline" union:"member"`
+	OutputLoki                   *OutputLoki                   `queryParam:"inline" union:"member"`
+	OutputPrometheus             *OutputPrometheus             `queryParam:"inline" union:"member"`
+	OutputRing                   *OutputRing                   `queryParam:"inline" union:"member"`
+	OutputOpenTelemetry          *OutputOpenTelemetry          `queryParam:"inline" union:"member"`
+	OutputServiceNow             *OutputServiceNow             `queryParam:"inline" union:"member"`
+	OutputDataset                *OutputDataset                `queryParam:"inline" union:"member"`
+	OutputCriblTCP               *OutputCriblTCP               `queryParam:"inline" union:"member"`
+	OutputCriblHTTP              *OutputCriblHTTP              `queryParam:"inline" union:"member"`
+	OutputCriblSearchEngine      *OutputCriblSearchEngine      `queryParam:"inline" union:"member"`
+	OutputHumioHec               *OutputHumioHec               `queryParam:"inline" union:"member"`
+	OutputCrowdstrikeNextGenSiem *OutputCrowdstrikeNextGenSiem `queryParam:"inline" union:"member"`
+	OutputDlS3                   *OutputDlS3                   `queryParam:"inline" union:"member"`
+	OutputSecurityLake           *OutputSecurityLake           `queryParam:"inline" union:"member"`
+	OutputCriblLake              *OutputCriblLake              `queryParam:"inline" union:"member"`
+	OutputDiskSpool              *OutputDiskSpool              `queryParam:"inline" union:"member"`
+	OutputClickHouse             *OutputClickHouse             `queryParam:"inline" union:"member"`
+	OutputXsiam                  *OutputXsiam                  `queryParam:"inline" union:"member"`
+	OutputNetflow                *OutputNetflow                `queryParam:"inline" union:"member"`
+	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline" union:"member"`
+	OutputDynatraceOtlp          *OutputDynatraceOtlp          `queryParam:"inline" union:"member"`
+	OutputSentinelOneAiSiem      *OutputSentinelOneAiSiem      `queryParam:"inline" union:"member"`
+	OutputChronicle              *OutputChronicle              `queryParam:"inline" union:"member"`
+	OutputDatabricks             *OutputDatabricks             `queryParam:"inline" union:"member"`
+	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline" union:"member"`
+	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
 
 	Type CreateOutputRequestType
 }

@@ -176,7 +176,7 @@ type InputCloudflareHec struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
@@ -588,7 +588,7 @@ type InputZscalerHec struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI *string `default:"/services/collector" json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
@@ -1340,7 +1340,7 @@ type InputNetflow struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
@@ -1590,7 +1590,7 @@ type InputWizWebhook struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -3433,7 +3433,7 @@ type InputWef struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
 	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
 	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
@@ -5406,8 +5406,8 @@ const (
 )
 
 type InputSyslog struct {
-	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline,name=InputSyslog" union:"member"`
-	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline,name=InputSyslog" union:"member"`
+	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline" union:"member"`
+	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline" union:"member"`
 
 	Type InputSyslogType
 }
@@ -6113,7 +6113,7 @@ type InputOpenTelemetry struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Select whether to leverage gRPC or HTTP for OpenTelemetry
 	Protocol *CreateInputProtocol `default:"grpc" json:"protocol"`
 	// Enable to extract each incoming span to a separate event
@@ -6146,7 +6146,7 @@ type InputOpenTelemetry struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -8596,7 +8596,7 @@ type InputHTTPRaw struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -9126,7 +9126,7 @@ type InputDatadogAgent struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
 	// Fields to add to events from this input
@@ -13024,7 +13024,7 @@ type InputCriblLakeHTTP struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
 	CriblAPI *string `default:"/cribl" json:"criblAPI"`
 	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
@@ -13342,7 +13342,7 @@ type InputCriblHTTP struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
@@ -14254,7 +14254,7 @@ type InputFirehose struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
@@ -17359,7 +17359,7 @@ type InputPrometheusRw struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
 	PrometheusAPI *string `default:"/write" json:"prometheusAPI"`
 	// Remote Write authentication type
@@ -17384,7 +17384,7 @@ type InputPrometheusRw struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -17758,7 +17758,7 @@ type InputLoki struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
 	LokiAPI *string `default:"/loki/api/v1/push" json:"lokiAPI"`
 	// Loki logs authentication type
@@ -17783,7 +17783,7 @@ type InputLoki struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -18133,7 +18133,7 @@ type PrometheusAuth2 struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -18271,7 +18271,7 @@ type LokiAuth2 struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -18433,7 +18433,7 @@ type InputGrafanaGrafana2 struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `default:"/api/prom/push" json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
@@ -18709,7 +18709,7 @@ type PrometheusAuth1 struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -18847,7 +18847,7 @@ type LokiAuth1 struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -19009,7 +19009,7 @@ type InputGrafanaGrafana1 struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `default:"/api/prom/push" json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
@@ -19250,8 +19250,8 @@ const (
 )
 
 type InputGrafana struct {
-	InputGrafanaGrafana1 *InputGrafanaGrafana1 `queryParam:"inline,name=InputGrafana" union:"member"`
-	InputGrafanaGrafana2 *InputGrafanaGrafana2 `queryParam:"inline,name=InputGrafana" union:"member"`
+	InputGrafanaGrafana1 *InputGrafanaGrafana1 `queryParam:"inline" union:"member"`
+	InputGrafanaGrafana2 *InputGrafanaGrafana2 `queryParam:"inline" union:"member"`
 
 	Type InputGrafanaType
 }
@@ -19898,7 +19898,7 @@ type InputElastic struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
 	ElasticAPI *string                    `default:"/" json:"elasticAPI"`
 	AuthType   *AuthenticationTypeElastic `default:"none" json:"authType"`
@@ -20655,7 +20655,7 @@ type InputSplunkHec struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
@@ -21180,7 +21180,7 @@ type InputSplunkSearch struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -21981,7 +21981,7 @@ type InputHTTP struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
 	CriblAPI *string `default:"/cribl" json:"criblAPI"`
 	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
@@ -23289,66 +23289,66 @@ const (
 
 // CreateInputRequest - Input object
 type CreateInputRequest struct {
-	InputCollection           *InputCollection           `queryParam:"inline,name=RequestBody" union:"member"`
-	InputKafka                *InputKafka                `queryParam:"inline,name=RequestBody" union:"member"`
-	InputMsk                  *InputMsk                  `queryParam:"inline,name=RequestBody" union:"member"`
-	InputHTTP                 *InputHTTP                 `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSplunk               *InputSplunk               `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSplunkSearch         *InputSplunkSearch         `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSplunkHec            *InputSplunkHec            `queryParam:"inline,name=RequestBody" union:"member"`
-	InputAzureBlob            *InputAzureBlob            `queryParam:"inline,name=RequestBody" union:"member"`
-	InputElastic              *InputElastic              `queryParam:"inline,name=RequestBody" union:"member"`
-	InputConfluentCloud       *InputConfluentCloud       `queryParam:"inline,name=RequestBody" union:"member"`
-	InputGrafana              *InputGrafana              `queryParam:"inline,name=RequestBody" union:"member"`
-	InputLoki                 *InputLoki                 `queryParam:"inline,name=RequestBody" union:"member"`
-	InputPrometheusRw         *InputPrometheusRw         `queryParam:"inline,name=RequestBody" union:"member"`
-	InputPrometheus           *InputPrometheus           `queryParam:"inline,name=RequestBody" union:"member"`
-	InputEdgePrometheus       *InputEdgePrometheus       `queryParam:"inline,name=RequestBody" union:"member"`
-	InputOffice365Mgmt        *InputOffice365Mgmt        `queryParam:"inline,name=RequestBody" union:"member"`
-	InputOffice365Service     *InputOffice365Service     `queryParam:"inline,name=RequestBody" union:"member"`
-	InputOffice365MsgTrace    *InputOffice365MsgTrace    `queryParam:"inline,name=RequestBody" union:"member"`
-	InputEventhub             *InputEventhub             `queryParam:"inline,name=RequestBody" union:"member"`
-	InputExec                 *InputExec                 `queryParam:"inline,name=RequestBody" union:"member"`
-	InputFirehose             *InputFirehose             `queryParam:"inline,name=RequestBody" union:"member"`
-	InputGooglePubsub         *InputGooglePubsub         `queryParam:"inline,name=RequestBody" union:"member"`
-	InputCribl                *InputCribl                `queryParam:"inline,name=RequestBody" union:"member"`
-	InputCriblTCP             *InputCriblTCP             `queryParam:"inline,name=RequestBody" union:"member"`
-	InputCriblHTTP            *InputCriblHTTP            `queryParam:"inline,name=RequestBody" union:"member"`
-	InputCriblLakeHTTP        *InputCriblLakeHTTP        `queryParam:"inline,name=RequestBody" union:"member"`
-	InputTcpjson              *InputTcpjson              `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSystemMetrics        *InputSystemMetrics        `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSystemState          *InputSystemState          `queryParam:"inline,name=RequestBody" union:"member"`
-	InputKubeMetrics          *InputKubeMetrics          `queryParam:"inline,name=RequestBody" union:"member"`
-	InputKubeLogs             *InputKubeLogs             `queryParam:"inline,name=RequestBody" union:"member"`
-	InputKubeEvents           *InputKubeEvents           `queryParam:"inline,name=RequestBody" union:"member"`
-	InputWindowsMetrics       *InputWindowsMetrics       `queryParam:"inline,name=RequestBody" union:"member"`
-	InputCrowdstrike          *InputCrowdstrike          `queryParam:"inline,name=RequestBody" union:"member"`
-	InputDatadogAgent         *InputDatadogAgent         `queryParam:"inline,name=RequestBody" union:"member"`
-	InputDatagen              *InputDatagen              `queryParam:"inline,name=RequestBody" union:"member"`
-	InputHTTPRaw              *InputHTTPRaw              `queryParam:"inline,name=RequestBody" union:"member"`
-	InputKinesis              *InputKinesis              `queryParam:"inline,name=RequestBody" union:"member"`
-	InputCriblmetrics         *InputCriblmetrics         `queryParam:"inline,name=RequestBody" union:"member"`
-	InputMetrics              *InputMetrics              `queryParam:"inline,name=RequestBody" union:"member"`
-	InputS3                   *InputS3                   `queryParam:"inline,name=RequestBody" union:"member"`
-	InputS3Inventory          *InputS3Inventory          `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSnmp                 *InputSnmp                 `queryParam:"inline,name=RequestBody" union:"member"`
-	InputOpenTelemetry        *InputOpenTelemetry        `queryParam:"inline,name=RequestBody" union:"member"`
-	InputModelDrivenTelemetry *InputModelDrivenTelemetry `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSqs                  *InputSqs                  `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSyslog               *InputSyslog               `queryParam:"inline,name=RequestBody" union:"member"`
-	InputFile                 *InputFile                 `queryParam:"inline,name=RequestBody" union:"member"`
-	InputTCP                  *InputTCP                  `queryParam:"inline,name=RequestBody" union:"member"`
-	InputAppscope             *InputAppscope             `queryParam:"inline,name=RequestBody" union:"member"`
-	InputWef                  *InputWef                  `queryParam:"inline,name=RequestBody" union:"member"`
-	InputWinEventLogs         *InputWinEventLogs         `queryParam:"inline,name=RequestBody" union:"member"`
-	InputRawUDP               *InputRawUDP               `queryParam:"inline,name=RequestBody" union:"member"`
-	InputJournalFiles         *InputJournalFiles         `queryParam:"inline,name=RequestBody" union:"member"`
-	InputWiz                  *InputWiz                  `queryParam:"inline,name=RequestBody" union:"member"`
-	InputWizWebhook           *InputWizWebhook           `queryParam:"inline,name=RequestBody" union:"member"`
-	InputNetflow              *InputNetflow              `queryParam:"inline,name=RequestBody" union:"member"`
-	InputSecurityLake         *InputSecurityLake         `queryParam:"inline,name=RequestBody" union:"member"`
-	InputZscalerHec           *InputZscalerHec           `queryParam:"inline,name=RequestBody" union:"member"`
-	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline,name=RequestBody" union:"member"`
+	InputCollection           *InputCollection           `queryParam:"inline" union:"member"`
+	InputKafka                *InputKafka                `queryParam:"inline" union:"member"`
+	InputMsk                  *InputMsk                  `queryParam:"inline" union:"member"`
+	InputHTTP                 *InputHTTP                 `queryParam:"inline" union:"member"`
+	InputSplunk               *InputSplunk               `queryParam:"inline" union:"member"`
+	InputSplunkSearch         *InputSplunkSearch         `queryParam:"inline" union:"member"`
+	InputSplunkHec            *InputSplunkHec            `queryParam:"inline" union:"member"`
+	InputAzureBlob            *InputAzureBlob            `queryParam:"inline" union:"member"`
+	InputElastic              *InputElastic              `queryParam:"inline" union:"member"`
+	InputConfluentCloud       *InputConfluentCloud       `queryParam:"inline" union:"member"`
+	InputGrafana              *InputGrafana              `queryParam:"inline" union:"member"`
+	InputLoki                 *InputLoki                 `queryParam:"inline" union:"member"`
+	InputPrometheusRw         *InputPrometheusRw         `queryParam:"inline" union:"member"`
+	InputPrometheus           *InputPrometheus           `queryParam:"inline" union:"member"`
+	InputEdgePrometheus       *InputEdgePrometheus       `queryParam:"inline" union:"member"`
+	InputOffice365Mgmt        *InputOffice365Mgmt        `queryParam:"inline" union:"member"`
+	InputOffice365Service     *InputOffice365Service     `queryParam:"inline" union:"member"`
+	InputOffice365MsgTrace    *InputOffice365MsgTrace    `queryParam:"inline" union:"member"`
+	InputEventhub             *InputEventhub             `queryParam:"inline" union:"member"`
+	InputExec                 *InputExec                 `queryParam:"inline" union:"member"`
+	InputFirehose             *InputFirehose             `queryParam:"inline" union:"member"`
+	InputGooglePubsub         *InputGooglePubsub         `queryParam:"inline" union:"member"`
+	InputCribl                *InputCribl                `queryParam:"inline" union:"member"`
+	InputCriblTCP             *InputCriblTCP             `queryParam:"inline" union:"member"`
+	InputCriblHTTP            *InputCriblHTTP            `queryParam:"inline" union:"member"`
+	InputCriblLakeHTTP        *InputCriblLakeHTTP        `queryParam:"inline" union:"member"`
+	InputTcpjson              *InputTcpjson              `queryParam:"inline" union:"member"`
+	InputSystemMetrics        *InputSystemMetrics        `queryParam:"inline" union:"member"`
+	InputSystemState          *InputSystemState          `queryParam:"inline" union:"member"`
+	InputKubeMetrics          *InputKubeMetrics          `queryParam:"inline" union:"member"`
+	InputKubeLogs             *InputKubeLogs             `queryParam:"inline" union:"member"`
+	InputKubeEvents           *InputKubeEvents           `queryParam:"inline" union:"member"`
+	InputWindowsMetrics       *InputWindowsMetrics       `queryParam:"inline" union:"member"`
+	InputCrowdstrike          *InputCrowdstrike          `queryParam:"inline" union:"member"`
+	InputDatadogAgent         *InputDatadogAgent         `queryParam:"inline" union:"member"`
+	InputDatagen              *InputDatagen              `queryParam:"inline" union:"member"`
+	InputHTTPRaw              *InputHTTPRaw              `queryParam:"inline" union:"member"`
+	InputKinesis              *InputKinesis              `queryParam:"inline" union:"member"`
+	InputCriblmetrics         *InputCriblmetrics         `queryParam:"inline" union:"member"`
+	InputMetrics              *InputMetrics              `queryParam:"inline" union:"member"`
+	InputS3                   *InputS3                   `queryParam:"inline" union:"member"`
+	InputS3Inventory          *InputS3Inventory          `queryParam:"inline" union:"member"`
+	InputSnmp                 *InputSnmp                 `queryParam:"inline" union:"member"`
+	InputOpenTelemetry        *InputOpenTelemetry        `queryParam:"inline" union:"member"`
+	InputModelDrivenTelemetry *InputModelDrivenTelemetry `queryParam:"inline" union:"member"`
+	InputSqs                  *InputSqs                  `queryParam:"inline" union:"member"`
+	InputSyslog               *InputSyslog               `queryParam:"inline" union:"member"`
+	InputFile                 *InputFile                 `queryParam:"inline" union:"member"`
+	InputTCP                  *InputTCP                  `queryParam:"inline" union:"member"`
+	InputAppscope             *InputAppscope             `queryParam:"inline" union:"member"`
+	InputWef                  *InputWef                  `queryParam:"inline" union:"member"`
+	InputWinEventLogs         *InputWinEventLogs         `queryParam:"inline" union:"member"`
+	InputRawUDP               *InputRawUDP               `queryParam:"inline" union:"member"`
+	InputJournalFiles         *InputJournalFiles         `queryParam:"inline" union:"member"`
+	InputWiz                  *InputWiz                  `queryParam:"inline" union:"member"`
+	InputWizWebhook           *InputWizWebhook           `queryParam:"inline" union:"member"`
+	InputNetflow              *InputNetflow              `queryParam:"inline" union:"member"`
+	InputSecurityLake         *InputSecurityLake         `queryParam:"inline" union:"member"`
+	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
+	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
 
 	Type CreateInputRequestType
 }
