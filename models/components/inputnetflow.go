@@ -58,7 +58,7 @@ type InputNetflow struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.

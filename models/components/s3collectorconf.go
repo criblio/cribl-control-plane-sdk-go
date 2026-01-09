@@ -1340,11 +1340,11 @@ const (
 )
 
 type S3CollectorConf struct {
-	S3PartitioningSchemeDdss        *S3PartitioningSchemeDdss        `queryParam:"inline,name=S3CollectorConf" union:"member"`
-	S3PartitioningSchemeNone        *S3PartitioningSchemeNone        `queryParam:"inline,name=S3CollectorConf" union:"member"`
-	S3AwsAuthenticationMethodAuto   *S3AwsAuthenticationMethodAuto   `queryParam:"inline,name=S3CollectorConf" union:"member"`
-	S3AwsAuthenticationMethodManual *S3AwsAuthenticationMethodManual `queryParam:"inline,name=S3CollectorConf" union:"member"`
-	S3AwsAuthenticationMethodSecret *S3AwsAuthenticationMethodSecret `queryParam:"inline,name=S3CollectorConf" union:"member"`
+	S3PartitioningSchemeDdss        *S3PartitioningSchemeDdss        `queryParam:"inline" union:"member"`
+	S3PartitioningSchemeNone        *S3PartitioningSchemeNone        `queryParam:"inline" union:"member"`
+	S3AwsAuthenticationMethodAuto   *S3AwsAuthenticationMethodAuto   `queryParam:"inline" union:"member"`
+	S3AwsAuthenticationMethodManual *S3AwsAuthenticationMethodManual `queryParam:"inline" union:"member"`
+	S3AwsAuthenticationMethodSecret *S3AwsAuthenticationMethodSecret `queryParam:"inline" union:"member"`
 
 	Type S3CollectorConfType
 }

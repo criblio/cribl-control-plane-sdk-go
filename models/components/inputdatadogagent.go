@@ -107,7 +107,7 @@ type InputDatadogAgent struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
 	// Fields to add to events from this input

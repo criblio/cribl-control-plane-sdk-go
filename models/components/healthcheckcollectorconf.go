@@ -219,7 +219,7 @@ type HealthCheckAuthenticationOauthSecret struct {
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Select or create a text secret that contains the client secret's value.
@@ -610,7 +610,7 @@ type HealthCheckAuthenticationOauth struct {
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
@@ -997,15 +997,15 @@ type HealthCheckAuthenticationLoginSecret struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
 	Authentication *HealthCheckAuthenticationLoginSecretAuthentication `default:"none" json:"authentication"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
 	// Path to token attribute in login response body. Nested attributes are OK. If left blank, the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// Optional authentication request headers.
 	AuthRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
 	Discovery          *HealthCheckAuthenticationLoginSecretDiscovery              `json:"discovery,omitempty"`
@@ -1379,17 +1379,17 @@ type HealthCheckAuthenticationLogin struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
 	Authentication *HealthCheckAuthenticationLoginAuthentication `default:"none" json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
 	// Login username
 	Username string `json:"username"`
 	// Login password
 	Password string `json:"password"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// Optional authentication request headers.
 	AuthRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
 	Discovery          *HealthCheckAuthenticationLoginDiscovery                    `json:"discovery,omitempty"`
@@ -3572,16 +3572,16 @@ const (
 )
 
 type HealthCheckCollectorConf struct {
-	HealthCheckCollectMethodGet          *HealthCheckCollectMethodGet          `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckCollectMethodPost         *HealthCheckCollectMethodPost         `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckCollectMethodPostWithBody *HealthCheckCollectMethodPostWithBody `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckAuthenticationNone        *HealthCheckAuthenticationNone        `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckAuthenticationBasic       *HealthCheckAuthenticationBasic       `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckAuthenticationBasicSecret *HealthCheckAuthenticationBasicSecret `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckAuthenticationLogin       *HealthCheckAuthenticationLogin       `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckAuthenticationLoginSecret *HealthCheckAuthenticationLoginSecret `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckAuthenticationOauth       *HealthCheckAuthenticationOauth       `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
-	HealthCheckAuthenticationOauthSecret *HealthCheckAuthenticationOauthSecret `queryParam:"inline,name=HealthCheckCollectorConf" union:"member"`
+	HealthCheckCollectMethodGet          *HealthCheckCollectMethodGet          `queryParam:"inline" union:"member"`
+	HealthCheckCollectMethodPost         *HealthCheckCollectMethodPost         `queryParam:"inline" union:"member"`
+	HealthCheckCollectMethodPostWithBody *HealthCheckCollectMethodPostWithBody `queryParam:"inline" union:"member"`
+	HealthCheckAuthenticationNone        *HealthCheckAuthenticationNone        `queryParam:"inline" union:"member"`
+	HealthCheckAuthenticationBasic       *HealthCheckAuthenticationBasic       `queryParam:"inline" union:"member"`
+	HealthCheckAuthenticationBasicSecret *HealthCheckAuthenticationBasicSecret `queryParam:"inline" union:"member"`
+	HealthCheckAuthenticationLogin       *HealthCheckAuthenticationLogin       `queryParam:"inline" union:"member"`
+	HealthCheckAuthenticationLoginSecret *HealthCheckAuthenticationLoginSecret `queryParam:"inline" union:"member"`
+	HealthCheckAuthenticationOauth       *HealthCheckAuthenticationOauth       `queryParam:"inline" union:"member"`
+	HealthCheckAuthenticationOauthSecret *HealthCheckAuthenticationOauthSecret `queryParam:"inline" union:"member"`
 
 	Type HealthCheckCollectorConfType
 }

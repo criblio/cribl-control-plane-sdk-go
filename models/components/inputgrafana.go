@@ -52,7 +52,7 @@ type PrometheusAuth2 struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -190,7 +190,7 @@ type LokiAuth2 struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -352,7 +352,7 @@ type InputGrafanaGrafana2 struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `default:"/api/prom/push" json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
@@ -628,7 +628,7 @@ type PrometheusAuth1 struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -766,7 +766,7 @@ type LokiAuth1 struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -928,7 +928,7 @@ type InputGrafanaGrafana1 struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
 	PrometheusAPI *string `default:"/api/prom/push" json:"prometheusAPI"`
 	// Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
@@ -1169,8 +1169,8 @@ const (
 )
 
 type InputGrafana struct {
-	InputGrafanaGrafana1 *InputGrafanaGrafana1 `queryParam:"inline,name=InputGrafana" union:"member"`
-	InputGrafanaGrafana2 *InputGrafanaGrafana2 `queryParam:"inline,name=InputGrafana" union:"member"`
+	InputGrafanaGrafana1 *InputGrafanaGrafana1 `queryParam:"inline" union:"member"`
+	InputGrafanaGrafana2 *InputGrafanaGrafana2 `queryParam:"inline" union:"member"`
 
 	Type InputGrafanaType
 }
