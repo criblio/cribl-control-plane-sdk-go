@@ -31,358 +31,6 @@ func (e *OutputSplunkType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputSplunkNestedFieldSerialization - How to serialize nested fields into index-time fields
-type OutputSplunkNestedFieldSerialization string
-
-const (
-	// OutputSplunkNestedFieldSerializationJSON JSON
-	OutputSplunkNestedFieldSerializationJSON OutputSplunkNestedFieldSerialization = "json"
-	// OutputSplunkNestedFieldSerializationNone None
-	OutputSplunkNestedFieldSerializationNone OutputSplunkNestedFieldSerialization = "none"
-)
-
-func (e OutputSplunkNestedFieldSerialization) ToPointer() *OutputSplunkNestedFieldSerialization {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkNestedFieldSerialization) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputSplunkMinimumTLSVersion string
-
-const (
-	OutputSplunkMinimumTLSVersionTlSv1  OutputSplunkMinimumTLSVersion = "TLSv1"
-	OutputSplunkMinimumTLSVersionTlSv11 OutputSplunkMinimumTLSVersion = "TLSv1.1"
-	OutputSplunkMinimumTLSVersionTlSv12 OutputSplunkMinimumTLSVersion = "TLSv1.2"
-	OutputSplunkMinimumTLSVersionTlSv13 OutputSplunkMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputSplunkMinimumTLSVersion) ToPointer() *OutputSplunkMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputSplunkMaximumTLSVersion string
-
-const (
-	OutputSplunkMaximumTLSVersionTlSv1  OutputSplunkMaximumTLSVersion = "TLSv1"
-	OutputSplunkMaximumTLSVersionTlSv11 OutputSplunkMaximumTLSVersion = "TLSv1.1"
-	OutputSplunkMaximumTLSVersionTlSv12 OutputSplunkMaximumTLSVersion = "TLSv1.2"
-	OutputSplunkMaximumTLSVersionTlSv13 OutputSplunkMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputSplunkMaximumTLSVersion) ToPointer() *OutputSplunkMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputSplunkTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                        `json:"passphrase,omitempty"`
-	MinVersion *OutputSplunkMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputSplunkMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputSplunkTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetMinVersion() *OutputSplunkMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputSplunkTLSSettingsClientSide) GetMaxVersion() *OutputSplunkMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputSplunkMaxS2SVersion - The highest S2S protocol version to advertise during handshake
-type OutputSplunkMaxS2SVersion string
-
-const (
-	OutputSplunkMaxS2SVersionV3 OutputSplunkMaxS2SVersion = "v3"
-	OutputSplunkMaxS2SVersionV4 OutputSplunkMaxS2SVersion = "v4"
-)
-
-func (e OutputSplunkMaxS2SVersion) ToPointer() *OutputSplunkMaxS2SVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkMaxS2SVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v3", "v4":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSplunkBackpressureBehavior string
-
-const (
-	// OutputSplunkBackpressureBehaviorBlock Block
-	OutputSplunkBackpressureBehaviorBlock OutputSplunkBackpressureBehavior = "block"
-	// OutputSplunkBackpressureBehaviorDrop Drop
-	OutputSplunkBackpressureBehaviorDrop OutputSplunkBackpressureBehavior = "drop"
-	// OutputSplunkBackpressureBehaviorQueue Persistent Queue
-	OutputSplunkBackpressureBehaviorQueue OutputSplunkBackpressureBehavior = "queue"
-)
-
-func (e OutputSplunkBackpressureBehavior) ToPointer() *OutputSplunkBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type OutputSplunkAuthenticationMethod string
-
-const (
-	OutputSplunkAuthenticationMethodManual OutputSplunkAuthenticationMethod = "manual"
-	OutputSplunkAuthenticationMethodSecret OutputSplunkAuthenticationMethod = "secret"
-)
-
-func (e OutputSplunkAuthenticationMethod) ToPointer() *OutputSplunkAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkCompressCompression - Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
-type OutputSplunkCompressCompression string
-
-const (
-	// OutputSplunkCompressCompressionDisabled Disabled
-	OutputSplunkCompressCompressionDisabled OutputSplunkCompressCompression = "disabled"
-	// OutputSplunkCompressCompressionAuto Automatic
-	OutputSplunkCompressCompressionAuto OutputSplunkCompressCompression = "auto"
-	// OutputSplunkCompressCompressionAlways Always
-	OutputSplunkCompressCompressionAlways OutputSplunkCompressCompression = "always"
-)
-
-func (e OutputSplunkCompressCompression) ToPointer() *OutputSplunkCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "disabled", "auto", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputSplunkMode string
-
-const (
-	// OutputSplunkModeError Error
-	OutputSplunkModeError OutputSplunkMode = "error"
-	// OutputSplunkModeAlways Backpressure
-	OutputSplunkModeAlways OutputSplunkMode = "always"
-	// OutputSplunkModeBackpressure Always On
-	OutputSplunkModeBackpressure OutputSplunkMode = "backpressure"
-)
-
-func (e OutputSplunkMode) ToPointer() *OutputSplunkMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkPqCompressCompression - Codec to use to compress the persisted data
-type OutputSplunkPqCompressCompression string
-
-const (
-	// OutputSplunkPqCompressCompressionNone None
-	OutputSplunkPqCompressCompressionNone OutputSplunkPqCompressCompression = "none"
-	// OutputSplunkPqCompressCompressionGzip Gzip
-	OutputSplunkPqCompressCompressionGzip OutputSplunkPqCompressCompression = "gzip"
-)
-
-func (e OutputSplunkPqCompressCompression) ToPointer() *OutputSplunkPqCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkPqCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSplunkQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputSplunkQueueFullBehavior string
-
-const (
-	// OutputSplunkQueueFullBehaviorBlock Block
-	OutputSplunkQueueFullBehaviorBlock OutputSplunkQueueFullBehavior = "block"
-	// OutputSplunkQueueFullBehaviorDrop Drop new data
-	OutputSplunkQueueFullBehaviorDrop OutputSplunkQueueFullBehavior = "drop"
-)
-
-func (e OutputSplunkQueueFullBehavior) ToPointer() *OutputSplunkQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSplunkQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputSplunkPqControls struct {
 }
 
@@ -414,14 +62,14 @@ type OutputSplunk struct {
 	// The port to connect to on the provided host
 	Port *float64 `default:"9997" json:"port"`
 	// How to serialize nested fields into index-time fields
-	NestedFields *OutputSplunkNestedFieldSerialization `default:"none" json:"nestedFields"`
+	NestedFields *NestedFieldSerializationOptions `default:"none" json:"nestedFields"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                           `default:"60000" json:"writeTimeout"`
-	TLS          *OutputSplunkTLSSettingsClientSide `json:"tls,omitempty"`
+	WriteTimeout *float64                                      `default:"60000" json:"writeTimeout"`
+	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
 	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
@@ -429,22 +77,22 @@ type OutputSplunk struct {
 	// Use to troubleshoot issues with sending data
 	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *OutputSplunkMaxS2SVersion `default:"v3" json:"maxS2Sversion"`
+	MaxS2Sversion *MaxS2SVersionOptions `default:"v3" json:"maxS2Sversion"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSplunkBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *OutputSplunkAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                           `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	Description *string                                     `json:"description,omitempty"`
 	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
 	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
 	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
-	Compress *OutputSplunkCompressCompression `default:"disabled" json:"compress"`
+	Compress *CompressionOptions `default:"disabled" json:"compress"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputSplunkMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -456,10 +104,10 @@ type OutputSplunk struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputSplunkPqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputSplunkQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputSplunkPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputSplunkPqControls   `json:"pqControls,omitempty"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
 	AuthToken *string `default:"" json:"authToken"`
 	// Select or create a stored text secret
@@ -533,7 +181,7 @@ func (o *OutputSplunk) GetPort() *float64 {
 	return o.Port
 }
 
-func (o *OutputSplunk) GetNestedFields() *OutputSplunkNestedFieldSerialization {
+func (o *OutputSplunk) GetNestedFields() *NestedFieldSerializationOptions {
 	if o == nil {
 		return nil
 	}
@@ -561,7 +209,7 @@ func (o *OutputSplunk) GetWriteTimeout() *float64 {
 	return o.WriteTimeout
 }
 
-func (o *OutputSplunk) GetTLS() *OutputSplunkTLSSettingsClientSide {
+func (o *OutputSplunk) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}
@@ -589,21 +237,21 @@ func (o *OutputSplunk) GetLogFailedRequests() *bool {
 	return o.LogFailedRequests
 }
 
-func (o *OutputSplunk) GetMaxS2Sversion() *OutputSplunkMaxS2SVersion {
+func (o *OutputSplunk) GetMaxS2Sversion() *MaxS2SVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.MaxS2Sversion
 }
 
-func (o *OutputSplunk) GetOnBackpressure() *OutputSplunkBackpressureBehavior {
+func (o *OutputSplunk) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputSplunk) GetAuthType() *OutputSplunkAuthenticationMethod {
+func (o *OutputSplunk) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if o == nil {
 		return nil
 	}
@@ -624,7 +272,7 @@ func (o *OutputSplunk) GetMaxFailedHealthChecks() *float64 {
 	return o.MaxFailedHealthChecks
 }
 
-func (o *OutputSplunk) GetCompress() *OutputSplunkCompressCompression {
+func (o *OutputSplunk) GetCompress() *CompressionOptions {
 	if o == nil {
 		return nil
 	}
@@ -645,7 +293,7 @@ func (o *OutputSplunk) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputSplunk) GetPqMode() *OutputSplunkMode {
+func (o *OutputSplunk) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -687,14 +335,14 @@ func (o *OutputSplunk) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputSplunk) GetPqCompress() *OutputSplunkPqCompressCompression {
+func (o *OutputSplunk) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputSplunk) GetPqOnBackpressure() *OutputSplunkQueueFullBehavior {
+func (o *OutputSplunk) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

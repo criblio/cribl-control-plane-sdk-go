@@ -31,242 +31,9 @@ func (e *InputSplunkHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputSplunkHecConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSplunkHecConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkHecConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkHecConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSplunkHecMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSplunkHecMode string
-
-const (
-	// InputSplunkHecModeSmart Smart
-	InputSplunkHecModeSmart InputSplunkHecMode = "smart"
-	// InputSplunkHecModeAlways Always On
-	InputSplunkHecModeAlways InputSplunkHecMode = "always"
-)
-
-func (e InputSplunkHecMode) ToPointer() *InputSplunkHecMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSplunkHecMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputSplunkHecCompression - Codec to use to compress the persisted data
-type InputSplunkHecCompression string
-
-const (
-	// InputSplunkHecCompressionNone None
-	InputSplunkHecCompressionNone InputSplunkHecCompression = "none"
-	// InputSplunkHecCompressionGzip Gzip
-	InputSplunkHecCompressionGzip InputSplunkHecCompression = "gzip"
-)
-
-func (e InputSplunkHecCompression) ToPointer() *InputSplunkHecCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSplunkHecCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSplunkHecPqControls struct {
-}
-
-func (i InputSplunkHecPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSplunkHecPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSplunkHecMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSplunkHecCompression `default:"none" json:"compress"`
-	PqControls *InputSplunkHecPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputSplunkHecPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkHecPq) GetMode() *InputSplunkHecMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSplunkHecPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSplunkHecPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSplunkHecPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSplunkHecPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSplunkHecPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSplunkHecPq) GetCompress() *InputSplunkHecCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSplunkHecPq) GetPqControls() *InputSplunkHecPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputSplunkHecAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type InputSplunkHecAuthenticationMethod string
-
-const (
-	InputSplunkHecAuthenticationMethodManual InputSplunkHecAuthenticationMethod = "manual"
-	InputSplunkHecAuthenticationMethodSecret InputSplunkHecAuthenticationMethod = "secret"
-)
-
-func (e InputSplunkHecAuthenticationMethod) ToPointer() *InputSplunkHecAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSplunkHecAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSplunkHecAuthTokenMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSplunkHecAuthTokenMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecAuthTokenMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkHecAuthTokenMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSplunkHecAuthTokenMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputSplunkHecAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *InputSplunkHecAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// Shared secret to be provided by any client (Authorization: <token>)
@@ -277,7 +44,7 @@ type InputSplunkHecAuthToken struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []InputSplunkHecAuthTokenMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 }
 
 func (i InputSplunkHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -291,7 +58,7 @@ func (i *InputSplunkHecAuthToken) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputSplunkHecAuthToken) GetAuthType() *InputSplunkHecAuthenticationMethod {
+func (i *InputSplunkHecAuthToken) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}
@@ -333,200 +100,11 @@ func (i *InputSplunkHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputSplunkHecAuthToken) GetMetadata() []InputSplunkHecAuthTokenMetadatum {
+func (i *InputSplunkHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
-}
-
-type InputSplunkHecMinimumTLSVersion string
-
-const (
-	InputSplunkHecMinimumTLSVersionTlSv1  InputSplunkHecMinimumTLSVersion = "TLSv1"
-	InputSplunkHecMinimumTLSVersionTlSv11 InputSplunkHecMinimumTLSVersion = "TLSv1.1"
-	InputSplunkHecMinimumTLSVersionTlSv12 InputSplunkHecMinimumTLSVersion = "TLSv1.2"
-	InputSplunkHecMinimumTLSVersionTlSv13 InputSplunkHecMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputSplunkHecMinimumTLSVersion) ToPointer() *InputSplunkHecMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSplunkHecMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSplunkHecMaximumTLSVersion string
-
-const (
-	InputSplunkHecMaximumTLSVersionTlSv1  InputSplunkHecMaximumTLSVersion = "TLSv1"
-	InputSplunkHecMaximumTLSVersionTlSv11 InputSplunkHecMaximumTLSVersion = "TLSv1.1"
-	InputSplunkHecMaximumTLSVersionTlSv12 InputSplunkHecMaximumTLSVersion = "TLSv1.2"
-	InputSplunkHecMaximumTLSVersionTlSv13 InputSplunkHecMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputSplunkHecMaximumTLSVersion) ToPointer() *InputSplunkHecMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSplunkHecMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSplunkHecTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                          `json:"caPath,omitempty"`
-	MinVersion *InputSplunkHecMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputSplunkHecMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputSplunkHecTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetMinVersion() *InputSplunkHecMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputSplunkHecTLSSettingsServerSide) GetMaxVersion() *InputSplunkHecMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputSplunkHecMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSplunkHecMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkHecMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkHecMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSplunkHecMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
 }
 
 type InputSplunkHec struct {
@@ -545,15 +123,15 @@ type InputSplunkHec struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSplunkHecConnection `json:"connections,omitempty"`
-	Pq          *InputSplunkHecPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []InputSplunkHecAuthToken            `json:"authTokens,omitempty"`
-	TLS        *InputSplunkHecTLSSettingsServerSide `json:"tls,omitempty"`
+	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -578,7 +156,7 @@ type InputSplunkHec struct {
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
-	Metadata []InputSplunkHecMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Enable Splunk HEC acknowledgements
@@ -669,14 +247,14 @@ func (i *InputSplunkHec) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSplunkHec) GetConnections() []InputSplunkHecConnection {
+func (i *InputSplunkHec) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSplunkHec) GetPq() *InputSplunkHecPq {
+func (i *InputSplunkHec) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -704,7 +282,7 @@ func (i *InputSplunkHec) GetAuthTokens() []InputSplunkHecAuthToken {
 	return i.AuthTokens
 }
 
-func (i *InputSplunkHec) GetTLS() *InputSplunkHecTLSSettingsServerSide {
+func (i *InputSplunkHec) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
@@ -795,7 +373,7 @@ func (i *InputSplunkHec) GetSplunkHecAPI() *string {
 	return i.SplunkHecAPI
 }
 
-func (i *InputSplunkHec) GetMetadata() []InputSplunkHecMetadatum {
+func (i *InputSplunkHec) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

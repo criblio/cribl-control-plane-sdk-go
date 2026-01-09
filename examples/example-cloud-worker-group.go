@@ -86,7 +86,7 @@ func main() {
 		Provisioned:         criblcontrolplanesdkgo.Bool(false),
 		IsFleet:             criblcontrolplanesdkgo.Bool(false),
 		IsSearch:            criblcontrolplanesdkgo.Bool(false),
-		EstimatedIngestRate: components.GroupCreateRequestEstimatedIngestRateRate24MbPerSec.ToPointer(), // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
+		EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate24MbPerSec.ToPointer(), // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
 		Cloud: &components.ConfigGroupCloud{
 			Provider: &awsProvider,
 			Region:   "us-east-1",
@@ -113,7 +113,7 @@ func main() {
 		Provisioned:         criblcontrolplanesdkgo.Bool(true),
 		IsFleet:             criblcontrolplanesdkgo.Bool(false),
 		IsSearch:            criblcontrolplanesdkgo.Bool(false),
-		EstimatedIngestRate: components.ConfigGroupEstimatedIngestRateRate48MbPerSec.ToPointer(), // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
+		EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer(), // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
 		Cloud: &components.ConfigGroupCloud{
 			Provider: &awsProvider,
 			Region:   "us-east-1",

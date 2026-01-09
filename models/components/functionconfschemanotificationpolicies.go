@@ -160,38 +160,6 @@ func (c *Condition) GetValue() Value {
 	return c.Value
 }
 
-type TemplateTargetPair struct {
-	// ID of the notification template to use
-	TemplateID string `json:"templateId"`
-	// ID of the notification target (output)
-	TargetID string `json:"targetId"`
-}
-
-func (t TemplateTargetPair) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TemplateTargetPair) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"templateId", "targetId"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (t *TemplateTargetPair) GetTemplateID() string {
-	if t == nil {
-		return ""
-	}
-	return t.TemplateID
-}
-
-func (t *TemplateTargetPair) GetTargetID() string {
-	if t == nil {
-		return ""
-	}
-	return t.TargetID
-}
-
 type Policy struct {
 	// Unique identifier for this policy
 	ID string `json:"id"`
@@ -204,7 +172,7 @@ type Policy struct {
 	// List of conditions. If ANY condition matches (OR), the policy applies. Each condition is a list of tags that must ALL match (AND).
 	Conditions [][]Condition `json:"conditions,omitempty"`
 	// List of targets to route to and the templates to use
-	TemplateTargetPairs []TemplateTargetPair `json:"templateTargetPairs"`
+	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs"`
 	// If true, stop evaluating further policies after this one matches
 	Final *bool `default:"false" json:"final"`
 	// Evaluation order of this policy (lower numbers evaluated first)
@@ -257,9 +225,9 @@ func (p *Policy) GetConditions() [][]Condition {
 	return p.Conditions
 }
 
-func (p *Policy) GetTemplateTargetPairs() []TemplateTargetPair {
+func (p *Policy) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplateTargetPairs {
 	if p == nil {
-		return []TemplateTargetPair{}
+		return []ItemsTypePoliciesItemsTemplateTargetPairs{}
 	}
 	return p.TemplateTargetPairs
 }

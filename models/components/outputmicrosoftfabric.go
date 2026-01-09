@@ -31,82 +31,6 @@ func (e *OutputMicrosoftFabricType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputMicrosoftFabricAcknowledgments - Control the number of required acknowledgments
-type OutputMicrosoftFabricAcknowledgments int64
-
-const (
-	// OutputMicrosoftFabricAcknowledgmentsOne Leader
-	OutputMicrosoftFabricAcknowledgmentsOne OutputMicrosoftFabricAcknowledgments = 1
-	// OutputMicrosoftFabricAcknowledgmentsZero None
-	OutputMicrosoftFabricAcknowledgmentsZero OutputMicrosoftFabricAcknowledgments = 0
-	// OutputMicrosoftFabricAcknowledgmentsMinus1 All
-	OutputMicrosoftFabricAcknowledgmentsMinus1 OutputMicrosoftFabricAcknowledgments = -1
-)
-
-func (e OutputMicrosoftFabricAcknowledgments) ToPointer() *OutputMicrosoftFabricAcknowledgments {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricAcknowledgments) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case 1, 0, -1:
-			return true
-		}
-	}
-	return false
-}
-
-// OutputMicrosoftFabricRecordDataFormat - Format to use to serialize events before writing to the Event Hubs Kafka brokers
-type OutputMicrosoftFabricRecordDataFormat string
-
-const (
-	// OutputMicrosoftFabricRecordDataFormatJSON JSON
-	OutputMicrosoftFabricRecordDataFormatJSON OutputMicrosoftFabricRecordDataFormat = "json"
-	// OutputMicrosoftFabricRecordDataFormatRaw Field _raw
-	OutputMicrosoftFabricRecordDataFormatRaw OutputMicrosoftFabricRecordDataFormat = "raw"
-)
-
-func (e OutputMicrosoftFabricRecordDataFormat) ToPointer() *OutputMicrosoftFabricRecordDataFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricRecordDataFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "raw":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputMicrosoftFabricSASLMechanism string
-
-const (
-	// OutputMicrosoftFabricSASLMechanismPlain PLAIN
-	OutputMicrosoftFabricSASLMechanismPlain OutputMicrosoftFabricSASLMechanism = "plain"
-	// OutputMicrosoftFabricSASLMechanismOauthbearer OAUTHBEARER
-	OutputMicrosoftFabricSASLMechanismOauthbearer OutputMicrosoftFabricSASLMechanism = "oauthbearer"
-)
-
-func (e OutputMicrosoftFabricSASLMechanism) ToPointer() *OutputMicrosoftFabricSASLMechanism {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricSASLMechanism) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "plain", "oauthbearer":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputMicrosoftFabricAuthenticationMethod string
 
 const (
@@ -129,34 +53,10 @@ func (e *OutputMicrosoftFabricAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-// OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
-type OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint string
-
-const (
-	OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineCom       OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.com"
-	OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineUs        OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.us"
-	OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpointHTTPSLoginPartnerMicrosoftonlineCn OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint = "https://login.partner.microsoftonline.cn"
-)
-
-func (e OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "https://login.microsoftonline.com", "https://login.microsoftonline.us", "https://login.partner.microsoftonline.cn":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputMicrosoftFabricAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
 type OutputMicrosoftFabricAuthentication struct {
-	Disabled  *bool                               `default:"false" json:"disabled"`
-	Mechanism *OutputMicrosoftFabricSASLMechanism `default:"plain" json:"mechanism"`
+	Disabled  *bool                      `default:"false" json:"disabled"`
+	Mechanism *SaslMechanismOptionsSasl1 `default:"plain" json:"mechanism"`
 	// The username for authentication. This should always be $ConnectionString.
 	Username *string `default:"$ConnectionString" json:"username"`
 	// Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
@@ -170,7 +70,7 @@ type OutputMicrosoftFabricAuthentication struct {
 	PrivKeyPath     *string `json:"privKeyPath,omitempty"`
 	Passphrase      *string `json:"passphrase,omitempty"`
 	// Endpoint used to acquire authentication tokens from Azure
-	OauthEndpoint *OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
+	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
 	// client_id to pass in the OAuth request parameter
 	ClientID *string `json:"clientId,omitempty"`
 	// Directory ID (tenant identifier) in Azure Active Directory
@@ -197,7 +97,7 @@ func (o *OutputMicrosoftFabricAuthentication) GetDisabled() *bool {
 	return o.Disabled
 }
 
-func (o *OutputMicrosoftFabricAuthentication) GetMechanism() *OutputMicrosoftFabricSASLMechanism {
+func (o *OutputMicrosoftFabricAuthentication) GetMechanism() *SaslMechanismOptionsSasl1 {
 	if o == nil {
 		return nil
 	}
@@ -260,7 +160,7 @@ func (o *OutputMicrosoftFabricAuthentication) GetPassphrase() *string {
 	return o.Passphrase
 }
 
-func (o *OutputMicrosoftFabricAuthentication) GetOauthEndpoint() *OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint {
+func (o *OutputMicrosoftFabricAuthentication) GetOauthEndpoint() *MicrosoftEntraIDAuthenticationEndpointOptionsSasl {
 	if o == nil {
 		return nil
 	}
@@ -286,141 +186,6 @@ func (o *OutputMicrosoftFabricAuthentication) GetScope() *string {
 		return nil
 	}
 	return o.Scope
-}
-
-type OutputMicrosoftFabricTLSSettingsClientSide struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-}
-
-func (o OutputMicrosoftFabricTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputMicrosoftFabricTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputMicrosoftFabricTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputMicrosoftFabricTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-// OutputMicrosoftFabricBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputMicrosoftFabricBackpressureBehavior string
-
-const (
-	// OutputMicrosoftFabricBackpressureBehaviorBlock Block
-	OutputMicrosoftFabricBackpressureBehaviorBlock OutputMicrosoftFabricBackpressureBehavior = "block"
-	// OutputMicrosoftFabricBackpressureBehaviorDrop Drop
-	OutputMicrosoftFabricBackpressureBehaviorDrop OutputMicrosoftFabricBackpressureBehavior = "drop"
-	// OutputMicrosoftFabricBackpressureBehaviorQueue Persistent Queue
-	OutputMicrosoftFabricBackpressureBehaviorQueue OutputMicrosoftFabricBackpressureBehavior = "queue"
-)
-
-func (e OutputMicrosoftFabricBackpressureBehavior) ToPointer() *OutputMicrosoftFabricBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputMicrosoftFabricMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputMicrosoftFabricMode string
-
-const (
-	// OutputMicrosoftFabricModeError Error
-	OutputMicrosoftFabricModeError OutputMicrosoftFabricMode = "error"
-	// OutputMicrosoftFabricModeAlways Backpressure
-	OutputMicrosoftFabricModeAlways OutputMicrosoftFabricMode = "always"
-	// OutputMicrosoftFabricModeBackpressure Always On
-	OutputMicrosoftFabricModeBackpressure OutputMicrosoftFabricMode = "backpressure"
-)
-
-func (e OutputMicrosoftFabricMode) ToPointer() *OutputMicrosoftFabricMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputMicrosoftFabricCompression - Codec to use to compress the persisted data
-type OutputMicrosoftFabricCompression string
-
-const (
-	// OutputMicrosoftFabricCompressionNone None
-	OutputMicrosoftFabricCompressionNone OutputMicrosoftFabricCompression = "none"
-	// OutputMicrosoftFabricCompressionGzip Gzip
-	OutputMicrosoftFabricCompressionGzip OutputMicrosoftFabricCompression = "gzip"
-)
-
-func (e OutputMicrosoftFabricCompression) ToPointer() *OutputMicrosoftFabricCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputMicrosoftFabricQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputMicrosoftFabricQueueFullBehavior string
-
-const (
-	// OutputMicrosoftFabricQueueFullBehaviorBlock Block
-	OutputMicrosoftFabricQueueFullBehaviorBlock OutputMicrosoftFabricQueueFullBehavior = "block"
-	// OutputMicrosoftFabricQueueFullBehaviorDrop Drop new data
-	OutputMicrosoftFabricQueueFullBehaviorDrop OutputMicrosoftFabricQueueFullBehavior = "drop"
-)
-
-func (e OutputMicrosoftFabricQueueFullBehavior) ToPointer() *OutputMicrosoftFabricQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
 }
 
 type OutputMicrosoftFabricPqControls struct {
@@ -452,9 +217,9 @@ type OutputMicrosoftFabric struct {
 	// Topic name from Fabric Eventstream's endpoint
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments
-	Ack *OutputMicrosoftFabricAcknowledgments `default:"1" json:"ack"`
+	Ack *AcknowledgmentsOptions `default:"1" json:"ack"`
 	// Format to use to serialize events before writing to the Event Hubs Kafka brokers
-	Format *OutputMicrosoftFabricRecordDataFormat `default:"json" json:"format"`
+	Format *RecordDataFormatOptions `default:"json" json:"format"`
 	// Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
 	MaxRecordSizeKB *float64 `default:"768" json:"maxRecordSizeKB"`
 	// Maximum number of events in a batch before forcing a flush
@@ -478,10 +243,10 @@ type OutputMicrosoftFabric struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
-	Sasl *OutputMicrosoftFabricAuthentication        `json:"sasl,omitempty"`
-	TLS  *OutputMicrosoftFabricTLSSettingsClientSide `json:"tls,omitempty"`
+	Sasl *OutputMicrosoftFabricAuthentication `json:"sasl,omitempty"`
+	TLS  *TLSSettingsClientSideType           `json:"tls,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputMicrosoftFabricBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Bootstrap server from Fabric Eventstream's endpoint
 	BootstrapServer string  `json:"bootstrap_server"`
 	Description     *string `json:"description,omitempty"`
@@ -490,7 +255,7 @@ type OutputMicrosoftFabric struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputMicrosoftFabricMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -502,10 +267,10 @@ type OutputMicrosoftFabric struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputMicrosoftFabricCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputMicrosoftFabricQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputMicrosoftFabricPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions        `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputMicrosoftFabricPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
@@ -568,14 +333,14 @@ func (o *OutputMicrosoftFabric) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputMicrosoftFabric) GetAck() *OutputMicrosoftFabricAcknowledgments {
+func (o *OutputMicrosoftFabric) GetAck() *AcknowledgmentsOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputMicrosoftFabric) GetFormat() *OutputMicrosoftFabricRecordDataFormat {
+func (o *OutputMicrosoftFabric) GetFormat() *RecordDataFormatOptions {
 	if o == nil {
 		return nil
 	}
@@ -666,14 +431,14 @@ func (o *OutputMicrosoftFabric) GetSasl() *OutputMicrosoftFabricAuthentication {
 	return o.Sasl
 }
 
-func (o *OutputMicrosoftFabric) GetTLS() *OutputMicrosoftFabricTLSSettingsClientSide {
+func (o *OutputMicrosoftFabric) GetTLS() *TLSSettingsClientSideType {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputMicrosoftFabric) GetOnBackpressure() *OutputMicrosoftFabricBackpressureBehavior {
+func (o *OutputMicrosoftFabric) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -708,7 +473,7 @@ func (o *OutputMicrosoftFabric) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputMicrosoftFabric) GetPqMode() *OutputMicrosoftFabricMode {
+func (o *OutputMicrosoftFabric) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -750,14 +515,14 @@ func (o *OutputMicrosoftFabric) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputMicrosoftFabric) GetPqCompress() *OutputMicrosoftFabricCompression {
+func (o *OutputMicrosoftFabric) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputMicrosoftFabric) GetPqOnBackpressure() *OutputMicrosoftFabricQueueFullBehavior {
+func (o *OutputMicrosoftFabric) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}
