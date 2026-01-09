@@ -81,7 +81,7 @@ func main() {
 	}
 
 	// Create TCP JSON Source
-	authType := operations.CreateInputAuthenticationMethodTcpjsonManual
+	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
 	tcpJSONSource := operations.InputTcpjson{
 		ID:        "my-tcp-json",
