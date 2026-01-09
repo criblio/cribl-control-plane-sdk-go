@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// CollectorCriblLakeType - Collector type: cribl_lake
+// CollectorCriblLakeType - Collector type
 type CollectorCriblLakeType string
 
 const (
@@ -32,11 +32,11 @@ func (e *CollectorCriblLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CollectorCriblLake - CriblLake collector configuration
 type CollectorCriblLake struct {
-	// Collector type: cribl_lake
+	// Collector type
 	Type CollectorCriblLakeType `json:"type"`
-	// Lake dataset to collect data from.
-	Dataset string `json:"dataset"`
+	Conf CriblLakeCollectorConf `json:"conf"`
 }
 
 func (c CollectorCriblLake) MarshalJSON() ([]byte, error) {
@@ -44,7 +44,7 @@ func (c CollectorCriblLake) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectorCriblLake) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "dataset"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"type", "conf"}); err != nil {
 		return err
 	}
 	return nil
@@ -57,9 +57,9 @@ func (c *CollectorCriblLake) GetType() CollectorCriblLakeType {
 	return c.Type
 }
 
-func (c *CollectorCriblLake) GetDataset() string {
+func (c *CollectorCriblLake) GetConf() CriblLakeCollectorConf {
 	if c == nil {
-		return ""
+		return CriblLakeCollectorConf{}
 	}
-	return c.Dataset
+	return c.Conf
 }
