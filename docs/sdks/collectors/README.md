@@ -64,23 +64,21 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            Collector: components.SavedJobCollectionCollector{
-                Type: "<value>",
-                Conf: components.CreateCollectorConfScript(
-                    components.CollectorScript{
-                        Type: components.CollectorScriptTypeScript,
-                        DiscoverScript: "<value>",
-                        CollectScript: "<value>",
-                        EnvVars: []components.EnvVar{
-                            components.EnvVar{
-                                Name: "<value>",
-                                Value: "<value>",
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                        DefaultBreakers: components.DatabaseCollectorConfHiddenDefaultBreakersCribl.ToPointer(),
+                        Scheduling: &components.DatabaseCollectorConfScheduling{
+                            StateTracking: &components.DatabaseCollectorConfStateTracking{
+                                Enabled: criblcontrolplanesdkgo.Pointer(true),
                             },
                         },
                     },
-                ),
-                Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
-            },
+                },
+            ),
             Input: &components.SavedJobCollectionInput{
                 BreakerRulesets: []string{
                     "<value 1>",
@@ -359,62 +357,21 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            Collector: components.SavedJobCollectionCollector{
-                Type: "<value>",
-                Conf: components.CreateCollectorConfHealthCheck(
-                    components.CreateCollectorHealthCheckCollectorHealthCheckHealthCheck1(
-                        components.CollectorHealthCheckHealthCheck1{
-                            CollectRequestParams: []components.CollectorHealthCheckCollectRequestParam1{
-                                components.CollectorHealthCheckCollectRequestParam1{
-                                    Name: "<value>",
-                                    Value: "<value>",
-                                },
+            Collector: components.CreateCollectorDatabase(
+                components.CollectorDatabase{
+                    Type: components.CollectorDatabaseTypeDatabase,
+                    Conf: components.DatabaseCollectorConf{
+                        ConnectionID: "<id>",
+                        Query: "<value>",
+                        DefaultBreakers: components.DatabaseCollectorConfHiddenDefaultBreakersCribl.ToPointer(),
+                        Scheduling: &components.DatabaseCollectorConfScheduling{
+                            StateTracking: &components.DatabaseCollectorConfStateTracking{
+                                Enabled: criblcontrolplanesdkgo.Pointer(false),
                             },
-                            Discovery: &components.CollectorHealthCheckDiscovery1{},
-                            CollectURL: "https://shameful-vicinity.com/",
-                            CollectRequestHeaders: []components.CollectorHealthCheckCollectRequestHeader1{
-                                components.CollectorHealthCheckCollectRequestHeader1{
-                                    Name: "<value>",
-                                    Value: "<value>",
-                                },
-                            },
-                            DefaultBreakers: components.CollectorHealthCheckHiddenDefaultBreakers1Cribl.ToPointer(),
-                            SafeHeaders: []string{
-                                "<value 1>",
-                                "<value 2>",
-                                "<value 3>",
-                            },
-                            RetryRules: &components.CollectorHealthCheckRetryRules1{
-                                Interval: "<value>",
-                                Limit: "<value>",
-                                Multiplier: "<value>",
-                                Codes: "<value>",
-                                EnableHeader: "<value>",
-                            },
-                            Username: criblcontrolplanesdkgo.Pointer("Daphnee_Schimmel-Wolf26"),
-                            Password: criblcontrolplanesdkgo.Pointer("qwZ927mZOVqnV8W"),
-                            CredentialsSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-                            TokenRespAttribute: criblcontrolplanesdkgo.Pointer("<value>"),
-                            AuthRequestHeaders: []components.CollectorHealthCheckAuthRequestHeader1{
-                                components.CollectorHealthCheckAuthRequestHeader1{
-                                    Name: "<value>",
-                                    Value: "<value>",
-                                },
-                            },
-                            ClientSecretParamValue: criblcontrolplanesdkgo.Pointer("<value>"),
-                            AuthRequestParams: []components.CollectorHealthCheckAuthRequestParam1{
-                                components.CollectorHealthCheckAuthRequestParam1{
-                                    Name: "<value>",
-                                    Value: "<value>",
-                                },
-                            },
-                            TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-                            Type: components.CollectorHealthCheckType1HealthCheck,
                         },
-                    ),
-                ),
-                Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
-            },
+                    },
+                },
+            ),
             Input: &components.SavedJobCollectionInput{
                 BreakerRulesets: []string{
                     "<value 1>",
