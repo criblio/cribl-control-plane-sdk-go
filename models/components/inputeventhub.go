@@ -31,503 +31,6 @@ func (e *InputEventhubType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputEventhubConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputEventhubConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEventhubConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputEventhubMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputEventhubMode string
-
-const (
-	// InputEventhubModeSmart Smart
-	InputEventhubModeSmart InputEventhubMode = "smart"
-	// InputEventhubModeAlways Always On
-	InputEventhubModeAlways InputEventhubMode = "always"
-)
-
-func (e InputEventhubMode) ToPointer() *InputEventhubMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputEventhubMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputEventhubCompression - Codec to use to compress the persisted data
-type InputEventhubCompression string
-
-const (
-	// InputEventhubCompressionNone None
-	InputEventhubCompressionNone InputEventhubCompression = "none"
-	// InputEventhubCompressionGzip Gzip
-	InputEventhubCompressionGzip InputEventhubCompression = "gzip"
-)
-
-func (e InputEventhubCompression) ToPointer() *InputEventhubCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputEventhubCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputEventhubPqControls struct {
-}
-
-func (i InputEventhubPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputEventhubPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputEventhubMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputEventhubCompression `default:"none" json:"compress"`
-	PqControls *InputEventhubPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputEventhubPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubPq) GetMode() *InputEventhubMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputEventhubPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputEventhubPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputEventhubPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputEventhubPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputEventhubPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputEventhubPq) GetCompress() *InputEventhubCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputEventhubPq) GetPqControls() *InputEventhubPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputEventhubAuthTypeAuthenticationMethod - Enter password directly, or select a stored secret
-type InputEventhubAuthTypeAuthenticationMethod string
-
-const (
-	InputEventhubAuthTypeAuthenticationMethodManual InputEventhubAuthTypeAuthenticationMethod = "manual"
-	InputEventhubAuthTypeAuthenticationMethodSecret InputEventhubAuthTypeAuthenticationMethod = "secret"
-)
-
-func (e InputEventhubAuthTypeAuthenticationMethod) ToPointer() *InputEventhubAuthTypeAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputEventhubAuthTypeAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type InputEventhubSASLMechanism string
-
-const (
-	// InputEventhubSASLMechanismPlain PLAIN
-	InputEventhubSASLMechanismPlain InputEventhubSASLMechanism = "plain"
-	// InputEventhubSASLMechanismOauthbearer OAUTHBEARER
-	InputEventhubSASLMechanismOauthbearer InputEventhubSASLMechanism = "oauthbearer"
-)
-
-func (e InputEventhubSASLMechanism) ToPointer() *InputEventhubSASLMechanism {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputEventhubSASLMechanism) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "plain", "oauthbearer":
-			return true
-		}
-	}
-	return false
-}
-
-type InputEventhubClientSecretAuthTypeAuthenticationMethod string
-
-const (
-	InputEventhubClientSecretAuthTypeAuthenticationMethodManual      InputEventhubClientSecretAuthTypeAuthenticationMethod = "manual"
-	InputEventhubClientSecretAuthTypeAuthenticationMethodSecret      InputEventhubClientSecretAuthTypeAuthenticationMethod = "secret"
-	InputEventhubClientSecretAuthTypeAuthenticationMethodCertificate InputEventhubClientSecretAuthTypeAuthenticationMethod = "certificate"
-)
-
-func (e InputEventhubClientSecretAuthTypeAuthenticationMethod) ToPointer() *InputEventhubClientSecretAuthTypeAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputEventhubClientSecretAuthTypeAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret", "certificate":
-			return true
-		}
-	}
-	return false
-}
-
-// InputEventhubMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
-type InputEventhubMicrosoftEntraIDAuthenticationEndpoint string
-
-const (
-	InputEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineCom       InputEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.com"
-	InputEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineUs        InputEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.us"
-	InputEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginPartnerMicrosoftonlineCn InputEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.partner.microsoftonline.cn"
-)
-
-func (e InputEventhubMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *InputEventhubMicrosoftEntraIDAuthenticationEndpoint {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputEventhubMicrosoftEntraIDAuthenticationEndpoint) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "https://login.microsoftonline.com", "https://login.microsoftonline.us", "https://login.partner.microsoftonline.cn":
-			return true
-		}
-	}
-	return false
-}
-
-// InputEventhubAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-type InputEventhubAuthentication struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Enter password directly, or select a stored secret
-	AuthType *InputEventhubAuthTypeAuthenticationMethod `default:"manual" json:"authType"`
-	// Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
-	Password *string `json:"password,omitempty"`
-	// Select or create a stored text secret
-	TextSecret *string                     `json:"textSecret,omitempty"`
-	Mechanism  *InputEventhubSASLMechanism `default:"plain" json:"mechanism"`
-	// The username for authentication. For Event Hubs, this should always be $ConnectionString.
-	Username             *string                                                `default:"$ConnectionString" json:"username"`
-	ClientSecretAuthType *InputEventhubClientSecretAuthTypeAuthenticationMethod `default:"manual" json:"clientSecretAuthType"`
-	// client_secret to pass in the OAuth request parameter
-	ClientSecret *string `json:"clientSecret,omitempty"`
-	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
-	// Select or create a stored certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	CertPath        *string `json:"certPath,omitempty"`
-	PrivKeyPath     *string `json:"privKeyPath,omitempty"`
-	Passphrase      *string `json:"passphrase,omitempty"`
-	// Endpoint used to acquire authentication tokens from Azure
-	OauthEndpoint *InputEventhubMicrosoftEntraIDAuthenticationEndpoint `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
-	// client_id to pass in the OAuth request parameter
-	ClientID *string `json:"clientId,omitempty"`
-	// Directory ID (tenant identifier) in Azure Active Directory
-	TenantID *string `json:"tenantId,omitempty"`
-	// Scope to pass in the OAuth request parameter
-	Scope *string `json:"scope,omitempty"`
-}
-
-func (i InputEventhubAuthentication) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubAuthentication) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEventhubAuthentication) GetAuthType() *InputEventhubAuthTypeAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputEventhubAuthentication) GetPassword() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Password
-}
-
-func (i *InputEventhubAuthentication) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
-
-func (i *InputEventhubAuthentication) GetMechanism() *InputEventhubSASLMechanism {
-	if i == nil {
-		return nil
-	}
-	return i.Mechanism
-}
-
-func (i *InputEventhubAuthentication) GetUsername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Username
-}
-
-func (i *InputEventhubAuthentication) GetClientSecretAuthType() *InputEventhubClientSecretAuthTypeAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.ClientSecretAuthType
-}
-
-func (i *InputEventhubAuthentication) GetClientSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ClientSecret
-}
-
-func (i *InputEventhubAuthentication) GetClientTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ClientTextSecret
-}
-
-func (i *InputEventhubAuthentication) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputEventhubAuthentication) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputEventhubAuthentication) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputEventhubAuthentication) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputEventhubAuthentication) GetOauthEndpoint() *InputEventhubMicrosoftEntraIDAuthenticationEndpoint {
-	if i == nil {
-		return nil
-	}
-	return i.OauthEndpoint
-}
-
-func (i *InputEventhubAuthentication) GetClientID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ClientID
-}
-
-func (i *InputEventhubAuthentication) GetTenantID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TenantID
-}
-
-func (i *InputEventhubAuthentication) GetScope() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Scope
-}
-
-type InputEventhubTLSSettingsClientSide struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-}
-
-func (i InputEventhubTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubTLSSettingsClientSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEventhubTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-type InputEventhubMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputEventhubMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEventhubMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEventhubMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputEventhubMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputEventhub struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
@@ -544,8 +47,8 @@ type InputEventhub struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputEventhubConnection `json:"connections,omitempty"`
-	Pq          *InputEventhubPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
 	Brokers []string `json:"brokers"`
 	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
@@ -571,8 +74,8 @@ type InputEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *InputEventhubAuthentication        `json:"sasl,omitempty"`
-	TLS  *InputEventhubTLSSettingsClientSide `json:"tls,omitempty"`
+	Sasl *AuthenticationType1       `json:"sasl,omitempty"`
+	TLS  *TLSSettingsClientSideType `json:"tls,omitempty"`
 	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
 	//       Value must be lower than rebalanceTimeout.
@@ -599,8 +102,8 @@ type InputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `default:"false" json:"minimizeDuplicates"`
 	// Fields to add to events from this input
-	Metadata    []InputEventhubMetadatum `json:"metadata,omitempty"`
-	Description *string                  `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
 }
 
 func (i InputEventhub) MarshalJSON() ([]byte, error) {
@@ -670,14 +173,14 @@ func (i *InputEventhub) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputEventhub) GetConnections() []InputEventhubConnection {
+func (i *InputEventhub) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEventhub) GetPq() *InputEventhubPq {
+func (i *InputEventhub) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -768,14 +271,14 @@ func (i *InputEventhub) GetReauthenticationThreshold() *float64 {
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputEventhub) GetSasl() *InputEventhubAuthentication {
+func (i *InputEventhub) GetSasl() *AuthenticationType1 {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputEventhub) GetTLS() *InputEventhubTLSSettingsClientSide {
+func (i *InputEventhub) GetTLS() *TLSSettingsClientSideType {
 	if i == nil {
 		return nil
 	}
@@ -845,7 +348,7 @@ func (i *InputEventhub) GetMinimizeDuplicates() *bool {
 	return i.MinimizeDuplicates
 }
 
-func (i *InputEventhub) GetMetadata() []InputEventhubMetadatum {
+func (i *InputEventhub) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

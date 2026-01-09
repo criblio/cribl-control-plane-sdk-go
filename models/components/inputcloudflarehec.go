@@ -31,185 +31,6 @@ func (e *InputCloudflareHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCloudflareHecConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputCloudflareHecConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCloudflareHecConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCloudflareHecConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCloudflareHecConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputCloudflareHecMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputCloudflareHecMode string
-
-const (
-	// InputCloudflareHecModeSmart Smart
-	InputCloudflareHecModeSmart InputCloudflareHecMode = "smart"
-	// InputCloudflareHecModeAlways Always On
-	InputCloudflareHecModeAlways InputCloudflareHecMode = "always"
-)
-
-func (e InputCloudflareHecMode) ToPointer() *InputCloudflareHecMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputCloudflareHecMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputCloudflareHecCompression - Codec to use to compress the persisted data
-type InputCloudflareHecCompression string
-
-const (
-	// InputCloudflareHecCompressionNone None
-	InputCloudflareHecCompressionNone InputCloudflareHecCompression = "none"
-	// InputCloudflareHecCompressionGzip Gzip
-	InputCloudflareHecCompressionGzip InputCloudflareHecCompression = "gzip"
-)
-
-func (e InputCloudflareHecCompression) ToPointer() *InputCloudflareHecCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputCloudflareHecCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputCloudflareHecPqControls struct {
-}
-
-func (i InputCloudflareHecPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCloudflareHecPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputCloudflareHecPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputCloudflareHecMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputCloudflareHecCompression `default:"none" json:"compress"`
-	PqControls *InputCloudflareHecPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputCloudflareHecPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCloudflareHecPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCloudflareHecPq) GetMode() *InputCloudflareHecMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputCloudflareHecPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputCloudflareHecPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputCloudflareHecPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputCloudflareHecPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputCloudflareHecPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputCloudflareHecPq) GetCompress() *InputCloudflareHecCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputCloudflareHecPq) GetPqControls() *InputCloudflareHecPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
 // InputCloudflareHecAuthenticationMethod - Select Secret to use a text secret to authenticate
 type InputCloudflareHecAuthenticationMethod string
 
@@ -233,37 +54,6 @@ func (e *InputCloudflareHecAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type InputCloudflareHecAuthTokenMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputCloudflareHecAuthTokenMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCloudflareHecAuthTokenMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCloudflareHecAuthTokenMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputCloudflareHecAuthTokenMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputCloudflareHecAuthToken struct {
 	// Select Secret to use a text secret to authenticate
 	AuthType *InputCloudflareHecAuthenticationMethod `default:"secret" json:"authType"`
@@ -276,7 +66,7 @@ type InputCloudflareHecAuthToken struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitempty"`
 	// Fields to add to events referencing this token
-	Metadata []InputCloudflareHecAuthTokenMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 }
 
 func (i InputCloudflareHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -332,200 +122,11 @@ func (i *InputCloudflareHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputCloudflareHecAuthToken) GetMetadata() []InputCloudflareHecAuthTokenMetadatum {
+func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
-}
-
-type InputCloudflareHecMinimumTLSVersion string
-
-const (
-	InputCloudflareHecMinimumTLSVersionTlSv1  InputCloudflareHecMinimumTLSVersion = "TLSv1"
-	InputCloudflareHecMinimumTLSVersionTlSv11 InputCloudflareHecMinimumTLSVersion = "TLSv1.1"
-	InputCloudflareHecMinimumTLSVersionTlSv12 InputCloudflareHecMinimumTLSVersion = "TLSv1.2"
-	InputCloudflareHecMinimumTLSVersionTlSv13 InputCloudflareHecMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputCloudflareHecMinimumTLSVersion) ToPointer() *InputCloudflareHecMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputCloudflareHecMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputCloudflareHecMaximumTLSVersion string
-
-const (
-	InputCloudflareHecMaximumTLSVersionTlSv1  InputCloudflareHecMaximumTLSVersion = "TLSv1"
-	InputCloudflareHecMaximumTLSVersionTlSv11 InputCloudflareHecMaximumTLSVersion = "TLSv1.1"
-	InputCloudflareHecMaximumTLSVersionTlSv12 InputCloudflareHecMaximumTLSVersion = "TLSv1.2"
-	InputCloudflareHecMaximumTLSVersionTlSv13 InputCloudflareHecMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputCloudflareHecMaximumTLSVersion) ToPointer() *InputCloudflareHecMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputCloudflareHecMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputCloudflareHecTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                              `json:"caPath,omitempty"`
-	MinVersion *InputCloudflareHecMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputCloudflareHecMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputCloudflareHecTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetMinVersion() *InputCloudflareHecMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputCloudflareHecTLSSettingsServerSide) GetMaxVersion() *InputCloudflareHecMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputCloudflareHecMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputCloudflareHecMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCloudflareHecMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCloudflareHecMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputCloudflareHecMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
 }
 
 type InputCloudflareHec struct {
@@ -544,15 +145,15 @@ type InputCloudflareHec struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputCloudflareHecConnection `json:"connections,omitempty"`
-	Pq          *InputCloudflareHecPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []InputCloudflareHecAuthToken            `json:"authTokens,omitempty"`
-	TLS        *InputCloudflareHecTLSSettingsServerSide `json:"tls,omitempty"`
+	AuthTokens []InputCloudflareHecAuthToken `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType    `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -577,7 +178,7 @@ type InputCloudflareHec struct {
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []InputCloudflareHecMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -660,14 +261,14 @@ func (i *InputCloudflareHec) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCloudflareHec) GetConnections() []InputCloudflareHecConnection {
+func (i *InputCloudflareHec) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCloudflareHec) GetPq() *InputCloudflareHecPq {
+func (i *InputCloudflareHec) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -695,7 +296,7 @@ func (i *InputCloudflareHec) GetAuthTokens() []InputCloudflareHecAuthToken {
 	return i.AuthTokens
 }
 
-func (i *InputCloudflareHec) GetTLS() *InputCloudflareHecTLSSettingsServerSide {
+func (i *InputCloudflareHec) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
@@ -786,7 +387,7 @@ func (i *InputCloudflareHec) GetHecAPI() string {
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHec) GetMetadata() []InputCloudflareHecMetadatum {
+func (i *InputCloudflareHec) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

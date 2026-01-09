@@ -31,512 +31,6 @@ func (e *OutputCriblSearchEngineType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputCriblSearchEngineMinimumTLSVersion string
-
-const (
-	OutputCriblSearchEngineMinimumTLSVersionTlSv1  OutputCriblSearchEngineMinimumTLSVersion = "TLSv1"
-	OutputCriblSearchEngineMinimumTLSVersionTlSv11 OutputCriblSearchEngineMinimumTLSVersion = "TLSv1.1"
-	OutputCriblSearchEngineMinimumTLSVersionTlSv12 OutputCriblSearchEngineMinimumTLSVersion = "TLSv1.2"
-	OutputCriblSearchEngineMinimumTLSVersionTlSv13 OutputCriblSearchEngineMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputCriblSearchEngineMinimumTLSVersion) ToPointer() *OutputCriblSearchEngineMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblSearchEngineMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblSearchEngineMaximumTLSVersion string
-
-const (
-	OutputCriblSearchEngineMaximumTLSVersionTlSv1  OutputCriblSearchEngineMaximumTLSVersion = "TLSv1"
-	OutputCriblSearchEngineMaximumTLSVersionTlSv11 OutputCriblSearchEngineMaximumTLSVersion = "TLSv1.1"
-	OutputCriblSearchEngineMaximumTLSVersionTlSv12 OutputCriblSearchEngineMaximumTLSVersion = "TLSv1.2"
-	OutputCriblSearchEngineMaximumTLSVersionTlSv13 OutputCriblSearchEngineMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputCriblSearchEngineMaximumTLSVersion) ToPointer() *OutputCriblSearchEngineMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblSearchEngineMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblSearchEngineTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                                   `json:"passphrase,omitempty"`
-	MinVersion *OutputCriblSearchEngineMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputCriblSearchEngineMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputCriblSearchEngineTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetMinVersion() *OutputCriblSearchEngineMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputCriblSearchEngineTLSSettingsClientSide) GetMaxVersion() *OutputCriblSearchEngineMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputCriblSearchEngineCompression - Codec to use to compress the data before sending
-type OutputCriblSearchEngineCompression string
-
-const (
-	// OutputCriblSearchEngineCompressionNone None
-	OutputCriblSearchEngineCompressionNone OutputCriblSearchEngineCompression = "none"
-	// OutputCriblSearchEngineCompressionGzip Gzip
-	OutputCriblSearchEngineCompressionGzip OutputCriblSearchEngineCompression = "gzip"
-)
-
-func (e OutputCriblSearchEngineCompression) ToPointer() *OutputCriblSearchEngineCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblSearchEngineCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblSearchEngineExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputCriblSearchEngineExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblSearchEngineExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCriblSearchEngineExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputCriblSearchEngineExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputCriblSearchEngineFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputCriblSearchEngineFailedRequestLoggingMode string
-
-const (
-	// OutputCriblSearchEngineFailedRequestLoggingModePayload Payload
-	OutputCriblSearchEngineFailedRequestLoggingModePayload OutputCriblSearchEngineFailedRequestLoggingMode = "payload"
-	// OutputCriblSearchEngineFailedRequestLoggingModePayloadAndHeaders Payload + Headers
-	OutputCriblSearchEngineFailedRequestLoggingModePayloadAndHeaders OutputCriblSearchEngineFailedRequestLoggingMode = "payloadAndHeaders"
-	// OutputCriblSearchEngineFailedRequestLoggingModeNone None
-	OutputCriblSearchEngineFailedRequestLoggingModeNone OutputCriblSearchEngineFailedRequestLoggingMode = "none"
-)
-
-func (e OutputCriblSearchEngineFailedRequestLoggingMode) ToPointer() *OutputCriblSearchEngineFailedRequestLoggingMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblSearchEngineFailedRequestLoggingMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "payload", "payloadAndHeaders", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblSearchEngineResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputCriblSearchEngineResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblSearchEngineResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCriblSearchEngineResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputCriblSearchEngineResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputCriblSearchEngineResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputCriblSearchEngineResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputCriblSearchEngineTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputCriblSearchEngineTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblSearchEngineTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCriblSearchEngineTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputCriblSearchEngineTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputCriblSearchEngineTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputCriblSearchEngineTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputCriblSearchEngineAuthToken struct {
-	// Select or create a stored text secret
-	TokenSecret string  `json:"tokenSecret"`
-	Enabled     *bool   `default:"true" json:"enabled"`
-	Description *string `json:"description,omitempty"`
-}
-
-func (o OutputCriblSearchEngineAuthToken) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblSearchEngineAuthToken) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"tokenSecret"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCriblSearchEngineAuthToken) GetTokenSecret() string {
-	if o == nil {
-		return ""
-	}
-	return o.TokenSecret
-}
-
-func (o *OutputCriblSearchEngineAuthToken) GetEnabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Enabled
-}
-
-func (o *OutputCriblSearchEngineAuthToken) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Description
-}
-
-// OutputCriblSearchEngineBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputCriblSearchEngineBackpressureBehavior string
-
-const (
-	// OutputCriblSearchEngineBackpressureBehaviorBlock Block
-	OutputCriblSearchEngineBackpressureBehaviorBlock OutputCriblSearchEngineBackpressureBehavior = "block"
-	// OutputCriblSearchEngineBackpressureBehaviorDrop Drop
-	OutputCriblSearchEngineBackpressureBehaviorDrop OutputCriblSearchEngineBackpressureBehavior = "drop"
-	// OutputCriblSearchEngineBackpressureBehaviorQueue Persistent Queue
-	OutputCriblSearchEngineBackpressureBehaviorQueue OutputCriblSearchEngineBackpressureBehavior = "queue"
-)
-
-func (e OutputCriblSearchEngineBackpressureBehavior) ToPointer() *OutputCriblSearchEngineBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblSearchEngineBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblSearchEngineURL struct {
-	// URL of a Cribl Worker to send events to, such as http://localhost:10200
-	URL string `json:"url"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
-}
-
-func (o OutputCriblSearchEngineURL) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCriblSearchEngineURL) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"url"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCriblSearchEngineURL) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *OutputCriblSearchEngineURL) GetWeight() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Weight
-}
-
-// OutputCriblSearchEngineMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputCriblSearchEngineMode string
-
-const (
-	// OutputCriblSearchEngineModeError Error
-	OutputCriblSearchEngineModeError OutputCriblSearchEngineMode = "error"
-	// OutputCriblSearchEngineModeAlways Backpressure
-	OutputCriblSearchEngineModeAlways OutputCriblSearchEngineMode = "always"
-	// OutputCriblSearchEngineModeBackpressure Always On
-	OutputCriblSearchEngineModeBackpressure OutputCriblSearchEngineMode = "backpressure"
-)
-
-func (e OutputCriblSearchEngineMode) ToPointer() *OutputCriblSearchEngineMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblSearchEngineMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblSearchEnginePqCompressCompression - Codec to use to compress the persisted data
-type OutputCriblSearchEnginePqCompressCompression string
-
-const (
-	// OutputCriblSearchEnginePqCompressCompressionNone None
-	OutputCriblSearchEnginePqCompressCompressionNone OutputCriblSearchEnginePqCompressCompression = "none"
-	// OutputCriblSearchEnginePqCompressCompressionGzip Gzip
-	OutputCriblSearchEnginePqCompressCompressionGzip OutputCriblSearchEnginePqCompressCompression = "gzip"
-)
-
-func (e OutputCriblSearchEnginePqCompressCompression) ToPointer() *OutputCriblSearchEnginePqCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblSearchEnginePqCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblSearchEngineQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputCriblSearchEngineQueueFullBehavior string
-
-const (
-	// OutputCriblSearchEngineQueueFullBehaviorBlock Block
-	OutputCriblSearchEngineQueueFullBehaviorBlock OutputCriblSearchEngineQueueFullBehavior = "block"
-	// OutputCriblSearchEngineQueueFullBehaviorDrop Drop new data
-	OutputCriblSearchEngineQueueFullBehaviorDrop OutputCriblSearchEngineQueueFullBehavior = "drop"
-)
-
-func (e OutputCriblSearchEngineQueueFullBehavior) ToPointer() *OutputCriblSearchEngineQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblSearchEngineQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCriblSearchEnginePqControls struct {
 }
 
@@ -565,13 +59,13 @@ type OutputCriblSearchEngine struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
 	LoadBalanced *bool                                         `default:"false" json:"loadBalanced"`
-	TLS          *OutputCriblSearchEngineTLSSettingsClientSide `json:"tls,omitempty"`
+	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
 	// The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
 	TokenTTLMinutes *float64 `default:"60" json:"tokenTTLMinutes"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitempty"`
 	// Codec to use to compress the data before sending
-	Compression *OutputCriblSearchEngineCompression `default:"gzip" json:"compression"`
+	Compression *CompressionOptions1 `default:"gzip" json:"compression"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
@@ -587,30 +81,30 @@ type OutputCriblSearchEngine struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputCriblSearchEngineExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputCriblSearchEngineFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputCriblSearchEngineResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputCriblSearchEngineTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
-	AuthTokens []OutputCriblSearchEngineAuthToken `json:"authTokens,omitempty"`
+	AuthTokens []ItemsTypeAuthTokens1 `json:"authTokens,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputCriblSearchEngineBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool   `default:"false" json:"useRoundRobinDns"`
 	Description      *string `json:"description,omitempty"`
 	// URL of a Cribl Worker to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitempty"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool                        `default:"false" json:"excludeSelf"`
-	Urls        []OutputCriblSearchEngineURL `json:"urls,omitempty"`
+	ExcludeSelf *bool           `default:"false" json:"excludeSelf"`
+	Urls        []ItemsTypeUrls `json:"urls,omitempty"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `default:"600" json:"dnsResolvePeriodSec"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -620,7 +114,7 @@ type OutputCriblSearchEngine struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputCriblSearchEngineMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -632,10 +126,10 @@ type OutputCriblSearchEngine struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputCriblSearchEnginePqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputCriblSearchEngineQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputCriblSearchEnginePqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions          `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputCriblSearchEnginePqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputCriblSearchEngine) MarshalJSON() ([]byte, error) {
@@ -698,7 +192,7 @@ func (o *OutputCriblSearchEngine) GetLoadBalanced() *bool {
 	return o.LoadBalanced
 }
 
-func (o *OutputCriblSearchEngine) GetTLS() *OutputCriblSearchEngineTLSSettingsClientSide {
+func (o *OutputCriblSearchEngine) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}
@@ -719,7 +213,7 @@ func (o *OutputCriblSearchEngine) GetExcludeFields() []string {
 	return o.ExcludeFields
 }
 
-func (o *OutputCriblSearchEngine) GetCompression() *OutputCriblSearchEngineCompression {
+func (o *OutputCriblSearchEngine) GetCompression() *CompressionOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -768,14 +262,14 @@ func (o *OutputCriblSearchEngine) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputCriblSearchEngine) GetExtraHTTPHeaders() []OutputCriblSearchEngineExtraHTTPHeader {
+func (o *OutputCriblSearchEngine) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if o == nil {
 		return nil
 	}
 	return o.ExtraHTTPHeaders
 }
 
-func (o *OutputCriblSearchEngine) GetFailedRequestLoggingMode() *OutputCriblSearchEngineFailedRequestLoggingMode {
+func (o *OutputCriblSearchEngine) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -796,14 +290,14 @@ func (o *OutputCriblSearchEngine) GetThrottleRatePerSec() *string {
 	return o.ThrottleRatePerSec
 }
 
-func (o *OutputCriblSearchEngine) GetResponseRetrySettings() []OutputCriblSearchEngineResponseRetrySetting {
+func (o *OutputCriblSearchEngine) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputCriblSearchEngine) GetTimeoutRetrySettings() *OutputCriblSearchEngineTimeoutRetrySettings {
+func (o *OutputCriblSearchEngine) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
@@ -817,14 +311,14 @@ func (o *OutputCriblSearchEngine) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputCriblSearchEngine) GetAuthTokens() []OutputCriblSearchEngineAuthToken {
+func (o *OutputCriblSearchEngine) GetAuthTokens() []ItemsTypeAuthTokens1 {
 	if o == nil {
 		return nil
 	}
 	return o.AuthTokens
 }
 
-func (o *OutputCriblSearchEngine) GetOnBackpressure() *OutputCriblSearchEngineBackpressureBehavior {
+func (o *OutputCriblSearchEngine) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -859,7 +353,7 @@ func (o *OutputCriblSearchEngine) GetExcludeSelf() *bool {
 	return o.ExcludeSelf
 }
 
-func (o *OutputCriblSearchEngine) GetUrls() []OutputCriblSearchEngineURL {
+func (o *OutputCriblSearchEngine) GetUrls() []ItemsTypeUrls {
 	if o == nil {
 		return nil
 	}
@@ -894,7 +388,7 @@ func (o *OutputCriblSearchEngine) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputCriblSearchEngine) GetPqMode() *OutputCriblSearchEngineMode {
+func (o *OutputCriblSearchEngine) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -936,14 +430,14 @@ func (o *OutputCriblSearchEngine) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputCriblSearchEngine) GetPqCompress() *OutputCriblSearchEnginePqCompressCompression {
+func (o *OutputCriblSearchEngine) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputCriblSearchEngine) GetPqOnBackpressure() *OutputCriblSearchEngineQueueFullBehavior {
+func (o *OutputCriblSearchEngine) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

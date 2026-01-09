@@ -31,374 +31,6 @@ func (e *InputModelDrivenTelemetryType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputModelDrivenTelemetryConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputModelDrivenTelemetryConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputModelDrivenTelemetryConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputModelDrivenTelemetryConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputModelDrivenTelemetryMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputModelDrivenTelemetryMode string
-
-const (
-	// InputModelDrivenTelemetryModeSmart Smart
-	InputModelDrivenTelemetryModeSmart InputModelDrivenTelemetryMode = "smart"
-	// InputModelDrivenTelemetryModeAlways Always On
-	InputModelDrivenTelemetryModeAlways InputModelDrivenTelemetryMode = "always"
-)
-
-func (e InputModelDrivenTelemetryMode) ToPointer() *InputModelDrivenTelemetryMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputModelDrivenTelemetryMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputModelDrivenTelemetryCompression - Codec to use to compress the persisted data
-type InputModelDrivenTelemetryCompression string
-
-const (
-	// InputModelDrivenTelemetryCompressionNone None
-	InputModelDrivenTelemetryCompressionNone InputModelDrivenTelemetryCompression = "none"
-	// InputModelDrivenTelemetryCompressionGzip Gzip
-	InputModelDrivenTelemetryCompressionGzip InputModelDrivenTelemetryCompression = "gzip"
-)
-
-func (e InputModelDrivenTelemetryCompression) ToPointer() *InputModelDrivenTelemetryCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputModelDrivenTelemetryCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputModelDrivenTelemetryPqControls struct {
-}
-
-func (i InputModelDrivenTelemetryPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputModelDrivenTelemetryPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputModelDrivenTelemetryMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputModelDrivenTelemetryCompression `default:"none" json:"compress"`
-	PqControls *InputModelDrivenTelemetryPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputModelDrivenTelemetryPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputModelDrivenTelemetryPq) GetMode() *InputModelDrivenTelemetryMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputModelDrivenTelemetryPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputModelDrivenTelemetryPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputModelDrivenTelemetryPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputModelDrivenTelemetryPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputModelDrivenTelemetryPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputModelDrivenTelemetryPq) GetCompress() *InputModelDrivenTelemetryCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputModelDrivenTelemetryPq) GetPqControls() *InputModelDrivenTelemetryPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputModelDrivenTelemetryMinimumTLSVersion string
-
-const (
-	InputModelDrivenTelemetryMinimumTLSVersionTlSv1  InputModelDrivenTelemetryMinimumTLSVersion = "TLSv1"
-	InputModelDrivenTelemetryMinimumTLSVersionTlSv11 InputModelDrivenTelemetryMinimumTLSVersion = "TLSv1.1"
-	InputModelDrivenTelemetryMinimumTLSVersionTlSv12 InputModelDrivenTelemetryMinimumTLSVersion = "TLSv1.2"
-	InputModelDrivenTelemetryMinimumTLSVersionTlSv13 InputModelDrivenTelemetryMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputModelDrivenTelemetryMinimumTLSVersion) ToPointer() *InputModelDrivenTelemetryMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputModelDrivenTelemetryMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputModelDrivenTelemetryMaximumTLSVersion string
-
-const (
-	InputModelDrivenTelemetryMaximumTLSVersionTlSv1  InputModelDrivenTelemetryMaximumTLSVersion = "TLSv1"
-	InputModelDrivenTelemetryMaximumTLSVersionTlSv11 InputModelDrivenTelemetryMaximumTLSVersion = "TLSv1.1"
-	InputModelDrivenTelemetryMaximumTLSVersionTlSv12 InputModelDrivenTelemetryMaximumTLSVersion = "TLSv1.2"
-	InputModelDrivenTelemetryMaximumTLSVersionTlSv13 InputModelDrivenTelemetryMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputModelDrivenTelemetryMaximumTLSVersion) ToPointer() *InputModelDrivenTelemetryMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputModelDrivenTelemetryMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputModelDrivenTelemetryTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                                     `json:"caPath,omitempty"`
-	MinVersion *InputModelDrivenTelemetryMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputModelDrivenTelemetryMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputModelDrivenTelemetryTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetMinVersion() *InputModelDrivenTelemetryMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputModelDrivenTelemetryTLSSettingsServerSide) GetMaxVersion() *InputModelDrivenTelemetryMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputModelDrivenTelemetryMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputModelDrivenTelemetryMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputModelDrivenTelemetryMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputModelDrivenTelemetryMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputModelDrivenTelemetryMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputModelDrivenTelemetry struct {
 	// Unique ID for this input
 	ID       *string                       `json:"id,omitempty"`
@@ -415,15 +47,15 @@ type InputModelDrivenTelemetry struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputModelDrivenTelemetryConnection `json:"connections,omitempty"`
-	Pq          *InputModelDrivenTelemetryPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port *float64                                        `default:"57000" json:"port"`
-	TLS  *InputModelDrivenTelemetryTLSSettingsServerSide `json:"tls,omitempty"`
+	Port *float64                   `default:"57000" json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []InputModelDrivenTelemetryMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
@@ -498,14 +130,14 @@ func (i *InputModelDrivenTelemetry) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputModelDrivenTelemetry) GetConnections() []InputModelDrivenTelemetryConnection {
+func (i *InputModelDrivenTelemetry) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputModelDrivenTelemetry) GetPq() *InputModelDrivenTelemetryPq {
+func (i *InputModelDrivenTelemetry) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -526,14 +158,14 @@ func (i *InputModelDrivenTelemetry) GetPort() *float64 {
 	return i.Port
 }
 
-func (i *InputModelDrivenTelemetry) GetTLS() *InputModelDrivenTelemetryTLSSettingsServerSide {
+func (i *InputModelDrivenTelemetry) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputModelDrivenTelemetry) GetMetadata() []InputModelDrivenTelemetryMetadatum {
+func (i *InputModelDrivenTelemetry) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

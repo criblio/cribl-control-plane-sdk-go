@@ -31,175 +31,6 @@ func (e *OutputCriblLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputCriblLakeSignatureVersion - Signature version to use for signing S3 requests
-type OutputCriblLakeSignatureVersion string
-
-const (
-	OutputCriblLakeSignatureVersionV2 OutputCriblLakeSignatureVersion = "v2"
-	OutputCriblLakeSignatureVersionV4 OutputCriblLakeSignatureVersion = "v4"
-)
-
-func (e OutputCriblLakeSignatureVersion) ToPointer() *OutputCriblLakeSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblLakeObjectACL - Object ACL to assign to uploaded objects
-type OutputCriblLakeObjectACL string
-
-const (
-	// OutputCriblLakeObjectACLPrivate Private
-	OutputCriblLakeObjectACLPrivate OutputCriblLakeObjectACL = "private"
-	// OutputCriblLakeObjectACLPublicRead Public Read Only
-	OutputCriblLakeObjectACLPublicRead OutputCriblLakeObjectACL = "public-read"
-	// OutputCriblLakeObjectACLPublicReadWrite Public Read/Write
-	OutputCriblLakeObjectACLPublicReadWrite OutputCriblLakeObjectACL = "public-read-write"
-	// OutputCriblLakeObjectACLAuthenticatedRead Authenticated Read Only
-	OutputCriblLakeObjectACLAuthenticatedRead OutputCriblLakeObjectACL = "authenticated-read"
-	// OutputCriblLakeObjectACLAwsExecRead AWS EC2 AMI Read Only
-	OutputCriblLakeObjectACLAwsExecRead OutputCriblLakeObjectACL = "aws-exec-read"
-	// OutputCriblLakeObjectACLBucketOwnerRead Bucket Owner Read Only
-	OutputCriblLakeObjectACLBucketOwnerRead OutputCriblLakeObjectACL = "bucket-owner-read"
-	// OutputCriblLakeObjectACLBucketOwnerFullControl Bucket Owner Full Control
-	OutputCriblLakeObjectACLBucketOwnerFullControl OutputCriblLakeObjectACL = "bucket-owner-full-control"
-)
-
-func (e OutputCriblLakeObjectACL) ToPointer() *OutputCriblLakeObjectACL {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeObjectACL) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "private", "public-read", "public-read-write", "authenticated-read", "aws-exec-read", "bucket-owner-read", "bucket-owner-full-control":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblLakeStorageClass - Storage class to select for uploaded objects
-type OutputCriblLakeStorageClass string
-
-const (
-	// OutputCriblLakeStorageClassStandard Standard
-	OutputCriblLakeStorageClassStandard OutputCriblLakeStorageClass = "STANDARD"
-	// OutputCriblLakeStorageClassReducedRedundancy Reduced Redundancy Storage
-	OutputCriblLakeStorageClassReducedRedundancy OutputCriblLakeStorageClass = "REDUCED_REDUNDANCY"
-	// OutputCriblLakeStorageClassStandardIa Standard, Infrequent Access
-	OutputCriblLakeStorageClassStandardIa OutputCriblLakeStorageClass = "STANDARD_IA"
-	// OutputCriblLakeStorageClassOnezoneIa One Zone, Infrequent Access
-	OutputCriblLakeStorageClassOnezoneIa OutputCriblLakeStorageClass = "ONEZONE_IA"
-	// OutputCriblLakeStorageClassIntelligentTiering Intelligent Tiering
-	OutputCriblLakeStorageClassIntelligentTiering OutputCriblLakeStorageClass = "INTELLIGENT_TIERING"
-	// OutputCriblLakeStorageClassGlacier Glacier Flexible Retrieval
-	OutputCriblLakeStorageClassGlacier OutputCriblLakeStorageClass = "GLACIER"
-	// OutputCriblLakeStorageClassGlacierIr Glacier Instant Retrieval
-	OutputCriblLakeStorageClassGlacierIr OutputCriblLakeStorageClass = "GLACIER_IR"
-	// OutputCriblLakeStorageClassDeepArchive Glacier Deep Archive
-	OutputCriblLakeStorageClassDeepArchive OutputCriblLakeStorageClass = "DEEP_ARCHIVE"
-)
-
-func (e OutputCriblLakeStorageClass) ToPointer() *OutputCriblLakeStorageClass {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeStorageClass) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "STANDARD", "REDUCED_REDUNDANCY", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER", "GLACIER_IR", "DEEP_ARCHIVE":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblLakeServerSideEncryptionForUploadedObjects string
-
-const (
-	// OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
-	OutputCriblLakeServerSideEncryptionForUploadedObjectsAes256 OutputCriblLakeServerSideEncryptionForUploadedObjects = "AES256"
-	// OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
-	OutputCriblLakeServerSideEncryptionForUploadedObjectsAwsKms OutputCriblLakeServerSideEncryptionForUploadedObjects = "aws:kms"
-)
-
-func (e OutputCriblLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputCriblLakeServerSideEncryptionForUploadedObjects {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeServerSideEncryptionForUploadedObjects) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "AES256", "aws:kms":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputCriblLakeBackpressureBehavior string
-
-const (
-	// OutputCriblLakeBackpressureBehaviorBlock Block
-	OutputCriblLakeBackpressureBehaviorBlock OutputCriblLakeBackpressureBehavior = "block"
-	// OutputCriblLakeBackpressureBehaviorDrop Drop
-	OutputCriblLakeBackpressureBehaviorDrop OutputCriblLakeBackpressureBehavior = "drop"
-)
-
-func (e OutputCriblLakeBackpressureBehavior) ToPointer() *OutputCriblLakeBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCriblLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputCriblLakeDiskSpaceProtection string
-
-const (
-	// OutputCriblLakeDiskSpaceProtectionBlock Block
-	OutputCriblLakeDiskSpaceProtectionBlock OutputCriblLakeDiskSpaceProtection = "block"
-	// OutputCriblLakeDiskSpaceProtectionDrop Drop
-	OutputCriblLakeDiskSpaceProtectionDrop OutputCriblLakeDiskSpaceProtection = "drop"
-)
-
-func (e OutputCriblLakeDiskSpaceProtection) ToPointer() *OutputCriblLakeDiskSpaceProtection {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeDiskSpaceProtection) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type AwsAuthenticationMethod string
 
 const (
@@ -217,29 +48,6 @@ func (e *AwsAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "auto_rpc", "manual":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCriblLakeFormat string
-
-const (
-	OutputCriblLakeFormatJSON    OutputCriblLakeFormat = "json"
-	OutputCriblLakeFormatParquet OutputCriblLakeFormat = "parquet"
-	OutputCriblLakeFormatDdss    OutputCriblLakeFormat = "ddss"
-)
-
-func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCriblLakeFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "parquet", "ddss":
 			return true
 		}
 	}
@@ -267,7 +75,7 @@ type OutputCriblLake struct {
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *OutputCriblLakeSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -287,10 +95,10 @@ type OutputCriblLake struct {
 	// Lake dataset to send the data to.
 	DestPath *string `json:"destPath,omitempty"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputCriblLakeObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass         *OutputCriblLakeStorageClass                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *OutputCriblLakeServerSideEncryptionForUploadedObjects `json:"serverSideEncryption,omitempty"`
+	StorageClass         *StorageClassOptions                           `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitempty"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
 	KmsKeyID *string `json:"kmsKeyId,omitempty"`
 	// Remove empty staging directories after moving files
@@ -308,11 +116,11 @@ type OutputCriblLake struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputCriblLakeBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions1 `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputCriblLakeDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `default:"block" json:"onDiskFullBackpressure"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
@@ -322,9 +130,9 @@ type OutputCriblLake struct {
 	// Disable if you can access files within the bucket but not the bucket itself
 	VerifyPermissions *bool `default:"true" json:"verifyPermissions"`
 	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                 `default:"100" json:"maxClosingFilesToBackpressure"`
-	AwsAuthenticationMethod       *AwsAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
-	Format                        *OutputCriblLakeFormat   `json:"format,omitempty"`
+	MaxClosingFilesToBackpressure *float64                       `default:"100" json:"maxClosingFilesToBackpressure"`
+	AwsAuthenticationMethod       *AwsAuthenticationMethod       `default:"auto" json:"awsAuthenticationMethod"`
+	Format                        *FormatOptionsCriblLakeDataset `json:"format,omitempty"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `default:"1" json:"maxConcurrentFileParts"`
 	Description            *string  `json:"description,omitempty"`
@@ -419,7 +227,7 @@ func (o *OutputCriblLake) GetEndpoint() *string {
 	return o.Endpoint
 }
 
-func (o *OutputCriblLake) GetSignatureVersion() *OutputCriblLakeSignatureVersion {
+func (o *OutputCriblLake) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if o == nil {
 		return nil
 	}
@@ -489,21 +297,21 @@ func (o *OutputCriblLake) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputCriblLake) GetObjectACL() *OutputCriblLakeObjectACL {
+func (o *OutputCriblLake) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputCriblLake) GetStorageClass() *OutputCriblLakeStorageClass {
+func (o *OutputCriblLake) GetStorageClass() *StorageClassOptions {
 	if o == nil {
 		return nil
 	}
 	return o.StorageClass
 }
 
-func (o *OutputCriblLake) GetServerSideEncryption() *OutputCriblLakeServerSideEncryptionForUploadedObjects {
+func (o *OutputCriblLake) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptions {
 	if o == nil {
 		return nil
 	}
@@ -566,7 +374,7 @@ func (o *OutputCriblLake) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputCriblLake) GetOnBackpressure() *OutputCriblLakeBackpressureBehavior {
+func (o *OutputCriblLake) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -580,7 +388,7 @@ func (o *OutputCriblLake) GetDeadletterEnabled() *bool {
 	return o.DeadletterEnabled
 }
 
-func (o *OutputCriblLake) GetOnDiskFullBackpressure() *OutputCriblLakeDiskSpaceProtection {
+func (o *OutputCriblLake) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
 	if o == nil {
 		return nil
 	}
@@ -629,7 +437,7 @@ func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethod 
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputCriblLake) GetFormat() *OutputCriblLakeFormat {
+func (o *OutputCriblLake) GetFormat() *FormatOptionsCriblLakeDataset {
 	if o == nil {
 		return nil
 	}

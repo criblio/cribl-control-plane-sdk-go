@@ -31,185 +31,6 @@ func (e *InputWizType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputWizConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputWizConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWizConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWizConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputWizMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputWizMode string
-
-const (
-	// InputWizModeSmart Smart
-	InputWizModeSmart InputWizMode = "smart"
-	// InputWizModeAlways Always On
-	InputWizModeAlways InputWizMode = "always"
-)
-
-func (e InputWizMode) ToPointer() *InputWizMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWizMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputWizCompression - Codec to use to compress the persisted data
-type InputWizCompression string
-
-const (
-	// InputWizCompressionNone None
-	InputWizCompressionNone InputWizCompression = "none"
-	// InputWizCompressionGzip Gzip
-	InputWizCompressionGzip InputWizCompression = "gzip"
-)
-
-func (e InputWizCompression) ToPointer() *InputWizCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWizCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputWizPqControls struct {
-}
-
-func (i InputWizPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputWizPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputWizMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputWizCompression `default:"none" json:"compress"`
-	PqControls *InputWizPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputWizPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWizPq) GetMode() *InputWizMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputWizPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputWizPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputWizPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputWizPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputWizPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputWizPq) GetCompress() *InputWizCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputWizPq) GetPqControls() *InputWizPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
 type ManageState struct {
 }
 
@@ -387,173 +208,6 @@ func (i *InputWizContentConfig) GetMaxPages() *float64 {
 	return i.MaxPages
 }
 
-type InputWizMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputWizMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWizMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputWizMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-// InputWizRetryType - The algorithm to use when performing HTTP retries
-type InputWizRetryType string
-
-const (
-	// InputWizRetryTypeNone Disabled
-	InputWizRetryTypeNone InputWizRetryType = "none"
-	// InputWizRetryTypeBackoff Backoff
-	InputWizRetryTypeBackoff InputWizRetryType = "backoff"
-	// InputWizRetryTypeStatic Static
-	InputWizRetryTypeStatic InputWizRetryType = "static"
-)
-
-func (e InputWizRetryType) ToPointer() *InputWizRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWizRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
-type InputWizRetryRules struct {
-	// The algorithm to use when performing HTTP retries
-	Type *InputWizRetryType `default:"backoff" json:"type"`
-	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `default:"1000" json:"interval"`
-	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `default:"5" json:"limit"`
-	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `default:"2" json:"multiplier"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitempty"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `default:"true" json:"enableHeader"`
-	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `default:"false" json:"retryConnectTimeout"`
-	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `default:"false" json:"retryConnectReset"`
-}
-
-func (i InputWizRetryRules) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWizRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWizRetryRules) GetType() *InputWizRetryType {
-	if i == nil {
-		return nil
-	}
-	return i.Type
-}
-
-func (i *InputWizRetryRules) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputWizRetryRules) GetLimit() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Limit
-}
-
-func (i *InputWizRetryRules) GetMultiplier() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Multiplier
-}
-
-func (i *InputWizRetryRules) GetCodes() []float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Codes
-}
-
-func (i *InputWizRetryRules) GetEnableHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHeader
-}
-
-func (i *InputWizRetryRules) GetRetryConnectTimeout() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RetryConnectTimeout
-}
-
-func (i *InputWizRetryRules) GetRetryConnectReset() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RetryConnectReset
-}
-
-// InputWizAuthenticationMethod - Enter client secret directly, or select a stored secret
-type InputWizAuthenticationMethod string
-
-const (
-	InputWizAuthenticationMethodManual InputWizAuthenticationMethod = "manual"
-	InputWizAuthenticationMethodSecret InputWizAuthenticationMethod = "secret"
-)
-
-func (e InputWizAuthenticationMethod) ToPointer() *InputWizAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputWizAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 type InputWiz struct {
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
@@ -570,8 +224,8 @@ type InputWiz struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputWizConnection `json:"connections,omitempty"`
-	Pq          *InputWizPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
 	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
 	// The authentication URL to generate an OAuth token
@@ -592,10 +246,10 @@ type InputWiz struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
 	// Fields to add to events from this input
-	Metadata   []InputWizMetadatum `json:"metadata,omitempty"`
-	RetryRules *InputWizRetryRules `json:"retryRules,omitempty"`
+	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *InputWizAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -670,14 +324,14 @@ func (i *InputWiz) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWiz) GetConnections() []InputWizConnection {
+func (i *InputWiz) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWiz) GetPq() *InputWizPq {
+func (i *InputWiz) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -754,21 +408,21 @@ func (i *InputWiz) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputWiz) GetMetadata() []InputWizMetadatum {
+func (i *InputWiz) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWiz) GetRetryRules() *InputWizRetryRules {
+func (i *InputWiz) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputWiz) GetAuthType() *InputWizAuthenticationMethod {
+func (i *InputWiz) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}

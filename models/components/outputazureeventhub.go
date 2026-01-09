@@ -31,449 +31,6 @@ func (e *OutputAzureEventhubType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputAzureEventhubAcknowledgments - Control the number of required acknowledgments
-type OutputAzureEventhubAcknowledgments int64
-
-const (
-	// OutputAzureEventhubAcknowledgmentsOne Leader
-	OutputAzureEventhubAcknowledgmentsOne OutputAzureEventhubAcknowledgments = 1
-	// OutputAzureEventhubAcknowledgmentsZero None
-	OutputAzureEventhubAcknowledgmentsZero OutputAzureEventhubAcknowledgments = 0
-	// OutputAzureEventhubAcknowledgmentsMinus1 All
-	OutputAzureEventhubAcknowledgmentsMinus1 OutputAzureEventhubAcknowledgments = -1
-)
-
-func (e OutputAzureEventhubAcknowledgments) ToPointer() *OutputAzureEventhubAcknowledgments {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubAcknowledgments) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case 1, 0, -1:
-			return true
-		}
-	}
-	return false
-}
-
-// OutputAzureEventhubRecordDataFormat - Format to use to serialize events before writing to the Event Hubs Kafka brokers
-type OutputAzureEventhubRecordDataFormat string
-
-const (
-	// OutputAzureEventhubRecordDataFormatJSON JSON
-	OutputAzureEventhubRecordDataFormatJSON OutputAzureEventhubRecordDataFormat = "json"
-	// OutputAzureEventhubRecordDataFormatRaw Field _raw
-	OutputAzureEventhubRecordDataFormatRaw OutputAzureEventhubRecordDataFormat = "raw"
-)
-
-func (e OutputAzureEventhubRecordDataFormat) ToPointer() *OutputAzureEventhubRecordDataFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubRecordDataFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "raw":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputAzureEventhubAuthTypeAuthenticationMethod - Enter password directly, or select a stored secret
-type OutputAzureEventhubAuthTypeAuthenticationMethod string
-
-const (
-	OutputAzureEventhubAuthTypeAuthenticationMethodManual OutputAzureEventhubAuthTypeAuthenticationMethod = "manual"
-	OutputAzureEventhubAuthTypeAuthenticationMethodSecret OutputAzureEventhubAuthTypeAuthenticationMethod = "secret"
-)
-
-func (e OutputAzureEventhubAuthTypeAuthenticationMethod) ToPointer() *OutputAzureEventhubAuthTypeAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubAuthTypeAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputAzureEventhubSASLMechanism string
-
-const (
-	// OutputAzureEventhubSASLMechanismPlain PLAIN
-	OutputAzureEventhubSASLMechanismPlain OutputAzureEventhubSASLMechanism = "plain"
-	// OutputAzureEventhubSASLMechanismOauthbearer OAUTHBEARER
-	OutputAzureEventhubSASLMechanismOauthbearer OutputAzureEventhubSASLMechanism = "oauthbearer"
-)
-
-func (e OutputAzureEventhubSASLMechanism) ToPointer() *OutputAzureEventhubSASLMechanism {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubSASLMechanism) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "plain", "oauthbearer":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod string
-
-const (
-	OutputAzureEventhubClientSecretAuthTypeAuthenticationMethodManual      OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod = "manual"
-	OutputAzureEventhubClientSecretAuthTypeAuthenticationMethodSecret      OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod = "secret"
-	OutputAzureEventhubClientSecretAuthTypeAuthenticationMethodCertificate OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod = "certificate"
-)
-
-func (e OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod) ToPointer() *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret", "certificate":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint - Endpoint used to acquire authentication tokens from Azure
-type OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint string
-
-const (
-	OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineCom       OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.com"
-	OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginMicrosoftonlineUs        OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.microsoftonline.us"
-	OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpointHTTPSLoginPartnerMicrosoftonlineCn OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint = "https://login.partner.microsoftonline.cn"
-)
-
-func (e OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint) ToPointer() *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "https://login.microsoftonline.com", "https://login.microsoftonline.us", "https://login.partner.microsoftonline.cn":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputAzureEventhubAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-type OutputAzureEventhubAuthentication struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Enter password directly, or select a stored secret
-	AuthType *OutputAzureEventhubAuthTypeAuthenticationMethod `default:"manual" json:"authType"`
-	// Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
-	Password *string `json:"password,omitempty"`
-	// Select or create a stored text secret
-	TextSecret *string                           `json:"textSecret,omitempty"`
-	Mechanism  *OutputAzureEventhubSASLMechanism `default:"plain" json:"mechanism"`
-	// The username for authentication. For Event Hubs, this should always be $ConnectionString.
-	Username             *string                                                      `default:"$ConnectionString" json:"username"`
-	ClientSecretAuthType *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod `default:"manual" json:"clientSecretAuthType"`
-	// client_secret to pass in the OAuth request parameter
-	ClientSecret *string `json:"clientSecret,omitempty"`
-	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
-	// Select or create a stored certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	CertPath        *string `json:"certPath,omitempty"`
-	PrivKeyPath     *string `json:"privKeyPath,omitempty"`
-	Passphrase      *string `json:"passphrase,omitempty"`
-	// Endpoint used to acquire authentication tokens from Azure
-	OauthEndpoint *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
-	// client_id to pass in the OAuth request parameter
-	ClientID *string `json:"clientId,omitempty"`
-	// Directory ID (tenant identifier) in Azure Active Directory
-	TenantID *string `json:"tenantId,omitempty"`
-	// Scope to pass in the OAuth request parameter
-	Scope *string `json:"scope,omitempty"`
-}
-
-func (o OutputAzureEventhubAuthentication) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputAzureEventhubAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputAzureEventhubAuthentication) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputAzureEventhubAuthentication) GetAuthType() *OutputAzureEventhubAuthTypeAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputAzureEventhubAuthentication) GetPassword() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Password
-}
-
-func (o *OutputAzureEventhubAuthentication) GetTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TextSecret
-}
-
-func (o *OutputAzureEventhubAuthentication) GetMechanism() *OutputAzureEventhubSASLMechanism {
-	if o == nil {
-		return nil
-	}
-	return o.Mechanism
-}
-
-func (o *OutputAzureEventhubAuthentication) GetUsername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Username
-}
-
-func (o *OutputAzureEventhubAuthentication) GetClientSecretAuthType() *OutputAzureEventhubClientSecretAuthTypeAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.ClientSecretAuthType
-}
-
-func (o *OutputAzureEventhubAuthentication) GetClientSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientSecret
-}
-
-func (o *OutputAzureEventhubAuthentication) GetClientTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientTextSecret
-}
-
-func (o *OutputAzureEventhubAuthentication) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputAzureEventhubAuthentication) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputAzureEventhubAuthentication) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputAzureEventhubAuthentication) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputAzureEventhubAuthentication) GetOauthEndpoint() *OutputAzureEventhubMicrosoftEntraIDAuthenticationEndpoint {
-	if o == nil {
-		return nil
-	}
-	return o.OauthEndpoint
-}
-
-func (o *OutputAzureEventhubAuthentication) GetClientID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientID
-}
-
-func (o *OutputAzureEventhubAuthentication) GetTenantID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TenantID
-}
-
-func (o *OutputAzureEventhubAuthentication) GetScope() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Scope
-}
-
-type OutputAzureEventhubTLSSettingsClientSide struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-}
-
-func (o OutputAzureEventhubTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputAzureEventhubTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputAzureEventhubTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputAzureEventhubTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-// OutputAzureEventhubBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputAzureEventhubBackpressureBehavior string
-
-const (
-	// OutputAzureEventhubBackpressureBehaviorBlock Block
-	OutputAzureEventhubBackpressureBehaviorBlock OutputAzureEventhubBackpressureBehavior = "block"
-	// OutputAzureEventhubBackpressureBehaviorDrop Drop
-	OutputAzureEventhubBackpressureBehaviorDrop OutputAzureEventhubBackpressureBehavior = "drop"
-	// OutputAzureEventhubBackpressureBehaviorQueue Persistent Queue
-	OutputAzureEventhubBackpressureBehaviorQueue OutputAzureEventhubBackpressureBehavior = "queue"
-)
-
-func (e OutputAzureEventhubBackpressureBehavior) ToPointer() *OutputAzureEventhubBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputAzureEventhubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputAzureEventhubMode string
-
-const (
-	// OutputAzureEventhubModeError Error
-	OutputAzureEventhubModeError OutputAzureEventhubMode = "error"
-	// OutputAzureEventhubModeAlways Backpressure
-	OutputAzureEventhubModeAlways OutputAzureEventhubMode = "always"
-	// OutputAzureEventhubModeBackpressure Always On
-	OutputAzureEventhubModeBackpressure OutputAzureEventhubMode = "backpressure"
-)
-
-func (e OutputAzureEventhubMode) ToPointer() *OutputAzureEventhubMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputAzureEventhubCompression - Codec to use to compress the persisted data
-type OutputAzureEventhubCompression string
-
-const (
-	// OutputAzureEventhubCompressionNone None
-	OutputAzureEventhubCompressionNone OutputAzureEventhubCompression = "none"
-	// OutputAzureEventhubCompressionGzip Gzip
-	OutputAzureEventhubCompressionGzip OutputAzureEventhubCompression = "gzip"
-)
-
-func (e OutputAzureEventhubCompression) ToPointer() *OutputAzureEventhubCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputAzureEventhubQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputAzureEventhubQueueFullBehavior string
-
-const (
-	// OutputAzureEventhubQueueFullBehaviorBlock Block
-	OutputAzureEventhubQueueFullBehaviorBlock OutputAzureEventhubQueueFullBehavior = "block"
-	// OutputAzureEventhubQueueFullBehaviorDrop Drop new data
-	OutputAzureEventhubQueueFullBehaviorDrop OutputAzureEventhubQueueFullBehavior = "drop"
-)
-
-func (e OutputAzureEventhubQueueFullBehavior) ToPointer() *OutputAzureEventhubQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAzureEventhubQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputAzureEventhubPqControls struct {
 }
 
@@ -505,9 +62,9 @@ type OutputAzureEventhub struct {
 	// The name of the Event Hub (Kafka Topic) to publish events. Can be overwritten using field __topicOut.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments
-	Ack *OutputAzureEventhubAcknowledgments `default:"1" json:"ack"`
+	Ack *AcknowledgmentsOptions `default:"1" json:"ack"`
 	// Format to use to serialize events before writing to the Event Hubs Kafka brokers
-	Format *OutputAzureEventhubRecordDataFormat `default:"json" json:"format"`
+	Format *RecordDataFormatOptions `default:"json" json:"format"`
 	// Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
 	MaxRecordSizeKB *float64 `default:"768" json:"maxRecordSizeKB"`
 	// Maximum number of events in a batch before forcing a flush
@@ -531,17 +88,17 @@ type OutputAzureEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *OutputAzureEventhubAuthentication        `json:"sasl,omitempty"`
-	TLS  *OutputAzureEventhubTLSSettingsClientSide `json:"tls,omitempty"`
+	Sasl *AuthenticationType1       `json:"sasl,omitempty"`
+	TLS  *TLSSettingsClientSideType `json:"tls,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputAzureEventhubBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                                  `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	Description    *string                      `json:"description,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputAzureEventhubMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -553,10 +110,10 @@ type OutputAzureEventhub struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputAzureEventhubCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputAzureEventhubQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputAzureEventhubPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions      `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputAzureEventhubPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputAzureEventhub) MarshalJSON() ([]byte, error) {
@@ -626,14 +183,14 @@ func (o *OutputAzureEventhub) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputAzureEventhub) GetAck() *OutputAzureEventhubAcknowledgments {
+func (o *OutputAzureEventhub) GetAck() *AcknowledgmentsOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputAzureEventhub) GetFormat() *OutputAzureEventhubRecordDataFormat {
+func (o *OutputAzureEventhub) GetFormat() *RecordDataFormatOptions {
 	if o == nil {
 		return nil
 	}
@@ -717,21 +274,21 @@ func (o *OutputAzureEventhub) GetReauthenticationThreshold() *float64 {
 	return o.ReauthenticationThreshold
 }
 
-func (o *OutputAzureEventhub) GetSasl() *OutputAzureEventhubAuthentication {
+func (o *OutputAzureEventhub) GetSasl() *AuthenticationType1 {
 	if o == nil {
 		return nil
 	}
 	return o.Sasl
 }
 
-func (o *OutputAzureEventhub) GetTLS() *OutputAzureEventhubTLSSettingsClientSide {
+func (o *OutputAzureEventhub) GetTLS() *TLSSettingsClientSideType {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputAzureEventhub) GetOnBackpressure() *OutputAzureEventhubBackpressureBehavior {
+func (o *OutputAzureEventhub) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -759,7 +316,7 @@ func (o *OutputAzureEventhub) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputAzureEventhub) GetPqMode() *OutputAzureEventhubMode {
+func (o *OutputAzureEventhub) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -801,14 +358,14 @@ func (o *OutputAzureEventhub) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputAzureEventhub) GetPqCompress() *OutputAzureEventhubCompression {
+func (o *OutputAzureEventhub) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputAzureEventhub) GetPqOnBackpressure() *OutputAzureEventhubQueueFullBehavior {
+func (o *OutputAzureEventhub) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

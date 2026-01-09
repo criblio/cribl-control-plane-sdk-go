@@ -31,135 +31,6 @@ func (e *OutputStatsdType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputStatsdDestinationProtocol - Protocol to use when communicating with the destination.
-type OutputStatsdDestinationProtocol string
-
-const (
-	// OutputStatsdDestinationProtocolUDP UDP
-	OutputStatsdDestinationProtocolUDP OutputStatsdDestinationProtocol = "udp"
-	// OutputStatsdDestinationProtocolTCP TCP
-	OutputStatsdDestinationProtocolTCP OutputStatsdDestinationProtocol = "tcp"
-)
-
-func (e OutputStatsdDestinationProtocol) ToPointer() *OutputStatsdDestinationProtocol {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputStatsdDestinationProtocol) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "udp", "tcp":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputStatsdBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputStatsdBackpressureBehavior string
-
-const (
-	// OutputStatsdBackpressureBehaviorBlock Block
-	OutputStatsdBackpressureBehaviorBlock OutputStatsdBackpressureBehavior = "block"
-	// OutputStatsdBackpressureBehaviorDrop Drop
-	OutputStatsdBackpressureBehaviorDrop OutputStatsdBackpressureBehavior = "drop"
-	// OutputStatsdBackpressureBehaviorQueue Persistent Queue
-	OutputStatsdBackpressureBehaviorQueue OutputStatsdBackpressureBehavior = "queue"
-)
-
-func (e OutputStatsdBackpressureBehavior) ToPointer() *OutputStatsdBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputStatsdBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputStatsdMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputStatsdMode string
-
-const (
-	// OutputStatsdModeError Error
-	OutputStatsdModeError OutputStatsdMode = "error"
-	// OutputStatsdModeAlways Backpressure
-	OutputStatsdModeAlways OutputStatsdMode = "always"
-	// OutputStatsdModeBackpressure Always On
-	OutputStatsdModeBackpressure OutputStatsdMode = "backpressure"
-)
-
-func (e OutputStatsdMode) ToPointer() *OutputStatsdMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputStatsdMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputStatsdCompression - Codec to use to compress the persisted data
-type OutputStatsdCompression string
-
-const (
-	// OutputStatsdCompressionNone None
-	OutputStatsdCompressionNone OutputStatsdCompression = "none"
-	// OutputStatsdCompressionGzip Gzip
-	OutputStatsdCompressionGzip OutputStatsdCompression = "gzip"
-)
-
-func (e OutputStatsdCompression) ToPointer() *OutputStatsdCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputStatsdCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputStatsdQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputStatsdQueueFullBehavior string
-
-const (
-	// OutputStatsdQueueFullBehaviorBlock Block
-	OutputStatsdQueueFullBehaviorBlock OutputStatsdQueueFullBehavior = "block"
-	// OutputStatsdQueueFullBehaviorDrop Drop new data
-	OutputStatsdQueueFullBehaviorDrop OutputStatsdQueueFullBehavior = "drop"
-)
-
-func (e OutputStatsdQueueFullBehavior) ToPointer() *OutputStatsdQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputStatsdQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputStatsdPqControls struct {
 }
 
@@ -187,7 +58,7 @@ type OutputStatsd struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Protocol to use when communicating with the destination.
-	Protocol *OutputStatsdDestinationProtocol `default:"udp" json:"protocol"`
+	Protocol *DestinationProtocolOptions `default:"udp" json:"protocol"`
 	// The hostname of the destination.
 	Host string `json:"host"`
 	// Destination port.
@@ -206,13 +77,13 @@ type OutputStatsd struct {
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
 	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputStatsdBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputStatsdMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -224,10 +95,10 @@ type OutputStatsd struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputStatsdCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputStatsdQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputStatsdPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputStatsdPqControls   `json:"pqControls,omitempty"`
 }
 
 func (o OutputStatsd) MarshalJSON() ([]byte, error) {
@@ -283,7 +154,7 @@ func (o *OutputStatsd) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputStatsd) GetProtocol() *OutputStatsdDestinationProtocol {
+func (o *OutputStatsd) GetProtocol() *DestinationProtocolOptions {
 	if o == nil {
 		return nil
 	}
@@ -353,7 +224,7 @@ func (o *OutputStatsd) GetWriteTimeout() *float64 {
 	return o.WriteTimeout
 }
 
-func (o *OutputStatsd) GetOnBackpressure() *OutputStatsdBackpressureBehavior {
+func (o *OutputStatsd) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -374,7 +245,7 @@ func (o *OutputStatsd) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputStatsd) GetPqMode() *OutputStatsdMode {
+func (o *OutputStatsd) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -416,14 +287,14 @@ func (o *OutputStatsd) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputStatsd) GetPqCompress() *OutputStatsdCompression {
+func (o *OutputStatsd) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputStatsd) GetPqOnBackpressure() *OutputStatsdQueueFullBehavior {
+func (o *OutputStatsd) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}
