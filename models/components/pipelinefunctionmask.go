@@ -73,37 +73,6 @@ func (p *PipelineFunctionMaskRule) GetDisabled() *bool {
 	return p.Disabled
 }
 
-type PipelineFunctionMaskFlag struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (p PipelineFunctionMaskFlag) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionMaskFlag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionMaskFlag) GetName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Name
-}
-
-func (p *PipelineFunctionMaskFlag) GetValue() string {
-	if p == nil {
-		return ""
-	}
-	return p.Value
-}
-
 type PipelineFunctionMaskConf struct {
 	Rules []PipelineFunctionMaskRule `json:"rules"`
 	// Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
@@ -111,7 +80,7 @@ type PipelineFunctionMaskConf struct {
 	// Depth to which the Mask Function will search for fields to mask
 	Depth *int64 `default:"5" json:"depth"`
 	// Fields to evaluate if one or more masking rules are matched
-	Flags []PipelineFunctionMaskFlag `json:"flags,omitempty"`
+	Flags []ItemsTypeAdd `json:"flags,omitempty"`
 }
 
 func (p PipelineFunctionMaskConf) MarshalJSON() ([]byte, error) {
@@ -146,7 +115,7 @@ func (p *PipelineFunctionMaskConf) GetDepth() *int64 {
 	return p.Depth
 }
 
-func (p *PipelineFunctionMaskConf) GetFlags() []PipelineFunctionMaskFlag {
+func (p *PipelineFunctionMaskConf) GetFlags() []ItemsTypeAdd {
 	if p == nil {
 		return nil
 	}

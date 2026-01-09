@@ -31,185 +31,6 @@ func (e *InputFileType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputFileConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputFileConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFileConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFileConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFileConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputFilePqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputFilePqMode string
-
-const (
-	// InputFilePqModeSmart Smart
-	InputFilePqModeSmart InputFilePqMode = "smart"
-	// InputFilePqModeAlways Always On
-	InputFilePqModeAlways InputFilePqMode = "always"
-)
-
-func (e InputFilePqMode) ToPointer() *InputFilePqMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputFilePqMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputFileCompression - Codec to use to compress the persisted data
-type InputFileCompression string
-
-const (
-	// InputFileCompressionNone None
-	InputFileCompressionNone InputFileCompression = "none"
-	// InputFileCompressionGzip Gzip
-	InputFileCompressionGzip InputFileCompression = "gzip"
-)
-
-func (e InputFileCompression) ToPointer() *InputFileCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputFileCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputFilePqControls struct {
-}
-
-func (i InputFilePqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFilePqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputFilePq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputFilePqMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputFileCompression `default:"none" json:"compress"`
-	PqControls *InputFilePqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputFilePq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFilePq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFilePq) GetMode() *InputFilePqMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputFilePq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputFilePq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputFilePq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputFilePq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputFilePq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputFilePq) GetCompress() *InputFileCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputFilePq) GetPqControls() *InputFilePqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
 // InputFileMode - Choose how to discover files to monitor
 type InputFileMode string
 
@@ -235,37 +56,6 @@ func (e *InputFileMode) IsExact() bool {
 	return false
 }
 
-type InputFileMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputFileMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFileMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFileMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputFileMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputFile struct {
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
@@ -282,8 +72,8 @@ type InputFile struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputFileConnection `json:"connections,omitempty"`
-	Pq          *InputFilePq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
 	Mode *InputFileMode `default:"manual" json:"mode"`
 	// Time, in seconds, between scanning for files
@@ -307,7 +97,7 @@ type InputFile struct {
 	// Length of file header bytes to use in hash for unique file identification
 	HashLen *float64 `default:"256" json:"hashLen"`
 	// Fields to add to events from this input
-	Metadata []InputFileMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -391,14 +181,14 @@ func (i *InputFile) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputFile) GetConnections() []InputFileConnection {
+func (i *InputFile) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputFile) GetPq() *InputFilePq {
+func (i *InputFile) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -482,7 +272,7 @@ func (i *InputFile) GetHashLen() *float64 {
 	return i.HashLen
 }
 
-func (i *InputFile) GetMetadata() []InputFileMetadatum {
+func (i *InputFile) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

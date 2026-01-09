@@ -39,29 +39,6 @@ func (e *SplunkAuthenticationLoginSecretAuthentication) IsExact() bool {
 	return false
 }
 
-// SplunkAuthenticationLoginSecretOutputMode - Format of the returned output
-type SplunkAuthenticationLoginSecretOutputMode string
-
-const (
-	SplunkAuthenticationLoginSecretOutputModeCsv  SplunkAuthenticationLoginSecretOutputMode = "csv"
-	SplunkAuthenticationLoginSecretOutputModeJSON SplunkAuthenticationLoginSecretOutputMode = "json"
-)
-
-func (e SplunkAuthenticationLoginSecretOutputMode) ToPointer() *SplunkAuthenticationLoginSecretOutputMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationLoginSecretOutputMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationLoginSecretCollectRequestParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -124,43 +101,16 @@ func (s *SplunkAuthenticationLoginSecretCollectRequestHeader) GetValue() string 
 	return s.Value
 }
 
-// SplunkAuthenticationLoginSecretRetryType - Algorithm to use when performing HTTP retries
-type SplunkAuthenticationLoginSecretRetryType string
-
-const (
-	// SplunkAuthenticationLoginSecretRetryTypeNone Disabled
-	SplunkAuthenticationLoginSecretRetryTypeNone SplunkAuthenticationLoginSecretRetryType = "none"
-	// SplunkAuthenticationLoginSecretRetryTypeBackoff Backoff
-	SplunkAuthenticationLoginSecretRetryTypeBackoff SplunkAuthenticationLoginSecretRetryType = "backoff"
-	// SplunkAuthenticationLoginSecretRetryTypeStatic Static
-	SplunkAuthenticationLoginSecretRetryTypeStatic SplunkAuthenticationLoginSecretRetryType = "static"
-)
-
-func (e SplunkAuthenticationLoginSecretRetryType) ToPointer() *SplunkAuthenticationLoginSecretRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationLoginSecretRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationLoginSecretRetryRules struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *SplunkAuthenticationLoginSecretRetryType `default:"backoff" json:"type"`
-	Interval            any                                       `json:"interval,omitempty"`
-	Limit               any                                       `json:"limit,omitempty"`
-	Multiplier          any                                       `json:"multiplier,omitempty"`
-	Codes               any                                       `json:"codes,omitempty"`
-	EnableHeader        any                                       `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                       `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                       `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval            any                                                 `json:"interval,omitempty"`
+	Limit               any                                                 `json:"limit,omitempty"`
+	Multiplier          any                                                 `json:"multiplier,omitempty"`
+	Codes               any                                                 `json:"codes,omitempty"`
+	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -174,7 +124,7 @@ func (s *SplunkAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) e
 	return nil
 }
 
-func (s *SplunkAuthenticationLoginSecretRetryRules) GetType() *SplunkAuthenticationLoginSecretRetryType {
+func (s *SplunkAuthenticationLoginSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
 		return nil
 	}
@@ -254,7 +204,7 @@ type SplunkAuthenticationLoginSecret struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *SplunkAuthenticationLoginSecretOutputMode `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationLoginSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
@@ -360,7 +310,7 @@ func (s *SplunkAuthenticationLoginSecret) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetOutputMode() *SplunkAuthenticationLoginSecretOutputMode {
+func (s *SplunkAuthenticationLoginSecret) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -454,29 +404,6 @@ func (e *SplunkAuthenticationLoginAuthentication) IsExact() bool {
 	return false
 }
 
-// SplunkAuthenticationLoginOutputMode - Format of the returned output
-type SplunkAuthenticationLoginOutputMode string
-
-const (
-	SplunkAuthenticationLoginOutputModeCsv  SplunkAuthenticationLoginOutputMode = "csv"
-	SplunkAuthenticationLoginOutputModeJSON SplunkAuthenticationLoginOutputMode = "json"
-)
-
-func (e SplunkAuthenticationLoginOutputMode) ToPointer() *SplunkAuthenticationLoginOutputMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationLoginOutputMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationLoginCollectRequestParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -539,43 +466,16 @@ func (s *SplunkAuthenticationLoginCollectRequestHeader) GetValue() string {
 	return s.Value
 }
 
-// SplunkAuthenticationLoginRetryType - Algorithm to use when performing HTTP retries
-type SplunkAuthenticationLoginRetryType string
-
-const (
-	// SplunkAuthenticationLoginRetryTypeNone Disabled
-	SplunkAuthenticationLoginRetryTypeNone SplunkAuthenticationLoginRetryType = "none"
-	// SplunkAuthenticationLoginRetryTypeBackoff Backoff
-	SplunkAuthenticationLoginRetryTypeBackoff SplunkAuthenticationLoginRetryType = "backoff"
-	// SplunkAuthenticationLoginRetryTypeStatic Static
-	SplunkAuthenticationLoginRetryTypeStatic SplunkAuthenticationLoginRetryType = "static"
-)
-
-func (e SplunkAuthenticationLoginRetryType) ToPointer() *SplunkAuthenticationLoginRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationLoginRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationLoginRetryRules struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *SplunkAuthenticationLoginRetryType `default:"backoff" json:"type"`
-	Interval            any                                 `json:"interval,omitempty"`
-	Limit               any                                 `json:"limit,omitempty"`
-	Multiplier          any                                 `json:"multiplier,omitempty"`
-	Codes               any                                 `json:"codes,omitempty"`
-	EnableHeader        any                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                 `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval            any                                                 `json:"interval,omitempty"`
+	Limit               any                                                 `json:"limit,omitempty"`
+	Multiplier          any                                                 `json:"multiplier,omitempty"`
+	Codes               any                                                 `json:"codes,omitempty"`
+	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
@@ -589,7 +489,7 @@ func (s *SplunkAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SplunkAuthenticationLoginRetryRules) GetType() *SplunkAuthenticationLoginRetryType {
+func (s *SplunkAuthenticationLoginRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
 		return nil
 	}
@@ -669,7 +569,7 @@ type SplunkAuthenticationLogin struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *SplunkAuthenticationLoginOutputMode `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationLoginCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
@@ -782,7 +682,7 @@ func (s *SplunkAuthenticationLogin) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationLogin) GetOutputMode() *SplunkAuthenticationLoginOutputMode {
+func (s *SplunkAuthenticationLogin) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -876,29 +776,6 @@ func (e *SplunkAuthenticationTokenSecretAuthentication) IsExact() bool {
 	return false
 }
 
-// SplunkAuthenticationTokenSecretOutputMode - Format of the returned output
-type SplunkAuthenticationTokenSecretOutputMode string
-
-const (
-	SplunkAuthenticationTokenSecretOutputModeCsv  SplunkAuthenticationTokenSecretOutputMode = "csv"
-	SplunkAuthenticationTokenSecretOutputModeJSON SplunkAuthenticationTokenSecretOutputMode = "json"
-)
-
-func (e SplunkAuthenticationTokenSecretOutputMode) ToPointer() *SplunkAuthenticationTokenSecretOutputMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationTokenSecretOutputMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationTokenSecretCollectRequestParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -961,43 +838,16 @@ func (s *SplunkAuthenticationTokenSecretCollectRequestHeader) GetValue() string 
 	return s.Value
 }
 
-// SplunkAuthenticationTokenSecretRetryType - Algorithm to use when performing HTTP retries
-type SplunkAuthenticationTokenSecretRetryType string
-
-const (
-	// SplunkAuthenticationTokenSecretRetryTypeNone Disabled
-	SplunkAuthenticationTokenSecretRetryTypeNone SplunkAuthenticationTokenSecretRetryType = "none"
-	// SplunkAuthenticationTokenSecretRetryTypeBackoff Backoff
-	SplunkAuthenticationTokenSecretRetryTypeBackoff SplunkAuthenticationTokenSecretRetryType = "backoff"
-	// SplunkAuthenticationTokenSecretRetryTypeStatic Static
-	SplunkAuthenticationTokenSecretRetryTypeStatic SplunkAuthenticationTokenSecretRetryType = "static"
-)
-
-func (e SplunkAuthenticationTokenSecretRetryType) ToPointer() *SplunkAuthenticationTokenSecretRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationTokenSecretRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationTokenSecretRetryRules struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *SplunkAuthenticationTokenSecretRetryType `default:"backoff" json:"type"`
-	Interval            any                                       `json:"interval,omitempty"`
-	Limit               any                                       `json:"limit,omitempty"`
-	Multiplier          any                                       `json:"multiplier,omitempty"`
-	Codes               any                                       `json:"codes,omitempty"`
-	EnableHeader        any                                       `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                       `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                       `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval            any                                                 `json:"interval,omitempty"`
+	Limit               any                                                 `json:"limit,omitempty"`
+	Multiplier          any                                                 `json:"multiplier,omitempty"`
+	Codes               any                                                 `json:"codes,omitempty"`
+	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationTokenSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -1011,7 +861,7 @@ func (s *SplunkAuthenticationTokenSecretRetryRules) UnmarshalJSON(data []byte) e
 	return nil
 }
 
-func (s *SplunkAuthenticationTokenSecretRetryRules) GetType() *SplunkAuthenticationTokenSecretRetryType {
+func (s *SplunkAuthenticationTokenSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
 		return nil
 	}
@@ -1083,7 +933,7 @@ type SplunkAuthenticationTokenSecret struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *SplunkAuthenticationTokenSecretOutputMode `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationTokenSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
@@ -1161,7 +1011,7 @@ func (s *SplunkAuthenticationTokenSecret) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationTokenSecret) GetOutputMode() *SplunkAuthenticationTokenSecretOutputMode {
+func (s *SplunkAuthenticationTokenSecret) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -1255,29 +1105,6 @@ func (e *SplunkAuthenticationTokenAuthentication) IsExact() bool {
 	return false
 }
 
-// SplunkAuthenticationTokenOutputMode - Format of the returned output
-type SplunkAuthenticationTokenOutputMode string
-
-const (
-	SplunkAuthenticationTokenOutputModeCsv  SplunkAuthenticationTokenOutputMode = "csv"
-	SplunkAuthenticationTokenOutputModeJSON SplunkAuthenticationTokenOutputMode = "json"
-)
-
-func (e SplunkAuthenticationTokenOutputMode) ToPointer() *SplunkAuthenticationTokenOutputMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationTokenOutputMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationTokenCollectRequestParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -1340,43 +1167,16 @@ func (s *SplunkAuthenticationTokenCollectRequestHeader) GetValue() string {
 	return s.Value
 }
 
-// SplunkAuthenticationTokenRetryType - Algorithm to use when performing HTTP retries
-type SplunkAuthenticationTokenRetryType string
-
-const (
-	// SplunkAuthenticationTokenRetryTypeNone Disabled
-	SplunkAuthenticationTokenRetryTypeNone SplunkAuthenticationTokenRetryType = "none"
-	// SplunkAuthenticationTokenRetryTypeBackoff Backoff
-	SplunkAuthenticationTokenRetryTypeBackoff SplunkAuthenticationTokenRetryType = "backoff"
-	// SplunkAuthenticationTokenRetryTypeStatic Static
-	SplunkAuthenticationTokenRetryTypeStatic SplunkAuthenticationTokenRetryType = "static"
-)
-
-func (e SplunkAuthenticationTokenRetryType) ToPointer() *SplunkAuthenticationTokenRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationTokenRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationTokenRetryRules struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *SplunkAuthenticationTokenRetryType `default:"backoff" json:"type"`
-	Interval            any                                 `json:"interval,omitempty"`
-	Limit               any                                 `json:"limit,omitempty"`
-	Multiplier          any                                 `json:"multiplier,omitempty"`
-	Codes               any                                 `json:"codes,omitempty"`
-	EnableHeader        any                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                 `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval            any                                                 `json:"interval,omitempty"`
+	Limit               any                                                 `json:"limit,omitempty"`
+	Multiplier          any                                                 `json:"multiplier,omitempty"`
+	Codes               any                                                 `json:"codes,omitempty"`
+	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationTokenRetryRules) MarshalJSON() ([]byte, error) {
@@ -1390,7 +1190,7 @@ func (s *SplunkAuthenticationTokenRetryRules) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SplunkAuthenticationTokenRetryRules) GetType() *SplunkAuthenticationTokenRetryType {
+func (s *SplunkAuthenticationTokenRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
 		return nil
 	}
@@ -1461,7 +1261,7 @@ type SplunkAuthenticationToken struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *SplunkAuthenticationTokenOutputMode `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationTokenCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
@@ -1539,7 +1339,7 @@ func (s *SplunkAuthenticationToken) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationToken) GetOutputMode() *SplunkAuthenticationTokenOutputMode {
+func (s *SplunkAuthenticationToken) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -1633,29 +1433,6 @@ func (e *SplunkAuthenticationBasicSecretAuthentication) IsExact() bool {
 	return false
 }
 
-// SplunkAuthenticationBasicSecretOutputMode - Format of the returned output
-type SplunkAuthenticationBasicSecretOutputMode string
-
-const (
-	SplunkAuthenticationBasicSecretOutputModeCsv  SplunkAuthenticationBasicSecretOutputMode = "csv"
-	SplunkAuthenticationBasicSecretOutputModeJSON SplunkAuthenticationBasicSecretOutputMode = "json"
-)
-
-func (e SplunkAuthenticationBasicSecretOutputMode) ToPointer() *SplunkAuthenticationBasicSecretOutputMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationBasicSecretOutputMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationBasicSecretCollectRequestParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -1718,43 +1495,16 @@ func (s *SplunkAuthenticationBasicSecretCollectRequestHeader) GetValue() string 
 	return s.Value
 }
 
-// SplunkAuthenticationBasicSecretRetryType - Algorithm to use when performing HTTP retries
-type SplunkAuthenticationBasicSecretRetryType string
-
-const (
-	// SplunkAuthenticationBasicSecretRetryTypeNone Disabled
-	SplunkAuthenticationBasicSecretRetryTypeNone SplunkAuthenticationBasicSecretRetryType = "none"
-	// SplunkAuthenticationBasicSecretRetryTypeBackoff Backoff
-	SplunkAuthenticationBasicSecretRetryTypeBackoff SplunkAuthenticationBasicSecretRetryType = "backoff"
-	// SplunkAuthenticationBasicSecretRetryTypeStatic Static
-	SplunkAuthenticationBasicSecretRetryTypeStatic SplunkAuthenticationBasicSecretRetryType = "static"
-)
-
-func (e SplunkAuthenticationBasicSecretRetryType) ToPointer() *SplunkAuthenticationBasicSecretRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationBasicSecretRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationBasicSecretRetryRules struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *SplunkAuthenticationBasicSecretRetryType `default:"backoff" json:"type"`
-	Interval            any                                       `json:"interval,omitempty"`
-	Limit               any                                       `json:"limit,omitempty"`
-	Multiplier          any                                       `json:"multiplier,omitempty"`
-	Codes               any                                       `json:"codes,omitempty"`
-	EnableHeader        any                                       `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                       `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                       `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval            any                                                 `json:"interval,omitempty"`
+	Limit               any                                                 `json:"limit,omitempty"`
+	Multiplier          any                                                 `json:"multiplier,omitempty"`
+	Codes               any                                                 `json:"codes,omitempty"`
+	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -1768,7 +1518,7 @@ func (s *SplunkAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) e
 	return nil
 }
 
-func (s *SplunkAuthenticationBasicSecretRetryRules) GetType() *SplunkAuthenticationBasicSecretRetryType {
+func (s *SplunkAuthenticationBasicSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
 		return nil
 	}
@@ -1840,7 +1590,7 @@ type SplunkAuthenticationBasicSecret struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *SplunkAuthenticationBasicSecretOutputMode `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationBasicSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
@@ -1918,7 +1668,7 @@ func (s *SplunkAuthenticationBasicSecret) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationBasicSecret) GetOutputMode() *SplunkAuthenticationBasicSecretOutputMode {
+func (s *SplunkAuthenticationBasicSecret) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -2012,29 +1762,6 @@ func (e *SplunkAuthenticationBasicAuthentication) IsExact() bool {
 	return false
 }
 
-// SplunkAuthenticationBasicOutputMode - Format of the returned output
-type SplunkAuthenticationBasicOutputMode string
-
-const (
-	SplunkAuthenticationBasicOutputModeCsv  SplunkAuthenticationBasicOutputMode = "csv"
-	SplunkAuthenticationBasicOutputModeJSON SplunkAuthenticationBasicOutputMode = "json"
-)
-
-func (e SplunkAuthenticationBasicOutputMode) ToPointer() *SplunkAuthenticationBasicOutputMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationBasicOutputMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationBasicCollectRequestParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -2097,43 +1824,16 @@ func (s *SplunkAuthenticationBasicCollectRequestHeader) GetValue() string {
 	return s.Value
 }
 
-// SplunkAuthenticationBasicRetryType - Algorithm to use when performing HTTP retries
-type SplunkAuthenticationBasicRetryType string
-
-const (
-	// SplunkAuthenticationBasicRetryTypeNone Disabled
-	SplunkAuthenticationBasicRetryTypeNone SplunkAuthenticationBasicRetryType = "none"
-	// SplunkAuthenticationBasicRetryTypeBackoff Backoff
-	SplunkAuthenticationBasicRetryTypeBackoff SplunkAuthenticationBasicRetryType = "backoff"
-	// SplunkAuthenticationBasicRetryTypeStatic Static
-	SplunkAuthenticationBasicRetryTypeStatic SplunkAuthenticationBasicRetryType = "static"
-)
-
-func (e SplunkAuthenticationBasicRetryType) ToPointer() *SplunkAuthenticationBasicRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationBasicRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationBasicRetryRules struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *SplunkAuthenticationBasicRetryType `default:"backoff" json:"type"`
-	Interval            any                                 `json:"interval,omitempty"`
-	Limit               any                                 `json:"limit,omitempty"`
-	Multiplier          any                                 `json:"multiplier,omitempty"`
-	Codes               any                                 `json:"codes,omitempty"`
-	EnableHeader        any                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                 `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval            any                                                 `json:"interval,omitempty"`
+	Limit               any                                                 `json:"limit,omitempty"`
+	Multiplier          any                                                 `json:"multiplier,omitempty"`
+	Codes               any                                                 `json:"codes,omitempty"`
+	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
@@ -2147,7 +1847,7 @@ func (s *SplunkAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SplunkAuthenticationBasicRetryRules) GetType() *SplunkAuthenticationBasicRetryType {
+func (s *SplunkAuthenticationBasicRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
 		return nil
 	}
@@ -2221,7 +1921,7 @@ type SplunkAuthenticationBasic struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *SplunkAuthenticationBasicOutputMode `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationBasicCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
@@ -2306,7 +2006,7 @@ func (s *SplunkAuthenticationBasic) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationBasic) GetOutputMode() *SplunkAuthenticationBasicOutputMode {
+func (s *SplunkAuthenticationBasic) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -2400,29 +2100,6 @@ func (e *SplunkAuthenticationNoneAuthentication) IsExact() bool {
 	return false
 }
 
-// SplunkAuthenticationNoneOutputMode - Format of the returned output
-type SplunkAuthenticationNoneOutputMode string
-
-const (
-	SplunkAuthenticationNoneOutputModeCsv  SplunkAuthenticationNoneOutputMode = "csv"
-	SplunkAuthenticationNoneOutputModeJSON SplunkAuthenticationNoneOutputMode = "json"
-)
-
-func (e SplunkAuthenticationNoneOutputMode) ToPointer() *SplunkAuthenticationNoneOutputMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationNoneOutputMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "json":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationNoneCollectRequestParam struct {
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -2485,43 +2162,16 @@ func (s *SplunkAuthenticationNoneCollectRequestHeader) GetValue() string {
 	return s.Value
 }
 
-// SplunkAuthenticationNoneRetryType - Algorithm to use when performing HTTP retries
-type SplunkAuthenticationNoneRetryType string
-
-const (
-	// SplunkAuthenticationNoneRetryTypeNone Disabled
-	SplunkAuthenticationNoneRetryTypeNone SplunkAuthenticationNoneRetryType = "none"
-	// SplunkAuthenticationNoneRetryTypeBackoff Backoff
-	SplunkAuthenticationNoneRetryTypeBackoff SplunkAuthenticationNoneRetryType = "backoff"
-	// SplunkAuthenticationNoneRetryTypeStatic Static
-	SplunkAuthenticationNoneRetryTypeStatic SplunkAuthenticationNoneRetryType = "static"
-)
-
-func (e SplunkAuthenticationNoneRetryType) ToPointer() *SplunkAuthenticationNoneRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SplunkAuthenticationNoneRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type SplunkAuthenticationNoneRetryRules struct {
-	// Algorithm to use when performing HTTP retries
-	Type                *SplunkAuthenticationNoneRetryType `default:"backoff" json:"type"`
-	Interval            any                                `json:"interval,omitempty"`
-	Limit               any                                `json:"limit,omitempty"`
-	Multiplier          any                                `json:"multiplier,omitempty"`
-	Codes               any                                `json:"codes,omitempty"`
-	EnableHeader        any                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                `json:"retryConnectReset,omitempty"`
+	// The algorithm to use when performing HTTP retries
+	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval            any                                                 `json:"interval,omitempty"`
+	Limit               any                                                 `json:"limit,omitempty"`
+	Multiplier          any                                                 `json:"multiplier,omitempty"`
+	Codes               any                                                 `json:"codes,omitempty"`
+	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
@@ -2535,7 +2185,7 @@ func (s *SplunkAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SplunkAuthenticationNoneRetryRules) GetType() *SplunkAuthenticationNoneRetryType {
+func (s *SplunkAuthenticationNoneRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
 		return nil
 	}
@@ -2605,7 +2255,7 @@ type SplunkAuthenticationNone struct {
 	// REST API used to create a search
 	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
 	// Format of the returned output
-	OutputMode *SplunkAuthenticationNoneOutputMode `default:"json" json:"outputMode"`
+	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationNoneCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
@@ -2676,7 +2326,7 @@ func (s *SplunkAuthenticationNone) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationNone) GetOutputMode() *SplunkAuthenticationNoneOutputMode {
+func (s *SplunkAuthenticationNone) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
 		return nil
 	}

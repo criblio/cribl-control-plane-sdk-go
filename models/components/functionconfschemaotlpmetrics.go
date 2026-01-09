@@ -6,35 +6,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionConfSchemaOTLPMetricsOTLPVersion string
-
-const (
-	// FunctionConfSchemaOTLPMetricsOTLPVersionZeroDot10Dot0 0.10.0
-	FunctionConfSchemaOTLPMetricsOTLPVersionZeroDot10Dot0 FunctionConfSchemaOTLPMetricsOTLPVersion = "0.10.0"
-	// FunctionConfSchemaOTLPMetricsOTLPVersionOneDot3Dot1 1.3.1
-	FunctionConfSchemaOTLPMetricsOTLPVersionOneDot3Dot1 FunctionConfSchemaOTLPMetricsOTLPVersion = "1.3.1"
-)
-
-func (e FunctionConfSchemaOTLPMetricsOTLPVersion) ToPointer() *FunctionConfSchemaOTLPMetricsOTLPVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionConfSchemaOTLPMetricsOTLPVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "0.10.0", "1.3.1":
-			return true
-		}
-	}
-	return false
-}
-
 type FunctionConfSchemaOtlpMetrics struct {
 	// The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
-	ResourceAttributePrefixes []string                                  `json:"resourceAttributePrefixes,omitempty"`
-	DropNonMetricEvents       *bool                                     `default:"false" json:"dropNonMetricEvents"`
-	OtlpVersion               *FunctionConfSchemaOTLPMetricsOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	ResourceAttributePrefixes []string            `json:"resourceAttributePrefixes,omitempty"`
+	DropNonMetricEvents       *bool               `default:"false" json:"dropNonMetricEvents"`
+	OtlpVersion               *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
 	// Batch OTLP metrics by shared top-level `resource` attributes
 	BatchOTLPMetrics *bool `default:"false" json:"batchOTLPMetrics"`
 }
@@ -64,7 +40,7 @@ func (f *FunctionConfSchemaOtlpMetrics) GetDropNonMetricEvents() *bool {
 	return f.DropNonMetricEvents
 }
 
-func (f *FunctionConfSchemaOtlpMetrics) GetOtlpVersion() *FunctionConfSchemaOTLPMetricsOTLPVersion {
+func (f *FunctionConfSchemaOtlpMetrics) GetOtlpVersion() *OtlpVersionOptions {
 	if f == nil {
 		return nil
 	}

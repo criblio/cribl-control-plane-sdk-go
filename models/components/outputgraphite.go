@@ -31,135 +31,6 @@ func (e *OutputGraphiteType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputGraphiteDestinationProtocol - Protocol to use when communicating with the destination.
-type OutputGraphiteDestinationProtocol string
-
-const (
-	// OutputGraphiteDestinationProtocolUDP UDP
-	OutputGraphiteDestinationProtocolUDP OutputGraphiteDestinationProtocol = "udp"
-	// OutputGraphiteDestinationProtocolTCP TCP
-	OutputGraphiteDestinationProtocolTCP OutputGraphiteDestinationProtocol = "tcp"
-)
-
-func (e OutputGraphiteDestinationProtocol) ToPointer() *OutputGraphiteDestinationProtocol {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGraphiteDestinationProtocol) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "udp", "tcp":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputGraphiteBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputGraphiteBackpressureBehavior string
-
-const (
-	// OutputGraphiteBackpressureBehaviorBlock Block
-	OutputGraphiteBackpressureBehaviorBlock OutputGraphiteBackpressureBehavior = "block"
-	// OutputGraphiteBackpressureBehaviorDrop Drop
-	OutputGraphiteBackpressureBehaviorDrop OutputGraphiteBackpressureBehavior = "drop"
-	// OutputGraphiteBackpressureBehaviorQueue Persistent Queue
-	OutputGraphiteBackpressureBehaviorQueue OutputGraphiteBackpressureBehavior = "queue"
-)
-
-func (e OutputGraphiteBackpressureBehavior) ToPointer() *OutputGraphiteBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGraphiteBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputGraphiteMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGraphiteMode string
-
-const (
-	// OutputGraphiteModeError Error
-	OutputGraphiteModeError OutputGraphiteMode = "error"
-	// OutputGraphiteModeAlways Backpressure
-	OutputGraphiteModeAlways OutputGraphiteMode = "always"
-	// OutputGraphiteModeBackpressure Always On
-	OutputGraphiteModeBackpressure OutputGraphiteMode = "backpressure"
-)
-
-func (e OutputGraphiteMode) ToPointer() *OutputGraphiteMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGraphiteMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputGraphiteCompression - Codec to use to compress the persisted data
-type OutputGraphiteCompression string
-
-const (
-	// OutputGraphiteCompressionNone None
-	OutputGraphiteCompressionNone OutputGraphiteCompression = "none"
-	// OutputGraphiteCompressionGzip Gzip
-	OutputGraphiteCompressionGzip OutputGraphiteCompression = "gzip"
-)
-
-func (e OutputGraphiteCompression) ToPointer() *OutputGraphiteCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGraphiteCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputGraphiteQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputGraphiteQueueFullBehavior string
-
-const (
-	// OutputGraphiteQueueFullBehaviorBlock Block
-	OutputGraphiteQueueFullBehaviorBlock OutputGraphiteQueueFullBehavior = "block"
-	// OutputGraphiteQueueFullBehaviorDrop Drop new data
-	OutputGraphiteQueueFullBehaviorDrop OutputGraphiteQueueFullBehavior = "drop"
-)
-
-func (e OutputGraphiteQueueFullBehavior) ToPointer() *OutputGraphiteQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGraphiteQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputGraphitePqControls struct {
 }
 
@@ -187,7 +58,7 @@ type OutputGraphite struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Protocol to use when communicating with the destination.
-	Protocol *OutputGraphiteDestinationProtocol `default:"udp" json:"protocol"`
+	Protocol *DestinationProtocolOptions `default:"udp" json:"protocol"`
 	// The hostname of the destination.
 	Host string `json:"host"`
 	// Destination port.
@@ -206,13 +77,13 @@ type OutputGraphite struct {
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
 	WriteTimeout *float64 `default:"60000" json:"writeTimeout"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputGraphiteBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputGraphiteMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -224,10 +95,10 @@ type OutputGraphite struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputGraphiteCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputGraphiteQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputGraphitePqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputGraphitePqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputGraphite) MarshalJSON() ([]byte, error) {
@@ -283,7 +154,7 @@ func (o *OutputGraphite) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputGraphite) GetProtocol() *OutputGraphiteDestinationProtocol {
+func (o *OutputGraphite) GetProtocol() *DestinationProtocolOptions {
 	if o == nil {
 		return nil
 	}
@@ -353,7 +224,7 @@ func (o *OutputGraphite) GetWriteTimeout() *float64 {
 	return o.WriteTimeout
 }
 
-func (o *OutputGraphite) GetOnBackpressure() *OutputGraphiteBackpressureBehavior {
+func (o *OutputGraphite) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -374,7 +245,7 @@ func (o *OutputGraphite) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputGraphite) GetPqMode() *OutputGraphiteMode {
+func (o *OutputGraphite) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -416,14 +287,14 @@ func (o *OutputGraphite) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputGraphite) GetPqCompress() *OutputGraphiteCompression {
+func (o *OutputGraphite) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputGraphite) GetPqOnBackpressure() *OutputGraphiteQueueFullBehavior {
+func (o *OutputGraphite) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

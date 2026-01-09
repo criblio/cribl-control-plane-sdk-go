@@ -6,27 +6,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type DatabaseCollectorConfHiddenDefaultBreakers string
-
-const (
-	DatabaseCollectorConfHiddenDefaultBreakersCribl DatabaseCollectorConfHiddenDefaultBreakers = "Cribl"
-)
-
-func (e DatabaseCollectorConfHiddenDefaultBreakers) ToPointer() *DatabaseCollectorConfHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DatabaseCollectorConfHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
 type DatabaseCollectorConfStateTracking struct {
 	// Enable tracking of collection progress between consecutive scheduled executions.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -78,9 +57,9 @@ type DatabaseCollectorConf struct {
 	// An expression that resolves to the query string for selecting data from the database. Has access to the special ${earliest} and ${latest} variables, which will resolve to the Collector run's start and end time.
 	Query string `json:"query"`
 	// Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
-	QueryValidationEnabled *bool                                       `default:"true" json:"queryValidationEnabled"`
-	DefaultBreakers        *DatabaseCollectorConfHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
-	Scheduling             *DatabaseCollectorConfScheduling            `json:"__scheduling,omitempty"`
+	QueryValidationEnabled *bool                                              `default:"true" json:"queryValidationEnabled"`
+	DefaultBreakers        *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
+	Scheduling             *DatabaseCollectorConfScheduling                   `json:"__scheduling,omitempty"`
 }
 
 func (d DatabaseCollectorConf) MarshalJSON() ([]byte, error) {
@@ -115,7 +94,7 @@ func (d *DatabaseCollectorConf) GetQueryValidationEnabled() *bool {
 	return d.QueryValidationEnabled
 }
 
-func (d *DatabaseCollectorConf) GetDefaultBreakers() *DatabaseCollectorConfHiddenDefaultBreakers {
+func (d *DatabaseCollectorConf) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if d == nil {
 		return nil
 	}

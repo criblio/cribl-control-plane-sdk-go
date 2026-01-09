@@ -34,29 +34,6 @@ func (e *AzureBlobAuthTypeClientCertAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type AzureBlobAuthTypeClientCertCertificate struct {
-	// The certificate you registered as credentials for your app in the Azure portal
-	CertificateName string `json:"certificateName"`
-}
-
-func (a AzureBlobAuthTypeClientCertCertificate) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AzureBlobAuthTypeClientCertCertificate) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"certificateName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AzureBlobAuthTypeClientCertCertificate) GetCertificateName() string {
-	if a == nil {
-		return ""
-	}
-	return a.CertificateName
-}
-
 type AzureBlobAuthTypeClientCertExtractor struct {
 	// A token from the template path, such as epoch
 	Key string `json:"key"`
@@ -97,8 +74,8 @@ type AzureBlobAuthTypeClientCert struct {
 	// The service principal's tenant ID
 	TenantID string `json:"tenantId"`
 	// The service principal's client ID
-	ClientID    string                                 `json:"clientId"`
-	Certificate AzureBlobAuthTypeClientCertCertificate `json:"certificate"`
+	ClientID    string                                     `json:"clientId"`
+	Certificate CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate"`
 	// The Azure cloud to use. Defaults to Azure Public Cloud.
 	AzureCloud *string `json:"azureCloud,omitempty"`
 	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
@@ -164,9 +141,9 @@ func (a *AzureBlobAuthTypeClientCert) GetClientID() string {
 	return a.ClientID
 }
 
-func (a *AzureBlobAuthTypeClientCert) GetCertificate() AzureBlobAuthTypeClientCertCertificate {
+func (a *AzureBlobAuthTypeClientCert) GetCertificate() CertificateTypeAzureBlobAuthTypeClientCert {
 	if a == nil {
-		return AzureBlobAuthTypeClientCertCertificate{}
+		return CertificateTypeAzureBlobAuthTypeClientCert{}
 	}
 	return a.Certificate
 }

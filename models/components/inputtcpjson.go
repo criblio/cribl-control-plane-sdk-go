@@ -31,397 +31,6 @@ func (e *InputTcpjsonType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputTcpjsonConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputTcpjsonConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTcpjsonConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTcpjsonConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTcpjsonConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputTcpjsonMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputTcpjsonMode string
-
-const (
-	// InputTcpjsonModeSmart Smart
-	InputTcpjsonModeSmart InputTcpjsonMode = "smart"
-	// InputTcpjsonModeAlways Always On
-	InputTcpjsonModeAlways InputTcpjsonMode = "always"
-)
-
-func (e InputTcpjsonMode) ToPointer() *InputTcpjsonMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputTcpjsonMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputTcpjsonCompression - Codec to use to compress the persisted data
-type InputTcpjsonCompression string
-
-const (
-	// InputTcpjsonCompressionNone None
-	InputTcpjsonCompressionNone InputTcpjsonCompression = "none"
-	// InputTcpjsonCompressionGzip Gzip
-	InputTcpjsonCompressionGzip InputTcpjsonCompression = "gzip"
-)
-
-func (e InputTcpjsonCompression) ToPointer() *InputTcpjsonCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputTcpjsonCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputTcpjsonPqControls struct {
-}
-
-func (i InputTcpjsonPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTcpjsonPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputTcpjsonPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputTcpjsonMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputTcpjsonCompression `default:"none" json:"compress"`
-	PqControls *InputTcpjsonPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputTcpjsonPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTcpjsonPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTcpjsonPq) GetMode() *InputTcpjsonMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputTcpjsonPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputTcpjsonPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputTcpjsonPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputTcpjsonPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputTcpjsonPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputTcpjsonPq) GetCompress() *InputTcpjsonCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputTcpjsonPq) GetPqControls() *InputTcpjsonPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputTcpjsonMinimumTLSVersion string
-
-const (
-	InputTcpjsonMinimumTLSVersionTlSv1  InputTcpjsonMinimumTLSVersion = "TLSv1"
-	InputTcpjsonMinimumTLSVersionTlSv11 InputTcpjsonMinimumTLSVersion = "TLSv1.1"
-	InputTcpjsonMinimumTLSVersionTlSv12 InputTcpjsonMinimumTLSVersion = "TLSv1.2"
-	InputTcpjsonMinimumTLSVersionTlSv13 InputTcpjsonMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e InputTcpjsonMinimumTLSVersion) ToPointer() *InputTcpjsonMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputTcpjsonMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputTcpjsonMaximumTLSVersion string
-
-const (
-	InputTcpjsonMaximumTLSVersionTlSv1  InputTcpjsonMaximumTLSVersion = "TLSv1"
-	InputTcpjsonMaximumTLSVersionTlSv11 InputTcpjsonMaximumTLSVersion = "TLSv1.1"
-	InputTcpjsonMaximumTLSVersionTlSv12 InputTcpjsonMaximumTLSVersion = "TLSv1.2"
-	InputTcpjsonMaximumTLSVersionTlSv13 InputTcpjsonMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e InputTcpjsonMaximumTLSVersion) ToPointer() *InputTcpjsonMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputTcpjsonMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputTcpjsonTLSSettingsServerSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                        `json:"caPath,omitempty"`
-	MinVersion *InputTcpjsonMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *InputTcpjsonMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (i InputTcpjsonTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetMinVersion() *InputTcpjsonMinimumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputTcpjsonTLSSettingsServerSide) GetMaxVersion() *InputTcpjsonMaximumTLSVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputTcpjsonMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputTcpjsonMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTcpjsonMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTcpjsonMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputTcpjsonMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-// InputTcpjsonAuthenticationMethod - Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-type InputTcpjsonAuthenticationMethod string
-
-const (
-	InputTcpjsonAuthenticationMethodManual InputTcpjsonAuthenticationMethod = "manual"
-	InputTcpjsonAuthenticationMethodSecret InputTcpjsonAuthenticationMethod = "secret"
-)
-
-func (e InputTcpjsonAuthenticationMethod) ToPointer() *InputTcpjsonAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputTcpjsonAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 type InputTcpjson struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
@@ -438,13 +47,13 @@ type InputTcpjson struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputTcpjsonConnection `json:"connections,omitempty"`
-	Pq          *InputTcpjsonPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
-	Port float64                            `json:"port"`
-	TLS  *InputTcpjsonTLSSettingsServerSide `json:"tls,omitempty"`
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -458,12 +67,12 @@ type InputTcpjson struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
 	// Fields to add to events from this input
-	Metadata []InputTcpjsonMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *InputTcpjsonAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                           `json:"description,omitempty"`
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	Description *string                                     `json:"description,omitempty"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `default:"" json:"authToken"`
 	// Select or create a stored text secret
@@ -537,14 +146,14 @@ func (i *InputTcpjson) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputTcpjson) GetConnections() []InputTcpjsonConnection {
+func (i *InputTcpjson) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputTcpjson) GetPq() *InputTcpjsonPq {
+func (i *InputTcpjson) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -565,7 +174,7 @@ func (i *InputTcpjson) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputTcpjson) GetTLS() *InputTcpjsonTLSSettingsServerSide {
+func (i *InputTcpjson) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
@@ -614,7 +223,7 @@ func (i *InputTcpjson) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputTcpjson) GetMetadata() []InputTcpjsonMetadatum {
+func (i *InputTcpjson) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
@@ -628,7 +237,7 @@ func (i *InputTcpjson) GetEnableLoadBalancing() *bool {
 	return i.EnableLoadBalancing
 }
 
-func (i *InputTcpjson) GetAuthType() *InputTcpjsonAuthenticationMethod {
+func (i *InputTcpjson) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}

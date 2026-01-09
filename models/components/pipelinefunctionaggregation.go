@@ -32,37 +32,6 @@ func (e *PipelineFunctionAggregationID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionAggregationAdd struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (p PipelineFunctionAggregationAdd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionAggregationAdd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionAggregationAdd) GetName() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Name
-}
-
-func (p *PipelineFunctionAggregationAdd) GetValue() string {
-	if p == nil {
-		return ""
-	}
-	return p.Value
-}
-
 type PipelineFunctionAggregationConf struct {
 	// Pass through the original events along with the aggregation events
 	Passthrough *bool `default:"false" json:"passthrough"`
@@ -89,7 +58,7 @@ type PipelineFunctionAggregationConf struct {
 	// Allows Cribl Search-specific aggregation configuration
 	SearchAggMode *string `json:"searchAggMode,omitempty"`
 	// Set of key-value pairs to evaluate and add/set
-	Add []PipelineFunctionAggregationAdd `json:"add,omitempty"`
+	Add []ItemsTypeAdd `json:"add,omitempty"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
 	ShouldTreatDotsAsLiterals *bool `default:"false" json:"shouldTreatDotsAsLiterals"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
@@ -191,7 +160,7 @@ func (p *PipelineFunctionAggregationConf) GetSearchAggMode() *string {
 	return p.SearchAggMode
 }
 
-func (p *PipelineFunctionAggregationConf) GetAdd() []PipelineFunctionAggregationAdd {
+func (p *PipelineFunctionAggregationConf) GetAdd() []ItemsTypeAdd {
 	if p == nil {
 		return nil
 	}

@@ -37,70 +37,6 @@ func (e *HealthCheckAuthenticationOauthSecretAuthentication) IsExact() bool {
 	return false
 }
 
-type HealthCheckAuthenticationOauthSecretAuthRequestParam struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (h HealthCheckAuthenticationOauthSecretAuthRequestParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(h, "", false)
-}
-
-func (h *HealthCheckAuthenticationOauthSecretAuthRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (h *HealthCheckAuthenticationOauthSecretAuthRequestParam) GetName() string {
-	if h == nil {
-		return ""
-	}
-	return h.Name
-}
-
-func (h *HealthCheckAuthenticationOauthSecretAuthRequestParam) GetValue() string {
-	if h == nil {
-		return ""
-	}
-	return h.Value
-}
-
-type HealthCheckAuthenticationOauthSecretAuthRequestHeader struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (h HealthCheckAuthenticationOauthSecretAuthRequestHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(h, "", false)
-}
-
-func (h *HealthCheckAuthenticationOauthSecretAuthRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (h *HealthCheckAuthenticationOauthSecretAuthRequestHeader) GetName() string {
-	if h == nil {
-		return ""
-	}
-	return h.Name
-}
-
-func (h *HealthCheckAuthenticationOauthSecretAuthRequestHeader) GetValue() string {
-	if h == nil {
-		return ""
-	}
-	return h.Value
-}
-
 // HealthCheckAuthenticationOauthSecretDiscoverType - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 type HealthCheckAuthenticationOauthSecretDiscoverType string
 
@@ -212,62 +148,14 @@ func (h *HealthCheckAuthenticationOauthSecretCollectRequestHeader) GetValue() st
 	return h.Value
 }
 
-type HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers string
-
-const (
-	HealthCheckAuthenticationOauthSecretHiddenDefaultBreakersCribl HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers) ToPointer() *HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckAuthenticationOauthSecretRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckAuthenticationOauthSecretRetryType string
-
-const (
-	// HealthCheckAuthenticationOauthSecretRetryTypeNone Disabled
-	HealthCheckAuthenticationOauthSecretRetryTypeNone HealthCheckAuthenticationOauthSecretRetryType = "none"
-	// HealthCheckAuthenticationOauthSecretRetryTypeBackoff Backoff
-	HealthCheckAuthenticationOauthSecretRetryTypeBackoff HealthCheckAuthenticationOauthSecretRetryType = "backoff"
-	// HealthCheckAuthenticationOauthSecretRetryTypeStatic Static
-	HealthCheckAuthenticationOauthSecretRetryTypeStatic HealthCheckAuthenticationOauthSecretRetryType = "static"
-)
-
-func (e HealthCheckAuthenticationOauthSecretRetryType) ToPointer() *HealthCheckAuthenticationOauthSecretRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationOauthSecretRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckAuthenticationOauthSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckAuthenticationOauthSecretRetryType `default:"backoff" json:"type"`
-	Interval     any                                            `json:"interval,omitempty"`
-	Limit        any                                            `json:"limit,omitempty"`
-	Multiplier   any                                            `json:"multiplier,omitempty"`
-	Codes        any                                            `json:"codes,omitempty"`
-	EnableHeader any                                            `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationOauthSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -281,7 +169,7 @@ func (h *HealthCheckAuthenticationOauthSecretRetryRules) UnmarshalJSON(data []by
 	return nil
 }
 
-func (h *HealthCheckAuthenticationOauthSecretRetryRules) GetType() *HealthCheckAuthenticationOauthSecretRetryType {
+func (h *HealthCheckAuthenticationOauthSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -337,10 +225,10 @@ type HealthCheckAuthenticationOauthSecret struct {
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret string `json:"textSecret"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []HealthCheckAuthenticationOauthSecretAuthRequestParam `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams `json:"authRequestParams,omitempty"`
 	// Optional authentication request headers.
-	AuthRequestHeaders []HealthCheckAuthenticationOauthSecretAuthRequestHeader `json:"authRequestHeaders,omitempty"`
-	Discovery          *HealthCheckAuthenticationOauthSecretDiscovery          `json:"discovery,omitempty"`
+	AuthRequestHeaders []ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
+	Discovery          *HealthCheckAuthenticationOauthSecretDiscovery              `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -354,8 +242,8 @@ type HealthCheckAuthenticationOauthSecret struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                                      `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckAuthenticationOauthSecretRetryRules `json:"retryRules,omitempty"`
@@ -414,14 +302,14 @@ func (h *HealthCheckAuthenticationOauthSecret) GetTextSecret() string {
 	return h.TextSecret
 }
 
-func (h *HealthCheckAuthenticationOauthSecret) GetAuthRequestParams() []HealthCheckAuthenticationOauthSecretAuthRequestParam {
+func (h *HealthCheckAuthenticationOauthSecret) GetAuthRequestParams() []ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams {
 	if h == nil {
 		return nil
 	}
 	return h.AuthRequestParams
 }
 
-func (h *HealthCheckAuthenticationOauthSecret) GetAuthRequestHeaders() []HealthCheckAuthenticationOauthSecretAuthRequestHeader {
+func (h *HealthCheckAuthenticationOauthSecret) GetAuthRequestHeaders() []ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders {
 	if h == nil {
 		return nil
 	}
@@ -491,7 +379,7 @@ func (h *HealthCheckAuthenticationOauthSecret) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckAuthenticationOauthSecret) GetDefaultBreakers() *HealthCheckAuthenticationOauthSecretHiddenDefaultBreakers {
+func (h *HealthCheckAuthenticationOauthSecret) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -538,70 +426,6 @@ func (e *HealthCheckAuthenticationOauthAuthentication) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type HealthCheckAuthenticationOauthAuthRequestParam struct {
-	// Parameter name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (h HealthCheckAuthenticationOauthAuthRequestParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(h, "", false)
-}
-
-func (h *HealthCheckAuthenticationOauthAuthRequestParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (h *HealthCheckAuthenticationOauthAuthRequestParam) GetName() string {
-	if h == nil {
-		return ""
-	}
-	return h.Name
-}
-
-func (h *HealthCheckAuthenticationOauthAuthRequestParam) GetValue() string {
-	if h == nil {
-		return ""
-	}
-	return h.Value
-}
-
-type HealthCheckAuthenticationOauthAuthRequestHeader struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-	Value string `json:"value"`
-}
-
-func (h HealthCheckAuthenticationOauthAuthRequestHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(h, "", false)
-}
-
-func (h *HealthCheckAuthenticationOauthAuthRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (h *HealthCheckAuthenticationOauthAuthRequestHeader) GetName() string {
-	if h == nil {
-		return ""
-	}
-	return h.Name
-}
-
-func (h *HealthCheckAuthenticationOauthAuthRequestHeader) GetValue() string {
-	if h == nil {
-		return ""
-	}
-	return h.Value
 }
 
 // HealthCheckAuthenticationOauthDiscoverType - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -715,62 +539,14 @@ func (h *HealthCheckAuthenticationOauthCollectRequestHeader) GetValue() string {
 	return h.Value
 }
 
-type HealthCheckAuthenticationOauthHiddenDefaultBreakers string
-
-const (
-	HealthCheckAuthenticationOauthHiddenDefaultBreakersCribl HealthCheckAuthenticationOauthHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckAuthenticationOauthHiddenDefaultBreakers) ToPointer() *HealthCheckAuthenticationOauthHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationOauthHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckAuthenticationOauthRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckAuthenticationOauthRetryType string
-
-const (
-	// HealthCheckAuthenticationOauthRetryTypeNone Disabled
-	HealthCheckAuthenticationOauthRetryTypeNone HealthCheckAuthenticationOauthRetryType = "none"
-	// HealthCheckAuthenticationOauthRetryTypeBackoff Backoff
-	HealthCheckAuthenticationOauthRetryTypeBackoff HealthCheckAuthenticationOauthRetryType = "backoff"
-	// HealthCheckAuthenticationOauthRetryTypeStatic Static
-	HealthCheckAuthenticationOauthRetryTypeStatic HealthCheckAuthenticationOauthRetryType = "static"
-)
-
-func (e HealthCheckAuthenticationOauthRetryType) ToPointer() *HealthCheckAuthenticationOauthRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationOauthRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckAuthenticationOauthRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckAuthenticationOauthRetryType `default:"backoff" json:"type"`
-	Interval     any                                      `json:"interval,omitempty"`
-	Limit        any                                      `json:"limit,omitempty"`
-	Multiplier   any                                      `json:"multiplier,omitempty"`
-	Codes        any                                      `json:"codes,omitempty"`
-	EnableHeader any                                      `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationOauthRetryRules) MarshalJSON() ([]byte, error) {
@@ -784,7 +560,7 @@ func (h *HealthCheckAuthenticationOauthRetryRules) UnmarshalJSON(data []byte) er
 	return nil
 }
 
-func (h *HealthCheckAuthenticationOauthRetryRules) GetType() *HealthCheckAuthenticationOauthRetryType {
+func (h *HealthCheckAuthenticationOauthRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -840,10 +616,10 @@ type HealthCheckAuthenticationOauth struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue string `json:"clientSecretParamValue"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams []HealthCheckAuthenticationOauthAuthRequestParam `json:"authRequestParams,omitempty"`
+	AuthRequestParams []ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams `json:"authRequestParams,omitempty"`
 	// Optional authentication request headers.
-	AuthRequestHeaders []HealthCheckAuthenticationOauthAuthRequestHeader `json:"authRequestHeaders,omitempty"`
-	Discovery          *HealthCheckAuthenticationOauthDiscovery          `json:"discovery,omitempty"`
+	AuthRequestHeaders []ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
+	Discovery          *HealthCheckAuthenticationOauthDiscovery                    `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -857,8 +633,8 @@ type HealthCheckAuthenticationOauth struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                                `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckAuthenticationOauthHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckAuthenticationOauthRetryRules `json:"retryRules,omitempty"`
@@ -917,14 +693,14 @@ func (h *HealthCheckAuthenticationOauth) GetClientSecretParamValue() string {
 	return h.ClientSecretParamValue
 }
 
-func (h *HealthCheckAuthenticationOauth) GetAuthRequestParams() []HealthCheckAuthenticationOauthAuthRequestParam {
+func (h *HealthCheckAuthenticationOauth) GetAuthRequestParams() []ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams {
 	if h == nil {
 		return nil
 	}
 	return h.AuthRequestParams
 }
 
-func (h *HealthCheckAuthenticationOauth) GetAuthRequestHeaders() []HealthCheckAuthenticationOauthAuthRequestHeader {
+func (h *HealthCheckAuthenticationOauth) GetAuthRequestHeaders() []ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders {
 	if h == nil {
 		return nil
 	}
@@ -994,7 +770,7 @@ func (h *HealthCheckAuthenticationOauth) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckAuthenticationOauth) GetDefaultBreakers() *HealthCheckAuthenticationOauthHiddenDefaultBreakers {
+func (h *HealthCheckAuthenticationOauth) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -1041,38 +817,6 @@ func (e *HealthCheckAuthenticationLoginSecretAuthentication) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type HealthCheckAuthenticationLoginSecretAuthRequestHeader struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (h HealthCheckAuthenticationLoginSecretAuthRequestHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(h, "", false)
-}
-
-func (h *HealthCheckAuthenticationLoginSecretAuthRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (h *HealthCheckAuthenticationLoginSecretAuthRequestHeader) GetName() string {
-	if h == nil {
-		return ""
-	}
-	return h.Name
-}
-
-func (h *HealthCheckAuthenticationLoginSecretAuthRequestHeader) GetValue() string {
-	if h == nil {
-		return ""
-	}
-	return h.Value
 }
 
 // HealthCheckAuthenticationLoginSecretDiscoverType - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -1186,62 +930,14 @@ func (h *HealthCheckAuthenticationLoginSecretCollectRequestHeader) GetValue() st
 	return h.Value
 }
 
-type HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers string
-
-const (
-	HealthCheckAuthenticationLoginSecretHiddenDefaultBreakersCribl HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers) ToPointer() *HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckAuthenticationLoginSecretRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckAuthenticationLoginSecretRetryType string
-
-const (
-	// HealthCheckAuthenticationLoginSecretRetryTypeNone Disabled
-	HealthCheckAuthenticationLoginSecretRetryTypeNone HealthCheckAuthenticationLoginSecretRetryType = "none"
-	// HealthCheckAuthenticationLoginSecretRetryTypeBackoff Backoff
-	HealthCheckAuthenticationLoginSecretRetryTypeBackoff HealthCheckAuthenticationLoginSecretRetryType = "backoff"
-	// HealthCheckAuthenticationLoginSecretRetryTypeStatic Static
-	HealthCheckAuthenticationLoginSecretRetryTypeStatic HealthCheckAuthenticationLoginSecretRetryType = "static"
-)
-
-func (e HealthCheckAuthenticationLoginSecretRetryType) ToPointer() *HealthCheckAuthenticationLoginSecretRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationLoginSecretRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckAuthenticationLoginSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckAuthenticationLoginSecretRetryType `default:"backoff" json:"type"`
-	Interval     any                                            `json:"interval,omitempty"`
-	Limit        any                                            `json:"limit,omitempty"`
-	Multiplier   any                                            `json:"multiplier,omitempty"`
-	Codes        any                                            `json:"codes,omitempty"`
-	EnableHeader any                                            `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -1255,7 +951,7 @@ func (h *HealthCheckAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []by
 	return nil
 }
 
-func (h *HealthCheckAuthenticationLoginSecretRetryRules) GetType() *HealthCheckAuthenticationLoginSecretRetryType {
+func (h *HealthCheckAuthenticationLoginSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -1311,8 +1007,8 @@ type HealthCheckAuthenticationLoginSecret struct {
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
-	AuthRequestHeaders []HealthCheckAuthenticationLoginSecretAuthRequestHeader `json:"authRequestHeaders,omitempty"`
-	Discovery          *HealthCheckAuthenticationLoginSecretDiscovery          `json:"discovery,omitempty"`
+	AuthRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
+	Discovery          *HealthCheckAuthenticationLoginSecretDiscovery              `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -1326,8 +1022,8 @@ type HealthCheckAuthenticationLoginSecret struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                                      `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckAuthenticationLoginSecretRetryRules `json:"retryRules,omitempty"`
@@ -1386,7 +1082,7 @@ func (h *HealthCheckAuthenticationLoginSecret) GetAuthHeaderExpr() *string {
 	return h.AuthHeaderExpr
 }
 
-func (h *HealthCheckAuthenticationLoginSecret) GetAuthRequestHeaders() []HealthCheckAuthenticationLoginSecretAuthRequestHeader {
+func (h *HealthCheckAuthenticationLoginSecret) GetAuthRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
 	if h == nil {
 		return nil
 	}
@@ -1456,7 +1152,7 @@ func (h *HealthCheckAuthenticationLoginSecret) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckAuthenticationLoginSecret) GetDefaultBreakers() *HealthCheckAuthenticationLoginSecretHiddenDefaultBreakers {
+func (h *HealthCheckAuthenticationLoginSecret) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -1503,38 +1199,6 @@ func (e *HealthCheckAuthenticationLoginAuthentication) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type HealthCheckAuthenticationLoginAuthRequestHeader struct {
-	// Header name.
-	Name string `json:"name"`
-	// JavaScript expression to compute the header value (can be a constant).
-	Value string `json:"value"`
-}
-
-func (h HealthCheckAuthenticationLoginAuthRequestHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(h, "", false)
-}
-
-func (h *HealthCheckAuthenticationLoginAuthRequestHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (h *HealthCheckAuthenticationLoginAuthRequestHeader) GetName() string {
-	if h == nil {
-		return ""
-	}
-	return h.Name
-}
-
-func (h *HealthCheckAuthenticationLoginAuthRequestHeader) GetValue() string {
-	if h == nil {
-		return ""
-	}
-	return h.Value
 }
 
 // HealthCheckAuthenticationLoginDiscoverType - Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -1648,62 +1312,14 @@ func (h *HealthCheckAuthenticationLoginCollectRequestHeader) GetValue() string {
 	return h.Value
 }
 
-type HealthCheckAuthenticationLoginHiddenDefaultBreakers string
-
-const (
-	HealthCheckAuthenticationLoginHiddenDefaultBreakersCribl HealthCheckAuthenticationLoginHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckAuthenticationLoginHiddenDefaultBreakers) ToPointer() *HealthCheckAuthenticationLoginHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationLoginHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckAuthenticationLoginRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckAuthenticationLoginRetryType string
-
-const (
-	// HealthCheckAuthenticationLoginRetryTypeNone Disabled
-	HealthCheckAuthenticationLoginRetryTypeNone HealthCheckAuthenticationLoginRetryType = "none"
-	// HealthCheckAuthenticationLoginRetryTypeBackoff Backoff
-	HealthCheckAuthenticationLoginRetryTypeBackoff HealthCheckAuthenticationLoginRetryType = "backoff"
-	// HealthCheckAuthenticationLoginRetryTypeStatic Static
-	HealthCheckAuthenticationLoginRetryTypeStatic HealthCheckAuthenticationLoginRetryType = "static"
-)
-
-func (e HealthCheckAuthenticationLoginRetryType) ToPointer() *HealthCheckAuthenticationLoginRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationLoginRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckAuthenticationLoginRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckAuthenticationLoginRetryType `default:"backoff" json:"type"`
-	Interval     any                                      `json:"interval,omitempty"`
-	Limit        any                                      `json:"limit,omitempty"`
-	Multiplier   any                                      `json:"multiplier,omitempty"`
-	Codes        any                                      `json:"codes,omitempty"`
-	EnableHeader any                                      `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
@@ -1717,7 +1333,7 @@ func (h *HealthCheckAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) er
 	return nil
 }
 
-func (h *HealthCheckAuthenticationLoginRetryRules) GetType() *HealthCheckAuthenticationLoginRetryType {
+func (h *HealthCheckAuthenticationLoginRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -1775,8 +1391,8 @@ type HealthCheckAuthenticationLogin struct {
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
 	// Optional authentication request headers.
-	AuthRequestHeaders []HealthCheckAuthenticationLoginAuthRequestHeader `json:"authRequestHeaders,omitempty"`
-	Discovery          *HealthCheckAuthenticationLoginDiscovery          `json:"discovery,omitempty"`
+	AuthRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
+	Discovery          *HealthCheckAuthenticationLoginDiscovery                    `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -1790,8 +1406,8 @@ type HealthCheckAuthenticationLogin struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                                `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckAuthenticationLoginHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckAuthenticationLoginRetryRules `json:"retryRules,omitempty"`
@@ -1857,7 +1473,7 @@ func (h *HealthCheckAuthenticationLogin) GetAuthHeaderExpr() *string {
 	return h.AuthHeaderExpr
 }
 
-func (h *HealthCheckAuthenticationLogin) GetAuthRequestHeaders() []HealthCheckAuthenticationLoginAuthRequestHeader {
+func (h *HealthCheckAuthenticationLogin) GetAuthRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
 	if h == nil {
 		return nil
 	}
@@ -1927,7 +1543,7 @@ func (h *HealthCheckAuthenticationLogin) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckAuthenticationLogin) GetDefaultBreakers() *HealthCheckAuthenticationLoginHiddenDefaultBreakers {
+func (h *HealthCheckAuthenticationLogin) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -2087,62 +1703,14 @@ func (h *HealthCheckAuthenticationBasicSecretCollectRequestHeader) GetValue() st
 	return h.Value
 }
 
-type HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers string
-
-const (
-	HealthCheckAuthenticationBasicSecretHiddenDefaultBreakersCribl HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers) ToPointer() *HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckAuthenticationBasicSecretRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckAuthenticationBasicSecretRetryType string
-
-const (
-	// HealthCheckAuthenticationBasicSecretRetryTypeNone Disabled
-	HealthCheckAuthenticationBasicSecretRetryTypeNone HealthCheckAuthenticationBasicSecretRetryType = "none"
-	// HealthCheckAuthenticationBasicSecretRetryTypeBackoff Backoff
-	HealthCheckAuthenticationBasicSecretRetryTypeBackoff HealthCheckAuthenticationBasicSecretRetryType = "backoff"
-	// HealthCheckAuthenticationBasicSecretRetryTypeStatic Static
-	HealthCheckAuthenticationBasicSecretRetryTypeStatic HealthCheckAuthenticationBasicSecretRetryType = "static"
-)
-
-func (e HealthCheckAuthenticationBasicSecretRetryType) ToPointer() *HealthCheckAuthenticationBasicSecretRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationBasicSecretRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckAuthenticationBasicSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckAuthenticationBasicSecretRetryType `default:"backoff" json:"type"`
-	Interval     any                                            `json:"interval,omitempty"`
-	Limit        any                                            `json:"limit,omitempty"`
-	Multiplier   any                                            `json:"multiplier,omitempty"`
-	Codes        any                                            `json:"codes,omitempty"`
-	EnableHeader any                                            `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -2156,7 +1724,7 @@ func (h *HealthCheckAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []by
 	return nil
 }
 
-func (h *HealthCheckAuthenticationBasicSecretRetryRules) GetType() *HealthCheckAuthenticationBasicSecretRetryType {
+func (h *HealthCheckAuthenticationBasicSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -2217,8 +1785,8 @@ type HealthCheckAuthenticationBasicSecret struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                                      `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckAuthenticationBasicSecretRetryRules `json:"retryRules,omitempty"`
@@ -2312,7 +1880,7 @@ func (h *HealthCheckAuthenticationBasicSecret) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckAuthenticationBasicSecret) GetDefaultBreakers() *HealthCheckAuthenticationBasicSecretHiddenDefaultBreakers {
+func (h *HealthCheckAuthenticationBasicSecret) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -2472,62 +2040,14 @@ func (h *HealthCheckAuthenticationBasicCollectRequestHeader) GetValue() string {
 	return h.Value
 }
 
-type HealthCheckAuthenticationBasicHiddenDefaultBreakers string
-
-const (
-	HealthCheckAuthenticationBasicHiddenDefaultBreakersCribl HealthCheckAuthenticationBasicHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckAuthenticationBasicHiddenDefaultBreakers) ToPointer() *HealthCheckAuthenticationBasicHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationBasicHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckAuthenticationBasicRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckAuthenticationBasicRetryType string
-
-const (
-	// HealthCheckAuthenticationBasicRetryTypeNone Disabled
-	HealthCheckAuthenticationBasicRetryTypeNone HealthCheckAuthenticationBasicRetryType = "none"
-	// HealthCheckAuthenticationBasicRetryTypeBackoff Backoff
-	HealthCheckAuthenticationBasicRetryTypeBackoff HealthCheckAuthenticationBasicRetryType = "backoff"
-	// HealthCheckAuthenticationBasicRetryTypeStatic Static
-	HealthCheckAuthenticationBasicRetryTypeStatic HealthCheckAuthenticationBasicRetryType = "static"
-)
-
-func (e HealthCheckAuthenticationBasicRetryType) ToPointer() *HealthCheckAuthenticationBasicRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationBasicRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckAuthenticationBasicRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckAuthenticationBasicRetryType `default:"backoff" json:"type"`
-	Interval     any                                      `json:"interval,omitempty"`
-	Limit        any                                      `json:"limit,omitempty"`
-	Multiplier   any                                      `json:"multiplier,omitempty"`
-	Codes        any                                      `json:"codes,omitempty"`
-	EnableHeader any                                      `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
@@ -2541,7 +2061,7 @@ func (h *HealthCheckAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) er
 	return nil
 }
 
-func (h *HealthCheckAuthenticationBasicRetryRules) GetType() *HealthCheckAuthenticationBasicRetryType {
+func (h *HealthCheckAuthenticationBasicRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -2604,8 +2124,8 @@ type HealthCheckAuthenticationBasic struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                                `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckAuthenticationBasicHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckAuthenticationBasicRetryRules `json:"retryRules,omitempty"`
@@ -2706,7 +2226,7 @@ func (h *HealthCheckAuthenticationBasic) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckAuthenticationBasic) GetDefaultBreakers() *HealthCheckAuthenticationBasicHiddenDefaultBreakers {
+func (h *HealthCheckAuthenticationBasic) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -2866,62 +2386,14 @@ func (h *HealthCheckAuthenticationNoneCollectRequestHeader) GetValue() string {
 	return h.Value
 }
 
-type HealthCheckAuthenticationNoneHiddenDefaultBreakers string
-
-const (
-	HealthCheckAuthenticationNoneHiddenDefaultBreakersCribl HealthCheckAuthenticationNoneHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckAuthenticationNoneHiddenDefaultBreakers) ToPointer() *HealthCheckAuthenticationNoneHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationNoneHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckAuthenticationNoneRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckAuthenticationNoneRetryType string
-
-const (
-	// HealthCheckAuthenticationNoneRetryTypeNone Disabled
-	HealthCheckAuthenticationNoneRetryTypeNone HealthCheckAuthenticationNoneRetryType = "none"
-	// HealthCheckAuthenticationNoneRetryTypeBackoff Backoff
-	HealthCheckAuthenticationNoneRetryTypeBackoff HealthCheckAuthenticationNoneRetryType = "backoff"
-	// HealthCheckAuthenticationNoneRetryTypeStatic Static
-	HealthCheckAuthenticationNoneRetryTypeStatic HealthCheckAuthenticationNoneRetryType = "static"
-)
-
-func (e HealthCheckAuthenticationNoneRetryType) ToPointer() *HealthCheckAuthenticationNoneRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckAuthenticationNoneRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckAuthenticationNoneRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckAuthenticationNoneRetryType `default:"backoff" json:"type"`
-	Interval     any                                     `json:"interval,omitempty"`
-	Limit        any                                     `json:"limit,omitempty"`
-	Multiplier   any                                     `json:"multiplier,omitempty"`
-	Codes        any                                     `json:"codes,omitempty"`
-	EnableHeader any                                     `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
@@ -2935,7 +2407,7 @@ func (h *HealthCheckAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) err
 	return nil
 }
 
-func (h *HealthCheckAuthenticationNoneRetryRules) GetType() *HealthCheckAuthenticationNoneRetryType {
+func (h *HealthCheckAuthenticationNoneRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -2994,8 +2466,8 @@ type HealthCheckAuthenticationNone struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                               `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckAuthenticationNoneHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                 `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckAuthenticationNoneRetryRules `json:"retryRules,omitempty"`
@@ -3082,7 +2554,7 @@ func (h *HealthCheckAuthenticationNone) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckAuthenticationNone) GetDefaultBreakers() *HealthCheckAuthenticationNoneHiddenDefaultBreakers {
+func (h *HealthCheckAuthenticationNone) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -3242,62 +2714,14 @@ func (e *HealthCheckCollectMethodPostWithBodyAuthentication) IsExact() bool {
 	return false
 }
 
-type HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers string
-
-const (
-	HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakersCribl HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers) ToPointer() *HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckCollectMethodPostWithBodyRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckCollectMethodPostWithBodyRetryType string
-
-const (
-	// HealthCheckCollectMethodPostWithBodyRetryTypeNone Disabled
-	HealthCheckCollectMethodPostWithBodyRetryTypeNone HealthCheckCollectMethodPostWithBodyRetryType = "none"
-	// HealthCheckCollectMethodPostWithBodyRetryTypeBackoff Backoff
-	HealthCheckCollectMethodPostWithBodyRetryTypeBackoff HealthCheckCollectMethodPostWithBodyRetryType = "backoff"
-	// HealthCheckCollectMethodPostWithBodyRetryTypeStatic Static
-	HealthCheckCollectMethodPostWithBodyRetryTypeStatic HealthCheckCollectMethodPostWithBodyRetryType = "static"
-)
-
-func (e HealthCheckCollectMethodPostWithBodyRetryType) ToPointer() *HealthCheckCollectMethodPostWithBodyRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckCollectMethodPostWithBodyRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckCollectMethodPostWithBodyRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckCollectMethodPostWithBodyRetryType `default:"backoff" json:"type"`
-	Interval     any                                            `json:"interval,omitempty"`
-	Limit        any                                            `json:"limit,omitempty"`
-	Multiplier   any                                            `json:"multiplier,omitempty"`
-	Codes        any                                            `json:"codes,omitempty"`
-	EnableHeader any                                            `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, error) {
@@ -3311,7 +2735,7 @@ func (h *HealthCheckCollectMethodPostWithBodyRetryRules) UnmarshalJSON(data []by
 	return nil
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyRetryRules) GetType() *HealthCheckCollectMethodPostWithBodyRetryType {
+func (h *HealthCheckCollectMethodPostWithBodyRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -3370,8 +2794,8 @@ type HealthCheckCollectMethodPostWithBody struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                                      `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckCollectMethodPostWithBodyRetryRules `json:"retryRules,omitempty"`
@@ -3458,7 +2882,7 @@ func (h *HealthCheckCollectMethodPostWithBody) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckCollectMethodPostWithBody) GetDefaultBreakers() *HealthCheckCollectMethodPostWithBodyHiddenDefaultBreakers {
+func (h *HealthCheckCollectMethodPostWithBody) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -3618,62 +3042,14 @@ func (e *HealthCheckCollectMethodPostAuthentication) IsExact() bool {
 	return false
 }
 
-type HealthCheckCollectMethodPostHiddenDefaultBreakers string
-
-const (
-	HealthCheckCollectMethodPostHiddenDefaultBreakersCribl HealthCheckCollectMethodPostHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckCollectMethodPostHiddenDefaultBreakers) ToPointer() *HealthCheckCollectMethodPostHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckCollectMethodPostHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckCollectMethodPostRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckCollectMethodPostRetryType string
-
-const (
-	// HealthCheckCollectMethodPostRetryTypeNone Disabled
-	HealthCheckCollectMethodPostRetryTypeNone HealthCheckCollectMethodPostRetryType = "none"
-	// HealthCheckCollectMethodPostRetryTypeBackoff Backoff
-	HealthCheckCollectMethodPostRetryTypeBackoff HealthCheckCollectMethodPostRetryType = "backoff"
-	// HealthCheckCollectMethodPostRetryTypeStatic Static
-	HealthCheckCollectMethodPostRetryTypeStatic HealthCheckCollectMethodPostRetryType = "static"
-)
-
-func (e HealthCheckCollectMethodPostRetryType) ToPointer() *HealthCheckCollectMethodPostRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckCollectMethodPostRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckCollectMethodPostRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckCollectMethodPostRetryType `default:"backoff" json:"type"`
-	Interval     any                                    `json:"interval,omitempty"`
-	Limit        any                                    `json:"limit,omitempty"`
-	Multiplier   any                                    `json:"multiplier,omitempty"`
-	Codes        any                                    `json:"codes,omitempty"`
-	EnableHeader any                                    `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
@@ -3687,7 +3063,7 @@ func (h *HealthCheckCollectMethodPostRetryRules) UnmarshalJSON(data []byte) erro
 	return nil
 }
 
-func (h *HealthCheckCollectMethodPostRetryRules) GetType() *HealthCheckCollectMethodPostRetryType {
+func (h *HealthCheckCollectMethodPostRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -3747,7 +3123,7 @@ type HealthCheckCollectMethodPost struct {
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
 	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckCollectMethodPostHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckCollectMethodPostRetryRules `json:"retryRules,omitempty"`
@@ -3834,7 +3210,7 @@ func (h *HealthCheckCollectMethodPost) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckCollectMethodPost) GetDefaultBreakers() *HealthCheckCollectMethodPostHiddenDefaultBreakers {
+func (h *HealthCheckCollectMethodPost) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}
@@ -3994,62 +3370,14 @@ func (e *HealthCheckCollectMethodGetAuthentication) IsExact() bool {
 	return false
 }
 
-type HealthCheckCollectMethodGetHiddenDefaultBreakers string
-
-const (
-	HealthCheckCollectMethodGetHiddenDefaultBreakersCribl HealthCheckCollectMethodGetHiddenDefaultBreakers = "Cribl"
-)
-
-func (e HealthCheckCollectMethodGetHiddenDefaultBreakers) ToPointer() *HealthCheckCollectMethodGetHiddenDefaultBreakers {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckCollectMethodGetHiddenDefaultBreakers) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Cribl":
-			return true
-		}
-	}
-	return false
-}
-
-// HealthCheckCollectMethodGetRetryType - The algorithm to use when performing HTTP retries
-type HealthCheckCollectMethodGetRetryType string
-
-const (
-	// HealthCheckCollectMethodGetRetryTypeNone Disabled
-	HealthCheckCollectMethodGetRetryTypeNone HealthCheckCollectMethodGetRetryType = "none"
-	// HealthCheckCollectMethodGetRetryTypeBackoff Backoff
-	HealthCheckCollectMethodGetRetryTypeBackoff HealthCheckCollectMethodGetRetryType = "backoff"
-	// HealthCheckCollectMethodGetRetryTypeStatic Static
-	HealthCheckCollectMethodGetRetryTypeStatic HealthCheckCollectMethodGetRetryType = "static"
-)
-
-func (e HealthCheckCollectMethodGetRetryType) ToPointer() *HealthCheckCollectMethodGetRetryType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *HealthCheckCollectMethodGetRetryType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "backoff", "static":
-			return true
-		}
-	}
-	return false
-}
-
 type HealthCheckCollectMethodGetRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *HealthCheckCollectMethodGetRetryType `default:"backoff" json:"type"`
-	Interval     any                                   `json:"interval,omitempty"`
-	Limit        any                                   `json:"limit,omitempty"`
-	Multiplier   any                                   `json:"multiplier,omitempty"`
-	Codes        any                                   `json:"codes,omitempty"`
-	EnableHeader any                                   `json:"enableHeader,omitempty"`
+	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Interval     any                                                 `json:"interval,omitempty"`
+	Limit        any                                                 `json:"limit,omitempty"`
+	Multiplier   any                                                 `json:"multiplier,omitempty"`
+	Codes        any                                                 `json:"codes,omitempty"`
+	EnableHeader any                                                 `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
@@ -4063,7 +3391,7 @@ func (h *HealthCheckCollectMethodGetRetryRules) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-func (h *HealthCheckCollectMethodGetRetryRules) GetType() *HealthCheckCollectMethodGetRetryType {
+func (h *HealthCheckCollectMethodGetRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
 		return nil
 	}
@@ -4122,8 +3450,8 @@ type HealthCheckCollectMethodGet struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `default:"30" json:"timeout"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                             `default:"false" json:"rejectUnauthorized"`
-	DefaultBreakers    *HealthCheckCollectMethodGetHiddenDefaultBreakers `json:"defaultBreakers,omitempty"`
+	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                               `json:"safeHeaders,omitempty"`
 	RetryRules  *HealthCheckCollectMethodGetRetryRules `json:"retryRules,omitempty"`
@@ -4210,7 +3538,7 @@ func (h *HealthCheckCollectMethodGet) GetRejectUnauthorized() *bool {
 	return h.RejectUnauthorized
 }
 
-func (h *HealthCheckCollectMethodGet) GetDefaultBreakers() *HealthCheckCollectMethodGetHiddenDefaultBreakers {
+func (h *HealthCheckCollectMethodGet) GetDefaultBreakers() *HiddenDefaultBreakersOptionsDatabaseCollectorConf {
 	if h == nil {
 		return nil
 	}

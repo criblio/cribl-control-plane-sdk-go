@@ -44,20 +44,20 @@ func main() {
         components.SavedJobCollection{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Description: criblcontrolplanesdkgo.Pointer("pomelo outside offensively ew"),
-            Type: components.SavedJobCollectionJobTypeExecutor,
+            Type: components.JobTypeOptionsSavedJobCollectionExecutor,
             RemoveFields: []string{
                 "<value 1>",
                 "<value 2>",
             },
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.SavedJobCollectionSchedule{
+            Schedule: &components.ScheduleTypeSavedJobCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Run: &components.SavedJobCollectionRunSettings{
-                    Type: components.SavedJobCollectionRunTypeCollection.ToPointer(),
+                Run: &components.ScheduleTypeSavedJobCollectionRunSettings{
+                    Type: components.ScheduleTypeSavedJobCollectionTypeCollection.ToPointer(),
                     Earliest: criblcontrolplanesdkgo.Pointer[float64](432.8),
                     Latest: criblcontrolplanesdkgo.Pointer[float64](2023.34),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.SavedJobCollectionTimeWarning{},
+                    TimeWarning: &components.TimeWarning{},
                 },
             },
             Streamtags: []string{
@@ -70,7 +70,7 @@ func main() {
                     Conf: components.DatabaseCollectorConf{
                         ConnectionID: "<id>",
                         Query: "<value>",
-                        DefaultBreakers: components.DatabaseCollectorConfHiddenDefaultBreakersCribl.ToPointer(),
+                        DefaultBreakers: components.HiddenDefaultBreakersOptionsDatabaseCollectorConfCribl.ToPointer(),
                         Scheduling: &components.DatabaseCollectorConfScheduling{
                             StateTracking: &components.DatabaseCollectorConfStateTracking{
                                 Enabled: criblcontrolplanesdkgo.Pointer(true),
@@ -79,18 +79,18 @@ func main() {
                     },
                 },
             ),
-            Input: &components.SavedJobCollectionInput{
+            Input: &components.InputTypeSavedJobCollection{
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
-                Preprocess: &components.SavedJobCollectionPreprocess{
+                Preprocess: &components.PreprocessTypeSavedJobCollectionInput{
                     Command: criblcontrolplanesdkgo.Pointer("<value>"),
                     Args: []string{
                         "<value 1>",
                     },
                 },
-                Metadata: []components.SavedJobCollectionMetadatum{
-                    components.SavedJobCollectionMetadatum{
+                Metadata: []components.ItemsTypeNotificationMetadata{
+                    components.ItemsTypeNotificationMetadata{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -337,20 +337,20 @@ func main() {
         components.SavedJobCollection{
             ID: criblcontrolplanesdkgo.Pointer("<id>"),
             Description: criblcontrolplanesdkgo.Pointer("unabashedly notwithstanding ugh digestive"),
-            Type: components.SavedJobCollectionJobTypeScheduledSearch,
+            Type: components.JobTypeOptionsSavedJobCollectionScheduledSearch,
             RemoveFields: []string{
                 "<value 1>",
                 "<value 2>",
             },
             Environment: criblcontrolplanesdkgo.Pointer("<value>"),
-            Schedule: &components.SavedJobCollectionSchedule{
+            Schedule: &components.ScheduleTypeSavedJobCollection{
                 Enabled: criblcontrolplanesdkgo.Pointer(true),
-                Run: &components.SavedJobCollectionRunSettings{
-                    Type: components.SavedJobCollectionRunTypeCollection.ToPointer(),
+                Run: &components.ScheduleTypeSavedJobCollectionRunSettings{
+                    Type: components.ScheduleTypeSavedJobCollectionTypeCollection.ToPointer(),
                     Earliest: criblcontrolplanesdkgo.Pointer[float64](9142.96),
                     Latest: criblcontrolplanesdkgo.Pointer[float64](521.08),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.SavedJobCollectionTimeWarning{},
+                    TimeWarning: &components.TimeWarning{},
                 },
             },
             Streamtags: []string{
@@ -363,7 +363,7 @@ func main() {
                     Conf: components.DatabaseCollectorConf{
                         ConnectionID: "<id>",
                         Query: "<value>",
-                        DefaultBreakers: components.DatabaseCollectorConfHiddenDefaultBreakersCribl.ToPointer(),
+                        DefaultBreakers: components.HiddenDefaultBreakersOptionsDatabaseCollectorConfCribl.ToPointer(),
                         Scheduling: &components.DatabaseCollectorConfScheduling{
                             StateTracking: &components.DatabaseCollectorConfStateTracking{
                                 Enabled: criblcontrolplanesdkgo.Pointer(false),
@@ -372,21 +372,21 @@ func main() {
                     },
                 },
             ),
-            Input: &components.SavedJobCollectionInput{
+            Input: &components.InputTypeSavedJobCollection{
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
                     "<value 3>",
                 },
-                Preprocess: &components.SavedJobCollectionPreprocess{
+                Preprocess: &components.PreprocessTypeSavedJobCollectionInput{
                     Command: criblcontrolplanesdkgo.Pointer("<value>"),
                     Args: []string{
                         "<value 1>",
                         "<value 2>",
                     },
                 },
-                Metadata: []components.SavedJobCollectionMetadatum{
-                    components.SavedJobCollectionMetadatum{
+                Metadata: []components.ItemsTypeNotificationMetadata{
+                    components.ItemsTypeNotificationMetadata{
                         Name: "<value>",
                         Value: "<value>",
                     },

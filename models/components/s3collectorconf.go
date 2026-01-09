@@ -9,33 +9,6 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// S3AwsAuthenticationMethodSecretAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type S3AwsAuthenticationMethodSecretAuthenticationMethod string
-
-const (
-	// S3AwsAuthenticationMethodSecretAuthenticationMethodAuto Auto
-	S3AwsAuthenticationMethodSecretAuthenticationMethodAuto S3AwsAuthenticationMethodSecretAuthenticationMethod = "auto"
-	// S3AwsAuthenticationMethodSecretAuthenticationMethodManual Manual
-	S3AwsAuthenticationMethodSecretAuthenticationMethodManual S3AwsAuthenticationMethodSecretAuthenticationMethod = "manual"
-	// S3AwsAuthenticationMethodSecretAuthenticationMethodSecret Secret Key pair
-	S3AwsAuthenticationMethodSecretAuthenticationMethodSecret S3AwsAuthenticationMethodSecretAuthenticationMethod = "secret"
-)
-
-func (e S3AwsAuthenticationMethodSecretAuthenticationMethod) ToPointer() *S3AwsAuthenticationMethodSecretAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3AwsAuthenticationMethodSecretAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 // S3AwsAuthenticationMethodSecretPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3AwsAuthenticationMethodSecretPartitioningScheme string
 
@@ -93,32 +66,9 @@ func (s *S3AwsAuthenticationMethodSecretExtractor) GetExpression() string {
 	return s.Expression
 }
 
-// S3AwsAuthenticationMethodSecretSignatureVersion - Signature version to use for signing S3 requests
-type S3AwsAuthenticationMethodSecretSignatureVersion string
-
-const (
-	S3AwsAuthenticationMethodSecretSignatureVersionV2 S3AwsAuthenticationMethodSecretSignatureVersion = "v2"
-	S3AwsAuthenticationMethodSecretSignatureVersionV4 S3AwsAuthenticationMethodSecretSignatureVersion = "v4"
-)
-
-func (e S3AwsAuthenticationMethodSecretSignatureVersion) ToPointer() *S3AwsAuthenticationMethodSecretSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3AwsAuthenticationMethodSecretSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type S3AwsAuthenticationMethodSecret struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *S3AwsAuthenticationMethodSecretAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
 	// Select or create a stored secret that references AWS access key and secret key.
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
@@ -140,7 +90,7 @@ type S3AwsAuthenticationMethodSecret struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *S3AwsAuthenticationMethodSecretSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -173,7 +123,7 @@ func (s *S3AwsAuthenticationMethodSecret) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *S3AwsAuthenticationMethodSecret) GetAwsAuthenticationMethod() *S3AwsAuthenticationMethodSecretAuthenticationMethod {
+func (s *S3AwsAuthenticationMethodSecret) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -250,7 +200,7 @@ func (s *S3AwsAuthenticationMethodSecret) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3AwsAuthenticationMethodSecret) GetSignatureVersion() *S3AwsAuthenticationMethodSecretSignatureVersion {
+func (s *S3AwsAuthenticationMethodSecret) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -327,33 +277,6 @@ func (s *S3AwsAuthenticationMethodSecret) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
-// S3AwsAuthenticationMethodManualAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type S3AwsAuthenticationMethodManualAuthenticationMethod string
-
-const (
-	// S3AwsAuthenticationMethodManualAuthenticationMethodAuto Auto
-	S3AwsAuthenticationMethodManualAuthenticationMethodAuto S3AwsAuthenticationMethodManualAuthenticationMethod = "auto"
-	// S3AwsAuthenticationMethodManualAuthenticationMethodManual Manual
-	S3AwsAuthenticationMethodManualAuthenticationMethodManual S3AwsAuthenticationMethodManualAuthenticationMethod = "manual"
-	// S3AwsAuthenticationMethodManualAuthenticationMethodSecret Secret Key pair
-	S3AwsAuthenticationMethodManualAuthenticationMethodSecret S3AwsAuthenticationMethodManualAuthenticationMethod = "secret"
-)
-
-func (e S3AwsAuthenticationMethodManualAuthenticationMethod) ToPointer() *S3AwsAuthenticationMethodManualAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3AwsAuthenticationMethodManualAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 // S3AwsAuthenticationMethodManualPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3AwsAuthenticationMethodManualPartitioningScheme string
 
@@ -411,32 +334,9 @@ func (s *S3AwsAuthenticationMethodManualExtractor) GetExpression() string {
 	return s.Expression
 }
 
-// S3AwsAuthenticationMethodManualSignatureVersion - Signature version to use for signing S3 requests
-type S3AwsAuthenticationMethodManualSignatureVersion string
-
-const (
-	S3AwsAuthenticationMethodManualSignatureVersionV2 S3AwsAuthenticationMethodManualSignatureVersion = "v2"
-	S3AwsAuthenticationMethodManualSignatureVersionV4 S3AwsAuthenticationMethodManualSignatureVersion = "v4"
-)
-
-func (e S3AwsAuthenticationMethodManualSignatureVersion) ToPointer() *S3AwsAuthenticationMethodManualSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3AwsAuthenticationMethodManualSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type S3AwsAuthenticationMethodManual struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *S3AwsAuthenticationMethodManualAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
 	// Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
 	AwsAPIKey *string `json:"awsApiKey,omitempty"`
 	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
@@ -460,7 +360,7 @@ type S3AwsAuthenticationMethodManual struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *S3AwsAuthenticationMethodManualSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -493,7 +393,7 @@ func (s *S3AwsAuthenticationMethodManual) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *S3AwsAuthenticationMethodManual) GetAwsAuthenticationMethod() *S3AwsAuthenticationMethodManualAuthenticationMethod {
+func (s *S3AwsAuthenticationMethodManual) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -577,7 +477,7 @@ func (s *S3AwsAuthenticationMethodManual) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3AwsAuthenticationMethodManual) GetSignatureVersion() *S3AwsAuthenticationMethodManualSignatureVersion {
+func (s *S3AwsAuthenticationMethodManual) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -654,33 +554,6 @@ func (s *S3AwsAuthenticationMethodManual) GetDisableTimeFilter() *bool {
 	return s.DisableTimeFilter
 }
 
-// S3AwsAuthenticationMethodAutoAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type S3AwsAuthenticationMethodAutoAuthenticationMethod string
-
-const (
-	// S3AwsAuthenticationMethodAutoAuthenticationMethodAuto Auto
-	S3AwsAuthenticationMethodAutoAuthenticationMethodAuto S3AwsAuthenticationMethodAutoAuthenticationMethod = "auto"
-	// S3AwsAuthenticationMethodAutoAuthenticationMethodManual Manual
-	S3AwsAuthenticationMethodAutoAuthenticationMethodManual S3AwsAuthenticationMethodAutoAuthenticationMethod = "manual"
-	// S3AwsAuthenticationMethodAutoAuthenticationMethodSecret Secret Key pair
-	S3AwsAuthenticationMethodAutoAuthenticationMethodSecret S3AwsAuthenticationMethodAutoAuthenticationMethod = "secret"
-)
-
-func (e S3AwsAuthenticationMethodAutoAuthenticationMethod) ToPointer() *S3AwsAuthenticationMethodAutoAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3AwsAuthenticationMethodAutoAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 // S3AwsAuthenticationMethodAutoPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 type S3AwsAuthenticationMethodAutoPartitioningScheme string
 
@@ -738,32 +611,9 @@ func (s *S3AwsAuthenticationMethodAutoExtractor) GetExpression() string {
 	return s.Expression
 }
 
-// S3AwsAuthenticationMethodAutoSignatureVersion - Signature version to use for signing S3 requests
-type S3AwsAuthenticationMethodAutoSignatureVersion string
-
-const (
-	S3AwsAuthenticationMethodAutoSignatureVersionV2 S3AwsAuthenticationMethodAutoSignatureVersion = "v2"
-	S3AwsAuthenticationMethodAutoSignatureVersionV4 S3AwsAuthenticationMethodAutoSignatureVersion = "v4"
-)
-
-func (e S3AwsAuthenticationMethodAutoSignatureVersion) ToPointer() *S3AwsAuthenticationMethodAutoSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3AwsAuthenticationMethodAutoSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type S3AwsAuthenticationMethodAuto struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *S3AwsAuthenticationMethodAutoAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
 	OutputName *string `json:"outputName,omitempty"`
 	// S3 Bucket from which to collect data
@@ -783,7 +633,7 @@ type S3AwsAuthenticationMethodAuto struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *S3AwsAuthenticationMethodAutoSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -816,7 +666,7 @@ func (s *S3AwsAuthenticationMethodAuto) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *S3AwsAuthenticationMethodAuto) GetAwsAuthenticationMethod() *S3AwsAuthenticationMethodAutoAuthenticationMethod {
+func (s *S3AwsAuthenticationMethodAuto) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -886,7 +736,7 @@ func (s *S3AwsAuthenticationMethodAuto) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3AwsAuthenticationMethodAuto) GetSignatureVersion() *S3AwsAuthenticationMethodAutoSignatureVersion {
+func (s *S3AwsAuthenticationMethodAuto) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -1020,56 +870,6 @@ func (s *S3PartitioningSchemeNoneExtractor) GetExpression() string {
 	return s.Expression
 }
 
-// S3PartitioningSchemeNoneAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type S3PartitioningSchemeNoneAuthenticationMethod string
-
-const (
-	// S3PartitioningSchemeNoneAuthenticationMethodAuto Auto
-	S3PartitioningSchemeNoneAuthenticationMethodAuto S3PartitioningSchemeNoneAuthenticationMethod = "auto"
-	// S3PartitioningSchemeNoneAuthenticationMethodManual Manual
-	S3PartitioningSchemeNoneAuthenticationMethodManual S3PartitioningSchemeNoneAuthenticationMethod = "manual"
-	// S3PartitioningSchemeNoneAuthenticationMethodSecret Secret Key pair
-	S3PartitioningSchemeNoneAuthenticationMethodSecret S3PartitioningSchemeNoneAuthenticationMethod = "secret"
-)
-
-func (e S3PartitioningSchemeNoneAuthenticationMethod) ToPointer() *S3PartitioningSchemeNoneAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3PartitioningSchemeNoneAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// S3PartitioningSchemeNoneSignatureVersion - Signature version to use for signing S3 requests
-type S3PartitioningSchemeNoneSignatureVersion string
-
-const (
-	S3PartitioningSchemeNoneSignatureVersionV2 S3PartitioningSchemeNoneSignatureVersion = "v2"
-	S3PartitioningSchemeNoneSignatureVersionV4 S3PartitioningSchemeNoneSignatureVersion = "v4"
-)
-
-func (e S3PartitioningSchemeNoneSignatureVersion) ToPointer() *S3PartitioningSchemeNoneSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3PartitioningSchemeNoneSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type S3PartitioningSchemeNone struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 	PartitioningScheme *S3PartitioningSchemeNonePartitioningScheme `default:"none" json:"partitioningScheme"`
@@ -1089,11 +889,11 @@ type S3PartitioningSchemeNone struct {
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
 	Extractors []S3PartitioningSchemeNoneExtractor `json:"extractors,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *S3PartitioningSchemeNoneAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *S3PartitioningSchemeNoneSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -1188,7 +988,7 @@ func (s *S3PartitioningSchemeNone) GetExtractors() []S3PartitioningSchemeNoneExt
 	return s.Extractors
 }
 
-func (s *S3PartitioningSchemeNone) GetAwsAuthenticationMethod() *S3PartitioningSchemeNoneAuthenticationMethod {
+func (s *S3PartitioningSchemeNone) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -1202,7 +1002,7 @@ func (s *S3PartitioningSchemeNone) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3PartitioningSchemeNone) GetSignatureVersion() *S3PartitioningSchemeNoneSignatureVersion {
+func (s *S3PartitioningSchemeNone) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -1329,56 +1129,6 @@ func (s *S3PartitioningSchemeDdssExtractor) GetExpression() string {
 	return s.Expression
 }
 
-// S3PartitioningSchemeDdssAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type S3PartitioningSchemeDdssAuthenticationMethod string
-
-const (
-	// S3PartitioningSchemeDdssAuthenticationMethodAuto Auto
-	S3PartitioningSchemeDdssAuthenticationMethodAuto S3PartitioningSchemeDdssAuthenticationMethod = "auto"
-	// S3PartitioningSchemeDdssAuthenticationMethodManual Manual
-	S3PartitioningSchemeDdssAuthenticationMethodManual S3PartitioningSchemeDdssAuthenticationMethod = "manual"
-	// S3PartitioningSchemeDdssAuthenticationMethodSecret Secret Key pair
-	S3PartitioningSchemeDdssAuthenticationMethodSecret S3PartitioningSchemeDdssAuthenticationMethod = "secret"
-)
-
-func (e S3PartitioningSchemeDdssAuthenticationMethod) ToPointer() *S3PartitioningSchemeDdssAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3PartitioningSchemeDdssAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// S3PartitioningSchemeDdssSignatureVersion - Signature version to use for signing S3 requests
-type S3PartitioningSchemeDdssSignatureVersion string
-
-const (
-	S3PartitioningSchemeDdssSignatureVersionV2 S3PartitioningSchemeDdssSignatureVersion = "v2"
-	S3PartitioningSchemeDdssSignatureVersionV4 S3PartitioningSchemeDdssSignatureVersion = "v4"
-)
-
-func (e S3PartitioningSchemeDdssSignatureVersion) ToPointer() *S3PartitioningSchemeDdssSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *S3PartitioningSchemeDdssSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type S3PartitioningSchemeDdss struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 	PartitioningScheme *S3PartitioningSchemeDdssPartitioningScheme `default:"none" json:"partitioningScheme"`
@@ -1397,11 +1147,11 @@ type S3PartitioningSchemeDdss struct {
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
 	Extractors []S3PartitioningSchemeDdssExtractor `json:"extractors,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *S3PartitioningSchemeDdssAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *S3PartitioningSchemeDdssSignatureVersion `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -1490,7 +1240,7 @@ func (s *S3PartitioningSchemeDdss) GetExtractors() []S3PartitioningSchemeDdssExt
 	return s.Extractors
 }
 
-func (s *S3PartitioningSchemeDdss) GetAwsAuthenticationMethod() *S3PartitioningSchemeDdssAuthenticationMethod {
+func (s *S3PartitioningSchemeDdss) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -1504,7 +1254,7 @@ func (s *S3PartitioningSchemeDdss) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3PartitioningSchemeDdss) GetSignatureVersion() *S3PartitioningSchemeDdssSignatureVersion {
+func (s *S3PartitioningSchemeDdss) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if s == nil {
 		return nil
 	}
@@ -1602,7 +1352,7 @@ type S3CollectorConf struct {
 func CreateS3CollectorConfAuto(auto S3AwsAuthenticationMethodAuto) S3CollectorConf {
 	typ := S3CollectorConfTypeAuto
 
-	typStr := S3AwsAuthenticationMethodAutoAuthenticationMethod(typ)
+	typStr := AuthenticationMethodOptionsS3CollectorConf(typ)
 	auto.AwsAuthenticationMethod = &typStr
 
 	return S3CollectorConf{
@@ -1614,7 +1364,7 @@ func CreateS3CollectorConfAuto(auto S3AwsAuthenticationMethodAuto) S3CollectorCo
 func CreateS3CollectorConfManual(manual S3AwsAuthenticationMethodManual) S3CollectorConf {
 	typ := S3CollectorConfTypeManual
 
-	typStr := S3AwsAuthenticationMethodManualAuthenticationMethod(typ)
+	typStr := AuthenticationMethodOptionsS3CollectorConf(typ)
 	manual.AwsAuthenticationMethod = &typStr
 
 	return S3CollectorConf{
@@ -1626,7 +1376,7 @@ func CreateS3CollectorConfManual(manual S3AwsAuthenticationMethodManual) S3Colle
 func CreateS3CollectorConfSecret(secret S3AwsAuthenticationMethodSecret) S3CollectorConf {
 	typ := S3CollectorConfTypeSecret
 
-	typStr := S3AwsAuthenticationMethodSecretAuthenticationMethod(typ)
+	typStr := AuthenticationMethodOptionsS3CollectorConf(typ)
 	secret.AwsAuthenticationMethod = &typStr
 
 	return S3CollectorConf{

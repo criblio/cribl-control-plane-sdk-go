@@ -31,33 +31,6 @@ func (e *OutputSecurityLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputSecurityLakeAuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputSecurityLakeAuthenticationMethod string
-
-const (
-	// OutputSecurityLakeAuthenticationMethodAuto Auto
-	OutputSecurityLakeAuthenticationMethodAuto OutputSecurityLakeAuthenticationMethod = "auto"
-	// OutputSecurityLakeAuthenticationMethodManual Manual
-	OutputSecurityLakeAuthenticationMethodManual OutputSecurityLakeAuthenticationMethod = "manual"
-	// OutputSecurityLakeAuthenticationMethodSecret Secret Key pair
-	OutputSecurityLakeAuthenticationMethodSecret OutputSecurityLakeAuthenticationMethod = "secret"
-)
-
-func (e OutputSecurityLakeAuthenticationMethod) ToPointer() *OutputSecurityLakeAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSecurityLakeAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputSecurityLakeSignatureVersion - Signature version to use for signing Amazon Security Lake requests
 type OutputSecurityLakeSignatureVersion string
 
@@ -81,234 +54,6 @@ func (e *OutputSecurityLakeSignatureVersion) IsExact() bool {
 	return false
 }
 
-// OutputSecurityLakeObjectACL - Object ACL to assign to uploaded objects
-type OutputSecurityLakeObjectACL string
-
-const (
-	// OutputSecurityLakeObjectACLPrivate Private
-	OutputSecurityLakeObjectACLPrivate OutputSecurityLakeObjectACL = "private"
-	// OutputSecurityLakeObjectACLPublicRead Public Read Only
-	OutputSecurityLakeObjectACLPublicRead OutputSecurityLakeObjectACL = "public-read"
-	// OutputSecurityLakeObjectACLPublicReadWrite Public Read/Write
-	OutputSecurityLakeObjectACLPublicReadWrite OutputSecurityLakeObjectACL = "public-read-write"
-	// OutputSecurityLakeObjectACLAuthenticatedRead Authenticated Read Only
-	OutputSecurityLakeObjectACLAuthenticatedRead OutputSecurityLakeObjectACL = "authenticated-read"
-	// OutputSecurityLakeObjectACLAwsExecRead AWS EC2 AMI Read Only
-	OutputSecurityLakeObjectACLAwsExecRead OutputSecurityLakeObjectACL = "aws-exec-read"
-	// OutputSecurityLakeObjectACLBucketOwnerRead Bucket Owner Read Only
-	OutputSecurityLakeObjectACLBucketOwnerRead OutputSecurityLakeObjectACL = "bucket-owner-read"
-	// OutputSecurityLakeObjectACLBucketOwnerFullControl Bucket Owner Full Control
-	OutputSecurityLakeObjectACLBucketOwnerFullControl OutputSecurityLakeObjectACL = "bucket-owner-full-control"
-)
-
-func (e OutputSecurityLakeObjectACL) ToPointer() *OutputSecurityLakeObjectACL {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSecurityLakeObjectACL) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "private", "public-read", "public-read-write", "authenticated-read", "aws-exec-read", "bucket-owner-read", "bucket-owner-full-control":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSecurityLakeStorageClass - Storage class to select for uploaded objects
-type OutputSecurityLakeStorageClass string
-
-const (
-	// OutputSecurityLakeStorageClassStandard Standard
-	OutputSecurityLakeStorageClassStandard OutputSecurityLakeStorageClass = "STANDARD"
-	// OutputSecurityLakeStorageClassReducedRedundancy Reduced Redundancy Storage
-	OutputSecurityLakeStorageClassReducedRedundancy OutputSecurityLakeStorageClass = "REDUCED_REDUNDANCY"
-	// OutputSecurityLakeStorageClassStandardIa Standard, Infrequent Access
-	OutputSecurityLakeStorageClassStandardIa OutputSecurityLakeStorageClass = "STANDARD_IA"
-	// OutputSecurityLakeStorageClassOnezoneIa One Zone, Infrequent Access
-	OutputSecurityLakeStorageClassOnezoneIa OutputSecurityLakeStorageClass = "ONEZONE_IA"
-	// OutputSecurityLakeStorageClassIntelligentTiering Intelligent Tiering
-	OutputSecurityLakeStorageClassIntelligentTiering OutputSecurityLakeStorageClass = "INTELLIGENT_TIERING"
-	// OutputSecurityLakeStorageClassGlacier Glacier Flexible Retrieval
-	OutputSecurityLakeStorageClassGlacier OutputSecurityLakeStorageClass = "GLACIER"
-	// OutputSecurityLakeStorageClassGlacierIr Glacier Instant Retrieval
-	OutputSecurityLakeStorageClassGlacierIr OutputSecurityLakeStorageClass = "GLACIER_IR"
-	// OutputSecurityLakeStorageClassDeepArchive Glacier Deep Archive
-	OutputSecurityLakeStorageClassDeepArchive OutputSecurityLakeStorageClass = "DEEP_ARCHIVE"
-)
-
-func (e OutputSecurityLakeStorageClass) ToPointer() *OutputSecurityLakeStorageClass {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSecurityLakeStorageClass) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "STANDARD", "REDUCED_REDUNDANCY", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER", "GLACIER_IR", "DEEP_ARCHIVE":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputSecurityLakeServerSideEncryptionForUploadedObjects string
-
-const (
-	// OutputSecurityLakeServerSideEncryptionForUploadedObjectsAes256 Amazon S3 Managed Key
-	OutputSecurityLakeServerSideEncryptionForUploadedObjectsAes256 OutputSecurityLakeServerSideEncryptionForUploadedObjects = "AES256"
-	// OutputSecurityLakeServerSideEncryptionForUploadedObjectsAwsKms AWS KMS Managed Key
-	OutputSecurityLakeServerSideEncryptionForUploadedObjectsAwsKms OutputSecurityLakeServerSideEncryptionForUploadedObjects = "aws:kms"
-)
-
-func (e OutputSecurityLakeServerSideEncryptionForUploadedObjects) ToPointer() *OutputSecurityLakeServerSideEncryptionForUploadedObjects {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSecurityLakeServerSideEncryptionForUploadedObjects) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "AES256", "aws:kms":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSecurityLakeBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputSecurityLakeBackpressureBehavior string
-
-const (
-	// OutputSecurityLakeBackpressureBehaviorBlock Block
-	OutputSecurityLakeBackpressureBehaviorBlock OutputSecurityLakeBackpressureBehavior = "block"
-	// OutputSecurityLakeBackpressureBehaviorDrop Drop
-	OutputSecurityLakeBackpressureBehaviorDrop OutputSecurityLakeBackpressureBehavior = "drop"
-)
-
-func (e OutputSecurityLakeBackpressureBehavior) ToPointer() *OutputSecurityLakeBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSecurityLakeBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSecurityLakeDiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputSecurityLakeDiskSpaceProtection string
-
-const (
-	// OutputSecurityLakeDiskSpaceProtectionBlock Block
-	OutputSecurityLakeDiskSpaceProtectionBlock OutputSecurityLakeDiskSpaceProtection = "block"
-	// OutputSecurityLakeDiskSpaceProtectionDrop Drop
-	OutputSecurityLakeDiskSpaceProtectionDrop OutputSecurityLakeDiskSpaceProtection = "drop"
-)
-
-func (e OutputSecurityLakeDiskSpaceProtection) ToPointer() *OutputSecurityLakeDiskSpaceProtection {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSecurityLakeDiskSpaceProtection) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSecurityLakeParquetVersion - Determines which data types are supported and how they are represented
-type OutputSecurityLakeParquetVersion string
-
-const (
-	// OutputSecurityLakeParquetVersionParquet10 1.0
-	OutputSecurityLakeParquetVersionParquet10 OutputSecurityLakeParquetVersion = "PARQUET_1_0"
-	// OutputSecurityLakeParquetVersionParquet24 2.4
-	OutputSecurityLakeParquetVersionParquet24 OutputSecurityLakeParquetVersion = "PARQUET_2_4"
-	// OutputSecurityLakeParquetVersionParquet26 2.6
-	OutputSecurityLakeParquetVersionParquet26 OutputSecurityLakeParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputSecurityLakeParquetVersion) ToPointer() *OutputSecurityLakeParquetVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSecurityLakeParquetVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputSecurityLakeDataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputSecurityLakeDataPageVersion string
-
-const (
-	// OutputSecurityLakeDataPageVersionDataPageV1 V1
-	OutputSecurityLakeDataPageVersionDataPageV1 OutputSecurityLakeDataPageVersion = "DATA_PAGE_V1"
-	// OutputSecurityLakeDataPageVersionDataPageV2 V2
-	OutputSecurityLakeDataPageVersionDataPageV2 OutputSecurityLakeDataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputSecurityLakeDataPageVersion) ToPointer() *OutputSecurityLakeDataPageVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSecurityLakeDataPageVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "DATA_PAGE_V1", "DATA_PAGE_V2":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputSecurityLakeKeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputSecurityLakeKeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputSecurityLakeKeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputSecurityLakeKeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputSecurityLakeKeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
 type OutputSecurityLake struct {
 	// Unique ID for this output
 	ID   *string                `json:"id,omitempty"`
@@ -327,7 +72,7 @@ type OutputSecurityLake struct {
 	Region       string  `json:"region"`
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputSecurityLakeAuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
 	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Amazon Security Lake requests
@@ -349,10 +94,10 @@ type OutputSecurityLake struct {
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *OutputSecurityLakeObjectACL `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions `default:"private" json:"objectACL"`
 	// Storage class to select for uploaded objects
-	StorageClass         *OutputSecurityLakeStorageClass                           `json:"storageClass,omitempty"`
-	ServerSideEncryption *OutputSecurityLakeServerSideEncryptionForUploadedObjects `json:"serverSideEncryption,omitempty"`
+	StorageClass         *StorageClassOptions                           `json:"storageClass,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitempty"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
 	KmsKeyID *string `json:"kmsKeyId,omitempty"`
 	// Remove empty staging directories after moving files
@@ -368,11 +113,11 @@ type OutputSecurityLake struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputSecurityLakeBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions1 `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputSecurityLakeDiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `default:"block" json:"onDiskFullBackpressure"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
@@ -392,9 +137,9 @@ type OutputSecurityLake struct {
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputSecurityLakeParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputSecurityLakeDataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *DataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -402,7 +147,7 @@ type OutputSecurityLake struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputSecurityLakeKeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -500,7 +245,7 @@ func (o *OutputSecurityLake) GetAwsSecretKey() *string {
 	return o.AwsSecretKey
 }
 
-func (o *OutputSecurityLake) GetAwsAuthenticationMethod() *OutputSecurityLakeAuthenticationMethod {
+func (o *OutputSecurityLake) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if o == nil {
 		return nil
 	}
@@ -577,21 +322,21 @@ func (o *OutputSecurityLake) GetAddIDToStagePath() *bool {
 	return o.AddIDToStagePath
 }
 
-func (o *OutputSecurityLake) GetObjectACL() *OutputSecurityLakeObjectACL {
+func (o *OutputSecurityLake) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ObjectACL
 }
 
-func (o *OutputSecurityLake) GetStorageClass() *OutputSecurityLakeStorageClass {
+func (o *OutputSecurityLake) GetStorageClass() *StorageClassOptions {
 	if o == nil {
 		return nil
 	}
 	return o.StorageClass
 }
 
-func (o *OutputSecurityLake) GetServerSideEncryption() *OutputSecurityLakeServerSideEncryptionForUploadedObjects {
+func (o *OutputSecurityLake) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptions {
 	if o == nil {
 		return nil
 	}
@@ -647,7 +392,7 @@ func (o *OutputSecurityLake) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputSecurityLake) GetOnBackpressure() *OutputSecurityLakeBackpressureBehavior {
+func (o *OutputSecurityLake) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -661,7 +406,7 @@ func (o *OutputSecurityLake) GetDeadletterEnabled() *bool {
 	return o.DeadletterEnabled
 }
 
-func (o *OutputSecurityLake) GetOnDiskFullBackpressure() *OutputSecurityLakeDiskSpaceProtection {
+func (o *OutputSecurityLake) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
 	if o == nil {
 		return nil
 	}
@@ -731,14 +476,14 @@ func (o *OutputSecurityLake) GetAutomaticSchema() *bool {
 	return o.AutomaticSchema
 }
 
-func (o *OutputSecurityLake) GetParquetVersion() *OutputSecurityLakeParquetVersion {
+func (o *OutputSecurityLake) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputSecurityLake) GetParquetDataPageVersion() *OutputSecurityLakeDataPageVersion {
+func (o *OutputSecurityLake) GetParquetDataPageVersion() *DataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
@@ -766,7 +511,7 @@ func (o *OutputSecurityLake) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputSecurityLake) GetKeyValueMetadata() []OutputSecurityLakeKeyValueMetadatum {
+func (o *OutputSecurityLake) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
 	if o == nil {
 		return nil
 	}

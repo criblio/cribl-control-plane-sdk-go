@@ -31,30 +31,6 @@ func (e *OutputWebhookType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputWebhookMethod - The method to use when sending events
-type OutputWebhookMethod string
-
-const (
-	OutputWebhookMethodPost  OutputWebhookMethod = "POST"
-	OutputWebhookMethodPut   OutputWebhookMethod = "PUT"
-	OutputWebhookMethodPatch OutputWebhookMethod = "PATCH"
-)
-
-func (e OutputWebhookMethod) ToPointer() *OutputWebhookMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputWebhookMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "POST", "PUT", "PATCH":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputWebhookFormat - How to format events before sending out
 type OutputWebhookFormat string
 
@@ -78,189 +54,6 @@ func (e *OutputWebhookFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "ndjson", "json_array", "custom", "advanced":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputWebhookExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputWebhookExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputWebhookExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputWebhookFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputWebhookFailedRequestLoggingMode string
-
-const (
-	// OutputWebhookFailedRequestLoggingModePayload Payload
-	OutputWebhookFailedRequestLoggingModePayload OutputWebhookFailedRequestLoggingMode = "payload"
-	// OutputWebhookFailedRequestLoggingModePayloadAndHeaders Payload + Headers
-	OutputWebhookFailedRequestLoggingModePayloadAndHeaders OutputWebhookFailedRequestLoggingMode = "payloadAndHeaders"
-	// OutputWebhookFailedRequestLoggingModeNone None
-	OutputWebhookFailedRequestLoggingModeNone OutputWebhookFailedRequestLoggingMode = "none"
-)
-
-func (e OutputWebhookFailedRequestLoggingMode) ToPointer() *OutputWebhookFailedRequestLoggingMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputWebhookFailedRequestLoggingMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "payload", "payloadAndHeaders", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputWebhookResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputWebhookResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputWebhookResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputWebhookResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputWebhookResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputWebhookTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputWebhookTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputWebhookTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputWebhookBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputWebhookBackpressureBehavior string
-
-const (
-	// OutputWebhookBackpressureBehaviorBlock Block
-	OutputWebhookBackpressureBehaviorBlock OutputWebhookBackpressureBehavior = "block"
-	// OutputWebhookBackpressureBehaviorDrop Drop
-	OutputWebhookBackpressureBehaviorDrop OutputWebhookBackpressureBehavior = "drop"
-	// OutputWebhookBackpressureBehaviorQueue Persistent Queue
-	OutputWebhookBackpressureBehaviorQueue OutputWebhookBackpressureBehavior = "queue"
-)
-
-func (e OutputWebhookBackpressureBehavior) ToPointer() *OutputWebhookBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputWebhookBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
 			return true
 		}
 	}
@@ -300,223 +93,6 @@ func (e *OutputWebhookAuthenticationType) IsExact() bool {
 	return false
 }
 
-type OutputWebhookMinimumTLSVersion string
-
-const (
-	OutputWebhookMinimumTLSVersionTlSv1  OutputWebhookMinimumTLSVersion = "TLSv1"
-	OutputWebhookMinimumTLSVersionTlSv11 OutputWebhookMinimumTLSVersion = "TLSv1.1"
-	OutputWebhookMinimumTLSVersionTlSv12 OutputWebhookMinimumTLSVersion = "TLSv1.2"
-	OutputWebhookMinimumTLSVersionTlSv13 OutputWebhookMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputWebhookMinimumTLSVersion) ToPointer() *OutputWebhookMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputWebhookMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputWebhookMaximumTLSVersion string
-
-const (
-	OutputWebhookMaximumTLSVersionTlSv1  OutputWebhookMaximumTLSVersion = "TLSv1"
-	OutputWebhookMaximumTLSVersionTlSv11 OutputWebhookMaximumTLSVersion = "TLSv1.1"
-	OutputWebhookMaximumTLSVersionTlSv12 OutputWebhookMaximumTLSVersion = "TLSv1.2"
-	OutputWebhookMaximumTLSVersionTlSv13 OutputWebhookMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputWebhookMaximumTLSVersion) ToPointer() *OutputWebhookMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputWebhookMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputWebhookTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                         `json:"passphrase,omitempty"`
-	MinVersion *OutputWebhookMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputWebhookMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputWebhookTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetMinVersion() *OutputWebhookMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputWebhookTLSSettingsClientSide) GetMaxVersion() *OutputWebhookMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputWebhookMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputWebhookMode string
-
-const (
-	// OutputWebhookModeError Error
-	OutputWebhookModeError OutputWebhookMode = "error"
-	// OutputWebhookModeAlways Backpressure
-	OutputWebhookModeAlways OutputWebhookMode = "always"
-	// OutputWebhookModeBackpressure Always On
-	OutputWebhookModeBackpressure OutputWebhookMode = "backpressure"
-)
-
-func (e OutputWebhookMode) ToPointer() *OutputWebhookMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputWebhookMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputWebhookCompression - Codec to use to compress the persisted data
-type OutputWebhookCompression string
-
-const (
-	// OutputWebhookCompressionNone None
-	OutputWebhookCompressionNone OutputWebhookCompression = "none"
-	// OutputWebhookCompressionGzip Gzip
-	OutputWebhookCompressionGzip OutputWebhookCompression = "gzip"
-)
-
-func (e OutputWebhookCompression) ToPointer() *OutputWebhookCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputWebhookCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputWebhookQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputWebhookQueueFullBehavior string
-
-const (
-	// OutputWebhookQueueFullBehaviorBlock Block
-	OutputWebhookQueueFullBehaviorBlock OutputWebhookQueueFullBehavior = "block"
-	// OutputWebhookQueueFullBehaviorDrop Drop new data
-	OutputWebhookQueueFullBehaviorDrop OutputWebhookQueueFullBehavior = "drop"
-)
-
-func (e OutputWebhookQueueFullBehavior) ToPointer() *OutputWebhookQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputWebhookQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputWebhookPqControls struct {
 }
 
@@ -529,70 +105,6 @@ func (o *OutputWebhookPqControls) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-type OutputWebhookOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (o OutputWebhookOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputWebhookOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputWebhookOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (o OutputWebhookOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWebhookOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWebhookOauthHeader) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputWebhookOauthHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
 }
 
 type OutputWebhookURL struct {
@@ -640,7 +152,7 @@ type OutputWebhook struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// The method to use when sending events
-	Method *OutputWebhookMethod `default:"POST" json:"method"`
+	Method *MethodOptions `default:"POST" json:"method"`
 	// How to format events before sending out
 	Format *OutputWebhookFormat `default:"ndjson" json:"format"`
 	// Disable to close the connection immediately after sending the outgoing request
@@ -662,23 +174,23 @@ type OutputWebhook struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []OutputWebhookExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputWebhookFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputWebhookResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputWebhookTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"false" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputWebhookBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Authentication method to use for the HTTP request
-	AuthType *OutputWebhookAuthenticationType    `default:"none" json:"authType"`
-	TLS      *OutputWebhookTLSSettingsClientSide `json:"tls,omitempty"`
+	AuthType *OutputWebhookAuthenticationType `default:"none" json:"authType"`
+	TLS      *TLSSettingsClientSideType2      `json:"tls,omitempty"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
@@ -705,7 +217,7 @@ type OutputWebhook struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputWebhookMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -717,12 +229,12 @@ type OutputWebhook struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputWebhookCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputWebhookQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputWebhookPqControls        `json:"pqControls,omitempty"`
-	Username         *string                         `json:"username,omitempty"`
-	Password         *string                         `json:"password,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputWebhookPqControls  `json:"pqControls,omitempty"`
+	Username         *string                   `json:"username,omitempty"`
+	Password         *string                   `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -742,9 +254,9 @@ type OutputWebhook struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []OutputWebhookOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []OutputWebhookOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitempty"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -809,7 +321,7 @@ func (o *OutputWebhook) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputWebhook) GetMethod() *OutputWebhookMethod {
+func (o *OutputWebhook) GetMethod() *MethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -879,7 +391,7 @@ func (o *OutputWebhook) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputWebhook) GetExtraHTTPHeaders() []OutputWebhookExtraHTTPHeader {
+func (o *OutputWebhook) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if o == nil {
 		return nil
 	}
@@ -893,7 +405,7 @@ func (o *OutputWebhook) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputWebhook) GetFailedRequestLoggingMode() *OutputWebhookFailedRequestLoggingMode {
+func (o *OutputWebhook) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -907,14 +419,14 @@ func (o *OutputWebhook) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputWebhook) GetResponseRetrySettings() []OutputWebhookResponseRetrySetting {
+func (o *OutputWebhook) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputWebhook) GetTimeoutRetrySettings() *OutputWebhookTimeoutRetrySettings {
+func (o *OutputWebhook) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
@@ -928,7 +440,7 @@ func (o *OutputWebhook) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputWebhook) GetOnBackpressure() *OutputWebhookBackpressureBehavior {
+func (o *OutputWebhook) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -942,7 +454,7 @@ func (o *OutputWebhook) GetAuthType() *OutputWebhookAuthenticationType {
 	return o.AuthType
 }
 
-func (o *OutputWebhook) GetTLS() *OutputWebhookTLSSettingsClientSide {
+func (o *OutputWebhook) GetTLS() *TLSSettingsClientSideType2 {
 	if o == nil {
 		return nil
 	}
@@ -1040,7 +552,7 @@ func (o *OutputWebhook) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputWebhook) GetPqMode() *OutputWebhookMode {
+func (o *OutputWebhook) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -1082,14 +594,14 @@ func (o *OutputWebhook) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputWebhook) GetPqCompress() *OutputWebhookCompression {
+func (o *OutputWebhook) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputWebhook) GetPqOnBackpressure() *OutputWebhookQueueFullBehavior {
+func (o *OutputWebhook) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -1180,14 +692,14 @@ func (o *OutputWebhook) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputWebhook) GetOauthParams() []OutputWebhookOauthParam {
+func (o *OutputWebhook) GetOauthParams() []ItemsTypeOauthParams {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputWebhook) GetOauthHeaders() []OutputWebhookOauthHeader {
+func (o *OutputWebhook) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if o == nil {
 		return nil
 	}
