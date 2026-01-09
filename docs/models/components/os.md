@@ -1,17 +1,8 @@
 # Os
 
 
-## Supported Types
+## Fields
 
-### NodeProvidedInfoOs1
-
-```go
-os := components.CreateOsNodeProvidedInfoOs1(components.NodeProvidedInfoOs1{/* values here */})
-```
-
-### NodeProvidedInfoOs2
-
-```go
-os := components.CreateOsNodeProvidedInfoOs2(components.NodeProvidedInfoOs2{/* values here */})
-```
-
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `Addresses`        | []*string*         | :heavy_check_mark: | N/A                |

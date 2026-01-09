@@ -41,8 +41,8 @@ func main() {
         },
         Description: criblcontrolplanesdkgo.Pointer("toward precedent merry vaguely across ha fooey ingratiate jealously outlying"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
-        Metadata: []components.AddHecTokenRequestMetadatum{
-            components.AddHecTokenRequestMetadatum{
+        Metadata: []components.EventBreakerRuleFields{
+            components.EventBreakerRuleFields{
                 Name: "fieldX",
                 Value: "valueX",
             },
@@ -112,8 +112,8 @@ func main() {
         },
         Description: criblcontrolplanesdkgo.Pointer("once lively fooey who though while dampen please denitrify pish"),
         Enabled: criblcontrolplanesdkgo.Pointer(true),
-        Metadata: []components.UpdateHecTokenRequestMetadatum{
-            components.UpdateHecTokenRequestMetadatum{
+        Metadata: []components.EventBreakerRuleFields{
+            components.EventBreakerRuleFields{
                 Name: "fieldX",
                 Value: "valueX",
             },

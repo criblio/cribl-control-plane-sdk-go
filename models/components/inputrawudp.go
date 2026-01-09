@@ -31,216 +31,6 @@ func (e *InputRawUDPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputRawUDPConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputRawUDPConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputRawUDPConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputRawUDPConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputRawUDPConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputRawUDPMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputRawUDPMode string
-
-const (
-	// InputRawUDPModeSmart Smart
-	InputRawUDPModeSmart InputRawUDPMode = "smart"
-	// InputRawUDPModeAlways Always On
-	InputRawUDPModeAlways InputRawUDPMode = "always"
-)
-
-func (e InputRawUDPMode) ToPointer() *InputRawUDPMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputRawUDPMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputRawUDPCompression - Codec to use to compress the persisted data
-type InputRawUDPCompression string
-
-const (
-	// InputRawUDPCompressionNone None
-	InputRawUDPCompressionNone InputRawUDPCompression = "none"
-	// InputRawUDPCompressionGzip Gzip
-	InputRawUDPCompressionGzip InputRawUDPCompression = "gzip"
-)
-
-func (e InputRawUDPCompression) ToPointer() *InputRawUDPCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputRawUDPCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputRawUDPPqControls struct {
-}
-
-func (i InputRawUDPPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputRawUDPPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputRawUDPPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputRawUDPMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputRawUDPCompression `default:"none" json:"compress"`
-	PqControls *InputRawUDPPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputRawUDPPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputRawUDPPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputRawUDPPq) GetMode() *InputRawUDPMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputRawUDPPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputRawUDPPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputRawUDPPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputRawUDPPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputRawUDPPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputRawUDPPq) GetCompress() *InputRawUDPCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputRawUDPPq) GetPqControls() *InputRawUDPPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputRawUDPMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputRawUDPMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputRawUDPMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputRawUDPMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputRawUDPMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputRawUDP struct {
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
@@ -257,8 +47,8 @@ type InputRawUDP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputRawUDPConnection `json:"connections,omitempty"`
-	Pq          *InputRawUDPPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -274,8 +64,8 @@ type InputRawUDP struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputRawUDPMetadatum `json:"metadata,omitempty"`
-	Description *string                `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
 }
 
 func (i InputRawUDP) MarshalJSON() ([]byte, error) {
@@ -345,14 +135,14 @@ func (i *InputRawUDP) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputRawUDP) GetConnections() []InputRawUDPConnection {
+func (i *InputRawUDP) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputRawUDP) GetPq() *InputRawUDPPq {
+func (i *InputRawUDP) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -408,7 +198,7 @@ func (i *InputRawUDP) GetUDPSocketRxBufSize() *float64 {
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDP) GetMetadata() []InputRawUDPMetadatum {
+func (i *InputRawUDP) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

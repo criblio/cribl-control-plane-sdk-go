@@ -2,43 +2,20 @@
 
 package components
 
-type CriblLakeDatasetUpdateFormat string
-
-const (
-	CriblLakeDatasetUpdateFormatJSON    CriblLakeDatasetUpdateFormat = "json"
-	CriblLakeDatasetUpdateFormatParquet CriblLakeDatasetUpdateFormat = "parquet"
-	CriblLakeDatasetUpdateFormatDdss    CriblLakeDatasetUpdateFormat = "ddss"
-)
-
-func (e CriblLakeDatasetUpdateFormat) ToPointer() *CriblLakeDatasetUpdateFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CriblLakeDatasetUpdateFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "parquet", "ddss":
-			return true
-		}
-	}
-	return false
-}
-
 type CriblLakeDatasetUpdate struct {
-	AcceleratedFields     []string                      `json:"acceleratedFields,omitempty"`
-	BucketName            *string                       `json:"bucketName,omitempty"`
-	CacheConnection       *CacheConnection              `json:"cacheConnection,omitempty"`
-	DeletionStartedAt     *float64                      `json:"deletionStartedAt,omitempty"`
-	Description           *string                       `json:"description,omitempty"`
-	Format                *CriblLakeDatasetUpdateFormat `json:"format,omitempty"`
-	HTTPDAUsed            *bool                         `json:"httpDAUsed,omitempty"`
-	ID                    *string                       `json:"id,omitempty"`
-	Metrics               *LakeDatasetMetrics           `json:"metrics,omitempty"`
-	RetentionPeriodInDays *float64                      `json:"retentionPeriodInDays,omitempty"`
-	SearchConfig          *LakeDatasetSearchConfig      `json:"searchConfig,omitempty"`
-	StorageLocationID     *string                       `json:"storageLocationId,omitempty"`
-	ViewName              *string                       `json:"viewName,omitempty"`
+	AcceleratedFields     []string                       `json:"acceleratedFields,omitempty"`
+	BucketName            *string                        `json:"bucketName,omitempty"`
+	CacheConnection       *CacheConnection               `json:"cacheConnection,omitempty"`
+	DeletionStartedAt     *float64                       `json:"deletionStartedAt,omitempty"`
+	Description           *string                        `json:"description,omitempty"`
+	Format                *FormatOptionsCriblLakeDataset `json:"format,omitempty"`
+	HTTPDAUsed            *bool                          `json:"httpDAUsed,omitempty"`
+	ID                    *string                        `json:"id,omitempty"`
+	Metrics               *LakeDatasetMetrics            `json:"metrics,omitempty"`
+	RetentionPeriodInDays *float64                       `json:"retentionPeriodInDays,omitempty"`
+	SearchConfig          *LakeDatasetSearchConfig       `json:"searchConfig,omitempty"`
+	StorageLocationID     *string                        `json:"storageLocationId,omitempty"`
+	ViewName              *string                        `json:"viewName,omitempty"`
 }
 
 func (c *CriblLakeDatasetUpdate) GetAcceleratedFields() []string {
@@ -76,7 +53,7 @@ func (c *CriblLakeDatasetUpdate) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CriblLakeDatasetUpdate) GetFormat() *CriblLakeDatasetUpdateFormat {
+func (c *CriblLakeDatasetUpdate) GetFormat() *FormatOptionsCriblLakeDataset {
 	if c == nil {
 		return nil
 	}

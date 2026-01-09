@@ -6,580 +6,11 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type SavedJobCollectionJobType string
-
-const (
-	SavedJobCollectionJobTypeCollection      SavedJobCollectionJobType = "collection"
-	SavedJobCollectionJobTypeExecutor        SavedJobCollectionJobType = "executor"
-	SavedJobCollectionJobTypeScheduledSearch SavedJobCollectionJobType = "scheduledSearch"
-)
-
-func (e SavedJobCollectionJobType) ToPointer() *SavedJobCollectionJobType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SavedJobCollectionJobType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "collection", "executor", "scheduledSearch":
-			return true
-		}
-	}
-	return false
-}
-
-type SavedJobCollectionRunType string
-
-const (
-	SavedJobCollectionRunTypeCollection SavedJobCollectionRunType = "collection"
-)
-
-func (e SavedJobCollectionRunType) ToPointer() *SavedJobCollectionRunType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SavedJobCollectionRunType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "collection":
-			return true
-		}
-	}
-	return false
-}
-
-// SavedJobCollectionLogLevel - Level at which to set task logging
-type SavedJobCollectionLogLevel string
-
-const (
-	SavedJobCollectionLogLevelError SavedJobCollectionLogLevel = "error"
-	SavedJobCollectionLogLevelWarn  SavedJobCollectionLogLevel = "warn"
-	SavedJobCollectionLogLevelInfo  SavedJobCollectionLogLevel = "info"
-	SavedJobCollectionLogLevelDebug SavedJobCollectionLogLevel = "debug"
-	SavedJobCollectionLogLevelSilly SavedJobCollectionLogLevel = "silly"
-)
-
-func (e SavedJobCollectionLogLevel) ToPointer() *SavedJobCollectionLogLevel {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SavedJobCollectionLogLevel) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "warn", "info", "debug", "silly":
-			return true
-		}
-	}
-	return false
-}
-
-type SavedJobCollectionTimeWarning struct {
-}
-
-func (s SavedJobCollectionTimeWarning) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobCollectionTimeWarning) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type SavedJobCollectionRunSettings struct {
-	Type *SavedJobCollectionRunType `json:"type,omitempty"`
-	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
-	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
-	// Level at which to set task logging
-	LogLevel *SavedJobCollectionLogLevel `default:"info" json:"logLevel"`
-	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
-	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-	Mode          *string `default:"list" json:"mode"`
-	TimeRangeType *string `default:"relative" json:"timeRangeType"`
-	// Earliest time to collect data for the selected timezone
-	Earliest *float64 `json:"earliest,omitempty"`
-	// Latest time to collect data for the selected timezone
-	Latest            *float64                       `json:"latest,omitempty"`
-	TimestampTimezone any                            `json:"timestampTimezone,omitempty"`
-	TimeWarning       *SavedJobCollectionTimeWarning `json:"timeWarning,omitempty"`
-	// A filter for tokens in the provided collect path and/or the events being collected
-	Expression *string `default:"true" json:"expression"`
-	// Limits the bundle size for small tasks. For example,
-	//
-	//
-	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
-	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
-	//
-	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-	MaxTaskSize *string `default:"10MB" json:"maxTaskSize"`
-}
-
-func (s SavedJobCollectionRunSettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobCollectionRunSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobCollectionRunSettings) GetType() *SavedJobCollectionRunType {
-	if s == nil {
-		return nil
-	}
-	return s.Type
-}
-
-func (s *SavedJobCollectionRunSettings) GetRescheduleDroppedTasks() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.RescheduleDroppedTasks
-}
-
-func (s *SavedJobCollectionRunSettings) GetMaxTaskReschedule() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.MaxTaskReschedule
-}
-
-func (s *SavedJobCollectionRunSettings) GetLogLevel() *SavedJobCollectionLogLevel {
-	if s == nil {
-		return nil
-	}
-	return s.LogLevel
-}
-
-func (s *SavedJobCollectionRunSettings) GetJobTimeout() *string {
-	if s == nil {
-		return nil
-	}
-	return s.JobTimeout
-}
-
-func (s *SavedJobCollectionRunSettings) GetMode() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Mode
-}
-
-func (s *SavedJobCollectionRunSettings) GetTimeRangeType() *string {
-	if s == nil {
-		return nil
-	}
-	return s.TimeRangeType
-}
-
-func (s *SavedJobCollectionRunSettings) GetEarliest() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.Earliest
-}
-
-func (s *SavedJobCollectionRunSettings) GetLatest() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.Latest
-}
-
-func (s *SavedJobCollectionRunSettings) GetTimestampTimezone() any {
-	if s == nil {
-		return nil
-	}
-	return s.TimestampTimezone
-}
-
-func (s *SavedJobCollectionRunSettings) GetTimeWarning() *SavedJobCollectionTimeWarning {
-	if s == nil {
-		return nil
-	}
-	return s.TimeWarning
-}
-
-func (s *SavedJobCollectionRunSettings) GetExpression() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Expression
-}
-
-func (s *SavedJobCollectionRunSettings) GetMinTaskSize() *string {
-	if s == nil {
-		return nil
-	}
-	return s.MinTaskSize
-}
-
-func (s *SavedJobCollectionRunSettings) GetMaxTaskSize() *string {
-	if s == nil {
-		return nil
-	}
-	return s.MaxTaskSize
-}
-
-// SavedJobCollectionSchedule - Configuration for a scheduled job
-type SavedJobCollectionSchedule struct {
-	// Enable to configure scheduling for this Collector
-	Enabled *bool `json:"enabled,omitempty"`
-	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-	Skippable *bool `default:"true" json:"skippable"`
-	// If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
-	ResumeMissed *bool `default:"false" json:"resumeMissed"`
-	// A cron schedule on which to run this job
-	CronSchedule *string `default:"*/5 * * * *" json:"cronSchedule"`
-	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64                       `default:"1" json:"maxConcurrentRuns"`
-	Run               *SavedJobCollectionRunSettings `json:"run,omitempty"`
-}
-
-func (s SavedJobCollectionSchedule) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobCollectionSchedule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobCollectionSchedule) GetEnabled() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.Enabled
-}
-
-func (s *SavedJobCollectionSchedule) GetSkippable() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.Skippable
-}
-
-func (s *SavedJobCollectionSchedule) GetResumeMissed() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.ResumeMissed
-}
-
-func (s *SavedJobCollectionSchedule) GetCronSchedule() *string {
-	if s == nil {
-		return nil
-	}
-	return s.CronSchedule
-}
-
-func (s *SavedJobCollectionSchedule) GetMaxConcurrentRuns() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.MaxConcurrentRuns
-}
-
-func (s *SavedJobCollectionSchedule) GetRun() *SavedJobCollectionRunSettings {
-	if s == nil {
-		return nil
-	}
-	return s.Run
-}
-
-type SavedJobCollectionCollector struct {
-	// The type of collector to run
-	Type string `json:"type"`
-	// Collector configuration
-	Conf CollectorConf `json:"conf"`
-	// Delete any files collected (where applicable)
-	Destructive *bool `default:"false" json:"destructive"`
-	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding *string `json:"encoding,omitempty"`
-}
-
-func (s SavedJobCollectionCollector) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobCollectionCollector) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type", "conf"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobCollectionCollector) GetType() string {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *SavedJobCollectionCollector) GetConf() CollectorConf {
-	if s == nil {
-		return CollectorConf{}
-	}
-	return s.Conf
-}
-
-func (s *SavedJobCollectionCollector) GetConfAzureBlob() *CollectorAzureBlob {
-	return s.GetConf().CollectorAzureBlob
-}
-
-func (s *SavedJobCollectionCollector) GetConfCriblLake() *CollectorCriblLake {
-	return s.GetConf().CollectorCriblLake
-}
-
-func (s *SavedJobCollectionCollector) GetConfDatabase() *CollectorDatabase {
-	return s.GetConf().CollectorDatabase
-}
-
-func (s *SavedJobCollectionCollector) GetConfFilesystem() *CollectorFilesystem {
-	return s.GetConf().CollectorFilesystem
-}
-
-func (s *SavedJobCollectionCollector) GetConfGoogleCloudStorage() *CollectorGoogleCloudStorage {
-	return s.GetConf().CollectorGoogleCloudStorage
-}
-
-func (s *SavedJobCollectionCollector) GetConfHealthCheck() *CollectorHealthCheck {
-	return s.GetConf().CollectorHealthCheck
-}
-
-func (s *SavedJobCollectionCollector) GetConfRest() *CollectorRest {
-	return s.GetConf().CollectorRest
-}
-
-func (s *SavedJobCollectionCollector) GetConfS3() *CollectorS3 {
-	return s.GetConf().CollectorS3
-}
-
-func (s *SavedJobCollectionCollector) GetConfScript() *CollectorScript {
-	return s.GetConf().CollectorScript
-}
-
-func (s *SavedJobCollectionCollector) GetConfSplunk() *CollectorSplunk {
-	return s.GetConf().CollectorSplunk
-}
-
-func (s *SavedJobCollectionCollector) GetDestructive() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.Destructive
-}
-
-func (s *SavedJobCollectionCollector) GetEncoding() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Encoding
-}
-
-type SavedJobCollectionInputType string
-
-const (
-	SavedJobCollectionInputTypeCollection SavedJobCollectionInputType = "collection"
-)
-
-func (e SavedJobCollectionInputType) ToPointer() *SavedJobCollectionInputType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SavedJobCollectionInputType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "collection":
-			return true
-		}
-	}
-	return false
-}
-
-type SavedJobCollectionPreprocess struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Command to feed the data through (via stdin) and process its output (stdout)
-	Command *string `json:"command,omitempty"`
-	// Arguments to be added to the custom command
-	Args []string `json:"args,omitempty"`
-}
-
-func (s SavedJobCollectionPreprocess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobCollectionPreprocess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobCollectionPreprocess) GetDisabled() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.Disabled
-}
-
-func (s *SavedJobCollectionPreprocess) GetCommand() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Command
-}
-
-func (s *SavedJobCollectionPreprocess) GetArgs() []string {
-	if s == nil {
-		return nil
-	}
-	return s.Args
-}
-
-type SavedJobCollectionMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (s SavedJobCollectionMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobCollectionMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobCollectionMetadatum) GetName() string {
-	if s == nil {
-		return ""
-	}
-	return s.Name
-}
-
-func (s *SavedJobCollectionMetadatum) GetValue() string {
-	if s == nil {
-		return ""
-	}
-	return s.Value
-}
-
-type SavedJobCollectionInput struct {
-	Type *SavedJobCollectionInputType `default:"collection" json:"type"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
-	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool                         `default:"true" json:"sendToRoutes"`
-	Preprocess   *SavedJobCollectionPreprocess `json:"preprocess,omitempty"`
-	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
-	// Fields to add to events from this input
-	Metadata []SavedJobCollectionMetadatum `json:"metadata,omitempty"`
-	// Pipeline to process results
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Destination to send results to
-	Output *string `json:"output,omitempty"`
-}
-
-func (s SavedJobCollectionInput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SavedJobCollectionInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SavedJobCollectionInput) GetType() *SavedJobCollectionInputType {
-	if s == nil {
-		return nil
-	}
-	return s.Type
-}
-
-func (s *SavedJobCollectionInput) GetBreakerRulesets() []string {
-	if s == nil {
-		return nil
-	}
-	return s.BreakerRulesets
-}
-
-func (s *SavedJobCollectionInput) GetStaleChannelFlushMs() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.StaleChannelFlushMs
-}
-
-func (s *SavedJobCollectionInput) GetSendToRoutes() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.SendToRoutes
-}
-
-func (s *SavedJobCollectionInput) GetPreprocess() *SavedJobCollectionPreprocess {
-	if s == nil {
-		return nil
-	}
-	return s.Preprocess
-}
-
-func (s *SavedJobCollectionInput) GetThrottleRatePerSec() *string {
-	if s == nil {
-		return nil
-	}
-	return s.ThrottleRatePerSec
-}
-
-func (s *SavedJobCollectionInput) GetMetadata() []SavedJobCollectionMetadatum {
-	if s == nil {
-		return nil
-	}
-	return s.Metadata
-}
-
-func (s *SavedJobCollectionInput) GetPipeline() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Pipeline
-}
-
-func (s *SavedJobCollectionInput) GetOutput() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Output
-}
-
 type SavedJobCollection struct {
 	// Unique ID for this Job
-	ID          *string                   `json:"id,omitempty"`
-	Description *string                   `json:"description,omitempty"`
-	Type        SavedJobCollectionJobType `json:"type"`
+	ID          *string                          `json:"id,omitempty"`
+	Description *string                          `json:"description,omitempty"`
+	Type        JobTypeOptionsSavedJobCollection `json:"type"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `default:"4h" json:"ttl"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -591,13 +22,14 @@ type SavedJobCollection struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Configuration for a scheduled job
-	Schedule *SavedJobCollectionSchedule `json:"schedule,omitempty"`
+	Schedule *ScheduleTypeSavedJobCollection `json:"schedule,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// If enabled, tasks are created and run by the same Worker Node
-	WorkerAffinity *bool                       `default:"false" json:"workerAffinity"`
-	Collector      SavedJobCollectionCollector `json:"collector"`
-	Input          *SavedJobCollectionInput    `json:"input,omitempty"`
+	WorkerAffinity *bool `default:"false" json:"workerAffinity"`
+	// Collector configuration
+	Collector Collector                    `json:"collector"`
+	Input     *InputTypeSavedJobCollection `json:"input,omitempty"`
 }
 
 func (s SavedJobCollection) MarshalJSON() ([]byte, error) {
@@ -625,9 +57,9 @@ func (s *SavedJobCollection) GetDescription() *string {
 	return s.Description
 }
 
-func (s *SavedJobCollection) GetType() SavedJobCollectionJobType {
+func (s *SavedJobCollection) GetType() JobTypeOptionsSavedJobCollection {
 	if s == nil {
-		return SavedJobCollectionJobType("")
+		return JobTypeOptionsSavedJobCollection("")
 	}
 	return s.Type
 }
@@ -667,7 +99,7 @@ func (s *SavedJobCollection) GetEnvironment() *string {
 	return s.Environment
 }
 
-func (s *SavedJobCollection) GetSchedule() *SavedJobCollectionSchedule {
+func (s *SavedJobCollection) GetSchedule() *ScheduleTypeSavedJobCollection {
 	if s == nil {
 		return nil
 	}
@@ -688,14 +120,54 @@ func (s *SavedJobCollection) GetWorkerAffinity() *bool {
 	return s.WorkerAffinity
 }
 
-func (s *SavedJobCollection) GetCollector() SavedJobCollectionCollector {
+func (s *SavedJobCollection) GetCollector() Collector {
 	if s == nil {
-		return SavedJobCollectionCollector{}
+		return Collector{}
 	}
 	return s.Collector
 }
 
-func (s *SavedJobCollection) GetInput() *SavedJobCollectionInput {
+func (s *SavedJobCollection) GetCollectorAzureBlob() *CollectorAzureBlob {
+	return s.GetCollector().CollectorAzureBlob
+}
+
+func (s *SavedJobCollection) GetCollectorCriblLake() *CollectorCriblLake {
+	return s.GetCollector().CollectorCriblLake
+}
+
+func (s *SavedJobCollection) GetCollectorDatabase() *CollectorDatabase {
+	return s.GetCollector().CollectorDatabase
+}
+
+func (s *SavedJobCollection) GetCollectorFilesystem() *CollectorFilesystem {
+	return s.GetCollector().CollectorFilesystem
+}
+
+func (s *SavedJobCollection) GetCollectorGoogleCloudStorage() *CollectorGoogleCloudStorage {
+	return s.GetCollector().CollectorGoogleCloudStorage
+}
+
+func (s *SavedJobCollection) GetCollectorHealthCheck() *CollectorHealthCheck {
+	return s.GetCollector().CollectorHealthCheck
+}
+
+func (s *SavedJobCollection) GetCollectorRest() *CollectorRest {
+	return s.GetCollector().CollectorRest
+}
+
+func (s *SavedJobCollection) GetCollectorS3() *CollectorS3 {
+	return s.GetCollector().CollectorS3
+}
+
+func (s *SavedJobCollection) GetCollectorScript() *CollectorScript {
+	return s.GetCollector().CollectorScript
+}
+
+func (s *SavedJobCollection) GetCollectorSplunk() *CollectorSplunk {
+	return s.GetCollector().CollectorSplunk
+}
+
+func (s *SavedJobCollection) GetInput() *InputTypeSavedJobCollection {
 	if s == nil {
 		return nil
 	}

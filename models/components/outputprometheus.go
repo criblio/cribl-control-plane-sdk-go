@@ -31,293 +31,6 @@ func (e *OutputPrometheusType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputPrometheusExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputPrometheusExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputPrometheusExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputPrometheusExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputPrometheusExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputPrometheusFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputPrometheusFailedRequestLoggingMode string
-
-const (
-	// OutputPrometheusFailedRequestLoggingModePayload Payload
-	OutputPrometheusFailedRequestLoggingModePayload OutputPrometheusFailedRequestLoggingMode = "payload"
-	// OutputPrometheusFailedRequestLoggingModePayloadAndHeaders Payload + Headers
-	OutputPrometheusFailedRequestLoggingModePayloadAndHeaders OutputPrometheusFailedRequestLoggingMode = "payloadAndHeaders"
-	// OutputPrometheusFailedRequestLoggingModeNone None
-	OutputPrometheusFailedRequestLoggingModeNone OutputPrometheusFailedRequestLoggingMode = "none"
-)
-
-func (e OutputPrometheusFailedRequestLoggingMode) ToPointer() *OutputPrometheusFailedRequestLoggingMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputPrometheusFailedRequestLoggingMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "payload", "payloadAndHeaders", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputPrometheusResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputPrometheusResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputPrometheusResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputPrometheusResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputPrometheusResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputPrometheusResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputPrometheusResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputPrometheusTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputPrometheusTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputPrometheusTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputPrometheusTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputPrometheusTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputPrometheusTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputPrometheusTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputPrometheusBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputPrometheusBackpressureBehavior string
-
-const (
-	// OutputPrometheusBackpressureBehaviorBlock Block
-	OutputPrometheusBackpressureBehaviorBlock OutputPrometheusBackpressureBehavior = "block"
-	// OutputPrometheusBackpressureBehaviorDrop Drop
-	OutputPrometheusBackpressureBehaviorDrop OutputPrometheusBackpressureBehavior = "drop"
-	// OutputPrometheusBackpressureBehaviorQueue Persistent Queue
-	OutputPrometheusBackpressureBehaviorQueue OutputPrometheusBackpressureBehavior = "queue"
-)
-
-func (e OutputPrometheusBackpressureBehavior) ToPointer() *OutputPrometheusBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputPrometheusBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputPrometheusAuthenticationType - Remote Write authentication type
-type OutputPrometheusAuthenticationType string
-
-const (
-	OutputPrometheusAuthenticationTypeNone              OutputPrometheusAuthenticationType = "none"
-	OutputPrometheusAuthenticationTypeBasic             OutputPrometheusAuthenticationType = "basic"
-	OutputPrometheusAuthenticationTypeCredentialsSecret OutputPrometheusAuthenticationType = "credentialsSecret"
-	OutputPrometheusAuthenticationTypeToken             OutputPrometheusAuthenticationType = "token"
-	OutputPrometheusAuthenticationTypeTextSecret        OutputPrometheusAuthenticationType = "textSecret"
-	OutputPrometheusAuthenticationTypeOauth             OutputPrometheusAuthenticationType = "oauth"
-)
-
-func (e OutputPrometheusAuthenticationType) ToPointer() *OutputPrometheusAuthenticationType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputPrometheusAuthenticationType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputPrometheusMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputPrometheusMode string
-
-const (
-	// OutputPrometheusModeError Error
-	OutputPrometheusModeError OutputPrometheusMode = "error"
-	// OutputPrometheusModeAlways Backpressure
-	OutputPrometheusModeAlways OutputPrometheusMode = "always"
-	// OutputPrometheusModeBackpressure Always On
-	OutputPrometheusModeBackpressure OutputPrometheusMode = "backpressure"
-)
-
-func (e OutputPrometheusMode) ToPointer() *OutputPrometheusMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputPrometheusMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputPrometheusCompression - Codec to use to compress the persisted data
-type OutputPrometheusCompression string
-
-const (
-	// OutputPrometheusCompressionNone None
-	OutputPrometheusCompressionNone OutputPrometheusCompression = "none"
-	// OutputPrometheusCompressionGzip Gzip
-	OutputPrometheusCompressionGzip OutputPrometheusCompression = "gzip"
-)
-
-func (e OutputPrometheusCompression) ToPointer() *OutputPrometheusCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputPrometheusCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputPrometheusQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputPrometheusQueueFullBehavior string
-
-const (
-	// OutputPrometheusQueueFullBehaviorBlock Block
-	OutputPrometheusQueueFullBehaviorBlock OutputPrometheusQueueFullBehavior = "block"
-	// OutputPrometheusQueueFullBehaviorDrop Drop new data
-	OutputPrometheusQueueFullBehaviorDrop OutputPrometheusQueueFullBehavior = "drop"
-)
-
-func (e OutputPrometheusQueueFullBehavior) ToPointer() *OutputPrometheusQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputPrometheusQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputPrometheusPqControls struct {
 }
 
@@ -330,70 +43,6 @@ func (o *OutputPrometheusPqControls) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-type OutputPrometheusOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (o OutputPrometheusOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputPrometheusOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputPrometheusOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputPrometheusOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputPrometheusOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (o OutputPrometheusOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputPrometheusOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputPrometheusOauthHeader) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputPrometheusOauthHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
 }
 
 type OutputPrometheus struct {
@@ -429,23 +78,23 @@ type OutputPrometheus struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputPrometheusExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputPrometheusFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputPrometheusResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputPrometheusTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputPrometheusBackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Remote Write authentication type
-	AuthType    *OutputPrometheusAuthenticationType `default:"none" json:"authType"`
-	Description *string                             `json:"description,omitempty"`
+	AuthType    *AuthenticationTypeOptionsPrometheusAuth `default:"none" json:"authType"`
+	Description *string                                  `json:"description,omitempty"`
 	// How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
 	MetricsFlushPeriodSec *float64 `default:"60" json:"metricsFlushPeriodSec"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -453,7 +102,7 @@ type OutputPrometheus struct {
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputPrometheusMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `default:"error" json:"pqMode"`
 	// The maximum number of events to hold in memory before writing the events to disk
 	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
@@ -465,12 +114,12 @@ type OutputPrometheus struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
 	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputPrometheusCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputPrometheusQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputPrometheusPqControls        `json:"pqControls,omitempty"`
-	Username         *string                            `json:"username,omitempty"`
-	Password         *string                            `json:"password,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions   `default:"block" json:"pqOnBackpressure"`
+	PqControls       *OutputPrometheusPqControls `json:"pqControls,omitempty"`
+	Username         *string                     `json:"username,omitempty"`
+	Password         *string                     `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -490,9 +139,9 @@ type OutputPrometheus struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []OutputPrometheusOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []OutputPrometheusOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
 func (o OutputPrometheus) MarshalJSON() ([]byte, error) {
@@ -611,7 +260,7 @@ func (o *OutputPrometheus) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputPrometheus) GetExtraHTTPHeaders() []OutputPrometheusExtraHTTPHeader {
+func (o *OutputPrometheus) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if o == nil {
 		return nil
 	}
@@ -625,7 +274,7 @@ func (o *OutputPrometheus) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputPrometheus) GetFailedRequestLoggingMode() *OutputPrometheusFailedRequestLoggingMode {
+func (o *OutputPrometheus) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -639,14 +288,14 @@ func (o *OutputPrometheus) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputPrometheus) GetResponseRetrySettings() []OutputPrometheusResponseRetrySetting {
+func (o *OutputPrometheus) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputPrometheus) GetTimeoutRetrySettings() *OutputPrometheusTimeoutRetrySettings {
+func (o *OutputPrometheus) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
@@ -660,14 +309,14 @@ func (o *OutputPrometheus) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputPrometheus) GetOnBackpressure() *OutputPrometheusBackpressureBehavior {
+func (o *OutputPrometheus) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputPrometheus) GetAuthType() *OutputPrometheusAuthenticationType {
+func (o *OutputPrometheus) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth {
 	if o == nil {
 		return nil
 	}
@@ -702,7 +351,7 @@ func (o *OutputPrometheus) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputPrometheus) GetPqMode() *OutputPrometheusMode {
+func (o *OutputPrometheus) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -744,14 +393,14 @@ func (o *OutputPrometheus) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputPrometheus) GetPqCompress() *OutputPrometheusCompression {
+func (o *OutputPrometheus) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputPrometheus) GetPqOnBackpressure() *OutputPrometheusQueueFullBehavior {
+func (o *OutputPrometheus) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -842,14 +491,14 @@ func (o *OutputPrometheus) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputPrometheus) GetOauthParams() []OutputPrometheusOauthParam {
+func (o *OutputPrometheus) GetOauthParams() []ItemsTypeOauthParams {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputPrometheus) GetOauthHeaders() []OutputPrometheusOauthHeader {
+func (o *OutputPrometheus) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if o == nil {
 		return nil
 	}

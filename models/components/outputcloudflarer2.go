@@ -55,286 +55,6 @@ func (e *OutputCloudflareR2AuthenticationMethod) IsExact() bool {
 	return false
 }
 
-// OutputCloudflareR2SignatureVersion - Signature version to use for signing MinIO requests
-type OutputCloudflareR2SignatureVersion string
-
-const (
-	OutputCloudflareR2SignatureVersionV2 OutputCloudflareR2SignatureVersion = "v2"
-	OutputCloudflareR2SignatureVersionV4 OutputCloudflareR2SignatureVersion = "v4"
-)
-
-func (e OutputCloudflareR2SignatureVersion) ToPointer() *OutputCloudflareR2SignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2SignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2StorageClass - Storage class to select for uploaded objects
-type OutputCloudflareR2StorageClass string
-
-const (
-	// OutputCloudflareR2StorageClassStandard Standard
-	OutputCloudflareR2StorageClassStandard OutputCloudflareR2StorageClass = "STANDARD"
-	// OutputCloudflareR2StorageClassReducedRedundancy Reduced Redundancy Storage
-	OutputCloudflareR2StorageClassReducedRedundancy OutputCloudflareR2StorageClass = "REDUCED_REDUNDANCY"
-)
-
-func (e OutputCloudflareR2StorageClass) ToPointer() *OutputCloudflareR2StorageClass {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2StorageClass) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "STANDARD", "REDUCED_REDUNDANCY":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2ServerSideEncryption - Server-side encryption for uploaded objects
-type OutputCloudflareR2ServerSideEncryption string
-
-const (
-	// OutputCloudflareR2ServerSideEncryptionAes256 Amazon S3 Managed Key
-	OutputCloudflareR2ServerSideEncryptionAes256 OutputCloudflareR2ServerSideEncryption = "AES256"
-)
-
-func (e OutputCloudflareR2ServerSideEncryption) ToPointer() *OutputCloudflareR2ServerSideEncryption {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2ServerSideEncryption) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "AES256":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2DataFormat - Format of the output data
-type OutputCloudflareR2DataFormat string
-
-const (
-	// OutputCloudflareR2DataFormatJSON JSON
-	OutputCloudflareR2DataFormatJSON OutputCloudflareR2DataFormat = "json"
-	// OutputCloudflareR2DataFormatRaw Raw
-	OutputCloudflareR2DataFormatRaw OutputCloudflareR2DataFormat = "raw"
-	// OutputCloudflareR2DataFormatParquet Parquet
-	OutputCloudflareR2DataFormatParquet OutputCloudflareR2DataFormat = "parquet"
-)
-
-func (e OutputCloudflareR2DataFormat) ToPointer() *OutputCloudflareR2DataFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2DataFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "raw", "parquet":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2BackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputCloudflareR2BackpressureBehavior string
-
-const (
-	// OutputCloudflareR2BackpressureBehaviorBlock Block
-	OutputCloudflareR2BackpressureBehaviorBlock OutputCloudflareR2BackpressureBehavior = "block"
-	// OutputCloudflareR2BackpressureBehaviorDrop Drop
-	OutputCloudflareR2BackpressureBehaviorDrop OutputCloudflareR2BackpressureBehavior = "drop"
-)
-
-func (e OutputCloudflareR2BackpressureBehavior) ToPointer() *OutputCloudflareR2BackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2BackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2DiskSpaceProtection - How to handle events when disk space is below the global 'Min free disk space' limit
-type OutputCloudflareR2DiskSpaceProtection string
-
-const (
-	// OutputCloudflareR2DiskSpaceProtectionBlock Block
-	OutputCloudflareR2DiskSpaceProtectionBlock OutputCloudflareR2DiskSpaceProtection = "block"
-	// OutputCloudflareR2DiskSpaceProtectionDrop Drop
-	OutputCloudflareR2DiskSpaceProtectionDrop OutputCloudflareR2DiskSpaceProtection = "drop"
-)
-
-func (e OutputCloudflareR2DiskSpaceProtection) ToPointer() *OutputCloudflareR2DiskSpaceProtection {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2DiskSpaceProtection) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2Compression - Data compression format to apply to HTTP content before it is delivered
-type OutputCloudflareR2Compression string
-
-const (
-	OutputCloudflareR2CompressionNone OutputCloudflareR2Compression = "none"
-	OutputCloudflareR2CompressionGzip OutputCloudflareR2Compression = "gzip"
-)
-
-func (e OutputCloudflareR2Compression) ToPointer() *OutputCloudflareR2Compression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2Compression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2CompressionLevel - Compression level to apply before moving files to final destination
-type OutputCloudflareR2CompressionLevel string
-
-const (
-	// OutputCloudflareR2CompressionLevelBestSpeed Best Speed
-	OutputCloudflareR2CompressionLevelBestSpeed OutputCloudflareR2CompressionLevel = "best_speed"
-	// OutputCloudflareR2CompressionLevelNormal Normal
-	OutputCloudflareR2CompressionLevelNormal OutputCloudflareR2CompressionLevel = "normal"
-	// OutputCloudflareR2CompressionLevelBestCompression Best Compression
-	OutputCloudflareR2CompressionLevelBestCompression OutputCloudflareR2CompressionLevel = "best_compression"
-)
-
-func (e OutputCloudflareR2CompressionLevel) ToPointer() *OutputCloudflareR2CompressionLevel {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2CompressionLevel) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "best_speed", "normal", "best_compression":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2ParquetVersion - Determines which data types are supported and how they are represented
-type OutputCloudflareR2ParquetVersion string
-
-const (
-	// OutputCloudflareR2ParquetVersionParquet10 1.0
-	OutputCloudflareR2ParquetVersionParquet10 OutputCloudflareR2ParquetVersion = "PARQUET_1_0"
-	// OutputCloudflareR2ParquetVersionParquet24 2.4
-	OutputCloudflareR2ParquetVersionParquet24 OutputCloudflareR2ParquetVersion = "PARQUET_2_4"
-	// OutputCloudflareR2ParquetVersionParquet26 2.6
-	OutputCloudflareR2ParquetVersionParquet26 OutputCloudflareR2ParquetVersion = "PARQUET_2_6"
-)
-
-func (e OutputCloudflareR2ParquetVersion) ToPointer() *OutputCloudflareR2ParquetVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2ParquetVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "PARQUET_1_0", "PARQUET_2_4", "PARQUET_2_6":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputCloudflareR2DataPageVersion - Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-type OutputCloudflareR2DataPageVersion string
-
-const (
-	// OutputCloudflareR2DataPageVersionDataPageV1 V1
-	OutputCloudflareR2DataPageVersionDataPageV1 OutputCloudflareR2DataPageVersion = "DATA_PAGE_V1"
-	// OutputCloudflareR2DataPageVersionDataPageV2 V2
-	OutputCloudflareR2DataPageVersionDataPageV2 OutputCloudflareR2DataPageVersion = "DATA_PAGE_V2"
-)
-
-func (e OutputCloudflareR2DataPageVersion) ToPointer() *OutputCloudflareR2DataPageVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2DataPageVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "DATA_PAGE_V1", "DATA_PAGE_V2":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputCloudflareR2KeyValueMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputCloudflareR2KeyValueMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputCloudflareR2KeyValueMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputCloudflareR2KeyValueMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputCloudflareR2KeyValueMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
 type OutputCloudflareR2 struct {
 	// Unique ID for this output
 	ID   *string                `json:"id,omitempty"`
@@ -363,12 +83,12 @@ type OutputCloudflareR2 struct {
 	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
 	DestPath *string `json:"destPath,omitempty"`
 	// Signature version to use for signing MinIO requests
-	SignatureVersion *OutputCloudflareR2SignatureVersion `default:"v4" json:"signatureVersion"`
-	ObjectACL        any                                 `json:"objectACL,omitempty"`
+	SignatureVersion *SignatureVersionOptions5 `default:"v4" json:"signatureVersion"`
+	ObjectACL        any                       `json:"objectACL,omitempty"`
 	// Storage class to select for uploaded objects
-	StorageClass *OutputCloudflareR2StorageClass `json:"storageClass,omitempty"`
+	StorageClass *StorageClassOptions2 `json:"storageClass,omitempty"`
 	// Server-side encryption for uploaded objects
-	ServerSideEncryption *OutputCloudflareR2ServerSideEncryption `json:"serverSideEncryption,omitempty"`
+	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitempty"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `default:"true" json:"reuseConnections"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
@@ -380,7 +100,7 @@ type OutputCloudflareR2 struct {
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
 	PartitionExpr *string `default:"C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')" json:"partitionExpr"`
 	// Format of the output data
-	Format *OutputCloudflareR2DataFormat `default:"json" json:"format"`
+	Format *DataFormatOptions `default:"json" json:"format"`
 	// JavaScript expression to define the output filename prefix (can be constant)
 	BaseFileName *string `default:"CriblOut" json:"baseFileName"`
 	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
@@ -394,11 +114,11 @@ type OutputCloudflareR2 struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `default:"64" json:"writeHighWaterMark"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputCloudflareR2BackpressureBehavior `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions1 `default:"block" json:"onBackpressure"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *OutputCloudflareR2DiskSpaceProtection `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `default:"block" json:"onDiskFullBackpressure"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool `default:"false" json:"forceCloseOnShutdown"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
@@ -413,17 +133,17 @@ type OutputCloudflareR2 struct {
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *OutputCloudflareR2Compression `default:"gzip" json:"compress"`
+	Compress *CompressionOptions2 `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
-	CompressionLevel *OutputCloudflareR2CompressionLevel `default:"best_speed" json:"compressionLevel"`
+	CompressionLevel *CompressionLevelOptions `default:"best_speed" json:"compressionLevel"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
 	AutomaticSchema *bool `default:"false" json:"automaticSchema"`
 	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
 	ParquetSchema *string `json:"parquetSchema,omitempty"`
 	// Determines which data types are supported and how they are represented
-	ParquetVersion *OutputCloudflareR2ParquetVersion `default:"PARQUET_2_6" json:"parquetVersion"`
+	ParquetVersion *ParquetVersionOptions `default:"PARQUET_2_6" json:"parquetVersion"`
 	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-	ParquetDataPageVersion *OutputCloudflareR2DataPageVersion `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
+	ParquetDataPageVersion *DataPageVersionOptions `default:"DATA_PAGE_V2" json:"parquetDataPageVersion"`
 	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
 	ParquetRowGroupLength *float64 `default:"10000" json:"parquetRowGroupLength"`
 	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
@@ -431,7 +151,7 @@ type OutputCloudflareR2 struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitempty"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []OutputCloudflareR2KeyValueMetadatum `json:"keyValueMetadata,omitempty"`
+	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitempty"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `default:"true" json:"enableStatistics"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -557,7 +277,7 @@ func (o *OutputCloudflareR2) GetDestPath() *string {
 	return o.DestPath
 }
 
-func (o *OutputCloudflareR2) GetSignatureVersion() *OutputCloudflareR2SignatureVersion {
+func (o *OutputCloudflareR2) GetSignatureVersion() *SignatureVersionOptions5 {
 	if o == nil {
 		return nil
 	}
@@ -571,14 +291,14 @@ func (o *OutputCloudflareR2) GetObjectACL() any {
 	return o.ObjectACL
 }
 
-func (o *OutputCloudflareR2) GetStorageClass() *OutputCloudflareR2StorageClass {
+func (o *OutputCloudflareR2) GetStorageClass() *StorageClassOptions2 {
 	if o == nil {
 		return nil
 	}
 	return o.StorageClass
 }
 
-func (o *OutputCloudflareR2) GetServerSideEncryption() *OutputCloudflareR2ServerSideEncryption {
+func (o *OutputCloudflareR2) GetServerSideEncryption() *ServerSideEncryptionOptions {
 	if o == nil {
 		return nil
 	}
@@ -620,7 +340,7 @@ func (o *OutputCloudflareR2) GetPartitionExpr() *string {
 	return o.PartitionExpr
 }
 
-func (o *OutputCloudflareR2) GetFormat() *OutputCloudflareR2DataFormat {
+func (o *OutputCloudflareR2) GetFormat() *DataFormatOptions {
 	if o == nil {
 		return nil
 	}
@@ -669,7 +389,7 @@ func (o *OutputCloudflareR2) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputCloudflareR2) GetOnBackpressure() *OutputCloudflareR2BackpressureBehavior {
+func (o *OutputCloudflareR2) GetOnBackpressure() *BackpressureBehaviorOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -683,7 +403,7 @@ func (o *OutputCloudflareR2) GetDeadletterEnabled() *bool {
 	return o.DeadletterEnabled
 }
 
-func (o *OutputCloudflareR2) GetOnDiskFullBackpressure() *OutputCloudflareR2DiskSpaceProtection {
+func (o *OutputCloudflareR2) GetOnDiskFullBackpressure() *DiskSpaceProtectionOptions {
 	if o == nil {
 		return nil
 	}
@@ -739,14 +459,14 @@ func (o *OutputCloudflareR2) GetAwsSecret() *string {
 	return o.AwsSecret
 }
 
-func (o *OutputCloudflareR2) GetCompress() *OutputCloudflareR2Compression {
+func (o *OutputCloudflareR2) GetCompress() *CompressionOptions2 {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputCloudflareR2) GetCompressionLevel() *OutputCloudflareR2CompressionLevel {
+func (o *OutputCloudflareR2) GetCompressionLevel() *CompressionLevelOptions {
 	if o == nil {
 		return nil
 	}
@@ -767,14 +487,14 @@ func (o *OutputCloudflareR2) GetParquetSchema() *string {
 	return o.ParquetSchema
 }
 
-func (o *OutputCloudflareR2) GetParquetVersion() *OutputCloudflareR2ParquetVersion {
+func (o *OutputCloudflareR2) GetParquetVersion() *ParquetVersionOptions {
 	if o == nil {
 		return nil
 	}
 	return o.ParquetVersion
 }
 
-func (o *OutputCloudflareR2) GetParquetDataPageVersion() *OutputCloudflareR2DataPageVersion {
+func (o *OutputCloudflareR2) GetParquetDataPageVersion() *DataPageVersionOptions {
 	if o == nil {
 		return nil
 	}
@@ -802,7 +522,7 @@ func (o *OutputCloudflareR2) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputCloudflareR2) GetKeyValueMetadata() []OutputCloudflareR2KeyValueMetadatum {
+func (o *OutputCloudflareR2) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
 	if o == nil {
 		return nil
 	}

@@ -2,104 +2,13 @@
 
 package components
 
-// GroupCreateRequestEstimatedIngestRate - Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
-type GroupCreateRequestEstimatedIngestRate int64
-
-const (
-	// GroupCreateRequestEstimatedIngestRateRate12MbPerSec 12 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate12MbPerSec GroupCreateRequestEstimatedIngestRate = 1024
-	// GroupCreateRequestEstimatedIngestRateRate24MbPerSec 24 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate24MbPerSec GroupCreateRequestEstimatedIngestRate = 2048
-	// GroupCreateRequestEstimatedIngestRateRate36MbPerSec 36 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate36MbPerSec GroupCreateRequestEstimatedIngestRate = 3072
-	// GroupCreateRequestEstimatedIngestRateRate48MbPerSec 48 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate48MbPerSec GroupCreateRequestEstimatedIngestRate = 4096
-	// GroupCreateRequestEstimatedIngestRateRate60MbPerSec 60 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate60MbPerSec GroupCreateRequestEstimatedIngestRate = 5120
-	// GroupCreateRequestEstimatedIngestRateRate84MbPerSec 84 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate84MbPerSec GroupCreateRequestEstimatedIngestRate = 7168
-	// GroupCreateRequestEstimatedIngestRateRate120MbPerSec 120 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate120MbPerSec GroupCreateRequestEstimatedIngestRate = 10240
-	// GroupCreateRequestEstimatedIngestRateRate156MbPerSec 156 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate156MbPerSec GroupCreateRequestEstimatedIngestRate = 13312
-	// GroupCreateRequestEstimatedIngestRateRate180MbPerSec 180 MB/sec
-	GroupCreateRequestEstimatedIngestRateRate180MbPerSec GroupCreateRequestEstimatedIngestRate = 15360
-)
-
-func (e GroupCreateRequestEstimatedIngestRate) ToPointer() *GroupCreateRequestEstimatedIngestRate {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *GroupCreateRequestEstimatedIngestRate) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case 1024, 2048, 3072, 4096, 5120, 7168, 10240, 13312, 15360:
-			return true
-		}
-	}
-	return false
-}
-
-type GroupCreateRequestGit struct {
-	Commit       *string  `json:"commit,omitempty"`
-	LocalChanges *float64 `json:"localChanges,omitempty"`
-	Log          []Commit `json:"log,omitempty"`
-}
-
-func (g *GroupCreateRequestGit) GetCommit() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Commit
-}
-
-func (g *GroupCreateRequestGit) GetLocalChanges() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.LocalChanges
-}
-
-func (g *GroupCreateRequestGit) GetLog() []Commit {
-	if g == nil {
-		return nil
-	}
-	return g.Log
-}
-
-type GroupCreateRequestType string
-
-const (
-	GroupCreateRequestTypeEdge        GroupCreateRequestType = "edge"
-	GroupCreateRequestTypeStream      GroupCreateRequestType = "stream"
-	GroupCreateRequestTypeSearch      GroupCreateRequestType = "search"
-	GroupCreateRequestTypeLakeAccess  GroupCreateRequestType = "lake_access"
-	GroupCreateRequestTypeLocalSearch GroupCreateRequestType = "local_search"
-)
-
-func (e GroupCreateRequestType) ToPointer() *GroupCreateRequestType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *GroupCreateRequestType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "edge", "stream", "search", "lake_access", "local_search":
-			return true
-		}
-	}
-	return false
-}
-
 type GroupCreateRequest struct {
 	Cloud                *ConfigGroupCloud `json:"cloud,omitempty"`
 	DeployingWorkerCount *float64          `json:"deployingWorkerCount,omitempty"`
 	Description          *string           `json:"description,omitempty"`
 	// Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
-	EstimatedIngestRate     *GroupCreateRequestEstimatedIngestRate `json:"estimatedIngestRate,omitempty"`
-	Git                     *GroupCreateRequestGit                 `json:"git,omitempty"`
+	EstimatedIngestRate     *EstimatedIngestRateOptionsConfigGroup `json:"estimatedIngestRate,omitempty"`
+	Git                     *GitTypeConfigGroup                    `json:"git,omitempty"`
 	ID                      string                                 `json:"id"`
 	IncompatibleWorkerCount *float64                               `json:"incompatibleWorkerCount,omitempty"`
 	Inherits                *string                                `json:"inherits,omitempty"`
@@ -113,7 +22,7 @@ type GroupCreateRequest struct {
 	SourceGroupID           *string                                `json:"sourceGroupId,omitempty"`
 	Streamtags              []string                               `json:"streamtags,omitempty"`
 	Tags                    *string                                `json:"tags,omitempty"`
-	Type                    *GroupCreateRequestType                `json:"type,omitempty"`
+	Type                    *TypeOptionsConfigGroup                `json:"type,omitempty"`
 	UpgradeVersion          *string                                `json:"upgradeVersion,omitempty"`
 	WorkerCount             *float64                               `json:"workerCount,omitempty"`
 	WorkerRemoteAccess      *bool                                  `json:"workerRemoteAccess,omitempty"`
@@ -140,14 +49,14 @@ func (g *GroupCreateRequest) GetDescription() *string {
 	return g.Description
 }
 
-func (g *GroupCreateRequest) GetEstimatedIngestRate() *GroupCreateRequestEstimatedIngestRate {
+func (g *GroupCreateRequest) GetEstimatedIngestRate() *EstimatedIngestRateOptionsConfigGroup {
 	if g == nil {
 		return nil
 	}
 	return g.EstimatedIngestRate
 }
 
-func (g *GroupCreateRequest) GetGit() *GroupCreateRequestGit {
+func (g *GroupCreateRequest) GetGit() *GitTypeConfigGroup {
 	if g == nil {
 		return nil
 	}
@@ -245,7 +154,7 @@ func (g *GroupCreateRequest) GetTags() *string {
 	return g.Tags
 }
 
-func (g *GroupCreateRequest) GetType() *GroupCreateRequestType {
+func (g *GroupCreateRequest) GetType() *TypeOptionsConfigGroup {
 	if g == nil {
 		return nil
 	}

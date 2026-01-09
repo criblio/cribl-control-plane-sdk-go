@@ -47,37 +47,6 @@ func (f *FunctionConfSchemaMaskRule) GetDisabled() *bool {
 	return f.Disabled
 }
 
-type FunctionConfSchemaMaskFlag struct {
-	Name *string `json:"name,omitempty"`
-	// JavaScript expression to compute the value (can be constant)
-	Value string `json:"value"`
-}
-
-func (f FunctionConfSchemaMaskFlag) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
-}
-
-func (f *FunctionConfSchemaMaskFlag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (f *FunctionConfSchemaMaskFlag) GetName() *string {
-	if f == nil {
-		return nil
-	}
-	return f.Name
-}
-
-func (f *FunctionConfSchemaMaskFlag) GetValue() string {
-	if f == nil {
-		return ""
-	}
-	return f.Value
-}
-
 type FunctionConfSchemaMask struct {
 	Rules []FunctionConfSchemaMaskRule `json:"rules,omitempty"`
 	// Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
@@ -85,7 +54,7 @@ type FunctionConfSchemaMask struct {
 	// Depth to which the Mask Function will search for fields to mask
 	Depth *int64 `default:"5" json:"depth"`
 	// Fields to evaluate if one or more masking rules are matched
-	Flags []FunctionConfSchemaMaskFlag `json:"flags,omitempty"`
+	Flags []ItemsTypeAdd `json:"flags,omitempty"`
 }
 
 func (f FunctionConfSchemaMask) MarshalJSON() ([]byte, error) {
@@ -120,7 +89,7 @@ func (f *FunctionConfSchemaMask) GetDepth() *int64 {
 	return f.Depth
 }
 
-func (f *FunctionConfSchemaMask) GetFlags() []FunctionConfSchemaMaskFlag {
+func (f *FunctionConfSchemaMask) GetFlags() []ItemsTypeAdd {
 	if f == nil {
 		return nil
 	}
