@@ -12,6 +12,7 @@ type AzureTypeHeartbeatMetadata struct {
 	SubscriptionID *string           `json:"subscriptionId,omitempty"`
 	Tags           map[string]string `json:"tags,omitempty"`
 	Type           *string           `json:"type,omitempty"`
+	VMID           *string           `json:"vmId,omitempty"`
 	Zone           *string           `json:"zone,omitempty"`
 }
 
@@ -76,6 +77,13 @@ func (a *AzureTypeHeartbeatMetadata) GetType() *string {
 		return nil
 	}
 	return a.Type
+}
+
+func (a *AzureTypeHeartbeatMetadata) GetVMID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.VMID
 }
 
 func (a *AzureTypeHeartbeatMetadata) GetZone() *string {
