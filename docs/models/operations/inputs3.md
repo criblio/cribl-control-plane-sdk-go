@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputS3InputCollectionPart0Type
+### InputS3SendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputS3 := operations.CreateInputS3InputS3InputCollectionPart0Type(operations.InputS3InputCollectionPart0Type{/* values here */})
+inputS3 := operations.CreateInputS3InputS3SendToRoutesTrueWithConnectionsConstraint(operations.InputS3SendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputS3InputCollectionPart1Type
+### InputS3SendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputS3 := operations.CreateInputS3InputS3InputCollectionPart1Type(operations.InputS3InputCollectionPart1Type{/* values here */})
+inputS3 := operations.CreateInputS3InputS3SendToRoutesFalseWithConnectionsConstraint(operations.InputS3SendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputS3InputCollectionPart0Type1
+### InputS3PqEnabledFalseWithPqConstraint
 
 ```go
-inputS3 := operations.CreateInputS3InputS3InputCollectionPart0Type1(operations.InputS3InputCollectionPart0Type1{/* values here */})
+inputS3 := operations.CreateInputS3InputS3PqEnabledFalseWithPqConstraint(operations.InputS3PqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputS3InputCollectionPart1Type1
+### InputS3PqEnabledTrueWithPqConstraint
 
 ```go
-inputS3 := operations.CreateInputS3InputS3InputCollectionPart1Type1(operations.InputS3InputCollectionPart1Type1{/* values here */})
+inputS3 := operations.CreateInputS3InputS3PqEnabledTrueWithPqConstraint(operations.InputS3PqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputCrowdstrikeInputCollectionPart1Type1 struct {
+type InputCrowdstrikePqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -91,328 +91,329 @@ type InputCrowdstrikeInputCollectionPart1Type1 struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputCrowdstrikeInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputCrowdstrikePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetID() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetType() InputCrowdstrikeType {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetType() InputCrowdstrikeType {
 	if i == nil {
 		return InputCrowdstrikeType("")
 	}
 	return i.Type
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetQueueName() string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetFileFilter() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetAwsAccountID() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetAwsSecretKey() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetRegion() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetEndpoint() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetReuseConnections() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetRejectUnauthorized() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetBreakerRulesets() []string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetMaxMessages() *float64 {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetVisibilityTimeout() *float64 {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetNumReceivers() *float64 {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetSkipOnError() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetIncludeSqsMetadata() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetEnableAssumeRole() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetAssumeRoleArn() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetAssumeRoleExternalID() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetDurationSeconds() *float64 {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetEnableSQSAssumeRole() *bool {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetCheckpointing() *CheckpointingType {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetPollTimeout() *float64 {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetEncoding() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetAwsAPIKey() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetAwsSecret() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetProcessedTagKey() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type1) GetProcessedTagValue() *string {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagValue
 }
 
-type InputCrowdstrikeInputCollectionPart0Type1 struct {
+type InputCrowdstrikePqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputCrowdstrikeType `json:"type"`
@@ -427,7 +428,6 @@ type InputCrowdstrikeInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -492,326 +492,326 @@ type InputCrowdstrikeInputCollectionPart0Type1 struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputCrowdstrikeInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputCrowdstrikePqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetType() InputCrowdstrikeType {
-	if i == nil {
-		return InputCrowdstrikeType("")
-	}
-	return i.Type
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetQueueName() string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetType() InputCrowdstrikeType {
+	if i == nil {
+		return InputCrowdstrikeType("")
+	}
+	return i.Type
+}
+
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetFileFilter() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetAwsAccountID() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetAwsSecretKey() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetRegion() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetEndpoint() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetReuseConnections() *bool {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetRejectUnauthorized() *bool {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetBreakerRulesets() []string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetMaxMessages() *float64 {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetVisibilityTimeout() *float64 {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetNumReceivers() *float64 {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetSkipOnError() *bool {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetIncludeSqsMetadata() *bool {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetEnableAssumeRole() *bool {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetAssumeRoleArn() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetAssumeRoleExternalID() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetDurationSeconds() *float64 {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetEnableSQSAssumeRole() *bool {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetCheckpointing() *CheckpointingType {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetPollTimeout() *float64 {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetEncoding() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetAwsAPIKey() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetAwsSecret() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetProcessedTagKey() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type1) GetProcessedTagValue() *string {
+func (i *InputCrowdstrikePqEnabledFalseWithPqConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagValue
 }
 
-type InputCrowdstrikeInputCollectionPart1Type struct {
+type InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -893,319 +893,319 @@ type InputCrowdstrikeInputCollectionPart1Type struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputCrowdstrikeInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetID() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetType() InputCrowdstrikeType {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetType() InputCrowdstrikeType {
 	if i == nil {
 		return InputCrowdstrikeType("")
 	}
 	return i.Type
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetQueueName() string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetFileFilter() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetAwsAccountID() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetAwsSecretKey() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetRegion() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetEndpoint() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetReuseConnections() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetRejectUnauthorized() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetBreakerRulesets() []string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetMaxMessages() *float64 {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetVisibilityTimeout() *float64 {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetNumReceivers() *float64 {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetSocketTimeout() *float64 {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetSkipOnError() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetIncludeSqsMetadata() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetEnableAssumeRole() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetAssumeRoleArn() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetAssumeRoleExternalID() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetDurationSeconds() *float64 {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetEnableSQSAssumeRole() *bool {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetCheckpointing() *CheckpointingType {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetPollTimeout() *float64 {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetEncoding() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetDescription() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetAwsAPIKey() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetAwsSecret() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetProcessedTagKey() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart1Type) GetProcessedTagValue() *string {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
@@ -1235,9 +1235,11 @@ func (e *InputCrowdstrikeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCrowdstrikeInputCollectionPart0Type struct {
+type InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputCrowdstrikeType `json:"type"`
@@ -1250,9 +1252,7 @@ type InputCrowdstrikeInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -1317,319 +1317,319 @@ type InputCrowdstrikeInputCollectionPart0Type struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputCrowdstrikeInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetType() InputCrowdstrikeType {
-	if i == nil {
-		return InputCrowdstrikeType("")
-	}
-	return i.Type
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetType() InputCrowdstrikeType {
+	if i == nil {
+		return InputCrowdstrikeType("")
+	}
+	return i.Type
+}
+
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetQueueName() string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetFileFilter() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetAwsAccountID() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetAwsSecretKey() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetRegion() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetEndpoint() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetReuseConnections() *bool {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetRejectUnauthorized() *bool {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetBreakerRulesets() []string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetMaxMessages() *float64 {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetVisibilityTimeout() *float64 {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetNumReceivers() *float64 {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetSocketTimeout() *float64 {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetSkipOnError() *bool {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetIncludeSqsMetadata() *bool {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetEnableAssumeRole() *bool {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetAssumeRoleArn() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetAssumeRoleExternalID() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetDurationSeconds() *float64 {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetEnableSQSAssumeRole() *bool {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetCheckpointing() *CheckpointingType {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetPollTimeout() *float64 {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetEncoding() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetDescription() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetAwsAPIKey() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetAwsSecret() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetProcessedTagKey() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputCrowdstrikeInputCollectionPart0Type) GetProcessedTagValue() *string {
+func (i *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
@@ -1639,84 +1639,84 @@ func (i *InputCrowdstrikeInputCollectionPart0Type) GetProcessedTagValue() *strin
 type InputCrowdstrikeUnionType string
 
 const (
-	InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart0Type  InputCrowdstrikeUnionType = "InputCrowdstrike_InputCollectionPart0Type"
-	InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart1Type  InputCrowdstrikeUnionType = "InputCrowdstrike_InputCollectionPart1Type"
-	InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart0Type1 InputCrowdstrikeUnionType = "InputCrowdstrike_InputCollectionPart0Type1"
-	InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart1Type1 InputCrowdstrikeUnionType = "InputCrowdstrike_InputCollectionPart1Type1"
+	InputCrowdstrikeUnionTypeInputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint  InputCrowdstrikeUnionType = "InputCrowdstrike_SendToRoutesTrueWithConnectionsConstraint"
+	InputCrowdstrikeUnionTypeInputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint InputCrowdstrikeUnionType = "InputCrowdstrike_SendToRoutesFalseWithConnectionsConstraint"
+	InputCrowdstrikeUnionTypeInputCrowdstrikePqEnabledFalseWithPqConstraint             InputCrowdstrikeUnionType = "InputCrowdstrike_PqEnabledFalseWithPqConstraint"
+	InputCrowdstrikeUnionTypeInputCrowdstrikePqEnabledTrueWithPqConstraint              InputCrowdstrikeUnionType = "InputCrowdstrike_PqEnabledTrueWithPqConstraint"
 )
 
 type InputCrowdstrike struct {
-	InputCrowdstrikeInputCollectionPart0Type  *InputCrowdstrikeInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputCrowdstrikeInputCollectionPart1Type  *InputCrowdstrikeInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputCrowdstrikeInputCollectionPart0Type1 *InputCrowdstrikeInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputCrowdstrikeInputCollectionPart1Type1 *InputCrowdstrikeInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint  *InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputCrowdstrikePqEnabledFalseWithPqConstraint             *InputCrowdstrikePqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputCrowdstrikePqEnabledTrueWithPqConstraint              *InputCrowdstrikePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputCrowdstrikeUnionType
 }
 
-func CreateInputCrowdstrikeInputCrowdstrikeInputCollectionPart0Type(inputCrowdstrikeInputCollectionPart0Type InputCrowdstrikeInputCollectionPart0Type) InputCrowdstrike {
-	typ := InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart0Type
+func CreateInputCrowdstrikeInputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint(inputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint) InputCrowdstrike {
+	typ := InputCrowdstrikeUnionTypeInputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint
 
 	return InputCrowdstrike{
-		InputCrowdstrikeInputCollectionPart0Type: &inputCrowdstrikeInputCollectionPart0Type,
-		Type:                                     typ,
-	}
-}
-
-func CreateInputCrowdstrikeInputCrowdstrikeInputCollectionPart1Type(inputCrowdstrikeInputCollectionPart1Type InputCrowdstrikeInputCollectionPart1Type) InputCrowdstrike {
-	typ := InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart1Type
-
-	return InputCrowdstrike{
-		InputCrowdstrikeInputCollectionPart1Type: &inputCrowdstrikeInputCollectionPart1Type,
-		Type:                                     typ,
-	}
-}
-
-func CreateInputCrowdstrikeInputCrowdstrikeInputCollectionPart0Type1(inputCrowdstrikeInputCollectionPart0Type1 InputCrowdstrikeInputCollectionPart0Type1) InputCrowdstrike {
-	typ := InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart0Type1
-
-	return InputCrowdstrike{
-		InputCrowdstrikeInputCollectionPart0Type1: &inputCrowdstrikeInputCollectionPart0Type1,
+		InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint: &inputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputCrowdstrikeInputCrowdstrikeInputCollectionPart1Type1(inputCrowdstrikeInputCollectionPart1Type1 InputCrowdstrikeInputCollectionPart1Type1) InputCrowdstrike {
-	typ := InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart1Type1
+func CreateInputCrowdstrikeInputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint(inputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) InputCrowdstrike {
+	typ := InputCrowdstrikeUnionTypeInputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint
 
 	return InputCrowdstrike{
-		InputCrowdstrikeInputCollectionPart1Type1: &inputCrowdstrikeInputCollectionPart1Type1,
+		InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint: &inputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputCrowdstrikeInputCrowdstrikePqEnabledFalseWithPqConstraint(inputCrowdstrikePqEnabledFalseWithPqConstraint InputCrowdstrikePqEnabledFalseWithPqConstraint) InputCrowdstrike {
+	typ := InputCrowdstrikeUnionTypeInputCrowdstrikePqEnabledFalseWithPqConstraint
+
+	return InputCrowdstrike{
+		InputCrowdstrikePqEnabledFalseWithPqConstraint: &inputCrowdstrikePqEnabledFalseWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputCrowdstrikeInputCrowdstrikePqEnabledTrueWithPqConstraint(inputCrowdstrikePqEnabledTrueWithPqConstraint InputCrowdstrikePqEnabledTrueWithPqConstraint) InputCrowdstrike {
+	typ := InputCrowdstrikeUnionTypeInputCrowdstrikePqEnabledTrueWithPqConstraint
+
+	return InputCrowdstrike{
+		InputCrowdstrikePqEnabledTrueWithPqConstraint: &inputCrowdstrikePqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputCrowdstrike) UnmarshalJSON(data []byte) error {
 
-	var inputCrowdstrikeInputCollectionPart0Type InputCrowdstrikeInputCollectionPart0Type = InputCrowdstrikeInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputCrowdstrikeInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputCrowdstrikeInputCollectionPart0Type = &inputCrowdstrikeInputCollectionPart0Type
-		u.Type = InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart0Type
+	var inputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint = InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint = &inputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputCrowdstrikeUnionTypeInputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputCrowdstrikeInputCollectionPart1Type InputCrowdstrikeInputCollectionPart1Type = InputCrowdstrikeInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputCrowdstrikeInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputCrowdstrikeInputCollectionPart1Type = &inputCrowdstrikeInputCollectionPart1Type
-		u.Type = InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart1Type
+	var inputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint = InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint = &inputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputCrowdstrikeUnionTypeInputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputCrowdstrikeInputCollectionPart0Type1 InputCrowdstrikeInputCollectionPart0Type1 = InputCrowdstrikeInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputCrowdstrikeInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputCrowdstrikeInputCollectionPart0Type1 = &inputCrowdstrikeInputCollectionPart0Type1
-		u.Type = InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart0Type1
+	var inputCrowdstrikePqEnabledFalseWithPqConstraint InputCrowdstrikePqEnabledFalseWithPqConstraint = InputCrowdstrikePqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCrowdstrikePqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputCrowdstrikePqEnabledFalseWithPqConstraint = &inputCrowdstrikePqEnabledFalseWithPqConstraint
+		u.Type = InputCrowdstrikeUnionTypeInputCrowdstrikePqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputCrowdstrikeInputCollectionPart1Type1 InputCrowdstrikeInputCollectionPart1Type1 = InputCrowdstrikeInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputCrowdstrikeInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputCrowdstrikeInputCollectionPart1Type1 = &inputCrowdstrikeInputCollectionPart1Type1
-		u.Type = InputCrowdstrikeUnionTypeInputCrowdstrikeInputCollectionPart1Type1
+	var inputCrowdstrikePqEnabledTrueWithPqConstraint InputCrowdstrikePqEnabledTrueWithPqConstraint = InputCrowdstrikePqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCrowdstrikePqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputCrowdstrikePqEnabledTrueWithPqConstraint = &inputCrowdstrikePqEnabledTrueWithPqConstraint
+		u.Type = InputCrowdstrikeUnionTypeInputCrowdstrikePqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1724,20 +1724,20 @@ func (u *InputCrowdstrike) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputCrowdstrike) MarshalJSON() ([]byte, error) {
-	if u.InputCrowdstrikeInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputCrowdstrikeInputCollectionPart0Type, "", true)
+	if u.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputCrowdstrikeInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputCrowdstrikeInputCollectionPart1Type, "", true)
+	if u.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputCrowdstrikeInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputCrowdstrikeInputCollectionPart0Type1, "", true)
+	if u.InputCrowdstrikePqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputCrowdstrikePqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputCrowdstrikeInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputCrowdstrikeInputCollectionPart1Type1, "", true)
+	if u.InputCrowdstrikePqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputCrowdstrikePqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputCrowdstrike: all fields are null")

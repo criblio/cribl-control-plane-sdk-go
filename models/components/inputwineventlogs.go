@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputWinEventLogsInputCollectionPart1Type1 struct {
+type InputWinEventLogsPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -50,167 +50,168 @@ type InputWinEventLogsInputCollectionPart1Type1 struct {
 	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
-func (i InputWinEventLogsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputWinEventLogsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetID() *string {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetType() InputWinEventLogsType {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetType() InputWinEventLogsType {
 	if i == nil {
 		return InputWinEventLogsType("")
 	}
 	return i.Type
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetLogNames() []string {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetLogNames() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.LogNames
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetReadMode() *ReadMode {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetReadMode() *ReadMode {
 	if i == nil {
 		return nil
 	}
 	return i.ReadMode
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetEventFormat() *EventFormat {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetEventFormat() *EventFormat {
 	if i == nil {
 		return nil
 	}
 	return i.EventFormat
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetDisableNativeModule() *bool {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetInterval() *float64 {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetBatchSize() *float64 {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetBatchSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetMaxEventBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxEventBytes
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetDisableJSONRendering() *bool {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisableJSONRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableJSONRendering
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type1) GetDisableXMLRendering() *bool {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisableXMLRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableXMLRendering
 }
 
-type InputWinEventLogsInputCollectionPart0Type1 struct {
+type InputWinEventLogsPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputWinEventLogsType `json:"type"`
@@ -225,7 +226,6 @@ type InputWinEventLogsInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
@@ -249,165 +249,165 @@ type InputWinEventLogsInputCollectionPart0Type1 struct {
 	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
-func (i InputWinEventLogsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputWinEventLogsPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetType() InputWinEventLogsType {
-	if i == nil {
-		return InputWinEventLogsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetLogNames() []string {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetLogNames() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.LogNames
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetReadMode() *ReadMode {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetReadMode() *ReadMode {
 	if i == nil {
 		return nil
 	}
 	return i.ReadMode
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetEventFormat() *EventFormat {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetEventFormat() *EventFormat {
 	if i == nil {
 		return nil
 	}
 	return i.EventFormat
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetDisableNativeModule() *bool {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetInterval() *float64 {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetBatchSize() *float64 {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetBatchSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetMaxEventBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxEventBytes
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetDisableJSONRendering() *bool {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetDisableJSONRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableJSONRendering
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type1) GetDisableXMLRendering() *bool {
+func (i *InputWinEventLogsPqEnabledFalseWithPqConstraint) GetDisableXMLRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableXMLRendering
 }
 
-type InputWinEventLogsInputCollectionPart1Type struct {
+type InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -448,158 +448,158 @@ type InputWinEventLogsInputCollectionPart1Type struct {
 	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
-func (i InputWinEventLogsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetID() *string {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetType() InputWinEventLogsType {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetType() InputWinEventLogsType {
 	if i == nil {
 		return InputWinEventLogsType("")
 	}
 	return i.Type
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetLogNames() []string {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetLogNames() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.LogNames
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetReadMode() *ReadMode {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetReadMode() *ReadMode {
 	if i == nil {
 		return nil
 	}
 	return i.ReadMode
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetEventFormat() *EventFormat {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetEventFormat() *EventFormat {
 	if i == nil {
 		return nil
 	}
 	return i.EventFormat
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetDisableNativeModule() *bool {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetInterval() *float64 {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetBatchSize() *float64 {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetBatchSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetMaxEventBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxEventBytes
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetDescription() *string {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetDisableJSONRendering() *bool {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDisableJSONRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableJSONRendering
 }
 
-func (i *InputWinEventLogsInputCollectionPart1Type) GetDisableXMLRendering() *bool {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDisableXMLRendering() *bool {
 	if i == nil {
 		return nil
 	}
@@ -679,9 +679,11 @@ func (e *EventFormat) IsExact() bool {
 	return false
 }
 
-type InputWinEventLogsInputCollectionPart0Type struct {
+type InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputWinEventLogsType `json:"type"`
@@ -694,9 +696,7 @@ type InputWinEventLogsInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
@@ -720,158 +720,158 @@ type InputWinEventLogsInputCollectionPart0Type struct {
 	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
-func (i InputWinEventLogsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type) GetType() InputWinEventLogsType {
-	if i == nil {
-		return InputWinEventLogsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWinEventLogsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetLogNames() []string {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetLogNames() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.LogNames
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetReadMode() *ReadMode {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetReadMode() *ReadMode {
 	if i == nil {
 		return nil
 	}
 	return i.ReadMode
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetEventFormat() *EventFormat {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetEventFormat() *EventFormat {
 	if i == nil {
 		return nil
 	}
 	return i.EventFormat
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetDisableNativeModule() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetInterval() *float64 {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetBatchSize() *float64 {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetBatchSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetMaxEventBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxEventBytes
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetDescription() *string {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetDisableJSONRendering() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetDisableJSONRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableJSONRendering
 }
 
-func (i *InputWinEventLogsInputCollectionPart0Type) GetDisableXMLRendering() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) GetDisableXMLRendering() *bool {
 	if i == nil {
 		return nil
 	}
@@ -881,84 +881,84 @@ func (i *InputWinEventLogsInputCollectionPart0Type) GetDisableXMLRendering() *bo
 type InputWinEventLogsUnionType string
 
 const (
-	InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type  InputWinEventLogsUnionType = "InputWinEventLogs_InputCollectionPart0Type"
-	InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type  InputWinEventLogsUnionType = "InputWinEventLogs_InputCollectionPart1Type"
-	InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type1 InputWinEventLogsUnionType = "InputWinEventLogs_InputCollectionPart0Type1"
-	InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type1 InputWinEventLogsUnionType = "InputWinEventLogs_InputCollectionPart1Type1"
+	InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesTrueWithConnectionsConstraint  InputWinEventLogsUnionType = "InputWinEventLogs_SendToRoutesTrueWithConnectionsConstraint"
+	InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint InputWinEventLogsUnionType = "InputWinEventLogs_SendToRoutesFalseWithConnectionsConstraint"
+	InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledFalseWithPqConstraint             InputWinEventLogsUnionType = "InputWinEventLogs_PqEnabledFalseWithPqConstraint"
+	InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledTrueWithPqConstraint              InputWinEventLogsUnionType = "InputWinEventLogs_PqEnabledTrueWithPqConstraint"
 )
 
 type InputWinEventLogs struct {
-	InputWinEventLogsInputCollectionPart0Type  *InputWinEventLogsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputWinEventLogsInputCollectionPart1Type  *InputWinEventLogsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputWinEventLogsInputCollectionPart0Type1 *InputWinEventLogsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputWinEventLogsInputCollectionPart1Type1 *InputWinEventLogsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint  *InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputWinEventLogsPqEnabledFalseWithPqConstraint             *InputWinEventLogsPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputWinEventLogsPqEnabledTrueWithPqConstraint              *InputWinEventLogsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputWinEventLogsUnionType
 }
 
-func CreateInputWinEventLogsInputWinEventLogsInputCollectionPart0Type(inputWinEventLogsInputCollectionPart0Type InputWinEventLogsInputCollectionPart0Type) InputWinEventLogs {
-	typ := InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type
+func CreateInputWinEventLogsInputWinEventLogsSendToRoutesTrueWithConnectionsConstraint(inputWinEventLogsSendToRoutesTrueWithConnectionsConstraint InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
 
 	return InputWinEventLogs{
-		InputWinEventLogsInputCollectionPart0Type: &inputWinEventLogsInputCollectionPart0Type,
+		InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint: &inputWinEventLogsSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputWinEventLogsInputWinEventLogsInputCollectionPart1Type(inputWinEventLogsInputCollectionPart1Type InputWinEventLogsInputCollectionPart1Type) InputWinEventLogs {
-	typ := InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type
+func CreateInputWinEventLogsInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint(inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
 
 	return InputWinEventLogs{
-		InputWinEventLogsInputCollectionPart1Type: &inputWinEventLogsInputCollectionPart1Type,
+		InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint: &inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputWinEventLogsInputWinEventLogsInputCollectionPart0Type1(inputWinEventLogsInputCollectionPart0Type1 InputWinEventLogsInputCollectionPart0Type1) InputWinEventLogs {
-	typ := InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type1
+func CreateInputWinEventLogsInputWinEventLogsPqEnabledFalseWithPqConstraint(inputWinEventLogsPqEnabledFalseWithPqConstraint InputWinEventLogsPqEnabledFalseWithPqConstraint) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledFalseWithPqConstraint
 
 	return InputWinEventLogs{
-		InputWinEventLogsInputCollectionPart0Type1: &inputWinEventLogsInputCollectionPart0Type1,
+		InputWinEventLogsPqEnabledFalseWithPqConstraint: &inputWinEventLogsPqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputWinEventLogsInputWinEventLogsInputCollectionPart1Type1(inputWinEventLogsInputCollectionPart1Type1 InputWinEventLogsInputCollectionPart1Type1) InputWinEventLogs {
-	typ := InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type1
+func CreateInputWinEventLogsInputWinEventLogsPqEnabledTrueWithPqConstraint(inputWinEventLogsPqEnabledTrueWithPqConstraint InputWinEventLogsPqEnabledTrueWithPqConstraint) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledTrueWithPqConstraint
 
 	return InputWinEventLogs{
-		InputWinEventLogsInputCollectionPart1Type1: &inputWinEventLogsInputCollectionPart1Type1,
+		InputWinEventLogsPqEnabledTrueWithPqConstraint: &inputWinEventLogsPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputWinEventLogs) UnmarshalJSON(data []byte) error {
 
-	var inputWinEventLogsInputCollectionPart0Type InputWinEventLogsInputCollectionPart0Type = InputWinEventLogsInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputWinEventLogsInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputWinEventLogsInputCollectionPart0Type = &inputWinEventLogsInputCollectionPart0Type
-		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type
+	var inputWinEventLogsSendToRoutesTrueWithConnectionsConstraint InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint = InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint = &inputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputWinEventLogsInputCollectionPart1Type InputWinEventLogsInputCollectionPart1Type = InputWinEventLogsInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputWinEventLogsInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputWinEventLogsInputCollectionPart1Type = &inputWinEventLogsInputCollectionPart1Type
-		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type
+	var inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint = InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint = &inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputWinEventLogsInputCollectionPart0Type1 InputWinEventLogsInputCollectionPart0Type1 = InputWinEventLogsInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputWinEventLogsInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputWinEventLogsInputCollectionPart0Type1 = &inputWinEventLogsInputCollectionPart0Type1
-		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type1
+	var inputWinEventLogsPqEnabledFalseWithPqConstraint InputWinEventLogsPqEnabledFalseWithPqConstraint = InputWinEventLogsPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputWinEventLogsPqEnabledFalseWithPqConstraint = &inputWinEventLogsPqEnabledFalseWithPqConstraint
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputWinEventLogsInputCollectionPart1Type1 InputWinEventLogsInputCollectionPart1Type1 = InputWinEventLogsInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputWinEventLogsInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputWinEventLogsInputCollectionPart1Type1 = &inputWinEventLogsInputCollectionPart1Type1
-		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type1
+	var inputWinEventLogsPqEnabledTrueWithPqConstraint InputWinEventLogsPqEnabledTrueWithPqConstraint = InputWinEventLogsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputWinEventLogsPqEnabledTrueWithPqConstraint = &inputWinEventLogsPqEnabledTrueWithPqConstraint
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -966,20 +966,20 @@ func (u *InputWinEventLogs) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputWinEventLogs) MarshalJSON() ([]byte, error) {
-	if u.InputWinEventLogsInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputWinEventLogsInputCollectionPart0Type, "", true)
+	if u.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputWinEventLogsInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputWinEventLogsInputCollectionPart1Type, "", true)
+	if u.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputWinEventLogsInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputWinEventLogsInputCollectionPart0Type1, "", true)
+	if u.InputWinEventLogsPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputWinEventLogsInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputWinEventLogsInputCollectionPart1Type1, "", true)
+	if u.InputWinEventLogsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputWinEventLogs: all fields are null")

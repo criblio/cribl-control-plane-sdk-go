@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputSplunkInputCollectionPart0Type
+### InputSplunkSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputSplunk := components.CreateInputSplunkInputSplunkInputCollectionPart0Type(components.InputSplunkInputCollectionPart0Type{/* values here */})
+inputSplunk := components.CreateInputSplunkInputSplunkSendToRoutesTrueWithConnectionsConstraint(components.InputSplunkSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkInputCollectionPart1Type
+### InputSplunkSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputSplunk := components.CreateInputSplunkInputSplunkInputCollectionPart1Type(components.InputSplunkInputCollectionPart1Type{/* values here */})
+inputSplunk := components.CreateInputSplunkInputSplunkSendToRoutesFalseWithConnectionsConstraint(components.InputSplunkSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkInputCollectionPart0Type1
+### InputSplunkPqEnabledFalseWithPqConstraint
 
 ```go
-inputSplunk := components.CreateInputSplunkInputSplunkInputCollectionPart0Type1(components.InputSplunkInputCollectionPart0Type1{/* values here */})
+inputSplunk := components.CreateInputSplunkInputSplunkPqEnabledFalseWithPqConstraint(components.InputSplunkPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputSplunkInputCollectionPart1Type1
+### InputSplunkPqEnabledTrueWithPqConstraint
 
 ```go
-inputSplunk := components.CreateInputSplunkInputSplunkInputCollectionPart1Type1(components.InputSplunkInputCollectionPart1Type1{/* values here */})
+inputSplunk := components.CreateInputSplunkInputSplunkPqEnabledTrueWithPqConstraint(components.InputSplunkPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

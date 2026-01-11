@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputKubeMetricsInputCollectionPart0Type
+### InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsInputCollectionPart0Type(components.InputKubeMetricsInputCollectionPart0Type{/* values here */})
+inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsSendToRoutesTrueWithConnectionsConstraint(components.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeMetricsInputCollectionPart1Type
+### InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsInputCollectionPart1Type(components.InputKubeMetricsInputCollectionPart1Type{/* values here */})
+inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsSendToRoutesFalseWithConnectionsConstraint(components.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeMetricsInputCollectionPart0Type1
+### InputKubeMetricsPqEnabledFalseWithPqConstraint
 
 ```go
-inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsInputCollectionPart0Type1(components.InputKubeMetricsInputCollectionPart0Type1{/* values here */})
+inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsPqEnabledFalseWithPqConstraint(components.InputKubeMetricsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputKubeMetricsInputCollectionPart1Type1
+### InputKubeMetricsPqEnabledTrueWithPqConstraint
 
 ```go
-inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsInputCollectionPart1Type1(components.InputKubeMetricsInputCollectionPart1Type1{/* values here */})
+inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsPqEnabledTrueWithPqConstraint(components.InputKubeMetricsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputKafkaInputCollectionPart0Type
+### InputKafkaSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputKafka := components.CreateInputKafkaInputKafkaInputCollectionPart0Type(components.InputKafkaInputCollectionPart0Type{/* values here */})
+inputKafka := components.CreateInputKafkaInputKafkaSendToRoutesTrueWithConnectionsConstraint(components.InputKafkaSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKafkaInputCollectionPart1Type
+### InputKafkaSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputKafka := components.CreateInputKafkaInputKafkaInputCollectionPart1Type(components.InputKafkaInputCollectionPart1Type{/* values here */})
+inputKafka := components.CreateInputKafkaInputKafkaSendToRoutesFalseWithConnectionsConstraint(components.InputKafkaSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKafkaInputCollectionPart0Type1
+### InputKafkaPqEnabledFalseWithPqConstraint
 
 ```go
-inputKafka := components.CreateInputKafkaInputKafkaInputCollectionPart0Type1(components.InputKafkaInputCollectionPart0Type1{/* values here */})
+inputKafka := components.CreateInputKafkaInputKafkaPqEnabledFalseWithPqConstraint(components.InputKafkaPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputKafkaInputCollectionPart1Type1
+### InputKafkaPqEnabledTrueWithPqConstraint
 
 ```go
-inputKafka := components.CreateInputKafkaInputKafkaInputCollectionPart1Type1(components.InputKafkaInputCollectionPart1Type1{/* values here */})
+inputKafka := components.CreateInputKafkaInputKafkaPqEnabledTrueWithPqConstraint(components.InputKafkaPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

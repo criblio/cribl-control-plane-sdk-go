@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputDatagenInputCollectionPart0Type
+### InputDatagenSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputDatagen := operations.CreateInputDatagenInputDatagenInputCollectionPart0Type(operations.InputDatagenInputCollectionPart0Type{/* values here */})
+inputDatagen := operations.CreateInputDatagenInputDatagenSendToRoutesTrueWithConnectionsConstraint(operations.InputDatagenSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatagenInputCollectionPart1Type
+### InputDatagenSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputDatagen := operations.CreateInputDatagenInputDatagenInputCollectionPart1Type(operations.InputDatagenInputCollectionPart1Type{/* values here */})
+inputDatagen := operations.CreateInputDatagenInputDatagenSendToRoutesFalseWithConnectionsConstraint(operations.InputDatagenSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatagenInputCollectionPart0Type1
+### InputDatagenPqEnabledFalseWithPqConstraint
 
 ```go
-inputDatagen := operations.CreateInputDatagenInputDatagenInputCollectionPart0Type1(operations.InputDatagenInputCollectionPart0Type1{/* values here */})
+inputDatagen := operations.CreateInputDatagenInputDatagenPqEnabledFalseWithPqConstraint(operations.InputDatagenPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputDatagenInputCollectionPart1Type1
+### InputDatagenPqEnabledTrueWithPqConstraint
 
 ```go
-inputDatagen := operations.CreateInputDatagenInputDatagenInputCollectionPart1Type1(operations.InputDatagenInputCollectionPart1Type1{/* values here */})
+inputDatagen := operations.CreateInputDatagenInputDatagenPqEnabledTrueWithPqConstraint(operations.InputDatagenPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

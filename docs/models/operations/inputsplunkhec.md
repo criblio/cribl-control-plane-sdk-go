@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputSplunkHecInputCollectionPart0Type
+### InputSplunkHecSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecInputCollectionPart0Type(operations.InputSplunkHecInputCollectionPart0Type{/* values here */})
+inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecSendToRoutesTrueWithConnectionsConstraint(operations.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkHecInputCollectionPart1Type
+### InputSplunkHecSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecInputCollectionPart1Type(operations.InputSplunkHecInputCollectionPart1Type{/* values here */})
+inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecSendToRoutesFalseWithConnectionsConstraint(operations.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkHecInputCollectionPart0Type1
+### InputSplunkHecPqEnabledFalseWithPqConstraint
 
 ```go
-inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecInputCollectionPart0Type1(operations.InputSplunkHecInputCollectionPart0Type1{/* values here */})
+inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecPqEnabledFalseWithPqConstraint(operations.InputSplunkHecPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputSplunkHecInputCollectionPart1Type1
+### InputSplunkHecPqEnabledTrueWithPqConstraint
 
 ```go
-inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecInputCollectionPart1Type1(operations.InputSplunkHecInputCollectionPart1Type1{/* values here */})
+inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecPqEnabledTrueWithPqConstraint(operations.InputSplunkHecPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

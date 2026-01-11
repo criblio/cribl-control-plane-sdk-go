@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputPrometheusRwInputCollectionPart0Type
+### InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputPrometheusRw := operations.CreateInputPrometheusRwInputPrometheusRwInputCollectionPart0Type(operations.InputPrometheusRwInputCollectionPart0Type{/* values here */})
+inputPrometheusRw := operations.CreateInputPrometheusRwInputPrometheusRwSendToRoutesTrueWithConnectionsConstraint(operations.InputPrometheusRwSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputPrometheusRwInputCollectionPart1Type
+### InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputPrometheusRw := operations.CreateInputPrometheusRwInputPrometheusRwInputCollectionPart1Type(operations.InputPrometheusRwInputCollectionPart1Type{/* values here */})
+inputPrometheusRw := operations.CreateInputPrometheusRwInputPrometheusRwSendToRoutesFalseWithConnectionsConstraint(operations.InputPrometheusRwSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputPrometheusRwInputCollectionPart0Type1
+### InputPrometheusRwPqEnabledFalseWithPqConstraint
 
 ```go
-inputPrometheusRw := operations.CreateInputPrometheusRwInputPrometheusRwInputCollectionPart0Type1(operations.InputPrometheusRwInputCollectionPart0Type1{/* values here */})
+inputPrometheusRw := operations.CreateInputPrometheusRwInputPrometheusRwPqEnabledFalseWithPqConstraint(operations.InputPrometheusRwPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputPrometheusRwInputCollectionPart1Type1
+### InputPrometheusRwPqEnabledTrueWithPqConstraint
 
 ```go
-inputPrometheusRw := operations.CreateInputPrometheusRwInputPrometheusRwInputCollectionPart1Type1(operations.InputPrometheusRwInputCollectionPart1Type1{/* values here */})
+inputPrometheusRw := operations.CreateInputPrometheusRwInputPrometheusRwPqEnabledTrueWithPqConstraint(operations.InputPrometheusRwPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

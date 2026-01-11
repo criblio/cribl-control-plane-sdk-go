@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputZscalerHecInputCollectionPart0Type
+### InputZscalerHecSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecInputCollectionPart0Type(components.InputZscalerHecInputCollectionPart0Type{/* values here */})
+inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecSendToRoutesTrueWithConnectionsConstraint(components.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputZscalerHecInputCollectionPart1Type
+### InputZscalerHecSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecInputCollectionPart1Type(components.InputZscalerHecInputCollectionPart1Type{/* values here */})
+inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecSendToRoutesFalseWithConnectionsConstraint(components.InputZscalerHecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputZscalerHecInputCollectionPart0Type1
+### InputZscalerHecPqEnabledFalseWithPqConstraint
 
 ```go
-inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecInputCollectionPart0Type1(components.InputZscalerHecInputCollectionPart0Type1{/* values here */})
+inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecPqEnabledFalseWithPqConstraint(components.InputZscalerHecPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputZscalerHecInputCollectionPart1Type1
+### InputZscalerHecPqEnabledTrueWithPqConstraint
 
 ```go
-inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecInputCollectionPart1Type1(components.InputZscalerHecInputCollectionPart1Type1{/* values here */})
+inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecPqEnabledTrueWithPqConstraint(components.InputZscalerHecPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputFileInputCollectionPart0Type
+### InputFileSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputFile := operations.CreateInputFileInputFileInputCollectionPart0Type(operations.InputFileInputCollectionPart0Type{/* values here */})
+inputFile := operations.CreateInputFileInputFileSendToRoutesTrueWithConnectionsConstraint(operations.InputFileSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFileInputCollectionPart1Type
+### InputFileSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputFile := operations.CreateInputFileInputFileInputCollectionPart1Type(operations.InputFileInputCollectionPart1Type{/* values here */})
+inputFile := operations.CreateInputFileInputFileSendToRoutesFalseWithConnectionsConstraint(operations.InputFileSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFileInputCollectionPart0Type1
+### InputFilePqEnabledFalseWithPqConstraint
 
 ```go
-inputFile := operations.CreateInputFileInputFileInputCollectionPart0Type1(operations.InputFileInputCollectionPart0Type1{/* values here */})
+inputFile := operations.CreateInputFileInputFilePqEnabledFalseWithPqConstraint(operations.InputFilePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputFileInputCollectionPart1Type1
+### InputFilePqEnabledTrueWithPqConstraint
 
 ```go
-inputFile := operations.CreateInputFileInputFileInputCollectionPart1Type1(operations.InputFileInputCollectionPart1Type1{/* values here */})
+inputFile := operations.CreateInputFileInputFilePqEnabledTrueWithPqConstraint(operations.InputFilePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

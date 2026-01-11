@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputJournalFilesInputCollectionPart0Type
+### InputJournalFilesSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesInputCollectionPart0Type(operations.InputJournalFilesInputCollectionPart0Type{/* values here */})
+inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesSendToRoutesTrueWithConnectionsConstraint(operations.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputJournalFilesInputCollectionPart1Type
+### InputJournalFilesSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesInputCollectionPart1Type(operations.InputJournalFilesInputCollectionPart1Type{/* values here */})
+inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesSendToRoutesFalseWithConnectionsConstraint(operations.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputJournalFilesInputCollectionPart0Type1
+### InputJournalFilesPqEnabledFalseWithPqConstraint
 
 ```go
-inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesInputCollectionPart0Type1(operations.InputJournalFilesInputCollectionPart0Type1{/* values here */})
+inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesPqEnabledFalseWithPqConstraint(operations.InputJournalFilesPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputJournalFilesInputCollectionPart1Type1
+### InputJournalFilesPqEnabledTrueWithPqConstraint
 
 ```go
-inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesInputCollectionPart1Type1(operations.InputJournalFilesInputCollectionPart1Type1{/* values here */})
+inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesPqEnabledTrueWithPqConstraint(operations.InputJournalFilesPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

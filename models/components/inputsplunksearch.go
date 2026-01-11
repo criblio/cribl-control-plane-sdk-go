@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSplunkSearchInputCollectionPart1Type1 struct {
+type InputSplunkSearchPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -101,356 +101,357 @@ type InputSplunkSearchInputCollectionPart1Type1 struct {
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
-func (i InputSplunkSearchInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputSplunkSearchPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetID() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetType() InputSplunkSearchType {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetType() InputSplunkSearchType {
 	if i == nil {
 		return InputSplunkSearchType("")
 	}
 	return i.Type
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetSearchHead() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetSearchHead() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SearchHead
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetSearch() string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetSearch() string {
 	if i == nil {
 		return ""
 	}
 	return i.Search
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetEarliest() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetEarliest() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Earliest
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetLatest() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetLatest() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Latest
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetCronSchedule() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetCronSchedule() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CronSchedule
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetEndpoint() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.OutputMode
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetEndpointParams() []EndpointParam {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetEndpointParams() []EndpointParam {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointParams
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetEndpointHeaders() []EndpointHeader {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetEndpointHeaders() []EndpointHeader {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointHeaders
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetLogLevel() *InputSplunkSearchLogLevel {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetLogLevel() *InputSplunkSearchLogLevel {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetUseRoundRobinDNS() *bool {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetUseRoundRobinDNS() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UseRoundRobinDNS
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetRejectUnauthorized() *bool {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetEncoding() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetKeepAliveTime() *float64 {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetJobTimeout() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetMaxMissedKeepAlives() *float64 {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetTTL() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetRetryRules() *RetryRulesType {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetBreakerRulesets() []string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetAuthType() *InputSplunkSearchAuthenticationType {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetAuthType() *InputSplunkSearchAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetUsername() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetPassword() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetToken() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetCredentialsSecret() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetTextSecret() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetLoginURL() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetSecretParamName() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetSecret() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetTokenAttributeName() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetAuthHeaderExpr() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetTokenTimeoutSecs() *float64 {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
 }
 
-type InputSplunkSearchInputCollectionPart0Type1 struct {
+type InputSplunkSearchPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputSplunkSearchType `json:"type"`
@@ -465,7 +466,6 @@ type InputSplunkSearchInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -540,354 +540,354 @@ type InputSplunkSearchInputCollectionPart0Type1 struct {
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
-func (i InputSplunkSearchInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputSplunkSearchPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetType() InputSplunkSearchType {
-	if i == nil {
-		return InputSplunkSearchType("")
-	}
-	return i.Type
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetSearchHead() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetType() InputSplunkSearchType {
+	if i == nil {
+		return InputSplunkSearchType("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetSearchHead() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SearchHead
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetSearch() string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetSearch() string {
 	if i == nil {
 		return ""
 	}
 	return i.Search
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetEarliest() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetEarliest() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Earliest
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetLatest() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetLatest() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Latest
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetCronSchedule() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetCronSchedule() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CronSchedule
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetEndpoint() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.OutputMode
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetEndpointParams() []EndpointParam {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetEndpointParams() []EndpointParam {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointParams
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetEndpointHeaders() []EndpointHeader {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetEndpointHeaders() []EndpointHeader {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointHeaders
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetLogLevel() *InputSplunkSearchLogLevel {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetLogLevel() *InputSplunkSearchLogLevel {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetUseRoundRobinDNS() *bool {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetUseRoundRobinDNS() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UseRoundRobinDNS
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetRejectUnauthorized() *bool {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetEncoding() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetKeepAliveTime() *float64 {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetJobTimeout() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetMaxMissedKeepAlives() *float64 {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetTTL() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetRetryRules() *RetryRulesType {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetBreakerRulesets() []string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetAuthType() *InputSplunkSearchAuthenticationType {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetAuthType() *InputSplunkSearchAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetUsername() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetPassword() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetToken() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetCredentialsSecret() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetTextSecret() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetLoginURL() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetSecretParamName() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetSecret() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetTokenAttributeName() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetAuthHeaderExpr() *string {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetTokenTimeoutSecs() *float64 {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputSplunkSearchPqEnabledFalseWithPqConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
 }
 
-type InputSplunkSearchInputCollectionPart1Type struct {
+type InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -979,347 +979,347 @@ type InputSplunkSearchInputCollectionPart1Type struct {
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
-func (i InputSplunkSearchInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetID() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetType() InputSplunkSearchType {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetType() InputSplunkSearchType {
 	if i == nil {
 		return InputSplunkSearchType("")
 	}
 	return i.Type
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetSearchHead() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSearchHead() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SearchHead
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetSearch() string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSearch() string {
 	if i == nil {
 		return ""
 	}
 	return i.Search
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetEarliest() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetEarliest() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Earliest
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetLatest() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetLatest() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Latest
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetCronSchedule() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetCronSchedule() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CronSchedule
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetEndpoint() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.OutputMode
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetEndpointParams() []EndpointParam {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetEndpointParams() []EndpointParam {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointParams
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetEndpointHeaders() []EndpointHeader {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetEndpointHeaders() []EndpointHeader {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointHeaders
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetLogLevel() *InputSplunkSearchLogLevel {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetLogLevel() *InputSplunkSearchLogLevel {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetUseRoundRobinDNS() *bool {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetUseRoundRobinDNS() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UseRoundRobinDNS
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetRejectUnauthorized() *bool {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetEncoding() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetKeepAliveTime() *float64 {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetJobTimeout() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetMaxMissedKeepAlives() *float64 {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetTTL() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetRetryRules() *RetryRulesType {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetBreakerRulesets() []string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetAuthType() *InputSplunkSearchAuthenticationType {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *InputSplunkSearchAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetDescription() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetUsername() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetPassword() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetToken() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetCredentialsSecret() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetTextSecret() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetLoginURL() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetSecretParamName() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetSecret() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetTokenAttributeName() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetAuthHeaderExpr() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetTokenTimeoutSecs() *float64 {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputSplunkSearchInputCollectionPart1Type) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
@@ -1463,9 +1463,11 @@ func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
 	return false
 }
 
-type InputSplunkSearchInputCollectionPart0Type struct {
+type InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputSplunkSearchType `json:"type"`
@@ -1478,9 +1480,7 @@ type InputSplunkSearchInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -1555,347 +1555,347 @@ type InputSplunkSearchInputCollectionPart0Type struct {
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
-func (i InputSplunkSearchInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type) GetType() InputSplunkSearchType {
-	if i == nil {
-		return InputSplunkSearchType("")
-	}
-	return i.Type
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSplunkSearchInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetType() InputSplunkSearchType {
+	if i == nil {
+		return InputSplunkSearchType("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetSearchHead() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetSearchHead() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SearchHead
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetSearch() string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetSearch() string {
 	if i == nil {
 		return ""
 	}
 	return i.Search
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetEarliest() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetEarliest() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Earliest
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetLatest() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetLatest() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Latest
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetCronSchedule() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetCronSchedule() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CronSchedule
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetEndpoint() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.OutputMode
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetEndpointParams() []EndpointParam {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetEndpointParams() []EndpointParam {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointParams
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetEndpointHeaders() []EndpointHeader {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetEndpointHeaders() []EndpointHeader {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointHeaders
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetLogLevel() *InputSplunkSearchLogLevel {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetLogLevel() *InputSplunkSearchLogLevel {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetUseRoundRobinDNS() *bool {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetUseRoundRobinDNS() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UseRoundRobinDNS
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetRejectUnauthorized() *bool {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetEncoding() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetKeepAliveTime() *float64 {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetJobTimeout() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetMaxMissedKeepAlives() *float64 {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetTTL() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetRetryRules() *RetryRulesType {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetBreakerRulesets() []string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetAuthType() *InputSplunkSearchAuthenticationType {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *InputSplunkSearchAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetDescription() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetUsername() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetPassword() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetToken() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetCredentialsSecret() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetTextSecret() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetLoginURL() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetSecretParamName() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetSecret() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetTokenAttributeName() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetAuthHeaderExpr() *string {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetTokenTimeoutSecs() *float64 {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputSplunkSearchInputCollectionPart0Type) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
@@ -1905,84 +1905,84 @@ func (i *InputSplunkSearchInputCollectionPart0Type) GetOauthHeaders() []ItemsTyp
 type InputSplunkSearchUnionType string
 
 const (
-	InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart0Type  InputSplunkSearchUnionType = "InputSplunkSearch_InputCollectionPart0Type"
-	InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart1Type  InputSplunkSearchUnionType = "InputSplunkSearch_InputCollectionPart1Type"
-	InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart0Type1 InputSplunkSearchUnionType = "InputSplunkSearch_InputCollectionPart0Type1"
-	InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart1Type1 InputSplunkSearchUnionType = "InputSplunkSearch_InputCollectionPart1Type1"
+	InputSplunkSearchUnionTypeInputSplunkSearchSendToRoutesTrueWithConnectionsConstraint  InputSplunkSearchUnionType = "InputSplunkSearch_SendToRoutesTrueWithConnectionsConstraint"
+	InputSplunkSearchUnionTypeInputSplunkSearchSendToRoutesFalseWithConnectionsConstraint InputSplunkSearchUnionType = "InputSplunkSearch_SendToRoutesFalseWithConnectionsConstraint"
+	InputSplunkSearchUnionTypeInputSplunkSearchPqEnabledFalseWithPqConstraint             InputSplunkSearchUnionType = "InputSplunkSearch_PqEnabledFalseWithPqConstraint"
+	InputSplunkSearchUnionTypeInputSplunkSearchPqEnabledTrueWithPqConstraint              InputSplunkSearchUnionType = "InputSplunkSearch_PqEnabledTrueWithPqConstraint"
 )
 
 type InputSplunkSearch struct {
-	InputSplunkSearchInputCollectionPart0Type  *InputSplunkSearchInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputSplunkSearchInputCollectionPart1Type  *InputSplunkSearchInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputSplunkSearchInputCollectionPart0Type1 *InputSplunkSearchInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputSplunkSearchInputCollectionPart1Type1 *InputSplunkSearchInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint  *InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputSplunkSearchPqEnabledFalseWithPqConstraint             *InputSplunkSearchPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputSplunkSearchPqEnabledTrueWithPqConstraint              *InputSplunkSearchPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputSplunkSearchUnionType
 }
 
-func CreateInputSplunkSearchInputSplunkSearchInputCollectionPart0Type(inputSplunkSearchInputCollectionPart0Type InputSplunkSearchInputCollectionPart0Type) InputSplunkSearch {
-	typ := InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart0Type
+func CreateInputSplunkSearchInputSplunkSearchSendToRoutesTrueWithConnectionsConstraint(inputSplunkSearchSendToRoutesTrueWithConnectionsConstraint InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint) InputSplunkSearch {
+	typ := InputSplunkSearchUnionTypeInputSplunkSearchSendToRoutesTrueWithConnectionsConstraint
 
 	return InputSplunkSearch{
-		InputSplunkSearchInputCollectionPart0Type: &inputSplunkSearchInputCollectionPart0Type,
+		InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint: &inputSplunkSearchSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputSplunkSearchInputSplunkSearchInputCollectionPart1Type(inputSplunkSearchInputCollectionPart1Type InputSplunkSearchInputCollectionPart1Type) InputSplunkSearch {
-	typ := InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart1Type
+func CreateInputSplunkSearchInputSplunkSearchSendToRoutesFalseWithConnectionsConstraint(inputSplunkSearchSendToRoutesFalseWithConnectionsConstraint InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) InputSplunkSearch {
+	typ := InputSplunkSearchUnionTypeInputSplunkSearchSendToRoutesFalseWithConnectionsConstraint
 
 	return InputSplunkSearch{
-		InputSplunkSearchInputCollectionPart1Type: &inputSplunkSearchInputCollectionPart1Type,
+		InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint: &inputSplunkSearchSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputSplunkSearchInputSplunkSearchInputCollectionPart0Type1(inputSplunkSearchInputCollectionPart0Type1 InputSplunkSearchInputCollectionPart0Type1) InputSplunkSearch {
-	typ := InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart0Type1
+func CreateInputSplunkSearchInputSplunkSearchPqEnabledFalseWithPqConstraint(inputSplunkSearchPqEnabledFalseWithPqConstraint InputSplunkSearchPqEnabledFalseWithPqConstraint) InputSplunkSearch {
+	typ := InputSplunkSearchUnionTypeInputSplunkSearchPqEnabledFalseWithPqConstraint
 
 	return InputSplunkSearch{
-		InputSplunkSearchInputCollectionPart0Type1: &inputSplunkSearchInputCollectionPart0Type1,
+		InputSplunkSearchPqEnabledFalseWithPqConstraint: &inputSplunkSearchPqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputSplunkSearchInputSplunkSearchInputCollectionPart1Type1(inputSplunkSearchInputCollectionPart1Type1 InputSplunkSearchInputCollectionPart1Type1) InputSplunkSearch {
-	typ := InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart1Type1
+func CreateInputSplunkSearchInputSplunkSearchPqEnabledTrueWithPqConstraint(inputSplunkSearchPqEnabledTrueWithPqConstraint InputSplunkSearchPqEnabledTrueWithPqConstraint) InputSplunkSearch {
+	typ := InputSplunkSearchUnionTypeInputSplunkSearchPqEnabledTrueWithPqConstraint
 
 	return InputSplunkSearch{
-		InputSplunkSearchInputCollectionPart1Type1: &inputSplunkSearchInputCollectionPart1Type1,
+		InputSplunkSearchPqEnabledTrueWithPqConstraint: &inputSplunkSearchPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputSplunkSearch) UnmarshalJSON(data []byte) error {
 
-	var inputSplunkSearchInputCollectionPart0Type InputSplunkSearchInputCollectionPart0Type = InputSplunkSearchInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkSearchInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputSplunkSearchInputCollectionPart0Type = &inputSplunkSearchInputCollectionPart0Type
-		u.Type = InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart0Type
+	var inputSplunkSearchSendToRoutesTrueWithConnectionsConstraint InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint = InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint = &inputSplunkSearchSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputSplunkSearchUnionTypeInputSplunkSearchSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputSplunkSearchInputCollectionPart1Type InputSplunkSearchInputCollectionPart1Type = InputSplunkSearchInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkSearchInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputSplunkSearchInputCollectionPart1Type = &inputSplunkSearchInputCollectionPart1Type
-		u.Type = InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart1Type
+	var inputSplunkSearchSendToRoutesFalseWithConnectionsConstraint InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint = InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint = &inputSplunkSearchSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputSplunkSearchUnionTypeInputSplunkSearchSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputSplunkSearchInputCollectionPart0Type1 InputSplunkSearchInputCollectionPart0Type1 = InputSplunkSearchInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkSearchInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputSplunkSearchInputCollectionPart0Type1 = &inputSplunkSearchInputCollectionPart0Type1
-		u.Type = InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart0Type1
+	var inputSplunkSearchPqEnabledFalseWithPqConstraint InputSplunkSearchPqEnabledFalseWithPqConstraint = InputSplunkSearchPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputSplunkSearchPqEnabledFalseWithPqConstraint = &inputSplunkSearchPqEnabledFalseWithPqConstraint
+		u.Type = InputSplunkSearchUnionTypeInputSplunkSearchPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputSplunkSearchInputCollectionPart1Type1 InputSplunkSearchInputCollectionPart1Type1 = InputSplunkSearchInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkSearchInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputSplunkSearchInputCollectionPart1Type1 = &inputSplunkSearchInputCollectionPart1Type1
-		u.Type = InputSplunkSearchUnionTypeInputSplunkSearchInputCollectionPart1Type1
+	var inputSplunkSearchPqEnabledTrueWithPqConstraint InputSplunkSearchPqEnabledTrueWithPqConstraint = InputSplunkSearchPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkSearchPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputSplunkSearchPqEnabledTrueWithPqConstraint = &inputSplunkSearchPqEnabledTrueWithPqConstraint
+		u.Type = InputSplunkSearchUnionTypeInputSplunkSearchPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1990,20 +1990,20 @@ func (u *InputSplunkSearch) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputSplunkSearch) MarshalJSON() ([]byte, error) {
-	if u.InputSplunkSearchInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputSplunkSearchInputCollectionPart0Type, "", true)
+	if u.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSplunkSearchInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputSplunkSearchInputCollectionPart1Type, "", true)
+	if u.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSplunkSearchInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputSplunkSearchInputCollectionPart0Type1, "", true)
+	if u.InputSplunkSearchPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputSplunkSearchInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputSplunkSearchInputCollectionPart1Type1, "", true)
+	if u.InputSplunkSearchPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputSplunkSearchPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputSplunkSearch: all fields are null")

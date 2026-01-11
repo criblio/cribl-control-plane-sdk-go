@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputNetflowInputCollectionPart0Type
+### InputNetflowSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputNetflow := operations.CreateInputNetflowInputNetflowInputCollectionPart0Type(operations.InputNetflowInputCollectionPart0Type{/* values here */})
+inputNetflow := operations.CreateInputNetflowInputNetflowSendToRoutesTrueWithConnectionsConstraint(operations.InputNetflowSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputNetflowInputCollectionPart1Type
+### InputNetflowSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputNetflow := operations.CreateInputNetflowInputNetflowInputCollectionPart1Type(operations.InputNetflowInputCollectionPart1Type{/* values here */})
+inputNetflow := operations.CreateInputNetflowInputNetflowSendToRoutesFalseWithConnectionsConstraint(operations.InputNetflowSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputNetflowInputCollectionPart0Type1
+### InputNetflowPqEnabledFalseWithPqConstraint
 
 ```go
-inputNetflow := operations.CreateInputNetflowInputNetflowInputCollectionPart0Type1(operations.InputNetflowInputCollectionPart0Type1{/* values here */})
+inputNetflow := operations.CreateInputNetflowInputNetflowPqEnabledFalseWithPqConstraint(operations.InputNetflowPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputNetflowInputCollectionPart1Type1
+### InputNetflowPqEnabledTrueWithPqConstraint
 
 ```go
-inputNetflow := operations.CreateInputNetflowInputNetflowInputCollectionPart1Type1(operations.InputNetflowInputCollectionPart1Type1{/* values here */})
+inputNetflow := operations.CreateInputNetflowInputNetflowPqEnabledTrueWithPqConstraint(operations.InputNetflowPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

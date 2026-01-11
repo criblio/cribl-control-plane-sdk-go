@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputConfluentCloudInputCollectionPart1Type1 struct {
+type InputConfluentCloudPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -84,265 +84,266 @@ type InputConfluentCloudInputCollectionPart1Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputConfluentCloudInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputConfluentCloudPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetID() *string {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetType() InputConfluentCloudType {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetType() InputConfluentCloudType {
 	if i == nil {
 		return InputConfluentCloudType("")
 	}
 	return i.Type
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetBrokers() []string {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetTopics() []string {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetGroupID() *string {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetFromBeginning() *bool {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetConnectionTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxRetries() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxBackOff() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetInitialBackoff() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetBackoffRate() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetAuthenticationTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetReauthenticationThreshold() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetSasl() *AuthenticationType {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetSessionTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetRebalanceTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetHeartbeatInterval() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetAutoCommitInterval() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetAutoCommitThreshold() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxBytesPerPartition() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxBytes() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxSocketErrors() *float64 {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputConfluentCloudInputCollectionPart0Type1 struct {
+type InputConfluentCloudPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputConfluentCloudType `json:"type"`
@@ -357,7 +358,6 @@ type InputConfluentCloudInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                    `json:"brokers"`
 	TLS     *TLSSettingsClientSideType1 `json:"tls,omitempty"`
@@ -415,263 +415,263 @@ type InputConfluentCloudInputCollectionPart0Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputConfluentCloudInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputConfluentCloudPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetType() InputConfluentCloudType {
-	if i == nil {
-		return InputConfluentCloudType("")
-	}
-	return i.Type
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetBrokers() []string {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetType() InputConfluentCloudType {
+	if i == nil {
+		return InputConfluentCloudType("")
+	}
+	return i.Type
+}
+
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetTopics() []string {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetGroupID() *string {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetFromBeginning() *bool {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetConnectionTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxRetries() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxBackOff() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetInitialBackoff() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetBackoffRate() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetAuthenticationTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetReauthenticationThreshold() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetSasl() *AuthenticationType {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetSessionTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetRebalanceTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetHeartbeatInterval() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetAutoCommitInterval() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetAutoCommitThreshold() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxBytesPerPartition() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxBytes() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxSocketErrors() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputConfluentCloudInputCollectionPart1Type struct {
+type InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -746,256 +746,256 @@ type InputConfluentCloudInputCollectionPart1Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputConfluentCloudInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetID() *string {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetType() InputConfluentCloudType {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetType() InputConfluentCloudType {
 	if i == nil {
 		return InputConfluentCloudType("")
 	}
 	return i.Type
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetBrokers() []string {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetTopics() []string {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetGroupID() *string {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetFromBeginning() *bool {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetConnectionTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxRetries() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxBackOff() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetInitialBackoff() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetBackoffRate() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetAuthenticationTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetReauthenticationThreshold() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetSasl() *AuthenticationType {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetSessionTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetRebalanceTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetHeartbeatInterval() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetAutoCommitInterval() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetAutoCommitThreshold() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxBytesPerPartition() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxBytes() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxSocketErrors() *float64 {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputConfluentCloudInputCollectionPart1Type) GetDescription() *string {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1025,9 +1025,11 @@ func (e *InputConfluentCloudType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputConfluentCloudInputCollectionPart0Type struct {
+type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputConfluentCloudType `json:"type"`
@@ -1040,9 +1042,7 @@ type InputConfluentCloudInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                    `json:"brokers"`
 	TLS     *TLSSettingsClientSideType1 `json:"tls,omitempty"`
@@ -1100,256 +1100,256 @@ type InputConfluentCloudInputCollectionPart0Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputConfluentCloudInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type) GetType() InputConfluentCloudType {
-	if i == nil {
-		return InputConfluentCloudType("")
-	}
-	return i.Type
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputConfluentCloudInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetType() InputConfluentCloudType {
+	if i == nil {
+		return InputConfluentCloudType("")
+	}
+	return i.Type
+}
+
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetBrokers() []string {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetTopics() []string {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetGroupID() *string {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetFromBeginning() *bool {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetConnectionTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxRetries() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxBackOff() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetInitialBackoff() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetBackoffRate() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetAuthenticationTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetReauthenticationThreshold() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetSasl() *AuthenticationType {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetSessionTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetRebalanceTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetHeartbeatInterval() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetAutoCommitInterval() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetAutoCommitThreshold() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxBytesPerPartition() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxBytes() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxSocketErrors() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputConfluentCloudInputCollectionPart0Type) GetDescription() *string {
+func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1359,84 +1359,84 @@ func (i *InputConfluentCloudInputCollectionPart0Type) GetDescription() *string {
 type InputConfluentCloudUnionType string
 
 const (
-	InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type  InputConfluentCloudUnionType = "InputConfluentCloud_InputCollectionPart0Type"
-	InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type  InputConfluentCloudUnionType = "InputConfluentCloud_InputCollectionPart1Type"
-	InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type1 InputConfluentCloudUnionType = "InputConfluentCloud_InputCollectionPart0Type1"
-	InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type1 InputConfluentCloudUnionType = "InputConfluentCloud_InputCollectionPart1Type1"
+	InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint  InputConfluentCloudUnionType = "InputConfluentCloud_SendToRoutesTrueWithConnectionsConstraint"
+	InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesFalseWithConnectionsConstraint InputConfluentCloudUnionType = "InputConfluentCloud_SendToRoutesFalseWithConnectionsConstraint"
+	InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseWithPqConstraint             InputConfluentCloudUnionType = "InputConfluentCloud_PqEnabledFalseWithPqConstraint"
+	InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledTrueWithPqConstraint              InputConfluentCloudUnionType = "InputConfluentCloud_PqEnabledTrueWithPqConstraint"
 )
 
 type InputConfluentCloud struct {
-	InputConfluentCloudInputCollectionPart0Type  *InputConfluentCloudInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputConfluentCloudInputCollectionPart1Type  *InputConfluentCloudInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputConfluentCloudInputCollectionPart0Type1 *InputConfluentCloudInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputConfluentCloudInputCollectionPart1Type1 *InputConfluentCloudInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint  *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputConfluentCloudPqEnabledFalseWithPqConstraint             *InputConfluentCloudPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputConfluentCloudPqEnabledTrueWithPqConstraint              *InputConfluentCloudPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputConfluentCloudUnionType
 }
 
-func CreateInputConfluentCloudInputConfluentCloudInputCollectionPart0Type(inputConfluentCloudInputCollectionPart0Type InputConfluentCloudInputCollectionPart0Type) InputConfluentCloud {
-	typ := InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type
+func CreateInputConfluentCloudInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint(inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
 
 	return InputConfluentCloud{
-		InputConfluentCloudInputCollectionPart0Type: &inputConfluentCloudInputCollectionPart0Type,
+		InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint: &inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputConfluentCloudInputConfluentCloudInputCollectionPart1Type(inputConfluentCloudInputCollectionPart1Type InputConfluentCloudInputCollectionPart1Type) InputConfluentCloud {
-	typ := InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type
+func CreateInputConfluentCloudInputConfluentCloudSendToRoutesFalseWithConnectionsConstraint(inputConfluentCloudSendToRoutesFalseWithConnectionsConstraint InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
 
 	return InputConfluentCloud{
-		InputConfluentCloudInputCollectionPart1Type: &inputConfluentCloudInputCollectionPart1Type,
+		InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint: &inputConfluentCloudSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputConfluentCloudInputConfluentCloudInputCollectionPart0Type1(inputConfluentCloudInputCollectionPart0Type1 InputConfluentCloudInputCollectionPart0Type1) InputConfluentCloud {
-	typ := InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type1
+func CreateInputConfluentCloudInputConfluentCloudPqEnabledFalseWithPqConstraint(inputConfluentCloudPqEnabledFalseWithPqConstraint InputConfluentCloudPqEnabledFalseWithPqConstraint) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseWithPqConstraint
 
 	return InputConfluentCloud{
-		InputConfluentCloudInputCollectionPart0Type1: &inputConfluentCloudInputCollectionPart0Type1,
+		InputConfluentCloudPqEnabledFalseWithPqConstraint: &inputConfluentCloudPqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputConfluentCloudInputConfluentCloudInputCollectionPart1Type1(inputConfluentCloudInputCollectionPart1Type1 InputConfluentCloudInputCollectionPart1Type1) InputConfluentCloud {
-	typ := InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type1
+func CreateInputConfluentCloudInputConfluentCloudPqEnabledTrueWithPqConstraint(inputConfluentCloudPqEnabledTrueWithPqConstraint InputConfluentCloudPqEnabledTrueWithPqConstraint) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledTrueWithPqConstraint
 
 	return InputConfluentCloud{
-		InputConfluentCloudInputCollectionPart1Type1: &inputConfluentCloudInputCollectionPart1Type1,
+		InputConfluentCloudPqEnabledTrueWithPqConstraint: &inputConfluentCloudPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputConfluentCloud) UnmarshalJSON(data []byte) error {
 
-	var inputConfluentCloudInputCollectionPart0Type InputConfluentCloudInputCollectionPart0Type = InputConfluentCloudInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputConfluentCloudInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputConfluentCloudInputCollectionPart0Type = &inputConfluentCloudInputCollectionPart0Type
-		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type
+	var inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = &inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputConfluentCloudInputCollectionPart1Type InputConfluentCloudInputCollectionPart1Type = InputConfluentCloudInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputConfluentCloudInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputConfluentCloudInputCollectionPart1Type = &inputConfluentCloudInputCollectionPart1Type
-		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type
+	var inputConfluentCloudSendToRoutesFalseWithConnectionsConstraint InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint = InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint = &inputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputConfluentCloudInputCollectionPart0Type1 InputConfluentCloudInputCollectionPart0Type1 = InputConfluentCloudInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputConfluentCloudInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputConfluentCloudInputCollectionPart0Type1 = &inputConfluentCloudInputCollectionPart0Type1
-		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type1
+	var inputConfluentCloudPqEnabledFalseWithPqConstraint InputConfluentCloudPqEnabledFalseWithPqConstraint = InputConfluentCloudPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputConfluentCloudPqEnabledFalseWithPqConstraint = &inputConfluentCloudPqEnabledFalseWithPqConstraint
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputConfluentCloudInputCollectionPart1Type1 InputConfluentCloudInputCollectionPart1Type1 = InputConfluentCloudInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputConfluentCloudInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputConfluentCloudInputCollectionPart1Type1 = &inputConfluentCloudInputCollectionPart1Type1
-		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type1
+	var inputConfluentCloudPqEnabledTrueWithPqConstraint InputConfluentCloudPqEnabledTrueWithPqConstraint = InputConfluentCloudPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputConfluentCloudPqEnabledTrueWithPqConstraint = &inputConfluentCloudPqEnabledTrueWithPqConstraint
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1444,20 +1444,20 @@ func (u *InputConfluentCloud) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputConfluentCloud) MarshalJSON() ([]byte, error) {
-	if u.InputConfluentCloudInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputConfluentCloudInputCollectionPart0Type, "", true)
+	if u.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputConfluentCloudInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputConfluentCloudInputCollectionPart1Type, "", true)
+	if u.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputConfluentCloudInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputConfluentCloudInputCollectionPart0Type1, "", true)
+	if u.InputConfluentCloudPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputConfluentCloudInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputConfluentCloudInputCollectionPart1Type1, "", true)
+	if u.InputConfluentCloudPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputConfluentCloud: all fields are null")

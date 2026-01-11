@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputSecurityLakeInputCollectionPart0Type
+### InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputSecurityLake := operations.CreateInputSecurityLakeInputSecurityLakeInputCollectionPart0Type(operations.InputSecurityLakeInputCollectionPart0Type{/* values here */})
+inputSecurityLake := operations.CreateInputSecurityLakeInputSecurityLakeSendToRoutesTrueWithConnectionsConstraint(operations.InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSecurityLakeInputCollectionPart1Type
+### InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputSecurityLake := operations.CreateInputSecurityLakeInputSecurityLakeInputCollectionPart1Type(operations.InputSecurityLakeInputCollectionPart1Type{/* values here */})
+inputSecurityLake := operations.CreateInputSecurityLakeInputSecurityLakeSendToRoutesFalseWithConnectionsConstraint(operations.InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSecurityLakeInputCollectionPart0Type1
+### InputSecurityLakePqEnabledFalseWithPqConstraint
 
 ```go
-inputSecurityLake := operations.CreateInputSecurityLakeInputSecurityLakeInputCollectionPart0Type1(operations.InputSecurityLakeInputCollectionPart0Type1{/* values here */})
+inputSecurityLake := operations.CreateInputSecurityLakeInputSecurityLakePqEnabledFalseWithPqConstraint(operations.InputSecurityLakePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputSecurityLakeInputCollectionPart1Type1
+### InputSecurityLakePqEnabledTrueWithPqConstraint
 
 ```go
-inputSecurityLake := operations.CreateInputSecurityLakeInputSecurityLakeInputCollectionPart1Type1(operations.InputSecurityLakeInputCollectionPart1Type1{/* values here */})
+inputSecurityLake := operations.CreateInputSecurityLakeInputSecurityLakePqEnabledTrueWithPqConstraint(operations.InputSecurityLakePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

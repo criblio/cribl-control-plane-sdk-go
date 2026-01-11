@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputDatagenInputCollectionPart0Type
+### InputDatagenSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputDatagen := components.CreateInputDatagenInputDatagenInputCollectionPart0Type(components.InputDatagenInputCollectionPart0Type{/* values here */})
+inputDatagen := components.CreateInputDatagenInputDatagenSendToRoutesTrueWithConnectionsConstraint(components.InputDatagenSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatagenInputCollectionPart1Type
+### InputDatagenSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputDatagen := components.CreateInputDatagenInputDatagenInputCollectionPart1Type(components.InputDatagenInputCollectionPart1Type{/* values here */})
+inputDatagen := components.CreateInputDatagenInputDatagenSendToRoutesFalseWithConnectionsConstraint(components.InputDatagenSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatagenInputCollectionPart0Type1
+### InputDatagenPqEnabledFalseWithPqConstraint
 
 ```go
-inputDatagen := components.CreateInputDatagenInputDatagenInputCollectionPart0Type1(components.InputDatagenInputCollectionPart0Type1{/* values here */})
+inputDatagen := components.CreateInputDatagenInputDatagenPqEnabledFalseWithPqConstraint(components.InputDatagenPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputDatagenInputCollectionPart1Type1
+### InputDatagenPqEnabledTrueWithPqConstraint
 
 ```go
-inputDatagen := components.CreateInputDatagenInputDatagenInputCollectionPart1Type1(components.InputDatagenInputCollectionPart1Type1{/* values here */})
+inputDatagen := components.CreateInputDatagenInputDatagenPqEnabledTrueWithPqConstraint(components.InputDatagenPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

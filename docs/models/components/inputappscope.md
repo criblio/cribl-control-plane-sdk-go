@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputAppscopeInputCollectionPart0Type
+### InputAppscopeSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputAppscope := components.CreateInputAppscopeInputAppscopeInputCollectionPart0Type(components.InputAppscopeInputCollectionPart0Type{/* values here */})
+inputAppscope := components.CreateInputAppscopeInputAppscopeSendToRoutesTrueWithConnectionsConstraint(components.InputAppscopeSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputAppscopeInputCollectionPart1Type
+### InputAppscopeSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputAppscope := components.CreateInputAppscopeInputAppscopeInputCollectionPart1Type(components.InputAppscopeInputCollectionPart1Type{/* values here */})
+inputAppscope := components.CreateInputAppscopeInputAppscopeSendToRoutesFalseWithConnectionsConstraint(components.InputAppscopeSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputAppscopeInputCollectionPart0Type1
+### InputAppscopePqEnabledFalseWithPqConstraint
 
 ```go
-inputAppscope := components.CreateInputAppscopeInputAppscopeInputCollectionPart0Type1(components.InputAppscopeInputCollectionPart0Type1{/* values here */})
+inputAppscope := components.CreateInputAppscopeInputAppscopePqEnabledFalseWithPqConstraint(components.InputAppscopePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputAppscopeInputCollectionPart1Type1
+### InputAppscopePqEnabledTrueWithPqConstraint
 
 ```go
-inputAppscope := components.CreateInputAppscopeInputAppscopeInputCollectionPart1Type1(components.InputAppscopeInputCollectionPart1Type1{/* values here */})
+inputAppscope := components.CreateInputAppscopeInputAppscopePqEnabledTrueWithPqConstraint(components.InputAppscopePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputGooglePubsubInputCollectionPart1Type1 struct {
+type InputGooglePubsubPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -58,195 +58,196 @@ type InputGooglePubsubInputCollectionPart1Type1 struct {
 	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
 }
 
-func (i InputGooglePubsubInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputGooglePubsubPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptionName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetID() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetType() InputGooglePubsubType {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetType() InputGooglePubsubType {
 	if i == nil {
 		return InputGooglePubsubType("")
 	}
 	return i.Type
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetTopicName() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetTopicName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TopicName
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetSubscriptionName() string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetSubscriptionName() string {
 	if i == nil {
 		return ""
 	}
 	return i.SubscriptionName
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetMonitorSubscription() *bool {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetMonitorSubscription() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MonitorSubscription
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetCreateTopic() *bool {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetCreateTopic() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateTopic
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetCreateSubscription() *bool {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetCreateSubscription() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateSubscription
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetRegion() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.GoogleAuthMethod
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetServiceAccountCredentials() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetServiceAccountCredentials() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceAccountCredentials
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetSecret() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetMaxBacklog() *float64 {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetMaxBacklog() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBacklog
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetConcurrency() *float64 {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetConcurrency() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Concurrency
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type1) GetOrderedDelivery() *bool {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetOrderedDelivery() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.OrderedDelivery
 }
 
-type InputGooglePubsubInputCollectionPart0Type1 struct {
+type InputGooglePubsubPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputGooglePubsubType `json:"type"`
@@ -261,7 +262,6 @@ type InputGooglePubsubInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
 	TopicName *string `default:"cribl" json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
@@ -293,193 +293,193 @@ type InputGooglePubsubInputCollectionPart0Type1 struct {
 	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
 }
 
-func (i InputGooglePubsubInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputGooglePubsubPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptionName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetType() InputGooglePubsubType {
-	if i == nil {
-		return InputGooglePubsubType("")
-	}
-	return i.Type
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetTopicName() *string {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetType() InputGooglePubsubType {
+	if i == nil {
+		return InputGooglePubsubType("")
+	}
+	return i.Type
+}
+
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetTopicName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TopicName
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetSubscriptionName() string {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetSubscriptionName() string {
 	if i == nil {
 		return ""
 	}
 	return i.SubscriptionName
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetMonitorSubscription() *bool {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetMonitorSubscription() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MonitorSubscription
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetCreateTopic() *bool {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetCreateTopic() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateTopic
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetCreateSubscription() *bool {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetCreateSubscription() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateSubscription
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetRegion() *string {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.GoogleAuthMethod
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetServiceAccountCredentials() *string {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetServiceAccountCredentials() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceAccountCredentials
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetSecret() *string {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetMaxBacklog() *float64 {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetMaxBacklog() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBacklog
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetConcurrency() *float64 {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetConcurrency() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Concurrency
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type1) GetOrderedDelivery() *bool {
+func (i *InputGooglePubsubPqEnabledFalseWithPqConstraint) GetOrderedDelivery() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.OrderedDelivery
 }
 
-type InputGooglePubsubInputCollectionPart1Type struct {
+type InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -528,186 +528,186 @@ type InputGooglePubsubInputCollectionPart1Type struct {
 	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
 }
 
-func (i InputGooglePubsubInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptionName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetID() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetType() InputGooglePubsubType {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetType() InputGooglePubsubType {
 	if i == nil {
 		return InputGooglePubsubType("")
 	}
 	return i.Type
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetTopicName() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetTopicName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TopicName
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetSubscriptionName() string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetSubscriptionName() string {
 	if i == nil {
 		return ""
 	}
 	return i.SubscriptionName
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetMonitorSubscription() *bool {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetMonitorSubscription() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MonitorSubscription
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetCreateTopic() *bool {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetCreateTopic() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateTopic
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetCreateSubscription() *bool {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetCreateSubscription() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateSubscription
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetRegion() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.GoogleAuthMethod
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetServiceAccountCredentials() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetServiceAccountCredentials() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceAccountCredentials
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetSecret() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetMaxBacklog() *float64 {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetMaxBacklog() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBacklog
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetConcurrency() *float64 {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetConcurrency() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Concurrency
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetDescription() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputGooglePubsubInputCollectionPart1Type) GetOrderedDelivery() *bool {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetOrderedDelivery() *bool {
 	if i == nil {
 		return nil
 	}
@@ -737,9 +737,11 @@ func (e *InputGooglePubsubType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputGooglePubsubInputCollectionPart0Type struct {
+type InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputGooglePubsubType `json:"type"`
@@ -752,9 +754,7 @@ type InputGooglePubsubInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
 	TopicName *string `default:"cribl" json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
@@ -786,186 +786,186 @@ type InputGooglePubsubInputCollectionPart0Type struct {
 	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
 }
 
-func (i InputGooglePubsubInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptionName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type) GetType() InputGooglePubsubType {
-	if i == nil {
-		return InputGooglePubsubType("")
-	}
-	return i.Type
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputGooglePubsubInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetType() InputGooglePubsubType {
+	if i == nil {
+		return InputGooglePubsubType("")
+	}
+	return i.Type
+}
+
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetTopicName() *string {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetTopicName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TopicName
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetSubscriptionName() string {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetSubscriptionName() string {
 	if i == nil {
 		return ""
 	}
 	return i.SubscriptionName
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetMonitorSubscription() *bool {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetMonitorSubscription() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MonitorSubscription
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetCreateTopic() *bool {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetCreateTopic() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateTopic
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetCreateSubscription() *bool {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetCreateSubscription() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateSubscription
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetRegion() *string {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.GoogleAuthMethod
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetServiceAccountCredentials() *string {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetServiceAccountCredentials() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceAccountCredentials
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetSecret() *string {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetMaxBacklog() *float64 {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetMaxBacklog() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBacklog
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetConcurrency() *float64 {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetConcurrency() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Concurrency
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetDescription() *string {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputGooglePubsubInputCollectionPart0Type) GetOrderedDelivery() *bool {
+func (i *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) GetOrderedDelivery() *bool {
 	if i == nil {
 		return nil
 	}
@@ -975,84 +975,84 @@ func (i *InputGooglePubsubInputCollectionPart0Type) GetOrderedDelivery() *bool {
 type InputGooglePubsubUnionType string
 
 const (
-	InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart0Type  InputGooglePubsubUnionType = "InputGooglePubsub_InputCollectionPart0Type"
-	InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart1Type  InputGooglePubsubUnionType = "InputGooglePubsub_InputCollectionPart1Type"
-	InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart0Type1 InputGooglePubsubUnionType = "InputGooglePubsub_InputCollectionPart0Type1"
-	InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart1Type1 InputGooglePubsubUnionType = "InputGooglePubsub_InputCollectionPart1Type1"
+	InputGooglePubsubUnionTypeInputGooglePubsubSendToRoutesTrueWithConnectionsConstraint  InputGooglePubsubUnionType = "InputGooglePubsub_SendToRoutesTrueWithConnectionsConstraint"
+	InputGooglePubsubUnionTypeInputGooglePubsubSendToRoutesFalseWithConnectionsConstraint InputGooglePubsubUnionType = "InputGooglePubsub_SendToRoutesFalseWithConnectionsConstraint"
+	InputGooglePubsubUnionTypeInputGooglePubsubPqEnabledFalseWithPqConstraint             InputGooglePubsubUnionType = "InputGooglePubsub_PqEnabledFalseWithPqConstraint"
+	InputGooglePubsubUnionTypeInputGooglePubsubPqEnabledTrueWithPqConstraint              InputGooglePubsubUnionType = "InputGooglePubsub_PqEnabledTrueWithPqConstraint"
 )
 
 type InputGooglePubsub struct {
-	InputGooglePubsubInputCollectionPart0Type  *InputGooglePubsubInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputGooglePubsubInputCollectionPart1Type  *InputGooglePubsubInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputGooglePubsubInputCollectionPart0Type1 *InputGooglePubsubInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputGooglePubsubInputCollectionPart1Type1 *InputGooglePubsubInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint  *InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputGooglePubsubPqEnabledFalseWithPqConstraint             *InputGooglePubsubPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputGooglePubsubPqEnabledTrueWithPqConstraint              *InputGooglePubsubPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputGooglePubsubUnionType
 }
 
-func CreateInputGooglePubsubInputGooglePubsubInputCollectionPart0Type(inputGooglePubsubInputCollectionPart0Type InputGooglePubsubInputCollectionPart0Type) InputGooglePubsub {
-	typ := InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart0Type
+func CreateInputGooglePubsubInputGooglePubsubSendToRoutesTrueWithConnectionsConstraint(inputGooglePubsubSendToRoutesTrueWithConnectionsConstraint InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint) InputGooglePubsub {
+	typ := InputGooglePubsubUnionTypeInputGooglePubsubSendToRoutesTrueWithConnectionsConstraint
 
 	return InputGooglePubsub{
-		InputGooglePubsubInputCollectionPart0Type: &inputGooglePubsubInputCollectionPart0Type,
+		InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint: &inputGooglePubsubSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputGooglePubsubInputGooglePubsubInputCollectionPart1Type(inputGooglePubsubInputCollectionPart1Type InputGooglePubsubInputCollectionPart1Type) InputGooglePubsub {
-	typ := InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart1Type
+func CreateInputGooglePubsubInputGooglePubsubSendToRoutesFalseWithConnectionsConstraint(inputGooglePubsubSendToRoutesFalseWithConnectionsConstraint InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) InputGooglePubsub {
+	typ := InputGooglePubsubUnionTypeInputGooglePubsubSendToRoutesFalseWithConnectionsConstraint
 
 	return InputGooglePubsub{
-		InputGooglePubsubInputCollectionPart1Type: &inputGooglePubsubInputCollectionPart1Type,
+		InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint: &inputGooglePubsubSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputGooglePubsubInputGooglePubsubInputCollectionPart0Type1(inputGooglePubsubInputCollectionPart0Type1 InputGooglePubsubInputCollectionPart0Type1) InputGooglePubsub {
-	typ := InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart0Type1
+func CreateInputGooglePubsubInputGooglePubsubPqEnabledFalseWithPqConstraint(inputGooglePubsubPqEnabledFalseWithPqConstraint InputGooglePubsubPqEnabledFalseWithPqConstraint) InputGooglePubsub {
+	typ := InputGooglePubsubUnionTypeInputGooglePubsubPqEnabledFalseWithPqConstraint
 
 	return InputGooglePubsub{
-		InputGooglePubsubInputCollectionPart0Type1: &inputGooglePubsubInputCollectionPart0Type1,
+		InputGooglePubsubPqEnabledFalseWithPqConstraint: &inputGooglePubsubPqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputGooglePubsubInputGooglePubsubInputCollectionPart1Type1(inputGooglePubsubInputCollectionPart1Type1 InputGooglePubsubInputCollectionPart1Type1) InputGooglePubsub {
-	typ := InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart1Type1
+func CreateInputGooglePubsubInputGooglePubsubPqEnabledTrueWithPqConstraint(inputGooglePubsubPqEnabledTrueWithPqConstraint InputGooglePubsubPqEnabledTrueWithPqConstraint) InputGooglePubsub {
+	typ := InputGooglePubsubUnionTypeInputGooglePubsubPqEnabledTrueWithPqConstraint
 
 	return InputGooglePubsub{
-		InputGooglePubsubInputCollectionPart1Type1: &inputGooglePubsubInputCollectionPart1Type1,
+		InputGooglePubsubPqEnabledTrueWithPqConstraint: &inputGooglePubsubPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputGooglePubsub) UnmarshalJSON(data []byte) error {
 
-	var inputGooglePubsubInputCollectionPart0Type InputGooglePubsubInputCollectionPart0Type = InputGooglePubsubInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputGooglePubsubInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputGooglePubsubInputCollectionPart0Type = &inputGooglePubsubInputCollectionPart0Type
-		u.Type = InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart0Type
+	var inputGooglePubsubSendToRoutesTrueWithConnectionsConstraint InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint = InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputGooglePubsubSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint = &inputGooglePubsubSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputGooglePubsubUnionTypeInputGooglePubsubSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputGooglePubsubInputCollectionPart1Type InputGooglePubsubInputCollectionPart1Type = InputGooglePubsubInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputGooglePubsubInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputGooglePubsubInputCollectionPart1Type = &inputGooglePubsubInputCollectionPart1Type
-		u.Type = InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart1Type
+	var inputGooglePubsubSendToRoutesFalseWithConnectionsConstraint InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint = InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputGooglePubsubSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint = &inputGooglePubsubSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputGooglePubsubUnionTypeInputGooglePubsubSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputGooglePubsubInputCollectionPart0Type1 InputGooglePubsubInputCollectionPart0Type1 = InputGooglePubsubInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputGooglePubsubInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputGooglePubsubInputCollectionPart0Type1 = &inputGooglePubsubInputCollectionPart0Type1
-		u.Type = InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart0Type1
+	var inputGooglePubsubPqEnabledFalseWithPqConstraint InputGooglePubsubPqEnabledFalseWithPqConstraint = InputGooglePubsubPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputGooglePubsubPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputGooglePubsubPqEnabledFalseWithPqConstraint = &inputGooglePubsubPqEnabledFalseWithPqConstraint
+		u.Type = InputGooglePubsubUnionTypeInputGooglePubsubPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputGooglePubsubInputCollectionPart1Type1 InputGooglePubsubInputCollectionPart1Type1 = InputGooglePubsubInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputGooglePubsubInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputGooglePubsubInputCollectionPart1Type1 = &inputGooglePubsubInputCollectionPart1Type1
-		u.Type = InputGooglePubsubUnionTypeInputGooglePubsubInputCollectionPart1Type1
+	var inputGooglePubsubPqEnabledTrueWithPqConstraint InputGooglePubsubPqEnabledTrueWithPqConstraint = InputGooglePubsubPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputGooglePubsubPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputGooglePubsubPqEnabledTrueWithPqConstraint = &inputGooglePubsubPqEnabledTrueWithPqConstraint
+		u.Type = InputGooglePubsubUnionTypeInputGooglePubsubPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1060,20 +1060,20 @@ func (u *InputGooglePubsub) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputGooglePubsub) MarshalJSON() ([]byte, error) {
-	if u.InputGooglePubsubInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputGooglePubsubInputCollectionPart0Type, "", true)
+	if u.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputGooglePubsubInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputGooglePubsubInputCollectionPart1Type, "", true)
+	if u.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputGooglePubsubInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputGooglePubsubInputCollectionPart0Type1, "", true)
+	if u.InputGooglePubsubPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputGooglePubsubPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputGooglePubsubInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputGooglePubsubInputCollectionPart1Type1, "", true)
+	if u.InputGooglePubsubPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputGooglePubsubPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputGooglePubsub: all fields are null")

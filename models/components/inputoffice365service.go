@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputOffice365ServiceInputCollectionPart1Type1 struct {
+type InputOffice365ServicePqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -59,202 +59,203 @@ type InputOffice365ServiceInputCollectionPart1Type1 struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputOffice365ServiceInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputOffice365ServicePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tenantId", "appId"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetID() *string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetType() InputOffice365ServiceType {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetType() InputOffice365ServiceType {
 	if i == nil {
 		return InputOffice365ServiceType("")
 	}
 	return i.Type
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetPlanType() *SubscriptionPlanOptions {
 	if i == nil {
 		return nil
 	}
 	return i.PlanType
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetTenantID() string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetTenantID() string {
 	if i == nil {
 		return ""
 	}
 	return i.TenantID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetAppID() string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetAppID() string {
 	if i == nil {
 		return ""
 	}
 	return i.AppID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetTimeout() *float64 {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetKeepAliveTime() *float64 {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetJobTimeout() *string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetMaxMissedKeepAlives() *float64 {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetTTL() *string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetContentConfig() []InputOffice365ServiceContentConfig {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetContentConfig() []InputOffice365ServiceContentConfig {
 	if i == nil {
 		return nil
 	}
 	return i.ContentConfig
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetRetryRules() *RetryRulesType1 {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetClientSecret() *string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type1) GetTextSecret() *string {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-type InputOffice365ServiceInputCollectionPart0Type1 struct {
+type InputOffice365ServicePqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                   `json:"id,omitempty"`
 	Type     InputOffice365ServiceType `json:"type"`
@@ -269,7 +270,6 @@ type InputOffice365ServiceInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
 	PlanType *SubscriptionPlanOptions `default:"enterprise_gcc" json:"planType"`
 	// Office 365 Azure Tenant ID
@@ -302,200 +302,200 @@ type InputOffice365ServiceInputCollectionPart0Type1 struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputOffice365ServiceInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputOffice365ServicePqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tenantId", "appId"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetType() InputOffice365ServiceType {
-	if i == nil {
-		return InputOffice365ServiceType("")
-	}
-	return i.Type
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetType() InputOffice365ServiceType {
+	if i == nil {
+		return InputOffice365ServiceType("")
+	}
+	return i.Type
+}
+
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetPlanType() *SubscriptionPlanOptions {
 	if i == nil {
 		return nil
 	}
 	return i.PlanType
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetTenantID() string {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetTenantID() string {
 	if i == nil {
 		return ""
 	}
 	return i.TenantID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetAppID() string {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetAppID() string {
 	if i == nil {
 		return ""
 	}
 	return i.AppID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetTimeout() *float64 {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetKeepAliveTime() *float64 {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetJobTimeout() *string {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetMaxMissedKeepAlives() *float64 {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetTTL() *string {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetContentConfig() []InputOffice365ServiceContentConfig {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetContentConfig() []InputOffice365ServiceContentConfig {
 	if i == nil {
 		return nil
 	}
 	return i.ContentConfig
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetRetryRules() *RetryRulesType1 {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetClientSecret() *string {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type1) GetTextSecret() *string {
+func (i *InputOffice365ServicePqEnabledFalseWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-type InputOffice365ServiceInputCollectionPart1Type struct {
+type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -545,193 +545,193 @@ type InputOffice365ServiceInputCollectionPart1Type struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputOffice365ServiceInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tenantId", "appId"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetID() *string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetType() InputOffice365ServiceType {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetType() InputOffice365ServiceType {
 	if i == nil {
 		return InputOffice365ServiceType("")
 	}
 	return i.Type
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetPlanType() *SubscriptionPlanOptions {
 	if i == nil {
 		return nil
 	}
 	return i.PlanType
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetTenantID() string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetTenantID() string {
 	if i == nil {
 		return ""
 	}
 	return i.TenantID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetAppID() string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetAppID() string {
 	if i == nil {
 		return ""
 	}
 	return i.AppID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetTimeout() *float64 {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetKeepAliveTime() *float64 {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetJobTimeout() *string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetMaxMissedKeepAlives() *float64 {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetTTL() *string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetContentConfig() []InputOffice365ServiceContentConfig {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetContentConfig() []InputOffice365ServiceContentConfig {
 	if i == nil {
 		return nil
 	}
 	return i.ContentConfig
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetRetryRules() *RetryRulesType1 {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetDescription() *string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetClientSecret() *string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputOffice365ServiceInputCollectionPart1Type) GetTextSecret() *string {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -818,9 +818,11 @@ func (i *InputOffice365ServiceContentConfig) GetEnabled() *bool {
 	return i.Enabled
 }
 
-type InputOffice365ServiceInputCollectionPart0Type struct {
+type InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                   `json:"id,omitempty"`
 	Type     InputOffice365ServiceType `json:"type"`
@@ -833,9 +835,7 @@ type InputOffice365ServiceInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
 	PlanType *SubscriptionPlanOptions `default:"enterprise_gcc" json:"planType"`
 	// Office 365 Azure Tenant ID
@@ -868,193 +868,193 @@ type InputOffice365ServiceInputCollectionPart0Type struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputOffice365ServiceInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tenantId", "appId"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetType() InputOffice365ServiceType {
-	if i == nil {
-		return InputOffice365ServiceType("")
-	}
-	return i.Type
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetType() InputOffice365ServiceType {
+	if i == nil {
+		return InputOffice365ServiceType("")
+	}
+	return i.Type
+}
+
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetPlanType() *SubscriptionPlanOptions {
 	if i == nil {
 		return nil
 	}
 	return i.PlanType
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetTenantID() string {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetTenantID() string {
 	if i == nil {
 		return ""
 	}
 	return i.TenantID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetAppID() string {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetAppID() string {
 	if i == nil {
 		return ""
 	}
 	return i.AppID
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetTimeout() *float64 {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetKeepAliveTime() *float64 {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetJobTimeout() *string {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetMaxMissedKeepAlives() *float64 {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetTTL() *string {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetContentConfig() []InputOffice365ServiceContentConfig {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetContentConfig() []InputOffice365ServiceContentConfig {
 	if i == nil {
 		return nil
 	}
 	return i.ContentConfig
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetRetryRules() *RetryRulesType1 {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetDescription() *string {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetClientSecret() *string {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputOffice365ServiceInputCollectionPart0Type) GetTextSecret() *string {
+func (i *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1064,84 +1064,84 @@ func (i *InputOffice365ServiceInputCollectionPart0Type) GetTextSecret() *string 
 type InputOffice365ServiceUnionType string
 
 const (
-	InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart0Type  InputOffice365ServiceUnionType = "InputOffice365Service_InputCollectionPart0Type"
-	InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart1Type  InputOffice365ServiceUnionType = "InputOffice365Service_InputCollectionPart1Type"
-	InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart0Type1 InputOffice365ServiceUnionType = "InputOffice365Service_InputCollectionPart0Type1"
-	InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart1Type1 InputOffice365ServiceUnionType = "InputOffice365Service_InputCollectionPart1Type1"
+	InputOffice365ServiceUnionTypeInputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint  InputOffice365ServiceUnionType = "InputOffice365Service_SendToRoutesTrueWithConnectionsConstraint"
+	InputOffice365ServiceUnionTypeInputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint InputOffice365ServiceUnionType = "InputOffice365Service_SendToRoutesFalseWithConnectionsConstraint"
+	InputOffice365ServiceUnionTypeInputOffice365ServicePqEnabledFalseWithPqConstraint             InputOffice365ServiceUnionType = "InputOffice365Service_PqEnabledFalseWithPqConstraint"
+	InputOffice365ServiceUnionTypeInputOffice365ServicePqEnabledTrueWithPqConstraint              InputOffice365ServiceUnionType = "InputOffice365Service_PqEnabledTrueWithPqConstraint"
 )
 
 type InputOffice365Service struct {
-	InputOffice365ServiceInputCollectionPart0Type  *InputOffice365ServiceInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputOffice365ServiceInputCollectionPart1Type  *InputOffice365ServiceInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputOffice365ServiceInputCollectionPart0Type1 *InputOffice365ServiceInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputOffice365ServiceInputCollectionPart1Type1 *InputOffice365ServiceInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint  *InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputOffice365ServicePqEnabledFalseWithPqConstraint             *InputOffice365ServicePqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputOffice365ServicePqEnabledTrueWithPqConstraint              *InputOffice365ServicePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputOffice365ServiceUnionType
 }
 
-func CreateInputOffice365ServiceInputOffice365ServiceInputCollectionPart0Type(inputOffice365ServiceInputCollectionPart0Type InputOffice365ServiceInputCollectionPart0Type) InputOffice365Service {
-	typ := InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart0Type
+func CreateInputOffice365ServiceInputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint(inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint) InputOffice365Service {
+	typ := InputOffice365ServiceUnionTypeInputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint
 
 	return InputOffice365Service{
-		InputOffice365ServiceInputCollectionPart0Type: &inputOffice365ServiceInputCollectionPart0Type,
+		InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint: &inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputOffice365ServiceInputOffice365ServiceInputCollectionPart1Type(inputOffice365ServiceInputCollectionPart1Type InputOffice365ServiceInputCollectionPart1Type) InputOffice365Service {
-	typ := InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart1Type
+func CreateInputOffice365ServiceInputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint(inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) InputOffice365Service {
+	typ := InputOffice365ServiceUnionTypeInputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
 
 	return InputOffice365Service{
-		InputOffice365ServiceInputCollectionPart1Type: &inputOffice365ServiceInputCollectionPart1Type,
+		InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint: &inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputOffice365ServiceInputOffice365ServiceInputCollectionPart0Type1(inputOffice365ServiceInputCollectionPart0Type1 InputOffice365ServiceInputCollectionPart0Type1) InputOffice365Service {
-	typ := InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart0Type1
+func CreateInputOffice365ServiceInputOffice365ServicePqEnabledFalseWithPqConstraint(inputOffice365ServicePqEnabledFalseWithPqConstraint InputOffice365ServicePqEnabledFalseWithPqConstraint) InputOffice365Service {
+	typ := InputOffice365ServiceUnionTypeInputOffice365ServicePqEnabledFalseWithPqConstraint
 
 	return InputOffice365Service{
-		InputOffice365ServiceInputCollectionPart0Type1: &inputOffice365ServiceInputCollectionPart0Type1,
+		InputOffice365ServicePqEnabledFalseWithPqConstraint: &inputOffice365ServicePqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputOffice365ServiceInputOffice365ServiceInputCollectionPart1Type1(inputOffice365ServiceInputCollectionPart1Type1 InputOffice365ServiceInputCollectionPart1Type1) InputOffice365Service {
-	typ := InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart1Type1
+func CreateInputOffice365ServiceInputOffice365ServicePqEnabledTrueWithPqConstraint(inputOffice365ServicePqEnabledTrueWithPqConstraint InputOffice365ServicePqEnabledTrueWithPqConstraint) InputOffice365Service {
+	typ := InputOffice365ServiceUnionTypeInputOffice365ServicePqEnabledTrueWithPqConstraint
 
 	return InputOffice365Service{
-		InputOffice365ServiceInputCollectionPart1Type1: &inputOffice365ServiceInputCollectionPart1Type1,
+		InputOffice365ServicePqEnabledTrueWithPqConstraint: &inputOffice365ServicePqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputOffice365Service) UnmarshalJSON(data []byte) error {
 
-	var inputOffice365ServiceInputCollectionPart0Type InputOffice365ServiceInputCollectionPart0Type = InputOffice365ServiceInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365ServiceInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputOffice365ServiceInputCollectionPart0Type = &inputOffice365ServiceInputCollectionPart0Type
-		u.Type = InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart0Type
+	var inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint = InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint = &inputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputOffice365ServiceUnionTypeInputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputOffice365ServiceInputCollectionPart1Type InputOffice365ServiceInputCollectionPart1Type = InputOffice365ServiceInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365ServiceInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputOffice365ServiceInputCollectionPart1Type = &inputOffice365ServiceInputCollectionPart1Type
-		u.Type = InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart1Type
+	var inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint = &inputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputOffice365ServiceUnionTypeInputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputOffice365ServiceInputCollectionPart0Type1 InputOffice365ServiceInputCollectionPart0Type1 = InputOffice365ServiceInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365ServiceInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputOffice365ServiceInputCollectionPart0Type1 = &inputOffice365ServiceInputCollectionPart0Type1
-		u.Type = InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart0Type1
+	var inputOffice365ServicePqEnabledFalseWithPqConstraint InputOffice365ServicePqEnabledFalseWithPqConstraint = InputOffice365ServicePqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOffice365ServicePqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputOffice365ServicePqEnabledFalseWithPqConstraint = &inputOffice365ServicePqEnabledFalseWithPqConstraint
+		u.Type = InputOffice365ServiceUnionTypeInputOffice365ServicePqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputOffice365ServiceInputCollectionPart1Type1 InputOffice365ServiceInputCollectionPart1Type1 = InputOffice365ServiceInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365ServiceInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputOffice365ServiceInputCollectionPart1Type1 = &inputOffice365ServiceInputCollectionPart1Type1
-		u.Type = InputOffice365ServiceUnionTypeInputOffice365ServiceInputCollectionPart1Type1
+	var inputOffice365ServicePqEnabledTrueWithPqConstraint InputOffice365ServicePqEnabledTrueWithPqConstraint = InputOffice365ServicePqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOffice365ServicePqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputOffice365ServicePqEnabledTrueWithPqConstraint = &inputOffice365ServicePqEnabledTrueWithPqConstraint
+		u.Type = InputOffice365ServiceUnionTypeInputOffice365ServicePqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1149,20 +1149,20 @@ func (u *InputOffice365Service) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputOffice365Service) MarshalJSON() ([]byte, error) {
-	if u.InputOffice365ServiceInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputOffice365ServiceInputCollectionPart0Type, "", true)
+	if u.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputOffice365ServiceInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputOffice365ServiceInputCollectionPart1Type, "", true)
+	if u.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputOffice365ServiceInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputOffice365ServiceInputCollectionPart0Type1, "", true)
+	if u.InputOffice365ServicePqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputOffice365ServicePqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputOffice365ServiceInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputOffice365ServiceInputCollectionPart1Type1, "", true)
+	if u.InputOffice365ServicePqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputOffice365ServicePqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputOffice365Service: all fields are null")

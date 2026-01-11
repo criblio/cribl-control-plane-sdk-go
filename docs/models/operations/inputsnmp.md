@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputSnmpInputCollectionPart0Type
+### InputSnmpSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputSnmp := operations.CreateInputSnmpInputSnmpInputCollectionPart0Type(operations.InputSnmpInputCollectionPart0Type{/* values here */})
+inputSnmp := operations.CreateInputSnmpInputSnmpSendToRoutesTrueWithConnectionsConstraint(operations.InputSnmpSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSnmpInputCollectionPart1Type
+### InputSnmpSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputSnmp := operations.CreateInputSnmpInputSnmpInputCollectionPart1Type(operations.InputSnmpInputCollectionPart1Type{/* values here */})
+inputSnmp := operations.CreateInputSnmpInputSnmpSendToRoutesFalseWithConnectionsConstraint(operations.InputSnmpSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSnmpInputCollectionPart0Type1
+### InputSnmpPqEnabledFalseWithPqConstraint
 
 ```go
-inputSnmp := operations.CreateInputSnmpInputSnmpInputCollectionPart0Type1(operations.InputSnmpInputCollectionPart0Type1{/* values here */})
+inputSnmp := operations.CreateInputSnmpInputSnmpPqEnabledFalseWithPqConstraint(operations.InputSnmpPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputSnmpInputCollectionPart1Type1
+### InputSnmpPqEnabledTrueWithPqConstraint
 
 ```go
-inputSnmp := operations.CreateInputSnmpInputSnmpInputCollectionPart1Type1(operations.InputSnmpInputCollectionPart1Type1{/* values here */})
+inputSnmp := operations.CreateInputSnmpInputSnmpPqEnabledTrueWithPqConstraint(operations.InputSnmpPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

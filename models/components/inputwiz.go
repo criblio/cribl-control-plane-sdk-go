@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputWizInputCollectionPart1Type1 struct {
+type InputWizPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -58,202 +58,203 @@ type InputWizInputCollectionPart1Type1 struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputWizInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputWizPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWizInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputWizPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetID() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetType() InputWizType {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetType() InputWizType {
 	if i == nil {
 		return InputWizType("")
 	}
 	return i.Type
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetEndpoint() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetAuthURL() string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthURL() string {
 	if i == nil {
 		return ""
 	}
 	return i.AuthURL
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetAuthAudienceOverride() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthAudienceOverride() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthAudienceOverride
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetClientID() string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetClientID() string {
 	if i == nil {
 		return ""
 	}
 	return i.ClientID
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetContentConfig() []InputWizContentConfig {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetContentConfig() []InputWizContentConfig {
 	if i == nil {
 		return []InputWizContentConfig{}
 	}
 	return i.ContentConfig
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetKeepAliveTime() *float64 {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetMaxMissedKeepAlives() *float64 {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetTTL() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetRetryRules() *RetryRulesType {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetClientSecret() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputWizInputCollectionPart1Type1) GetTextSecret() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-type InputWizInputCollectionPart0Type1 struct {
+type InputWizPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWizType `json:"type"`
@@ -268,7 +269,6 @@ type InputWizInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
 	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
 	// The authentication URL to generate an OAuth token
@@ -300,200 +300,200 @@ type InputWizInputCollectionPart0Type1 struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputWizInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputWizPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWizInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputWizPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWizInputCollectionPart0Type1) GetType() InputWizType {
-	if i == nil {
-		return InputWizType("")
-	}
-	return i.Type
-}
-
-func (i *InputWizInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWizInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWizInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWizInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWizInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWizInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWizInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetEndpoint() *string {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetType() InputWizType {
+	if i == nil {
+		return InputWizType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetAuthURL() string {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetAuthURL() string {
 	if i == nil {
 		return ""
 	}
 	return i.AuthURL
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetAuthAudienceOverride() *string {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetAuthAudienceOverride() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthAudienceOverride
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetClientID() string {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetClientID() string {
 	if i == nil {
 		return ""
 	}
 	return i.ClientID
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetContentConfig() []InputWizContentConfig {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetContentConfig() []InputWizContentConfig {
 	if i == nil {
 		return []InputWizContentConfig{}
 	}
 	return i.ContentConfig
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetKeepAliveTime() *float64 {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetMaxMissedKeepAlives() *float64 {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetTTL() *string {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetRetryRules() *RetryRulesType {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetClientSecret() *string {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputWizInputCollectionPart0Type1) GetTextSecret() *string {
+func (i *InputWizPqEnabledFalseWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-type InputWizInputCollectionPart1Type struct {
+type InputWizSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -542,193 +542,193 @@ type InputWizInputCollectionPart1Type struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputWizInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputWizSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWizInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWizInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWizInputCollectionPart1Type) GetID() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWizInputCollectionPart1Type) GetType() InputWizType {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetType() InputWizType {
 	if i == nil {
 		return InputWizType("")
 	}
 	return i.Type
 }
 
-func (i *InputWizInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWizInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWizInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWizInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWizInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWizInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWizInputCollectionPart1Type) GetEndpoint() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputWizInputCollectionPart1Type) GetAuthURL() string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthURL() string {
 	if i == nil {
 		return ""
 	}
 	return i.AuthURL
 }
 
-func (i *InputWizInputCollectionPart1Type) GetAuthAudienceOverride() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthAudienceOverride() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthAudienceOverride
 }
 
-func (i *InputWizInputCollectionPart1Type) GetClientID() string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetClientID() string {
 	if i == nil {
 		return ""
 	}
 	return i.ClientID
 }
 
-func (i *InputWizInputCollectionPart1Type) GetContentConfig() []InputWizContentConfig {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetContentConfig() []InputWizContentConfig {
 	if i == nil {
 		return []InputWizContentConfig{}
 	}
 	return i.ContentConfig
 }
 
-func (i *InputWizInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputWizInputCollectionPart1Type) GetKeepAliveTime() *float64 {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputWizInputCollectionPart1Type) GetMaxMissedKeepAlives() *float64 {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputWizInputCollectionPart1Type) GetTTL() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputWizInputCollectionPart1Type) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputWizInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWizInputCollectionPart1Type) GetRetryRules() *RetryRulesType {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputWizInputCollectionPart1Type) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputWizInputCollectionPart1Type) GetDescription() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWizInputCollectionPart1Type) GetClientSecret() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputWizInputCollectionPart1Type) GetTextSecret() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -935,9 +935,11 @@ func (i *InputWizContentConfig) GetMaxPages() *float64 {
 	return i.MaxPages
 }
 
-type InputWizInputCollectionPart0Type struct {
+type InputWizSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWizType `json:"type"`
@@ -950,9 +952,7 @@ type InputWizInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
 	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
 	// The authentication URL to generate an OAuth token
@@ -984,193 +984,193 @@ type InputWizInputCollectionPart0Type struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputWizInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputWizSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWizInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWizInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWizInputCollectionPart0Type) GetType() InputWizType {
-	if i == nil {
-		return InputWizType("")
-	}
-	return i.Type
-}
-
-func (i *InputWizInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWizInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWizInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWizInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWizInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWizInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWizInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetType() InputWizType {
+	if i == nil {
+		return InputWizType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWizInputCollectionPart0Type) GetEndpoint() *string {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputWizInputCollectionPart0Type) GetAuthURL() string {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetAuthURL() string {
 	if i == nil {
 		return ""
 	}
 	return i.AuthURL
 }
 
-func (i *InputWizInputCollectionPart0Type) GetAuthAudienceOverride() *string {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetAuthAudienceOverride() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthAudienceOverride
 }
 
-func (i *InputWizInputCollectionPart0Type) GetClientID() string {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetClientID() string {
 	if i == nil {
 		return ""
 	}
 	return i.ClientID
 }
 
-func (i *InputWizInputCollectionPart0Type) GetContentConfig() []InputWizContentConfig {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetContentConfig() []InputWizContentConfig {
 	if i == nil {
 		return []InputWizContentConfig{}
 	}
 	return i.ContentConfig
 }
 
-func (i *InputWizInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputWizInputCollectionPart0Type) GetKeepAliveTime() *float64 {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputWizInputCollectionPart0Type) GetMaxMissedKeepAlives() *float64 {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputWizInputCollectionPart0Type) GetTTL() *string {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputWizInputCollectionPart0Type) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputWizInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWizInputCollectionPart0Type) GetRetryRules() *RetryRulesType {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputWizInputCollectionPart0Type) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputWizInputCollectionPart0Type) GetDescription() *string {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWizInputCollectionPart0Type) GetClientSecret() *string {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputWizInputCollectionPart0Type) GetTextSecret() *string {
+func (i *InputWizSendToRoutesTrueWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1180,84 +1180,84 @@ func (i *InputWizInputCollectionPart0Type) GetTextSecret() *string {
 type InputWizUnionType string
 
 const (
-	InputWizUnionTypeInputWizInputCollectionPart0Type  InputWizUnionType = "InputWiz_InputCollectionPart0Type"
-	InputWizUnionTypeInputWizInputCollectionPart1Type  InputWizUnionType = "InputWiz_InputCollectionPart1Type"
-	InputWizUnionTypeInputWizInputCollectionPart0Type1 InputWizUnionType = "InputWiz_InputCollectionPart0Type1"
-	InputWizUnionTypeInputWizInputCollectionPart1Type1 InputWizUnionType = "InputWiz_InputCollectionPart1Type1"
+	InputWizUnionTypeInputWizSendToRoutesTrueWithConnectionsConstraint  InputWizUnionType = "InputWiz_SendToRoutesTrueWithConnectionsConstraint"
+	InputWizUnionTypeInputWizSendToRoutesFalseWithConnectionsConstraint InputWizUnionType = "InputWiz_SendToRoutesFalseWithConnectionsConstraint"
+	InputWizUnionTypeInputWizPqEnabledFalseWithPqConstraint             InputWizUnionType = "InputWiz_PqEnabledFalseWithPqConstraint"
+	InputWizUnionTypeInputWizPqEnabledTrueWithPqConstraint              InputWizUnionType = "InputWiz_PqEnabledTrueWithPqConstraint"
 )
 
 type InputWiz struct {
-	InputWizInputCollectionPart0Type  *InputWizInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputWizInputCollectionPart1Type  *InputWizInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputWizInputCollectionPart0Type1 *InputWizInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputWizInputCollectionPart1Type1 *InputWizInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputWizSendToRoutesTrueWithConnectionsConstraint  *InputWizSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputWizSendToRoutesFalseWithConnectionsConstraint *InputWizSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputWizPqEnabledFalseWithPqConstraint             *InputWizPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputWizPqEnabledTrueWithPqConstraint              *InputWizPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputWizUnionType
 }
 
-func CreateInputWizInputWizInputCollectionPart0Type(inputWizInputCollectionPart0Type InputWizInputCollectionPart0Type) InputWiz {
-	typ := InputWizUnionTypeInputWizInputCollectionPart0Type
+func CreateInputWizInputWizSendToRoutesTrueWithConnectionsConstraint(inputWizSendToRoutesTrueWithConnectionsConstraint InputWizSendToRoutesTrueWithConnectionsConstraint) InputWiz {
+	typ := InputWizUnionTypeInputWizSendToRoutesTrueWithConnectionsConstraint
 
 	return InputWiz{
-		InputWizInputCollectionPart0Type: &inputWizInputCollectionPart0Type,
-		Type:                             typ,
+		InputWizSendToRoutesTrueWithConnectionsConstraint: &inputWizSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputWizInputWizInputCollectionPart1Type(inputWizInputCollectionPart1Type InputWizInputCollectionPart1Type) InputWiz {
-	typ := InputWizUnionTypeInputWizInputCollectionPart1Type
+func CreateInputWizInputWizSendToRoutesFalseWithConnectionsConstraint(inputWizSendToRoutesFalseWithConnectionsConstraint InputWizSendToRoutesFalseWithConnectionsConstraint) InputWiz {
+	typ := InputWizUnionTypeInputWizSendToRoutesFalseWithConnectionsConstraint
 
 	return InputWiz{
-		InputWizInputCollectionPart1Type: &inputWizInputCollectionPart1Type,
-		Type:                             typ,
+		InputWizSendToRoutesFalseWithConnectionsConstraint: &inputWizSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputWizInputWizInputCollectionPart0Type1(inputWizInputCollectionPart0Type1 InputWizInputCollectionPart0Type1) InputWiz {
-	typ := InputWizUnionTypeInputWizInputCollectionPart0Type1
+func CreateInputWizInputWizPqEnabledFalseWithPqConstraint(inputWizPqEnabledFalseWithPqConstraint InputWizPqEnabledFalseWithPqConstraint) InputWiz {
+	typ := InputWizUnionTypeInputWizPqEnabledFalseWithPqConstraint
 
 	return InputWiz{
-		InputWizInputCollectionPart0Type1: &inputWizInputCollectionPart0Type1,
-		Type:                              typ,
+		InputWizPqEnabledFalseWithPqConstraint: &inputWizPqEnabledFalseWithPqConstraint,
+		Type:                                   typ,
 	}
 }
 
-func CreateInputWizInputWizInputCollectionPart1Type1(inputWizInputCollectionPart1Type1 InputWizInputCollectionPart1Type1) InputWiz {
-	typ := InputWizUnionTypeInputWizInputCollectionPart1Type1
+func CreateInputWizInputWizPqEnabledTrueWithPqConstraint(inputWizPqEnabledTrueWithPqConstraint InputWizPqEnabledTrueWithPqConstraint) InputWiz {
+	typ := InputWizUnionTypeInputWizPqEnabledTrueWithPqConstraint
 
 	return InputWiz{
-		InputWizInputCollectionPart1Type1: &inputWizInputCollectionPart1Type1,
-		Type:                              typ,
+		InputWizPqEnabledTrueWithPqConstraint: &inputWizPqEnabledTrueWithPqConstraint,
+		Type:                                  typ,
 	}
 }
 
 func (u *InputWiz) UnmarshalJSON(data []byte) error {
 
-	var inputWizInputCollectionPart0Type InputWizInputCollectionPart0Type = InputWizInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputWizInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputWizInputCollectionPart0Type = &inputWizInputCollectionPart0Type
-		u.Type = InputWizUnionTypeInputWizInputCollectionPart0Type
+	var inputWizSendToRoutesTrueWithConnectionsConstraint InputWizSendToRoutesTrueWithConnectionsConstraint = InputWizSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWizSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputWizSendToRoutesTrueWithConnectionsConstraint = &inputWizSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputWizUnionTypeInputWizSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputWizInputCollectionPart1Type InputWizInputCollectionPart1Type = InputWizInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputWizInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputWizInputCollectionPart1Type = &inputWizInputCollectionPart1Type
-		u.Type = InputWizUnionTypeInputWizInputCollectionPart1Type
+	var inputWizSendToRoutesFalseWithConnectionsConstraint InputWizSendToRoutesFalseWithConnectionsConstraint = InputWizSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWizSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputWizSendToRoutesFalseWithConnectionsConstraint = &inputWizSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputWizUnionTypeInputWizSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputWizInputCollectionPart0Type1 InputWizInputCollectionPart0Type1 = InputWizInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputWizInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputWizInputCollectionPart0Type1 = &inputWizInputCollectionPart0Type1
-		u.Type = InputWizUnionTypeInputWizInputCollectionPart0Type1
+	var inputWizPqEnabledFalseWithPqConstraint InputWizPqEnabledFalseWithPqConstraint = InputWizPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWizPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputWizPqEnabledFalseWithPqConstraint = &inputWizPqEnabledFalseWithPqConstraint
+		u.Type = InputWizUnionTypeInputWizPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputWizInputCollectionPart1Type1 InputWizInputCollectionPart1Type1 = InputWizInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputWizInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputWizInputCollectionPart1Type1 = &inputWizInputCollectionPart1Type1
-		u.Type = InputWizUnionTypeInputWizInputCollectionPart1Type1
+	var inputWizPqEnabledTrueWithPqConstraint InputWizPqEnabledTrueWithPqConstraint = InputWizPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWizPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputWizPqEnabledTrueWithPqConstraint = &inputWizPqEnabledTrueWithPqConstraint
+		u.Type = InputWizUnionTypeInputWizPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1265,20 +1265,20 @@ func (u *InputWiz) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputWiz) MarshalJSON() ([]byte, error) {
-	if u.InputWizInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputWizInputCollectionPart0Type, "", true)
+	if u.InputWizSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputWizSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputWizInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputWizInputCollectionPart1Type, "", true)
+	if u.InputWizSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputWizSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputWizInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputWizInputCollectionPart0Type1, "", true)
+	if u.InputWizPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputWizPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputWizInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputWizInputCollectionPart1Type1, "", true)
+	if u.InputWizPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputWizPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputWiz: all fields are null")

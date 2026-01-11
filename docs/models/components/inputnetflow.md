@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputNetflowInputCollectionPart0Type
+### InputNetflowSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputNetflow := components.CreateInputNetflowInputNetflowInputCollectionPart0Type(components.InputNetflowInputCollectionPart0Type{/* values here */})
+inputNetflow := components.CreateInputNetflowInputNetflowSendToRoutesTrueWithConnectionsConstraint(components.InputNetflowSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputNetflowInputCollectionPart1Type
+### InputNetflowSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputNetflow := components.CreateInputNetflowInputNetflowInputCollectionPart1Type(components.InputNetflowInputCollectionPart1Type{/* values here */})
+inputNetflow := components.CreateInputNetflowInputNetflowSendToRoutesFalseWithConnectionsConstraint(components.InputNetflowSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputNetflowInputCollectionPart0Type1
+### InputNetflowPqEnabledFalseWithPqConstraint
 
 ```go
-inputNetflow := components.CreateInputNetflowInputNetflowInputCollectionPart0Type1(components.InputNetflowInputCollectionPart0Type1{/* values here */})
+inputNetflow := components.CreateInputNetflowInputNetflowPqEnabledFalseWithPqConstraint(components.InputNetflowPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputNetflowInputCollectionPart1Type1
+### InputNetflowPqEnabledTrueWithPqConstraint
 
 ```go
-inputNetflow := components.CreateInputNetflowInputNetflowInputCollectionPart1Type1(components.InputNetflowInputCollectionPart1Type1{/* values here */})
+inputNetflow := components.CreateInputNetflowInputNetflowPqEnabledTrueWithPqConstraint(components.InputNetflowPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputEdgePrometheusInputCollectionPart1Type1 struct {
+type InputEdgePrometheusPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -99,342 +99,343 @@ type InputEdgePrometheusInputCollectionPart1Type1 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 }
 
-func (i InputEdgePrometheusInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputEdgePrometheusPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetID() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetType() InputEdgePrometheusType {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetType() InputEdgePrometheusType {
 	if i == nil {
 		return InputEdgePrometheusType("")
 	}
 	return i.Type
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetDimensionList() []string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDimensionList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
 	if i == nil {
 		return nil
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetInterval() *float64 {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetTimeout() *float64 {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetPersistence() *DiskSpoolingType {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetTargets() []Target {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetTargets() []Target {
 	if i == nil {
 		return nil
 	}
 	return i.Targets
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetRecordType() *RecordTypeOptions {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetRecordType() *RecordTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.RecordType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetScrapePort() *float64 {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePort
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetNameList() []string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetNameList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.NameList
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocol
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetScrapePath() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetAwsAPIKey() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetAwsSecret() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetUsePublicIP() *bool {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UsePublicIP
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetAwsSecretKey() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetRegion() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetEndpoint() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetReuseConnections() *bool {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetRejectUnauthorized() *bool {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetEnableAssumeRole() *bool {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetAssumeRoleArn() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetAssumeRoleExternalID() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetDurationSeconds() *float64 {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetScrapeProtocolExpr() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapeProtocolExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocolExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetScrapePortExpr() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePortExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePortExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetScrapePathExpr() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePathExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePathExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetPodFilter() []PodFilter {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPodFilter() []PodFilter {
 	if i == nil {
 		return nil
 	}
 	return i.PodFilter
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetUsername() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetPassword() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type1) GetCredentialsSecret() *string {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-type InputEdgePrometheusInputCollectionPart0Type1 struct {
+type InputEdgePrometheusPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputEdgePrometheusType `json:"type"`
@@ -449,7 +450,6 @@ type InputEdgePrometheusInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
@@ -522,340 +522,340 @@ type InputEdgePrometheusInputCollectionPart0Type1 struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 }
 
-func (i InputEdgePrometheusInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputEdgePrometheusPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetType() InputEdgePrometheusType {
-	if i == nil {
-		return InputEdgePrometheusType("")
-	}
-	return i.Type
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetDimensionList() []string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetType() InputEdgePrometheusType {
+	if i == nil {
+		return InputEdgePrometheusType("")
+	}
+	return i.Type
+}
+
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetDimensionList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
 	if i == nil {
 		return nil
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetInterval() *float64 {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetTimeout() *float64 {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetPersistence() *DiskSpoolingType {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetTargets() []Target {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetTargets() []Target {
 	if i == nil {
 		return nil
 	}
 	return i.Targets
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetRecordType() *RecordTypeOptions {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetRecordType() *RecordTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.RecordType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetScrapePort() *float64 {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetScrapePort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePort
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetNameList() []string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetNameList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.NameList
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocol
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetScrapePath() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetScrapePath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetAwsAPIKey() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetAwsSecret() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetUsePublicIP() *bool {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UsePublicIP
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetAwsSecretKey() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetRegion() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetEndpoint() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetReuseConnections() *bool {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetRejectUnauthorized() *bool {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetEnableAssumeRole() *bool {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetAssumeRoleArn() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetAssumeRoleExternalID() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetDurationSeconds() *float64 {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetScrapeProtocolExpr() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetScrapeProtocolExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocolExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetScrapePortExpr() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetScrapePortExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePortExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetScrapePathExpr() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetScrapePathExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePathExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetPodFilter() []PodFilter {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetPodFilter() []PodFilter {
 	if i == nil {
 		return nil
 	}
 	return i.PodFilter
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetUsername() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetPassword() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type1) GetCredentialsSecret() *string {
+func (i *InputEdgePrometheusPqEnabledFalseWithPqConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-type InputEdgePrometheusInputCollectionPart1Type struct {
+type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -945,333 +945,333 @@ type InputEdgePrometheusInputCollectionPart1Type struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 }
 
-func (i InputEdgePrometheusInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetID() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetType() InputEdgePrometheusType {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetType() InputEdgePrometheusType {
 	if i == nil {
 		return InputEdgePrometheusType("")
 	}
 	return i.Type
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetDimensionList() []string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDimensionList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
 	if i == nil {
 		return nil
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetInterval() *float64 {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetTimeout() *float64 {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetPersistence() *DiskSpoolingType {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetDescription() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetTargets() []Target {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetTargets() []Target {
 	if i == nil {
 		return nil
 	}
 	return i.Targets
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetRecordType() *RecordTypeOptions {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetRecordType() *RecordTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.RecordType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetScrapePort() *float64 {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePort
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetNameList() []string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetNameList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.NameList
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocol
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetScrapePath() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetAwsAPIKey() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetAwsSecret() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetUsePublicIP() *bool {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UsePublicIP
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetAwsSecretKey() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetRegion() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetEndpoint() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetReuseConnections() *bool {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetRejectUnauthorized() *bool {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetEnableAssumeRole() *bool {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetAssumeRoleArn() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetAssumeRoleExternalID() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetDurationSeconds() *float64 {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetScrapeProtocolExpr() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapeProtocolExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocolExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetScrapePortExpr() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePortExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePortExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetScrapePathExpr() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePathExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePathExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetPodFilter() []PodFilter {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPodFilter() []PodFilter {
 	if i == nil {
 		return nil
 	}
 	return i.PodFilter
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetUsername() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetPassword() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputEdgePrometheusInputCollectionPart1Type) GetCredentialsSecret() *string {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1438,9 +1438,11 @@ func (p *PodFilter) GetDescription() *string {
 	return p.Description
 }
 
-type InputEdgePrometheusInputCollectionPart0Type struct {
+type InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputEdgePrometheusType `json:"type"`
@@ -1453,9 +1455,7 @@ type InputEdgePrometheusInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1528,333 +1528,333 @@ type InputEdgePrometheusInputCollectionPart0Type struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 }
 
-func (i InputEdgePrometheusInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetType() InputEdgePrometheusType {
-	if i == nil {
-		return InputEdgePrometheusType("")
-	}
-	return i.Type
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetType() InputEdgePrometheusType {
+	if i == nil {
+		return InputEdgePrometheusType("")
+	}
+	return i.Type
+}
+
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetDimensionList() []string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetDimensionList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
 	if i == nil {
 		return nil
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetInterval() *float64 {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetTimeout() *float64 {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetPersistence() *DiskSpoolingType {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetDescription() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetTargets() []Target {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetTargets() []Target {
 	if i == nil {
 		return nil
 	}
 	return i.Targets
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetRecordType() *RecordTypeOptions {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetRecordType() *RecordTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.RecordType
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetScrapePort() *float64 {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapePort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePort
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetNameList() []string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetNameList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.NameList
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocol
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetScrapePath() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapePath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetAwsAPIKey() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetAwsSecret() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetUsePublicIP() *bool {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UsePublicIP
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetAwsSecretKey() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetRegion() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetEndpoint() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetReuseConnections() *bool {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetRejectUnauthorized() *bool {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetEnableAssumeRole() *bool {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetAssumeRoleArn() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetAssumeRoleExternalID() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetDurationSeconds() *float64 {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetScrapeProtocolExpr() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapeProtocolExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocolExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetScrapePortExpr() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapePortExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePortExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetScrapePathExpr() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapePathExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePathExpr
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetPodFilter() []PodFilter {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetPodFilter() []PodFilter {
 	if i == nil {
 		return nil
 	}
 	return i.PodFilter
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetUsername() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetPassword() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputEdgePrometheusInputCollectionPart0Type) GetCredentialsSecret() *string {
+func (i *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1864,84 +1864,84 @@ func (i *InputEdgePrometheusInputCollectionPart0Type) GetCredentialsSecret() *st
 type InputEdgePrometheusUnionType string
 
 const (
-	InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart0Type  InputEdgePrometheusUnionType = "InputEdgePrometheus_InputCollectionPart0Type"
-	InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart1Type  InputEdgePrometheusUnionType = "InputEdgePrometheus_InputCollectionPart1Type"
-	InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart0Type1 InputEdgePrometheusUnionType = "InputEdgePrometheus_InputCollectionPart0Type1"
-	InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart1Type1 InputEdgePrometheusUnionType = "InputEdgePrometheus_InputCollectionPart1Type1"
+	InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint  InputEdgePrometheusUnionType = "InputEdgePrometheus_SendToRoutesTrueWithConnectionsConstraint"
+	InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint InputEdgePrometheusUnionType = "InputEdgePrometheus_SendToRoutesFalseWithConnectionsConstraint"
+	InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledFalseWithPqConstraint             InputEdgePrometheusUnionType = "InputEdgePrometheus_PqEnabledFalseWithPqConstraint"
+	InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledTrueWithPqConstraint              InputEdgePrometheusUnionType = "InputEdgePrometheus_PqEnabledTrueWithPqConstraint"
 )
 
 type InputEdgePrometheus struct {
-	InputEdgePrometheusInputCollectionPart0Type  *InputEdgePrometheusInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputEdgePrometheusInputCollectionPart1Type  *InputEdgePrometheusInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputEdgePrometheusInputCollectionPart0Type1 *InputEdgePrometheusInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputEdgePrometheusInputCollectionPart1Type1 *InputEdgePrometheusInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint  *InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputEdgePrometheusPqEnabledFalseWithPqConstraint             *InputEdgePrometheusPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputEdgePrometheusPqEnabledTrueWithPqConstraint              *InputEdgePrometheusPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputEdgePrometheusUnionType
 }
 
-func CreateInputEdgePrometheusInputEdgePrometheusInputCollectionPart0Type(inputEdgePrometheusInputCollectionPart0Type InputEdgePrometheusInputCollectionPart0Type) InputEdgePrometheus {
-	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart0Type
+func CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint(inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint) InputEdgePrometheus {
+	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint
 
 	return InputEdgePrometheus{
-		InputEdgePrometheusInputCollectionPart0Type: &inputEdgePrometheusInputCollectionPart0Type,
+		InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint: &inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputEdgePrometheusInputEdgePrometheusInputCollectionPart1Type(inputEdgePrometheusInputCollectionPart1Type InputEdgePrometheusInputCollectionPart1Type) InputEdgePrometheus {
-	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart1Type
+func CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint(inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) InputEdgePrometheus {
+	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
 
 	return InputEdgePrometheus{
-		InputEdgePrometheusInputCollectionPart1Type: &inputEdgePrometheusInputCollectionPart1Type,
+		InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint: &inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputEdgePrometheusInputEdgePrometheusInputCollectionPart0Type1(inputEdgePrometheusInputCollectionPart0Type1 InputEdgePrometheusInputCollectionPart0Type1) InputEdgePrometheus {
-	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart0Type1
+func CreateInputEdgePrometheusInputEdgePrometheusPqEnabledFalseWithPqConstraint(inputEdgePrometheusPqEnabledFalseWithPqConstraint InputEdgePrometheusPqEnabledFalseWithPqConstraint) InputEdgePrometheus {
+	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledFalseWithPqConstraint
 
 	return InputEdgePrometheus{
-		InputEdgePrometheusInputCollectionPart0Type1: &inputEdgePrometheusInputCollectionPart0Type1,
+		InputEdgePrometheusPqEnabledFalseWithPqConstraint: &inputEdgePrometheusPqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputEdgePrometheusInputEdgePrometheusInputCollectionPart1Type1(inputEdgePrometheusInputCollectionPart1Type1 InputEdgePrometheusInputCollectionPart1Type1) InputEdgePrometheus {
-	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart1Type1
+func CreateInputEdgePrometheusInputEdgePrometheusPqEnabledTrueWithPqConstraint(inputEdgePrometheusPqEnabledTrueWithPqConstraint InputEdgePrometheusPqEnabledTrueWithPqConstraint) InputEdgePrometheus {
+	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledTrueWithPqConstraint
 
 	return InputEdgePrometheus{
-		InputEdgePrometheusInputCollectionPart1Type1: &inputEdgePrometheusInputCollectionPart1Type1,
+		InputEdgePrometheusPqEnabledTrueWithPqConstraint: &inputEdgePrometheusPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputEdgePrometheus) UnmarshalJSON(data []byte) error {
 
-	var inputEdgePrometheusInputCollectionPart0Type InputEdgePrometheusInputCollectionPart0Type = InputEdgePrometheusInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputEdgePrometheusInputCollectionPart0Type = &inputEdgePrometheusInputCollectionPart0Type
-		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart0Type
+	var inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint = InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint = &inputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputEdgePrometheusInputCollectionPart1Type InputEdgePrometheusInputCollectionPart1Type = InputEdgePrometheusInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputEdgePrometheusInputCollectionPart1Type = &inputEdgePrometheusInputCollectionPart1Type
-		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart1Type
+	var inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = &inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputEdgePrometheusInputCollectionPart0Type1 InputEdgePrometheusInputCollectionPart0Type1 = InputEdgePrometheusInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputEdgePrometheusInputCollectionPart0Type1 = &inputEdgePrometheusInputCollectionPart0Type1
-		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart0Type1
+	var inputEdgePrometheusPqEnabledFalseWithPqConstraint InputEdgePrometheusPqEnabledFalseWithPqConstraint = InputEdgePrometheusPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputEdgePrometheusPqEnabledFalseWithPqConstraint = &inputEdgePrometheusPqEnabledFalseWithPqConstraint
+		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputEdgePrometheusInputCollectionPart1Type1 InputEdgePrometheusInputCollectionPart1Type1 = InputEdgePrometheusInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputEdgePrometheusInputCollectionPart1Type1 = &inputEdgePrometheusInputCollectionPart1Type1
-		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusInputCollectionPart1Type1
+	var inputEdgePrometheusPqEnabledTrueWithPqConstraint InputEdgePrometheusPqEnabledTrueWithPqConstraint = InputEdgePrometheusPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputEdgePrometheusPqEnabledTrueWithPqConstraint = &inputEdgePrometheusPqEnabledTrueWithPqConstraint
+		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1949,20 +1949,20 @@ func (u *InputEdgePrometheus) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputEdgePrometheus) MarshalJSON() ([]byte, error) {
-	if u.InputEdgePrometheusInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheusInputCollectionPart0Type, "", true)
+	if u.InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputEdgePrometheusInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheusInputCollectionPart1Type, "", true)
+	if u.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputEdgePrometheusInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheusInputCollectionPart0Type1, "", true)
+	if u.InputEdgePrometheusPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputEdgePrometheusPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputEdgePrometheusInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheusInputCollectionPart1Type1, "", true)
+	if u.InputEdgePrometheusPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputEdgePrometheusPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputEdgePrometheus: all fields are null")

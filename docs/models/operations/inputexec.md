@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputExecInputCollectionPart0Type
+### InputExecSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputExec := operations.CreateInputExecInputExecInputCollectionPart0Type(operations.InputExecInputCollectionPart0Type{/* values here */})
+inputExec := operations.CreateInputExecInputExecSendToRoutesTrueWithConnectionsConstraint(operations.InputExecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputExecInputCollectionPart1Type
+### InputExecSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputExec := operations.CreateInputExecInputExecInputCollectionPart1Type(operations.InputExecInputCollectionPart1Type{/* values here */})
+inputExec := operations.CreateInputExecInputExecSendToRoutesFalseWithConnectionsConstraint(operations.InputExecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputExecInputCollectionPart0Type1
+### InputExecPqEnabledFalseWithPqConstraint
 
 ```go
-inputExec := operations.CreateInputExecInputExecInputCollectionPart0Type1(operations.InputExecInputCollectionPart0Type1{/* values here */})
+inputExec := operations.CreateInputExecInputExecPqEnabledFalseWithPqConstraint(operations.InputExecPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputExecInputCollectionPart1Type1
+### InputExecPqEnabledTrueWithPqConstraint
 
 ```go
-inputExec := operations.CreateInputExecInputExecInputCollectionPart1Type1(operations.InputExecInputCollectionPart1Type1{/* values here */})
+inputExec := operations.CreateInputExecInputExecPqEnabledTrueWithPqConstraint(operations.InputExecPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

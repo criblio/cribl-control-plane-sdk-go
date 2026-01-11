@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputKubeLogsInputCollectionPart0Type
+### InputKubeLogsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputKubeLogs := operations.CreateInputKubeLogsInputKubeLogsInputCollectionPart0Type(operations.InputKubeLogsInputCollectionPart0Type{/* values here */})
+inputKubeLogs := operations.CreateInputKubeLogsInputKubeLogsSendToRoutesTrueWithConnectionsConstraint(operations.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeLogsInputCollectionPart1Type
+### InputKubeLogsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputKubeLogs := operations.CreateInputKubeLogsInputKubeLogsInputCollectionPart1Type(operations.InputKubeLogsInputCollectionPart1Type{/* values here */})
+inputKubeLogs := operations.CreateInputKubeLogsInputKubeLogsSendToRoutesFalseWithConnectionsConstraint(operations.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeLogsInputCollectionPart0Type1
+### InputKubeLogsPqEnabledFalseWithPqConstraint
 
 ```go
-inputKubeLogs := operations.CreateInputKubeLogsInputKubeLogsInputCollectionPart0Type1(operations.InputKubeLogsInputCollectionPart0Type1{/* values here */})
+inputKubeLogs := operations.CreateInputKubeLogsInputKubeLogsPqEnabledFalseWithPqConstraint(operations.InputKubeLogsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputKubeLogsInputCollectionPart1Type1
+### InputKubeLogsPqEnabledTrueWithPqConstraint
 
 ```go
-inputKubeLogs := operations.CreateInputKubeLogsInputKubeLogsInputCollectionPart1Type1(operations.InputKubeLogsInputCollectionPart1Type1{/* values here */})
+inputKubeLogs := operations.CreateInputKubeLogsInputKubeLogsPqEnabledTrueWithPqConstraint(operations.InputKubeLogsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

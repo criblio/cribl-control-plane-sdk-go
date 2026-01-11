@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputKafkaInputCollectionPart1Type1 struct {
+type InputKafkaPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -84,265 +84,266 @@ type InputKafkaInputCollectionPart1Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKafkaInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputKafkaPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetID() *string {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetType() InputKafkaType {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetType() InputKafkaType {
 	if i == nil {
 		return InputKafkaType("")
 	}
 	return i.Type
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetBrokers() []string {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetTopics() []string {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetGroupID() *string {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetFromBeginning() *bool {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetConnectionTimeout() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetMaxRetries() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetMaxBackOff() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetInitialBackoff() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetBackoffRate() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetAuthenticationTimeout() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetReauthenticationThreshold() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetSasl() *AuthenticationType {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetSessionTimeout() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetRebalanceTimeout() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetHeartbeatInterval() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetAutoCommitInterval() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetAutoCommitThreshold() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetMaxBytesPerPartition() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetMaxBytes() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetMaxSocketErrors() *float64 {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKafkaInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputKafkaPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputKafkaInputCollectionPart0Type1 struct {
+type InputKafkaPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string        `json:"id,omitempty"`
 	Type     InputKafkaType `json:"type"`
@@ -357,7 +358,6 @@ type InputKafkaInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -415,263 +415,263 @@ type InputKafkaInputCollectionPart0Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKafkaInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputKafkaPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKafkaInputCollectionPart0Type1) GetType() InputKafkaType {
-	if i == nil {
-		return InputKafkaType("")
-	}
-	return i.Type
-}
-
-func (i *InputKafkaInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKafkaInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKafkaInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputKafkaInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKafkaInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKafkaInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputKafkaInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetBrokers() []string {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetType() InputKafkaType {
+	if i == nil {
+		return InputKafkaType("")
+	}
+	return i.Type
+}
+
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetTopics() []string {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetGroupID() *string {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetFromBeginning() *bool {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetConnectionTimeout() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetMaxRetries() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetMaxBackOff() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetInitialBackoff() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetBackoffRate() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetAuthenticationTimeout() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetReauthenticationThreshold() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetSasl() *AuthenticationType {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetSessionTimeout() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetRebalanceTimeout() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetHeartbeatInterval() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetAutoCommitInterval() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetAutoCommitThreshold() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetMaxBytesPerPartition() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetMaxBytes() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetMaxSocketErrors() *float64 {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKafkaInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputKafkaPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputKafkaInputCollectionPart1Type struct {
+type InputKafkaSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -746,256 +746,256 @@ type InputKafkaInputCollectionPart1Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKafkaInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputKafkaSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKafkaInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetID() *string {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetType() InputKafkaType {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetType() InputKafkaType {
 	if i == nil {
 		return InputKafkaType("")
 	}
 	return i.Type
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetBrokers() []string {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetTopics() []string {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetGroupID() *string {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetFromBeginning() *bool {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetConnectionTimeout() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetMaxRetries() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetMaxBackOff() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetInitialBackoff() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetBackoffRate() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetAuthenticationTimeout() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetReauthenticationThreshold() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetSasl() *AuthenticationType {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetSessionTimeout() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetRebalanceTimeout() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetHeartbeatInterval() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetAutoCommitInterval() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetAutoCommitThreshold() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetMaxBytesPerPartition() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetMaxBytes() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetMaxSocketErrors() *float64 {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKafkaInputCollectionPart1Type) GetDescription() *string {
+func (i *InputKafkaSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1025,9 +1025,11 @@ func (e *InputKafkaType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputKafkaInputCollectionPart0Type struct {
+type InputKafkaSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string        `json:"id,omitempty"`
 	Type     InputKafkaType `json:"type"`
@@ -1040,9 +1042,7 @@ type InputKafkaInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -1100,256 +1100,256 @@ type InputKafkaInputCollectionPart0Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKafkaInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputKafkaSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKafkaInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKafkaInputCollectionPart0Type) GetType() InputKafkaType {
-	if i == nil {
-		return InputKafkaType("")
-	}
-	return i.Type
-}
-
-func (i *InputKafkaInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKafkaInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKafkaInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKafkaInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputKafkaInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKafkaInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetType() InputKafkaType {
+	if i == nil {
+		return InputKafkaType("")
+	}
+	return i.Type
+}
+
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetBrokers() []string {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetTopics() []string {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetGroupID() *string {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetFromBeginning() *bool {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetConnectionTimeout() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetMaxRetries() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetMaxBackOff() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetInitialBackoff() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetBackoffRate() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetAuthenticationTimeout() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetReauthenticationThreshold() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetSasl() *AuthenticationType {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetSessionTimeout() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetRebalanceTimeout() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetHeartbeatInterval() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetAutoCommitInterval() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetAutoCommitThreshold() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetMaxBytesPerPartition() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetMaxBytes() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetMaxSocketErrors() *float64 {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKafkaInputCollectionPart0Type) GetDescription() *string {
+func (i *InputKafkaSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1359,84 +1359,84 @@ func (i *InputKafkaInputCollectionPart0Type) GetDescription() *string {
 type InputKafkaUnionType string
 
 const (
-	InputKafkaUnionTypeInputKafkaInputCollectionPart0Type  InputKafkaUnionType = "InputKafka_InputCollectionPart0Type"
-	InputKafkaUnionTypeInputKafkaInputCollectionPart1Type  InputKafkaUnionType = "InputKafka_InputCollectionPart1Type"
-	InputKafkaUnionTypeInputKafkaInputCollectionPart0Type1 InputKafkaUnionType = "InputKafka_InputCollectionPart0Type1"
-	InputKafkaUnionTypeInputKafkaInputCollectionPart1Type1 InputKafkaUnionType = "InputKafka_InputCollectionPart1Type1"
+	InputKafkaUnionTypeInputKafkaSendToRoutesTrueWithConnectionsConstraint  InputKafkaUnionType = "InputKafka_SendToRoutesTrueWithConnectionsConstraint"
+	InputKafkaUnionTypeInputKafkaSendToRoutesFalseWithConnectionsConstraint InputKafkaUnionType = "InputKafka_SendToRoutesFalseWithConnectionsConstraint"
+	InputKafkaUnionTypeInputKafkaPqEnabledFalseWithPqConstraint             InputKafkaUnionType = "InputKafka_PqEnabledFalseWithPqConstraint"
+	InputKafkaUnionTypeInputKafkaPqEnabledTrueWithPqConstraint              InputKafkaUnionType = "InputKafka_PqEnabledTrueWithPqConstraint"
 )
 
 type InputKafka struct {
-	InputKafkaInputCollectionPart0Type  *InputKafkaInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputKafkaInputCollectionPart1Type  *InputKafkaInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputKafkaInputCollectionPart0Type1 *InputKafkaInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputKafkaInputCollectionPart1Type1 *InputKafkaInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputKafkaSendToRoutesTrueWithConnectionsConstraint  *InputKafkaSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputKafkaSendToRoutesFalseWithConnectionsConstraint *InputKafkaSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputKafkaPqEnabledFalseWithPqConstraint             *InputKafkaPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputKafkaPqEnabledTrueWithPqConstraint              *InputKafkaPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputKafkaUnionType
 }
 
-func CreateInputKafkaInputKafkaInputCollectionPart0Type(inputKafkaInputCollectionPart0Type InputKafkaInputCollectionPart0Type) InputKafka {
-	typ := InputKafkaUnionTypeInputKafkaInputCollectionPart0Type
+func CreateInputKafkaInputKafkaSendToRoutesTrueWithConnectionsConstraint(inputKafkaSendToRoutesTrueWithConnectionsConstraint InputKafkaSendToRoutesTrueWithConnectionsConstraint) InputKafka {
+	typ := InputKafkaUnionTypeInputKafkaSendToRoutesTrueWithConnectionsConstraint
 
 	return InputKafka{
-		InputKafkaInputCollectionPart0Type: &inputKafkaInputCollectionPart0Type,
-		Type:                               typ,
+		InputKafkaSendToRoutesTrueWithConnectionsConstraint: &inputKafkaSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputKafkaInputKafkaInputCollectionPart1Type(inputKafkaInputCollectionPart1Type InputKafkaInputCollectionPart1Type) InputKafka {
-	typ := InputKafkaUnionTypeInputKafkaInputCollectionPart1Type
+func CreateInputKafkaInputKafkaSendToRoutesFalseWithConnectionsConstraint(inputKafkaSendToRoutesFalseWithConnectionsConstraint InputKafkaSendToRoutesFalseWithConnectionsConstraint) InputKafka {
+	typ := InputKafkaUnionTypeInputKafkaSendToRoutesFalseWithConnectionsConstraint
 
 	return InputKafka{
-		InputKafkaInputCollectionPart1Type: &inputKafkaInputCollectionPart1Type,
-		Type:                               typ,
+		InputKafkaSendToRoutesFalseWithConnectionsConstraint: &inputKafkaSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputKafkaInputKafkaInputCollectionPart0Type1(inputKafkaInputCollectionPart0Type1 InputKafkaInputCollectionPart0Type1) InputKafka {
-	typ := InputKafkaUnionTypeInputKafkaInputCollectionPart0Type1
+func CreateInputKafkaInputKafkaPqEnabledFalseWithPqConstraint(inputKafkaPqEnabledFalseWithPqConstraint InputKafkaPqEnabledFalseWithPqConstraint) InputKafka {
+	typ := InputKafkaUnionTypeInputKafkaPqEnabledFalseWithPqConstraint
 
 	return InputKafka{
-		InputKafkaInputCollectionPart0Type1: &inputKafkaInputCollectionPart0Type1,
-		Type:                                typ,
+		InputKafkaPqEnabledFalseWithPqConstraint: &inputKafkaPqEnabledFalseWithPqConstraint,
+		Type:                                     typ,
 	}
 }
 
-func CreateInputKafkaInputKafkaInputCollectionPart1Type1(inputKafkaInputCollectionPart1Type1 InputKafkaInputCollectionPart1Type1) InputKafka {
-	typ := InputKafkaUnionTypeInputKafkaInputCollectionPart1Type1
+func CreateInputKafkaInputKafkaPqEnabledTrueWithPqConstraint(inputKafkaPqEnabledTrueWithPqConstraint InputKafkaPqEnabledTrueWithPqConstraint) InputKafka {
+	typ := InputKafkaUnionTypeInputKafkaPqEnabledTrueWithPqConstraint
 
 	return InputKafka{
-		InputKafkaInputCollectionPart1Type1: &inputKafkaInputCollectionPart1Type1,
-		Type:                                typ,
+		InputKafkaPqEnabledTrueWithPqConstraint: &inputKafkaPqEnabledTrueWithPqConstraint,
+		Type:                                    typ,
 	}
 }
 
 func (u *InputKafka) UnmarshalJSON(data []byte) error {
 
-	var inputKafkaInputCollectionPart0Type InputKafkaInputCollectionPart0Type = InputKafkaInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputKafkaInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputKafkaInputCollectionPart0Type = &inputKafkaInputCollectionPart0Type
-		u.Type = InputKafkaUnionTypeInputKafkaInputCollectionPart0Type
+	var inputKafkaSendToRoutesTrueWithConnectionsConstraint InputKafkaSendToRoutesTrueWithConnectionsConstraint = InputKafkaSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKafkaSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKafkaSendToRoutesTrueWithConnectionsConstraint = &inputKafkaSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputKafkaUnionTypeInputKafkaSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputKafkaInputCollectionPart1Type InputKafkaInputCollectionPart1Type = InputKafkaInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputKafkaInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputKafkaInputCollectionPart1Type = &inputKafkaInputCollectionPart1Type
-		u.Type = InputKafkaUnionTypeInputKafkaInputCollectionPart1Type
+	var inputKafkaSendToRoutesFalseWithConnectionsConstraint InputKafkaSendToRoutesFalseWithConnectionsConstraint = InputKafkaSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKafkaSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKafkaSendToRoutesFalseWithConnectionsConstraint = &inputKafkaSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputKafkaUnionTypeInputKafkaSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputKafkaInputCollectionPart0Type1 InputKafkaInputCollectionPart0Type1 = InputKafkaInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputKafkaInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputKafkaInputCollectionPart0Type1 = &inputKafkaInputCollectionPart0Type1
-		u.Type = InputKafkaUnionTypeInputKafkaInputCollectionPart0Type1
+	var inputKafkaPqEnabledFalseWithPqConstraint InputKafkaPqEnabledFalseWithPqConstraint = InputKafkaPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKafkaPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputKafkaPqEnabledFalseWithPqConstraint = &inputKafkaPqEnabledFalseWithPqConstraint
+		u.Type = InputKafkaUnionTypeInputKafkaPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputKafkaInputCollectionPart1Type1 InputKafkaInputCollectionPart1Type1 = InputKafkaInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputKafkaInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputKafkaInputCollectionPart1Type1 = &inputKafkaInputCollectionPart1Type1
-		u.Type = InputKafkaUnionTypeInputKafkaInputCollectionPart1Type1
+	var inputKafkaPqEnabledTrueWithPqConstraint InputKafkaPqEnabledTrueWithPqConstraint = InputKafkaPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKafkaPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputKafkaPqEnabledTrueWithPqConstraint = &inputKafkaPqEnabledTrueWithPqConstraint
+		u.Type = InputKafkaUnionTypeInputKafkaPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1444,20 +1444,20 @@ func (u *InputKafka) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputKafka) MarshalJSON() ([]byte, error) {
-	if u.InputKafkaInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputKafkaInputCollectionPart0Type, "", true)
+	if u.InputKafkaSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKafkaSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputKafkaInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputKafkaInputCollectionPart1Type, "", true)
+	if u.InputKafkaSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKafkaSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputKafkaInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputKafkaInputCollectionPart0Type1, "", true)
+	if u.InputKafkaPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKafkaPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputKafkaInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputKafkaInputCollectionPart1Type1, "", true)
+	if u.InputKafkaPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKafkaPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputKafka: all fields are null")

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputKubeLogsInputCollectionPart0Type
+### InputKubeLogsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputKubeLogs := components.CreateInputKubeLogsInputKubeLogsInputCollectionPart0Type(components.InputKubeLogsInputCollectionPart0Type{/* values here */})
+inputKubeLogs := components.CreateInputKubeLogsInputKubeLogsSendToRoutesTrueWithConnectionsConstraint(components.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeLogsInputCollectionPart1Type
+### InputKubeLogsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputKubeLogs := components.CreateInputKubeLogsInputKubeLogsInputCollectionPart1Type(components.InputKubeLogsInputCollectionPart1Type{/* values here */})
+inputKubeLogs := components.CreateInputKubeLogsInputKubeLogsSendToRoutesFalseWithConnectionsConstraint(components.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeLogsInputCollectionPart0Type1
+### InputKubeLogsPqEnabledFalseWithPqConstraint
 
 ```go
-inputKubeLogs := components.CreateInputKubeLogsInputKubeLogsInputCollectionPart0Type1(components.InputKubeLogsInputCollectionPart0Type1{/* values here */})
+inputKubeLogs := components.CreateInputKubeLogsInputKubeLogsPqEnabledFalseWithPqConstraint(components.InputKubeLogsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputKubeLogsInputCollectionPart1Type1
+### InputKubeLogsPqEnabledTrueWithPqConstraint
 
 ```go
-inputKubeLogs := components.CreateInputKubeLogsInputKubeLogsInputCollectionPart1Type1(components.InputKubeLogsInputCollectionPart1Type1{/* values here */})
+inputKubeLogs := components.CreateInputKubeLogsInputKubeLogsPqEnabledTrueWithPqConstraint(components.InputKubeLogsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

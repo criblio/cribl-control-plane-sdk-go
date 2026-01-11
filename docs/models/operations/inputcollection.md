@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCollectionInputCollectionPart0Type
+### InputCollectionSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCollection := operations.CreateInputCollectionInputCollectionInputCollectionPart0Type(operations.InputCollectionInputCollectionPart0Type{/* values here */})
+inputCollection := operations.CreateInputCollectionInputCollectionSendToRoutesTrueWithConnectionsConstraint(operations.InputCollectionSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCollectionInputCollectionPart1Type
+### InputCollectionSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCollection := operations.CreateInputCollectionInputCollectionInputCollectionPart1Type(operations.InputCollectionInputCollectionPart1Type{/* values here */})
+inputCollection := operations.CreateInputCollectionInputCollectionSendToRoutesFalseWithConnectionsConstraint(operations.InputCollectionSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCollectionInputCollectionPart0Type1
+### InputCollectionPqEnabledFalseWithPqConstraint
 
 ```go
-inputCollection := operations.CreateInputCollectionInputCollectionInputCollectionPart0Type1(operations.InputCollectionInputCollectionPart0Type1{/* values here */})
+inputCollection := operations.CreateInputCollectionInputCollectionPqEnabledFalseWithPqConstraint(operations.InputCollectionPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCollectionInputCollectionPart1Type1
+### InputCollectionPqEnabledTrueWithPqConstraint
 
 ```go
-inputCollection := operations.CreateInputCollectionInputCollectionInputCollectionPart1Type1(operations.InputCollectionInputCollectionPart1Type1{/* values here */})
+inputCollection := operations.CreateInputCollectionInputCollectionPqEnabledTrueWithPqConstraint(operations.InputCollectionPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

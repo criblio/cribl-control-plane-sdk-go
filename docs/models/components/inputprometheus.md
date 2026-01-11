@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputPrometheusInputCollectionPart0Type
+### InputPrometheusSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputPrometheus := components.CreateInputPrometheusInputPrometheusInputCollectionPart0Type(components.InputPrometheusInputCollectionPart0Type{/* values here */})
+inputPrometheus := components.CreateInputPrometheusInputPrometheusSendToRoutesTrueWithConnectionsConstraint(components.InputPrometheusSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputPrometheusInputCollectionPart1Type
+### InputPrometheusSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputPrometheus := components.CreateInputPrometheusInputPrometheusInputCollectionPart1Type(components.InputPrometheusInputCollectionPart1Type{/* values here */})
+inputPrometheus := components.CreateInputPrometheusInputPrometheusSendToRoutesFalseWithConnectionsConstraint(components.InputPrometheusSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputPrometheusInputCollectionPart0Type1
+### InputPrometheusPqEnabledFalseWithPqConstraint
 
 ```go
-inputPrometheus := components.CreateInputPrometheusInputPrometheusInputCollectionPart0Type1(components.InputPrometheusInputCollectionPart0Type1{/* values here */})
+inputPrometheus := components.CreateInputPrometheusInputPrometheusPqEnabledFalseWithPqConstraint(components.InputPrometheusPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputPrometheusInputCollectionPart1Type1
+### InputPrometheusPqEnabledTrueWithPqConstraint
 
 ```go
-inputPrometheus := components.CreateInputPrometheusInputPrometheusInputCollectionPart1Type1(components.InputPrometheusInputCollectionPart1Type1{/* values here */})
+inputPrometheus := components.CreateInputPrometheusInputPrometheusPqEnabledTrueWithPqConstraint(components.InputPrometheusPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

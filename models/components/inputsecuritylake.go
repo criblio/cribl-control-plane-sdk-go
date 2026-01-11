@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSecurityLakeInputCollectionPart1Type1 struct {
+type InputSecurityLakePqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -95,342 +95,343 @@ type InputSecurityLakeInputCollectionPart1Type1 struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputSecurityLakeInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputSecurityLakePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetID() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetType() InputSecurityLakeType {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetType() InputSecurityLakeType {
 	if i == nil {
 		return InputSecurityLakeType("")
 	}
 	return i.Type
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetQueueName() string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetFileFilter() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetAwsAccountID() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetAwsSecretKey() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetRegion() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetEndpoint() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetReuseConnections() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetRejectUnauthorized() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetBreakerRulesets() []string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetMaxMessages() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetVisibilityTimeout() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetNumReceivers() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetSkipOnError() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetIncludeSqsMetadata() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetEnableAssumeRole() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetAssumeRoleArn() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetAssumeRoleExternalID() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetDurationSeconds() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetEnableSQSAssumeRole() *bool {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetParquetChunkSizeMB() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetCheckpointing() *CheckpointingType {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetPollTimeout() *float64 {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetEncoding() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetAwsAPIKey() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetAwsSecret() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetProcessedTagKey() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type1) GetProcessedTagValue() *string {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagValue
 }
 
-type InputSecurityLakeInputCollectionPart0Type1 struct {
+type InputSecurityLakePqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputSecurityLakeType `json:"type"`
@@ -445,7 +446,6 @@ type InputSecurityLakeInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -514,340 +514,340 @@ type InputSecurityLakeInputCollectionPart0Type1 struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputSecurityLakeInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputSecurityLakePqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetType() InputSecurityLakeType {
-	if i == nil {
-		return InputSecurityLakeType("")
-	}
-	return i.Type
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetQueueName() string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetType() InputSecurityLakeType {
+	if i == nil {
+		return InputSecurityLakeType("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetFileFilter() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetAwsAccountID() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetAwsSecretKey() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetRegion() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetEndpoint() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetReuseConnections() *bool {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetRejectUnauthorized() *bool {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetBreakerRulesets() []string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetMaxMessages() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetVisibilityTimeout() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetNumReceivers() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetSkipOnError() *bool {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetIncludeSqsMetadata() *bool {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetEnableAssumeRole() *bool {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetAssumeRoleArn() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetAssumeRoleExternalID() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetDurationSeconds() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetEnableSQSAssumeRole() *bool {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetParquetChunkSizeMB() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetCheckpointing() *CheckpointingType {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetPollTimeout() *float64 {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetEncoding() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetAwsAPIKey() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetAwsSecret() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetProcessedTagKey() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type1) GetProcessedTagValue() *string {
+func (i *InputSecurityLakePqEnabledFalseWithPqConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagValue
 }
 
-type InputSecurityLakeInputCollectionPart1Type struct {
+type InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -933,333 +933,333 @@ type InputSecurityLakeInputCollectionPart1Type struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputSecurityLakeInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetID() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetType() InputSecurityLakeType {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetType() InputSecurityLakeType {
 	if i == nil {
 		return InputSecurityLakeType("")
 	}
 	return i.Type
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetQueueName() string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetFileFilter() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetAwsAccountID() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetAwsSecretKey() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetRegion() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetEndpoint() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetReuseConnections() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetRejectUnauthorized() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetBreakerRulesets() []string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetMaxMessages() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetVisibilityTimeout() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetNumReceivers() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetSocketTimeout() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetSkipOnError() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetIncludeSqsMetadata() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetEnableAssumeRole() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetAssumeRoleArn() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetAssumeRoleExternalID() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetDurationSeconds() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetEnableSQSAssumeRole() *bool {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetParquetChunkSizeMB() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetCheckpointing() *CheckpointingType {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetPollTimeout() *float64 {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetEncoding() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetDescription() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetAwsAPIKey() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetAwsSecret() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetProcessedTagKey() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart1Type) GetProcessedTagValue() *string {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
@@ -1289,9 +1289,11 @@ func (e *InputSecurityLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputSecurityLakeInputCollectionPart0Type struct {
+type InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputSecurityLakeType `json:"type"`
@@ -1304,9 +1306,7 @@ type InputSecurityLakeInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -1375,333 +1375,333 @@ type InputSecurityLakeInputCollectionPart0Type struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputSecurityLakeInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type) GetType() InputSecurityLakeType {
-	if i == nil {
-		return InputSecurityLakeType("")
-	}
-	return i.Type
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSecurityLakeInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetType() InputSecurityLakeType {
+	if i == nil {
+		return InputSecurityLakeType("")
+	}
+	return i.Type
+}
+
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetQueueName() string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetFileFilter() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetAwsAccountID() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetAwsSecretKey() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetRegion() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetEndpoint() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetReuseConnections() *bool {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetRejectUnauthorized() *bool {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetBreakerRulesets() []string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetMaxMessages() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetVisibilityTimeout() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetNumReceivers() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetSocketTimeout() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetSkipOnError() *bool {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetIncludeSqsMetadata() *bool {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetEnableAssumeRole() *bool {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetAssumeRoleArn() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetAssumeRoleExternalID() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetDurationSeconds() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetEnableSQSAssumeRole() *bool {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetParquetChunkSizeMB() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetCheckpointing() *CheckpointingType {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetPollTimeout() *float64 {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetEncoding() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetDescription() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetAwsAPIKey() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetAwsSecret() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetProcessedTagKey() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputSecurityLakeInputCollectionPart0Type) GetProcessedTagValue() *string {
+func (i *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
@@ -1711,84 +1711,84 @@ func (i *InputSecurityLakeInputCollectionPart0Type) GetProcessedTagValue() *stri
 type InputSecurityLakeUnionType string
 
 const (
-	InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart0Type  InputSecurityLakeUnionType = "InputSecurityLake_InputCollectionPart0Type"
-	InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart1Type  InputSecurityLakeUnionType = "InputSecurityLake_InputCollectionPart1Type"
-	InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart0Type1 InputSecurityLakeUnionType = "InputSecurityLake_InputCollectionPart0Type1"
-	InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart1Type1 InputSecurityLakeUnionType = "InputSecurityLake_InputCollectionPart1Type1"
+	InputSecurityLakeUnionTypeInputSecurityLakeSendToRoutesTrueWithConnectionsConstraint  InputSecurityLakeUnionType = "InputSecurityLake_SendToRoutesTrueWithConnectionsConstraint"
+	InputSecurityLakeUnionTypeInputSecurityLakeSendToRoutesFalseWithConnectionsConstraint InputSecurityLakeUnionType = "InputSecurityLake_SendToRoutesFalseWithConnectionsConstraint"
+	InputSecurityLakeUnionTypeInputSecurityLakePqEnabledFalseWithPqConstraint             InputSecurityLakeUnionType = "InputSecurityLake_PqEnabledFalseWithPqConstraint"
+	InputSecurityLakeUnionTypeInputSecurityLakePqEnabledTrueWithPqConstraint              InputSecurityLakeUnionType = "InputSecurityLake_PqEnabledTrueWithPqConstraint"
 )
 
 type InputSecurityLake struct {
-	InputSecurityLakeInputCollectionPart0Type  *InputSecurityLakeInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputSecurityLakeInputCollectionPart1Type  *InputSecurityLakeInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputSecurityLakeInputCollectionPart0Type1 *InputSecurityLakeInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputSecurityLakeInputCollectionPart1Type1 *InputSecurityLakeInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint  *InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputSecurityLakePqEnabledFalseWithPqConstraint             *InputSecurityLakePqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputSecurityLakePqEnabledTrueWithPqConstraint              *InputSecurityLakePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputSecurityLakeUnionType
 }
 
-func CreateInputSecurityLakeInputSecurityLakeInputCollectionPart0Type(inputSecurityLakeInputCollectionPart0Type InputSecurityLakeInputCollectionPart0Type) InputSecurityLake {
-	typ := InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart0Type
+func CreateInputSecurityLakeInputSecurityLakeSendToRoutesTrueWithConnectionsConstraint(inputSecurityLakeSendToRoutesTrueWithConnectionsConstraint InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint) InputSecurityLake {
+	typ := InputSecurityLakeUnionTypeInputSecurityLakeSendToRoutesTrueWithConnectionsConstraint
 
 	return InputSecurityLake{
-		InputSecurityLakeInputCollectionPart0Type: &inputSecurityLakeInputCollectionPart0Type,
+		InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint: &inputSecurityLakeSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputSecurityLakeInputSecurityLakeInputCollectionPart1Type(inputSecurityLakeInputCollectionPart1Type InputSecurityLakeInputCollectionPart1Type) InputSecurityLake {
-	typ := InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart1Type
+func CreateInputSecurityLakeInputSecurityLakeSendToRoutesFalseWithConnectionsConstraint(inputSecurityLakeSendToRoutesFalseWithConnectionsConstraint InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) InputSecurityLake {
+	typ := InputSecurityLakeUnionTypeInputSecurityLakeSendToRoutesFalseWithConnectionsConstraint
 
 	return InputSecurityLake{
-		InputSecurityLakeInputCollectionPart1Type: &inputSecurityLakeInputCollectionPart1Type,
+		InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint: &inputSecurityLakeSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputSecurityLakeInputSecurityLakeInputCollectionPart0Type1(inputSecurityLakeInputCollectionPart0Type1 InputSecurityLakeInputCollectionPart0Type1) InputSecurityLake {
-	typ := InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart0Type1
+func CreateInputSecurityLakeInputSecurityLakePqEnabledFalseWithPqConstraint(inputSecurityLakePqEnabledFalseWithPqConstraint InputSecurityLakePqEnabledFalseWithPqConstraint) InputSecurityLake {
+	typ := InputSecurityLakeUnionTypeInputSecurityLakePqEnabledFalseWithPqConstraint
 
 	return InputSecurityLake{
-		InputSecurityLakeInputCollectionPart0Type1: &inputSecurityLakeInputCollectionPart0Type1,
+		InputSecurityLakePqEnabledFalseWithPqConstraint: &inputSecurityLakePqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputSecurityLakeInputSecurityLakeInputCollectionPart1Type1(inputSecurityLakeInputCollectionPart1Type1 InputSecurityLakeInputCollectionPart1Type1) InputSecurityLake {
-	typ := InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart1Type1
+func CreateInputSecurityLakeInputSecurityLakePqEnabledTrueWithPqConstraint(inputSecurityLakePqEnabledTrueWithPqConstraint InputSecurityLakePqEnabledTrueWithPqConstraint) InputSecurityLake {
+	typ := InputSecurityLakeUnionTypeInputSecurityLakePqEnabledTrueWithPqConstraint
 
 	return InputSecurityLake{
-		InputSecurityLakeInputCollectionPart1Type1: &inputSecurityLakeInputCollectionPart1Type1,
+		InputSecurityLakePqEnabledTrueWithPqConstraint: &inputSecurityLakePqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputSecurityLake) UnmarshalJSON(data []byte) error {
 
-	var inputSecurityLakeInputCollectionPart0Type InputSecurityLakeInputCollectionPart0Type = InputSecurityLakeInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputSecurityLakeInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputSecurityLakeInputCollectionPart0Type = &inputSecurityLakeInputCollectionPart0Type
-		u.Type = InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart0Type
+	var inputSecurityLakeSendToRoutesTrueWithConnectionsConstraint InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint = InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint = &inputSecurityLakeSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputSecurityLakeUnionTypeInputSecurityLakeSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputSecurityLakeInputCollectionPart1Type InputSecurityLakeInputCollectionPart1Type = InputSecurityLakeInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputSecurityLakeInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputSecurityLakeInputCollectionPart1Type = &inputSecurityLakeInputCollectionPart1Type
-		u.Type = InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart1Type
+	var inputSecurityLakeSendToRoutesFalseWithConnectionsConstraint InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint = InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakeSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint = &inputSecurityLakeSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputSecurityLakeUnionTypeInputSecurityLakeSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputSecurityLakeInputCollectionPart0Type1 InputSecurityLakeInputCollectionPart0Type1 = InputSecurityLakeInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputSecurityLakeInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputSecurityLakeInputCollectionPart0Type1 = &inputSecurityLakeInputCollectionPart0Type1
-		u.Type = InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart0Type1
+	var inputSecurityLakePqEnabledFalseWithPqConstraint InputSecurityLakePqEnabledFalseWithPqConstraint = InputSecurityLakePqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakePqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputSecurityLakePqEnabledFalseWithPqConstraint = &inputSecurityLakePqEnabledFalseWithPqConstraint
+		u.Type = InputSecurityLakeUnionTypeInputSecurityLakePqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputSecurityLakeInputCollectionPart1Type1 InputSecurityLakeInputCollectionPart1Type1 = InputSecurityLakeInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputSecurityLakeInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputSecurityLakeInputCollectionPart1Type1 = &inputSecurityLakeInputCollectionPart1Type1
-		u.Type = InputSecurityLakeUnionTypeInputSecurityLakeInputCollectionPart1Type1
+	var inputSecurityLakePqEnabledTrueWithPqConstraint InputSecurityLakePqEnabledTrueWithPqConstraint = InputSecurityLakePqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSecurityLakePqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputSecurityLakePqEnabledTrueWithPqConstraint = &inputSecurityLakePqEnabledTrueWithPqConstraint
+		u.Type = InputSecurityLakeUnionTypeInputSecurityLakePqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1796,20 +1796,20 @@ func (u *InputSecurityLake) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputSecurityLake) MarshalJSON() ([]byte, error) {
-	if u.InputSecurityLakeInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputSecurityLakeInputCollectionPart0Type, "", true)
+	if u.InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSecurityLakeInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputSecurityLakeInputCollectionPart1Type, "", true)
+	if u.InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSecurityLakeInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputSecurityLakeInputCollectionPart0Type1, "", true)
+	if u.InputSecurityLakePqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputSecurityLakePqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputSecurityLakeInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputSecurityLakeInputCollectionPart1Type1, "", true)
+	if u.InputSecurityLakePqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputSecurityLakePqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputSecurityLake: all fields are null")

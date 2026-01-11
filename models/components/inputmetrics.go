@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputMetricsInputCollectionPart1Type1 struct {
+type InputMetricsPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -47,160 +47,161 @@ type InputMetricsInputCollectionPart1Type1 struct {
 	Description        *string  `json:"description,omitempty"`
 }
 
-func (i InputMetricsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputMetricsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetID() *string {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetType() InputMetricsType {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetType() InputMetricsType {
 	if i == nil {
 		return InputMetricsType("")
 	}
 	return i.Type
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetHost() *string {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetUDPPort() *float64 {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetUDPPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPPort
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetTCPPort() *float64 {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetTCPPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TCPPort
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetMaxBufferSize() *float64 {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetIPWhitelistRegex() *string {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetUDPSocketRxBufSize() *float64 {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputMetricsInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputMetricsInputCollectionPart0Type1 struct {
+type InputMetricsPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputMetricsType `json:"type"`
@@ -215,7 +216,6 @@ type InputMetricsInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -236,158 +236,158 @@ type InputMetricsInputCollectionPart0Type1 struct {
 	Description        *string  `json:"description,omitempty"`
 }
 
-func (i InputMetricsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputMetricsPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputMetricsInputCollectionPart0Type1) GetType() InputMetricsType {
-	if i == nil {
-		return InputMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputMetricsInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputMetricsInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputMetricsInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputMetricsInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputMetricsInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputMetricsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputMetricsInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetHost() *string {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetType() InputMetricsType {
+	if i == nil {
+		return InputMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetUDPPort() *float64 {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetUDPPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPPort
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetTCPPort() *float64 {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetTCPPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TCPPort
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetMaxBufferSize() *float64 {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetIPWhitelistRegex() *string {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetUDPSocketRxBufSize() *float64 {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputMetricsInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputMetricsPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputMetricsInputCollectionPart1Type struct {
+type InputMetricsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -425,151 +425,151 @@ type InputMetricsInputCollectionPart1Type struct {
 	Description        *string  `json:"description,omitempty"`
 }
 
-func (i InputMetricsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputMetricsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputMetricsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetID() *string {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetType() InputMetricsType {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetType() InputMetricsType {
 	if i == nil {
 		return InputMetricsType("")
 	}
 	return i.Type
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetHost() *string {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetUDPPort() *float64 {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetUDPPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPPort
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetTCPPort() *float64 {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetTCPPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TCPPort
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetMaxBufferSize() *float64 {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetIPWhitelistRegex() *string {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetUDPSocketRxBufSize() *float64 {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputMetricsInputCollectionPart1Type) GetDescription() *string {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -599,9 +599,11 @@ func (e *InputMetricsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputMetricsInputCollectionPart0Type struct {
+type InputMetricsSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputMetricsType `json:"type"`
@@ -614,9 +616,7 @@ type InputMetricsInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -637,151 +637,151 @@ type InputMetricsInputCollectionPart0Type struct {
 	Description        *string  `json:"description,omitempty"`
 }
 
-func (i InputMetricsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputMetricsSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputMetricsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputMetricsInputCollectionPart0Type) GetType() InputMetricsType {
-	if i == nil {
-		return InputMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputMetricsInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputMetricsInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputMetricsInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputMetricsInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputMetricsInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputMetricsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetType() InputMetricsType {
+	if i == nil {
+		return InputMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetHost() *string {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetUDPPort() *float64 {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetUDPPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPPort
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetTCPPort() *float64 {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetTCPPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TCPPort
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetMaxBufferSize() *float64 {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetIPWhitelistRegex() *string {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetEnableProxyHeader() *bool {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetUDPSocketRxBufSize() *float64 {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputMetricsInputCollectionPart0Type) GetDescription() *string {
+func (i *InputMetricsSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -791,84 +791,84 @@ func (i *InputMetricsInputCollectionPart0Type) GetDescription() *string {
 type InputMetricsUnionType string
 
 const (
-	InputMetricsUnionTypeInputMetricsInputCollectionPart0Type  InputMetricsUnionType = "InputMetrics_InputCollectionPart0Type"
-	InputMetricsUnionTypeInputMetricsInputCollectionPart1Type  InputMetricsUnionType = "InputMetrics_InputCollectionPart1Type"
-	InputMetricsUnionTypeInputMetricsInputCollectionPart0Type1 InputMetricsUnionType = "InputMetrics_InputCollectionPart0Type1"
-	InputMetricsUnionTypeInputMetricsInputCollectionPart1Type1 InputMetricsUnionType = "InputMetrics_InputCollectionPart1Type1"
+	InputMetricsUnionTypeInputMetricsSendToRoutesTrueWithConnectionsConstraint  InputMetricsUnionType = "InputMetrics_SendToRoutesTrueWithConnectionsConstraint"
+	InputMetricsUnionTypeInputMetricsSendToRoutesFalseWithConnectionsConstraint InputMetricsUnionType = "InputMetrics_SendToRoutesFalseWithConnectionsConstraint"
+	InputMetricsUnionTypeInputMetricsPqEnabledFalseWithPqConstraint             InputMetricsUnionType = "InputMetrics_PqEnabledFalseWithPqConstraint"
+	InputMetricsUnionTypeInputMetricsPqEnabledTrueWithPqConstraint              InputMetricsUnionType = "InputMetrics_PqEnabledTrueWithPqConstraint"
 )
 
 type InputMetrics struct {
-	InputMetricsInputCollectionPart0Type  *InputMetricsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputMetricsInputCollectionPart1Type  *InputMetricsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputMetricsInputCollectionPart0Type1 *InputMetricsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputMetricsInputCollectionPart1Type1 *InputMetricsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputMetricsSendToRoutesTrueWithConnectionsConstraint  *InputMetricsSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputMetricsSendToRoutesFalseWithConnectionsConstraint *InputMetricsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputMetricsPqEnabledFalseWithPqConstraint             *InputMetricsPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputMetricsPqEnabledTrueWithPqConstraint              *InputMetricsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputMetricsUnionType
 }
 
-func CreateInputMetricsInputMetricsInputCollectionPart0Type(inputMetricsInputCollectionPart0Type InputMetricsInputCollectionPart0Type) InputMetrics {
-	typ := InputMetricsUnionTypeInputMetricsInputCollectionPart0Type
+func CreateInputMetricsInputMetricsSendToRoutesTrueWithConnectionsConstraint(inputMetricsSendToRoutesTrueWithConnectionsConstraint InputMetricsSendToRoutesTrueWithConnectionsConstraint) InputMetrics {
+	typ := InputMetricsUnionTypeInputMetricsSendToRoutesTrueWithConnectionsConstraint
 
 	return InputMetrics{
-		InputMetricsInputCollectionPart0Type: &inputMetricsInputCollectionPart0Type,
-		Type:                                 typ,
+		InputMetricsSendToRoutesTrueWithConnectionsConstraint: &inputMetricsSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputMetricsInputMetricsInputCollectionPart1Type(inputMetricsInputCollectionPart1Type InputMetricsInputCollectionPart1Type) InputMetrics {
-	typ := InputMetricsUnionTypeInputMetricsInputCollectionPart1Type
+func CreateInputMetricsInputMetricsSendToRoutesFalseWithConnectionsConstraint(inputMetricsSendToRoutesFalseWithConnectionsConstraint InputMetricsSendToRoutesFalseWithConnectionsConstraint) InputMetrics {
+	typ := InputMetricsUnionTypeInputMetricsSendToRoutesFalseWithConnectionsConstraint
 
 	return InputMetrics{
-		InputMetricsInputCollectionPart1Type: &inputMetricsInputCollectionPart1Type,
-		Type:                                 typ,
+		InputMetricsSendToRoutesFalseWithConnectionsConstraint: &inputMetricsSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputMetricsInputMetricsInputCollectionPart0Type1(inputMetricsInputCollectionPart0Type1 InputMetricsInputCollectionPart0Type1) InputMetrics {
-	typ := InputMetricsUnionTypeInputMetricsInputCollectionPart0Type1
+func CreateInputMetricsInputMetricsPqEnabledFalseWithPqConstraint(inputMetricsPqEnabledFalseWithPqConstraint InputMetricsPqEnabledFalseWithPqConstraint) InputMetrics {
+	typ := InputMetricsUnionTypeInputMetricsPqEnabledFalseWithPqConstraint
 
 	return InputMetrics{
-		InputMetricsInputCollectionPart0Type1: &inputMetricsInputCollectionPart0Type1,
-		Type:                                  typ,
+		InputMetricsPqEnabledFalseWithPqConstraint: &inputMetricsPqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputMetricsInputMetricsInputCollectionPart1Type1(inputMetricsInputCollectionPart1Type1 InputMetricsInputCollectionPart1Type1) InputMetrics {
-	typ := InputMetricsUnionTypeInputMetricsInputCollectionPart1Type1
+func CreateInputMetricsInputMetricsPqEnabledTrueWithPqConstraint(inputMetricsPqEnabledTrueWithPqConstraint InputMetricsPqEnabledTrueWithPqConstraint) InputMetrics {
+	typ := InputMetricsUnionTypeInputMetricsPqEnabledTrueWithPqConstraint
 
 	return InputMetrics{
-		InputMetricsInputCollectionPart1Type1: &inputMetricsInputCollectionPart1Type1,
-		Type:                                  typ,
+		InputMetricsPqEnabledTrueWithPqConstraint: &inputMetricsPqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputMetrics) UnmarshalJSON(data []byte) error {
 
-	var inputMetricsInputCollectionPart0Type InputMetricsInputCollectionPart0Type = InputMetricsInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputMetricsInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputMetricsInputCollectionPart0Type = &inputMetricsInputCollectionPart0Type
-		u.Type = InputMetricsUnionTypeInputMetricsInputCollectionPart0Type
+	var inputMetricsSendToRoutesTrueWithConnectionsConstraint InputMetricsSendToRoutesTrueWithConnectionsConstraint = InputMetricsSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputMetricsSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputMetricsSendToRoutesTrueWithConnectionsConstraint = &inputMetricsSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputMetricsUnionTypeInputMetricsSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputMetricsInputCollectionPart1Type InputMetricsInputCollectionPart1Type = InputMetricsInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputMetricsInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputMetricsInputCollectionPart1Type = &inputMetricsInputCollectionPart1Type
-		u.Type = InputMetricsUnionTypeInputMetricsInputCollectionPart1Type
+	var inputMetricsSendToRoutesFalseWithConnectionsConstraint InputMetricsSendToRoutesFalseWithConnectionsConstraint = InputMetricsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputMetricsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputMetricsSendToRoutesFalseWithConnectionsConstraint = &inputMetricsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputMetricsUnionTypeInputMetricsSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputMetricsInputCollectionPart0Type1 InputMetricsInputCollectionPart0Type1 = InputMetricsInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputMetricsInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputMetricsInputCollectionPart0Type1 = &inputMetricsInputCollectionPart0Type1
-		u.Type = InputMetricsUnionTypeInputMetricsInputCollectionPart0Type1
+	var inputMetricsPqEnabledFalseWithPqConstraint InputMetricsPqEnabledFalseWithPqConstraint = InputMetricsPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputMetricsPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputMetricsPqEnabledFalseWithPqConstraint = &inputMetricsPqEnabledFalseWithPqConstraint
+		u.Type = InputMetricsUnionTypeInputMetricsPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputMetricsInputCollectionPart1Type1 InputMetricsInputCollectionPart1Type1 = InputMetricsInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputMetricsInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputMetricsInputCollectionPart1Type1 = &inputMetricsInputCollectionPart1Type1
-		u.Type = InputMetricsUnionTypeInputMetricsInputCollectionPart1Type1
+	var inputMetricsPqEnabledTrueWithPqConstraint InputMetricsPqEnabledTrueWithPqConstraint = InputMetricsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputMetricsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputMetricsPqEnabledTrueWithPqConstraint = &inputMetricsPqEnabledTrueWithPqConstraint
+		u.Type = InputMetricsUnionTypeInputMetricsPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -876,20 +876,20 @@ func (u *InputMetrics) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputMetrics) MarshalJSON() ([]byte, error) {
-	if u.InputMetricsInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputMetricsInputCollectionPart0Type, "", true)
+	if u.InputMetricsSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputMetricsSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputMetricsInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputMetricsInputCollectionPart1Type, "", true)
+	if u.InputMetricsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputMetricsSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputMetricsInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputMetricsInputCollectionPart0Type1, "", true)
+	if u.InputMetricsPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputMetricsPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputMetricsInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputMetricsInputCollectionPart1Type1, "", true)
+	if u.InputMetricsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputMetricsPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputMetrics: all fields are null")

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputKubeEventsInputCollectionPart0Type
+### InputKubeEventsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputKubeEvents := components.CreateInputKubeEventsInputKubeEventsInputCollectionPart0Type(components.InputKubeEventsInputCollectionPart0Type{/* values here */})
+inputKubeEvents := components.CreateInputKubeEventsInputKubeEventsSendToRoutesTrueWithConnectionsConstraint(components.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeEventsInputCollectionPart1Type
+### InputKubeEventsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputKubeEvents := components.CreateInputKubeEventsInputKubeEventsInputCollectionPart1Type(components.InputKubeEventsInputCollectionPart1Type{/* values here */})
+inputKubeEvents := components.CreateInputKubeEventsInputKubeEventsSendToRoutesFalseWithConnectionsConstraint(components.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeEventsInputCollectionPart0Type1
+### InputKubeEventsPqEnabledFalseWithPqConstraint
 
 ```go
-inputKubeEvents := components.CreateInputKubeEventsInputKubeEventsInputCollectionPart0Type1(components.InputKubeEventsInputCollectionPart0Type1{/* values here */})
+inputKubeEvents := components.CreateInputKubeEventsInputKubeEventsPqEnabledFalseWithPqConstraint(components.InputKubeEventsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputKubeEventsInputCollectionPart1Type1
+### InputKubeEventsPqEnabledTrueWithPqConstraint
 
 ```go
-inputKubeEvents := components.CreateInputKubeEventsInputKubeEventsInputCollectionPart1Type1(components.InputKubeEventsInputCollectionPart1Type1{/* values here */})
+inputKubeEvents := components.CreateInputKubeEventsInputKubeEventsPqEnabledTrueWithPqConstraint(components.InputKubeEventsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

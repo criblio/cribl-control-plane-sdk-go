@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputAppscopeInputCollectionPart1Type1 struct {
+type InputAppscopePqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -67,237 +67,238 @@ type InputAppscopeInputCollectionPart1Type1 struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputAppscopeInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputAppscopePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetID() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetType() InputAppscopeType {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetType() InputAppscopeType {
 	if i == nil {
 		return InputAppscopeType("")
 	}
 	return i.Type
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetIPWhitelistRegex() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetMaxActiveCxn() *float64 {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetSocketIdleTimeout() *float64 {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetSocketEndingMaxWait() *float64 {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetSocketMaxLifespan() *float64 {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetBreakerRulesets() []string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetEnableUnixPath() *bool {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetEnableUnixPath() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableUnixPath
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetFilter() *InputAppscopeFilter {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetFilter() *InputAppscopeFilter {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetPersistence() *InputAppscopePersistence {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetPersistence() *InputAppscopePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetHost() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetPort() *float64 {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetUnixSocketPath() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetUnixSocketPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPath
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetUnixSocketPerms() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetUnixSocketPerms() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPerms
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetAuthToken() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetAuthToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthToken
 }
 
-func (i *InputAppscopeInputCollectionPart1Type1) GetTextSecret() *string {
+func (i *InputAppscopePqEnabledTrueWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-type InputAppscopeInputCollectionPart0Type1 struct {
+type InputAppscopePqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputAppscopeType `json:"type"`
@@ -312,7 +313,6 @@ type InputAppscopeInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -353,235 +353,235 @@ type InputAppscopeInputCollectionPart0Type1 struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputAppscopeInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputAppscopePqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputAppscopeInputCollectionPart0Type1) GetType() InputAppscopeType {
-	if i == nil {
-		return InputAppscopeType("")
-	}
-	return i.Type
-}
-
-func (i *InputAppscopeInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputAppscopeInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputAppscopeInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputAppscopeInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputAppscopeInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputAppscopeInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputAppscopeInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetIPWhitelistRegex() *string {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetType() InputAppscopeType {
+	if i == nil {
+		return InputAppscopeType("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetMaxActiveCxn() *float64 {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetSocketIdleTimeout() *float64 {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetSocketEndingMaxWait() *float64 {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetSocketMaxLifespan() *float64 {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetBreakerRulesets() []string {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetEnableUnixPath() *bool {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetEnableUnixPath() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableUnixPath
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetFilter() *InputAppscopeFilter {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetFilter() *InputAppscopeFilter {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetPersistence() *InputAppscopePersistence {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetPersistence() *InputAppscopePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetHost() *string {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetPort() *float64 {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetUnixSocketPath() *string {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetUnixSocketPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPath
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetUnixSocketPerms() *string {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetUnixSocketPerms() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPerms
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetAuthToken() *string {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetAuthToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthToken
 }
 
-func (i *InputAppscopeInputCollectionPart0Type1) GetTextSecret() *string {
+func (i *InputAppscopePqEnabledFalseWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-type InputAppscopeInputCollectionPart1Type struct {
+type InputAppscopeSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -639,228 +639,228 @@ type InputAppscopeInputCollectionPart1Type struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputAppscopeInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputAppscopeSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetID() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetType() InputAppscopeType {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetType() InputAppscopeType {
 	if i == nil {
 		return InputAppscopeType("")
 	}
 	return i.Type
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetIPWhitelistRegex() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetMaxActiveCxn() *float64 {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetSocketIdleTimeout() *float64 {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetSocketEndingMaxWait() *float64 {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetSocketMaxLifespan() *float64 {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetBreakerRulesets() []string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetEnableUnixPath() *bool {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetEnableUnixPath() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableUnixPath
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetFilter() *InputAppscopeFilter {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetFilter() *InputAppscopeFilter {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetPersistence() *InputAppscopePersistence {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *InputAppscopePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetDescription() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetHost() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetPort() *float64 {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetUnixSocketPath() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetUnixSocketPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPath
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetUnixSocketPerms() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetUnixSocketPerms() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPerms
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetAuthToken() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetAuthToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthToken
 }
 
-func (i *InputAppscopeInputCollectionPart1Type) GetTextSecret() *string {
+func (i *InputAppscopeSendToRoutesFalseWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1030,9 +1030,11 @@ func (i *InputAppscopePersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputAppscopeInputCollectionPart0Type struct {
+type InputAppscopeSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputAppscopeType `json:"type"`
@@ -1045,9 +1047,7 @@ type InputAppscopeInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -1088,228 +1088,228 @@ type InputAppscopeInputCollectionPart0Type struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputAppscopeInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputAppscopeSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputAppscopeInputCollectionPart0Type) GetType() InputAppscopeType {
-	if i == nil {
-		return InputAppscopeType("")
-	}
-	return i.Type
-}
-
-func (i *InputAppscopeInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputAppscopeInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputAppscopeInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputAppscopeInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputAppscopeInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputAppscopeInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetType() InputAppscopeType {
+	if i == nil {
+		return InputAppscopeType("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetIPWhitelistRegex() *string {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetMaxActiveCxn() *float64 {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetSocketIdleTimeout() *float64 {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetSocketEndingMaxWait() *float64 {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetSocketMaxLifespan() *float64 {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetEnableProxyHeader() *bool {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetBreakerRulesets() []string {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetEnableUnixPath() *bool {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetEnableUnixPath() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableUnixPath
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetFilter() *InputAppscopeFilter {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetFilter() *InputAppscopeFilter {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetPersistence() *InputAppscopePersistence {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetPersistence() *InputAppscopePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetDescription() *string {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetHost() *string {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetPort() *float64 {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetUnixSocketPath() *string {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetUnixSocketPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPath
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetUnixSocketPerms() *string {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetUnixSocketPerms() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPerms
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetAuthToken() *string {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetAuthToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthToken
 }
 
-func (i *InputAppscopeInputCollectionPart0Type) GetTextSecret() *string {
+func (i *InputAppscopeSendToRoutesTrueWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1319,84 +1319,84 @@ func (i *InputAppscopeInputCollectionPart0Type) GetTextSecret() *string {
 type InputAppscopeUnionType string
 
 const (
-	InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type  InputAppscopeUnionType = "InputAppscope_InputCollectionPart0Type"
-	InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type  InputAppscopeUnionType = "InputAppscope_InputCollectionPart1Type"
-	InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type1 InputAppscopeUnionType = "InputAppscope_InputCollectionPart0Type1"
-	InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type1 InputAppscopeUnionType = "InputAppscope_InputCollectionPart1Type1"
+	InputAppscopeUnionTypeInputAppscopeSendToRoutesTrueWithConnectionsConstraint  InputAppscopeUnionType = "InputAppscope_SendToRoutesTrueWithConnectionsConstraint"
+	InputAppscopeUnionTypeInputAppscopeSendToRoutesFalseWithConnectionsConstraint InputAppscopeUnionType = "InputAppscope_SendToRoutesFalseWithConnectionsConstraint"
+	InputAppscopeUnionTypeInputAppscopePqEnabledFalseWithPqConstraint             InputAppscopeUnionType = "InputAppscope_PqEnabledFalseWithPqConstraint"
+	InputAppscopeUnionTypeInputAppscopePqEnabledTrueWithPqConstraint              InputAppscopeUnionType = "InputAppscope_PqEnabledTrueWithPqConstraint"
 )
 
 type InputAppscope struct {
-	InputAppscopeInputCollectionPart0Type  *InputAppscopeInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputAppscopeInputCollectionPart1Type  *InputAppscopeInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputAppscopeInputCollectionPart0Type1 *InputAppscopeInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputAppscopeInputCollectionPart1Type1 *InputAppscopeInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputAppscopeSendToRoutesTrueWithConnectionsConstraint  *InputAppscopeSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputAppscopeSendToRoutesFalseWithConnectionsConstraint *InputAppscopeSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputAppscopePqEnabledFalseWithPqConstraint             *InputAppscopePqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputAppscopePqEnabledTrueWithPqConstraint              *InputAppscopePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputAppscopeUnionType
 }
 
-func CreateInputAppscopeInputAppscopeInputCollectionPart0Type(inputAppscopeInputCollectionPart0Type InputAppscopeInputCollectionPart0Type) InputAppscope {
-	typ := InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type
+func CreateInputAppscopeInputAppscopeSendToRoutesTrueWithConnectionsConstraint(inputAppscopeSendToRoutesTrueWithConnectionsConstraint InputAppscopeSendToRoutesTrueWithConnectionsConstraint) InputAppscope {
+	typ := InputAppscopeUnionTypeInputAppscopeSendToRoutesTrueWithConnectionsConstraint
 
 	return InputAppscope{
-		InputAppscopeInputCollectionPart0Type: &inputAppscopeInputCollectionPart0Type,
-		Type:                                  typ,
+		InputAppscopeSendToRoutesTrueWithConnectionsConstraint: &inputAppscopeSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputAppscopeInputAppscopeInputCollectionPart1Type(inputAppscopeInputCollectionPart1Type InputAppscopeInputCollectionPart1Type) InputAppscope {
-	typ := InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type
+func CreateInputAppscopeInputAppscopeSendToRoutesFalseWithConnectionsConstraint(inputAppscopeSendToRoutesFalseWithConnectionsConstraint InputAppscopeSendToRoutesFalseWithConnectionsConstraint) InputAppscope {
+	typ := InputAppscopeUnionTypeInputAppscopeSendToRoutesFalseWithConnectionsConstraint
 
 	return InputAppscope{
-		InputAppscopeInputCollectionPart1Type: &inputAppscopeInputCollectionPart1Type,
-		Type:                                  typ,
+		InputAppscopeSendToRoutesFalseWithConnectionsConstraint: &inputAppscopeSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputAppscopeInputAppscopeInputCollectionPart0Type1(inputAppscopeInputCollectionPart0Type1 InputAppscopeInputCollectionPart0Type1) InputAppscope {
-	typ := InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type1
+func CreateInputAppscopeInputAppscopePqEnabledFalseWithPqConstraint(inputAppscopePqEnabledFalseWithPqConstraint InputAppscopePqEnabledFalseWithPqConstraint) InputAppscope {
+	typ := InputAppscopeUnionTypeInputAppscopePqEnabledFalseWithPqConstraint
 
 	return InputAppscope{
-		InputAppscopeInputCollectionPart0Type1: &inputAppscopeInputCollectionPart0Type1,
-		Type:                                   typ,
+		InputAppscopePqEnabledFalseWithPqConstraint: &inputAppscopePqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputAppscopeInputAppscopeInputCollectionPart1Type1(inputAppscopeInputCollectionPart1Type1 InputAppscopeInputCollectionPart1Type1) InputAppscope {
-	typ := InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type1
+func CreateInputAppscopeInputAppscopePqEnabledTrueWithPqConstraint(inputAppscopePqEnabledTrueWithPqConstraint InputAppscopePqEnabledTrueWithPqConstraint) InputAppscope {
+	typ := InputAppscopeUnionTypeInputAppscopePqEnabledTrueWithPqConstraint
 
 	return InputAppscope{
-		InputAppscopeInputCollectionPart1Type1: &inputAppscopeInputCollectionPart1Type1,
-		Type:                                   typ,
+		InputAppscopePqEnabledTrueWithPqConstraint: &inputAppscopePqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputAppscope) UnmarshalJSON(data []byte) error {
 
-	var inputAppscopeInputCollectionPart0Type InputAppscopeInputCollectionPart0Type = InputAppscopeInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputAppscopeInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputAppscopeInputCollectionPart0Type = &inputAppscopeInputCollectionPart0Type
-		u.Type = InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type
+	var inputAppscopeSendToRoutesTrueWithConnectionsConstraint InputAppscopeSendToRoutesTrueWithConnectionsConstraint = InputAppscopeSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputAppscopeSendToRoutesTrueWithConnectionsConstraint = &inputAppscopeSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputAppscopeUnionTypeInputAppscopeSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputAppscopeInputCollectionPart1Type InputAppscopeInputCollectionPart1Type = InputAppscopeInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputAppscopeInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputAppscopeInputCollectionPart1Type = &inputAppscopeInputCollectionPart1Type
-		u.Type = InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type
+	var inputAppscopeSendToRoutesFalseWithConnectionsConstraint InputAppscopeSendToRoutesFalseWithConnectionsConstraint = InputAppscopeSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputAppscopeSendToRoutesFalseWithConnectionsConstraint = &inputAppscopeSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputAppscopeUnionTypeInputAppscopeSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputAppscopeInputCollectionPart0Type1 InputAppscopeInputCollectionPart0Type1 = InputAppscopeInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputAppscopeInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputAppscopeInputCollectionPart0Type1 = &inputAppscopeInputCollectionPart0Type1
-		u.Type = InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type1
+	var inputAppscopePqEnabledFalseWithPqConstraint InputAppscopePqEnabledFalseWithPqConstraint = InputAppscopePqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopePqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputAppscopePqEnabledFalseWithPqConstraint = &inputAppscopePqEnabledFalseWithPqConstraint
+		u.Type = InputAppscopeUnionTypeInputAppscopePqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputAppscopeInputCollectionPart1Type1 InputAppscopeInputCollectionPart1Type1 = InputAppscopeInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputAppscopeInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputAppscopeInputCollectionPart1Type1 = &inputAppscopeInputCollectionPart1Type1
-		u.Type = InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type1
+	var inputAppscopePqEnabledTrueWithPqConstraint InputAppscopePqEnabledTrueWithPqConstraint = InputAppscopePqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopePqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputAppscopePqEnabledTrueWithPqConstraint = &inputAppscopePqEnabledTrueWithPqConstraint
+		u.Type = InputAppscopeUnionTypeInputAppscopePqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1404,20 +1404,20 @@ func (u *InputAppscope) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputAppscope) MarshalJSON() ([]byte, error) {
-	if u.InputAppscopeInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputAppscopeInputCollectionPart0Type, "", true)
+	if u.InputAppscopeSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputAppscopeSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputAppscopeInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputAppscopeInputCollectionPart1Type, "", true)
+	if u.InputAppscopeSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputAppscopeSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputAppscopeInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputAppscopeInputCollectionPart0Type1, "", true)
+	if u.InputAppscopePqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputAppscopePqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputAppscopeInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputAppscopeInputCollectionPart1Type1, "", true)
+	if u.InputAppscopePqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputAppscopePqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputAppscope: all fields are null")

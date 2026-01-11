@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCriblmetricsInputCollectionPart0Type
+### InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCriblmetrics := operations.CreateInputCriblmetricsInputCriblmetricsInputCollectionPart0Type(operations.InputCriblmetricsInputCollectionPart0Type{/* values here */})
+inputCriblmetrics := operations.CreateInputCriblmetricsInputCriblmetricsSendToRoutesTrueWithConnectionsConstraint(operations.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblmetricsInputCollectionPart1Type
+### InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCriblmetrics := operations.CreateInputCriblmetricsInputCriblmetricsInputCollectionPart1Type(operations.InputCriblmetricsInputCollectionPart1Type{/* values here */})
+inputCriblmetrics := operations.CreateInputCriblmetricsInputCriblmetricsSendToRoutesFalseWithConnectionsConstraint(operations.InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblmetricsInputCollectionPart0Type1
+### InputCriblmetricsPqEnabledFalseWithPqConstraint
 
 ```go
-inputCriblmetrics := operations.CreateInputCriblmetricsInputCriblmetricsInputCollectionPart0Type1(operations.InputCriblmetricsInputCollectionPart0Type1{/* values here */})
+inputCriblmetrics := operations.CreateInputCriblmetricsInputCriblmetricsPqEnabledFalseWithPqConstraint(operations.InputCriblmetricsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCriblmetricsInputCollectionPart1Type1
+### InputCriblmetricsPqEnabledTrueWithPqConstraint
 
 ```go
-inputCriblmetrics := operations.CreateInputCriblmetricsInputCriblmetricsInputCollectionPart1Type1(operations.InputCriblmetricsInputCollectionPart1Type1{/* values here */})
+inputCriblmetrics := operations.CreateInputCriblmetricsInputCriblmetricsPqEnabledTrueWithPqConstraint(operations.InputCriblmetricsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSqsInputCollectionPart1Type1 struct {
+type InputSqsPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -72,251 +72,252 @@ type InputSqsInputCollectionPart1Type1 struct {
 	NumReceivers *float64 `default:"3" json:"numReceivers"`
 }
 
-func (i InputSqsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputSqsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSqsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetID() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetType() InputSqsType {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetType() InputSqsType {
 	if i == nil {
 		return InputSqsType("")
 	}
 	return i.Type
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetQueueName() string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetQueueType() InputSqsQueueType {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetQueueType() InputSqsQueueType {
 	if i == nil {
 		return InputSqsQueueType("")
 	}
 	return i.QueueType
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetAwsAccountID() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetCreateQueue() *bool {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetCreateQueue() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateQueue
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetAwsSecretKey() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetRegion() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetEndpoint() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetSignatureVersion() *SignatureVersionOptions3 {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions3 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetReuseConnections() *bool {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetRejectUnauthorized() *bool {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetEnableAssumeRole() *bool {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetAssumeRoleArn() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetAssumeRoleExternalID() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetDurationSeconds() *float64 {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetMaxMessages() *float64 {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetVisibilityTimeout() *float64 {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetPollTimeout() *float64 {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetAwsAPIKey() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetAwsSecret() *string {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSqsInputCollectionPart1Type1) GetNumReceivers() *float64 {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-type InputSqsInputCollectionPart0Type1 struct {
+type InputSqsPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputSqsType `json:"type"`
@@ -331,7 +332,6 @@ type InputSqsInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created)
@@ -377,249 +377,249 @@ type InputSqsInputCollectionPart0Type1 struct {
 	NumReceivers *float64 `default:"3" json:"numReceivers"`
 }
 
-func (i InputSqsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputSqsPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSqsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSqsInputCollectionPart0Type1) GetType() InputSqsType {
-	if i == nil {
-		return InputSqsType("")
-	}
-	return i.Type
-}
-
-func (i *InputSqsInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSqsInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSqsInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSqsInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSqsInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSqsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSqsInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetQueueName() string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetType() InputSqsType {
+	if i == nil {
+		return InputSqsType("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetQueueType() InputSqsQueueType {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetQueueType() InputSqsQueueType {
 	if i == nil {
 		return InputSqsQueueType("")
 	}
 	return i.QueueType
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetAwsAccountID() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetCreateQueue() *bool {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetCreateQueue() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateQueue
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetAwsSecretKey() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetRegion() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetEndpoint() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetSignatureVersion() *SignatureVersionOptions3 {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions3 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetReuseConnections() *bool {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetRejectUnauthorized() *bool {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetEnableAssumeRole() *bool {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetAssumeRoleArn() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetAssumeRoleExternalID() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetDurationSeconds() *float64 {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetMaxMessages() *float64 {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetVisibilityTimeout() *float64 {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetPollTimeout() *float64 {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetAwsAPIKey() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetAwsSecret() *string {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSqsInputCollectionPart0Type1) GetNumReceivers() *float64 {
+func (i *InputSqsPqEnabledFalseWithPqConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-type InputSqsInputCollectionPart1Type struct {
+type InputSqsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -682,242 +682,242 @@ type InputSqsInputCollectionPart1Type struct {
 	NumReceivers *float64 `default:"3" json:"numReceivers"`
 }
 
-func (i InputSqsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputSqsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSqsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetID() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetType() InputSqsType {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetType() InputSqsType {
 	if i == nil {
 		return InputSqsType("")
 	}
 	return i.Type
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetQueueName() string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetQueueType() InputSqsQueueType {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetQueueType() InputSqsQueueType {
 	if i == nil {
 		return InputSqsQueueType("")
 	}
 	return i.QueueType
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetAwsAccountID() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetCreateQueue() *bool {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetCreateQueue() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateQueue
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetAwsSecretKey() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetRegion() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetEndpoint() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetSignatureVersion() *SignatureVersionOptions3 {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions3 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetReuseConnections() *bool {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetRejectUnauthorized() *bool {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetEnableAssumeRole() *bool {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetAssumeRoleArn() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetAssumeRoleExternalID() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetDurationSeconds() *float64 {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetMaxMessages() *float64 {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetVisibilityTimeout() *float64 {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetPollTimeout() *float64 {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetDescription() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetAwsAPIKey() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetAwsSecret() *string {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSqsInputCollectionPart1Type) GetNumReceivers() *float64 {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
@@ -972,9 +972,11 @@ func (e *InputSqsQueueType) IsExact() bool {
 	return false
 }
 
-type InputSqsInputCollectionPart0Type struct {
+type InputSqsSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputSqsType `json:"type"`
@@ -987,9 +989,7 @@ type InputSqsInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created)
@@ -1035,242 +1035,242 @@ type InputSqsInputCollectionPart0Type struct {
 	NumReceivers *float64 `default:"3" json:"numReceivers"`
 }
 
-func (i InputSqsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputSqsSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSqsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSqsInputCollectionPart0Type) GetType() InputSqsType {
-	if i == nil {
-		return InputSqsType("")
-	}
-	return i.Type
-}
-
-func (i *InputSqsInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSqsInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSqsInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSqsInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSqsInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSqsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetType() InputSqsType {
+	if i == nil {
+		return InputSqsType("")
+	}
+	return i.Type
+}
+
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetQueueName() string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetQueueType() InputSqsQueueType {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetQueueType() InputSqsQueueType {
 	if i == nil {
 		return InputSqsQueueType("")
 	}
 	return i.QueueType
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetAwsAccountID() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetCreateQueue() *bool {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetCreateQueue() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateQueue
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetAwsSecretKey() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetRegion() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetEndpoint() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetSignatureVersion() *SignatureVersionOptions3 {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions3 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetReuseConnections() *bool {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetRejectUnauthorized() *bool {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetEnableAssumeRole() *bool {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetAssumeRoleArn() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetAssumeRoleExternalID() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetDurationSeconds() *float64 {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetMaxMessages() *float64 {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetVisibilityTimeout() *float64 {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetPollTimeout() *float64 {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetDescription() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetAwsAPIKey() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetAwsSecret() *string {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSqsInputCollectionPart0Type) GetNumReceivers() *float64 {
+func (i *InputSqsSendToRoutesTrueWithConnectionsConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
@@ -1280,84 +1280,84 @@ func (i *InputSqsInputCollectionPart0Type) GetNumReceivers() *float64 {
 type InputSqsUnionType string
 
 const (
-	InputSqsUnionTypeInputSqsInputCollectionPart0Type  InputSqsUnionType = "InputSqs_InputCollectionPart0Type"
-	InputSqsUnionTypeInputSqsInputCollectionPart1Type  InputSqsUnionType = "InputSqs_InputCollectionPart1Type"
-	InputSqsUnionTypeInputSqsInputCollectionPart0Type1 InputSqsUnionType = "InputSqs_InputCollectionPart0Type1"
-	InputSqsUnionTypeInputSqsInputCollectionPart1Type1 InputSqsUnionType = "InputSqs_InputCollectionPart1Type1"
+	InputSqsUnionTypeInputSqsSendToRoutesTrueWithConnectionsConstraint  InputSqsUnionType = "InputSqs_SendToRoutesTrueWithConnectionsConstraint"
+	InputSqsUnionTypeInputSqsSendToRoutesFalseWithConnectionsConstraint InputSqsUnionType = "InputSqs_SendToRoutesFalseWithConnectionsConstraint"
+	InputSqsUnionTypeInputSqsPqEnabledFalseWithPqConstraint             InputSqsUnionType = "InputSqs_PqEnabledFalseWithPqConstraint"
+	InputSqsUnionTypeInputSqsPqEnabledTrueWithPqConstraint              InputSqsUnionType = "InputSqs_PqEnabledTrueWithPqConstraint"
 )
 
 type InputSqs struct {
-	InputSqsInputCollectionPart0Type  *InputSqsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputSqsInputCollectionPart1Type  *InputSqsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputSqsInputCollectionPart0Type1 *InputSqsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputSqsInputCollectionPart1Type1 *InputSqsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputSqsSendToRoutesTrueWithConnectionsConstraint  *InputSqsSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputSqsSendToRoutesFalseWithConnectionsConstraint *InputSqsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputSqsPqEnabledFalseWithPqConstraint             *InputSqsPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputSqsPqEnabledTrueWithPqConstraint              *InputSqsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputSqsUnionType
 }
 
-func CreateInputSqsInputSqsInputCollectionPart0Type(inputSqsInputCollectionPart0Type InputSqsInputCollectionPart0Type) InputSqs {
-	typ := InputSqsUnionTypeInputSqsInputCollectionPart0Type
+func CreateInputSqsInputSqsSendToRoutesTrueWithConnectionsConstraint(inputSqsSendToRoutesTrueWithConnectionsConstraint InputSqsSendToRoutesTrueWithConnectionsConstraint) InputSqs {
+	typ := InputSqsUnionTypeInputSqsSendToRoutesTrueWithConnectionsConstraint
 
 	return InputSqs{
-		InputSqsInputCollectionPart0Type: &inputSqsInputCollectionPart0Type,
-		Type:                             typ,
+		InputSqsSendToRoutesTrueWithConnectionsConstraint: &inputSqsSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputSqsInputSqsInputCollectionPart1Type(inputSqsInputCollectionPart1Type InputSqsInputCollectionPart1Type) InputSqs {
-	typ := InputSqsUnionTypeInputSqsInputCollectionPart1Type
+func CreateInputSqsInputSqsSendToRoutesFalseWithConnectionsConstraint(inputSqsSendToRoutesFalseWithConnectionsConstraint InputSqsSendToRoutesFalseWithConnectionsConstraint) InputSqs {
+	typ := InputSqsUnionTypeInputSqsSendToRoutesFalseWithConnectionsConstraint
 
 	return InputSqs{
-		InputSqsInputCollectionPart1Type: &inputSqsInputCollectionPart1Type,
-		Type:                             typ,
+		InputSqsSendToRoutesFalseWithConnectionsConstraint: &inputSqsSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputSqsInputSqsInputCollectionPart0Type1(inputSqsInputCollectionPart0Type1 InputSqsInputCollectionPart0Type1) InputSqs {
-	typ := InputSqsUnionTypeInputSqsInputCollectionPart0Type1
+func CreateInputSqsInputSqsPqEnabledFalseWithPqConstraint(inputSqsPqEnabledFalseWithPqConstraint InputSqsPqEnabledFalseWithPqConstraint) InputSqs {
+	typ := InputSqsUnionTypeInputSqsPqEnabledFalseWithPqConstraint
 
 	return InputSqs{
-		InputSqsInputCollectionPart0Type1: &inputSqsInputCollectionPart0Type1,
-		Type:                              typ,
+		InputSqsPqEnabledFalseWithPqConstraint: &inputSqsPqEnabledFalseWithPqConstraint,
+		Type:                                   typ,
 	}
 }
 
-func CreateInputSqsInputSqsInputCollectionPart1Type1(inputSqsInputCollectionPart1Type1 InputSqsInputCollectionPart1Type1) InputSqs {
-	typ := InputSqsUnionTypeInputSqsInputCollectionPart1Type1
+func CreateInputSqsInputSqsPqEnabledTrueWithPqConstraint(inputSqsPqEnabledTrueWithPqConstraint InputSqsPqEnabledTrueWithPqConstraint) InputSqs {
+	typ := InputSqsUnionTypeInputSqsPqEnabledTrueWithPqConstraint
 
 	return InputSqs{
-		InputSqsInputCollectionPart1Type1: &inputSqsInputCollectionPart1Type1,
-		Type:                              typ,
+		InputSqsPqEnabledTrueWithPqConstraint: &inputSqsPqEnabledTrueWithPqConstraint,
+		Type:                                  typ,
 	}
 }
 
 func (u *InputSqs) UnmarshalJSON(data []byte) error {
 
-	var inputSqsInputCollectionPart0Type InputSqsInputCollectionPart0Type = InputSqsInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputSqsInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputSqsInputCollectionPart0Type = &inputSqsInputCollectionPart0Type
-		u.Type = InputSqsUnionTypeInputSqsInputCollectionPart0Type
+	var inputSqsSendToRoutesTrueWithConnectionsConstraint InputSqsSendToRoutesTrueWithConnectionsConstraint = InputSqsSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputSqsSendToRoutesTrueWithConnectionsConstraint = &inputSqsSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputSqsUnionTypeInputSqsSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputSqsInputCollectionPart1Type InputSqsInputCollectionPart1Type = InputSqsInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputSqsInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputSqsInputCollectionPart1Type = &inputSqsInputCollectionPart1Type
-		u.Type = InputSqsUnionTypeInputSqsInputCollectionPart1Type
+	var inputSqsSendToRoutesFalseWithConnectionsConstraint InputSqsSendToRoutesFalseWithConnectionsConstraint = InputSqsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSqsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputSqsSendToRoutesFalseWithConnectionsConstraint = &inputSqsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputSqsUnionTypeInputSqsSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputSqsInputCollectionPart0Type1 InputSqsInputCollectionPart0Type1 = InputSqsInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputSqsInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputSqsInputCollectionPart0Type1 = &inputSqsInputCollectionPart0Type1
-		u.Type = InputSqsUnionTypeInputSqsInputCollectionPart0Type1
+	var inputSqsPqEnabledFalseWithPqConstraint InputSqsPqEnabledFalseWithPqConstraint = InputSqsPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSqsPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputSqsPqEnabledFalseWithPqConstraint = &inputSqsPqEnabledFalseWithPqConstraint
+		u.Type = InputSqsUnionTypeInputSqsPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputSqsInputCollectionPart1Type1 InputSqsInputCollectionPart1Type1 = InputSqsInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputSqsInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputSqsInputCollectionPart1Type1 = &inputSqsInputCollectionPart1Type1
-		u.Type = InputSqsUnionTypeInputSqsInputCollectionPart1Type1
+	var inputSqsPqEnabledTrueWithPqConstraint InputSqsPqEnabledTrueWithPqConstraint = InputSqsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSqsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputSqsPqEnabledTrueWithPqConstraint = &inputSqsPqEnabledTrueWithPqConstraint
+		u.Type = InputSqsUnionTypeInputSqsPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1365,20 +1365,20 @@ func (u *InputSqs) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputSqs) MarshalJSON() ([]byte, error) {
-	if u.InputSqsInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputSqsInputCollectionPart0Type, "", true)
+	if u.InputSqsSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputSqsSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSqsInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputSqsInputCollectionPart1Type, "", true)
+	if u.InputSqsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputSqsSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSqsInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputSqsInputCollectionPart0Type1, "", true)
+	if u.InputSqsPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputSqsPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputSqsInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputSqsInputCollectionPart1Type1, "", true)
+	if u.InputSqsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputSqsPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputSqs: all fields are null")

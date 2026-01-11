@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputElasticInputCollectionPart0Type
+### InputElasticSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputElastic := components.CreateInputElasticInputElasticInputCollectionPart0Type(components.InputElasticInputCollectionPart0Type{/* values here */})
+inputElastic := components.CreateInputElasticInputElasticSendToRoutesTrueWithConnectionsConstraint(components.InputElasticSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputElasticInputCollectionPart1Type
+### InputElasticSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputElastic := components.CreateInputElasticInputElasticInputCollectionPart1Type(components.InputElasticInputCollectionPart1Type{/* values here */})
+inputElastic := components.CreateInputElasticInputElasticSendToRoutesFalseWithConnectionsConstraint(components.InputElasticSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputElasticInputCollectionPart0Type1
+### InputElasticPqEnabledFalseWithPqConstraint
 
 ```go
-inputElastic := components.CreateInputElasticInputElasticInputCollectionPart0Type1(components.InputElasticInputCollectionPart0Type1{/* values here */})
+inputElastic := components.CreateInputElasticInputElasticPqEnabledFalseWithPqConstraint(components.InputElasticPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputElasticInputCollectionPart1Type1
+### InputElasticPqEnabledTrueWithPqConstraint
 
 ```go
-inputElastic := components.CreateInputElasticInputElasticInputCollectionPart1Type1(components.InputElasticInputCollectionPart1Type1{/* values here */})
+inputElastic := components.CreateInputElasticInputElasticPqEnabledTrueWithPqConstraint(components.InputElasticPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

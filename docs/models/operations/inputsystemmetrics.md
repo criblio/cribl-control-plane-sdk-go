@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputSystemMetricsInputCollectionPart0Type
+### InputSystemMetricsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputSystemMetrics := operations.CreateInputSystemMetricsInputSystemMetricsInputCollectionPart0Type(operations.InputSystemMetricsInputCollectionPart0Type{/* values here */})
+inputSystemMetrics := operations.CreateInputSystemMetricsInputSystemMetricsSendToRoutesTrueWithConnectionsConstraint(operations.InputSystemMetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSystemMetricsInputCollectionPart1Type
+### InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputSystemMetrics := operations.CreateInputSystemMetricsInputSystemMetricsInputCollectionPart1Type(operations.InputSystemMetricsInputCollectionPart1Type{/* values here */})
+inputSystemMetrics := operations.CreateInputSystemMetricsInputSystemMetricsSendToRoutesFalseWithConnectionsConstraint(operations.InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSystemMetricsInputCollectionPart0Type1
+### InputSystemMetricsPqEnabledFalseWithPqConstraint
 
 ```go
-inputSystemMetrics := operations.CreateInputSystemMetricsInputSystemMetricsInputCollectionPart0Type1(operations.InputSystemMetricsInputCollectionPart0Type1{/* values here */})
+inputSystemMetrics := operations.CreateInputSystemMetricsInputSystemMetricsPqEnabledFalseWithPqConstraint(operations.InputSystemMetricsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputSystemMetricsInputCollectionPart1Type1
+### InputSystemMetricsPqEnabledTrueWithPqConstraint
 
 ```go
-inputSystemMetrics := operations.CreateInputSystemMetricsInputSystemMetricsInputCollectionPart1Type1(operations.InputSystemMetricsInputCollectionPart1Type1{/* values here */})
+inputSystemMetrics := operations.CreateInputSystemMetricsInputSystemMetricsPqEnabledTrueWithPqConstraint(operations.InputSystemMetricsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

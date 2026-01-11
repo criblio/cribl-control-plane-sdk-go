@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputWefInputCollectionPart0Type
+### InputWefSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputWef := components.CreateInputWefInputWefInputCollectionPart0Type(components.InputWefInputCollectionPart0Type{/* values here */})
+inputWef := components.CreateInputWefInputWefSendToRoutesTrueWithConnectionsConstraint(components.InputWefSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWefInputCollectionPart1Type
+### InputWefSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputWef := components.CreateInputWefInputWefInputCollectionPart1Type(components.InputWefInputCollectionPart1Type{/* values here */})
+inputWef := components.CreateInputWefInputWefSendToRoutesFalseWithConnectionsConstraint(components.InputWefSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWefInputCollectionPart0Type1
+### InputWefPqEnabledFalseWithPqConstraint
 
 ```go
-inputWef := components.CreateInputWefInputWefInputCollectionPart0Type1(components.InputWefInputCollectionPart0Type1{/* values here */})
+inputWef := components.CreateInputWefInputWefPqEnabledFalseWithPqConstraint(components.InputWefPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputWefInputCollectionPart1Type1
+### InputWefPqEnabledTrueWithPqConstraint
 
 ```go
-inputWef := components.CreateInputWefInputWefInputCollectionPart1Type1(components.InputWefInputCollectionPart1Type1{/* values here */})
+inputWef := components.CreateInputWefInputWefPqEnabledTrueWithPqConstraint(components.InputWefPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

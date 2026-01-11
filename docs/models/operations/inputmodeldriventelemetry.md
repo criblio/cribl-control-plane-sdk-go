@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputModelDrivenTelemetryInputCollectionPart0Type
+### InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputModelDrivenTelemetry := operations.CreateInputModelDrivenTelemetryInputModelDrivenTelemetryInputCollectionPart0Type(operations.InputModelDrivenTelemetryInputCollectionPart0Type{/* values here */})
+inputModelDrivenTelemetry := operations.CreateInputModelDrivenTelemetryInputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint(operations.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputModelDrivenTelemetryInputCollectionPart1Type
+### InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputModelDrivenTelemetry := operations.CreateInputModelDrivenTelemetryInputModelDrivenTelemetryInputCollectionPart1Type(operations.InputModelDrivenTelemetryInputCollectionPart1Type{/* values here */})
+inputModelDrivenTelemetry := operations.CreateInputModelDrivenTelemetryInputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint(operations.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputModelDrivenTelemetryInputCollectionPart0Type1
+### InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint
 
 ```go
-inputModelDrivenTelemetry := operations.CreateInputModelDrivenTelemetryInputModelDrivenTelemetryInputCollectionPart0Type1(operations.InputModelDrivenTelemetryInputCollectionPart0Type1{/* values here */})
+inputModelDrivenTelemetry := operations.CreateInputModelDrivenTelemetryInputModelDrivenTelemetryPqEnabledFalseWithPqConstraint(operations.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputModelDrivenTelemetryInputCollectionPart1Type1
+### InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint
 
 ```go
-inputModelDrivenTelemetry := operations.CreateInputModelDrivenTelemetryInputModelDrivenTelemetryInputCollectionPart1Type1(operations.InputModelDrivenTelemetryInputCollectionPart1Type1{/* values here */})
+inputModelDrivenTelemetry := operations.CreateInputModelDrivenTelemetryInputModelDrivenTelemetryPqEnabledTrueWithPqConstraint(operations.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

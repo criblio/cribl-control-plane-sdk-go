@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputWefInputCollectionPart0Type
+### InputWefSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputWef := operations.CreateInputWefInputWefInputCollectionPart0Type(operations.InputWefInputCollectionPart0Type{/* values here */})
+inputWef := operations.CreateInputWefInputWefSendToRoutesTrueWithConnectionsConstraint(operations.InputWefSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWefInputCollectionPart1Type
+### InputWefSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputWef := operations.CreateInputWefInputWefInputCollectionPart1Type(operations.InputWefInputCollectionPart1Type{/* values here */})
+inputWef := operations.CreateInputWefInputWefSendToRoutesFalseWithConnectionsConstraint(operations.InputWefSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWefInputCollectionPart0Type1
+### InputWefPqEnabledFalseWithPqConstraint
 
 ```go
-inputWef := operations.CreateInputWefInputWefInputCollectionPart0Type1(operations.InputWefInputCollectionPart0Type1{/* values here */})
+inputWef := operations.CreateInputWefInputWefPqEnabledFalseWithPqConstraint(operations.InputWefPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputWefInputCollectionPart1Type1
+### InputWefPqEnabledTrueWithPqConstraint
 
 ```go
-inputWef := operations.CreateInputWefInputWefInputCollectionPart1Type1(operations.InputWefInputCollectionPart1Type1{/* values here */})
+inputWef := operations.CreateInputWefInputWefPqEnabledTrueWithPqConstraint(operations.InputWefPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

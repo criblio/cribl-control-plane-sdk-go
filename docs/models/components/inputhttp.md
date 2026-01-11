@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputHTTPInputCollectionPart0Type
+### InputHTTPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputHTTP := components.CreateInputHTTPInputHTTPInputCollectionPart0Type(components.InputHTTPInputCollectionPart0Type{/* values here */})
+inputHTTP := components.CreateInputHTTPInputHTTPSendToRoutesTrueWithConnectionsConstraint(components.InputHTTPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputHTTPInputCollectionPart1Type
+### InputHTTPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputHTTP := components.CreateInputHTTPInputHTTPInputCollectionPart1Type(components.InputHTTPInputCollectionPart1Type{/* values here */})
+inputHTTP := components.CreateInputHTTPInputHTTPSendToRoutesFalseWithConnectionsConstraint(components.InputHTTPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputHTTPInputCollectionPart0Type1
+### InputHTTPPqEnabledFalseWithPqConstraint
 
 ```go
-inputHTTP := components.CreateInputHTTPInputHTTPInputCollectionPart0Type1(components.InputHTTPInputCollectionPart0Type1{/* values here */})
+inputHTTP := components.CreateInputHTTPInputHTTPPqEnabledFalseWithPqConstraint(components.InputHTTPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputHTTPInputCollectionPart1Type1
+### InputHTTPPqEnabledTrueWithPqConstraint
 
 ```go
-inputHTTP := components.CreateInputHTTPInputHTTPInputCollectionPart1Type1(components.InputHTTPInputCollectionPart1Type1{/* values here */})
+inputHTTP := components.CreateInputHTTPInputHTTPPqEnabledTrueWithPqConstraint(components.InputHTTPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

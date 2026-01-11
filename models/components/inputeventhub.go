@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputEventhubInputCollectionPart1Type1 struct {
+type InputEventhubPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -84,265 +84,266 @@ type InputEventhubInputCollectionPart1Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputEventhubInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputEventhubPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetID() *string {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetType() InputEventhubType {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetType() InputEventhubType {
 	if i == nil {
 		return InputEventhubType("")
 	}
 	return i.Type
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetBrokers() []string {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetTopics() []string {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetGroupID() *string {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetFromBeginning() *bool {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetConnectionTimeout() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetMaxRetries() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetMaxBackOff() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetInitialBackoff() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetBackoffRate() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetAuthenticationTimeout() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetReauthenticationThreshold() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetSasl() *AuthenticationType1 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetSasl() *AuthenticationType1 {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetTLS() *TLSSettingsClientSideType {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsClientSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetSessionTimeout() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetRebalanceTimeout() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetHeartbeatInterval() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetAutoCommitInterval() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetAutoCommitThreshold() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetMaxBytesPerPartition() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetMaxBytes() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetMaxSocketErrors() *float64 {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetMinimizeDuplicates() *bool {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetMinimizeDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MinimizeDuplicates
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEventhubInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputEventhubPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputEventhubInputCollectionPart0Type1 struct {
+type InputEventhubPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputEventhubType `json:"type"`
@@ -357,7 +358,6 @@ type InputEventhubInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
 	Brokers []string `json:"brokers"`
 	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
@@ -415,263 +415,263 @@ type InputEventhubInputCollectionPart0Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputEventhubInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputEventhubPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputEventhubInputCollectionPart0Type1) GetType() InputEventhubType {
-	if i == nil {
-		return InputEventhubType("")
-	}
-	return i.Type
-}
-
-func (i *InputEventhubInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEventhubInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEventhubInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputEventhubInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputEventhubInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputEventhubInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputEventhubInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetBrokers() []string {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetType() InputEventhubType {
+	if i == nil {
+		return InputEventhubType("")
+	}
+	return i.Type
+}
+
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetTopics() []string {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetGroupID() *string {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetFromBeginning() *bool {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetConnectionTimeout() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetMaxRetries() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetMaxBackOff() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetInitialBackoff() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetBackoffRate() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetAuthenticationTimeout() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetReauthenticationThreshold() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetSasl() *AuthenticationType1 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetSasl() *AuthenticationType1 {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetTLS() *TLSSettingsClientSideType {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsClientSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetSessionTimeout() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetRebalanceTimeout() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetHeartbeatInterval() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetAutoCommitInterval() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetAutoCommitThreshold() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetMaxBytesPerPartition() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetMaxBytes() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetMaxSocketErrors() *float64 {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetMinimizeDuplicates() *bool {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetMinimizeDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MinimizeDuplicates
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEventhubInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputEventhubPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputEventhubInputCollectionPart1Type struct {
+type InputEventhubSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -746,256 +746,256 @@ type InputEventhubInputCollectionPart1Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputEventhubInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputEventhubSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEventhubInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetID() *string {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetType() InputEventhubType {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetType() InputEventhubType {
 	if i == nil {
 		return InputEventhubType("")
 	}
 	return i.Type
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetBrokers() []string {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetTopics() []string {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetGroupID() *string {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetFromBeginning() *bool {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetConnectionTimeout() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetMaxRetries() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetMaxBackOff() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetInitialBackoff() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetBackoffRate() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetAuthenticationTimeout() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetReauthenticationThreshold() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetSasl() *AuthenticationType1 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetSasl() *AuthenticationType1 {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetTLS() *TLSSettingsClientSideType {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsClientSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetSessionTimeout() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetRebalanceTimeout() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetHeartbeatInterval() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetAutoCommitInterval() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetAutoCommitThreshold() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetMaxBytesPerPartition() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetMaxBytes() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetMaxSocketErrors() *float64 {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetMinimizeDuplicates() *bool {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetMinimizeDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MinimizeDuplicates
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEventhubInputCollectionPart1Type) GetDescription() *string {
+func (i *InputEventhubSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1025,9 +1025,11 @@ func (e *InputEventhubType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputEventhubInputCollectionPart0Type struct {
+type InputEventhubSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputEventhubType `json:"type"`
@@ -1040,9 +1042,7 @@ type InputEventhubInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
 	Brokers []string `json:"brokers"`
 	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
@@ -1100,256 +1100,256 @@ type InputEventhubInputCollectionPart0Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputEventhubInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputEventhubSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEventhubInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputEventhubInputCollectionPart0Type) GetType() InputEventhubType {
-	if i == nil {
-		return InputEventhubType("")
-	}
-	return i.Type
-}
-
-func (i *InputEventhubInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEventhubInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEventhubInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputEventhubInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputEventhubInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputEventhubInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetType() InputEventhubType {
+	if i == nil {
+		return InputEventhubType("")
+	}
+	return i.Type
+}
+
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetBrokers() []string {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetTopics() []string {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetGroupID() *string {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetFromBeginning() *bool {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetConnectionTimeout() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetMaxRetries() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetMaxBackOff() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetInitialBackoff() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetBackoffRate() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetAuthenticationTimeout() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetReauthenticationThreshold() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetSasl() *AuthenticationType1 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetSasl() *AuthenticationType1 {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetTLS() *TLSSettingsClientSideType {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsClientSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetSessionTimeout() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetRebalanceTimeout() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetHeartbeatInterval() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetAutoCommitInterval() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetAutoCommitThreshold() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetMaxBytesPerPartition() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetMaxBytes() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetMaxSocketErrors() *float64 {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetMinimizeDuplicates() *bool {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetMinimizeDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.MinimizeDuplicates
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEventhubInputCollectionPart0Type) GetDescription() *string {
+func (i *InputEventhubSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1359,84 +1359,84 @@ func (i *InputEventhubInputCollectionPart0Type) GetDescription() *string {
 type InputEventhubUnionType string
 
 const (
-	InputEventhubUnionTypeInputEventhubInputCollectionPart0Type  InputEventhubUnionType = "InputEventhub_InputCollectionPart0Type"
-	InputEventhubUnionTypeInputEventhubInputCollectionPart1Type  InputEventhubUnionType = "InputEventhub_InputCollectionPart1Type"
-	InputEventhubUnionTypeInputEventhubInputCollectionPart0Type1 InputEventhubUnionType = "InputEventhub_InputCollectionPart0Type1"
-	InputEventhubUnionTypeInputEventhubInputCollectionPart1Type1 InputEventhubUnionType = "InputEventhub_InputCollectionPart1Type1"
+	InputEventhubUnionTypeInputEventhubSendToRoutesTrueWithConnectionsConstraint  InputEventhubUnionType = "InputEventhub_SendToRoutesTrueWithConnectionsConstraint"
+	InputEventhubUnionTypeInputEventhubSendToRoutesFalseWithConnectionsConstraint InputEventhubUnionType = "InputEventhub_SendToRoutesFalseWithConnectionsConstraint"
+	InputEventhubUnionTypeInputEventhubPqEnabledFalseWithPqConstraint             InputEventhubUnionType = "InputEventhub_PqEnabledFalseWithPqConstraint"
+	InputEventhubUnionTypeInputEventhubPqEnabledTrueWithPqConstraint              InputEventhubUnionType = "InputEventhub_PqEnabledTrueWithPqConstraint"
 )
 
 type InputEventhub struct {
-	InputEventhubInputCollectionPart0Type  *InputEventhubInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputEventhubInputCollectionPart1Type  *InputEventhubInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputEventhubInputCollectionPart0Type1 *InputEventhubInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputEventhubInputCollectionPart1Type1 *InputEventhubInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputEventhubSendToRoutesTrueWithConnectionsConstraint  *InputEventhubSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputEventhubSendToRoutesFalseWithConnectionsConstraint *InputEventhubSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputEventhubPqEnabledFalseWithPqConstraint             *InputEventhubPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputEventhubPqEnabledTrueWithPqConstraint              *InputEventhubPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputEventhubUnionType
 }
 
-func CreateInputEventhubInputEventhubInputCollectionPart0Type(inputEventhubInputCollectionPart0Type InputEventhubInputCollectionPart0Type) InputEventhub {
-	typ := InputEventhubUnionTypeInputEventhubInputCollectionPart0Type
+func CreateInputEventhubInputEventhubSendToRoutesTrueWithConnectionsConstraint(inputEventhubSendToRoutesTrueWithConnectionsConstraint InputEventhubSendToRoutesTrueWithConnectionsConstraint) InputEventhub {
+	typ := InputEventhubUnionTypeInputEventhubSendToRoutesTrueWithConnectionsConstraint
 
 	return InputEventhub{
-		InputEventhubInputCollectionPart0Type: &inputEventhubInputCollectionPart0Type,
-		Type:                                  typ,
+		InputEventhubSendToRoutesTrueWithConnectionsConstraint: &inputEventhubSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputEventhubInputEventhubInputCollectionPart1Type(inputEventhubInputCollectionPart1Type InputEventhubInputCollectionPart1Type) InputEventhub {
-	typ := InputEventhubUnionTypeInputEventhubInputCollectionPart1Type
+func CreateInputEventhubInputEventhubSendToRoutesFalseWithConnectionsConstraint(inputEventhubSendToRoutesFalseWithConnectionsConstraint InputEventhubSendToRoutesFalseWithConnectionsConstraint) InputEventhub {
+	typ := InputEventhubUnionTypeInputEventhubSendToRoutesFalseWithConnectionsConstraint
 
 	return InputEventhub{
-		InputEventhubInputCollectionPart1Type: &inputEventhubInputCollectionPart1Type,
-		Type:                                  typ,
+		InputEventhubSendToRoutesFalseWithConnectionsConstraint: &inputEventhubSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputEventhubInputEventhubInputCollectionPart0Type1(inputEventhubInputCollectionPart0Type1 InputEventhubInputCollectionPart0Type1) InputEventhub {
-	typ := InputEventhubUnionTypeInputEventhubInputCollectionPart0Type1
+func CreateInputEventhubInputEventhubPqEnabledFalseWithPqConstraint(inputEventhubPqEnabledFalseWithPqConstraint InputEventhubPqEnabledFalseWithPqConstraint) InputEventhub {
+	typ := InputEventhubUnionTypeInputEventhubPqEnabledFalseWithPqConstraint
 
 	return InputEventhub{
-		InputEventhubInputCollectionPart0Type1: &inputEventhubInputCollectionPart0Type1,
-		Type:                                   typ,
+		InputEventhubPqEnabledFalseWithPqConstraint: &inputEventhubPqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputEventhubInputEventhubInputCollectionPart1Type1(inputEventhubInputCollectionPart1Type1 InputEventhubInputCollectionPart1Type1) InputEventhub {
-	typ := InputEventhubUnionTypeInputEventhubInputCollectionPart1Type1
+func CreateInputEventhubInputEventhubPqEnabledTrueWithPqConstraint(inputEventhubPqEnabledTrueWithPqConstraint InputEventhubPqEnabledTrueWithPqConstraint) InputEventhub {
+	typ := InputEventhubUnionTypeInputEventhubPqEnabledTrueWithPqConstraint
 
 	return InputEventhub{
-		InputEventhubInputCollectionPart1Type1: &inputEventhubInputCollectionPart1Type1,
-		Type:                                   typ,
+		InputEventhubPqEnabledTrueWithPqConstraint: &inputEventhubPqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputEventhub) UnmarshalJSON(data []byte) error {
 
-	var inputEventhubInputCollectionPart0Type InputEventhubInputCollectionPart0Type = InputEventhubInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputEventhubInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputEventhubInputCollectionPart0Type = &inputEventhubInputCollectionPart0Type
-		u.Type = InputEventhubUnionTypeInputEventhubInputCollectionPart0Type
+	var inputEventhubSendToRoutesTrueWithConnectionsConstraint InputEventhubSendToRoutesTrueWithConnectionsConstraint = InputEventhubSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputEventhubSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputEventhubSendToRoutesTrueWithConnectionsConstraint = &inputEventhubSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputEventhubUnionTypeInputEventhubSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputEventhubInputCollectionPart1Type InputEventhubInputCollectionPart1Type = InputEventhubInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputEventhubInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputEventhubInputCollectionPart1Type = &inputEventhubInputCollectionPart1Type
-		u.Type = InputEventhubUnionTypeInputEventhubInputCollectionPart1Type
+	var inputEventhubSendToRoutesFalseWithConnectionsConstraint InputEventhubSendToRoutesFalseWithConnectionsConstraint = InputEventhubSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputEventhubSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputEventhubSendToRoutesFalseWithConnectionsConstraint = &inputEventhubSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputEventhubUnionTypeInputEventhubSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputEventhubInputCollectionPart0Type1 InputEventhubInputCollectionPart0Type1 = InputEventhubInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputEventhubInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputEventhubInputCollectionPart0Type1 = &inputEventhubInputCollectionPart0Type1
-		u.Type = InputEventhubUnionTypeInputEventhubInputCollectionPart0Type1
+	var inputEventhubPqEnabledFalseWithPqConstraint InputEventhubPqEnabledFalseWithPqConstraint = InputEventhubPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputEventhubPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputEventhubPqEnabledFalseWithPqConstraint = &inputEventhubPqEnabledFalseWithPqConstraint
+		u.Type = InputEventhubUnionTypeInputEventhubPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputEventhubInputCollectionPart1Type1 InputEventhubInputCollectionPart1Type1 = InputEventhubInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputEventhubInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputEventhubInputCollectionPart1Type1 = &inputEventhubInputCollectionPart1Type1
-		u.Type = InputEventhubUnionTypeInputEventhubInputCollectionPart1Type1
+	var inputEventhubPqEnabledTrueWithPqConstraint InputEventhubPqEnabledTrueWithPqConstraint = InputEventhubPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputEventhubPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputEventhubPqEnabledTrueWithPqConstraint = &inputEventhubPqEnabledTrueWithPqConstraint
+		u.Type = InputEventhubUnionTypeInputEventhubPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1444,20 +1444,20 @@ func (u *InputEventhub) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputEventhub) MarshalJSON() ([]byte, error) {
-	if u.InputEventhubInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputEventhubInputCollectionPart0Type, "", true)
+	if u.InputEventhubSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputEventhubSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputEventhubInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputEventhubInputCollectionPart1Type, "", true)
+	if u.InputEventhubSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputEventhubSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputEventhubInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputEventhubInputCollectionPart0Type1, "", true)
+	if u.InputEventhubPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputEventhubPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputEventhubInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputEventhubInputCollectionPart1Type1, "", true)
+	if u.InputEventhubPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputEventhubPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputEventhub: all fields are null")

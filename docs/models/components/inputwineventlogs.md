@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputWinEventLogsInputCollectionPart0Type
+### InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsInputCollectionPart0Type(components.InputWinEventLogsInputCollectionPart0Type{/* values here */})
+inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsSendToRoutesTrueWithConnectionsConstraint(components.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWinEventLogsInputCollectionPart1Type
+### InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsInputCollectionPart1Type(components.InputWinEventLogsInputCollectionPart1Type{/* values here */})
+inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint(components.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWinEventLogsInputCollectionPart0Type1
+### InputWinEventLogsPqEnabledFalseWithPqConstraint
 
 ```go
-inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsInputCollectionPart0Type1(components.InputWinEventLogsInputCollectionPart0Type1{/* values here */})
+inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsPqEnabledFalseWithPqConstraint(components.InputWinEventLogsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputWinEventLogsInputCollectionPart1Type1
+### InputWinEventLogsPqEnabledTrueWithPqConstraint
 
 ```go
-inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsInputCollectionPart1Type1(components.InputWinEventLogsInputCollectionPart1Type1{/* values here */})
+inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsPqEnabledTrueWithPqConstraint(components.InputWinEventLogsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

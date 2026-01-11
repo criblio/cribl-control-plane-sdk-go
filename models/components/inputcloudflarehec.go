@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputCloudflareHecInputCollectionPart1Type1 struct {
+type InputCloudflareHecPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -74,258 +74,259 @@ type InputCloudflareHecInputCollectionPart1Type1 struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputCloudflareHecInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputCloudflareHecPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port", "hecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetID() *string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetType() InputCloudflareHecType {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetType() InputCloudflareHecType {
 	if i == nil {
 		return InputCloudflareHecType("")
 	}
 	return i.Type
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetHost() *string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetPort() float64 {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetAuthTokens() []InputCloudflareHecAuthToken {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetAuthTokens() []InputCloudflareHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetEnableHealthCheck() any {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetHecAPI() string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetHecAPI() string {
 	if i == nil {
 		return ""
 	}
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetAllowedIndexes() []string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetBreakerRulesets() []string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetAccessControlAllowOrigin() []string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetAccessControlAllowHeaders() []string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetEmitTokenMetrics() *bool {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputCloudflareHecPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputCloudflareHecInputCollectionPart0Type1 struct {
+type InputCloudflareHecPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputCloudflareHecType `json:"type"`
@@ -340,7 +341,6 @@ type InputCloudflareHecInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -388,256 +388,256 @@ type InputCloudflareHecInputCollectionPart0Type1 struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputCloudflareHecInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputCloudflareHecPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port", "hecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetType() InputCloudflareHecType {
-	if i == nil {
-		return InputCloudflareHecType("")
-	}
-	return i.Type
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetHost() *string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetType() InputCloudflareHecType {
+	if i == nil {
+		return InputCloudflareHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetPort() float64 {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetAuthTokens() []InputCloudflareHecAuthToken {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetAuthTokens() []InputCloudflareHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetEnableHealthCheck() any {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetHecAPI() string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetHecAPI() string {
 	if i == nil {
 		return ""
 	}
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetAllowedIndexes() []string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetBreakerRulesets() []string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetAccessControlAllowOrigin() []string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetAccessControlAllowHeaders() []string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetEmitTokenMetrics() *bool {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputCloudflareHecPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputCloudflareHecInputCollectionPart1Type struct {
+type InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -702,249 +702,249 @@ type InputCloudflareHecInputCollectionPart1Type struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputCloudflareHecInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port", "hecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetID() *string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetType() InputCloudflareHecType {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetType() InputCloudflareHecType {
 	if i == nil {
 		return InputCloudflareHecType("")
 	}
 	return i.Type
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetHost() *string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetPort() float64 {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetAuthTokens() []InputCloudflareHecAuthToken {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetAuthTokens() []InputCloudflareHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetCaptureHeaders() *bool {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetSocketTimeout() *float64 {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetEnableHealthCheck() any {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetIPDenylistRegex() *string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetHecAPI() string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetHecAPI() string {
 	if i == nil {
 		return ""
 	}
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetAllowedIndexes() []string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetBreakerRulesets() []string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetAccessControlAllowOrigin() []string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetAccessControlAllowHeaders() []string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetEmitTokenMetrics() *bool {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputCloudflareHecInputCollectionPart1Type) GetDescription() *string {
+func (i *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1072,9 +1072,11 @@ func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeNotificationMetad
 	return i.Metadata
 }
 
-type InputCloudflareHecInputCollectionPart0Type struct {
+type InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputCloudflareHecType `json:"type"`
@@ -1087,9 +1089,7 @@ type InputCloudflareHecInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -1137,249 +1137,249 @@ type InputCloudflareHecInputCollectionPart0Type struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputCloudflareHecInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port", "hecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type) GetType() InputCloudflareHecType {
-	if i == nil {
-		return InputCloudflareHecType("")
-	}
-	return i.Type
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputCloudflareHecInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetType() InputCloudflareHecType {
+	if i == nil {
+		return InputCloudflareHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetHost() *string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetPort() float64 {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetAuthTokens() []InputCloudflareHecAuthToken {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetAuthTokens() []InputCloudflareHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetMaxActiveReq() *float64 {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetEnableProxyHeader() *bool {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetCaptureHeaders() *bool {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetSocketTimeout() *float64 {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetEnableHealthCheck() any {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetIPAllowlistRegex() *string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetIPDenylistRegex() *string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetHecAPI() string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetHecAPI() string {
 	if i == nil {
 		return ""
 	}
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetAllowedIndexes() []string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetBreakerRulesets() []string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetAccessControlAllowOrigin() []string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetAccessControlAllowHeaders() []string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetEmitTokenMetrics() *bool {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputCloudflareHecInputCollectionPart0Type) GetDescription() *string {
+func (i *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1389,84 +1389,84 @@ func (i *InputCloudflareHecInputCollectionPart0Type) GetDescription() *string {
 type InputCloudflareHecUnionType string
 
 const (
-	InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type  InputCloudflareHecUnionType = "InputCloudflareHec_InputCollectionPart0Type"
-	InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type  InputCloudflareHecUnionType = "InputCloudflareHec_InputCollectionPart1Type"
-	InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type1 InputCloudflareHecUnionType = "InputCloudflareHec_InputCollectionPart0Type1"
-	InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type1 InputCloudflareHecUnionType = "InputCloudflareHec_InputCollectionPart1Type1"
+	InputCloudflareHecUnionTypeInputCloudflareHecSendToRoutesTrueWithConnectionsConstraint  InputCloudflareHecUnionType = "InputCloudflareHec_SendToRoutesTrueWithConnectionsConstraint"
+	InputCloudflareHecUnionTypeInputCloudflareHecSendToRoutesFalseWithConnectionsConstraint InputCloudflareHecUnionType = "InputCloudflareHec_SendToRoutesFalseWithConnectionsConstraint"
+	InputCloudflareHecUnionTypeInputCloudflareHecPqEnabledFalseWithPqConstraint             InputCloudflareHecUnionType = "InputCloudflareHec_PqEnabledFalseWithPqConstraint"
+	InputCloudflareHecUnionTypeInputCloudflareHecPqEnabledTrueWithPqConstraint              InputCloudflareHecUnionType = "InputCloudflareHec_PqEnabledTrueWithPqConstraint"
 )
 
 type InputCloudflareHec struct {
-	InputCloudflareHecInputCollectionPart0Type  *InputCloudflareHecInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputCloudflareHecInputCollectionPart1Type  *InputCloudflareHecInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputCloudflareHecInputCollectionPart0Type1 *InputCloudflareHecInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputCloudflareHecInputCollectionPart1Type1 *InputCloudflareHecInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint  *InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint *InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputCloudflareHecPqEnabledFalseWithPqConstraint             *InputCloudflareHecPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputCloudflareHecPqEnabledTrueWithPqConstraint              *InputCloudflareHecPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputCloudflareHecUnionType
 }
 
-func CreateInputCloudflareHecInputCloudflareHecInputCollectionPart0Type(inputCloudflareHecInputCollectionPart0Type InputCloudflareHecInputCollectionPart0Type) InputCloudflareHec {
-	typ := InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type
+func CreateInputCloudflareHecInputCloudflareHecSendToRoutesTrueWithConnectionsConstraint(inputCloudflareHecSendToRoutesTrueWithConnectionsConstraint InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint) InputCloudflareHec {
+	typ := InputCloudflareHecUnionTypeInputCloudflareHecSendToRoutesTrueWithConnectionsConstraint
 
 	return InputCloudflareHec{
-		InputCloudflareHecInputCollectionPart0Type: &inputCloudflareHecInputCollectionPart0Type,
+		InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint: &inputCloudflareHecSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputCloudflareHecInputCloudflareHecInputCollectionPart1Type(inputCloudflareHecInputCollectionPart1Type InputCloudflareHecInputCollectionPart1Type) InputCloudflareHec {
-	typ := InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type
+func CreateInputCloudflareHecInputCloudflareHecSendToRoutesFalseWithConnectionsConstraint(inputCloudflareHecSendToRoutesFalseWithConnectionsConstraint InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint) InputCloudflareHec {
+	typ := InputCloudflareHecUnionTypeInputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
 
 	return InputCloudflareHec{
-		InputCloudflareHecInputCollectionPart1Type: &inputCloudflareHecInputCollectionPart1Type,
+		InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint: &inputCloudflareHecSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputCloudflareHecInputCloudflareHecInputCollectionPart0Type1(inputCloudflareHecInputCollectionPart0Type1 InputCloudflareHecInputCollectionPart0Type1) InputCloudflareHec {
-	typ := InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type1
+func CreateInputCloudflareHecInputCloudflareHecPqEnabledFalseWithPqConstraint(inputCloudflareHecPqEnabledFalseWithPqConstraint InputCloudflareHecPqEnabledFalseWithPqConstraint) InputCloudflareHec {
+	typ := InputCloudflareHecUnionTypeInputCloudflareHecPqEnabledFalseWithPqConstraint
 
 	return InputCloudflareHec{
-		InputCloudflareHecInputCollectionPart0Type1: &inputCloudflareHecInputCollectionPart0Type1,
+		InputCloudflareHecPqEnabledFalseWithPqConstraint: &inputCloudflareHecPqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputCloudflareHecInputCloudflareHecInputCollectionPart1Type1(inputCloudflareHecInputCollectionPart1Type1 InputCloudflareHecInputCollectionPart1Type1) InputCloudflareHec {
-	typ := InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type1
+func CreateInputCloudflareHecInputCloudflareHecPqEnabledTrueWithPqConstraint(inputCloudflareHecPqEnabledTrueWithPqConstraint InputCloudflareHecPqEnabledTrueWithPqConstraint) InputCloudflareHec {
+	typ := InputCloudflareHecUnionTypeInputCloudflareHecPqEnabledTrueWithPqConstraint
 
 	return InputCloudflareHec{
-		InputCloudflareHecInputCollectionPart1Type1: &inputCloudflareHecInputCollectionPart1Type1,
+		InputCloudflareHecPqEnabledTrueWithPqConstraint: &inputCloudflareHecPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputCloudflareHec) UnmarshalJSON(data []byte) error {
 
-	var inputCloudflareHecInputCollectionPart0Type InputCloudflareHecInputCollectionPart0Type = InputCloudflareHecInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputCloudflareHecInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputCloudflareHecInputCollectionPart0Type = &inputCloudflareHecInputCollectionPart0Type
-		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type
+	var inputCloudflareHecSendToRoutesTrueWithConnectionsConstraint InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint = InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCloudflareHecSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint = &inputCloudflareHecSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputCloudflareHecInputCollectionPart1Type InputCloudflareHecInputCollectionPart1Type = InputCloudflareHecInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputCloudflareHecInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputCloudflareHecInputCollectionPart1Type = &inputCloudflareHecInputCollectionPart1Type
-		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type
+	var inputCloudflareHecSendToRoutesFalseWithConnectionsConstraint InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint = InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCloudflareHecSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint = &inputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputCloudflareHecInputCollectionPart0Type1 InputCloudflareHecInputCollectionPart0Type1 = InputCloudflareHecInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputCloudflareHecInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputCloudflareHecInputCollectionPart0Type1 = &inputCloudflareHecInputCollectionPart0Type1
-		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type1
+	var inputCloudflareHecPqEnabledFalseWithPqConstraint InputCloudflareHecPqEnabledFalseWithPqConstraint = InputCloudflareHecPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCloudflareHecPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputCloudflareHecPqEnabledFalseWithPqConstraint = &inputCloudflareHecPqEnabledFalseWithPqConstraint
+		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputCloudflareHecInputCollectionPart1Type1 InputCloudflareHecInputCollectionPart1Type1 = InputCloudflareHecInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputCloudflareHecInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputCloudflareHecInputCollectionPart1Type1 = &inputCloudflareHecInputCollectionPart1Type1
-		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type1
+	var inputCloudflareHecPqEnabledTrueWithPqConstraint InputCloudflareHecPqEnabledTrueWithPqConstraint = InputCloudflareHecPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCloudflareHecPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputCloudflareHecPqEnabledTrueWithPqConstraint = &inputCloudflareHecPqEnabledTrueWithPqConstraint
+		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1474,20 +1474,20 @@ func (u *InputCloudflareHec) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputCloudflareHec) MarshalJSON() ([]byte, error) {
-	if u.InputCloudflareHecInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputCloudflareHecInputCollectionPart0Type, "", true)
+	if u.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputCloudflareHecInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputCloudflareHecInputCollectionPart1Type, "", true)
+	if u.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputCloudflareHecInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputCloudflareHecInputCollectionPart0Type1, "", true)
+	if u.InputCloudflareHecPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputCloudflareHecPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputCloudflareHecInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputCloudflareHecInputCollectionPart1Type1, "", true)
+	if u.InputCloudflareHecPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputCloudflareHecPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputCloudflareHec: all fields are null")
