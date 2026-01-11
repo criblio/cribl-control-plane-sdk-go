@@ -4,9 +4,388 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputCriblInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string        `json:"id,omitempty"`
+	Type     InputCriblType `json:"type"`
+	Disabled *bool          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Filter      *string                `json:"filter,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetType() InputCriblType {
+	if i == nil {
+		return InputCriblType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string        `json:"id,omitempty"`
+	Type     InputCriblType `json:"type"`
+	Disabled *bool          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	Filter      *string                `json:"filter,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetType() InputCriblType {
+	if i == nil {
+		return InputCriblType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string        `json:"id,omitempty"`
+	Type     InputCriblType `json:"type"`
+	Disabled *bool          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	Filter     *string  `json:"filter,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetType() InputCriblType {
+	if i == nil {
+		return InputCriblType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputCriblType string
 
@@ -31,15 +410,15 @@ func (e *InputCriblType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCribl struct {
+type InputCriblInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string        `json:"id,omitempty"`
 	Type     InputCriblType `json:"type"`
 	Disabled *bool          `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -55,104 +434,211 @@ type InputCribl struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputCribl) MarshalJSON() ([]byte, error) {
+func (i InputCriblInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCribl) UnmarshalJSON(data []byte) error {
+func (i *InputCriblInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCribl) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCribl) GetType() InputCriblType {
-	if i == nil {
-		return InputCriblType("")
-	}
-	return i.Type
-}
-
-func (i *InputCribl) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCribl) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCribl) GetSendToRoutes() *bool {
+func (i *InputCriblInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCribl) GetEnvironment() *string {
+func (i *InputCriblInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblInputCollectionPart0Type) GetType() InputCriblType {
+	if i == nil {
+		return InputCriblType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCribl) GetPqEnabled() *bool {
+func (i *InputCriblInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCribl) GetStreamtags() []string {
+func (i *InputCriblInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCribl) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCribl) GetPq() *PqType {
+func (i *InputCriblInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCribl) GetFilter() *string {
+func (i *InputCriblInputCollectionPart0Type) GetFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputCribl) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCribl) GetDescription() *string {
+func (i *InputCriblInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputCriblUnionType string
+
+const (
+	InputCriblUnionTypeInputCriblInputCollectionPart0Type  InputCriblUnionType = "InputCribl_InputCollectionPart0Type"
+	InputCriblUnionTypeInputCriblInputCollectionPart1Type  InputCriblUnionType = "InputCribl_InputCollectionPart1Type"
+	InputCriblUnionTypeInputCriblInputCollectionPart0Type1 InputCriblUnionType = "InputCribl_InputCollectionPart0Type1"
+	InputCriblUnionTypeInputCriblInputCollectionPart1Type1 InputCriblUnionType = "InputCribl_InputCollectionPart1Type1"
+)
+
+type InputCribl struct {
+	InputCriblInputCollectionPart0Type  *InputCriblInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputCriblInputCollectionPart1Type  *InputCriblInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputCriblInputCollectionPart0Type1 *InputCriblInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputCriblInputCollectionPart1Type1 *InputCriblInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputCriblUnionType
+}
+
+func CreateInputCriblInputCriblInputCollectionPart0Type(inputCriblInputCollectionPart0Type InputCriblInputCollectionPart0Type) InputCribl {
+	typ := InputCriblUnionTypeInputCriblInputCollectionPart0Type
+
+	return InputCribl{
+		InputCriblInputCollectionPart0Type: &inputCriblInputCollectionPart0Type,
+		Type:                               typ,
+	}
+}
+
+func CreateInputCriblInputCriblInputCollectionPart1Type(inputCriblInputCollectionPart1Type InputCriblInputCollectionPart1Type) InputCribl {
+	typ := InputCriblUnionTypeInputCriblInputCollectionPart1Type
+
+	return InputCribl{
+		InputCriblInputCollectionPart1Type: &inputCriblInputCollectionPart1Type,
+		Type:                               typ,
+	}
+}
+
+func CreateInputCriblInputCriblInputCollectionPart0Type1(inputCriblInputCollectionPart0Type1 InputCriblInputCollectionPart0Type1) InputCribl {
+	typ := InputCriblUnionTypeInputCriblInputCollectionPart0Type1
+
+	return InputCribl{
+		InputCriblInputCollectionPart0Type1: &inputCriblInputCollectionPart0Type1,
+		Type:                                typ,
+	}
+}
+
+func CreateInputCriblInputCriblInputCollectionPart1Type1(inputCriblInputCollectionPart1Type1 InputCriblInputCollectionPart1Type1) InputCribl {
+	typ := InputCriblUnionTypeInputCriblInputCollectionPart1Type1
+
+	return InputCribl{
+		InputCriblInputCollectionPart1Type1: &inputCriblInputCollectionPart1Type1,
+		Type:                                typ,
+	}
+}
+
+func (u *InputCribl) UnmarshalJSON(data []byte) error {
+
+	var inputCriblInputCollectionPart0Type InputCriblInputCollectionPart0Type = InputCriblInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputCriblInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputCriblInputCollectionPart0Type = &inputCriblInputCollectionPart0Type
+		u.Type = InputCriblUnionTypeInputCriblInputCollectionPart0Type
+		return nil
+	}
+
+	var inputCriblInputCollectionPart1Type InputCriblInputCollectionPart1Type = InputCriblInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputCriblInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputCriblInputCollectionPart1Type = &inputCriblInputCollectionPart1Type
+		u.Type = InputCriblUnionTypeInputCriblInputCollectionPart1Type
+		return nil
+	}
+
+	var inputCriblInputCollectionPart0Type1 InputCriblInputCollectionPart0Type1 = InputCriblInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputCriblInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputCriblInputCollectionPart0Type1 = &inputCriblInputCollectionPart0Type1
+		u.Type = InputCriblUnionTypeInputCriblInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputCriblInputCollectionPart1Type1 InputCriblInputCollectionPart1Type1 = InputCriblInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputCriblInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputCriblInputCollectionPart1Type1 = &inputCriblInputCollectionPart1Type1
+		u.Type = InputCriblUnionTypeInputCriblInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputCribl", string(data))
+}
+
+func (u InputCribl) MarshalJSON() ([]byte, error) {
+	if u.InputCriblInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputCriblInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputCriblInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputCriblInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputCriblInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputCriblInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputCriblInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputCriblInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputCribl: all fields are null")
 }

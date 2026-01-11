@@ -14,4 +14,5 @@
 | `SubscriptionID`    | **string*           | :heavy_minus_sign:  | N/A                 |
 | `Tags`              | map[string]*string* | :heavy_minus_sign:  | N/A                 |
 | `Type`              | **string*           | :heavy_minus_sign:  | N/A                 |
+| `VMID`              | **string*           | :heavy_minus_sign:  | N/A                 |
 | `Zone`              | **string*           | :heavy_minus_sign:  | N/A                 |

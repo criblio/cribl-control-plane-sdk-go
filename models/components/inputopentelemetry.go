@@ -4,9 +4,1264 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputOpenTelemetryInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputOpenTelemetryType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64                   `default:"4317" json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket  *int64 `default:"0" json:"maxRequestsPerSocket"`
+	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
+	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
+	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+	KeepAliveTimeout *float64 `default:"15" json:"keepAliveTimeout"`
+	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *InputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	// Enable to extract each incoming span to a separate event
+	ExtractSpans *bool `default:"false" json:"extractSpans"`
+	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *InputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	// OpenTelemetry authentication type
+	AuthType *AuthenticationTypeOptions `default:"none" json:"authType"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	Description  *string  `json:"description,omitempty"`
+	Username     *string  `json:"username,omitempty"`
+	Password     *string  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	// Enable to extract each incoming log record to a separate event
+	ExtractLogs *bool `default:"false" json:"extractLogs"`
+}
+
+func (i InputOpenTelemetryInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetType() InputOpenTelemetryType {
+	if i == nil {
+		return InputOpenTelemetryType("")
+	}
+	return i.Type
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetEnableProxyHeader() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetCaptureHeaders() any {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetActivityLogSampleRate() any {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetProtocol() *InputOpenTelemetryProtocol {
+	if i == nil {
+		return nil
+	}
+	return i.Protocol
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetExtractSpans() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractSpans
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+	if i == nil {
+		return nil
+	}
+	return i.OtlpVersion
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetAuthType() *AuthenticationTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetOauthParams() []ItemsTypeOauthParams {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type1) GetExtractLogs() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractLogs
+}
+
+type InputOpenTelemetryInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputOpenTelemetryType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64                   `default:"4317" json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket  *int64 `default:"0" json:"maxRequestsPerSocket"`
+	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
+	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
+	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+	KeepAliveTimeout *float64 `default:"15" json:"keepAliveTimeout"`
+	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *InputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	// Enable to extract each incoming span to a separate event
+	ExtractSpans *bool `default:"false" json:"extractSpans"`
+	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *InputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	// OpenTelemetry authentication type
+	AuthType *AuthenticationTypeOptions `default:"none" json:"authType"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	Description  *string  `json:"description,omitempty"`
+	Username     *string  `json:"username,omitempty"`
+	Password     *string  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	// Enable to extract each incoming log record to a separate event
+	ExtractLogs *bool `default:"false" json:"extractLogs"`
+}
+
+func (i InputOpenTelemetryInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetType() InputOpenTelemetryType {
+	if i == nil {
+		return InputOpenTelemetryType("")
+	}
+	return i.Type
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetEnableProxyHeader() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetCaptureHeaders() any {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetActivityLogSampleRate() any {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetProtocol() *InputOpenTelemetryProtocol {
+	if i == nil {
+		return nil
+	}
+	return i.Protocol
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetExtractSpans() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractSpans
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+	if i == nil {
+		return nil
+	}
+	return i.OtlpVersion
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetAuthType() *AuthenticationTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetOauthParams() []ItemsTypeOauthParams {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type1) GetExtractLogs() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractLogs
+}
+
+type InputOpenTelemetryInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputOpenTelemetryType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port *float64                   `default:"4317" json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket  *int64 `default:"0" json:"maxRequestsPerSocket"`
+	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
+	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
+	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+	KeepAliveTimeout *float64 `default:"15" json:"keepAliveTimeout"`
+	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *InputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	// Enable to extract each incoming span to a separate event
+	ExtractSpans *bool `default:"false" json:"extractSpans"`
+	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *InputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	// OpenTelemetry authentication type
+	AuthType *AuthenticationTypeOptions `default:"none" json:"authType"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	Description  *string  `json:"description,omitempty"`
+	Username     *string  `json:"username,omitempty"`
+	Password     *string  `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+	// Enable to extract each incoming log record to a separate event
+	ExtractLogs *bool `default:"false" json:"extractLogs"`
+}
+
+func (i InputOpenTelemetryInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetType() InputOpenTelemetryType {
+	if i == nil {
+		return InputOpenTelemetryType("")
+	}
+	return i.Type
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetEnableProxyHeader() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetCaptureHeaders() any {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetActivityLogSampleRate() any {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetProtocol() *InputOpenTelemetryProtocol {
+	if i == nil {
+		return nil
+	}
+	return i.Protocol
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetExtractSpans() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractSpans
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+	if i == nil {
+		return nil
+	}
+	return i.OtlpVersion
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetAuthType() *AuthenticationTypeOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetOauthParams() []ItemsTypeOauthParams {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetOauthHeaders() []ItemsTypeOauthHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+func (i *InputOpenTelemetryInputCollectionPart1Type) GetExtractLogs() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractLogs
+}
 
 type InputOpenTelemetryType string
 
@@ -81,15 +1336,15 @@ func (e *InputOpenTelemetryOTLPVersion) IsExact() bool {
 	return false
 }
 
-type InputOpenTelemetry struct {
+type InputOpenTelemetryInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputOpenTelemetryType `json:"type"`
 	Disabled *bool                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -122,7 +1377,7 @@ type InputOpenTelemetry struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Select whether to leverage gRPC or HTTP for OpenTelemetry
 	Protocol *InputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
 	// Enable to extract each incoming span to a separate event
@@ -155,7 +1410,7 @@ type InputOpenTelemetry struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -166,335 +1421,442 @@ type InputOpenTelemetry struct {
 	ExtractLogs *bool `default:"false" json:"extractLogs"`
 }
 
-func (i InputOpenTelemetry) MarshalJSON() ([]byte, error) {
+func (i InputOpenTelemetryInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOpenTelemetry) UnmarshalJSON(data []byte) error {
+func (i *InputOpenTelemetryInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetry) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputOpenTelemetry) GetType() InputOpenTelemetryType {
-	if i == nil {
-		return InputOpenTelemetryType("")
-	}
-	return i.Type
-}
-
-func (i *InputOpenTelemetry) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputOpenTelemetry) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputOpenTelemetry) GetSendToRoutes() *bool {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOpenTelemetry) GetEnvironment() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetType() InputOpenTelemetryType {
+	if i == nil {
+		return InputOpenTelemetryType("")
+	}
+	return i.Type
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputOpenTelemetry) GetPqEnabled() *bool {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOpenTelemetry) GetStreamtags() []string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputOpenTelemetry) GetConnections() []ItemsTypeConnections {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOpenTelemetry) GetPq() *PqType {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOpenTelemetry) GetHost() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetry) GetPort() *float64 {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputOpenTelemetry) GetTLS() *TLSSettingsServerSideType {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputOpenTelemetry) GetMaxActiveReq() *float64 {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputOpenTelemetry) GetMaxRequestsPerSocket() *int64 {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputOpenTelemetry) GetEnableProxyHeader() any {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetEnableProxyHeader() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputOpenTelemetry) GetCaptureHeaders() any {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetCaptureHeaders() any {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputOpenTelemetry) GetActivityLogSampleRate() any {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetActivityLogSampleRate() any {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputOpenTelemetry) GetRequestTimeout() *float64 {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputOpenTelemetry) GetSocketTimeout() *float64 {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputOpenTelemetry) GetKeepAliveTimeout() *float64 {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputOpenTelemetry) GetEnableHealthCheck() *bool {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputOpenTelemetry) GetIPAllowlistRegex() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputOpenTelemetry) GetIPDenylistRegex() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputOpenTelemetry) GetProtocol() *InputOpenTelemetryProtocol {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetProtocol() *InputOpenTelemetryProtocol {
 	if i == nil {
 		return nil
 	}
 	return i.Protocol
 }
 
-func (i *InputOpenTelemetry) GetExtractSpans() *bool {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetExtractSpans() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractSpans
 }
 
-func (i *InputOpenTelemetry) GetExtractMetrics() *bool {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputOpenTelemetry) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
 	if i == nil {
 		return nil
 	}
 	return i.OtlpVersion
 }
 
-func (i *InputOpenTelemetry) GetAuthType() *AuthenticationTypeOptions {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetAuthType() *AuthenticationTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOpenTelemetry) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOpenTelemetry) GetMaxActiveCxn() *float64 {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputOpenTelemetry) GetDescription() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOpenTelemetry) GetUsername() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputOpenTelemetry) GetPassword() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputOpenTelemetry) GetToken() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputOpenTelemetry) GetCredentialsSecret() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputOpenTelemetry) GetTextSecret() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputOpenTelemetry) GetLoginURL() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputOpenTelemetry) GetSecretParamName() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputOpenTelemetry) GetSecret() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputOpenTelemetry) GetTokenAttributeName() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputOpenTelemetry) GetAuthHeaderExpr() *string {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputOpenTelemetry) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputOpenTelemetry) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
 }
 
-func (i *InputOpenTelemetry) GetExtractLogs() *bool {
+func (i *InputOpenTelemetryInputCollectionPart0Type) GetExtractLogs() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractLogs
+}
+
+type InputOpenTelemetryUnionType string
+
+const (
+	InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type  InputOpenTelemetryUnionType = "InputOpenTelemetry_InputCollectionPart0Type"
+	InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type  InputOpenTelemetryUnionType = "InputOpenTelemetry_InputCollectionPart1Type"
+	InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type1 InputOpenTelemetryUnionType = "InputOpenTelemetry_InputCollectionPart0Type1"
+	InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type1 InputOpenTelemetryUnionType = "InputOpenTelemetry_InputCollectionPart1Type1"
+)
+
+type InputOpenTelemetry struct {
+	InputOpenTelemetryInputCollectionPart0Type  *InputOpenTelemetryInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputOpenTelemetryInputCollectionPart1Type  *InputOpenTelemetryInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputOpenTelemetryInputCollectionPart0Type1 *InputOpenTelemetryInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputOpenTelemetryInputCollectionPart1Type1 *InputOpenTelemetryInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputOpenTelemetryUnionType
+}
+
+func CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart0Type(inputOpenTelemetryInputCollectionPart0Type InputOpenTelemetryInputCollectionPart0Type) InputOpenTelemetry {
+	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type
+
+	return InputOpenTelemetry{
+		InputOpenTelemetryInputCollectionPart0Type: &inputOpenTelemetryInputCollectionPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart1Type(inputOpenTelemetryInputCollectionPart1Type InputOpenTelemetryInputCollectionPart1Type) InputOpenTelemetry {
+	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type
+
+	return InputOpenTelemetry{
+		InputOpenTelemetryInputCollectionPart1Type: &inputOpenTelemetryInputCollectionPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart0Type1(inputOpenTelemetryInputCollectionPart0Type1 InputOpenTelemetryInputCollectionPart0Type1) InputOpenTelemetry {
+	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type1
+
+	return InputOpenTelemetry{
+		InputOpenTelemetryInputCollectionPart0Type1: &inputOpenTelemetryInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart1Type1(inputOpenTelemetryInputCollectionPart1Type1 InputOpenTelemetryInputCollectionPart1Type1) InputOpenTelemetry {
+	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type1
+
+	return InputOpenTelemetry{
+		InputOpenTelemetryInputCollectionPart1Type1: &inputOpenTelemetryInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputOpenTelemetry) UnmarshalJSON(data []byte) error {
+
+	var inputOpenTelemetryInputCollectionPart0Type InputOpenTelemetryInputCollectionPart0Type = InputOpenTelemetryInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputOpenTelemetryInputCollectionPart0Type = &inputOpenTelemetryInputCollectionPart0Type
+		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type
+		return nil
+	}
+
+	var inputOpenTelemetryInputCollectionPart1Type InputOpenTelemetryInputCollectionPart1Type = InputOpenTelemetryInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputOpenTelemetryInputCollectionPart1Type = &inputOpenTelemetryInputCollectionPart1Type
+		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type
+		return nil
+	}
+
+	var inputOpenTelemetryInputCollectionPart0Type1 InputOpenTelemetryInputCollectionPart0Type1 = InputOpenTelemetryInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputOpenTelemetryInputCollectionPart0Type1 = &inputOpenTelemetryInputCollectionPart0Type1
+		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputOpenTelemetryInputCollectionPart1Type1 InputOpenTelemetryInputCollectionPart1Type1 = InputOpenTelemetryInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputOpenTelemetryInputCollectionPart1Type1 = &inputOpenTelemetryInputCollectionPart1Type1
+		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputOpenTelemetry", string(data))
+}
+
+func (u InputOpenTelemetry) MarshalJSON() ([]byte, error) {
+	if u.InputOpenTelemetryInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputOpenTelemetryInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputOpenTelemetryInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputOpenTelemetryInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputOpenTelemetryInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputOpenTelemetryInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputOpenTelemetryInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputOpenTelemetryInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputOpenTelemetry: all fields are null")
 }

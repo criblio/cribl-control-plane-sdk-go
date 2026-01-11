@@ -96,15 +96,16 @@ func main() {
 	// Create TCP JSON Source in Pack
 	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
-	tcpJSONSource := operations.InputTcpjson{
+	tcpJSONSource := operations.InputTcpjsonInputCollectionPart1Type1{
 		ID:        "my-tcp-json",
-		Type:      operations.CreateInputTypeTcpjsonTcpjson,
+		Type:      operations.InputTcpjsonTypeTcpjson,
 		Port:      float64(PORT),
 		AuthType:  &authType,
 		AuthToken: &authToken,
 	}
 
-	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONSource)
+	tcpJSONInput := operations.CreateInputTcpjsonInputTcpjsonInputCollectionPart1Type1(tcpJSONSource)
+	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONInput)
 	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(packURL))
 	if err != nil {
 		log.Printf("Error creating TCP JSON Source in Pack: %v", err)

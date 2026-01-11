@@ -4,9 +4,1003 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputConfluentCloudInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputConfluentCloudType `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
+	Brokers []string                    `json:"brokers"`
+	TLS     *TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning       *bool                                  `default:"true" json:"fromBeginning"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *AuthenticationType `json:"sasl,omitempty"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputConfluentCloudInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetType() InputConfluentCloudType {
+	if i == nil {
+		return InputConfluentCloudType("")
+	}
+	return i.Type
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetTLS() *TLSSettingsClientSideType1 {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetSasl() *AuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputConfluentCloudInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputConfluentCloudType `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
+	Brokers []string                    `json:"brokers"`
+	TLS     *TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning       *bool                                  `default:"true" json:"fromBeginning"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *AuthenticationType `json:"sasl,omitempty"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputConfluentCloudInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetType() InputConfluentCloudType {
+	if i == nil {
+		return InputConfluentCloudType("")
+	}
+	return i.Type
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetTLS() *TLSSettingsClientSideType1 {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetSasl() *AuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputConfluentCloudInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string                 `json:"id,omitempty"`
+	Type     InputConfluentCloudType `json:"type"`
+	Disabled *bool                   `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
+	Brokers []string                    `json:"brokers"`
+	TLS     *TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning       *bool                                  `default:"true" json:"fromBeginning"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *AuthenticationType `json:"sasl,omitempty"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputConfluentCloudInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetType() InputConfluentCloudType {
+	if i == nil {
+		return InputConfluentCloudType("")
+	}
+	return i.Type
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetTLS() *TLSSettingsClientSideType1 {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetSasl() *AuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputConfluentCloudInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputConfluentCloudType string
 
@@ -31,15 +1025,15 @@ func (e *InputConfluentCloudType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputConfluentCloud struct {
+type InputConfluentCloudInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputConfluentCloudType `json:"type"`
 	Disabled *bool                   `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -106,258 +1100,365 @@ type InputConfluentCloud struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputConfluentCloud) MarshalJSON() ([]byte, error) {
+func (i InputConfluentCloudInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputConfluentCloud) UnmarshalJSON(data []byte) error {
+func (i *InputConfluentCloudInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputConfluentCloud) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputConfluentCloud) GetType() InputConfluentCloudType {
-	if i == nil {
-		return InputConfluentCloudType("")
-	}
-	return i.Type
-}
-
-func (i *InputConfluentCloud) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputConfluentCloud) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputConfluentCloud) GetSendToRoutes() *bool {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputConfluentCloud) GetEnvironment() *string {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type) GetType() InputConfluentCloudType {
+	if i == nil {
+		return InputConfluentCloudType("")
+	}
+	return i.Type
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputConfluentCloudInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputConfluentCloud) GetPqEnabled() *bool {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputConfluentCloud) GetStreamtags() []string {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputConfluentCloud) GetConnections() []ItemsTypeConnections {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputConfluentCloud) GetPq() *PqType {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputConfluentCloud) GetBrokers() []string {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputConfluentCloud) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputConfluentCloud) GetTopics() []string {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputConfluentCloud) GetGroupID() *string {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputConfluentCloud) GetFromBeginning() *bool {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputConfluentCloud) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputConfluentCloud) GetConnectionTimeout() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputConfluentCloud) GetRequestTimeout() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputConfluentCloud) GetMaxRetries() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputConfluentCloud) GetMaxBackOff() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputConfluentCloud) GetInitialBackoff() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputConfluentCloud) GetBackoffRate() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputConfluentCloud) GetAuthenticationTimeout() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputConfluentCloud) GetReauthenticationThreshold() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputConfluentCloud) GetSasl() *AuthenticationType {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputConfluentCloud) GetSessionTimeout() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputConfluentCloud) GetRebalanceTimeout() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputConfluentCloud) GetHeartbeatInterval() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputConfluentCloud) GetAutoCommitInterval() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputConfluentCloud) GetAutoCommitThreshold() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputConfluentCloud) GetMaxBytesPerPartition() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputConfluentCloud) GetMaxBytes() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputConfluentCloud) GetMaxSocketErrors() *float64 {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloud) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputConfluentCloud) GetDescription() *string {
+func (i *InputConfluentCloudInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputConfluentCloudUnionType string
+
+const (
+	InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type  InputConfluentCloudUnionType = "InputConfluentCloud_InputCollectionPart0Type"
+	InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type  InputConfluentCloudUnionType = "InputConfluentCloud_InputCollectionPart1Type"
+	InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type1 InputConfluentCloudUnionType = "InputConfluentCloud_InputCollectionPart0Type1"
+	InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type1 InputConfluentCloudUnionType = "InputConfluentCloud_InputCollectionPart1Type1"
+)
+
+type InputConfluentCloud struct {
+	InputConfluentCloudInputCollectionPart0Type  *InputConfluentCloudInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputConfluentCloudInputCollectionPart1Type  *InputConfluentCloudInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputConfluentCloudInputCollectionPart0Type1 *InputConfluentCloudInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputConfluentCloudInputCollectionPart1Type1 *InputConfluentCloudInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputConfluentCloudUnionType
+}
+
+func CreateInputConfluentCloudInputConfluentCloudInputCollectionPart0Type(inputConfluentCloudInputCollectionPart0Type InputConfluentCloudInputCollectionPart0Type) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type
+
+	return InputConfluentCloud{
+		InputConfluentCloudInputCollectionPart0Type: &inputConfluentCloudInputCollectionPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateInputConfluentCloudInputConfluentCloudInputCollectionPart1Type(inputConfluentCloudInputCollectionPart1Type InputConfluentCloudInputCollectionPart1Type) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type
+
+	return InputConfluentCloud{
+		InputConfluentCloudInputCollectionPart1Type: &inputConfluentCloudInputCollectionPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateInputConfluentCloudInputConfluentCloudInputCollectionPart0Type1(inputConfluentCloudInputCollectionPart0Type1 InputConfluentCloudInputCollectionPart0Type1) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type1
+
+	return InputConfluentCloud{
+		InputConfluentCloudInputCollectionPart0Type1: &inputConfluentCloudInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputConfluentCloudInputConfluentCloudInputCollectionPart1Type1(inputConfluentCloudInputCollectionPart1Type1 InputConfluentCloudInputCollectionPart1Type1) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type1
+
+	return InputConfluentCloud{
+		InputConfluentCloudInputCollectionPart1Type1: &inputConfluentCloudInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputConfluentCloud) UnmarshalJSON(data []byte) error {
+
+	var inputConfluentCloudInputCollectionPart0Type InputConfluentCloudInputCollectionPart0Type = InputConfluentCloudInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputConfluentCloudInputCollectionPart0Type = &inputConfluentCloudInputCollectionPart0Type
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type
+		return nil
+	}
+
+	var inputConfluentCloudInputCollectionPart1Type InputConfluentCloudInputCollectionPart1Type = InputConfluentCloudInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputConfluentCloudInputCollectionPart1Type = &inputConfluentCloudInputCollectionPart1Type
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type
+		return nil
+	}
+
+	var inputConfluentCloudInputCollectionPart0Type1 InputConfluentCloudInputCollectionPart0Type1 = InputConfluentCloudInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputConfluentCloudInputCollectionPart0Type1 = &inputConfluentCloudInputCollectionPart0Type1
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputConfluentCloudInputCollectionPart1Type1 InputConfluentCloudInputCollectionPart1Type1 = InputConfluentCloudInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputConfluentCloudInputCollectionPart1Type1 = &inputConfluentCloudInputCollectionPart1Type1
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputConfluentCloud", string(data))
+}
+
+func (u InputConfluentCloud) MarshalJSON() ([]byte, error) {
+	if u.InputConfluentCloudInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputConfluentCloudInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputConfluentCloudInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputConfluentCloudInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputConfluentCloud: all fields are null")
 }

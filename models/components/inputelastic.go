@@ -4,9 +4,997 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputElasticInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputElasticType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+	ElasticAPI *string                         `default:"/" json:"elasticAPI"`
+	AuthType   *InputElasticAuthenticationType `default:"none" json:"authType"`
+	// The API version to use for communicating with the server
+	APIVersion *InputElasticAPIVersion `default:"8.3.2" json:"apiVersion"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	ProxyMode   *InputElasticProxyMode          `json:"proxyMode,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	Username    *string                         `json:"username,omitempty"`
+	Password    *string                         `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Bearer tokens to include in the authorization header
+	AuthTokens []string `json:"authTokens,omitempty"`
+	// Custom version information to respond to requests
+	CustomAPIVersion *string `default:"{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}" json:"customAPIVersion"`
+}
+
+func (i InputElasticInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetType() InputElasticType {
+	if i == nil {
+		return InputElasticType("")
+	}
+	return i.Type
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetElasticAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ElasticAPI
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetAuthType() *InputElasticAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetAPIVersion() *InputElasticAPIVersion {
+	if i == nil {
+		return nil
+	}
+	return i.APIVersion
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.ExtraHTTPHeaders
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetProxyMode() *InputElasticProxyMode {
+	if i == nil {
+		return nil
+	}
+	return i.ProxyMode
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputElasticInputCollectionPart1Type1) GetCustomAPIVersion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CustomAPIVersion
+}
+
+type InputElasticInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputElasticType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+	ElasticAPI *string                         `default:"/" json:"elasticAPI"`
+	AuthType   *InputElasticAuthenticationType `default:"none" json:"authType"`
+	// The API version to use for communicating with the server
+	APIVersion *InputElasticAPIVersion `default:"8.3.2" json:"apiVersion"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	ProxyMode   *InputElasticProxyMode          `json:"proxyMode,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	Username    *string                         `json:"username,omitempty"`
+	Password    *string                         `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Bearer tokens to include in the authorization header
+	AuthTokens []string `json:"authTokens,omitempty"`
+	// Custom version information to respond to requests
+	CustomAPIVersion *string `default:"{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}" json:"customAPIVersion"`
+}
+
+func (i InputElasticInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetType() InputElasticType {
+	if i == nil {
+		return InputElasticType("")
+	}
+	return i.Type
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetElasticAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ElasticAPI
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetAuthType() *InputElasticAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetAPIVersion() *InputElasticAPIVersion {
+	if i == nil {
+		return nil
+	}
+	return i.APIVersion
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.ExtraHTTPHeaders
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetProxyMode() *InputElasticProxyMode {
+	if i == nil {
+		return nil
+	}
+	return i.ProxyMode
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputElasticInputCollectionPart0Type1) GetCustomAPIVersion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CustomAPIVersion
+}
+
+type InputElasticInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputElasticType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+	ElasticAPI *string                         `default:"/" json:"elasticAPI"`
+	AuthType   *InputElasticAuthenticationType `default:"none" json:"authType"`
+	// The API version to use for communicating with the server
+	APIVersion *InputElasticAPIVersion `default:"8.3.2" json:"apiVersion"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	ProxyMode   *InputElasticProxyMode          `json:"proxyMode,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	Username    *string                         `json:"username,omitempty"`
+	Password    *string                         `json:"password,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Bearer tokens to include in the authorization header
+	AuthTokens []string `json:"authTokens,omitempty"`
+	// Custom version information to respond to requests
+	CustomAPIVersion *string `default:"{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}" json:"customAPIVersion"`
+}
+
+func (i InputElasticInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputElasticInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetType() InputElasticType {
+	if i == nil {
+		return InputElasticType("")
+	}
+	return i.Type
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetElasticAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ElasticAPI
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetAuthType() *InputElasticAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetAPIVersion() *InputElasticAPIVersion {
+	if i == nil {
+		return nil
+	}
+	return i.APIVersion
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.ExtraHTTPHeaders
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetProxyMode() *InputElasticProxyMode {
+	if i == nil {
+		return nil
+	}
+	return i.ProxyMode
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputElasticInputCollectionPart1Type) GetCustomAPIVersion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CustomAPIVersion
+}
 
 type InputElasticType string
 
@@ -203,15 +1191,15 @@ func (i *InputElasticProxyMode) GetTimeoutSec() *float64 {
 	return i.TimeoutSec
 }
 
-type InputElastic struct {
+type InputElasticInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputElasticType `json:"type"`
 	Disabled *bool            `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -247,7 +1235,7 @@ type InputElastic struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
 	ElasticAPI *string                         `default:"/" json:"elasticAPI"`
 	AuthType   *InputElasticAuthenticationType `default:"none" json:"authType"`
@@ -269,265 +1257,372 @@ type InputElastic struct {
 	CustomAPIVersion *string `default:"{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}" json:"customAPIVersion"`
 }
 
-func (i InputElastic) MarshalJSON() ([]byte, error) {
+func (i InputElasticInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputElastic) UnmarshalJSON(data []byte) error {
+func (i *InputElasticInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputElastic) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputElastic) GetType() InputElasticType {
-	if i == nil {
-		return InputElasticType("")
-	}
-	return i.Type
-}
-
-func (i *InputElastic) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputElastic) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputElastic) GetSendToRoutes() *bool {
+func (i *InputElasticInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputElastic) GetEnvironment() *string {
+func (i *InputElasticInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputElasticInputCollectionPart0Type) GetType() InputElasticType {
+	if i == nil {
+		return InputElasticType("")
+	}
+	return i.Type
+}
+
+func (i *InputElasticInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputElasticInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputElasticInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputElastic) GetPqEnabled() *bool {
+func (i *InputElasticInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputElastic) GetStreamtags() []string {
+func (i *InputElasticInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputElastic) GetConnections() []ItemsTypeConnections {
+func (i *InputElasticInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputElastic) GetPq() *PqType {
+func (i *InputElasticInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputElastic) GetHost() *string {
+func (i *InputElasticInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputElastic) GetPort() float64 {
+func (i *InputElasticInputCollectionPart0Type) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputElastic) GetTLS() *TLSSettingsServerSideType {
+func (i *InputElasticInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputElastic) GetMaxActiveReq() *float64 {
+func (i *InputElasticInputCollectionPart0Type) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputElastic) GetMaxRequestsPerSocket() *int64 {
+func (i *InputElasticInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputElastic) GetEnableProxyHeader() *bool {
+func (i *InputElasticInputCollectionPart0Type) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputElastic) GetCaptureHeaders() *bool {
+func (i *InputElasticInputCollectionPart0Type) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputElastic) GetActivityLogSampleRate() *float64 {
+func (i *InputElasticInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputElastic) GetRequestTimeout() *float64 {
+func (i *InputElasticInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputElastic) GetSocketTimeout() *float64 {
+func (i *InputElasticInputCollectionPart0Type) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputElastic) GetKeepAliveTimeout() *float64 {
+func (i *InputElasticInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputElastic) GetEnableHealthCheck() *bool {
+func (i *InputElasticInputCollectionPart0Type) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputElastic) GetIPAllowlistRegex() *string {
+func (i *InputElasticInputCollectionPart0Type) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputElastic) GetIPDenylistRegex() *string {
+func (i *InputElasticInputCollectionPart0Type) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputElastic) GetElasticAPI() *string {
+func (i *InputElasticInputCollectionPart0Type) GetElasticAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ElasticAPI
 }
 
-func (i *InputElastic) GetAuthType() *InputElasticAuthenticationType {
+func (i *InputElasticInputCollectionPart0Type) GetAuthType() *InputElasticAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputElastic) GetAPIVersion() *InputElasticAPIVersion {
+func (i *InputElasticInputCollectionPart0Type) GetAPIVersion() *InputElasticAPIVersion {
 	if i == nil {
 		return nil
 	}
 	return i.APIVersion
 }
 
-func (i *InputElastic) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (i *InputElasticInputCollectionPart0Type) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElastic) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputElasticInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputElastic) GetProxyMode() *InputElasticProxyMode {
+func (i *InputElasticInputCollectionPart0Type) GetProxyMode() *InputElasticProxyMode {
 	if i == nil {
 		return nil
 	}
 	return i.ProxyMode
 }
 
-func (i *InputElastic) GetDescription() *string {
+func (i *InputElasticInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputElastic) GetUsername() *string {
+func (i *InputElasticInputCollectionPart0Type) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputElastic) GetPassword() *string {
+func (i *InputElasticInputCollectionPart0Type) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputElastic) GetCredentialsSecret() *string {
+func (i *InputElasticInputCollectionPart0Type) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputElastic) GetAuthTokens() []string {
+func (i *InputElasticInputCollectionPart0Type) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputElastic) GetCustomAPIVersion() *string {
+func (i *InputElasticInputCollectionPart0Type) GetCustomAPIVersion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CustomAPIVersion
+}
+
+type InputElasticUnionType string
+
+const (
+	InputElasticUnionTypeInputElasticInputCollectionPart0Type  InputElasticUnionType = "InputElastic_InputCollectionPart0Type"
+	InputElasticUnionTypeInputElasticInputCollectionPart1Type  InputElasticUnionType = "InputElastic_InputCollectionPart1Type"
+	InputElasticUnionTypeInputElasticInputCollectionPart0Type1 InputElasticUnionType = "InputElastic_InputCollectionPart0Type1"
+	InputElasticUnionTypeInputElasticInputCollectionPart1Type1 InputElasticUnionType = "InputElastic_InputCollectionPart1Type1"
+)
+
+type InputElastic struct {
+	InputElasticInputCollectionPart0Type  *InputElasticInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputElasticInputCollectionPart1Type  *InputElasticInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputElasticInputCollectionPart0Type1 *InputElasticInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputElasticInputCollectionPart1Type1 *InputElasticInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputElasticUnionType
+}
+
+func CreateInputElasticInputElasticInputCollectionPart0Type(inputElasticInputCollectionPart0Type InputElasticInputCollectionPart0Type) InputElastic {
+	typ := InputElasticUnionTypeInputElasticInputCollectionPart0Type
+
+	return InputElastic{
+		InputElasticInputCollectionPart0Type: &inputElasticInputCollectionPart0Type,
+		Type:                                 typ,
+	}
+}
+
+func CreateInputElasticInputElasticInputCollectionPart1Type(inputElasticInputCollectionPart1Type InputElasticInputCollectionPart1Type) InputElastic {
+	typ := InputElasticUnionTypeInputElasticInputCollectionPart1Type
+
+	return InputElastic{
+		InputElasticInputCollectionPart1Type: &inputElasticInputCollectionPart1Type,
+		Type:                                 typ,
+	}
+}
+
+func CreateInputElasticInputElasticInputCollectionPart0Type1(inputElasticInputCollectionPart0Type1 InputElasticInputCollectionPart0Type1) InputElastic {
+	typ := InputElasticUnionTypeInputElasticInputCollectionPart0Type1
+
+	return InputElastic{
+		InputElasticInputCollectionPart0Type1: &inputElasticInputCollectionPart0Type1,
+		Type:                                  typ,
+	}
+}
+
+func CreateInputElasticInputElasticInputCollectionPart1Type1(inputElasticInputCollectionPart1Type1 InputElasticInputCollectionPart1Type1) InputElastic {
+	typ := InputElasticUnionTypeInputElasticInputCollectionPart1Type1
+
+	return InputElastic{
+		InputElasticInputCollectionPart1Type1: &inputElasticInputCollectionPart1Type1,
+		Type:                                  typ,
+	}
+}
+
+func (u *InputElastic) UnmarshalJSON(data []byte) error {
+
+	var inputElasticInputCollectionPart0Type InputElasticInputCollectionPart0Type = InputElasticInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputElasticInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputElasticInputCollectionPart0Type = &inputElasticInputCollectionPart0Type
+		u.Type = InputElasticUnionTypeInputElasticInputCollectionPart0Type
+		return nil
+	}
+
+	var inputElasticInputCollectionPart1Type InputElasticInputCollectionPart1Type = InputElasticInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputElasticInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputElasticInputCollectionPart1Type = &inputElasticInputCollectionPart1Type
+		u.Type = InputElasticUnionTypeInputElasticInputCollectionPart1Type
+		return nil
+	}
+
+	var inputElasticInputCollectionPart0Type1 InputElasticInputCollectionPart0Type1 = InputElasticInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputElasticInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputElasticInputCollectionPart0Type1 = &inputElasticInputCollectionPart0Type1
+		u.Type = InputElasticUnionTypeInputElasticInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputElasticInputCollectionPart1Type1 InputElasticInputCollectionPart1Type1 = InputElasticInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputElasticInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputElasticInputCollectionPart1Type1 = &inputElasticInputCollectionPart1Type1
+		u.Type = InputElasticUnionTypeInputElasticInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputElastic", string(data))
+}
+
+func (u InputElastic) MarshalJSON() ([]byte, error) {
+	if u.InputElasticInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputElasticInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputElasticInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputElasticInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputElasticInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputElasticInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputElasticInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputElasticInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputElastic: all fields are null")
 }

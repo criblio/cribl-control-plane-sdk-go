@@ -43,9 +43,9 @@ const (
 
 // Value to compare against (string, number, boolean)
 type Value struct {
-	Str     *string  `queryParam:"inline,name=Value" union:"member"`
-	Number  *float64 `queryParam:"inline,name=Value" union:"member"`
-	Boolean *bool    `queryParam:"inline,name=Value" union:"member"`
+	Str     *string  `queryParam:"inline" union:"member"`
+	Number  *float64 `queryParam:"inline" union:"member"`
+	Boolean *bool    `queryParam:"inline" union:"member"`
 
 	Type ValueType
 }

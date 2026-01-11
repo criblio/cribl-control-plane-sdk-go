@@ -4,9 +4,901 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputWizWebhookInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputWizWebhookType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List of URI paths accepted by this input. Wildcards are supported (such as /api/v*/hook). Defaults to allow all.
+	AllowedPaths []string `json:"allowedPaths,omitempty"`
+	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+	AllowedMethods []string `json:"allowedMethods,omitempty"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
+	Description   *string                  `json:"description,omitempty"`
+}
+
+func (i InputWizWebhookInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetType() InputWizWebhookType {
+	if i == nil {
+		return InputWizWebhookType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetAllowedPaths() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedPaths
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetAllowedMethods() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedMethods
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputWizWebhookInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputWizWebhookType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List of URI paths accepted by this input. Wildcards are supported (such as /api/v*/hook). Defaults to allow all.
+	AllowedPaths []string `json:"allowedPaths,omitempty"`
+	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+	AllowedMethods []string `json:"allowedMethods,omitempty"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
+	Description   *string                  `json:"description,omitempty"`
+}
+
+func (i InputWizWebhookInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetType() InputWizWebhookType {
+	if i == nil {
+		return InputWizWebhookType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetAllowedPaths() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedPaths
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetAllowedMethods() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedMethods
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputWizWebhookInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputWizWebhookType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List of URI paths accepted by this input. Wildcards are supported (such as /api/v*/hook). Defaults to allow all.
+	AllowedPaths []string `json:"allowedPaths,omitempty"`
+	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+	AllowedMethods []string `json:"allowedMethods,omitempty"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
+	Description   *string                  `json:"description,omitempty"`
+}
+
+func (i InputWizWebhookInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetType() InputWizWebhookType {
+	if i == nil {
+		return InputWizWebhookType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetAllowedPaths() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedPaths
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetAllowedMethods() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedMethods
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputWizWebhookInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputWizWebhookType string
 
@@ -31,15 +923,15 @@ func (e *InputWizWebhookType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputWizWebhook struct {
+type InputWizWebhookInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputWizWebhookType `json:"type"`
 	Disabled *bool               `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -77,7 +969,7 @@ type InputWizWebhook struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -93,237 +985,344 @@ type InputWizWebhook struct {
 	Description   *string                  `json:"description,omitempty"`
 }
 
-func (i InputWizWebhook) MarshalJSON() ([]byte, error) {
+func (i InputWizWebhookInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWizWebhook) UnmarshalJSON(data []byte) error {
+func (i *InputWizWebhookInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizWebhook) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWizWebhook) GetType() InputWizWebhookType {
-	if i == nil {
-		return InputWizWebhookType("")
-	}
-	return i.Type
-}
-
-func (i *InputWizWebhook) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWizWebhook) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWizWebhook) GetSendToRoutes() *bool {
+func (i *InputWizWebhookInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWizWebhook) GetEnvironment() *string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type) GetType() InputWizWebhookType {
+	if i == nil {
+		return InputWizWebhookType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizWebhookInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWizWebhook) GetPqEnabled() *bool {
+func (i *InputWizWebhookInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWizWebhook) GetStreamtags() []string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWizWebhook) GetConnections() []ItemsTypeConnections {
+func (i *InputWizWebhookInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWizWebhook) GetPq() *PqType {
+func (i *InputWizWebhookInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWizWebhook) GetHost() *string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWizWebhook) GetPort() float64 {
+func (i *InputWizWebhookInputCollectionPart0Type) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputWizWebhook) GetAuthTokens() []string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputWizWebhook) GetTLS() *TLSSettingsServerSideType {
+func (i *InputWizWebhookInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputWizWebhook) GetMaxActiveReq() *float64 {
+func (i *InputWizWebhookInputCollectionPart0Type) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputWizWebhook) GetMaxRequestsPerSocket() *int64 {
+func (i *InputWizWebhookInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputWizWebhook) GetEnableProxyHeader() *bool {
+func (i *InputWizWebhookInputCollectionPart0Type) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputWizWebhook) GetCaptureHeaders() *bool {
+func (i *InputWizWebhookInputCollectionPart0Type) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputWizWebhook) GetActivityLogSampleRate() *float64 {
+func (i *InputWizWebhookInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputWizWebhook) GetRequestTimeout() *float64 {
+func (i *InputWizWebhookInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputWizWebhook) GetSocketTimeout() *float64 {
+func (i *InputWizWebhookInputCollectionPart0Type) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputWizWebhook) GetKeepAliveTimeout() *float64 {
+func (i *InputWizWebhookInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputWizWebhook) GetEnableHealthCheck() *bool {
+func (i *InputWizWebhookInputCollectionPart0Type) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputWizWebhook) GetIPAllowlistRegex() *string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputWizWebhook) GetIPDenylistRegex() *string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputWizWebhook) GetBreakerRulesets() []string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputWizWebhook) GetStaleChannelFlushMs() *float64 {
+func (i *InputWizWebhookInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputWizWebhook) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWizWebhookInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWizWebhook) GetAllowedPaths() []string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetAllowedPaths() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedPaths
 }
 
-func (i *InputWizWebhook) GetAllowedMethods() []string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetAllowedMethods() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedMethods
 }
 
-func (i *InputWizWebhook) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+func (i *InputWizWebhookInputCollectionPart0Type) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokensExt
 }
 
-func (i *InputWizWebhook) GetDescription() *string {
+func (i *InputWizWebhookInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputWizWebhookUnionType string
+
+const (
+	InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart0Type  InputWizWebhookUnionType = "InputWizWebhook_InputCollectionPart0Type"
+	InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart1Type  InputWizWebhookUnionType = "InputWizWebhook_InputCollectionPart1Type"
+	InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart0Type1 InputWizWebhookUnionType = "InputWizWebhook_InputCollectionPart0Type1"
+	InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart1Type1 InputWizWebhookUnionType = "InputWizWebhook_InputCollectionPart1Type1"
+)
+
+type InputWizWebhook struct {
+	InputWizWebhookInputCollectionPart0Type  *InputWizWebhookInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputWizWebhookInputCollectionPart1Type  *InputWizWebhookInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputWizWebhookInputCollectionPart0Type1 *InputWizWebhookInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputWizWebhookInputCollectionPart1Type1 *InputWizWebhookInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputWizWebhookUnionType
+}
+
+func CreateInputWizWebhookInputWizWebhookInputCollectionPart0Type(inputWizWebhookInputCollectionPart0Type InputWizWebhookInputCollectionPart0Type) InputWizWebhook {
+	typ := InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart0Type
+
+	return InputWizWebhook{
+		InputWizWebhookInputCollectionPart0Type: &inputWizWebhookInputCollectionPart0Type,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputWizWebhookInputWizWebhookInputCollectionPart1Type(inputWizWebhookInputCollectionPart1Type InputWizWebhookInputCollectionPart1Type) InputWizWebhook {
+	typ := InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart1Type
+
+	return InputWizWebhook{
+		InputWizWebhookInputCollectionPart1Type: &inputWizWebhookInputCollectionPart1Type,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputWizWebhookInputWizWebhookInputCollectionPart0Type1(inputWizWebhookInputCollectionPart0Type1 InputWizWebhookInputCollectionPart0Type1) InputWizWebhook {
+	typ := InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart0Type1
+
+	return InputWizWebhook{
+		InputWizWebhookInputCollectionPart0Type1: &inputWizWebhookInputCollectionPart0Type1,
+		Type:                                     typ,
+	}
+}
+
+func CreateInputWizWebhookInputWizWebhookInputCollectionPart1Type1(inputWizWebhookInputCollectionPart1Type1 InputWizWebhookInputCollectionPart1Type1) InputWizWebhook {
+	typ := InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart1Type1
+
+	return InputWizWebhook{
+		InputWizWebhookInputCollectionPart1Type1: &inputWizWebhookInputCollectionPart1Type1,
+		Type:                                     typ,
+	}
+}
+
+func (u *InputWizWebhook) UnmarshalJSON(data []byte) error {
+
+	var inputWizWebhookInputCollectionPart0Type InputWizWebhookInputCollectionPart0Type = InputWizWebhookInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputWizWebhookInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputWizWebhookInputCollectionPart0Type = &inputWizWebhookInputCollectionPart0Type
+		u.Type = InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart0Type
+		return nil
+	}
+
+	var inputWizWebhookInputCollectionPart1Type InputWizWebhookInputCollectionPart1Type = InputWizWebhookInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputWizWebhookInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputWizWebhookInputCollectionPart1Type = &inputWizWebhookInputCollectionPart1Type
+		u.Type = InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart1Type
+		return nil
+	}
+
+	var inputWizWebhookInputCollectionPart0Type1 InputWizWebhookInputCollectionPart0Type1 = InputWizWebhookInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputWizWebhookInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputWizWebhookInputCollectionPart0Type1 = &inputWizWebhookInputCollectionPart0Type1
+		u.Type = InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputWizWebhookInputCollectionPart1Type1 InputWizWebhookInputCollectionPart1Type1 = InputWizWebhookInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputWizWebhookInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputWizWebhookInputCollectionPart1Type1 = &inputWizWebhookInputCollectionPart1Type1
+		u.Type = InputWizWebhookUnionTypeInputWizWebhookInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWizWebhook", string(data))
+}
+
+func (u InputWizWebhook) MarshalJSON() ([]byte, error) {
+	if u.InputWizWebhookInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputWizWebhookInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputWizWebhookInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputWizWebhookInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputWizWebhookInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputWizWebhookInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputWizWebhookInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputWizWebhookInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputWizWebhook: all fields are null")
 }

@@ -4,9 +4,391 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputKubeEventsInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputKubeEventsType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Filtering on event fields
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeEventsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetType() InputKubeEventsType {
+	if i == nil {
+		return InputKubeEventsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeEventsInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputKubeEventsType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Filtering on event fields
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeEventsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetType() InputKubeEventsType {
+	if i == nil {
+		return InputKubeEventsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeEventsInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputKubeEventsType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Filtering on event fields
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeEventsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetType() InputKubeEventsType {
+	if i == nil {
+		return InputKubeEventsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeEventsInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputKubeEventsType string
 
@@ -31,15 +413,15 @@ func (e *InputKubeEventsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputKubeEvents struct {
+type InputKubeEventsInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputKubeEventsType `json:"type"`
 	Disabled *bool               `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -56,104 +438,211 @@ type InputKubeEvents struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKubeEvents) MarshalJSON() ([]byte, error) {
+func (i InputKubeEventsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeEvents) UnmarshalJSON(data []byte) error {
+func (i *InputKubeEventsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeEvents) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeEvents) GetType() InputKubeEventsType {
-	if i == nil {
-		return InputKubeEventsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeEvents) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeEvents) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeEvents) GetSendToRoutes() *bool {
+func (i *InputKubeEventsInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeEvents) GetEnvironment() *string {
+func (i *InputKubeEventsInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type) GetType() InputKubeEventsType {
+	if i == nil {
+		return InputKubeEventsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeEventsInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeEvents) GetPqEnabled() *bool {
+func (i *InputKubeEventsInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeEvents) GetStreamtags() []string {
+func (i *InputKubeEventsInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeEvents) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeEventsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeEvents) GetPq() *PqType {
+func (i *InputKubeEventsInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeEvents) GetRules() []ItemsTypeRules {
+func (i *InputKubeEventsInputCollectionPart0Type) GetRules() []ItemsTypeRules {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeEvents) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeEventsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeEvents) GetDescription() *string {
+func (i *InputKubeEventsInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputKubeEventsUnionType string
+
+const (
+	InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart0Type  InputKubeEventsUnionType = "InputKubeEvents_InputCollectionPart0Type"
+	InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart1Type  InputKubeEventsUnionType = "InputKubeEvents_InputCollectionPart1Type"
+	InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart0Type1 InputKubeEventsUnionType = "InputKubeEvents_InputCollectionPart0Type1"
+	InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart1Type1 InputKubeEventsUnionType = "InputKubeEvents_InputCollectionPart1Type1"
+)
+
+type InputKubeEvents struct {
+	InputKubeEventsInputCollectionPart0Type  *InputKubeEventsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputKubeEventsInputCollectionPart1Type  *InputKubeEventsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputKubeEventsInputCollectionPart0Type1 *InputKubeEventsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputKubeEventsInputCollectionPart1Type1 *InputKubeEventsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputKubeEventsUnionType
+}
+
+func CreateInputKubeEventsInputKubeEventsInputCollectionPart0Type(inputKubeEventsInputCollectionPart0Type InputKubeEventsInputCollectionPart0Type) InputKubeEvents {
+	typ := InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart0Type
+
+	return InputKubeEvents{
+		InputKubeEventsInputCollectionPart0Type: &inputKubeEventsInputCollectionPart0Type,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputKubeEventsInputKubeEventsInputCollectionPart1Type(inputKubeEventsInputCollectionPart1Type InputKubeEventsInputCollectionPart1Type) InputKubeEvents {
+	typ := InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart1Type
+
+	return InputKubeEvents{
+		InputKubeEventsInputCollectionPart1Type: &inputKubeEventsInputCollectionPart1Type,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputKubeEventsInputKubeEventsInputCollectionPart0Type1(inputKubeEventsInputCollectionPart0Type1 InputKubeEventsInputCollectionPart0Type1) InputKubeEvents {
+	typ := InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart0Type1
+
+	return InputKubeEvents{
+		InputKubeEventsInputCollectionPart0Type1: &inputKubeEventsInputCollectionPart0Type1,
+		Type:                                     typ,
+	}
+}
+
+func CreateInputKubeEventsInputKubeEventsInputCollectionPart1Type1(inputKubeEventsInputCollectionPart1Type1 InputKubeEventsInputCollectionPart1Type1) InputKubeEvents {
+	typ := InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart1Type1
+
+	return InputKubeEvents{
+		InputKubeEventsInputCollectionPart1Type1: &inputKubeEventsInputCollectionPart1Type1,
+		Type:                                     typ,
+	}
+}
+
+func (u *InputKubeEvents) UnmarshalJSON(data []byte) error {
+
+	var inputKubeEventsInputCollectionPart0Type InputKubeEventsInputCollectionPart0Type = InputKubeEventsInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputKubeEventsInputCollectionPart0Type = &inputKubeEventsInputCollectionPart0Type
+		u.Type = InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart0Type
+		return nil
+	}
+
+	var inputKubeEventsInputCollectionPart1Type InputKubeEventsInputCollectionPart1Type = InputKubeEventsInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputKubeEventsInputCollectionPart1Type = &inputKubeEventsInputCollectionPart1Type
+		u.Type = InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart1Type
+		return nil
+	}
+
+	var inputKubeEventsInputCollectionPart0Type1 InputKubeEventsInputCollectionPart0Type1 = InputKubeEventsInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputKubeEventsInputCollectionPart0Type1 = &inputKubeEventsInputCollectionPart0Type1
+		u.Type = InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputKubeEventsInputCollectionPart1Type1 InputKubeEventsInputCollectionPart1Type1 = InputKubeEventsInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputKubeEventsInputCollectionPart1Type1 = &inputKubeEventsInputCollectionPart1Type1
+		u.Type = InputKubeEventsUnionTypeInputKubeEventsInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputKubeEvents", string(data))
+}
+
+func (u InputKubeEvents) MarshalJSON() ([]byte, error) {
+	if u.InputKubeEventsInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputKubeEventsInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputKubeEventsInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputKubeEventsInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputKubeEventsInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputKubeEventsInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputKubeEventsInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputKubeEventsInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputKubeEvents: all fields are null")
 }

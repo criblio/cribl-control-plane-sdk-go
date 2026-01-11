@@ -38,8 +38,8 @@ const (
 )
 
 type OsUnion struct {
-	HostOsTypeHeartbeatMetadata *HostOsTypeHeartbeatMetadata `queryParam:"inline,name=os" union:"member"`
-	Os                          *Os                          `queryParam:"inline,name=os" union:"member"`
+	HostOsTypeHeartbeatMetadata *HostOsTypeHeartbeatMetadata `queryParam:"inline" union:"member"`
+	Os                          *Os                          `queryParam:"inline" union:"member"`
 
 	Type OsUnionType
 }

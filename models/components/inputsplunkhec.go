@@ -4,9 +4,1060 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputSplunkHecInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputSplunkHecType `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
+	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
+	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// Enable Splunk HEC acknowledgements
+	SplunkHecAcks *bool `default:"false" json:"splunkHecAcks"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+	UseFwdTimezone *bool `default:"true" json:"useFwdTimezone"`
+	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+	DropControlFields *bool `default:"true" json:"dropControlFields"`
+	// Extract and process Splunk-generated metrics as Cribl metrics
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputSplunkHecInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetType() InputSplunkHecType {
+	if i == nil {
+		return InputSplunkHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetAuthTokens() []InputSplunkHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetSplunkHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAPI
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetSplunkHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAcks
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetUseFwdTimezone() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseFwdTimezone
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetDropControlFields() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DropControlFields
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSplunkHecInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputSplunkHecType `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
+	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
+	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// Enable Splunk HEC acknowledgements
+	SplunkHecAcks *bool `default:"false" json:"splunkHecAcks"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+	UseFwdTimezone *bool `default:"true" json:"useFwdTimezone"`
+	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+	DropControlFields *bool `default:"true" json:"dropControlFields"`
+	// Extract and process Splunk-generated metrics as Cribl metrics
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputSplunkHecInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetType() InputSplunkHecType {
+	if i == nil {
+		return InputSplunkHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetAuthTokens() []InputSplunkHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetSplunkHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAPI
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetSplunkHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAcks
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetUseFwdTimezone() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseFwdTimezone
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetDropControlFields() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DropControlFields
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSplunkHecInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputSplunkHecType `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
+	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
+	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// Enable Splunk HEC acknowledgements
+	SplunkHecAcks *bool `default:"false" json:"splunkHecAcks"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+	UseFwdTimezone *bool `default:"true" json:"useFwdTimezone"`
+	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+	DropControlFields *bool `default:"true" json:"dropControlFields"`
+	// Extract and process Splunk-generated metrics as Cribl metrics
+	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputSplunkHecInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetType() InputSplunkHecType {
+	if i == nil {
+		return InputSplunkHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetAuthTokens() []InputSplunkHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetSplunkHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAPI
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetSplunkHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAcks
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetUseFwdTimezone() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseFwdTimezone
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetDropControlFields() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DropControlFields
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputSplunkHecInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputSplunkHecType string
 
@@ -107,15 +1158,15 @@ func (i *InputSplunkHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata 
 	return i.Metadata
 }
 
-type InputSplunkHec struct {
+type InputSplunkHecInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputSplunkHecType `json:"type"`
 	Disabled *bool              `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -152,7 +1203,7 @@ type InputSplunkHec struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
@@ -180,279 +1231,386 @@ type InputSplunkHec struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputSplunkHec) MarshalJSON() ([]byte, error) {
+func (i InputSplunkHecInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkHec) UnmarshalJSON(data []byte) error {
+func (i *InputSplunkHecInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkHec) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSplunkHec) GetType() InputSplunkHecType {
-	if i == nil {
-		return InputSplunkHecType("")
-	}
-	return i.Type
-}
-
-func (i *InputSplunkHec) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSplunkHec) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkHec) GetSendToRoutes() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSplunkHec) GetEnvironment() *string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type) GetType() InputSplunkHecType {
+	if i == nil {
+		return InputSplunkHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkHecInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSplunkHec) GetPqEnabled() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSplunkHec) GetStreamtags() []string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSplunkHec) GetConnections() []ItemsTypeConnections {
+func (i *InputSplunkHecInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSplunkHec) GetPq() *PqType {
+func (i *InputSplunkHecInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSplunkHec) GetHost() *string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputSplunkHec) GetPort() float64 {
+func (i *InputSplunkHecInputCollectionPart0Type) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputSplunkHec) GetAuthTokens() []InputSplunkHecAuthToken {
+func (i *InputSplunkHecInputCollectionPart0Type) GetAuthTokens() []InputSplunkHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputSplunkHec) GetTLS() *TLSSettingsServerSideType {
+func (i *InputSplunkHecInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputSplunkHec) GetMaxActiveReq() *float64 {
+func (i *InputSplunkHecInputCollectionPart0Type) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputSplunkHec) GetMaxRequestsPerSocket() *int64 {
+func (i *InputSplunkHecInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputSplunkHec) GetEnableProxyHeader() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputSplunkHec) GetCaptureHeaders() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputSplunkHec) GetActivityLogSampleRate() *float64 {
+func (i *InputSplunkHecInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputSplunkHec) GetRequestTimeout() *float64 {
+func (i *InputSplunkHecInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputSplunkHec) GetSocketTimeout() *float64 {
+func (i *InputSplunkHecInputCollectionPart0Type) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputSplunkHec) GetKeepAliveTimeout() *float64 {
+func (i *InputSplunkHecInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputSplunkHec) GetEnableHealthCheck() any {
+func (i *InputSplunkHecInputCollectionPart0Type) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputSplunkHec) GetIPAllowlistRegex() *string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputSplunkHec) GetIPDenylistRegex() *string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputSplunkHec) GetSplunkHecAPI() *string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetSplunkHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAPI
 }
 
-func (i *InputSplunkHec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkHecInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkHec) GetAllowedIndexes() []string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputSplunkHec) GetSplunkHecAcks() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetSplunkHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAcks
 }
 
-func (i *InputSplunkHec) GetBreakerRulesets() []string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSplunkHec) GetStaleChannelFlushMs() *float64 {
+func (i *InputSplunkHecInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSplunkHec) GetUseFwdTimezone() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetUseFwdTimezone() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UseFwdTimezone
 }
 
-func (i *InputSplunkHec) GetDropControlFields() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetDropControlFields() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DropControlFields
 }
 
-func (i *InputSplunkHec) GetExtractMetrics() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputSplunkHec) GetAccessControlAllowOrigin() []string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputSplunkHec) GetAccessControlAllowHeaders() []string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputSplunkHec) GetEmitTokenMetrics() *bool {
+func (i *InputSplunkHecInputCollectionPart0Type) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputSplunkHec) GetDescription() *string {
+func (i *InputSplunkHecInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputSplunkHecUnionType string
+
+const (
+	InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart0Type  InputSplunkHecUnionType = "InputSplunkHec_InputCollectionPart0Type"
+	InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart1Type  InputSplunkHecUnionType = "InputSplunkHec_InputCollectionPart1Type"
+	InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart0Type1 InputSplunkHecUnionType = "InputSplunkHec_InputCollectionPart0Type1"
+	InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart1Type1 InputSplunkHecUnionType = "InputSplunkHec_InputCollectionPart1Type1"
+)
+
+type InputSplunkHec struct {
+	InputSplunkHecInputCollectionPart0Type  *InputSplunkHecInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputSplunkHecInputCollectionPart1Type  *InputSplunkHecInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputSplunkHecInputCollectionPart0Type1 *InputSplunkHecInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputSplunkHecInputCollectionPart1Type1 *InputSplunkHecInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputSplunkHecUnionType
+}
+
+func CreateInputSplunkHecInputSplunkHecInputCollectionPart0Type(inputSplunkHecInputCollectionPart0Type InputSplunkHecInputCollectionPart0Type) InputSplunkHec {
+	typ := InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart0Type
+
+	return InputSplunkHec{
+		InputSplunkHecInputCollectionPart0Type: &inputSplunkHecInputCollectionPart0Type,
+		Type:                                   typ,
+	}
+}
+
+func CreateInputSplunkHecInputSplunkHecInputCollectionPart1Type(inputSplunkHecInputCollectionPart1Type InputSplunkHecInputCollectionPart1Type) InputSplunkHec {
+	typ := InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart1Type
+
+	return InputSplunkHec{
+		InputSplunkHecInputCollectionPart1Type: &inputSplunkHecInputCollectionPart1Type,
+		Type:                                   typ,
+	}
+}
+
+func CreateInputSplunkHecInputSplunkHecInputCollectionPart0Type1(inputSplunkHecInputCollectionPart0Type1 InputSplunkHecInputCollectionPart0Type1) InputSplunkHec {
+	typ := InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart0Type1
+
+	return InputSplunkHec{
+		InputSplunkHecInputCollectionPart0Type1: &inputSplunkHecInputCollectionPart0Type1,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputSplunkHecInputSplunkHecInputCollectionPart1Type1(inputSplunkHecInputCollectionPart1Type1 InputSplunkHecInputCollectionPart1Type1) InputSplunkHec {
+	typ := InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart1Type1
+
+	return InputSplunkHec{
+		InputSplunkHecInputCollectionPart1Type1: &inputSplunkHecInputCollectionPart1Type1,
+		Type:                                    typ,
+	}
+}
+
+func (u *InputSplunkHec) UnmarshalJSON(data []byte) error {
+
+	var inputSplunkHecInputCollectionPart0Type InputSplunkHecInputCollectionPart0Type = InputSplunkHecInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkHecInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputSplunkHecInputCollectionPart0Type = &inputSplunkHecInputCollectionPart0Type
+		u.Type = InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart0Type
+		return nil
+	}
+
+	var inputSplunkHecInputCollectionPart1Type InputSplunkHecInputCollectionPart1Type = InputSplunkHecInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkHecInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputSplunkHecInputCollectionPart1Type = &inputSplunkHecInputCollectionPart1Type
+		u.Type = InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart1Type
+		return nil
+	}
+
+	var inputSplunkHecInputCollectionPart0Type1 InputSplunkHecInputCollectionPart0Type1 = InputSplunkHecInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkHecInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputSplunkHecInputCollectionPart0Type1 = &inputSplunkHecInputCollectionPart0Type1
+		u.Type = InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputSplunkHecInputCollectionPart1Type1 InputSplunkHecInputCollectionPart1Type1 = InputSplunkHecInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkHecInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputSplunkHecInputCollectionPart1Type1 = &inputSplunkHecInputCollectionPart1Type1
+		u.Type = InputSplunkHecUnionTypeInputSplunkHecInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSplunkHec", string(data))
+}
+
+func (u InputSplunkHec) MarshalJSON() ([]byte, error) {
+	if u.InputSplunkHecInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputSplunkHecInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputSplunkHecInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputSplunkHecInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputSplunkHecInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputSplunkHecInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputSplunkHecInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputSplunkHecInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSplunkHec: all fields are null")
 }

@@ -4,9 +4,1003 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputKafkaInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string        `json:"id,omitempty"`
+	Type     InputKafkaType `json:"type"`
+	Disabled *bool          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning       *bool                                  `default:"true" json:"fromBeginning"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *AuthenticationType                           `json:"sasl,omitempty"`
+	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKafkaInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetType() InputKafkaType {
+	if i == nil {
+		return InputKafkaType("")
+	}
+	return i.Type
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetSasl() *AuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKafkaInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKafkaInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string        `json:"id,omitempty"`
+	Type     InputKafkaType `json:"type"`
+	Disabled *bool          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning       *bool                                  `default:"true" json:"fromBeginning"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *AuthenticationType                           `json:"sasl,omitempty"`
+	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKafkaInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetType() InputKafkaType {
+	if i == nil {
+		return InputKafkaType("")
+	}
+	return i.Type
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetSasl() *AuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKafkaInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKafkaInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string        `json:"id,omitempty"`
+	Type     InputKafkaType `json:"type"`
+	Disabled *bool          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+	Brokers []string `json:"brokers"`
+	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+	Topics []string `json:"topics"`
+	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
+	GroupID *string `default:"Cribl" json:"groupId"`
+	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+	FromBeginning       *bool                                  `default:"true" json:"fromBeginning"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitempty"`
+	// Maximum time to wait for a connection to complete successfully
+	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	// Maximum time to wait for Kafka to respond to a request
+	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	// Maximum time to wait for Kafka to respond to an authentication request
+	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+	Sasl *AuthenticationType                           `json:"sasl,omitempty"`
+	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
+	//       Timeout used to detect client failures when using Kafka's group-management facilities.
+	//       If the client sends no heartbeats to the broker before the timeout expires,
+	//       the broker will remove the client from the group and initiate a rebalance.
+	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+	SessionTimeout *float64 `default:"30000" json:"sessionTimeout"`
+	//       Maximum allowed time for each worker to join the group after a rebalance begins.
+	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	RebalanceTimeout *float64 `default:"60000" json:"rebalanceTimeout"`
+	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	HeartbeatInterval *float64 `default:"3000" json:"heartbeatInterval"`
+	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitInterval *float64 `json:"autoCommitInterval,omitempty"`
+	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+	AutoCommitThreshold *float64 `json:"autoCommitThreshold,omitempty"`
+	// Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+	MaxBytesPerPartition *float64 `default:"1048576" json:"maxBytesPerPartition"`
+	// Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+	MaxBytes *float64 `default:"10485760" json:"maxBytes"`
+	// Maximum number of network errors before the consumer re-creates a socket
+	MaxSocketErrors *float64 `default:"0" json:"maxSocketErrors"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKafkaInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKafkaInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetType() InputKafkaType {
+	if i == nil {
+		return InputKafkaType("")
+	}
+	return i.Type
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetBrokers() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Brokers
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetTopics() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Topics
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.KafkaSchemaRegistry
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetConnectionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetMaxRetries() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetMaxBackOff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackOff
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetInitialBackoff() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetBackoffRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BackoffRate
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetAuthenticationTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthenticationTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetReauthenticationThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ReauthenticationThreshold
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetSasl() *AuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.Sasl
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetSessionTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SessionTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetRebalanceTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RebalanceTimeout
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetHeartbeatInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HeartbeatInterval
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetAutoCommitInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitInterval
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetAutoCommitThreshold() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.AutoCommitThreshold
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetMaxBytesPerPartition() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytesPerPartition
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetMaxBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBytes
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetMaxSocketErrors() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxSocketErrors
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKafkaInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputKafkaType string
 
@@ -31,15 +1025,15 @@ func (e *InputKafkaType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputKafka struct {
+type InputKafkaInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string        `json:"id,omitempty"`
 	Type     InputKafkaType `json:"type"`
 	Disabled *bool          `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -106,258 +1100,365 @@ type InputKafka struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKafka) MarshalJSON() ([]byte, error) {
+func (i InputKafkaInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKafka) UnmarshalJSON(data []byte) error {
+func (i *InputKafkaInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKafka) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKafka) GetType() InputKafkaType {
-	if i == nil {
-		return InputKafkaType("")
-	}
-	return i.Type
-}
-
-func (i *InputKafka) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKafka) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKafka) GetSendToRoutes() *bool {
+func (i *InputKafkaInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKafka) GetEnvironment() *string {
+func (i *InputKafkaInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKafkaInputCollectionPart0Type) GetType() InputKafkaType {
+	if i == nil {
+		return InputKafkaType("")
+	}
+	return i.Type
+}
+
+func (i *InputKafkaInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKafkaInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKafkaInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKafka) GetPqEnabled() *bool {
+func (i *InputKafkaInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKafka) GetStreamtags() []string {
+func (i *InputKafkaInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKafka) GetConnections() []ItemsTypeConnections {
+func (i *InputKafkaInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKafka) GetPq() *PqType {
+func (i *InputKafkaInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKafka) GetBrokers() []string {
+func (i *InputKafkaInputCollectionPart0Type) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputKafka) GetTopics() []string {
+func (i *InputKafkaInputCollectionPart0Type) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputKafka) GetGroupID() *string {
+func (i *InputKafkaInputCollectionPart0Type) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputKafka) GetFromBeginning() *bool {
+func (i *InputKafkaInputCollectionPart0Type) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputKafka) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputKafkaInputCollectionPart0Type) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputKafka) GetConnectionTimeout() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputKafka) GetRequestTimeout() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputKafka) GetMaxRetries() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputKafka) GetMaxBackOff() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputKafka) GetInitialBackoff() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputKafka) GetBackoffRate() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputKafka) GetAuthenticationTimeout() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputKafka) GetReauthenticationThreshold() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputKafka) GetSasl() *AuthenticationType {
+func (i *InputKafkaInputCollectionPart0Type) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputKafka) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (i *InputKafkaInputCollectionPart0Type) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputKafka) GetSessionTimeout() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputKafka) GetRebalanceTimeout() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputKafka) GetHeartbeatInterval() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputKafka) GetAutoCommitInterval() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputKafka) GetAutoCommitThreshold() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputKafka) GetMaxBytesPerPartition() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputKafka) GetMaxBytes() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputKafka) GetMaxSocketErrors() *float64 {
+func (i *InputKafkaInputCollectionPart0Type) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputKafka) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKafkaInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKafka) GetDescription() *string {
+func (i *InputKafkaInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputKafkaUnionType string
+
+const (
+	InputKafkaUnionTypeInputKafkaInputCollectionPart0Type  InputKafkaUnionType = "InputKafka_InputCollectionPart0Type"
+	InputKafkaUnionTypeInputKafkaInputCollectionPart1Type  InputKafkaUnionType = "InputKafka_InputCollectionPart1Type"
+	InputKafkaUnionTypeInputKafkaInputCollectionPart0Type1 InputKafkaUnionType = "InputKafka_InputCollectionPart0Type1"
+	InputKafkaUnionTypeInputKafkaInputCollectionPart1Type1 InputKafkaUnionType = "InputKafka_InputCollectionPart1Type1"
+)
+
+type InputKafka struct {
+	InputKafkaInputCollectionPart0Type  *InputKafkaInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputKafkaInputCollectionPart1Type  *InputKafkaInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputKafkaInputCollectionPart0Type1 *InputKafkaInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputKafkaInputCollectionPart1Type1 *InputKafkaInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputKafkaUnionType
+}
+
+func CreateInputKafkaInputKafkaInputCollectionPart0Type(inputKafkaInputCollectionPart0Type InputKafkaInputCollectionPart0Type) InputKafka {
+	typ := InputKafkaUnionTypeInputKafkaInputCollectionPart0Type
+
+	return InputKafka{
+		InputKafkaInputCollectionPart0Type: &inputKafkaInputCollectionPart0Type,
+		Type:                               typ,
+	}
+}
+
+func CreateInputKafkaInputKafkaInputCollectionPart1Type(inputKafkaInputCollectionPart1Type InputKafkaInputCollectionPart1Type) InputKafka {
+	typ := InputKafkaUnionTypeInputKafkaInputCollectionPart1Type
+
+	return InputKafka{
+		InputKafkaInputCollectionPart1Type: &inputKafkaInputCollectionPart1Type,
+		Type:                               typ,
+	}
+}
+
+func CreateInputKafkaInputKafkaInputCollectionPart0Type1(inputKafkaInputCollectionPart0Type1 InputKafkaInputCollectionPart0Type1) InputKafka {
+	typ := InputKafkaUnionTypeInputKafkaInputCollectionPart0Type1
+
+	return InputKafka{
+		InputKafkaInputCollectionPart0Type1: &inputKafkaInputCollectionPart0Type1,
+		Type:                                typ,
+	}
+}
+
+func CreateInputKafkaInputKafkaInputCollectionPart1Type1(inputKafkaInputCollectionPart1Type1 InputKafkaInputCollectionPart1Type1) InputKafka {
+	typ := InputKafkaUnionTypeInputKafkaInputCollectionPart1Type1
+
+	return InputKafka{
+		InputKafkaInputCollectionPart1Type1: &inputKafkaInputCollectionPart1Type1,
+		Type:                                typ,
+	}
+}
+
+func (u *InputKafka) UnmarshalJSON(data []byte) error {
+
+	var inputKafkaInputCollectionPart0Type InputKafkaInputCollectionPart0Type = InputKafkaInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputKafkaInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputKafkaInputCollectionPart0Type = &inputKafkaInputCollectionPart0Type
+		u.Type = InputKafkaUnionTypeInputKafkaInputCollectionPart0Type
+		return nil
+	}
+
+	var inputKafkaInputCollectionPart1Type InputKafkaInputCollectionPart1Type = InputKafkaInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputKafkaInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputKafkaInputCollectionPart1Type = &inputKafkaInputCollectionPart1Type
+		u.Type = InputKafkaUnionTypeInputKafkaInputCollectionPart1Type
+		return nil
+	}
+
+	var inputKafkaInputCollectionPart0Type1 InputKafkaInputCollectionPart0Type1 = InputKafkaInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputKafkaInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputKafkaInputCollectionPart0Type1 = &inputKafkaInputCollectionPart0Type1
+		u.Type = InputKafkaUnionTypeInputKafkaInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputKafkaInputCollectionPart1Type1 InputKafkaInputCollectionPart1Type1 = InputKafkaInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputKafkaInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputKafkaInputCollectionPart1Type1 = &inputKafkaInputCollectionPart1Type1
+		u.Type = InputKafkaUnionTypeInputKafkaInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputKafka", string(data))
+}
+
+func (u InputKafka) MarshalJSON() ([]byte, error) {
+	if u.InputKafkaInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputKafkaInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputKafkaInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputKafkaInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputKafkaInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputKafkaInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputKafkaInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputKafkaInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputKafka: all fields are null")
 }
