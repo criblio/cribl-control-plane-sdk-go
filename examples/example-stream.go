@@ -83,16 +83,17 @@ func main() {
 	// Create TCP JSON Source
 	authType := components.AuthenticationMethodOptionsAuthTokensItemsManual
 	authToken := AUTH_TOKEN
-	tcpJSONSource := operations.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint{
-		ID:        "my-tcp-json",
-		Type:      operations.InputTcpjsonTypeTcpjson,
-		Port:      float64(PORT),
-		AuthType:  &authType,
-		AuthToken: &authToken,
-	}
-
-	tcpJSONInput := operations.CreateInputTcpjsonInputTcpjsonSendToRoutesTrueWithConnectionsConstraint(tcpJSONSource)
-	createInputRequest := operations.CreateCreateInputRequestTcpjson(tcpJSONInput)
+	createInputRequest := operations.CreateCreateInputRequestTcpjson(
+		operations.CreateInputTcpjsonInputTcpjsonSendToRoutesTrueConstraint(
+			operations.InputTcpjsonSendToRoutesTrueConstraint{
+				ID:        "my-tcp-json",
+				Type:      operations.InputTcpjsonTypeTcpjson,
+				Port:      float64(PORT),
+				AuthType:  &authType,
+				AuthToken: &authToken,
+			},
+		),
+	)
 	_, err = client.Sources.Create(ctx, createInputRequest, operations.WithServerURL(groupURL))
 	if err != nil {
 		log.Printf("Error creating TCP JSON Source: %v", err)
