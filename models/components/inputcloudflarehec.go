@@ -4,9 +4,952 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputCloudflareHecInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCloudflareHecType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputCloudflareHecAuthToken `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType    `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
+	HecAPI string `json:"hecAPI"`
+	// Fields to add to every event. May be overridden by fields added at the token or request level.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputCloudflareHecInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port", "hecAPI"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetType() InputCloudflareHecType {
+	if i == nil {
+		return InputCloudflareHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetAuthTokens() []InputCloudflareHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetHecAPI() string {
+	if i == nil {
+		return ""
+	}
+	return i.HecAPI
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCloudflareHecInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCloudflareHecType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputCloudflareHecAuthToken `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType    `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
+	HecAPI string `json:"hecAPI"`
+	// Fields to add to every event. May be overridden by fields added at the token or request level.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputCloudflareHecInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port", "hecAPI"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetType() InputCloudflareHecType {
+	if i == nil {
+		return InputCloudflareHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetAuthTokens() []InputCloudflareHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetHecAPI() string {
+	if i == nil {
+		return ""
+	}
+	return i.HecAPI
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCloudflareHecInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCloudflareHecType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputCloudflareHecAuthToken `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType    `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
+	HecAPI string `json:"hecAPI"`
+	// Fields to add to every event. May be overridden by fields added at the token or request level.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputCloudflareHecInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port", "hecAPI"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetType() InputCloudflareHecType {
+	if i == nil {
+		return InputCloudflareHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetAuthTokens() []InputCloudflareHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetHecAPI() string {
+	if i == nil {
+		return ""
+	}
+	return i.HecAPI
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputCloudflareHecInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputCloudflareHecType string
 
@@ -129,15 +1072,15 @@ func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeNotificationMetad
 	return i.Metadata
 }
 
-type InputCloudflareHec struct {
+type InputCloudflareHecInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputCloudflareHecType `json:"type"`
 	Disabled *bool                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -174,7 +1117,7 @@ type InputCloudflareHec struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
@@ -194,251 +1137,358 @@ type InputCloudflareHec struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputCloudflareHec) MarshalJSON() ([]byte, error) {
+func (i InputCloudflareHecInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCloudflareHec) UnmarshalJSON(data []byte) error {
+func (i *InputCloudflareHecInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port", "hecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCloudflareHec) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCloudflareHec) GetType() InputCloudflareHecType {
-	if i == nil {
-		return InputCloudflareHecType("")
-	}
-	return i.Type
-}
-
-func (i *InputCloudflareHec) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCloudflareHec) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCloudflareHec) GetSendToRoutes() *bool {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCloudflareHec) GetEnvironment() *string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type) GetType() InputCloudflareHecType {
+	if i == nil {
+		return InputCloudflareHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCloudflareHecInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCloudflareHec) GetPqEnabled() *bool {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCloudflareHec) GetStreamtags() []string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCloudflareHec) GetConnections() []ItemsTypeConnections {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCloudflareHec) GetPq() *PqType {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCloudflareHec) GetHost() *string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCloudflareHec) GetPort() float64 {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCloudflareHec) GetAuthTokens() []InputCloudflareHecAuthToken {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetAuthTokens() []InputCloudflareHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCloudflareHec) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCloudflareHec) GetMaxActiveReq() *float64 {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputCloudflareHec) GetMaxRequestsPerSocket() *int64 {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputCloudflareHec) GetEnableProxyHeader() *bool {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCloudflareHec) GetCaptureHeaders() *bool {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputCloudflareHec) GetActivityLogSampleRate() *float64 {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputCloudflareHec) GetRequestTimeout() *float64 {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputCloudflareHec) GetSocketTimeout() *float64 {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCloudflareHec) GetKeepAliveTimeout() *float64 {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputCloudflareHec) GetEnableHealthCheck() any {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputCloudflareHec) GetIPAllowlistRegex() *string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputCloudflareHec) GetIPDenylistRegex() *string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputCloudflareHec) GetHecAPI() string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetHecAPI() string {
 	if i == nil {
 		return ""
 	}
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCloudflareHec) GetAllowedIndexes() []string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputCloudflareHec) GetBreakerRulesets() []string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputCloudflareHec) GetStaleChannelFlushMs() *float64 {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputCloudflareHec) GetAccessControlAllowOrigin() []string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputCloudflareHec) GetAccessControlAllowHeaders() []string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputCloudflareHec) GetEmitTokenMetrics() *bool {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputCloudflareHec) GetDescription() *string {
+func (i *InputCloudflareHecInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputCloudflareHecUnionType string
+
+const (
+	InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type  InputCloudflareHecUnionType = "InputCloudflareHec_InputCollectionPart0Type"
+	InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type  InputCloudflareHecUnionType = "InputCloudflareHec_InputCollectionPart1Type"
+	InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type1 InputCloudflareHecUnionType = "InputCloudflareHec_InputCollectionPart0Type1"
+	InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type1 InputCloudflareHecUnionType = "InputCloudflareHec_InputCollectionPart1Type1"
+)
+
+type InputCloudflareHec struct {
+	InputCloudflareHecInputCollectionPart0Type  *InputCloudflareHecInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputCloudflareHecInputCollectionPart1Type  *InputCloudflareHecInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputCloudflareHecInputCollectionPart0Type1 *InputCloudflareHecInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputCloudflareHecInputCollectionPart1Type1 *InputCloudflareHecInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputCloudflareHecUnionType
+}
+
+func CreateInputCloudflareHecInputCloudflareHecInputCollectionPart0Type(inputCloudflareHecInputCollectionPart0Type InputCloudflareHecInputCollectionPart0Type) InputCloudflareHec {
+	typ := InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type
+
+	return InputCloudflareHec{
+		InputCloudflareHecInputCollectionPart0Type: &inputCloudflareHecInputCollectionPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateInputCloudflareHecInputCloudflareHecInputCollectionPart1Type(inputCloudflareHecInputCollectionPart1Type InputCloudflareHecInputCollectionPart1Type) InputCloudflareHec {
+	typ := InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type
+
+	return InputCloudflareHec{
+		InputCloudflareHecInputCollectionPart1Type: &inputCloudflareHecInputCollectionPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateInputCloudflareHecInputCloudflareHecInputCollectionPart0Type1(inputCloudflareHecInputCollectionPart0Type1 InputCloudflareHecInputCollectionPart0Type1) InputCloudflareHec {
+	typ := InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type1
+
+	return InputCloudflareHec{
+		InputCloudflareHecInputCollectionPart0Type1: &inputCloudflareHecInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputCloudflareHecInputCloudflareHecInputCollectionPart1Type1(inputCloudflareHecInputCollectionPart1Type1 InputCloudflareHecInputCollectionPart1Type1) InputCloudflareHec {
+	typ := InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type1
+
+	return InputCloudflareHec{
+		InputCloudflareHecInputCollectionPart1Type1: &inputCloudflareHecInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputCloudflareHec) UnmarshalJSON(data []byte) error {
+
+	var inputCloudflareHecInputCollectionPart0Type InputCloudflareHecInputCollectionPart0Type = InputCloudflareHecInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputCloudflareHecInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputCloudflareHecInputCollectionPart0Type = &inputCloudflareHecInputCollectionPart0Type
+		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type
+		return nil
+	}
+
+	var inputCloudflareHecInputCollectionPart1Type InputCloudflareHecInputCollectionPart1Type = InputCloudflareHecInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputCloudflareHecInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputCloudflareHecInputCollectionPart1Type = &inputCloudflareHecInputCollectionPart1Type
+		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type
+		return nil
+	}
+
+	var inputCloudflareHecInputCollectionPart0Type1 InputCloudflareHecInputCollectionPart0Type1 = InputCloudflareHecInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputCloudflareHecInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputCloudflareHecInputCollectionPart0Type1 = &inputCloudflareHecInputCollectionPart0Type1
+		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputCloudflareHecInputCollectionPart1Type1 InputCloudflareHecInputCollectionPart1Type1 = InputCloudflareHecInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputCloudflareHecInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputCloudflareHecInputCollectionPart1Type1 = &inputCloudflareHecInputCollectionPart1Type1
+		u.Type = InputCloudflareHecUnionTypeInputCloudflareHecInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputCloudflareHec", string(data))
+}
+
+func (u InputCloudflareHec) MarshalJSON() ([]byte, error) {
+	if u.InputCloudflareHecInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputCloudflareHecInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputCloudflareHecInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputCloudflareHecInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputCloudflareHecInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputCloudflareHecInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputCloudflareHecInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputCloudflareHecInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputCloudflareHec: all fields are null")
 }

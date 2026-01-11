@@ -4,9 +4,1138 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputPrometheusRwInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputPrometheusRwType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
+	PrometheusAPI *string `default:"/write" json:"prometheusAPI"`
+	// Remote Write authentication type
+	AuthType *AuthenticationTypeOptionsPrometheusAuth `default:"none" json:"authType"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	Username    *string                         `json:"username,omitempty"`
+	Password    *string                         `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputPrometheusRwInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetType() InputPrometheusRwType {
+	if i == nil {
+		return InputPrometheusRwType("")
+	}
+	return i.Type
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetPrometheusAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.PrometheusAPI
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetOauthParams() []ItemsTypeOauthParams {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputPrometheusRwInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputPrometheusRwType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
+	PrometheusAPI *string `default:"/write" json:"prometheusAPI"`
+	// Remote Write authentication type
+	AuthType *AuthenticationTypeOptionsPrometheusAuth `default:"none" json:"authType"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	Username    *string                         `json:"username,omitempty"`
+	Password    *string                         `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputPrometheusRwInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetType() InputPrometheusRwType {
+	if i == nil {
+		return InputPrometheusRwType("")
+	}
+	return i.Type
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetPrometheusAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.PrometheusAPI
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetOauthParams() []ItemsTypeOauthParams {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+type InputPrometheusRwInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputPrometheusRwType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
+	PrometheusAPI *string `default:"/write" json:"prometheusAPI"`
+	// Remote Write authentication type
+	AuthType *AuthenticationTypeOptionsPrometheusAuth `default:"none" json:"authType"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	Username    *string                         `json:"username,omitempty"`
+	Password    *string                         `json:"password,omitempty"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitempty"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitempty"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitempty"`
+	// Secret parameter value to pass in request body
+	Secret *string `json:"secret,omitempty"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
+}
+
+func (i InputPrometheusRwInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetType() InputPrometheusRwType {
+	if i == nil {
+		return InputPrometheusRwType("")
+	}
+	return i.Type
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetPrometheusAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.PrometheusAPI
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.LoginURL
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetSecretParamName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SecretParamName
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetTokenAttributeName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TokenAttributeName
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetAuthHeaderExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthHeaderExpr
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetTokenTimeoutSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TokenTimeoutSecs
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetOauthParams() []ItemsTypeOauthParams {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputPrometheusRwInputCollectionPart1Type) GetOauthHeaders() []ItemsTypeOauthHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
 
 type InputPrometheusRwType string
 
@@ -31,15 +1160,15 @@ func (e *InputPrometheusRwType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputPrometheusRw struct {
+type InputPrometheusRwInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputPrometheusRwType `json:"type"`
 	Disabled *bool                 `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -75,7 +1204,7 @@ type InputPrometheusRw struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
 	PrometheusAPI *string `default:"/write" json:"prometheusAPI"`
 	// Remote Write authentication type
@@ -100,7 +1229,7 @@ type InputPrometheusRw struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -109,300 +1238,407 @@ type InputPrometheusRw struct {
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
-func (i InputPrometheusRw) MarshalJSON() ([]byte, error) {
+func (i InputPrometheusRwInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputPrometheusRw) UnmarshalJSON(data []byte) error {
+func (i *InputPrometheusRwInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheusRw) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputPrometheusRw) GetType() InputPrometheusRwType {
-	if i == nil {
-		return InputPrometheusRwType("")
-	}
-	return i.Type
-}
-
-func (i *InputPrometheusRw) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputPrometheusRw) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputPrometheusRw) GetSendToRoutes() *bool {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputPrometheusRw) GetEnvironment() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type) GetType() InputPrometheusRwType {
+	if i == nil {
+		return InputPrometheusRwType("")
+	}
+	return i.Type
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputPrometheusRwInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputPrometheusRw) GetPqEnabled() *bool {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputPrometheusRw) GetStreamtags() []string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputPrometheusRw) GetConnections() []ItemsTypeConnections {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputPrometheusRw) GetPq() *PqType {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputPrometheusRw) GetHost() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputPrometheusRw) GetPort() float64 {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputPrometheusRw) GetTLS() *TLSSettingsServerSideType {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputPrometheusRw) GetMaxActiveReq() *float64 {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputPrometheusRw) GetMaxRequestsPerSocket() *int64 {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputPrometheusRw) GetEnableProxyHeader() *bool {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputPrometheusRw) GetCaptureHeaders() *bool {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputPrometheusRw) GetActivityLogSampleRate() *float64 {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputPrometheusRw) GetRequestTimeout() *float64 {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputPrometheusRw) GetSocketTimeout() *float64 {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputPrometheusRw) GetKeepAliveTimeout() *float64 {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputPrometheusRw) GetEnableHealthCheck() *bool {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputPrometheusRw) GetIPAllowlistRegex() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputPrometheusRw) GetIPDenylistRegex() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputPrometheusRw) GetPrometheusAPI() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetPrometheusAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.PrometheusAPI
 }
 
-func (i *InputPrometheusRw) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputPrometheusRw) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputPrometheusRw) GetDescription() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputPrometheusRw) GetUsername() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputPrometheusRw) GetPassword() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputPrometheusRw) GetToken() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputPrometheusRw) GetCredentialsSecret() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputPrometheusRw) GetTextSecret() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputPrometheusRw) GetLoginURL() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputPrometheusRw) GetSecretParamName() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputPrometheusRw) GetSecret() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputPrometheusRw) GetTokenAttributeName() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputPrometheusRw) GetAuthHeaderExpr() *string {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputPrometheusRw) GetTokenTimeoutSecs() *float64 {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputPrometheusRw) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputPrometheusRw) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputPrometheusRwInputCollectionPart0Type) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
+}
+
+type InputPrometheusRwUnionType string
+
+const (
+	InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart0Type  InputPrometheusRwUnionType = "InputPrometheusRw_InputCollectionPart0Type"
+	InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart1Type  InputPrometheusRwUnionType = "InputPrometheusRw_InputCollectionPart1Type"
+	InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart0Type1 InputPrometheusRwUnionType = "InputPrometheusRw_InputCollectionPart0Type1"
+	InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart1Type1 InputPrometheusRwUnionType = "InputPrometheusRw_InputCollectionPart1Type1"
+)
+
+type InputPrometheusRw struct {
+	InputPrometheusRwInputCollectionPart0Type  *InputPrometheusRwInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputPrometheusRwInputCollectionPart1Type  *InputPrometheusRwInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputPrometheusRwInputCollectionPart0Type1 *InputPrometheusRwInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputPrometheusRwInputCollectionPart1Type1 *InputPrometheusRwInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputPrometheusRwUnionType
+}
+
+func CreateInputPrometheusRwInputPrometheusRwInputCollectionPart0Type(inputPrometheusRwInputCollectionPart0Type InputPrometheusRwInputCollectionPart0Type) InputPrometheusRw {
+	typ := InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart0Type
+
+	return InputPrometheusRw{
+		InputPrometheusRwInputCollectionPart0Type: &inputPrometheusRwInputCollectionPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateInputPrometheusRwInputPrometheusRwInputCollectionPart1Type(inputPrometheusRwInputCollectionPart1Type InputPrometheusRwInputCollectionPart1Type) InputPrometheusRw {
+	typ := InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart1Type
+
+	return InputPrometheusRw{
+		InputPrometheusRwInputCollectionPart1Type: &inputPrometheusRwInputCollectionPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateInputPrometheusRwInputPrometheusRwInputCollectionPart0Type1(inputPrometheusRwInputCollectionPart0Type1 InputPrometheusRwInputCollectionPart0Type1) InputPrometheusRw {
+	typ := InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart0Type1
+
+	return InputPrometheusRw{
+		InputPrometheusRwInputCollectionPart0Type1: &inputPrometheusRwInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputPrometheusRwInputPrometheusRwInputCollectionPart1Type1(inputPrometheusRwInputCollectionPart1Type1 InputPrometheusRwInputCollectionPart1Type1) InputPrometheusRw {
+	typ := InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart1Type1
+
+	return InputPrometheusRw{
+		InputPrometheusRwInputCollectionPart1Type1: &inputPrometheusRwInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputPrometheusRw) UnmarshalJSON(data []byte) error {
+
+	var inputPrometheusRwInputCollectionPart0Type InputPrometheusRwInputCollectionPart0Type = InputPrometheusRwInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputPrometheusRwInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputPrometheusRwInputCollectionPart0Type = &inputPrometheusRwInputCollectionPart0Type
+		u.Type = InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart0Type
+		return nil
+	}
+
+	var inputPrometheusRwInputCollectionPart1Type InputPrometheusRwInputCollectionPart1Type = InputPrometheusRwInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputPrometheusRwInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputPrometheusRwInputCollectionPart1Type = &inputPrometheusRwInputCollectionPart1Type
+		u.Type = InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart1Type
+		return nil
+	}
+
+	var inputPrometheusRwInputCollectionPart0Type1 InputPrometheusRwInputCollectionPart0Type1 = InputPrometheusRwInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputPrometheusRwInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputPrometheusRwInputCollectionPart0Type1 = &inputPrometheusRwInputCollectionPart0Type1
+		u.Type = InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputPrometheusRwInputCollectionPart1Type1 InputPrometheusRwInputCollectionPart1Type1 = InputPrometheusRwInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputPrometheusRwInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputPrometheusRwInputCollectionPart1Type1 = &inputPrometheusRwInputCollectionPart1Type1
+		u.Type = InputPrometheusRwUnionTypeInputPrometheusRwInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputPrometheusRw", string(data))
+}
+
+func (u InputPrometheusRw) MarshalJSON() ([]byte, error) {
+	if u.InputPrometheusRwInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputPrometheusRwInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputPrometheusRwInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputPrometheusRwInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputPrometheusRwInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputPrometheusRwInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputPrometheusRwInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputPrometheusRwInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputPrometheusRw: all fields are null")
 }

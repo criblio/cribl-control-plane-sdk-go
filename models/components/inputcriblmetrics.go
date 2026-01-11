@@ -4,9 +4,418 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputCriblmetricsInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputCriblmetricsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// A prefix that is applied to the metrics provided by Cribl Stream
+	Prefix *string `default:"cribl.logstream." json:"prefix"`
+	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
+	FullFidelity *bool `default:"true" json:"fullFidelity"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblmetricsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetType() InputCriblmetricsType {
+	if i == nil {
+		return InputCriblmetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetPrefix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Prefix
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetFullFidelity() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FullFidelity
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblmetricsInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputCriblmetricsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// A prefix that is applied to the metrics provided by Cribl Stream
+	Prefix *string `default:"cribl.logstream." json:"prefix"`
+	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
+	FullFidelity *bool `default:"true" json:"fullFidelity"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblmetricsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetType() InputCriblmetricsType {
+	if i == nil {
+		return InputCriblmetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetPrefix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Prefix
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetFullFidelity() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FullFidelity
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblmetricsInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputCriblmetricsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// A prefix that is applied to the metrics provided by Cribl Stream
+	Prefix *string `default:"cribl.logstream." json:"prefix"`
+	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
+	FullFidelity *bool `default:"true" json:"fullFidelity"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblmetricsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetType() InputCriblmetricsType {
+	if i == nil {
+		return InputCriblmetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetPrefix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Prefix
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetFullFidelity() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FullFidelity
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblmetricsInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputCriblmetricsType string
 
@@ -31,15 +440,15 @@ func (e *InputCriblmetricsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCriblmetrics struct {
+type InputCriblmetricsInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputCriblmetricsType `json:"type"`
 	Disabled *bool                 `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -58,111 +467,218 @@ type InputCriblmetrics struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputCriblmetrics) MarshalJSON() ([]byte, error) {
+func (i InputCriblmetricsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblmetrics) UnmarshalJSON(data []byte) error {
+func (i *InputCriblmetricsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblmetrics) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCriblmetrics) GetType() InputCriblmetricsType {
-	if i == nil {
-		return InputCriblmetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputCriblmetrics) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCriblmetrics) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCriblmetrics) GetSendToRoutes() *bool {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblmetrics) GetEnvironment() *string {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type) GetType() InputCriblmetricsType {
+	if i == nil {
+		return InputCriblmetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblmetricsInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblmetrics) GetPqEnabled() *bool {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblmetrics) GetStreamtags() []string {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblmetrics) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblmetrics) GetPq() *PqType {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblmetrics) GetPrefix() *string {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetPrefix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Prefix
 }
 
-func (i *InputCriblmetrics) GetFullFidelity() *bool {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetFullFidelity() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FullFidelity
 }
 
-func (i *InputCriblmetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblmetrics) GetDescription() *string {
+func (i *InputCriblmetricsInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputCriblmetricsUnionType string
+
+const (
+	InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart0Type  InputCriblmetricsUnionType = "InputCriblmetrics_InputCollectionPart0Type"
+	InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart1Type  InputCriblmetricsUnionType = "InputCriblmetrics_InputCollectionPart1Type"
+	InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart0Type1 InputCriblmetricsUnionType = "InputCriblmetrics_InputCollectionPart0Type1"
+	InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart1Type1 InputCriblmetricsUnionType = "InputCriblmetrics_InputCollectionPart1Type1"
+)
+
+type InputCriblmetrics struct {
+	InputCriblmetricsInputCollectionPart0Type  *InputCriblmetricsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputCriblmetricsInputCollectionPart1Type  *InputCriblmetricsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputCriblmetricsInputCollectionPart0Type1 *InputCriblmetricsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputCriblmetricsInputCollectionPart1Type1 *InputCriblmetricsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputCriblmetricsUnionType
+}
+
+func CreateInputCriblmetricsInputCriblmetricsInputCollectionPart0Type(inputCriblmetricsInputCollectionPart0Type InputCriblmetricsInputCollectionPart0Type) InputCriblmetrics {
+	typ := InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart0Type
+
+	return InputCriblmetrics{
+		InputCriblmetricsInputCollectionPart0Type: &inputCriblmetricsInputCollectionPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateInputCriblmetricsInputCriblmetricsInputCollectionPart1Type(inputCriblmetricsInputCollectionPart1Type InputCriblmetricsInputCollectionPart1Type) InputCriblmetrics {
+	typ := InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart1Type
+
+	return InputCriblmetrics{
+		InputCriblmetricsInputCollectionPart1Type: &inputCriblmetricsInputCollectionPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateInputCriblmetricsInputCriblmetricsInputCollectionPart0Type1(inputCriblmetricsInputCollectionPart0Type1 InputCriblmetricsInputCollectionPart0Type1) InputCriblmetrics {
+	typ := InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart0Type1
+
+	return InputCriblmetrics{
+		InputCriblmetricsInputCollectionPart0Type1: &inputCriblmetricsInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputCriblmetricsInputCriblmetricsInputCollectionPart1Type1(inputCriblmetricsInputCollectionPart1Type1 InputCriblmetricsInputCollectionPart1Type1) InputCriblmetrics {
+	typ := InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart1Type1
+
+	return InputCriblmetrics{
+		InputCriblmetricsInputCollectionPart1Type1: &inputCriblmetricsInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputCriblmetrics) UnmarshalJSON(data []byte) error {
+
+	var inputCriblmetricsInputCollectionPart0Type InputCriblmetricsInputCollectionPart0Type = InputCriblmetricsInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputCriblmetricsInputCollectionPart0Type = &inputCriblmetricsInputCollectionPart0Type
+		u.Type = InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart0Type
+		return nil
+	}
+
+	var inputCriblmetricsInputCollectionPart1Type InputCriblmetricsInputCollectionPart1Type = InputCriblmetricsInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputCriblmetricsInputCollectionPart1Type = &inputCriblmetricsInputCollectionPart1Type
+		u.Type = InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart1Type
+		return nil
+	}
+
+	var inputCriblmetricsInputCollectionPart0Type1 InputCriblmetricsInputCollectionPart0Type1 = InputCriblmetricsInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputCriblmetricsInputCollectionPart0Type1 = &inputCriblmetricsInputCollectionPart0Type1
+		u.Type = InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputCriblmetricsInputCollectionPart1Type1 InputCriblmetricsInputCollectionPart1Type1 = InputCriblmetricsInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputCriblmetricsInputCollectionPart1Type1 = &inputCriblmetricsInputCollectionPart1Type1
+		u.Type = InputCriblmetricsUnionTypeInputCriblmetricsInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputCriblmetrics", string(data))
+}
+
+func (u InputCriblmetrics) MarshalJSON() ([]byte, error) {
+	if u.InputCriblmetricsInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputCriblmetricsInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputCriblmetricsInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputCriblmetricsInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputCriblmetrics: all fields are null")
 }

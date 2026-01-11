@@ -4,9 +4,607 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputWinEventLogsInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputWinEventLogsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetReadMode() *ReadMode {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetEventFormat() *EventFormat {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type1) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputWinEventLogsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetReadMode() *ReadMode {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetEventFormat() *EventFormat {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type1) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputWinEventLogsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetReadMode() *ReadMode {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetEventFormat() *EventFormat {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsInputCollectionPart1Type) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
 
 type InputWinEventLogsType string
 
@@ -81,15 +679,15 @@ func (e *EventFormat) IsExact() bool {
 	return false
 }
 
-type InputWinEventLogs struct {
+type InputWinEventLogsInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputWinEventLogsType `json:"type"`
 	Disabled *bool                 `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -122,160 +720,267 @@ type InputWinEventLogs struct {
 	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
-func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
+func (i InputWinEventLogsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWinEventLogs) UnmarshalJSON(data []byte) error {
+func (i *InputWinEventLogsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogs) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWinEventLogs) GetType() InputWinEventLogsType {
-	if i == nil {
-		return InputWinEventLogsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWinEventLogs) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWinEventLogs) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWinEventLogs) GetSendToRoutes() *bool {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWinEventLogs) GetEnvironment() *string {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWinEventLogs) GetPqEnabled() *bool {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWinEventLogs) GetStreamtags() []string {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWinEventLogs) GetConnections() []ItemsTypeConnections {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWinEventLogs) GetPq() *PqType {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWinEventLogs) GetLogNames() []string {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetLogNames() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.LogNames
 }
 
-func (i *InputWinEventLogs) GetReadMode() *ReadMode {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetReadMode() *ReadMode {
 	if i == nil {
 		return nil
 	}
 	return i.ReadMode
 }
 
-func (i *InputWinEventLogs) GetEventFormat() *EventFormat {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetEventFormat() *EventFormat {
 	if i == nil {
 		return nil
 	}
 	return i.EventFormat
 }
 
-func (i *InputWinEventLogs) GetDisableNativeModule() *bool {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWinEventLogs) GetInterval() *float64 {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWinEventLogs) GetBatchSize() *float64 {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetBatchSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogs) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWinEventLogs) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetMaxEventBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxEventBytes
 }
 
-func (i *InputWinEventLogs) GetDescription() *string {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWinEventLogs) GetDisableJSONRendering() *bool {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetDisableJSONRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableJSONRendering
 }
 
-func (i *InputWinEventLogs) GetDisableXMLRendering() *bool {
+func (i *InputWinEventLogsInputCollectionPart0Type) GetDisableXMLRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsUnionType string
+
+const (
+	InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type  InputWinEventLogsUnionType = "InputWinEventLogs_InputCollectionPart0Type"
+	InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type  InputWinEventLogsUnionType = "InputWinEventLogs_InputCollectionPart1Type"
+	InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type1 InputWinEventLogsUnionType = "InputWinEventLogs_InputCollectionPart0Type1"
+	InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type1 InputWinEventLogsUnionType = "InputWinEventLogs_InputCollectionPart1Type1"
+)
+
+type InputWinEventLogs struct {
+	InputWinEventLogsInputCollectionPart0Type  *InputWinEventLogsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputWinEventLogsInputCollectionPart1Type  *InputWinEventLogsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputWinEventLogsInputCollectionPart0Type1 *InputWinEventLogsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputWinEventLogsInputCollectionPart1Type1 *InputWinEventLogsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputWinEventLogsUnionType
+}
+
+func CreateInputWinEventLogsInputWinEventLogsInputCollectionPart0Type(inputWinEventLogsInputCollectionPart0Type InputWinEventLogsInputCollectionPart0Type) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type
+
+	return InputWinEventLogs{
+		InputWinEventLogsInputCollectionPart0Type: &inputWinEventLogsInputCollectionPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsInputCollectionPart1Type(inputWinEventLogsInputCollectionPart1Type InputWinEventLogsInputCollectionPart1Type) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type
+
+	return InputWinEventLogs{
+		InputWinEventLogsInputCollectionPart1Type: &inputWinEventLogsInputCollectionPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsInputCollectionPart0Type1(inputWinEventLogsInputCollectionPart0Type1 InputWinEventLogsInputCollectionPart0Type1) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type1
+
+	return InputWinEventLogs{
+		InputWinEventLogsInputCollectionPart0Type1: &inputWinEventLogsInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsInputCollectionPart1Type1(inputWinEventLogsInputCollectionPart1Type1 InputWinEventLogsInputCollectionPart1Type1) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type1
+
+	return InputWinEventLogs{
+		InputWinEventLogsInputCollectionPart1Type1: &inputWinEventLogsInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputWinEventLogs) UnmarshalJSON(data []byte) error {
+
+	var inputWinEventLogsInputCollectionPart0Type InputWinEventLogsInputCollectionPart0Type = InputWinEventLogsInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputWinEventLogsInputCollectionPart0Type = &inputWinEventLogsInputCollectionPart0Type
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type
+		return nil
+	}
+
+	var inputWinEventLogsInputCollectionPart1Type InputWinEventLogsInputCollectionPart1Type = InputWinEventLogsInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputWinEventLogsInputCollectionPart1Type = &inputWinEventLogsInputCollectionPart1Type
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type
+		return nil
+	}
+
+	var inputWinEventLogsInputCollectionPart0Type1 InputWinEventLogsInputCollectionPart0Type1 = InputWinEventLogsInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputWinEventLogsInputCollectionPart0Type1 = &inputWinEventLogsInputCollectionPart0Type1
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputWinEventLogsInputCollectionPart1Type1 InputWinEventLogsInputCollectionPart1Type1 = InputWinEventLogsInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputWinEventLogsInputCollectionPart1Type1 = &inputWinEventLogsInputCollectionPart1Type1
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWinEventLogs", string(data))
+}
+
+func (u InputWinEventLogs) MarshalJSON() ([]byte, error) {
+	if u.InputWinEventLogsInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputWinEventLogsInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputWinEventLogsInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputWinEventLogsInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputWinEventLogs: all fields are null")
 }

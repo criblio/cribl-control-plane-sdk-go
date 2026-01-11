@@ -4,74 +4,756 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputJournalFilesType string
+type InputJournalFilesInputCollectionPart1Type1Type string
 
 const (
-	InputJournalFilesTypeJournalFiles InputJournalFilesType = "journal_files"
+	InputJournalFilesInputCollectionPart1Type1TypeJournalFiles InputJournalFilesInputCollectionPart1Type1Type = "journal_files"
 )
 
-func (e InputJournalFilesType) ToPointer() *InputJournalFilesType {
+func (e InputJournalFilesInputCollectionPart1Type1Type) ToPointer() *InputJournalFilesInputCollectionPart1Type1Type {
 	return &e
 }
-func (e *InputJournalFilesType) UnmarshalJSON(data []byte) error {
+func (e *InputJournalFilesInputCollectionPart1Type1Type) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "journal_files":
-		*e = InputJournalFilesType(v)
+		*e = InputJournalFilesInputCollectionPart1Type1Type(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputJournalFilesType: %v", v)
+		return fmt.Errorf("invalid value for InputJournalFilesInputCollectionPart1Type1Type: %v", v)
 	}
 }
 
-type InputJournalFilesRule struct {
+type InputCollectionPart1Type1Rule struct {
 	// JavaScript expression applied to Journal objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
 	Description *string `json:"description,omitempty"`
 }
 
-func (i InputJournalFilesRule) MarshalJSON() ([]byte, error) {
+func (i InputCollectionPart1Type1Rule) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputJournalFilesRule) UnmarshalJSON(data []byte) error {
+func (i *InputCollectionPart1Type1Rule) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"filter"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputJournalFilesRule) GetFilter() string {
+func (i *InputCollectionPart1Type1Rule) GetFilter() string {
 	if i == nil {
 		return ""
 	}
 	return i.Filter
 }
 
-func (i *InputJournalFilesRule) GetDescription() *string {
+func (i *InputCollectionPart1Type1Rule) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputJournalFiles struct {
+type InputJournalFilesInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
-	ID       *string               `json:"id,omitempty"`
-	Type     InputJournalFilesType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	ID       *string                                        `json:"id,omitempty"`
+	Type     InputJournalFilesInputCollectionPart1Type1Type `json:"type"`
+	Disabled *bool                                          `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
+	Path string `json:"path"`
+	// Time, in seconds, between scanning for journals.
+	Interval *float64 `default:"10" json:"interval"`
+	// The full path of discovered journals are matched against this wildcard list.
+	Journals []string `json:"journals"`
+	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
+	Rules []InputCollectionPart1Type1Rule `json:"rules,omitempty"`
+	// Skip log messages that are not part of the current boot session.
+	CurrentBoot *bool `default:"false" json:"currentBoot"`
+	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
+	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputJournalFilesInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetType() InputJournalFilesInputCollectionPart1Type1Type {
+	if i == nil {
+		return InputJournalFilesInputCollectionPart1Type1Type("")
+	}
+	return i.Type
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.Path
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetJournals() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Journals
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetRules() []InputCollectionPart1Type1Rule {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetCurrentBoot() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CurrentBoot
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetMaxAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxAgeDur
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputJournalFilesInputCollectionPart0Type1Type string
+
+const (
+	InputJournalFilesInputCollectionPart0Type1TypeJournalFiles InputJournalFilesInputCollectionPart0Type1Type = "journal_files"
+)
+
+func (e InputJournalFilesInputCollectionPart0Type1Type) ToPointer() *InputJournalFilesInputCollectionPart0Type1Type {
+	return &e
+}
+func (e *InputJournalFilesInputCollectionPart0Type1Type) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "journal_files":
+		*e = InputJournalFilesInputCollectionPart0Type1Type(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputJournalFilesInputCollectionPart0Type1Type: %v", v)
+	}
+}
+
+type InputCollectionPart0Type1Rule struct {
+	// JavaScript expression applied to Journal objects. Return 'true' to include it.
+	Filter string `json:"filter"`
+	// Optional description of this rule's purpose
+	Description *string `json:"description,omitempty"`
+}
+
+func (i InputCollectionPart0Type1Rule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCollectionPart0Type1Rule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"filter"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCollectionPart0Type1Rule) GetFilter() string {
+	if i == nil {
+		return ""
+	}
+	return i.Filter
+}
+
+func (i *InputCollectionPart0Type1Rule) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputJournalFilesInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                                        `json:"id,omitempty"`
+	Type     InputJournalFilesInputCollectionPart0Type1Type `json:"type"`
+	Disabled *bool                                          `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
+	Path string `json:"path"`
+	// Time, in seconds, between scanning for journals.
+	Interval *float64 `default:"10" json:"interval"`
+	// The full path of discovered journals are matched against this wildcard list.
+	Journals []string `json:"journals"`
+	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
+	Rules []InputCollectionPart0Type1Rule `json:"rules,omitempty"`
+	// Skip log messages that are not part of the current boot session.
+	CurrentBoot *bool `default:"false" json:"currentBoot"`
+	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
+	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputJournalFilesInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetType() InputJournalFilesInputCollectionPart0Type1Type {
+	if i == nil {
+		return InputJournalFilesInputCollectionPart0Type1Type("")
+	}
+	return i.Type
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.Path
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetJournals() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Journals
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetRules() []InputCollectionPart0Type1Rule {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetCurrentBoot() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CurrentBoot
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetMaxAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxAgeDur
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputJournalFilesInputCollectionPart1TypeType string
+
+const (
+	InputJournalFilesInputCollectionPart1TypeTypeJournalFiles InputJournalFilesInputCollectionPart1TypeType = "journal_files"
+)
+
+func (e InputJournalFilesInputCollectionPart1TypeType) ToPointer() *InputJournalFilesInputCollectionPart1TypeType {
+	return &e
+}
+func (e *InputJournalFilesInputCollectionPart1TypeType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "journal_files":
+		*e = InputJournalFilesInputCollectionPart1TypeType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputJournalFilesInputCollectionPart1TypeType: %v", v)
+	}
+}
+
+type InputCollectionPart1TypeRule struct {
+	// JavaScript expression applied to Journal objects. Return 'true' to include it.
+	Filter string `json:"filter"`
+	// Optional description of this rule's purpose
+	Description *string `json:"description,omitempty"`
+}
+
+func (i InputCollectionPart1TypeRule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCollectionPart1TypeRule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"filter"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCollectionPart1TypeRule) GetFilter() string {
+	if i == nil {
+		return ""
+	}
+	return i.Filter
+}
+
+func (i *InputCollectionPart1TypeRule) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputJournalFilesInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string                                       `json:"id,omitempty"`
+	Type     InputJournalFilesInputCollectionPart1TypeType `json:"type"`
+	Disabled *bool                                         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
+	Path string `json:"path"`
+	// Time, in seconds, between scanning for journals.
+	Interval *float64 `default:"10" json:"interval"`
+	// The full path of discovered journals are matched against this wildcard list.
+	Journals []string `json:"journals"`
+	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
+	Rules []InputCollectionPart1TypeRule `json:"rules,omitempty"`
+	// Skip log messages that are not part of the current boot session.
+	CurrentBoot *bool `default:"false" json:"currentBoot"`
+	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
+	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputJournalFilesInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetType() InputJournalFilesInputCollectionPart1TypeType {
+	if i == nil {
+		return InputJournalFilesInputCollectionPart1TypeType("")
+	}
+	return i.Type
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.Path
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetJournals() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Journals
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetRules() []InputCollectionPart1TypeRule {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetCurrentBoot() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CurrentBoot
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetMaxAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxAgeDur
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputJournalFilesInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputJournalFilesInputCollectionPart0TypeType string
+
+const (
+	InputJournalFilesInputCollectionPart0TypeTypeJournalFiles InputJournalFilesInputCollectionPart0TypeType = "journal_files"
+)
+
+func (e InputJournalFilesInputCollectionPart0TypeType) ToPointer() *InputJournalFilesInputCollectionPart0TypeType {
+	return &e
+}
+func (e *InputJournalFilesInputCollectionPart0TypeType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "journal_files":
+		*e = InputJournalFilesInputCollectionPart0TypeType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputJournalFilesInputCollectionPart0TypeType: %v", v)
+	}
+}
+
+type InputCollectionPart0TypeRule struct {
+	// JavaScript expression applied to Journal objects. Return 'true' to include it.
+	Filter string `json:"filter"`
+	// Optional description of this rule's purpose
+	Description *string `json:"description,omitempty"`
+}
+
+func (i InputCollectionPart0TypeRule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCollectionPart0TypeRule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"filter"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCollectionPart0TypeRule) GetFilter() string {
+	if i == nil {
+		return ""
+	}
+	return i.Filter
+}
+
+func (i *InputCollectionPart0TypeRule) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputJournalFilesInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                                       `json:"id,omitempty"`
+	Type     InputJournalFilesInputCollectionPart0TypeType `json:"type"`
+	Disabled *bool                                         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -88,7 +770,7 @@ type InputJournalFiles struct {
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
-	Rules []InputJournalFilesRule `json:"rules,omitempty"`
+	Rules []InputCollectionPart0TypeRule `json:"rules,omitempty"`
 	// Skip log messages that are not part of the current boot session.
 	CurrentBoot *bool `default:"false" json:"currentBoot"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
@@ -98,139 +780,246 @@ type InputJournalFiles struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputJournalFiles) MarshalJSON() ([]byte, error) {
+func (i InputJournalFilesInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputJournalFiles) UnmarshalJSON(data []byte) error {
+func (i *InputJournalFilesInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputJournalFiles) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputJournalFiles) GetType() InputJournalFilesType {
-	if i == nil {
-		return InputJournalFilesType("")
-	}
-	return i.Type
-}
-
-func (i *InputJournalFiles) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputJournalFiles) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputJournalFiles) GetSendToRoutes() *bool {
+func (i *InputJournalFilesInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputJournalFiles) GetEnvironment() *string {
+func (i *InputJournalFilesInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type) GetType() InputJournalFilesInputCollectionPart0TypeType {
+	if i == nil {
+		return InputJournalFilesInputCollectionPart0TypeType("")
+	}
+	return i.Type
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputJournalFilesInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputJournalFiles) GetPqEnabled() *bool {
+func (i *InputJournalFilesInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputJournalFiles) GetStreamtags() []string {
+func (i *InputJournalFilesInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputJournalFiles) GetConnections() []ItemsTypeConnections {
+func (i *InputJournalFilesInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputJournalFiles) GetPq() *PqType {
+func (i *InputJournalFilesInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputJournalFiles) GetPath() string {
+func (i *InputJournalFilesInputCollectionPart0Type) GetPath() string {
 	if i == nil {
 		return ""
 	}
 	return i.Path
 }
 
-func (i *InputJournalFiles) GetInterval() *float64 {
+func (i *InputJournalFilesInputCollectionPart0Type) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputJournalFiles) GetJournals() []string {
+func (i *InputJournalFilesInputCollectionPart0Type) GetJournals() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Journals
 }
 
-func (i *InputJournalFiles) GetRules() []InputJournalFilesRule {
+func (i *InputJournalFilesInputCollectionPart0Type) GetRules() []InputCollectionPart0TypeRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputJournalFiles) GetCurrentBoot() *bool {
+func (i *InputJournalFilesInputCollectionPart0Type) GetCurrentBoot() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CurrentBoot
 }
 
-func (i *InputJournalFiles) GetMaxAgeDur() *string {
+func (i *InputJournalFilesInputCollectionPart0Type) GetMaxAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MaxAgeDur
 }
 
-func (i *InputJournalFiles) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputJournalFilesInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputJournalFiles) GetDescription() *string {
+func (i *InputJournalFilesInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputJournalFilesType string
+
+const (
+	InputJournalFilesTypeInputJournalFilesInputCollectionPart0Type  InputJournalFilesType = "InputJournalFiles_InputCollectionPart0Type"
+	InputJournalFilesTypeInputJournalFilesInputCollectionPart1Type  InputJournalFilesType = "InputJournalFiles_InputCollectionPart1Type"
+	InputJournalFilesTypeInputJournalFilesInputCollectionPart0Type1 InputJournalFilesType = "InputJournalFiles_InputCollectionPart0Type1"
+	InputJournalFilesTypeInputJournalFilesInputCollectionPart1Type1 InputJournalFilesType = "InputJournalFiles_InputCollectionPart1Type1"
+)
+
+type InputJournalFiles struct {
+	InputJournalFilesInputCollectionPart0Type  *InputJournalFilesInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputJournalFilesInputCollectionPart1Type  *InputJournalFilesInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputJournalFilesInputCollectionPart0Type1 *InputJournalFilesInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputJournalFilesInputCollectionPart1Type1 *InputJournalFilesInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputJournalFilesType
+}
+
+func CreateInputJournalFilesInputJournalFilesInputCollectionPart0Type(inputJournalFilesInputCollectionPart0Type InputJournalFilesInputCollectionPart0Type) InputJournalFiles {
+	typ := InputJournalFilesTypeInputJournalFilesInputCollectionPart0Type
+
+	return InputJournalFiles{
+		InputJournalFilesInputCollectionPart0Type: &inputJournalFilesInputCollectionPart0Type,
+		Type: typ,
+	}
+}
+
+func CreateInputJournalFilesInputJournalFilesInputCollectionPart1Type(inputJournalFilesInputCollectionPart1Type InputJournalFilesInputCollectionPart1Type) InputJournalFiles {
+	typ := InputJournalFilesTypeInputJournalFilesInputCollectionPart1Type
+
+	return InputJournalFiles{
+		InputJournalFilesInputCollectionPart1Type: &inputJournalFilesInputCollectionPart1Type,
+		Type: typ,
+	}
+}
+
+func CreateInputJournalFilesInputJournalFilesInputCollectionPart0Type1(inputJournalFilesInputCollectionPart0Type1 InputJournalFilesInputCollectionPart0Type1) InputJournalFiles {
+	typ := InputJournalFilesTypeInputJournalFilesInputCollectionPart0Type1
+
+	return InputJournalFiles{
+		InputJournalFilesInputCollectionPart0Type1: &inputJournalFilesInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputJournalFilesInputJournalFilesInputCollectionPart1Type1(inputJournalFilesInputCollectionPart1Type1 InputJournalFilesInputCollectionPart1Type1) InputJournalFiles {
+	typ := InputJournalFilesTypeInputJournalFilesInputCollectionPart1Type1
+
+	return InputJournalFiles{
+		InputJournalFilesInputCollectionPart1Type1: &inputJournalFilesInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputJournalFiles) UnmarshalJSON(data []byte) error {
+
+	var inputJournalFilesInputCollectionPart0Type InputJournalFilesInputCollectionPart0Type = InputJournalFilesInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputJournalFilesInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputJournalFilesInputCollectionPart0Type = &inputJournalFilesInputCollectionPart0Type
+		u.Type = InputJournalFilesTypeInputJournalFilesInputCollectionPart0Type
+		return nil
+	}
+
+	var inputJournalFilesInputCollectionPart1Type InputJournalFilesInputCollectionPart1Type = InputJournalFilesInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputJournalFilesInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputJournalFilesInputCollectionPart1Type = &inputJournalFilesInputCollectionPart1Type
+		u.Type = InputJournalFilesTypeInputJournalFilesInputCollectionPart1Type
+		return nil
+	}
+
+	var inputJournalFilesInputCollectionPart0Type1 InputJournalFilesInputCollectionPart0Type1 = InputJournalFilesInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputJournalFilesInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputJournalFilesInputCollectionPart0Type1 = &inputJournalFilesInputCollectionPart0Type1
+		u.Type = InputJournalFilesTypeInputJournalFilesInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputJournalFilesInputCollectionPart1Type1 InputJournalFilesInputCollectionPart1Type1 = InputJournalFilesInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputJournalFilesInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputJournalFilesInputCollectionPart1Type1 = &inputJournalFilesInputCollectionPart1Type1
+		u.Type = InputJournalFilesTypeInputJournalFilesInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputJournalFiles", string(data))
+}
+
+func (u InputJournalFiles) MarshalJSON() ([]byte, error) {
+	if u.InputJournalFilesInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputJournalFilesInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputJournalFilesInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputJournalFilesInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputJournalFilesInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputJournalFilesInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputJournalFilesInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputJournalFilesInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputJournalFiles: all fields are null")
 }

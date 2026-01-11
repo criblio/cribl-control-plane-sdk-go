@@ -4,9 +4,631 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputCriblTCPInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputCriblTCPType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+	AuthTokens  []ItemsTypeAuthTokens `json:"authTokens,omitempty"`
+	Description *string               `json:"description,omitempty"`
+}
+
+func (i InputCriblTCPInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetType() InputCriblTCPType {
+	if i == nil {
+		return InputCriblTCPType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetEnableLoadBalancing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableLoadBalancing
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetAuthTokens() []ItemsTypeAuthTokens {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblTCPInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputCriblTCPType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+	AuthTokens  []ItemsTypeAuthTokens `json:"authTokens,omitempty"`
+	Description *string               `json:"description,omitempty"`
+}
+
+func (i InputCriblTCPInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetType() InputCriblTCPType {
+	if i == nil {
+		return InputCriblTCPType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetEnableLoadBalancing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableLoadBalancing
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetAuthTokens() []ItemsTypeAuthTokens {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblTCPInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputCriblTCPType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+	AuthTokens  []ItemsTypeAuthTokens `json:"authTokens,omitempty"`
+	Description *string               `json:"description,omitempty"`
+}
+
+func (i InputCriblTCPInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetType() InputCriblTCPType {
+	if i == nil {
+		return InputCriblTCPType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetEnableLoadBalancing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableLoadBalancing
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetAuthTokens() []ItemsTypeAuthTokens {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCriblTCPInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputCriblTCPType string
 
@@ -31,15 +653,15 @@ func (e *InputCriblTCPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCriblTCP struct {
+type InputCriblTCPInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputCriblTCPType `json:"type"`
 	Disabled *bool             `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -73,167 +695,274 @@ type InputCriblTCP struct {
 	Description *string               `json:"description,omitempty"`
 }
 
-func (i InputCriblTCP) MarshalJSON() ([]byte, error) {
+func (i InputCriblTCPInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblTCP) UnmarshalJSON(data []byte) error {
+func (i *InputCriblTCPInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblTCP) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCriblTCP) GetType() InputCriblTCPType {
-	if i == nil {
-		return InputCriblTCPType("")
-	}
-	return i.Type
-}
-
-func (i *InputCriblTCP) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCriblTCP) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCriblTCP) GetSendToRoutes() *bool {
+func (i *InputCriblTCPInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblTCP) GetEnvironment() *string {
+func (i *InputCriblTCPInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type) GetType() InputCriblTCPType {
+	if i == nil {
+		return InputCriblTCPType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblTCPInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblTCP) GetPqEnabled() *bool {
+func (i *InputCriblTCPInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblTCP) GetStreamtags() []string {
+func (i *InputCriblTCPInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblTCP) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblTCPInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblTCP) GetPq() *PqType {
+func (i *InputCriblTCPInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblTCP) GetHost() *string {
+func (i *InputCriblTCPInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCriblTCP) GetPort() float64 {
+func (i *InputCriblTCPInputCollectionPart0Type) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCriblTCP) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCriblTCPInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCriblTCP) GetMaxActiveCxn() *float64 {
+func (i *InputCriblTCPInputCollectionPart0Type) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputCriblTCP) GetSocketIdleTimeout() *float64 {
+func (i *InputCriblTCPInputCollectionPart0Type) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputCriblTCP) GetSocketEndingMaxWait() *float64 {
+func (i *InputCriblTCPInputCollectionPart0Type) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputCriblTCP) GetSocketMaxLifespan() *float64 {
+func (i *InputCriblTCPInputCollectionPart0Type) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputCriblTCP) GetEnableProxyHeader() *bool {
+func (i *InputCriblTCPInputCollectionPart0Type) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCriblTCP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblTCPInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblTCP) GetEnableLoadBalancing() *bool {
+func (i *InputCriblTCPInputCollectionPart0Type) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputCriblTCP) GetAuthTokens() []ItemsTypeAuthTokens {
+func (i *InputCriblTCPInputCollectionPart0Type) GetAuthTokens() []ItemsTypeAuthTokens {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCriblTCP) GetDescription() *string {
+func (i *InputCriblTCPInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputCriblTCPUnionType string
+
+const (
+	InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart0Type  InputCriblTCPUnionType = "InputCriblTcp_InputCollectionPart0Type"
+	InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart1Type  InputCriblTCPUnionType = "InputCriblTcp_InputCollectionPart1Type"
+	InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart0Type1 InputCriblTCPUnionType = "InputCriblTcp_InputCollectionPart0Type1"
+	InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart1Type1 InputCriblTCPUnionType = "InputCriblTcp_InputCollectionPart1Type1"
+)
+
+type InputCriblTCP struct {
+	InputCriblTCPInputCollectionPart0Type  *InputCriblTCPInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputCriblTCPInputCollectionPart1Type  *InputCriblTCPInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputCriblTCPInputCollectionPart0Type1 *InputCriblTCPInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputCriblTCPInputCollectionPart1Type1 *InputCriblTCPInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputCriblTCPUnionType
+}
+
+func CreateInputCriblTCPInputCriblTCPInputCollectionPart0Type(inputCriblTCPInputCollectionPart0Type InputCriblTCPInputCollectionPart0Type) InputCriblTCP {
+	typ := InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart0Type
+
+	return InputCriblTCP{
+		InputCriblTCPInputCollectionPart0Type: &inputCriblTCPInputCollectionPart0Type,
+		Type:                                  typ,
+	}
+}
+
+func CreateInputCriblTCPInputCriblTCPInputCollectionPart1Type(inputCriblTCPInputCollectionPart1Type InputCriblTCPInputCollectionPart1Type) InputCriblTCP {
+	typ := InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart1Type
+
+	return InputCriblTCP{
+		InputCriblTCPInputCollectionPart1Type: &inputCriblTCPInputCollectionPart1Type,
+		Type:                                  typ,
+	}
+}
+
+func CreateInputCriblTCPInputCriblTCPInputCollectionPart0Type1(inputCriblTCPInputCollectionPart0Type1 InputCriblTCPInputCollectionPart0Type1) InputCriblTCP {
+	typ := InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart0Type1
+
+	return InputCriblTCP{
+		InputCriblTCPInputCollectionPart0Type1: &inputCriblTCPInputCollectionPart0Type1,
+		Type:                                   typ,
+	}
+}
+
+func CreateInputCriblTCPInputCriblTCPInputCollectionPart1Type1(inputCriblTCPInputCollectionPart1Type1 InputCriblTCPInputCollectionPart1Type1) InputCriblTCP {
+	typ := InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart1Type1
+
+	return InputCriblTCP{
+		InputCriblTCPInputCollectionPart1Type1: &inputCriblTCPInputCollectionPart1Type1,
+		Type:                                   typ,
+	}
+}
+
+func (u *InputCriblTCP) UnmarshalJSON(data []byte) error {
+
+	var inputCriblTCPInputCollectionPart0Type InputCriblTCPInputCollectionPart0Type = InputCriblTCPInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputCriblTCPInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputCriblTCPInputCollectionPart0Type = &inputCriblTCPInputCollectionPart0Type
+		u.Type = InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart0Type
+		return nil
+	}
+
+	var inputCriblTCPInputCollectionPart1Type InputCriblTCPInputCollectionPart1Type = InputCriblTCPInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputCriblTCPInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputCriblTCPInputCollectionPart1Type = &inputCriblTCPInputCollectionPart1Type
+		u.Type = InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart1Type
+		return nil
+	}
+
+	var inputCriblTCPInputCollectionPart0Type1 InputCriblTCPInputCollectionPart0Type1 = InputCriblTCPInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputCriblTCPInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputCriblTCPInputCollectionPart0Type1 = &inputCriblTCPInputCollectionPart0Type1
+		u.Type = InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputCriblTCPInputCollectionPart1Type1 InputCriblTCPInputCollectionPart1Type1 = InputCriblTCPInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputCriblTCPInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputCriblTCPInputCollectionPart1Type1 = &inputCriblTCPInputCollectionPart1Type1
+		u.Type = InputCriblTCPUnionTypeInputCriblTCPInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputCriblTCP", string(data))
+}
+
+func (u InputCriblTCP) MarshalJSON() ([]byte, error) {
+	if u.InputCriblTCPInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputCriblTCPInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputCriblTCPInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputCriblTCPInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputCriblTCPInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputCriblTCPInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputCriblTCPInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputCriblTCPInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputCriblTCP: all fields are null")
 }

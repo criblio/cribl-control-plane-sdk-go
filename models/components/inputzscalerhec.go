@@ -4,9 +4,925 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputZscalerHecInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputZscalerHecType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputZscalerHecAuthToken `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
+	HecAPI *string `default:"/services/collector" json:"hecAPI"`
+	// Fields to add to every event. May be overridden by fields added at the token or request level.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// Whether to enable Zscaler HEC acknowledgements
+	HecAcks *bool `default:"false" json:"hecAcks"`
+	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputZscalerHecInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetType() InputZscalerHecType {
+	if i == nil {
+		return InputZscalerHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetAuthTokens() []InputZscalerHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HecAPI
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HecAcks
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputZscalerHecInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputZscalerHecType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputZscalerHecAuthToken `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
+	HecAPI *string `default:"/services/collector" json:"hecAPI"`
+	// Fields to add to every event. May be overridden by fields added at the token or request level.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// Whether to enable Zscaler HEC acknowledgements
+	HecAcks *bool `default:"false" json:"hecAcks"`
+	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputZscalerHecInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetType() InputZscalerHecType {
+	if i == nil {
+		return InputZscalerHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetAuthTokens() []InputZscalerHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HecAPI
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HecAcks
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputZscalerHecInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string             `json:"id,omitempty"`
+	Type     InputZscalerHecType `json:"type"`
+	Disabled *bool               `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []InputZscalerHecAuthToken `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
+	HecAPI *string `default:"/services/collector" json:"hecAPI"`
+	// Fields to add to every event. May be overridden by fields added at the token or request level.
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
+	// Whether to enable Zscaler HEC acknowledgements
+	HecAcks *bool `default:"false" json:"hecAcks"`
+	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
+	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
+	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	Description      *string `json:"description,omitempty"`
+}
+
+func (i InputZscalerHecInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetType() InputZscalerHecType {
+	if i == nil {
+		return InputZscalerHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetAuthTokens() []InputZscalerHecAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetEnableHealthCheck() any {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HecAPI
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HecAcks
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputZscalerHecInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputZscalerHecType string
 
@@ -106,15 +1022,15 @@ func (i *InputZscalerHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata
 	return i.Metadata
 }
 
-type InputZscalerHec struct {
+type InputZscalerHecInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputZscalerHecType `json:"type"`
 	Disabled *bool               `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -151,7 +1067,7 @@ type InputZscalerHec struct {
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
 	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^\\$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
 	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI *string `default:"/services/collector" json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
@@ -169,244 +1085,351 @@ type InputZscalerHec struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputZscalerHec) MarshalJSON() ([]byte, error) {
+func (i InputZscalerHecInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputZscalerHec) UnmarshalJSON(data []byte) error {
+func (i *InputZscalerHecInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputZscalerHec) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputZscalerHec) GetType() InputZscalerHecType {
-	if i == nil {
-		return InputZscalerHecType("")
-	}
-	return i.Type
-}
-
-func (i *InputZscalerHec) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputZscalerHec) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputZscalerHec) GetSendToRoutes() *bool {
+func (i *InputZscalerHecInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputZscalerHec) GetEnvironment() *string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type) GetType() InputZscalerHecType {
+	if i == nil {
+		return InputZscalerHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputZscalerHecInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputZscalerHec) GetPqEnabled() *bool {
+func (i *InputZscalerHecInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputZscalerHec) GetStreamtags() []string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputZscalerHec) GetConnections() []ItemsTypeConnections {
+func (i *InputZscalerHecInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputZscalerHec) GetPq() *PqType {
+func (i *InputZscalerHecInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputZscalerHec) GetHost() *string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputZscalerHec) GetPort() float64 {
+func (i *InputZscalerHecInputCollectionPart0Type) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputZscalerHec) GetAuthTokens() []InputZscalerHecAuthToken {
+func (i *InputZscalerHecInputCollectionPart0Type) GetAuthTokens() []InputZscalerHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputZscalerHec) GetTLS() *TLSSettingsServerSideType {
+func (i *InputZscalerHecInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputZscalerHec) GetMaxActiveReq() *float64 {
+func (i *InputZscalerHecInputCollectionPart0Type) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputZscalerHec) GetMaxRequestsPerSocket() *int64 {
+func (i *InputZscalerHecInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputZscalerHec) GetEnableProxyHeader() *bool {
+func (i *InputZscalerHecInputCollectionPart0Type) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputZscalerHec) GetCaptureHeaders() *bool {
+func (i *InputZscalerHecInputCollectionPart0Type) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputZscalerHec) GetActivityLogSampleRate() *float64 {
+func (i *InputZscalerHecInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputZscalerHec) GetRequestTimeout() *float64 {
+func (i *InputZscalerHecInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputZscalerHec) GetSocketTimeout() *float64 {
+func (i *InputZscalerHecInputCollectionPart0Type) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputZscalerHec) GetKeepAliveTimeout() *float64 {
+func (i *InputZscalerHecInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputZscalerHec) GetEnableHealthCheck() any {
+func (i *InputZscalerHecInputCollectionPart0Type) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputZscalerHec) GetIPAllowlistRegex() *string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputZscalerHec) GetIPDenylistRegex() *string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputZscalerHec) GetHecAPI() *string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.HecAPI
 }
 
-func (i *InputZscalerHec) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputZscalerHecInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputZscalerHec) GetAllowedIndexes() []string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputZscalerHec) GetHecAcks() *bool {
+func (i *InputZscalerHecInputCollectionPart0Type) GetHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.HecAcks
 }
 
-func (i *InputZscalerHec) GetAccessControlAllowOrigin() []string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputZscalerHec) GetAccessControlAllowHeaders() []string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputZscalerHec) GetEmitTokenMetrics() *bool {
+func (i *InputZscalerHecInputCollectionPart0Type) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputZscalerHec) GetDescription() *string {
+func (i *InputZscalerHecInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputZscalerHecUnionType string
+
+const (
+	InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type  InputZscalerHecUnionType = "InputZscalerHec_InputCollectionPart0Type"
+	InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type  InputZscalerHecUnionType = "InputZscalerHec_InputCollectionPart1Type"
+	InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type1 InputZscalerHecUnionType = "InputZscalerHec_InputCollectionPart0Type1"
+	InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type1 InputZscalerHecUnionType = "InputZscalerHec_InputCollectionPart1Type1"
+)
+
+type InputZscalerHec struct {
+	InputZscalerHecInputCollectionPart0Type  *InputZscalerHecInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputZscalerHecInputCollectionPart1Type  *InputZscalerHecInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputZscalerHecInputCollectionPart0Type1 *InputZscalerHecInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputZscalerHecInputCollectionPart1Type1 *InputZscalerHecInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputZscalerHecUnionType
+}
+
+func CreateInputZscalerHecInputZscalerHecInputCollectionPart0Type(inputZscalerHecInputCollectionPart0Type InputZscalerHecInputCollectionPart0Type) InputZscalerHec {
+	typ := InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type
+
+	return InputZscalerHec{
+		InputZscalerHecInputCollectionPart0Type: &inputZscalerHecInputCollectionPart0Type,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputZscalerHecInputZscalerHecInputCollectionPart1Type(inputZscalerHecInputCollectionPart1Type InputZscalerHecInputCollectionPart1Type) InputZscalerHec {
+	typ := InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type
+
+	return InputZscalerHec{
+		InputZscalerHecInputCollectionPart1Type: &inputZscalerHecInputCollectionPart1Type,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputZscalerHecInputZscalerHecInputCollectionPart0Type1(inputZscalerHecInputCollectionPart0Type1 InputZscalerHecInputCollectionPart0Type1) InputZscalerHec {
+	typ := InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type1
+
+	return InputZscalerHec{
+		InputZscalerHecInputCollectionPart0Type1: &inputZscalerHecInputCollectionPart0Type1,
+		Type:                                     typ,
+	}
+}
+
+func CreateInputZscalerHecInputZscalerHecInputCollectionPart1Type1(inputZscalerHecInputCollectionPart1Type1 InputZscalerHecInputCollectionPart1Type1) InputZscalerHec {
+	typ := InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type1
+
+	return InputZscalerHec{
+		InputZscalerHecInputCollectionPart1Type1: &inputZscalerHecInputCollectionPart1Type1,
+		Type:                                     typ,
+	}
+}
+
+func (u *InputZscalerHec) UnmarshalJSON(data []byte) error {
+
+	var inputZscalerHecInputCollectionPart0Type InputZscalerHecInputCollectionPart0Type = InputZscalerHecInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputZscalerHecInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputZscalerHecInputCollectionPart0Type = &inputZscalerHecInputCollectionPart0Type
+		u.Type = InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type
+		return nil
+	}
+
+	var inputZscalerHecInputCollectionPart1Type InputZscalerHecInputCollectionPart1Type = InputZscalerHecInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputZscalerHecInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputZscalerHecInputCollectionPart1Type = &inputZscalerHecInputCollectionPart1Type
+		u.Type = InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type
+		return nil
+	}
+
+	var inputZscalerHecInputCollectionPart0Type1 InputZscalerHecInputCollectionPart0Type1 = InputZscalerHecInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputZscalerHecInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputZscalerHecInputCollectionPart0Type1 = &inputZscalerHecInputCollectionPart0Type1
+		u.Type = InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputZscalerHecInputCollectionPart1Type1 InputZscalerHecInputCollectionPart1Type1 = InputZscalerHecInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputZscalerHecInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputZscalerHecInputCollectionPart1Type1 = &inputZscalerHecInputCollectionPart1Type1
+		u.Type = InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputZscalerHec", string(data))
+}
+
+func (u InputZscalerHec) MarshalJSON() ([]byte, error) {
+	if u.InputZscalerHecInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputZscalerHecInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputZscalerHecInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputZscalerHecInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputZscalerHecInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputZscalerHecInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputZscalerHecInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputZscalerHecInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputZscalerHec: all fields are null")
 }

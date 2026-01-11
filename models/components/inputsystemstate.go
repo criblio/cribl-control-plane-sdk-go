@@ -4,9 +4,466 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputSystemStateInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputSystemStateType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+	Interval *float64 `default:"300" json:"interval"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Collectors  *Collectors                     `json:"collectors,omitempty"`
+	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputSystemStateInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetType() InputSystemStateType {
+	if i == nil {
+		return InputSystemStateType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetCollectors() *Collectors {
+	if i == nil {
+		return nil
+	}
+	return i.Collectors
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetPersistence() *InputSystemStatePersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputSystemStateInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemStateInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputSystemStateType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+	Interval *float64 `default:"300" json:"interval"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Collectors  *Collectors                     `json:"collectors,omitempty"`
+	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputSystemStateInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetType() InputSystemStateType {
+	if i == nil {
+		return InputSystemStateType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetCollectors() *Collectors {
+	if i == nil {
+		return nil
+	}
+	return i.Collectors
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetPersistence() *InputSystemStatePersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputSystemStateInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemStateInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputSystemStateType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+	Interval *float64 `default:"300" json:"interval"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Collectors  *Collectors                     `json:"collectors,omitempty"`
+	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
+	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputSystemStateInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetType() InputSystemStateType {
+	if i == nil {
+		return InputSystemStateType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetCollectors() *Collectors {
+	if i == nil {
+		return nil
+	}
+	return i.Collectors
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetPersistence() *InputSystemStatePersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputSystemStateInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputSystemStateType string
 
@@ -486,15 +943,15 @@ func (i *InputSystemStatePersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputSystemState struct {
+type InputSystemStateInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
 	Disabled *bool                `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -515,125 +972,232 @@ type InputSystemState struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputSystemState) MarshalJSON() ([]byte, error) {
+func (i InputSystemStateInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemState) UnmarshalJSON(data []byte) error {
+func (i *InputSystemStateInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemState) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSystemState) GetType() InputSystemStateType {
-	if i == nil {
-		return InputSystemStateType("")
-	}
-	return i.Type
-}
-
-func (i *InputSystemState) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSystemState) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemState) GetSendToRoutes() *bool {
+func (i *InputSystemStateInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSystemState) GetEnvironment() *string {
+func (i *InputSystemStateInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemStateInputCollectionPart0Type) GetType() InputSystemStateType {
+	if i == nil {
+		return InputSystemStateType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemStateInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemStateInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemStateInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSystemState) GetPqEnabled() *bool {
+func (i *InputSystemStateInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSystemState) GetStreamtags() []string {
+func (i *InputSystemStateInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSystemState) GetConnections() []ItemsTypeConnections {
+func (i *InputSystemStateInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSystemState) GetPq() *PqType {
+func (i *InputSystemStateInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSystemState) GetInterval() *float64 {
+func (i *InputSystemStateInputCollectionPart0Type) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputSystemState) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSystemStateInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSystemState) GetCollectors() *Collectors {
+func (i *InputSystemStateInputCollectionPart0Type) GetCollectors() *Collectors {
 	if i == nil {
 		return nil
 	}
 	return i.Collectors
 }
 
-func (i *InputSystemState) GetPersistence() *InputSystemStatePersistence {
+func (i *InputSystemStateInputCollectionPart0Type) GetPersistence() *InputSystemStatePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputSystemState) GetDisableNativeModule() *bool {
+func (i *InputSystemStateInputCollectionPart0Type) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputSystemState) GetDescription() *string {
+func (i *InputSystemStateInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputSystemStateUnionType string
+
+const (
+	InputSystemStateUnionTypeInputSystemStateInputCollectionPart0Type  InputSystemStateUnionType = "InputSystemState_InputCollectionPart0Type"
+	InputSystemStateUnionTypeInputSystemStateInputCollectionPart1Type  InputSystemStateUnionType = "InputSystemState_InputCollectionPart1Type"
+	InputSystemStateUnionTypeInputSystemStateInputCollectionPart0Type1 InputSystemStateUnionType = "InputSystemState_InputCollectionPart0Type1"
+	InputSystemStateUnionTypeInputSystemStateInputCollectionPart1Type1 InputSystemStateUnionType = "InputSystemState_InputCollectionPart1Type1"
+)
+
+type InputSystemState struct {
+	InputSystemStateInputCollectionPart0Type  *InputSystemStateInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputSystemStateInputCollectionPart1Type  *InputSystemStateInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputSystemStateInputCollectionPart0Type1 *InputSystemStateInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputSystemStateInputCollectionPart1Type1 *InputSystemStateInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputSystemStateUnionType
+}
+
+func CreateInputSystemStateInputSystemStateInputCollectionPart0Type(inputSystemStateInputCollectionPart0Type InputSystemStateInputCollectionPart0Type) InputSystemState {
+	typ := InputSystemStateUnionTypeInputSystemStateInputCollectionPart0Type
+
+	return InputSystemState{
+		InputSystemStateInputCollectionPart0Type: &inputSystemStateInputCollectionPart0Type,
+		Type:                                     typ,
+	}
+}
+
+func CreateInputSystemStateInputSystemStateInputCollectionPart1Type(inputSystemStateInputCollectionPart1Type InputSystemStateInputCollectionPart1Type) InputSystemState {
+	typ := InputSystemStateUnionTypeInputSystemStateInputCollectionPart1Type
+
+	return InputSystemState{
+		InputSystemStateInputCollectionPart1Type: &inputSystemStateInputCollectionPart1Type,
+		Type:                                     typ,
+	}
+}
+
+func CreateInputSystemStateInputSystemStateInputCollectionPart0Type1(inputSystemStateInputCollectionPart0Type1 InputSystemStateInputCollectionPart0Type1) InputSystemState {
+	typ := InputSystemStateUnionTypeInputSystemStateInputCollectionPart0Type1
+
+	return InputSystemState{
+		InputSystemStateInputCollectionPart0Type1: &inputSystemStateInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputSystemStateInputSystemStateInputCollectionPart1Type1(inputSystemStateInputCollectionPart1Type1 InputSystemStateInputCollectionPart1Type1) InputSystemState {
+	typ := InputSystemStateUnionTypeInputSystemStateInputCollectionPart1Type1
+
+	return InputSystemState{
+		InputSystemStateInputCollectionPart1Type1: &inputSystemStateInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputSystemState) UnmarshalJSON(data []byte) error {
+
+	var inputSystemStateInputCollectionPart0Type InputSystemStateInputCollectionPart0Type = InputSystemStateInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputSystemStateInputCollectionPart0Type = &inputSystemStateInputCollectionPart0Type
+		u.Type = InputSystemStateUnionTypeInputSystemStateInputCollectionPart0Type
+		return nil
+	}
+
+	var inputSystemStateInputCollectionPart1Type InputSystemStateInputCollectionPart1Type = InputSystemStateInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputSystemStateInputCollectionPart1Type = &inputSystemStateInputCollectionPart1Type
+		u.Type = InputSystemStateUnionTypeInputSystemStateInputCollectionPart1Type
+		return nil
+	}
+
+	var inputSystemStateInputCollectionPart0Type1 InputSystemStateInputCollectionPart0Type1 = InputSystemStateInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputSystemStateInputCollectionPart0Type1 = &inputSystemStateInputCollectionPart0Type1
+		u.Type = InputSystemStateUnionTypeInputSystemStateInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputSystemStateInputCollectionPart1Type1 InputSystemStateInputCollectionPart1Type1 = InputSystemStateInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputSystemStateInputCollectionPart1Type1 = &inputSystemStateInputCollectionPart1Type1
+		u.Type = InputSystemStateUnionTypeInputSystemStateInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSystemState", string(data))
+}
+
+func (u InputSystemState) MarshalJSON() ([]byte, error) {
+	if u.InputSystemStateInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputSystemStateInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputSystemStateInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputSystemStateInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputSystemStateInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputSystemStateInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputSystemStateInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputSystemStateInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSystemState: all fields are null")
 }

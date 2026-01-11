@@ -4,9 +4,868 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputAppscopeInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputAppscopeType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                     `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter      `json:"filter,omitempty"`
+	Persistence    *InputAppscopePersistence `json:"persistence,omitempty"`
+	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	Description *string                                     `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64                   `json:"port,omitempty"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetType() InputAppscopeType {
+	if i == nil {
+		return InputAppscopeType("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetFilter() *InputAppscopeFilter {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetPersistence() *InputAppscopePersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeInputCollectionPart1Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputAppscopeType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                     `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter      `json:"filter,omitempty"`
+	Persistence    *InputAppscopePersistence `json:"persistence,omitempty"`
+	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	Description *string                                     `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64                   `json:"port,omitempty"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetType() InputAppscopeType {
+	if i == nil {
+		return InputAppscopeType("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetFilter() *InputAppscopeFilter {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetPersistence() *InputAppscopePersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeInputCollectionPart0Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputAppscopeInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputAppscopeType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                     `default:"false" json:"enableUnixPath"`
+	Filter         *InputAppscopeFilter      `json:"filter,omitempty"`
+	Persistence    *InputAppscopePersistence `json:"persistence,omitempty"`
+	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	Description *string                                     `json:"description,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitempty"`
+	// Port to listen on
+	Port *float64                   `json:"port,omitempty"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `default:"$CRIBL_HOME/state/appscope.sock" json:"unixSocketPath"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *string `json:"unixSocketPerms,omitempty"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `default:"" json:"authToken"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputAppscopeInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetType() InputAppscopeType {
+	if i == nil {
+		return InputAppscopeType("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetFilter() *InputAppscopeFilter {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetPersistence() *InputAppscopePersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetUnixSocketPerms() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeInputCollectionPart1Type) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
 
 type InputAppscopeType string
 
@@ -171,15 +1030,15 @@ func (i *InputAppscopePersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputAppscope struct {
+type InputAppscopeInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputAppscopeType `json:"type"`
 	Disabled *bool             `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -229,230 +1088,337 @@ type InputAppscope struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputAppscope) MarshalJSON() ([]byte, error) {
+func (i InputAppscopeInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAppscope) UnmarshalJSON(data []byte) error {
+func (i *InputAppscopeInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAppscope) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputAppscope) GetType() InputAppscopeType {
-	if i == nil {
-		return InputAppscopeType("")
-	}
-	return i.Type
-}
-
-func (i *InputAppscope) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputAppscope) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputAppscope) GetSendToRoutes() *bool {
+func (i *InputAppscopeInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputAppscope) GetEnvironment() *string {
+func (i *InputAppscopeInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeInputCollectionPart0Type) GetType() InputAppscopeType {
+	if i == nil {
+		return InputAppscopeType("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputAppscope) GetPqEnabled() *bool {
+func (i *InputAppscopeInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputAppscope) GetStreamtags() []string {
+func (i *InputAppscopeInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputAppscope) GetConnections() []ItemsTypeConnections {
+func (i *InputAppscopeInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputAppscope) GetPq() *PqType {
+func (i *InputAppscopeInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputAppscope) GetIPWhitelistRegex() *string {
+func (i *InputAppscopeInputCollectionPart0Type) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputAppscope) GetMaxActiveCxn() *float64 {
+func (i *InputAppscopeInputCollectionPart0Type) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputAppscope) GetSocketIdleTimeout() *float64 {
+func (i *InputAppscopeInputCollectionPart0Type) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputAppscope) GetSocketEndingMaxWait() *float64 {
+func (i *InputAppscopeInputCollectionPart0Type) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputAppscope) GetSocketMaxLifespan() *float64 {
+func (i *InputAppscopeInputCollectionPart0Type) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputAppscope) GetEnableProxyHeader() *bool {
+func (i *InputAppscopeInputCollectionPart0Type) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputAppscope) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAppscopeInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputAppscope) GetBreakerRulesets() []string {
+func (i *InputAppscopeInputCollectionPart0Type) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputAppscope) GetStaleChannelFlushMs() *float64 {
+func (i *InputAppscopeInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputAppscope) GetEnableUnixPath() *bool {
+func (i *InputAppscopeInputCollectionPart0Type) GetEnableUnixPath() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableUnixPath
 }
 
-func (i *InputAppscope) GetFilter() *InputAppscopeFilter {
+func (i *InputAppscopeInputCollectionPart0Type) GetFilter() *InputAppscopeFilter {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputAppscope) GetPersistence() *InputAppscopePersistence {
+func (i *InputAppscopeInputCollectionPart0Type) GetPersistence() *InputAppscopePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputAppscope) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+func (i *InputAppscopeInputCollectionPart0Type) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAppscope) GetDescription() *string {
+func (i *InputAppscopeInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAppscope) GetHost() *string {
+func (i *InputAppscopeInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputAppscope) GetPort() *float64 {
+func (i *InputAppscopeInputCollectionPart0Type) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputAppscope) GetTLS() *TLSSettingsServerSideType {
+func (i *InputAppscopeInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputAppscope) GetUnixSocketPath() *string {
+func (i *InputAppscopeInputCollectionPart0Type) GetUnixSocketPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPath
 }
 
-func (i *InputAppscope) GetUnixSocketPerms() *string {
+func (i *InputAppscopeInputCollectionPart0Type) GetUnixSocketPerms() *string {
 	if i == nil {
 		return nil
 	}
 	return i.UnixSocketPerms
 }
 
-func (i *InputAppscope) GetAuthToken() *string {
+func (i *InputAppscopeInputCollectionPart0Type) GetAuthToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthToken
 }
 
-func (i *InputAppscope) GetTextSecret() *string {
+func (i *InputAppscopeInputCollectionPart0Type) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
+}
+
+type InputAppscopeUnionType string
+
+const (
+	InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type  InputAppscopeUnionType = "InputAppscope_InputCollectionPart0Type"
+	InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type  InputAppscopeUnionType = "InputAppscope_InputCollectionPart1Type"
+	InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type1 InputAppscopeUnionType = "InputAppscope_InputCollectionPart0Type1"
+	InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type1 InputAppscopeUnionType = "InputAppscope_InputCollectionPart1Type1"
+)
+
+type InputAppscope struct {
+	InputAppscopeInputCollectionPart0Type  *InputAppscopeInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputAppscopeInputCollectionPart1Type  *InputAppscopeInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputAppscopeInputCollectionPart0Type1 *InputAppscopeInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputAppscopeInputCollectionPart1Type1 *InputAppscopeInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputAppscopeUnionType
+}
+
+func CreateInputAppscopeInputAppscopeInputCollectionPart0Type(inputAppscopeInputCollectionPart0Type InputAppscopeInputCollectionPart0Type) InputAppscope {
+	typ := InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type
+
+	return InputAppscope{
+		InputAppscopeInputCollectionPart0Type: &inputAppscopeInputCollectionPart0Type,
+		Type:                                  typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeInputCollectionPart1Type(inputAppscopeInputCollectionPart1Type InputAppscopeInputCollectionPart1Type) InputAppscope {
+	typ := InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type
+
+	return InputAppscope{
+		InputAppscopeInputCollectionPart1Type: &inputAppscopeInputCollectionPart1Type,
+		Type:                                  typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeInputCollectionPart0Type1(inputAppscopeInputCollectionPart0Type1 InputAppscopeInputCollectionPart0Type1) InputAppscope {
+	typ := InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type1
+
+	return InputAppscope{
+		InputAppscopeInputCollectionPart0Type1: &inputAppscopeInputCollectionPart0Type1,
+		Type:                                   typ,
+	}
+}
+
+func CreateInputAppscopeInputAppscopeInputCollectionPart1Type1(inputAppscopeInputCollectionPart1Type1 InputAppscopeInputCollectionPart1Type1) InputAppscope {
+	typ := InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type1
+
+	return InputAppscope{
+		InputAppscopeInputCollectionPart1Type1: &inputAppscopeInputCollectionPart1Type1,
+		Type:                                   typ,
+	}
+}
+
+func (u *InputAppscope) UnmarshalJSON(data []byte) error {
+
+	var inputAppscopeInputCollectionPart0Type InputAppscopeInputCollectionPart0Type = InputAppscopeInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputAppscopeInputCollectionPart0Type = &inputAppscopeInputCollectionPart0Type
+		u.Type = InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type
+		return nil
+	}
+
+	var inputAppscopeInputCollectionPart1Type InputAppscopeInputCollectionPart1Type = InputAppscopeInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputAppscopeInputCollectionPart1Type = &inputAppscopeInputCollectionPart1Type
+		u.Type = InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type
+		return nil
+	}
+
+	var inputAppscopeInputCollectionPart0Type1 InputAppscopeInputCollectionPart0Type1 = InputAppscopeInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputAppscopeInputCollectionPart0Type1 = &inputAppscopeInputCollectionPart0Type1
+		u.Type = InputAppscopeUnionTypeInputAppscopeInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputAppscopeInputCollectionPart1Type1 InputAppscopeInputCollectionPart1Type1 = InputAppscopeInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputAppscopeInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputAppscopeInputCollectionPart1Type1 = &inputAppscopeInputCollectionPart1Type1
+		u.Type = InputAppscopeUnionTypeInputAppscopeInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputAppscope", string(data))
+}
+
+func (u InputAppscope) MarshalJSON() ([]byte, error) {
+	if u.InputAppscopeInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputAppscopeInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputAppscopeInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputAppscopeInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputAppscopeInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputAppscopeInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputAppscopeInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputAppscopeInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputAppscope: all fields are null")
 }

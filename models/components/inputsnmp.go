@@ -4,9 +4,580 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputSnmpInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputSnmpType `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// UDP port to receive SNMP traps on. Defaults to 162.
+	Port *float64 `default:"162" json:"port"`
+	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// If enabled, parses varbinds as an array of objects that include OID, value, and type
+	VarbindsWithTypes *bool `default:"false" json:"varbindsWithTypes"`
+	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+	BestEffortParsing *bool   `default:"false" json:"bestEffortParsing"`
+	Description       *string `json:"description,omitempty"`
+}
+
+func (i InputSnmpInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetType() InputSnmpType {
+	if i == nil {
+		return InputSnmpType("")
+	}
+	return i.Type
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetSnmpV3Auth() *SNMPv3Authentication {
+	if i == nil {
+		return nil
+	}
+	return i.SnmpV3Auth
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetVarbindsWithTypes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.VarbindsWithTypes
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetBestEffortParsing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.BestEffortParsing
+}
+
+func (i *InputSnmpInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSnmpInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputSnmpType `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// UDP port to receive SNMP traps on. Defaults to 162.
+	Port *float64 `default:"162" json:"port"`
+	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// If enabled, parses varbinds as an array of objects that include OID, value, and type
+	VarbindsWithTypes *bool `default:"false" json:"varbindsWithTypes"`
+	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+	BestEffortParsing *bool   `default:"false" json:"bestEffortParsing"`
+	Description       *string `json:"description,omitempty"`
+}
+
+func (i InputSnmpInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetType() InputSnmpType {
+	if i == nil {
+		return InputSnmpType("")
+	}
+	return i.Type
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetSnmpV3Auth() *SNMPv3Authentication {
+	if i == nil {
+		return nil
+	}
+	return i.SnmpV3Auth
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetVarbindsWithTypes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.VarbindsWithTypes
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetBestEffortParsing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.BestEffortParsing
+}
+
+func (i *InputSnmpInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSnmpInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputSnmpType `json:"type"`
+	Disabled *bool         `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// UDP port to receive SNMP traps on. Defaults to 162.
+	Port *float64 `default:"162" json:"port"`
+	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// If enabled, parses varbinds as an array of objects that include OID, value, and type
+	VarbindsWithTypes *bool `default:"false" json:"varbindsWithTypes"`
+	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+	BestEffortParsing *bool   `default:"false" json:"bestEffortParsing"`
+	Description       *string `json:"description,omitempty"`
+}
+
+func (i InputSnmpInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetType() InputSnmpType {
+	if i == nil {
+		return InputSnmpType("")
+	}
+	return i.Type
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetSnmpV3Auth() *SNMPv3Authentication {
+	if i == nil {
+		return nil
+	}
+	return i.SnmpV3Auth
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetVarbindsWithTypes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.VarbindsWithTypes
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetBestEffortParsing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.BestEffortParsing
+}
+
+func (i *InputSnmpInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputSnmpType string
 
@@ -156,15 +727,15 @@ func (s *SNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 	return s.V3Users
 }
 
-type InputSnmp struct {
+type InputSnmpInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputSnmpType `json:"type"`
 	Disabled *bool         `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -195,153 +766,260 @@ type InputSnmp struct {
 	Description       *string `json:"description,omitempty"`
 }
 
-func (i InputSnmp) MarshalJSON() ([]byte, error) {
+func (i InputSnmpInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSnmp) UnmarshalJSON(data []byte) error {
+func (i *InputSnmpInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSnmp) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSnmp) GetType() InputSnmpType {
-	if i == nil {
-		return InputSnmpType("")
-	}
-	return i.Type
-}
-
-func (i *InputSnmp) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSnmp) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSnmp) GetSendToRoutes() *bool {
+func (i *InputSnmpInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSnmp) GetEnvironment() *string {
+func (i *InputSnmpInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSnmpInputCollectionPart0Type) GetType() InputSnmpType {
+	if i == nil {
+		return InputSnmpType("")
+	}
+	return i.Type
+}
+
+func (i *InputSnmpInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSnmpInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSnmpInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSnmp) GetPqEnabled() *bool {
+func (i *InputSnmpInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSnmp) GetStreamtags() []string {
+func (i *InputSnmpInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSnmp) GetConnections() []ItemsTypeConnections {
+func (i *InputSnmpInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSnmp) GetPq() *PqType {
+func (i *InputSnmpInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSnmp) GetHost() *string {
+func (i *InputSnmpInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputSnmp) GetPort() *float64 {
+func (i *InputSnmpInputCollectionPart0Type) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputSnmp) GetSnmpV3Auth() *SNMPv3Authentication {
+func (i *InputSnmpInputCollectionPart0Type) GetSnmpV3Auth() *SNMPv3Authentication {
 	if i == nil {
 		return nil
 	}
 	return i.SnmpV3Auth
 }
 
-func (i *InputSnmp) GetMaxBufferSize() *float64 {
+func (i *InputSnmpInputCollectionPart0Type) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputSnmp) GetIPWhitelistRegex() *string {
+func (i *InputSnmpInputCollectionPart0Type) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputSnmp) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSnmpInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSnmp) GetUDPSocketRxBufSize() *float64 {
+func (i *InputSnmpInputCollectionPart0Type) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputSnmp) GetVarbindsWithTypes() *bool {
+func (i *InputSnmpInputCollectionPart0Type) GetVarbindsWithTypes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VarbindsWithTypes
 }
 
-func (i *InputSnmp) GetBestEffortParsing() *bool {
+func (i *InputSnmpInputCollectionPart0Type) GetBestEffortParsing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.BestEffortParsing
 }
 
-func (i *InputSnmp) GetDescription() *string {
+func (i *InputSnmpInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputSnmpUnionType string
+
+const (
+	InputSnmpUnionTypeInputSnmpInputCollectionPart0Type  InputSnmpUnionType = "InputSnmp_InputCollectionPart0Type"
+	InputSnmpUnionTypeInputSnmpInputCollectionPart1Type  InputSnmpUnionType = "InputSnmp_InputCollectionPart1Type"
+	InputSnmpUnionTypeInputSnmpInputCollectionPart0Type1 InputSnmpUnionType = "InputSnmp_InputCollectionPart0Type1"
+	InputSnmpUnionTypeInputSnmpInputCollectionPart1Type1 InputSnmpUnionType = "InputSnmp_InputCollectionPart1Type1"
+)
+
+type InputSnmp struct {
+	InputSnmpInputCollectionPart0Type  *InputSnmpInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputSnmpInputCollectionPart1Type  *InputSnmpInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputSnmpInputCollectionPart0Type1 *InputSnmpInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputSnmpInputCollectionPart1Type1 *InputSnmpInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputSnmpUnionType
+}
+
+func CreateInputSnmpInputSnmpInputCollectionPart0Type(inputSnmpInputCollectionPart0Type InputSnmpInputCollectionPart0Type) InputSnmp {
+	typ := InputSnmpUnionTypeInputSnmpInputCollectionPart0Type
+
+	return InputSnmp{
+		InputSnmpInputCollectionPart0Type: &inputSnmpInputCollectionPart0Type,
+		Type:                              typ,
+	}
+}
+
+func CreateInputSnmpInputSnmpInputCollectionPart1Type(inputSnmpInputCollectionPart1Type InputSnmpInputCollectionPart1Type) InputSnmp {
+	typ := InputSnmpUnionTypeInputSnmpInputCollectionPart1Type
+
+	return InputSnmp{
+		InputSnmpInputCollectionPart1Type: &inputSnmpInputCollectionPart1Type,
+		Type:                              typ,
+	}
+}
+
+func CreateInputSnmpInputSnmpInputCollectionPart0Type1(inputSnmpInputCollectionPart0Type1 InputSnmpInputCollectionPart0Type1) InputSnmp {
+	typ := InputSnmpUnionTypeInputSnmpInputCollectionPart0Type1
+
+	return InputSnmp{
+		InputSnmpInputCollectionPart0Type1: &inputSnmpInputCollectionPart0Type1,
+		Type:                               typ,
+	}
+}
+
+func CreateInputSnmpInputSnmpInputCollectionPart1Type1(inputSnmpInputCollectionPart1Type1 InputSnmpInputCollectionPart1Type1) InputSnmp {
+	typ := InputSnmpUnionTypeInputSnmpInputCollectionPart1Type1
+
+	return InputSnmp{
+		InputSnmpInputCollectionPart1Type1: &inputSnmpInputCollectionPart1Type1,
+		Type:                               typ,
+	}
+}
+
+func (u *InputSnmp) UnmarshalJSON(data []byte) error {
+
+	var inputSnmpInputCollectionPart0Type InputSnmpInputCollectionPart0Type = InputSnmpInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputSnmpInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputSnmpInputCollectionPart0Type = &inputSnmpInputCollectionPart0Type
+		u.Type = InputSnmpUnionTypeInputSnmpInputCollectionPart0Type
+		return nil
+	}
+
+	var inputSnmpInputCollectionPart1Type InputSnmpInputCollectionPart1Type = InputSnmpInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputSnmpInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputSnmpInputCollectionPart1Type = &inputSnmpInputCollectionPart1Type
+		u.Type = InputSnmpUnionTypeInputSnmpInputCollectionPart1Type
+		return nil
+	}
+
+	var inputSnmpInputCollectionPart0Type1 InputSnmpInputCollectionPart0Type1 = InputSnmpInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputSnmpInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputSnmpInputCollectionPart0Type1 = &inputSnmpInputCollectionPart0Type1
+		u.Type = InputSnmpUnionTypeInputSnmpInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputSnmpInputCollectionPart1Type1 InputSnmpInputCollectionPart1Type1 = InputSnmpInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputSnmpInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputSnmpInputCollectionPart1Type1 = &inputSnmpInputCollectionPart1Type1
+		u.Type = InputSnmpUnionTypeInputSnmpInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSnmp", string(data))
+}
+
+func (u InputSnmp) MarshalJSON() ([]byte, error) {
+	if u.InputSnmpInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputSnmpInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputSnmpInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputSnmpInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputSnmpInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputSnmpInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputSnmpInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputSnmpInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSnmp: all fields are null")
 }

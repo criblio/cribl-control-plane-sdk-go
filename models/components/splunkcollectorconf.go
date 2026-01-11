@@ -184,15 +184,15 @@ type SplunkAuthenticationLoginSecret struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication *SplunkAuthenticationLoginSecretAuthentication `default:"basic" json:"authentication"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -549,15 +549,15 @@ type SplunkAuthenticationLogin struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication *SplunkAuthenticationLoginAuthentication `default:"basic" json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL *string `default:"https://localhost:9000/api/v1/auth/login" json:"loginUrl"`
+	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
 	Username string  `json:"username"`
 	Password string  `json:"password"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string `default:"{ \"username\": \"\\${username}\", \"password\": \"\\${password}\" }" json:"loginBody"`
+	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
 	// Path to token attribute in login response body. Nested attributes are allowed.
 	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -2402,13 +2402,13 @@ const (
 )
 
 type SplunkCollectorConf struct {
-	SplunkAuthenticationNone        *SplunkAuthenticationNone        `queryParam:"inline,name=SplunkCollectorConf" union:"member"`
-	SplunkAuthenticationBasic       *SplunkAuthenticationBasic       `queryParam:"inline,name=SplunkCollectorConf" union:"member"`
-	SplunkAuthenticationBasicSecret *SplunkAuthenticationBasicSecret `queryParam:"inline,name=SplunkCollectorConf" union:"member"`
-	SplunkAuthenticationToken       *SplunkAuthenticationToken       `queryParam:"inline,name=SplunkCollectorConf" union:"member"`
-	SplunkAuthenticationTokenSecret *SplunkAuthenticationTokenSecret `queryParam:"inline,name=SplunkCollectorConf" union:"member"`
-	SplunkAuthenticationLogin       *SplunkAuthenticationLogin       `queryParam:"inline,name=SplunkCollectorConf" union:"member"`
-	SplunkAuthenticationLoginSecret *SplunkAuthenticationLoginSecret `queryParam:"inline,name=SplunkCollectorConf" union:"member"`
+	SplunkAuthenticationNone        *SplunkAuthenticationNone        `queryParam:"inline" union:"member"`
+	SplunkAuthenticationBasic       *SplunkAuthenticationBasic       `queryParam:"inline" union:"member"`
+	SplunkAuthenticationBasicSecret *SplunkAuthenticationBasicSecret `queryParam:"inline" union:"member"`
+	SplunkAuthenticationToken       *SplunkAuthenticationToken       `queryParam:"inline" union:"member"`
+	SplunkAuthenticationTokenSecret *SplunkAuthenticationTokenSecret `queryParam:"inline" union:"member"`
+	SplunkAuthenticationLogin       *SplunkAuthenticationLogin       `queryParam:"inline" union:"member"`
+	SplunkAuthenticationLoginSecret *SplunkAuthenticationLoginSecret `queryParam:"inline" union:"member"`
 
 	Type SplunkCollectorConfType
 }

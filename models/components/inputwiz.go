@@ -4,9 +4,736 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputWizInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string      `json:"id,omitempty"`
+	Type     InputWizType `json:"type"`
+	Disabled *bool        `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	// The authentication URL to generate an OAuth token
+	AuthURL string `json:"authUrl"`
+	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	// The client ID of the Wiz application
+	ClientID      string                  `json:"clientId"`
+	ContentConfig []InputWizContentConfig `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
+	// Enter client secret directly, or select a stored secret
+	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description *string                       `json:"description,omitempty"`
+	// The client secret of the Wiz application
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputWizInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetType() InputWizType {
+	if i == nil {
+		return InputWizType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetContentConfig() []InputWizContentConfig {
+	if i == nil {
+		return []InputWizContentConfig{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetAuthType() *AuthenticationMethodOptions1 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientSecret
+}
+
+func (i *InputWizInputCollectionPart1Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputWizInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string      `json:"id,omitempty"`
+	Type     InputWizType `json:"type"`
+	Disabled *bool        `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	// The authentication URL to generate an OAuth token
+	AuthURL string `json:"authUrl"`
+	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	// The client ID of the Wiz application
+	ClientID      string                  `json:"clientId"`
+	ContentConfig []InputWizContentConfig `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
+	// Enter client secret directly, or select a stored secret
+	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description *string                       `json:"description,omitempty"`
+	// The client secret of the Wiz application
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputWizInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetType() InputWizType {
+	if i == nil {
+		return InputWizType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetContentConfig() []InputWizContentConfig {
+	if i == nil {
+		return []InputWizContentConfig{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetAuthType() *AuthenticationMethodOptions1 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientSecret
+}
+
+func (i *InputWizInputCollectionPart0Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+type InputWizInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string      `json:"id,omitempty"`
+	Type     InputWizType `json:"type"`
+	Disabled *bool        `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	// The authentication URL to generate an OAuth token
+	AuthURL string `json:"authUrl"`
+	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+	AuthAudienceOverride *string `json:"authAudienceOverride,omitempty"`
+	// The client ID of the Wiz application
+	ClientID      string                  `json:"clientId"`
+	ContentConfig []InputWizContentConfig `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `default:"4h" json:"ttl"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	// Fields to add to events from this input
+	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
+	// Enter client secret directly, or select a stored secret
+	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description *string                       `json:"description,omitempty"`
+	// The client secret of the Wiz application
+	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+}
+
+func (i InputWizInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWizInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWizInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWizInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizInputCollectionPart1Type) GetType() InputWizType {
+	if i == nil {
+		return InputWizType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWizInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWizInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWizInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizInputCollectionPart1Type) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputWizInputCollectionPart1Type) GetAuthURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.AuthURL
+}
+
+func (i *InputWizInputCollectionPart1Type) GetAuthAudienceOverride() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthAudienceOverride
+}
+
+func (i *InputWizInputCollectionPart1Type) GetClientID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ClientID
+}
+
+func (i *InputWizInputCollectionPart1Type) GetContentConfig() []InputWizContentConfig {
+	if i == nil {
+		return []InputWizContentConfig{}
+	}
+	return i.ContentConfig
+}
+
+func (i *InputWizInputCollectionPart1Type) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputWizInputCollectionPart1Type) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputWizInputCollectionPart1Type) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputWizInputCollectionPart1Type) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputWizInputCollectionPart1Type) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputWizInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWizInputCollectionPart1Type) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputWizInputCollectionPart1Type) GetAuthType() *AuthenticationMethodOptions1 {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputWizInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWizInputCollectionPart1Type) GetClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientSecret
+}
+
+func (i *InputWizInputCollectionPart1Type) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
 
 type InputWizType string
 
@@ -208,15 +935,15 @@ func (i *InputWizContentConfig) GetMaxPages() *float64 {
 	return i.MaxPages
 }
 
-type InputWiz struct {
+type InputWizInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWizType `json:"type"`
 	Disabled *bool        `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -257,195 +984,302 @@ type InputWiz struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputWiz) MarshalJSON() ([]byte, error) {
+func (i InputWizInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWiz) UnmarshalJSON(data []byte) error {
+func (i *InputWizInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWiz) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWiz) GetType() InputWizType {
-	if i == nil {
-		return InputWizType("")
-	}
-	return i.Type
-}
-
-func (i *InputWiz) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWiz) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWiz) GetSendToRoutes() *bool {
+func (i *InputWizInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWiz) GetEnvironment() *string {
+func (i *InputWizInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWizInputCollectionPart0Type) GetType() InputWizType {
+	if i == nil {
+		return InputWizType("")
+	}
+	return i.Type
+}
+
+func (i *InputWizInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWizInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWizInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWiz) GetPqEnabled() *bool {
+func (i *InputWizInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWiz) GetStreamtags() []string {
+func (i *InputWizInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWiz) GetConnections() []ItemsTypeConnections {
+func (i *InputWizInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWiz) GetPq() *PqType {
+func (i *InputWizInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWiz) GetEndpoint() *string {
+func (i *InputWizInputCollectionPart0Type) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputWiz) GetAuthURL() string {
+func (i *InputWizInputCollectionPart0Type) GetAuthURL() string {
 	if i == nil {
 		return ""
 	}
 	return i.AuthURL
 }
 
-func (i *InputWiz) GetAuthAudienceOverride() *string {
+func (i *InputWizInputCollectionPart0Type) GetAuthAudienceOverride() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthAudienceOverride
 }
 
-func (i *InputWiz) GetClientID() string {
+func (i *InputWizInputCollectionPart0Type) GetClientID() string {
 	if i == nil {
 		return ""
 	}
 	return i.ClientID
 }
 
-func (i *InputWiz) GetContentConfig() []InputWizContentConfig {
+func (i *InputWizInputCollectionPart0Type) GetContentConfig() []InputWizContentConfig {
 	if i == nil {
 		return []InputWizContentConfig{}
 	}
 	return i.ContentConfig
 }
 
-func (i *InputWiz) GetRequestTimeout() *float64 {
+func (i *InputWizInputCollectionPart0Type) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputWiz) GetKeepAliveTime() *float64 {
+func (i *InputWizInputCollectionPart0Type) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputWiz) GetMaxMissedKeepAlives() *float64 {
+func (i *InputWizInputCollectionPart0Type) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputWiz) GetTTL() *string {
+func (i *InputWizInputCollectionPart0Type) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputWiz) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputWizInputCollectionPart0Type) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputWiz) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWizInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWiz) GetRetryRules() *RetryRulesType {
+func (i *InputWizInputCollectionPart0Type) GetRetryRules() *RetryRulesType {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputWiz) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizInputCollectionPart0Type) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputWiz) GetDescription() *string {
+func (i *InputWizInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWiz) GetClientSecret() *string {
+func (i *InputWizInputCollectionPart0Type) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputWiz) GetTextSecret() *string {
+func (i *InputWizInputCollectionPart0Type) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
+}
+
+type InputWizUnionType string
+
+const (
+	InputWizUnionTypeInputWizInputCollectionPart0Type  InputWizUnionType = "InputWiz_InputCollectionPart0Type"
+	InputWizUnionTypeInputWizInputCollectionPart1Type  InputWizUnionType = "InputWiz_InputCollectionPart1Type"
+	InputWizUnionTypeInputWizInputCollectionPart0Type1 InputWizUnionType = "InputWiz_InputCollectionPart0Type1"
+	InputWizUnionTypeInputWizInputCollectionPart1Type1 InputWizUnionType = "InputWiz_InputCollectionPart1Type1"
+)
+
+type InputWiz struct {
+	InputWizInputCollectionPart0Type  *InputWizInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputWizInputCollectionPart1Type  *InputWizInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputWizInputCollectionPart0Type1 *InputWizInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputWizInputCollectionPart1Type1 *InputWizInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputWizUnionType
+}
+
+func CreateInputWizInputWizInputCollectionPart0Type(inputWizInputCollectionPart0Type InputWizInputCollectionPart0Type) InputWiz {
+	typ := InputWizUnionTypeInputWizInputCollectionPart0Type
+
+	return InputWiz{
+		InputWizInputCollectionPart0Type: &inputWizInputCollectionPart0Type,
+		Type:                             typ,
+	}
+}
+
+func CreateInputWizInputWizInputCollectionPart1Type(inputWizInputCollectionPart1Type InputWizInputCollectionPart1Type) InputWiz {
+	typ := InputWizUnionTypeInputWizInputCollectionPart1Type
+
+	return InputWiz{
+		InputWizInputCollectionPart1Type: &inputWizInputCollectionPart1Type,
+		Type:                             typ,
+	}
+}
+
+func CreateInputWizInputWizInputCollectionPart0Type1(inputWizInputCollectionPart0Type1 InputWizInputCollectionPart0Type1) InputWiz {
+	typ := InputWizUnionTypeInputWizInputCollectionPart0Type1
+
+	return InputWiz{
+		InputWizInputCollectionPart0Type1: &inputWizInputCollectionPart0Type1,
+		Type:                              typ,
+	}
+}
+
+func CreateInputWizInputWizInputCollectionPart1Type1(inputWizInputCollectionPart1Type1 InputWizInputCollectionPart1Type1) InputWiz {
+	typ := InputWizUnionTypeInputWizInputCollectionPart1Type1
+
+	return InputWiz{
+		InputWizInputCollectionPart1Type1: &inputWizInputCollectionPart1Type1,
+		Type:                              typ,
+	}
+}
+
+func (u *InputWiz) UnmarshalJSON(data []byte) error {
+
+	var inputWizInputCollectionPart0Type InputWizInputCollectionPart0Type = InputWizInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputWizInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputWizInputCollectionPart0Type = &inputWizInputCollectionPart0Type
+		u.Type = InputWizUnionTypeInputWizInputCollectionPart0Type
+		return nil
+	}
+
+	var inputWizInputCollectionPart1Type InputWizInputCollectionPart1Type = InputWizInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputWizInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputWizInputCollectionPart1Type = &inputWizInputCollectionPart1Type
+		u.Type = InputWizUnionTypeInputWizInputCollectionPart1Type
+		return nil
+	}
+
+	var inputWizInputCollectionPart0Type1 InputWizInputCollectionPart0Type1 = InputWizInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputWizInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputWizInputCollectionPart0Type1 = &inputWizInputCollectionPart0Type1
+		u.Type = InputWizUnionTypeInputWizInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputWizInputCollectionPart1Type1 InputWizInputCollectionPart1Type1 = InputWizInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputWizInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputWizInputCollectionPart1Type1 = &inputWizInputCollectionPart1Type1
+		u.Type = InputWizUnionTypeInputWizInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWiz", string(data))
+}
+
+func (u InputWiz) MarshalJSON() ([]byte, error) {
+	if u.InputWizInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputWizInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputWizInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputWizInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputWizInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputWizInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputWizInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputWizInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputWiz: all fields are null")
 }

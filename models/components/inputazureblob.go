@@ -4,9 +4,925 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputAzureBlobInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAzureBlobType `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// The duration (in seconds) which pollers should be validated and restarted if exited
+	ServicePeriodSecs *float64 `default:"5" json:"servicePeriodSecs"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64                     `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *AuthenticationMethodOptions `default:"manual" json:"authType"`
+	Description                 *string                      `json:"description,omitempty"`
+	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// The name of your Azure storage account
+	StorageAccountName *string `json:"storageAccountName,omitempty"`
+	// The service principal's tenant ID
+	TenantID *string `json:"tenantId,omitempty"`
+	// The service principal's client ID
+	ClientID *string `json:"clientId,omitempty"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud *string `json:"azureCloud,omitempty"`
+	// Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	// Select or create a stored text secret
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitempty"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
+}
+
+func (i InputAzureBlobInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetType() InputAzureBlobType {
+	if i == nil {
+		return InputAzureBlobType("")
+	}
+	return i.Type
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetServicePeriodSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ServicePeriodSecs
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetAuthType() *AuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetConnectionString() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionString
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetStorageAccountName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StorageAccountName
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TenantID
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientID
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetAzureCloud() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AzureCloud
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetEndpointSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointSuffix
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetClientTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientTextSecret
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type1) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if i == nil {
+		return nil
+	}
+	return i.Certificate
+}
+
+type InputAzureBlobInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAzureBlobType `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// The duration (in seconds) which pollers should be validated and restarted if exited
+	ServicePeriodSecs *float64 `default:"5" json:"servicePeriodSecs"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64                     `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *AuthenticationMethodOptions `default:"manual" json:"authType"`
+	Description                 *string                      `json:"description,omitempty"`
+	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// The name of your Azure storage account
+	StorageAccountName *string `json:"storageAccountName,omitempty"`
+	// The service principal's tenant ID
+	TenantID *string `json:"tenantId,omitempty"`
+	// The service principal's client ID
+	ClientID *string `json:"clientId,omitempty"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud *string `json:"azureCloud,omitempty"`
+	// Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	// Select or create a stored text secret
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitempty"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
+}
+
+func (i InputAzureBlobInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetType() InputAzureBlobType {
+	if i == nil {
+		return InputAzureBlobType("")
+	}
+	return i.Type
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetServicePeriodSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ServicePeriodSecs
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetAuthType() *AuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetConnectionString() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionString
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetStorageAccountName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StorageAccountName
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TenantID
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientID
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetAzureCloud() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AzureCloud
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetEndpointSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointSuffix
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetClientTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientTextSecret
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type1) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if i == nil {
+		return nil
+	}
+	return i.Certificate
+}
+
+type InputAzureBlobInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string            `json:"id,omitempty"`
+	Type     InputAzureBlobType `json:"type"`
+	Disabled *bool              `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
+	QueueName string `json:"queueName"`
+	// Regex matching file names to download and process. Defaults to: .*
+	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
+	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
+	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	// The duration (in seconds) which pollers should be validated and restarted if exited
+	ServicePeriodSecs *float64 `default:"5" json:"servicePeriodSecs"`
+	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+	SkipOnError *bool `default:"false" json:"skipOnError"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Maximum file size for each Parquet chunk
+	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+	ParquetChunkDownloadTimeout *float64                     `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *AuthenticationMethodOptions `default:"manual" json:"authType"`
+	Description                 *string                      `json:"description,omitempty"`
+	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+	ConnectionString *string `json:"connectionString,omitempty"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitempty"`
+	// The name of your Azure storage account
+	StorageAccountName *string `json:"storageAccountName,omitempty"`
+	// The service principal's tenant ID
+	TenantID *string `json:"tenantId,omitempty"`
+	// The service principal's client ID
+	ClientID *string `json:"clientId,omitempty"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud *string `json:"azureCloud,omitempty"`
+	// Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
+	// Select or create a stored text secret
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitempty"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
+}
+
+func (i InputAzureBlobInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetType() InputAzureBlobType {
+	if i == nil {
+		return InputAzureBlobType("")
+	}
+	return i.Type
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetQueueName() string {
+	if i == nil {
+		return ""
+	}
+	return i.QueueName
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetFileFilter() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FileFilter
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetVisibilityTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.VisibilityTimeout
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetNumReceivers() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.NumReceivers
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetMaxMessages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMessages
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetServicePeriodSecs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ServicePeriodSecs
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetSkipOnError() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SkipOnError
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetParquetChunkSizeMB() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkSizeMB
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetParquetChunkDownloadTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ParquetChunkDownloadTimeout
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetAuthType() *AuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetConnectionString() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionString
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetStorageAccountName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StorageAccountName
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TenantID
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientID
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetAzureCloud() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AzureCloud
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetEndpointSuffix() *string {
+	if i == nil {
+		return nil
+	}
+	return i.EndpointSuffix
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetClientTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientTextSecret
+}
+
+func (i *InputAzureBlobInputCollectionPart1Type) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if i == nil {
+		return nil
+	}
+	return i.Certificate
+}
 
 type InputAzureBlobType string
 
@@ -31,15 +947,15 @@ func (e *InputAzureBlobType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputAzureBlob struct {
+type InputAzureBlobInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputAzureBlobType `json:"type"`
 	Disabled *bool              `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -94,244 +1010,351 @@ type InputAzureBlob struct {
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
 }
 
-func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
+func (i InputAzureBlobInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAzureBlob) UnmarshalJSON(data []byte) error {
+func (i *InputAzureBlobInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAzureBlob) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputAzureBlob) GetType() InputAzureBlobType {
-	if i == nil {
-		return InputAzureBlobType("")
-	}
-	return i.Type
-}
-
-func (i *InputAzureBlob) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputAzureBlob) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputAzureBlob) GetSendToRoutes() *bool {
+func (i *InputAzureBlobInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputAzureBlob) GetEnvironment() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type) GetType() InputAzureBlobType {
+	if i == nil {
+		return InputAzureBlobType("")
+	}
+	return i.Type
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAzureBlobInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputAzureBlob) GetPqEnabled() *bool {
+func (i *InputAzureBlobInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputAzureBlob) GetStreamtags() []string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputAzureBlob) GetConnections() []ItemsTypeConnections {
+func (i *InputAzureBlobInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputAzureBlob) GetPq() *PqType {
+func (i *InputAzureBlobInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputAzureBlob) GetQueueName() string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputAzureBlob) GetFileFilter() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputAzureBlob) GetVisibilityTimeout() *float64 {
+func (i *InputAzureBlobInputCollectionPart0Type) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputAzureBlob) GetNumReceivers() *float64 {
+func (i *InputAzureBlobInputCollectionPart0Type) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputAzureBlob) GetMaxMessages() *float64 {
+func (i *InputAzureBlobInputCollectionPart0Type) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputAzureBlob) GetServicePeriodSecs() *float64 {
+func (i *InputAzureBlobInputCollectionPart0Type) GetServicePeriodSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServicePeriodSecs
 }
 
-func (i *InputAzureBlob) GetSkipOnError() *bool {
+func (i *InputAzureBlobInputCollectionPart0Type) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputAzureBlob) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAzureBlobInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputAzureBlob) GetBreakerRulesets() []string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputAzureBlob) GetStaleChannelFlushMs() *float64 {
+func (i *InputAzureBlobInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputAzureBlob) GetParquetChunkSizeMB() *float64 {
+func (i *InputAzureBlobInputCollectionPart0Type) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputAzureBlob) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputAzureBlobInputCollectionPart0Type) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlob) GetAuthType() *AuthenticationMethodOptions {
+func (i *InputAzureBlobInputCollectionPart0Type) GetAuthType() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAzureBlob) GetDescription() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAzureBlob) GetConnectionString() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetConnectionString() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionString
 }
 
-func (i *InputAzureBlob) GetTextSecret() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputAzureBlob) GetStorageAccountName() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetStorageAccountName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.StorageAccountName
 }
 
-func (i *InputAzureBlob) GetTenantID() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetTenantID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TenantID
 }
 
-func (i *InputAzureBlob) GetClientID() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetClientID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientID
 }
 
-func (i *InputAzureBlob) GetAzureCloud() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetAzureCloud() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AzureCloud
 }
 
-func (i *InputAzureBlob) GetEndpointSuffix() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetEndpointSuffix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointSuffix
 }
 
-func (i *InputAzureBlob) GetClientTextSecret() *string {
+func (i *InputAzureBlobInputCollectionPart0Type) GetClientTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientTextSecret
 }
 
-func (i *InputAzureBlob) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+func (i *InputAzureBlobInputCollectionPart0Type) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
 	if i == nil {
 		return nil
 	}
 	return i.Certificate
+}
+
+type InputAzureBlobUnionType string
+
+const (
+	InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart0Type  InputAzureBlobUnionType = "InputAzureBlob_InputCollectionPart0Type"
+	InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart1Type  InputAzureBlobUnionType = "InputAzureBlob_InputCollectionPart1Type"
+	InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart0Type1 InputAzureBlobUnionType = "InputAzureBlob_InputCollectionPart0Type1"
+	InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart1Type1 InputAzureBlobUnionType = "InputAzureBlob_InputCollectionPart1Type1"
+)
+
+type InputAzureBlob struct {
+	InputAzureBlobInputCollectionPart0Type  *InputAzureBlobInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputAzureBlobInputCollectionPart1Type  *InputAzureBlobInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputAzureBlobInputCollectionPart0Type1 *InputAzureBlobInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputAzureBlobInputCollectionPart1Type1 *InputAzureBlobInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputAzureBlobUnionType
+}
+
+func CreateInputAzureBlobInputAzureBlobInputCollectionPart0Type(inputAzureBlobInputCollectionPart0Type InputAzureBlobInputCollectionPart0Type) InputAzureBlob {
+	typ := InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart0Type
+
+	return InputAzureBlob{
+		InputAzureBlobInputCollectionPart0Type: &inputAzureBlobInputCollectionPart0Type,
+		Type:                                   typ,
+	}
+}
+
+func CreateInputAzureBlobInputAzureBlobInputCollectionPart1Type(inputAzureBlobInputCollectionPart1Type InputAzureBlobInputCollectionPart1Type) InputAzureBlob {
+	typ := InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart1Type
+
+	return InputAzureBlob{
+		InputAzureBlobInputCollectionPart1Type: &inputAzureBlobInputCollectionPart1Type,
+		Type:                                   typ,
+	}
+}
+
+func CreateInputAzureBlobInputAzureBlobInputCollectionPart0Type1(inputAzureBlobInputCollectionPart0Type1 InputAzureBlobInputCollectionPart0Type1) InputAzureBlob {
+	typ := InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart0Type1
+
+	return InputAzureBlob{
+		InputAzureBlobInputCollectionPart0Type1: &inputAzureBlobInputCollectionPart0Type1,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputAzureBlobInputAzureBlobInputCollectionPart1Type1(inputAzureBlobInputCollectionPart1Type1 InputAzureBlobInputCollectionPart1Type1) InputAzureBlob {
+	typ := InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart1Type1
+
+	return InputAzureBlob{
+		InputAzureBlobInputCollectionPart1Type1: &inputAzureBlobInputCollectionPart1Type1,
+		Type:                                    typ,
+	}
+}
+
+func (u *InputAzureBlob) UnmarshalJSON(data []byte) error {
+
+	var inputAzureBlobInputCollectionPart0Type InputAzureBlobInputCollectionPart0Type = InputAzureBlobInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputAzureBlobInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputAzureBlobInputCollectionPart0Type = &inputAzureBlobInputCollectionPart0Type
+		u.Type = InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart0Type
+		return nil
+	}
+
+	var inputAzureBlobInputCollectionPart1Type InputAzureBlobInputCollectionPart1Type = InputAzureBlobInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputAzureBlobInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputAzureBlobInputCollectionPart1Type = &inputAzureBlobInputCollectionPart1Type
+		u.Type = InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart1Type
+		return nil
+	}
+
+	var inputAzureBlobInputCollectionPart0Type1 InputAzureBlobInputCollectionPart0Type1 = InputAzureBlobInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputAzureBlobInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputAzureBlobInputCollectionPart0Type1 = &inputAzureBlobInputCollectionPart0Type1
+		u.Type = InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputAzureBlobInputCollectionPart1Type1 InputAzureBlobInputCollectionPart1Type1 = InputAzureBlobInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputAzureBlobInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputAzureBlobInputCollectionPart1Type1 = &inputAzureBlobInputCollectionPart1Type1
+		u.Type = InputAzureBlobUnionTypeInputAzureBlobInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputAzureBlob", string(data))
+}
+
+func (u InputAzureBlob) MarshalJSON() ([]byte, error) {
+	if u.InputAzureBlobInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputAzureBlobInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputAzureBlobInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputAzureBlobInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputAzureBlobInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputAzureBlobInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputAzureBlobInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputAzureBlobInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputAzureBlob: all fields are null")
 }

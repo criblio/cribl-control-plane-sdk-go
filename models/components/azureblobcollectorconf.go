@@ -824,10 +824,10 @@ const (
 )
 
 type AzureBlobCollectorConf struct {
-	AzureBlobAuthTypeManual       *AzureBlobAuthTypeManual       `queryParam:"inline,name=AzureBlobCollectorConf" union:"member"`
-	AzureBlobAuthTypeSecret       *AzureBlobAuthTypeSecret       `queryParam:"inline,name=AzureBlobCollectorConf" union:"member"`
-	AzureBlobAuthTypeClientSecret *AzureBlobAuthTypeClientSecret `queryParam:"inline,name=AzureBlobCollectorConf" union:"member"`
-	AzureBlobAuthTypeClientCert   *AzureBlobAuthTypeClientCert   `queryParam:"inline,name=AzureBlobCollectorConf" union:"member"`
+	AzureBlobAuthTypeManual       *AzureBlobAuthTypeManual       `queryParam:"inline" union:"member"`
+	AzureBlobAuthTypeSecret       *AzureBlobAuthTypeSecret       `queryParam:"inline" union:"member"`
+	AzureBlobAuthTypeClientSecret *AzureBlobAuthTypeClientSecret `queryParam:"inline" union:"member"`
+	AzureBlobAuthTypeClientCert   *AzureBlobAuthTypeClientCert   `queryParam:"inline" union:"member"`
 
 	Type AzureBlobCollectorConfType
 }

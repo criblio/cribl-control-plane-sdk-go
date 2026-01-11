@@ -4,9 +4,388 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputDatagenInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputDatagenType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Samples     []Sample               `json:"samples"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputDatagenInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetType() InputDatagenType {
+	if i == nil {
+		return InputDatagenType("")
+	}
+	return i.Type
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetSamples() []Sample {
+	if i == nil {
+		return []Sample{}
+	}
+	return i.Samples
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputDatagenInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputDatagenInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputDatagenType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	Samples     []Sample               `json:"samples"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputDatagenInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetType() InputDatagenType {
+	if i == nil {
+		return InputDatagenType("")
+	}
+	return i.Type
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetSamples() []Sample {
+	if i == nil {
+		return []Sample{}
+	}
+	return i.Samples
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputDatagenInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputDatagenInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputDatagenType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	Samples    []Sample `json:"samples"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputDatagenInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatagenInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetType() InputDatagenType {
+	if i == nil {
+		return InputDatagenType("")
+	}
+	return i.Type
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetSamples() []Sample {
+	if i == nil {
+		return []Sample{}
+	}
+	return i.Samples
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputDatagenInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputDatagenType string
 
@@ -62,15 +441,15 @@ func (s *Sample) GetEventsPerSec() *float64 {
 	return s.EventsPerSec
 }
 
-type InputDatagen struct {
+type InputDatagenInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputDatagenType `json:"type"`
 	Disabled *bool            `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -86,104 +465,211 @@ type InputDatagen struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputDatagen) MarshalJSON() ([]byte, error) {
+func (i InputDatagenInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputDatagen) UnmarshalJSON(data []byte) error {
+func (i *InputDatagenInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatagen) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputDatagen) GetType() InputDatagenType {
-	if i == nil {
-		return InputDatagenType("")
-	}
-	return i.Type
-}
-
-func (i *InputDatagen) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputDatagen) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputDatagen) GetSendToRoutes() *bool {
+func (i *InputDatagenInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputDatagen) GetEnvironment() *string {
+func (i *InputDatagenInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatagenInputCollectionPart0Type) GetType() InputDatagenType {
+	if i == nil {
+		return InputDatagenType("")
+	}
+	return i.Type
+}
+
+func (i *InputDatagenInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatagenInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatagenInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputDatagen) GetPqEnabled() *bool {
+func (i *InputDatagenInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputDatagen) GetStreamtags() []string {
+func (i *InputDatagenInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputDatagen) GetConnections() []ItemsTypeConnections {
+func (i *InputDatagenInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputDatagen) GetPq() *PqType {
+func (i *InputDatagenInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputDatagen) GetSamples() []Sample {
+func (i *InputDatagenInputCollectionPart0Type) GetSamples() []Sample {
 	if i == nil {
 		return []Sample{}
 	}
 	return i.Samples
 }
 
-func (i *InputDatagen) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputDatagenInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputDatagen) GetDescription() *string {
+func (i *InputDatagenInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputDatagenUnionType string
+
+const (
+	InputDatagenUnionTypeInputDatagenInputCollectionPart0Type  InputDatagenUnionType = "InputDatagen_InputCollectionPart0Type"
+	InputDatagenUnionTypeInputDatagenInputCollectionPart1Type  InputDatagenUnionType = "InputDatagen_InputCollectionPart1Type"
+	InputDatagenUnionTypeInputDatagenInputCollectionPart0Type1 InputDatagenUnionType = "InputDatagen_InputCollectionPart0Type1"
+	InputDatagenUnionTypeInputDatagenInputCollectionPart1Type1 InputDatagenUnionType = "InputDatagen_InputCollectionPart1Type1"
+)
+
+type InputDatagen struct {
+	InputDatagenInputCollectionPart0Type  *InputDatagenInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputDatagenInputCollectionPart1Type  *InputDatagenInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputDatagenInputCollectionPart0Type1 *InputDatagenInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputDatagenInputCollectionPart1Type1 *InputDatagenInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputDatagenUnionType
+}
+
+func CreateInputDatagenInputDatagenInputCollectionPart0Type(inputDatagenInputCollectionPart0Type InputDatagenInputCollectionPart0Type) InputDatagen {
+	typ := InputDatagenUnionTypeInputDatagenInputCollectionPart0Type
+
+	return InputDatagen{
+		InputDatagenInputCollectionPart0Type: &inputDatagenInputCollectionPart0Type,
+		Type:                                 typ,
+	}
+}
+
+func CreateInputDatagenInputDatagenInputCollectionPart1Type(inputDatagenInputCollectionPart1Type InputDatagenInputCollectionPart1Type) InputDatagen {
+	typ := InputDatagenUnionTypeInputDatagenInputCollectionPart1Type
+
+	return InputDatagen{
+		InputDatagenInputCollectionPart1Type: &inputDatagenInputCollectionPart1Type,
+		Type:                                 typ,
+	}
+}
+
+func CreateInputDatagenInputDatagenInputCollectionPart0Type1(inputDatagenInputCollectionPart0Type1 InputDatagenInputCollectionPart0Type1) InputDatagen {
+	typ := InputDatagenUnionTypeInputDatagenInputCollectionPart0Type1
+
+	return InputDatagen{
+		InputDatagenInputCollectionPart0Type1: &inputDatagenInputCollectionPart0Type1,
+		Type:                                  typ,
+	}
+}
+
+func CreateInputDatagenInputDatagenInputCollectionPart1Type1(inputDatagenInputCollectionPart1Type1 InputDatagenInputCollectionPart1Type1) InputDatagen {
+	typ := InputDatagenUnionTypeInputDatagenInputCollectionPart1Type1
+
+	return InputDatagen{
+		InputDatagenInputCollectionPart1Type1: &inputDatagenInputCollectionPart1Type1,
+		Type:                                  typ,
+	}
+}
+
+func (u *InputDatagen) UnmarshalJSON(data []byte) error {
+
+	var inputDatagenInputCollectionPart0Type InputDatagenInputCollectionPart0Type = InputDatagenInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputDatagenInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputDatagenInputCollectionPart0Type = &inputDatagenInputCollectionPart0Type
+		u.Type = InputDatagenUnionTypeInputDatagenInputCollectionPart0Type
+		return nil
+	}
+
+	var inputDatagenInputCollectionPart1Type InputDatagenInputCollectionPart1Type = InputDatagenInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputDatagenInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputDatagenInputCollectionPart1Type = &inputDatagenInputCollectionPart1Type
+		u.Type = InputDatagenUnionTypeInputDatagenInputCollectionPart1Type
+		return nil
+	}
+
+	var inputDatagenInputCollectionPart0Type1 InputDatagenInputCollectionPart0Type1 = InputDatagenInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputDatagenInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputDatagenInputCollectionPart0Type1 = &inputDatagenInputCollectionPart0Type1
+		u.Type = InputDatagenUnionTypeInputDatagenInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputDatagenInputCollectionPart1Type1 InputDatagenInputCollectionPart1Type1 = InputDatagenInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputDatagenInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputDatagenInputCollectionPart1Type1 = &inputDatagenInputCollectionPart1Type1
+		u.Type = InputDatagenUnionTypeInputDatagenInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputDatagen", string(data))
+}
+
+func (u InputDatagen) MarshalJSON() ([]byte, error) {
+	if u.InputDatagenInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputDatagenInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputDatagenInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputDatagenInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputDatagenInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputDatagenInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputDatagenInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputDatagenInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputDatagen: all fields are null")
 }

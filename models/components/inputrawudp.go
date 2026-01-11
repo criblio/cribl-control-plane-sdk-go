@@ -4,9 +4,553 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputRawUDPInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string         `json:"id,omitempty"`
+	Type     InputRawUDPType `json:"type"`
+	Disabled *bool           `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputRawUDPInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string         `json:"id,omitempty"`
+	Type     InputRawUDPType `json:"type"`
+	Disabled *bool           `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputRawUDPInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string         `json:"id,omitempty"`
+	Type     InputRawUDPType `json:"type"`
+	Disabled *bool           `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputRawUDPType string
 
@@ -31,15 +575,15 @@ func (e *InputRawUDPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputRawUDP struct {
+type InputRawUDPInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputRawUDPType `json:"type"`
 	Disabled *bool           `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -68,146 +612,253 @@ type InputRawUDP struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputRawUDP) MarshalJSON() ([]byte, error) {
+func (i InputRawUDPInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputRawUDP) UnmarshalJSON(data []byte) error {
+func (i *InputRawUDPInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDP) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputRawUDP) GetType() InputRawUDPType {
-	if i == nil {
-		return InputRawUDPType("")
-	}
-	return i.Type
-}
-
-func (i *InputRawUDP) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputRawUDP) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputRawUDP) GetSendToRoutes() *bool {
+func (i *InputRawUDPInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputRawUDP) GetEnvironment() *string {
+func (i *InputRawUDPInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPInputCollectionPart0Type) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputRawUDP) GetPqEnabled() *bool {
+func (i *InputRawUDPInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputRawUDP) GetStreamtags() []string {
+func (i *InputRawUDPInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputRawUDP) GetConnections() []ItemsTypeConnections {
+func (i *InputRawUDPInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputRawUDP) GetPq() *PqType {
+func (i *InputRawUDPInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputRawUDP) GetHost() *string {
+func (i *InputRawUDPInputCollectionPart0Type) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputRawUDP) GetPort() float64 {
+func (i *InputRawUDPInputCollectionPart0Type) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputRawUDP) GetMaxBufferSize() *float64 {
+func (i *InputRawUDPInputCollectionPart0Type) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputRawUDP) GetIPWhitelistRegex() *string {
+func (i *InputRawUDPInputCollectionPart0Type) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputRawUDP) GetSingleMsgUDPPackets() *bool {
+func (i *InputRawUDPInputCollectionPart0Type) GetSingleMsgUDPPackets() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SingleMsgUDPPackets
 }
 
-func (i *InputRawUDP) GetIngestRawBytes() *bool {
+func (i *InputRawUDPInputCollectionPart0Type) GetIngestRawBytes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IngestRawBytes
 }
 
-func (i *InputRawUDP) GetUDPSocketRxBufSize() *float64 {
+func (i *InputRawUDPInputCollectionPart0Type) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputRawUDPInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputRawUDP) GetDescription() *string {
+func (i *InputRawUDPInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputRawUDPUnionType string
+
+const (
+	InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type  InputRawUDPUnionType = "InputRawUdp_InputCollectionPart0Type"
+	InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type  InputRawUDPUnionType = "InputRawUdp_InputCollectionPart1Type"
+	InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type1 InputRawUDPUnionType = "InputRawUdp_InputCollectionPart0Type1"
+	InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type1 InputRawUDPUnionType = "InputRawUdp_InputCollectionPart1Type1"
+)
+
+type InputRawUDP struct {
+	InputRawUDPInputCollectionPart0Type  *InputRawUDPInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputRawUDPInputCollectionPart1Type  *InputRawUDPInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputRawUDPInputCollectionPart0Type1 *InputRawUDPInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputRawUDPInputCollectionPart1Type1 *InputRawUDPInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputRawUDPUnionType
+}
+
+func CreateInputRawUDPInputRawUDPInputCollectionPart0Type(inputRawUDPInputCollectionPart0Type InputRawUDPInputCollectionPart0Type) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type
+
+	return InputRawUDP{
+		InputRawUDPInputCollectionPart0Type: &inputRawUDPInputCollectionPart0Type,
+		Type:                                typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPInputCollectionPart1Type(inputRawUDPInputCollectionPart1Type InputRawUDPInputCollectionPart1Type) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type
+
+	return InputRawUDP{
+		InputRawUDPInputCollectionPart1Type: &inputRawUDPInputCollectionPart1Type,
+		Type:                                typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPInputCollectionPart0Type1(inputRawUDPInputCollectionPart0Type1 InputRawUDPInputCollectionPart0Type1) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type1
+
+	return InputRawUDP{
+		InputRawUDPInputCollectionPart0Type1: &inputRawUDPInputCollectionPart0Type1,
+		Type:                                 typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPInputCollectionPart1Type1(inputRawUDPInputCollectionPart1Type1 InputRawUDPInputCollectionPart1Type1) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type1
+
+	return InputRawUDP{
+		InputRawUDPInputCollectionPart1Type1: &inputRawUDPInputCollectionPart1Type1,
+		Type:                                 typ,
+	}
+}
+
+func (u *InputRawUDP) UnmarshalJSON(data []byte) error {
+
+	var inputRawUDPInputCollectionPart0Type InputRawUDPInputCollectionPart0Type = InputRawUDPInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputRawUDPInputCollectionPart0Type = &inputRawUDPInputCollectionPart0Type
+		u.Type = InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type
+		return nil
+	}
+
+	var inputRawUDPInputCollectionPart1Type InputRawUDPInputCollectionPart1Type = InputRawUDPInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputRawUDPInputCollectionPart1Type = &inputRawUDPInputCollectionPart1Type
+		u.Type = InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type
+		return nil
+	}
+
+	var inputRawUDPInputCollectionPart0Type1 InputRawUDPInputCollectionPart0Type1 = InputRawUDPInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputRawUDPInputCollectionPart0Type1 = &inputRawUDPInputCollectionPart0Type1
+		u.Type = InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputRawUDPInputCollectionPart1Type1 InputRawUDPInputCollectionPart1Type1 = InputRawUDPInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputRawUDPInputCollectionPart1Type1 = &inputRawUDPInputCollectionPart1Type1
+		u.Type = InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputRawUDP", string(data))
+}
+
+func (u InputRawUDP) MarshalJSON() ([]byte, error) {
+	if u.InputRawUDPInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputRawUDPInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputRawUDPInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputRawUDPInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputRawUDPInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputRawUDPInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputRawUDPInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputRawUDPInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputRawUDP: all fields are null")
 }

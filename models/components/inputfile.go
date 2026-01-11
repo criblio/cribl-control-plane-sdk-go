@@ -4,49 +4,50 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputFileType string
+type InputFileInputCollectionPart1Type1Type string
 
 const (
-	InputFileTypeFile InputFileType = "file"
+	InputFileInputCollectionPart1Type1TypeFile InputFileInputCollectionPart1Type1Type = "file"
 )
 
-func (e InputFileType) ToPointer() *InputFileType {
+func (e InputFileInputCollectionPart1Type1Type) ToPointer() *InputFileInputCollectionPart1Type1Type {
 	return &e
 }
-func (e *InputFileType) UnmarshalJSON(data []byte) error {
+func (e *InputFileInputCollectionPart1Type1Type) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "file":
-		*e = InputFileType(v)
+		*e = InputFileInputCollectionPart1Type1Type(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputFileType: %v", v)
+		return fmt.Errorf("invalid value for InputFileInputCollectionPart1Type1Type: %v", v)
 	}
 }
 
-// InputFileMode - Choose how to discover files to monitor
-type InputFileMode string
+// InputCollectionPart1Type1Mode - Choose how to discover files to monitor
+type InputCollectionPart1Type1Mode string
 
 const (
-	// InputFileModeManual Manual
-	InputFileModeManual InputFileMode = "manual"
-	// InputFileModeAuto Auto
-	InputFileModeAuto InputFileMode = "auto"
+	// InputCollectionPart1Type1ModeManual Manual
+	InputCollectionPart1Type1ModeManual InputCollectionPart1Type1Mode = "manual"
+	// InputCollectionPart1Type1ModeAuto Auto
+	InputCollectionPart1Type1ModeAuto InputCollectionPart1Type1Mode = "auto"
 )
 
-func (e InputFileMode) ToPointer() *InputFileMode {
+func (e InputCollectionPart1Type1Mode) ToPointer() *InputCollectionPart1Type1Mode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputFileMode) IsExact() bool {
+func (e *InputCollectionPart1Type1Mode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "manual", "auto":
@@ -56,26 +57,26 @@ func (e *InputFileMode) IsExact() bool {
 	return false
 }
 
-type InputFile struct {
+type InputFileInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
-	ID       *string       `json:"id,omitempty"`
-	Type     InputFileType `json:"type"`
-	Disabled *bool         `default:"false" json:"disabled"`
+	ID       *string                                `json:"id,omitempty"`
+	Type     InputFileInputCollectionPart1Type1Type `json:"type"`
+	Disabled *bool                                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *InputFileMode `default:"manual" json:"mode"`
+	Mode *InputCollectionPart1Type1Mode `default:"manual" json:"mode"`
 	// Time, in seconds, between scanning for files
 	Interval *float64 `default:"10" json:"interval"`
 	// The full path of discovered files are matched against this wildcard list
@@ -114,223 +115,1311 @@ type InputFile struct {
 	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
 }
 
-func (i InputFile) MarshalJSON() ([]byte, error) {
+func (i InputFileInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFile) UnmarshalJSON(data []byte) error {
+func (i *InputFileInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFile) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFile) GetType() InputFileType {
-	if i == nil {
-		return InputFileType("")
-	}
-	return i.Type
-}
-
-func (i *InputFile) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFile) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFile) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFile) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFile) GetPqEnabled() *bool {
+func (i *InputFileInputCollectionPart1Type1) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputFile) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFile) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFile) GetPq() *PqType {
+func (i *InputFileInputCollectionPart1Type1) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputFile) GetMode() *InputFileMode {
+func (i *InputFileInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFileInputCollectionPart1Type1) GetType() InputFileInputCollectionPart1Type1Type {
+	if i == nil {
+		return InputFileInputCollectionPart1Type1Type("")
+	}
+	return i.Type
+}
+
+func (i *InputFileInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFileInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFileInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFileInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFileInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFileInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFileInputCollectionPart1Type1) GetMode() *InputCollectionPart1Type1Mode {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputFile) GetInterval() *float64 {
+func (i *InputFileInputCollectionPart1Type1) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputFile) GetFilenames() []string {
+func (i *InputFileInputCollectionPart1Type1) GetFilenames() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Filenames
 }
 
-func (i *InputFile) GetFilterArchivedFiles() *bool {
+func (i *InputFileInputCollectionPart1Type1) GetFilterArchivedFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FilterArchivedFiles
 }
 
-func (i *InputFile) GetTailOnly() *bool {
+func (i *InputFileInputCollectionPart1Type1) GetTailOnly() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.TailOnly
 }
 
-func (i *InputFile) GetIdleTimeout() *float64 {
+func (i *InputFileInputCollectionPart1Type1) GetIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.IdleTimeout
 }
 
-func (i *InputFile) GetMinAgeDur() *string {
+func (i *InputFileInputCollectionPart1Type1) GetMinAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MinAgeDur
 }
 
-func (i *InputFile) GetMaxAgeDur() *string {
+func (i *InputFileInputCollectionPart1Type1) GetMaxAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MaxAgeDur
 }
 
-func (i *InputFile) GetCheckFileModTime() *bool {
+func (i *InputFileInputCollectionPart1Type1) GetCheckFileModTime() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CheckFileModTime
 }
 
-func (i *InputFile) GetForceText() *bool {
+func (i *InputFileInputCollectionPart1Type1) GetForceText() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ForceText
 }
 
-func (i *InputFile) GetHashLen() *float64 {
+func (i *InputFileInputCollectionPart1Type1) GetHashLen() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HashLen
 }
 
-func (i *InputFile) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFileInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFile) GetBreakerRulesets() []string {
+func (i *InputFileInputCollectionPart1Type1) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputFile) GetStaleChannelFlushMs() *float64 {
+func (i *InputFileInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputFile) GetDescription() *string {
+func (i *InputFileInputCollectionPart1Type1) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputFile) GetPath() *string {
+func (i *InputFileInputCollectionPart1Type1) GetPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Path
 }
 
-func (i *InputFile) GetDepth() *float64 {
+func (i *InputFileInputCollectionPart1Type1) GetDepth() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Depth
 }
 
-func (i *InputFile) GetSuppressMissingPathErrors() *bool {
+func (i *InputFileInputCollectionPart1Type1) GetSuppressMissingPathErrors() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SuppressMissingPathErrors
 }
 
-func (i *InputFile) GetDeleteFiles() *bool {
+func (i *InputFileInputCollectionPart1Type1) GetDeleteFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DeleteFiles
 }
 
-func (i *InputFile) GetIncludeUnidentifiableBinary() *bool {
+func (i *InputFileInputCollectionPart1Type1) GetIncludeUnidentifiableBinary() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeUnidentifiableBinary
+}
+
+type InputFileInputCollectionPart0Type1Type string
+
+const (
+	InputFileInputCollectionPart0Type1TypeFile InputFileInputCollectionPart0Type1Type = "file"
+)
+
+func (e InputFileInputCollectionPart0Type1Type) ToPointer() *InputFileInputCollectionPart0Type1Type {
+	return &e
+}
+func (e *InputFileInputCollectionPart0Type1Type) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "file":
+		*e = InputFileInputCollectionPart0Type1Type(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputFileInputCollectionPart0Type1Type: %v", v)
+	}
+}
+
+// InputCollectionPart0Type1Mode - Choose how to discover files to monitor
+type InputCollectionPart0Type1Mode string
+
+const (
+	// InputCollectionPart0Type1ModeManual Manual
+	InputCollectionPart0Type1ModeManual InputCollectionPart0Type1Mode = "manual"
+	// InputCollectionPart0Type1ModeAuto Auto
+	InputCollectionPart0Type1ModeAuto InputCollectionPart0Type1Mode = "auto"
+)
+
+func (e InputCollectionPart0Type1Mode) ToPointer() *InputCollectionPart0Type1Mode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCollectionPart0Type1Mode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "auto":
+			return true
+		}
+	}
+	return false
+}
+
+type InputFileInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                                `json:"id,omitempty"`
+	Type     InputFileInputCollectionPart0Type1Type `json:"type"`
+	Disabled *bool                                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Choose how to discover files to monitor
+	Mode *InputCollectionPart0Type1Mode `default:"manual" json:"mode"`
+	// Time, in seconds, between scanning for files
+	Interval *float64 `default:"10" json:"interval"`
+	// The full path of discovered files are matched against this wildcard list
+	Filenames []string `json:"filenames,omitempty"`
+	// Apply filename allowlist to file entries in archive file types, like tar or zip.
+	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
+	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
+	TailOnly *bool `default:"true" json:"tailOnly"`
+	// Time, in seconds, before an idle file is closed
+	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
+	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+	MinAgeDur *string `json:"minAgeDur,omitempty"`
+	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
+	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	// Skip files with modification times earlier than the maximum age duration
+	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
+	// Forces files containing binary data to be streamed as text
+	ForceText *bool `default:"false" json:"forceText"`
+	// Length of file header bytes to use in hash for unique file identification
+	HashLen *float64 `default:"256" json:"hashLen"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
+	Path *string `json:"path,omitempty"`
+	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
+	Depth                     *float64 `json:"depth,omitempty"`
+	SuppressMissingPathErrors *bool    `default:"false" json:"suppressMissingPathErrors"`
+	// Delete files after they have been collected
+	DeleteFiles *bool `default:"false" json:"deleteFiles"`
+	// Stream binary files as Base64-encoded chunks.
+	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
+}
+
+func (i InputFileInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFileInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetType() InputFileInputCollectionPart0Type1Type {
+	if i == nil {
+		return InputFileInputCollectionPart0Type1Type("")
+	}
+	return i.Type
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetMode() *InputCollectionPart0Type1Mode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetFilenames() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Filenames
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetFilterArchivedFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FilterArchivedFiles
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetTailOnly() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.TailOnly
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.IdleTimeout
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetMinAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MinAgeDur
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetMaxAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxAgeDur
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetCheckFileModTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CheckFileModTime
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetForceText() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ForceText
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetHashLen() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HashLen
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetDepth() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Depth
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetSuppressMissingPathErrors() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SuppressMissingPathErrors
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetDeleteFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DeleteFiles
+}
+
+func (i *InputFileInputCollectionPart0Type1) GetIncludeUnidentifiableBinary() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeUnidentifiableBinary
+}
+
+type InputFileInputCollectionPart1TypeType string
+
+const (
+	InputFileInputCollectionPart1TypeTypeFile InputFileInputCollectionPart1TypeType = "file"
+)
+
+func (e InputFileInputCollectionPart1TypeType) ToPointer() *InputFileInputCollectionPart1TypeType {
+	return &e
+}
+func (e *InputFileInputCollectionPart1TypeType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "file":
+		*e = InputFileInputCollectionPart1TypeType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputFileInputCollectionPart1TypeType: %v", v)
+	}
+}
+
+// InputCollectionPart1TypeMode - Choose how to discover files to monitor
+type InputCollectionPart1TypeMode string
+
+const (
+	// InputCollectionPart1TypeModeManual Manual
+	InputCollectionPart1TypeModeManual InputCollectionPart1TypeMode = "manual"
+	// InputCollectionPart1TypeModeAuto Auto
+	InputCollectionPart1TypeModeAuto InputCollectionPart1TypeMode = "auto"
+)
+
+func (e InputCollectionPart1TypeMode) ToPointer() *InputCollectionPart1TypeMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCollectionPart1TypeMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "auto":
+			return true
+		}
+	}
+	return false
+}
+
+type InputFileInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string                               `json:"id,omitempty"`
+	Type     InputFileInputCollectionPart1TypeType `json:"type"`
+	Disabled *bool                                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Choose how to discover files to monitor
+	Mode *InputCollectionPart1TypeMode `default:"manual" json:"mode"`
+	// Time, in seconds, between scanning for files
+	Interval *float64 `default:"10" json:"interval"`
+	// The full path of discovered files are matched against this wildcard list
+	Filenames []string `json:"filenames,omitempty"`
+	// Apply filename allowlist to file entries in archive file types, like tar or zip.
+	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
+	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
+	TailOnly *bool `default:"true" json:"tailOnly"`
+	// Time, in seconds, before an idle file is closed
+	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
+	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+	MinAgeDur *string `json:"minAgeDur,omitempty"`
+	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
+	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	// Skip files with modification times earlier than the maximum age duration
+	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
+	// Forces files containing binary data to be streamed as text
+	ForceText *bool `default:"false" json:"forceText"`
+	// Length of file header bytes to use in hash for unique file identification
+	HashLen *float64 `default:"256" json:"hashLen"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
+	Path *string `json:"path,omitempty"`
+	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
+	Depth                     *float64 `json:"depth,omitempty"`
+	SuppressMissingPathErrors *bool    `default:"false" json:"suppressMissingPathErrors"`
+	// Delete files after they have been collected
+	DeleteFiles *bool `default:"false" json:"deleteFiles"`
+	// Stream binary files as Base64-encoded chunks.
+	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
+}
+
+func (i InputFileInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFileInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputFileInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFileInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFileInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFileInputCollectionPart1Type) GetType() InputFileInputCollectionPart1TypeType {
+	if i == nil {
+		return InputFileInputCollectionPart1TypeType("")
+	}
+	return i.Type
+}
+
+func (i *InputFileInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFileInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFileInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFileInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputFileInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFileInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputFileInputCollectionPart1Type) GetMode() *InputCollectionPart1TypeMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputFileInputCollectionPart1Type) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputFileInputCollectionPart1Type) GetFilenames() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Filenames
+}
+
+func (i *InputFileInputCollectionPart1Type) GetFilterArchivedFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FilterArchivedFiles
+}
+
+func (i *InputFileInputCollectionPart1Type) GetTailOnly() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.TailOnly
+}
+
+func (i *InputFileInputCollectionPart1Type) GetIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.IdleTimeout
+}
+
+func (i *InputFileInputCollectionPart1Type) GetMinAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MinAgeDur
+}
+
+func (i *InputFileInputCollectionPart1Type) GetMaxAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxAgeDur
+}
+
+func (i *InputFileInputCollectionPart1Type) GetCheckFileModTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CheckFileModTime
+}
+
+func (i *InputFileInputCollectionPart1Type) GetForceText() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ForceText
+}
+
+func (i *InputFileInputCollectionPart1Type) GetHashLen() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HashLen
+}
+
+func (i *InputFileInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputFileInputCollectionPart1Type) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputFileInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputFileInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputFileInputCollectionPart1Type) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputFileInputCollectionPart1Type) GetDepth() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Depth
+}
+
+func (i *InputFileInputCollectionPart1Type) GetSuppressMissingPathErrors() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SuppressMissingPathErrors
+}
+
+func (i *InputFileInputCollectionPart1Type) GetDeleteFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DeleteFiles
+}
+
+func (i *InputFileInputCollectionPart1Type) GetIncludeUnidentifiableBinary() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeUnidentifiableBinary
+}
+
+type InputFileInputCollectionPart0TypeType string
+
+const (
+	InputFileInputCollectionPart0TypeTypeFile InputFileInputCollectionPart0TypeType = "file"
+)
+
+func (e InputFileInputCollectionPart0TypeType) ToPointer() *InputFileInputCollectionPart0TypeType {
+	return &e
+}
+func (e *InputFileInputCollectionPart0TypeType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "file":
+		*e = InputFileInputCollectionPart0TypeType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputFileInputCollectionPart0TypeType: %v", v)
+	}
+}
+
+// InputCollectionPart0TypeMode - Choose how to discover files to monitor
+type InputCollectionPart0TypeMode string
+
+const (
+	// InputCollectionPart0TypeModeManual Manual
+	InputCollectionPart0TypeModeManual InputCollectionPart0TypeMode = "manual"
+	// InputCollectionPart0TypeModeAuto Auto
+	InputCollectionPart0TypeModeAuto InputCollectionPart0TypeMode = "auto"
+)
+
+func (e InputCollectionPart0TypeMode) ToPointer() *InputCollectionPart0TypeMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputCollectionPart0TypeMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "auto":
+			return true
+		}
+	}
+	return false
+}
+
+type InputFileInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string                               `json:"id,omitempty"`
+	Type     InputFileInputCollectionPart0TypeType `json:"type"`
+	Disabled *bool                                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Choose how to discover files to monitor
+	Mode *InputCollectionPart0TypeMode `default:"manual" json:"mode"`
+	// Time, in seconds, between scanning for files
+	Interval *float64 `default:"10" json:"interval"`
+	// The full path of discovered files are matched against this wildcard list
+	Filenames []string `json:"filenames,omitempty"`
+	// Apply filename allowlist to file entries in archive file types, like tar or zip.
+	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
+	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
+	TailOnly *bool `default:"true" json:"tailOnly"`
+	// Time, in seconds, before an idle file is closed
+	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
+	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+	MinAgeDur *string `json:"minAgeDur,omitempty"`
+	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
+	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	// Skip files with modification times earlier than the maximum age duration
+	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
+	// Forces files containing binary data to be streamed as text
+	ForceText *bool `default:"false" json:"forceText"`
+	// Length of file header bytes to use in hash for unique file identification
+	HashLen *float64 `default:"256" json:"hashLen"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	Description         *string  `json:"description,omitempty"`
+	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
+	Path *string `json:"path,omitempty"`
+	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
+	Depth                     *float64 `json:"depth,omitempty"`
+	SuppressMissingPathErrors *bool    `default:"false" json:"suppressMissingPathErrors"`
+	// Delete files after they have been collected
+	DeleteFiles *bool `default:"false" json:"deleteFiles"`
+	// Stream binary files as Base64-encoded chunks.
+	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
+}
+
+func (i InputFileInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputFileInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputFileInputCollectionPart0Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFileInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFileInputCollectionPart0Type) GetType() InputFileInputCollectionPart0TypeType {
+	if i == nil {
+		return InputFileInputCollectionPart0TypeType("")
+	}
+	return i.Type
+}
+
+func (i *InputFileInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFileInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFileInputCollectionPart0Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFileInputCollectionPart0Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputFileInputCollectionPart0Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFileInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFileInputCollectionPart0Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputFileInputCollectionPart0Type) GetMode() *InputCollectionPart0TypeMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputFileInputCollectionPart0Type) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputFileInputCollectionPart0Type) GetFilenames() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Filenames
+}
+
+func (i *InputFileInputCollectionPart0Type) GetFilterArchivedFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FilterArchivedFiles
+}
+
+func (i *InputFileInputCollectionPart0Type) GetTailOnly() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.TailOnly
+}
+
+func (i *InputFileInputCollectionPart0Type) GetIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.IdleTimeout
+}
+
+func (i *InputFileInputCollectionPart0Type) GetMinAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MinAgeDur
+}
+
+func (i *InputFileInputCollectionPart0Type) GetMaxAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxAgeDur
+}
+
+func (i *InputFileInputCollectionPart0Type) GetCheckFileModTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CheckFileModTime
+}
+
+func (i *InputFileInputCollectionPart0Type) GetForceText() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ForceText
+}
+
+func (i *InputFileInputCollectionPart0Type) GetHashLen() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HashLen
+}
+
+func (i *InputFileInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputFileInputCollectionPart0Type) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputFileInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputFileInputCollectionPart0Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputFileInputCollectionPart0Type) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputFileInputCollectionPart0Type) GetDepth() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Depth
+}
+
+func (i *InputFileInputCollectionPart0Type) GetSuppressMissingPathErrors() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SuppressMissingPathErrors
+}
+
+func (i *InputFileInputCollectionPart0Type) GetDeleteFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DeleteFiles
+}
+
+func (i *InputFileInputCollectionPart0Type) GetIncludeUnidentifiableBinary() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeUnidentifiableBinary
+}
+
+type InputFileType string
+
+const (
+	InputFileTypeInputFileInputCollectionPart0Type  InputFileType = "InputFile_InputCollectionPart0Type"
+	InputFileTypeInputFileInputCollectionPart1Type  InputFileType = "InputFile_InputCollectionPart1Type"
+	InputFileTypeInputFileInputCollectionPart0Type1 InputFileType = "InputFile_InputCollectionPart0Type1"
+	InputFileTypeInputFileInputCollectionPart1Type1 InputFileType = "InputFile_InputCollectionPart1Type1"
+)
+
+type InputFile struct {
+	InputFileInputCollectionPart0Type  *InputFileInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputFileInputCollectionPart1Type  *InputFileInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputFileInputCollectionPart0Type1 *InputFileInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputFileInputCollectionPart1Type1 *InputFileInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputFileType
+}
+
+func CreateInputFileInputFileInputCollectionPart0Type(inputFileInputCollectionPart0Type InputFileInputCollectionPart0Type) InputFile {
+	typ := InputFileTypeInputFileInputCollectionPart0Type
+
+	return InputFile{
+		InputFileInputCollectionPart0Type: &inputFileInputCollectionPart0Type,
+		Type:                              typ,
+	}
+}
+
+func CreateInputFileInputFileInputCollectionPart1Type(inputFileInputCollectionPart1Type InputFileInputCollectionPart1Type) InputFile {
+	typ := InputFileTypeInputFileInputCollectionPart1Type
+
+	return InputFile{
+		InputFileInputCollectionPart1Type: &inputFileInputCollectionPart1Type,
+		Type:                              typ,
+	}
+}
+
+func CreateInputFileInputFileInputCollectionPart0Type1(inputFileInputCollectionPart0Type1 InputFileInputCollectionPart0Type1) InputFile {
+	typ := InputFileTypeInputFileInputCollectionPart0Type1
+
+	return InputFile{
+		InputFileInputCollectionPart0Type1: &inputFileInputCollectionPart0Type1,
+		Type:                               typ,
+	}
+}
+
+func CreateInputFileInputFileInputCollectionPart1Type1(inputFileInputCollectionPart1Type1 InputFileInputCollectionPart1Type1) InputFile {
+	typ := InputFileTypeInputFileInputCollectionPart1Type1
+
+	return InputFile{
+		InputFileInputCollectionPart1Type1: &inputFileInputCollectionPart1Type1,
+		Type:                               typ,
+	}
+}
+
+func (u *InputFile) UnmarshalJSON(data []byte) error {
+
+	var inputFileInputCollectionPart0Type InputFileInputCollectionPart0Type = InputFileInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputFileInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputFileInputCollectionPart0Type = &inputFileInputCollectionPart0Type
+		u.Type = InputFileTypeInputFileInputCollectionPart0Type
+		return nil
+	}
+
+	var inputFileInputCollectionPart1Type InputFileInputCollectionPart1Type = InputFileInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputFileInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputFileInputCollectionPart1Type = &inputFileInputCollectionPart1Type
+		u.Type = InputFileTypeInputFileInputCollectionPart1Type
+		return nil
+	}
+
+	var inputFileInputCollectionPart0Type1 InputFileInputCollectionPart0Type1 = InputFileInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputFileInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputFileInputCollectionPart0Type1 = &inputFileInputCollectionPart0Type1
+		u.Type = InputFileTypeInputFileInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputFileInputCollectionPart1Type1 InputFileInputCollectionPart1Type1 = InputFileInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputFileInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputFileInputCollectionPart1Type1 = &inputFileInputCollectionPart1Type1
+		u.Type = InputFileTypeInputFileInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputFile", string(data))
+}
+
+func (u InputFile) MarshalJSON() ([]byte, error) {
+	if u.InputFileInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputFileInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputFileInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputFileInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputFileInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputFileInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputFileInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputFileInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputFile: all fields are null")
 }

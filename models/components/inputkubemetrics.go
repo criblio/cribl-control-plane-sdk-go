@@ -4,9 +4,442 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputKubeMetricsInputCollectionPart1Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeMetricsType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeMetricsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetType() InputKubeMetricsType {
+	if i == nil {
+		return InputKubeMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetPersistence() *InputKubeMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeMetricsInputCollectionPart0Type1 struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeMetricsType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Pq          *PqType                `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeMetricsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetType() InputKubeMetricsType {
+	if i == nil {
+		return InputKubeMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetPersistence() *InputKubeMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeMetricsInputCollectionPart1Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeMetricsType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeMetricsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetType() InputKubeMetricsType {
+	if i == nil {
+		return InputKubeMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetPersistence() *InputKubeMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeMetricsInputCollectionPart1Type) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputKubeMetricsType string
 
@@ -98,15 +531,15 @@ func (i *InputKubeMetricsPersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputKubeMetrics struct {
+type InputKubeMetricsInputCollectionPart0Type struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputKubeMetricsType `json:"type"`
 	Disabled *bool                `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -126,118 +559,225 @@ type InputKubeMetrics struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKubeMetrics) MarshalJSON() ([]byte, error) {
+func (i InputKubeMetricsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeMetrics) UnmarshalJSON(data []byte) error {
+func (i *InputKubeMetricsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeMetrics) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeMetrics) GetType() InputKubeMetricsType {
-	if i == nil {
-		return InputKubeMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeMetrics) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeMetrics) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeMetrics) GetSendToRoutes() *bool {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeMetrics) GetEnvironment() *string {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type) GetType() InputKubeMetricsType {
+	if i == nil {
+		return InputKubeMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeMetricsInputCollectionPart0Type) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeMetrics) GetPqEnabled() *bool {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeMetrics) GetStreamtags() []string {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeMetrics) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeMetrics) GetPq() *PqType {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeMetrics) GetInterval() *float64 {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputKubeMetrics) GetRules() []ItemsTypeRules {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetRules() []ItemsTypeRules {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeMetrics) GetPersistence() *InputKubeMetricsPersistence {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetPersistence() *InputKubeMetricsPersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputKubeMetrics) GetDescription() *string {
+func (i *InputKubeMetricsInputCollectionPart0Type) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputKubeMetricsUnionType string
+
+const (
+	InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart0Type  InputKubeMetricsUnionType = "InputKubeMetrics_InputCollectionPart0Type"
+	InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart1Type  InputKubeMetricsUnionType = "InputKubeMetrics_InputCollectionPart1Type"
+	InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart0Type1 InputKubeMetricsUnionType = "InputKubeMetrics_InputCollectionPart0Type1"
+	InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart1Type1 InputKubeMetricsUnionType = "InputKubeMetrics_InputCollectionPart1Type1"
+)
+
+type InputKubeMetrics struct {
+	InputKubeMetricsInputCollectionPart0Type  *InputKubeMetricsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
+	InputKubeMetricsInputCollectionPart1Type  *InputKubeMetricsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
+	InputKubeMetricsInputCollectionPart0Type1 *InputKubeMetricsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
+	InputKubeMetricsInputCollectionPart1Type1 *InputKubeMetricsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+
+	Type InputKubeMetricsUnionType
+}
+
+func CreateInputKubeMetricsInputKubeMetricsInputCollectionPart0Type(inputKubeMetricsInputCollectionPart0Type InputKubeMetricsInputCollectionPart0Type) InputKubeMetrics {
+	typ := InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart0Type
+
+	return InputKubeMetrics{
+		InputKubeMetricsInputCollectionPart0Type: &inputKubeMetricsInputCollectionPart0Type,
+		Type:                                     typ,
+	}
+}
+
+func CreateInputKubeMetricsInputKubeMetricsInputCollectionPart1Type(inputKubeMetricsInputCollectionPart1Type InputKubeMetricsInputCollectionPart1Type) InputKubeMetrics {
+	typ := InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart1Type
+
+	return InputKubeMetrics{
+		InputKubeMetricsInputCollectionPart1Type: &inputKubeMetricsInputCollectionPart1Type,
+		Type:                                     typ,
+	}
+}
+
+func CreateInputKubeMetricsInputKubeMetricsInputCollectionPart0Type1(inputKubeMetricsInputCollectionPart0Type1 InputKubeMetricsInputCollectionPart0Type1) InputKubeMetrics {
+	typ := InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart0Type1
+
+	return InputKubeMetrics{
+		InputKubeMetricsInputCollectionPart0Type1: &inputKubeMetricsInputCollectionPart0Type1,
+		Type: typ,
+	}
+}
+
+func CreateInputKubeMetricsInputKubeMetricsInputCollectionPart1Type1(inputKubeMetricsInputCollectionPart1Type1 InputKubeMetricsInputCollectionPart1Type1) InputKubeMetrics {
+	typ := InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart1Type1
+
+	return InputKubeMetrics{
+		InputKubeMetricsInputCollectionPart1Type1: &inputKubeMetricsInputCollectionPart1Type1,
+		Type: typ,
+	}
+}
+
+func (u *InputKubeMetrics) UnmarshalJSON(data []byte) error {
+
+	var inputKubeMetricsInputCollectionPart0Type InputKubeMetricsInputCollectionPart0Type = InputKubeMetricsInputCollectionPart0Type{}
+	if err := utils.UnmarshalJSON(data, &inputKubeMetricsInputCollectionPart0Type, "", true, nil); err == nil {
+		u.InputKubeMetricsInputCollectionPart0Type = &inputKubeMetricsInputCollectionPart0Type
+		u.Type = InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart0Type
+		return nil
+	}
+
+	var inputKubeMetricsInputCollectionPart1Type InputKubeMetricsInputCollectionPart1Type = InputKubeMetricsInputCollectionPart1Type{}
+	if err := utils.UnmarshalJSON(data, &inputKubeMetricsInputCollectionPart1Type, "", true, nil); err == nil {
+		u.InputKubeMetricsInputCollectionPart1Type = &inputKubeMetricsInputCollectionPart1Type
+		u.Type = InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart1Type
+		return nil
+	}
+
+	var inputKubeMetricsInputCollectionPart0Type1 InputKubeMetricsInputCollectionPart0Type1 = InputKubeMetricsInputCollectionPart0Type1{}
+	if err := utils.UnmarshalJSON(data, &inputKubeMetricsInputCollectionPart0Type1, "", true, nil); err == nil {
+		u.InputKubeMetricsInputCollectionPart0Type1 = &inputKubeMetricsInputCollectionPart0Type1
+		u.Type = InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart0Type1
+		return nil
+	}
+
+	var inputKubeMetricsInputCollectionPart1Type1 InputKubeMetricsInputCollectionPart1Type1 = InputKubeMetricsInputCollectionPart1Type1{}
+	if err := utils.UnmarshalJSON(data, &inputKubeMetricsInputCollectionPart1Type1, "", true, nil); err == nil {
+		u.InputKubeMetricsInputCollectionPart1Type1 = &inputKubeMetricsInputCollectionPart1Type1
+		u.Type = InputKubeMetricsUnionTypeInputKubeMetricsInputCollectionPart1Type1
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputKubeMetrics", string(data))
+}
+
+func (u InputKubeMetrics) MarshalJSON() ([]byte, error) {
+	if u.InputKubeMetricsInputCollectionPart0Type != nil {
+		return utils.MarshalJSON(u.InputKubeMetricsInputCollectionPart0Type, "", true)
+	}
+
+	if u.InputKubeMetricsInputCollectionPart1Type != nil {
+		return utils.MarshalJSON(u.InputKubeMetricsInputCollectionPart1Type, "", true)
+	}
+
+	if u.InputKubeMetricsInputCollectionPart0Type1 != nil {
+		return utils.MarshalJSON(u.InputKubeMetricsInputCollectionPart0Type1, "", true)
+	}
+
+	if u.InputKubeMetricsInputCollectionPart1Type1 != nil {
+		return utils.MarshalJSON(u.InputKubeMetricsInputCollectionPart1Type1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputKubeMetrics: all fields are null")
 }
