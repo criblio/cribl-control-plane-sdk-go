@@ -26,7 +26,7 @@ type InputKubeEventsPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Filtering on event fields
 	Rules []ItemsTypeRules `json:"rules,omitempty"`
 	// Fields to add to events from this input
@@ -108,7 +108,7 @@ func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetStreamtags() []string 
 	return i.Streamtags
 }
 
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -136,10 +136,9 @@ func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetDescription() *string 
 	return i.Description
 }
 
-type InputKubeEventsPqEnabledFalseWithPqConstraint struct {
+type InputKubeEventsPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputKubeEventsType `json:"type"`
@@ -153,7 +152,8 @@ type InputKubeEventsPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Filtering on event fields
 	Rules []ItemsTypeRules `json:"rules,omitempty"`
 	// Fields to add to events from this input
@@ -161,102 +161,102 @@ type InputKubeEventsPqEnabledFalseWithPqConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKubeEventsPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputKubeEventsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputKubeEventsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetType() InputKubeEventsType {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetType() InputKubeEventsType {
 	if i == nil {
 		return InputKubeEventsType("")
 	}
 	return i.Type
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetRules() []ItemsTypeRules {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetRules() []ItemsTypeRules {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeEventsPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputKubeEventsPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -267,7 +267,7 @@ type InputKubeEventsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputKubeEventsType `json:"type"`
@@ -306,7 +306,7 @@ func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetSendToRou
 	return i.SendToRoutes
 }
 
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -413,11 +413,9 @@ func (e *InputKubeEventsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputKubeEventsSendToRoutesTrueWithConnectionsConstraint struct {
+type InputKubeEventsSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputKubeEventsType `json:"type"`
@@ -430,7 +428,9 @@ type InputKubeEventsSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Filtering on event fields
 	Rules []ItemsTypeRules `json:"rules,omitempty"`
 	// Fields to add to events from this input
@@ -438,102 +438,102 @@ type InputKubeEventsSendToRoutesTrueWithConnectionsConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputKubeEventsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetType() InputKubeEventsType {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetType() InputKubeEventsType {
 	if i == nil {
 		return InputKubeEventsType("")
 	}
 	return i.Type
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetRules() []ItemsTypeRules {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetRules() []ItemsTypeRules {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputKubeEventsSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -543,26 +543,26 @@ func (i *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) GetDescriptio
 type InputKubeEventsUnionType string
 
 const (
-	InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueWithConnectionsConstraint  InputKubeEventsUnionType = "InputKubeEvents_SendToRoutesTrueWithConnectionsConstraint"
+	InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueConstraint                 InputKubeEventsUnionType = "InputKubeEvents_SendToRoutesTrueConstraint"
 	InputKubeEventsUnionTypeInputKubeEventsSendToRoutesFalseWithConnectionsConstraint InputKubeEventsUnionType = "InputKubeEvents_SendToRoutesFalseWithConnectionsConstraint"
-	InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseWithPqConstraint             InputKubeEventsUnionType = "InputKubeEvents_PqEnabledFalseWithPqConstraint"
+	InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseConstraint                   InputKubeEventsUnionType = "InputKubeEvents_PqEnabledFalseConstraint"
 	InputKubeEventsUnionTypeInputKubeEventsPqEnabledTrueWithPqConstraint              InputKubeEventsUnionType = "InputKubeEvents_PqEnabledTrueWithPqConstraint"
 )
 
 type InputKubeEvents struct {
-	InputKubeEventsSendToRoutesTrueWithConnectionsConstraint  *InputKubeEventsSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputKubeEventsSendToRoutesTrueConstraint                 *InputKubeEventsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputKubeEventsSendToRoutesFalseWithConnectionsConstraint *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputKubeEventsPqEnabledFalseWithPqConstraint             *InputKubeEventsPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputKubeEventsPqEnabledFalseConstraint                   *InputKubeEventsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputKubeEventsPqEnabledTrueWithPqConstraint              *InputKubeEventsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputKubeEventsUnionType
 }
 
-func CreateInputKubeEventsInputKubeEventsSendToRoutesTrueWithConnectionsConstraint(inputKubeEventsSendToRoutesTrueWithConnectionsConstraint InputKubeEventsSendToRoutesTrueWithConnectionsConstraint) InputKubeEvents {
-	typ := InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueWithConnectionsConstraint
+func CreateInputKubeEventsInputKubeEventsSendToRoutesTrueConstraint(inputKubeEventsSendToRoutesTrueConstraint InputKubeEventsSendToRoutesTrueConstraint) InputKubeEvents {
+	typ := InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueConstraint
 
 	return InputKubeEvents{
-		InputKubeEventsSendToRoutesTrueWithConnectionsConstraint: &inputKubeEventsSendToRoutesTrueWithConnectionsConstraint,
+		InputKubeEventsSendToRoutesTrueConstraint: &inputKubeEventsSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -576,12 +576,12 @@ func CreateInputKubeEventsInputKubeEventsSendToRoutesFalseWithConnectionsConstra
 	}
 }
 
-func CreateInputKubeEventsInputKubeEventsPqEnabledFalseWithPqConstraint(inputKubeEventsPqEnabledFalseWithPqConstraint InputKubeEventsPqEnabledFalseWithPqConstraint) InputKubeEvents {
-	typ := InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseWithPqConstraint
+func CreateInputKubeEventsInputKubeEventsPqEnabledFalseConstraint(inputKubeEventsPqEnabledFalseConstraint InputKubeEventsPqEnabledFalseConstraint) InputKubeEvents {
+	typ := InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseConstraint
 
 	return InputKubeEvents{
-		InputKubeEventsPqEnabledFalseWithPqConstraint: &inputKubeEventsPqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputKubeEventsPqEnabledFalseConstraint: &inputKubeEventsPqEnabledFalseConstraint,
+		Type:                                    typ,
 	}
 }
 
@@ -596,10 +596,10 @@ func CreateInputKubeEventsInputKubeEventsPqEnabledTrueWithPqConstraint(inputKube
 
 func (u *InputKubeEvents) UnmarshalJSON(data []byte) error {
 
-	var inputKubeEventsSendToRoutesTrueWithConnectionsConstraint InputKubeEventsSendToRoutesTrueWithConnectionsConstraint = InputKubeEventsSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputKubeEventsSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint = &inputKubeEventsSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueWithConnectionsConstraint
+	var inputKubeEventsSendToRoutesTrueConstraint InputKubeEventsSendToRoutesTrueConstraint = InputKubeEventsSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputKubeEventsSendToRoutesTrueConstraint = &inputKubeEventsSendToRoutesTrueConstraint
+		u.Type = InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -610,10 +610,10 @@ func (u *InputKubeEvents) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputKubeEventsPqEnabledFalseWithPqConstraint InputKubeEventsPqEnabledFalseWithPqConstraint = InputKubeEventsPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputKubeEventsPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputKubeEventsPqEnabledFalseWithPqConstraint = &inputKubeEventsPqEnabledFalseWithPqConstraint
-		u.Type = InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseWithPqConstraint
+	var inputKubeEventsPqEnabledFalseConstraint InputKubeEventsPqEnabledFalseConstraint = InputKubeEventsPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeEventsPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputKubeEventsPqEnabledFalseConstraint = &inputKubeEventsPqEnabledFalseConstraint
+		u.Type = InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -628,16 +628,16 @@ func (u *InputKubeEvents) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputKubeEvents) MarshalJSON() ([]byte, error) {
-	if u.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputKubeEventsSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeEventsSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputKubeEventsPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputKubeEventsPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputKubeEventsPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeEventsPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputKubeEventsPqEnabledTrueWithPqConstraint != nil {

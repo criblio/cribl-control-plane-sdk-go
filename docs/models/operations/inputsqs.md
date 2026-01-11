@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSqsSendToRoutesTrueWithConnectionsConstraint
+### InputSqsSendToRoutesTrueConstraint
 
 ```go
-inputSqs := operations.CreateInputSqsInputSqsSendToRoutesTrueWithConnectionsConstraint(operations.InputSqsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSqs := operations.CreateInputSqsInputSqsSendToRoutesTrueConstraint(operations.InputSqsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSqsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSqs := operations.CreateInputSqsInputSqsSendToRoutesTrueWithConnectionsCons
 inputSqs := operations.CreateInputSqsInputSqsSendToRoutesFalseWithConnectionsConstraint(operations.InputSqsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSqsPqEnabledFalseWithPqConstraint
+### InputSqsPqEnabledFalseConstraint
 
 ```go
-inputSqs := operations.CreateInputSqsInputSqsPqEnabledFalseWithPqConstraint(operations.InputSqsPqEnabledFalseWithPqConstraint{/* values here */})
+inputSqs := operations.CreateInputSqsInputSqsPqEnabledFalseConstraint(operations.InputSqsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSqsPqEnabledTrueWithPqConstraint

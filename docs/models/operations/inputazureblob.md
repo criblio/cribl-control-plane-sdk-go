@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputAzureBlobSendToRoutesTrueWithConnectionsConstraint
+### InputAzureBlobSendToRoutesTrueConstraint
 
 ```go
-inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobSendToRoutesTrueWithConnectionsConstraint(operations.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobSendToRoutesTrueConstraint(operations.InputAzureBlobSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputAzureBlobSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobSendToRoutesTrueW
 inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobSendToRoutesFalseWithConnectionsConstraint(operations.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputAzureBlobPqEnabledFalseWithPqConstraint
+### InputAzureBlobPqEnabledFalseConstraint
 
 ```go
-inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobPqEnabledFalseWithPqConstraint(operations.InputAzureBlobPqEnabledFalseWithPqConstraint{/* values here */})
+inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobPqEnabledFalseConstraint(operations.InputAzureBlobPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputAzureBlobPqEnabledTrueWithPqConstraint

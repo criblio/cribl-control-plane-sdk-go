@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint
+### InputCrowdstrikeSendToRoutesTrueConstraint
 
 ```go
-inputCrowdstrike := operations.CreateInputCrowdstrikeInputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint(operations.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputCrowdstrike := operations.CreateInputCrowdstrikeInputCrowdstrikeSendToRoutesTrueConstraint(operations.InputCrowdstrikeSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputCrowdstrike := operations.CreateInputCrowdstrikeInputCrowdstrikeSendToRoute
 inputCrowdstrike := operations.CreateInputCrowdstrikeInputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint(operations.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCrowdstrikePqEnabledFalseWithPqConstraint
+### InputCrowdstrikePqEnabledFalseConstraint
 
 ```go
-inputCrowdstrike := operations.CreateInputCrowdstrikeInputCrowdstrikePqEnabledFalseWithPqConstraint(operations.InputCrowdstrikePqEnabledFalseWithPqConstraint{/* values here */})
+inputCrowdstrike := operations.CreateInputCrowdstrikeInputCrowdstrikePqEnabledFalseConstraint(operations.InputCrowdstrikePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputCrowdstrikePqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint
+### InputEdgePrometheusSendToRoutesTrueConstraint
 
 ```go
-inputEdgePrometheus := components.CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint(components.InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputEdgePrometheus := components.CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesTrueConstraint(components.InputEdgePrometheusSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputEdgePrometheus := components.CreateInputEdgePrometheusInputEdgePrometheusSe
 inputEdgePrometheus := components.CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint(components.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputEdgePrometheusPqEnabledFalseWithPqConstraint
+### InputEdgePrometheusPqEnabledFalseConstraint
 
 ```go
-inputEdgePrometheus := components.CreateInputEdgePrometheusInputEdgePrometheusPqEnabledFalseWithPqConstraint(components.InputEdgePrometheusPqEnabledFalseWithPqConstraint{/* values here */})
+inputEdgePrometheus := components.CreateInputEdgePrometheusInputEdgePrometheusPqEnabledFalseConstraint(components.InputEdgePrometheusPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputEdgePrometheusPqEnabledTrueWithPqConstraint

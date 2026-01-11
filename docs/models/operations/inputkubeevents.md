@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputKubeEventsSendToRoutesTrueWithConnectionsConstraint
+### InputKubeEventsSendToRoutesTrueConstraint
 
 ```go
-inputKubeEvents := operations.CreateInputKubeEventsInputKubeEventsSendToRoutesTrueWithConnectionsConstraint(operations.InputKubeEventsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputKubeEvents := operations.CreateInputKubeEventsInputKubeEventsSendToRoutesTrueConstraint(operations.InputKubeEventsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputKubeEventsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputKubeEvents := operations.CreateInputKubeEventsInputKubeEventsSendToRoutesTr
 inputKubeEvents := operations.CreateInputKubeEventsInputKubeEventsSendToRoutesFalseWithConnectionsConstraint(operations.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeEventsPqEnabledFalseWithPqConstraint
+### InputKubeEventsPqEnabledFalseConstraint
 
 ```go
-inputKubeEvents := operations.CreateInputKubeEventsInputKubeEventsPqEnabledFalseWithPqConstraint(operations.InputKubeEventsPqEnabledFalseWithPqConstraint{/* values here */})
+inputKubeEvents := operations.CreateInputKubeEventsInputKubeEventsPqEnabledFalseConstraint(operations.InputKubeEventsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputKubeEventsPqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSystemMetricsSendToRoutesTrueWithConnectionsConstraint
+### InputSystemMetricsSendToRoutesTrueConstraint
 
 ```go
-inputSystemMetrics := components.CreateInputSystemMetricsInputSystemMetricsSendToRoutesTrueWithConnectionsConstraint(components.InputSystemMetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSystemMetrics := components.CreateInputSystemMetricsInputSystemMetricsSendToRoutesTrueConstraint(components.InputSystemMetricsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSystemMetrics := components.CreateInputSystemMetricsInputSystemMetricsSendT
 inputSystemMetrics := components.CreateInputSystemMetricsInputSystemMetricsSendToRoutesFalseWithConnectionsConstraint(components.InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSystemMetricsPqEnabledFalseWithPqConstraint
+### InputSystemMetricsPqEnabledFalseConstraint
 
 ```go
-inputSystemMetrics := components.CreateInputSystemMetricsInputSystemMetricsPqEnabledFalseWithPqConstraint(components.InputSystemMetricsPqEnabledFalseWithPqConstraint{/* values here */})
+inputSystemMetrics := components.CreateInputSystemMetricsInputSystemMetricsPqEnabledFalseConstraint(components.InputSystemMetricsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSystemMetricsPqEnabledTrueWithPqConstraint

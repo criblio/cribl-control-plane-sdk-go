@@ -26,7 +26,7 @@ type InputAzureBlobPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -146,7 +146,7 @@ func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -314,10 +314,9 @@ func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetCertificate() *Certific
 	return i.Certificate
 }
 
-type InputAzureBlobPqEnabledFalseWithPqConstraint struct {
+type InputAzureBlobPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputAzureBlobType `json:"type"`
@@ -331,7 +330,8 @@ type InputAzureBlobPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -377,242 +377,242 @@ type InputAzureBlobPqEnabledFalseWithPqConstraint struct {
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
 }
 
-func (i InputAzureBlobPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputAzureBlobPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputAzureBlobPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetType() InputAzureBlobType {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetType() InputAzureBlobType {
 	if i == nil {
 		return InputAzureBlobType("")
 	}
 	return i.Type
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetQueueName() string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetFileFilter() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetVisibilityTimeout() *float64 {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetNumReceivers() *float64 {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetMaxMessages() *float64 {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetServicePeriodSecs() *float64 {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetServicePeriodSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServicePeriodSecs
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetSkipOnError() *bool {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetParquetChunkSizeMB() *float64 {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetAuthType() *AuthenticationMethodOptions {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetConnectionString() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetConnectionString() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionString
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetTextSecret() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetStorageAccountName() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetStorageAccountName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.StorageAccountName
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetTenantID() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetTenantID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TenantID
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetClientID() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetClientID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientID
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetAzureCloud() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetAzureCloud() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AzureCloud
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetEndpointSuffix() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetEndpointSuffix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointSuffix
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetClientTextSecret() *string {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetClientTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientTextSecret
 }
 
-func (i *InputAzureBlobPqEnabledFalseWithPqConstraint) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
 	if i == nil {
 		return nil
 	}
@@ -623,7 +623,7 @@ type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputAzureBlobType `json:"type"`
@@ -700,7 +700,7 @@ func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetSendToRout
 	return i.SendToRoutes
 }
 
-func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -947,11 +947,9 @@ func (e *InputAzureBlobType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputAzureBlobSendToRoutesTrueWithConnectionsConstraint struct {
+type InputAzureBlobSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputAzureBlobType `json:"type"`
@@ -964,7 +962,9 @@ type InputAzureBlobSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -1010,242 +1010,242 @@ type InputAzureBlobSendToRoutesTrueWithConnectionsConstraint struct {
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
 }
 
-func (i InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputAzureBlobSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetType() InputAzureBlobType {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetType() InputAzureBlobType {
 	if i == nil {
 		return InputAzureBlobType("")
 	}
 	return i.Type
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetQueueName() string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetFileFilter() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetNumReceivers() *float64 {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetMaxMessages() *float64 {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetServicePeriodSecs() *float64 {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetServicePeriodSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServicePeriodSecs
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetSkipOnError() *bool {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetParquetChunkSizeMB() *float64 {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetConnectionString() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetConnectionString() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionString
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetTextSecret() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetStorageAccountName() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetStorageAccountName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.StorageAccountName
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetTenantID() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetTenantID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TenantID
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetClientID() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetClientID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientID
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetAzureCloud() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetAzureCloud() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AzureCloud
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetEndpointSuffix() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetEndpointSuffix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.EndpointSuffix
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetClientTextSecret() *string {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetClientTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientTextSecret
 }
 
-func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
 	if i == nil {
 		return nil
 	}
@@ -1255,27 +1255,27 @@ func (i *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) GetCertificate
 type InputAzureBlobUnionType string
 
 const (
-	InputAzureBlobUnionTypeInputAzureBlobSendToRoutesTrueWithConnectionsConstraint  InputAzureBlobUnionType = "InputAzureBlob_SendToRoutesTrueWithConnectionsConstraint"
+	InputAzureBlobUnionTypeInputAzureBlobSendToRoutesTrueConstraint                 InputAzureBlobUnionType = "InputAzureBlob_SendToRoutesTrueConstraint"
 	InputAzureBlobUnionTypeInputAzureBlobSendToRoutesFalseWithConnectionsConstraint InputAzureBlobUnionType = "InputAzureBlob_SendToRoutesFalseWithConnectionsConstraint"
-	InputAzureBlobUnionTypeInputAzureBlobPqEnabledFalseWithPqConstraint             InputAzureBlobUnionType = "InputAzureBlob_PqEnabledFalseWithPqConstraint"
+	InputAzureBlobUnionTypeInputAzureBlobPqEnabledFalseConstraint                   InputAzureBlobUnionType = "InputAzureBlob_PqEnabledFalseConstraint"
 	InputAzureBlobUnionTypeInputAzureBlobPqEnabledTrueWithPqConstraint              InputAzureBlobUnionType = "InputAzureBlob_PqEnabledTrueWithPqConstraint"
 )
 
 type InputAzureBlob struct {
-	InputAzureBlobSendToRoutesTrueWithConnectionsConstraint  *InputAzureBlobSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputAzureBlobSendToRoutesTrueConstraint                 *InputAzureBlobSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputAzureBlobSendToRoutesFalseWithConnectionsConstraint *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputAzureBlobPqEnabledFalseWithPqConstraint             *InputAzureBlobPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputAzureBlobPqEnabledFalseConstraint                   *InputAzureBlobPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputAzureBlobPqEnabledTrueWithPqConstraint              *InputAzureBlobPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputAzureBlobUnionType
 }
 
-func CreateInputAzureBlobInputAzureBlobSendToRoutesTrueWithConnectionsConstraint(inputAzureBlobSendToRoutesTrueWithConnectionsConstraint InputAzureBlobSendToRoutesTrueWithConnectionsConstraint) InputAzureBlob {
-	typ := InputAzureBlobUnionTypeInputAzureBlobSendToRoutesTrueWithConnectionsConstraint
+func CreateInputAzureBlobInputAzureBlobSendToRoutesTrueConstraint(inputAzureBlobSendToRoutesTrueConstraint InputAzureBlobSendToRoutesTrueConstraint) InputAzureBlob {
+	typ := InputAzureBlobUnionTypeInputAzureBlobSendToRoutesTrueConstraint
 
 	return InputAzureBlob{
-		InputAzureBlobSendToRoutesTrueWithConnectionsConstraint: &inputAzureBlobSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputAzureBlobSendToRoutesTrueConstraint: &inputAzureBlobSendToRoutesTrueConstraint,
+		Type:                                     typ,
 	}
 }
 
@@ -1288,12 +1288,12 @@ func CreateInputAzureBlobInputAzureBlobSendToRoutesFalseWithConnectionsConstrain
 	}
 }
 
-func CreateInputAzureBlobInputAzureBlobPqEnabledFalseWithPqConstraint(inputAzureBlobPqEnabledFalseWithPqConstraint InputAzureBlobPqEnabledFalseWithPqConstraint) InputAzureBlob {
-	typ := InputAzureBlobUnionTypeInputAzureBlobPqEnabledFalseWithPqConstraint
+func CreateInputAzureBlobInputAzureBlobPqEnabledFalseConstraint(inputAzureBlobPqEnabledFalseConstraint InputAzureBlobPqEnabledFalseConstraint) InputAzureBlob {
+	typ := InputAzureBlobUnionTypeInputAzureBlobPqEnabledFalseConstraint
 
 	return InputAzureBlob{
-		InputAzureBlobPqEnabledFalseWithPqConstraint: &inputAzureBlobPqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputAzureBlobPqEnabledFalseConstraint: &inputAzureBlobPqEnabledFalseConstraint,
+		Type:                                   typ,
 	}
 }
 
@@ -1308,10 +1308,10 @@ func CreateInputAzureBlobInputAzureBlobPqEnabledTrueWithPqConstraint(inputAzureB
 
 func (u *InputAzureBlob) UnmarshalJSON(data []byte) error {
 
-	var inputAzureBlobSendToRoutesTrueWithConnectionsConstraint InputAzureBlobSendToRoutesTrueWithConnectionsConstraint = InputAzureBlobSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputAzureBlobSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint = &inputAzureBlobSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputAzureBlobUnionTypeInputAzureBlobSendToRoutesTrueWithConnectionsConstraint
+	var inputAzureBlobSendToRoutesTrueConstraint InputAzureBlobSendToRoutesTrueConstraint = InputAzureBlobSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputAzureBlobSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputAzureBlobSendToRoutesTrueConstraint = &inputAzureBlobSendToRoutesTrueConstraint
+		u.Type = InputAzureBlobUnionTypeInputAzureBlobSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1322,10 +1322,10 @@ func (u *InputAzureBlob) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputAzureBlobPqEnabledFalseWithPqConstraint InputAzureBlobPqEnabledFalseWithPqConstraint = InputAzureBlobPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputAzureBlobPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputAzureBlobPqEnabledFalseWithPqConstraint = &inputAzureBlobPqEnabledFalseWithPqConstraint
-		u.Type = InputAzureBlobUnionTypeInputAzureBlobPqEnabledFalseWithPqConstraint
+	var inputAzureBlobPqEnabledFalseConstraint InputAzureBlobPqEnabledFalseConstraint = InputAzureBlobPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputAzureBlobPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputAzureBlobPqEnabledFalseConstraint = &inputAzureBlobPqEnabledFalseConstraint
+		u.Type = InputAzureBlobUnionTypeInputAzureBlobPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1340,16 +1340,16 @@ func (u *InputAzureBlob) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputAzureBlob) MarshalJSON() ([]byte, error) {
-	if u.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputAzureBlobSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputAzureBlobSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputAzureBlobPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputAzureBlobPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputAzureBlobPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputAzureBlobPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputAzureBlobPqEnabledTrueWithPqConstraint != nil {

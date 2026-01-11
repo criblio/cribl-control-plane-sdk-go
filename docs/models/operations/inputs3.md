@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputS3SendToRoutesTrueWithConnectionsConstraint
+### InputS3SendToRoutesTrueConstraint
 
 ```go
-inputS3 := operations.CreateInputS3InputS3SendToRoutesTrueWithConnectionsConstraint(operations.InputS3SendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputS3 := operations.CreateInputS3InputS3SendToRoutesTrueConstraint(operations.InputS3SendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputS3SendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputS3 := operations.CreateInputS3InputS3SendToRoutesTrueWithConnectionsConstra
 inputS3 := operations.CreateInputS3InputS3SendToRoutesFalseWithConnectionsConstraint(operations.InputS3SendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputS3PqEnabledFalseWithPqConstraint
+### InputS3PqEnabledFalseConstraint
 
 ```go
-inputS3 := operations.CreateInputS3InputS3PqEnabledFalseWithPqConstraint(operations.InputS3PqEnabledFalseWithPqConstraint{/* values here */})
+inputS3 := operations.CreateInputS3InputS3PqEnabledFalseConstraint(operations.InputS3PqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputS3PqEnabledTrueWithPqConstraint

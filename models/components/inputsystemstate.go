@@ -26,7 +26,7 @@ type InputSystemStatePqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `default:"300" json:"interval"`
 	// Fields to add to events from this input
@@ -112,7 +112,7 @@ func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetStreamtags() []string
 	return i.Streamtags
 }
 
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -161,10 +161,9 @@ func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetDescription() *string
 	return i.Description
 }
 
-type InputSystemStatePqEnabledFalseWithPqConstraint struct {
+type InputSystemStatePqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
@@ -178,7 +177,8 @@ type InputSystemStatePqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `default:"300" json:"interval"`
 	// Fields to add to events from this input
@@ -190,123 +190,123 @@ type InputSystemStatePqEnabledFalseWithPqConstraint struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputSystemStatePqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSystemStatePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputSystemStatePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetType() InputSystemStateType {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetType() InputSystemStateType {
 	if i == nil {
 		return InputSystemStateType("")
 	}
 	return i.Type
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetInterval() *float64 {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemStatePqEnabledFalseConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetCollectors() *Collectors {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetCollectors() *Collectors {
 	if i == nil {
 		return nil
 	}
 	return i.Collectors
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetPersistence() *InputSystemStatePersistence {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetPersistence() *InputSystemStatePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetDisableNativeModule() *bool {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputSystemStatePqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -317,7 +317,7 @@ type InputSystemStateSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
@@ -360,7 +360,7 @@ func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetSendToRo
 	return i.SendToRoutes
 }
 
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -943,11 +943,9 @@ func (i *InputSystemStatePersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputSystemStateSendToRoutesTrueWithConnectionsConstraint struct {
+type InputSystemStateSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
@@ -960,7 +958,9 @@ type InputSystemStateSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `default:"300" json:"interval"`
 	// Fields to add to events from this input
@@ -972,123 +972,123 @@ type InputSystemStateSendToRoutesTrueWithConnectionsConstraint struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputSystemStateSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSystemStateSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputSystemStateSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetType() InputSystemStateType {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetType() InputSystemStateType {
 	if i == nil {
 		return InputSystemStateType("")
 	}
 	return i.Type
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetCollectors() *Collectors {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetCollectors() *Collectors {
 	if i == nil {
 		return nil
 	}
 	return i.Collectors
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetPersistence() *InputSystemStatePersistence {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetPersistence() *InputSystemStatePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetDisableNativeModule() *bool {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1098,26 +1098,26 @@ func (i *InputSystemStateSendToRoutesTrueWithConnectionsConstraint) GetDescripti
 type InputSystemStateUnionType string
 
 const (
-	InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueWithConnectionsConstraint  InputSystemStateUnionType = "InputSystemState_SendToRoutesTrueWithConnectionsConstraint"
+	InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueConstraint                 InputSystemStateUnionType = "InputSystemState_SendToRoutesTrueConstraint"
 	InputSystemStateUnionTypeInputSystemStateSendToRoutesFalseWithConnectionsConstraint InputSystemStateUnionType = "InputSystemState_SendToRoutesFalseWithConnectionsConstraint"
-	InputSystemStateUnionTypeInputSystemStatePqEnabledFalseWithPqConstraint             InputSystemStateUnionType = "InputSystemState_PqEnabledFalseWithPqConstraint"
+	InputSystemStateUnionTypeInputSystemStatePqEnabledFalseConstraint                   InputSystemStateUnionType = "InputSystemState_PqEnabledFalseConstraint"
 	InputSystemStateUnionTypeInputSystemStatePqEnabledTrueWithPqConstraint              InputSystemStateUnionType = "InputSystemState_PqEnabledTrueWithPqConstraint"
 )
 
 type InputSystemState struct {
-	InputSystemStateSendToRoutesTrueWithConnectionsConstraint  *InputSystemStateSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputSystemStateSendToRoutesTrueConstraint                 *InputSystemStateSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputSystemStateSendToRoutesFalseWithConnectionsConstraint *InputSystemStateSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputSystemStatePqEnabledFalseWithPqConstraint             *InputSystemStatePqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputSystemStatePqEnabledFalseConstraint                   *InputSystemStatePqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputSystemStatePqEnabledTrueWithPqConstraint              *InputSystemStatePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputSystemStateUnionType
 }
 
-func CreateInputSystemStateInputSystemStateSendToRoutesTrueWithConnectionsConstraint(inputSystemStateSendToRoutesTrueWithConnectionsConstraint InputSystemStateSendToRoutesTrueWithConnectionsConstraint) InputSystemState {
-	typ := InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueWithConnectionsConstraint
+func CreateInputSystemStateInputSystemStateSendToRoutesTrueConstraint(inputSystemStateSendToRoutesTrueConstraint InputSystemStateSendToRoutesTrueConstraint) InputSystemState {
+	typ := InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueConstraint
 
 	return InputSystemState{
-		InputSystemStateSendToRoutesTrueWithConnectionsConstraint: &inputSystemStateSendToRoutesTrueWithConnectionsConstraint,
+		InputSystemStateSendToRoutesTrueConstraint: &inputSystemStateSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -1131,12 +1131,12 @@ func CreateInputSystemStateInputSystemStateSendToRoutesFalseWithConnectionsConst
 	}
 }
 
-func CreateInputSystemStateInputSystemStatePqEnabledFalseWithPqConstraint(inputSystemStatePqEnabledFalseWithPqConstraint InputSystemStatePqEnabledFalseWithPqConstraint) InputSystemState {
-	typ := InputSystemStateUnionTypeInputSystemStatePqEnabledFalseWithPqConstraint
+func CreateInputSystemStateInputSystemStatePqEnabledFalseConstraint(inputSystemStatePqEnabledFalseConstraint InputSystemStatePqEnabledFalseConstraint) InputSystemState {
+	typ := InputSystemStateUnionTypeInputSystemStatePqEnabledFalseConstraint
 
 	return InputSystemState{
-		InputSystemStatePqEnabledFalseWithPqConstraint: &inputSystemStatePqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputSystemStatePqEnabledFalseConstraint: &inputSystemStatePqEnabledFalseConstraint,
+		Type:                                     typ,
 	}
 }
 
@@ -1151,10 +1151,10 @@ func CreateInputSystemStateInputSystemStatePqEnabledTrueWithPqConstraint(inputSy
 
 func (u *InputSystemState) UnmarshalJSON(data []byte) error {
 
-	var inputSystemStateSendToRoutesTrueWithConnectionsConstraint InputSystemStateSendToRoutesTrueWithConnectionsConstraint = InputSystemStateSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSystemStateSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputSystemStateSendToRoutesTrueWithConnectionsConstraint = &inputSystemStateSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueWithConnectionsConstraint
+	var inputSystemStateSendToRoutesTrueConstraint InputSystemStateSendToRoutesTrueConstraint = InputSystemStateSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStateSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputSystemStateSendToRoutesTrueConstraint = &inputSystemStateSendToRoutesTrueConstraint
+		u.Type = InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1165,10 +1165,10 @@ func (u *InputSystemState) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputSystemStatePqEnabledFalseWithPqConstraint InputSystemStatePqEnabledFalseWithPqConstraint = InputSystemStatePqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSystemStatePqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputSystemStatePqEnabledFalseWithPqConstraint = &inputSystemStatePqEnabledFalseWithPqConstraint
-		u.Type = InputSystemStateUnionTypeInputSystemStatePqEnabledFalseWithPqConstraint
+	var inputSystemStatePqEnabledFalseConstraint InputSystemStatePqEnabledFalseConstraint = InputSystemStatePqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSystemStatePqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputSystemStatePqEnabledFalseConstraint = &inputSystemStatePqEnabledFalseConstraint
+		u.Type = InputSystemStateUnionTypeInputSystemStatePqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1183,16 +1183,16 @@ func (u *InputSystemState) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputSystemState) MarshalJSON() ([]byte, error) {
-	if u.InputSystemStateSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputSystemStateSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputSystemStateSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputSystemStateSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputSystemStateSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputSystemStateSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSystemStatePqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputSystemStatePqEnabledFalseWithPqConstraint, "", true)
+	if u.InputSystemStatePqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputSystemStatePqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputSystemStatePqEnabledTrueWithPqConstraint != nil {

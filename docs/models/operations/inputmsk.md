@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputMskSendToRoutesTrueWithConnectionsConstraint
+### InputMskSendToRoutesTrueConstraint
 
 ```go
-inputMsk := operations.CreateInputMskInputMskSendToRoutesTrueWithConnectionsConstraint(operations.InputMskSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputMsk := operations.CreateInputMskInputMskSendToRoutesTrueConstraint(operations.InputMskSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputMskSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputMsk := operations.CreateInputMskInputMskSendToRoutesTrueWithConnectionsCons
 inputMsk := operations.CreateInputMskInputMskSendToRoutesFalseWithConnectionsConstraint(operations.InputMskSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputMskPqEnabledFalseWithPqConstraint
+### InputMskPqEnabledFalseConstraint
 
 ```go
-inputMsk := operations.CreateInputMskInputMskPqEnabledFalseWithPqConstraint(operations.InputMskPqEnabledFalseWithPqConstraint{/* values here */})
+inputMsk := operations.CreateInputMskInputMskPqEnabledFalseConstraint(operations.InputMskPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputMskPqEnabledTrueWithPqConstraint

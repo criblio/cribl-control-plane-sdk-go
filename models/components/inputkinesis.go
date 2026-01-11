@@ -26,7 +26,7 @@ type InputKinesisPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -150,7 +150,7 @@ func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -332,10 +332,9 @@ func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 	return i.AwsSecret
 }
 
-type InputKinesisPqEnabledFalseWithPqConstraint struct {
+type InputKinesisPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
@@ -349,7 +348,8 @@ type InputKinesisPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -399,256 +399,256 @@ type InputKinesisPqEnabledFalseWithPqConstraint struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputKinesisPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputKinesisPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputKinesisPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetType() InputKinesisType {
+func (i *InputKinesisPqEnabledFalseConstraint) GetType() InputKinesisType {
 	if i == nil {
 		return InputKinesisType("")
 	}
 	return i.Type
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputKinesisPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetStreamName() string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetStreamName() string {
 	if i == nil {
 		return ""
 	}
 	return i.StreamName
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetServiceInterval() *float64 {
+func (i *InputKinesisPqEnabledFalseConstraint) GetServiceInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceInterval
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetShardExpr() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetShardExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ShardExpr
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetShardIteratorType() *ShardIteratorStart {
+func (i *InputKinesisPqEnabledFalseConstraint) GetShardIteratorType() *ShardIteratorStart {
 	if i == nil {
 		return nil
 	}
 	return i.ShardIteratorType
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetPayloadFormat() *RecordDataFormat {
+func (i *InputKinesisPqEnabledFalseConstraint) GetPayloadFormat() *RecordDataFormat {
 	if i == nil {
 		return nil
 	}
 	return i.PayloadFormat
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetGetRecordsLimit() *float64 {
+func (i *InputKinesisPqEnabledFalseConstraint) GetGetRecordsLimit() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimit
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetGetRecordsLimitTotal() *float64 {
+func (i *InputKinesisPqEnabledFalseConstraint) GetGetRecordsLimitTotal() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimitTotal
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+func (i *InputKinesisPqEnabledFalseConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
 	if i == nil {
 		return nil
 	}
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetRegion() string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
+func (i *InputKinesisPqEnabledFalseConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
+func (i *InputKinesisPqEnabledFalseConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetVerifyKPLCheckSums() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetVerifyKPLCheckSums() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VerifyKPLCheckSums
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAvoidDuplicates() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAvoidDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKinesisPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -659,7 +659,7 @@ type InputKinesisSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
@@ -740,7 +740,7 @@ func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes
 	return i.SendToRoutes
 }
 
-func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1080,11 +1080,9 @@ func (e *ShardLoadBalancing) IsExact() bool {
 	return false
 }
 
-type InputKinesisSendToRoutesTrueWithConnectionsConstraint struct {
+type InputKinesisSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
@@ -1097,7 +1095,9 @@ type InputKinesisSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -1147,256 +1147,256 @@ type InputKinesisSendToRoutesTrueWithConnectionsConstraint struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputKinesisSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputKinesisSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputKinesisSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetType() InputKinesisType {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetType() InputKinesisType {
 	if i == nil {
 		return InputKinesisType("")
 	}
 	return i.Type
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKinesisSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetStreamName() string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetStreamName() string {
 	if i == nil {
 		return ""
 	}
 	return i.StreamName
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetServiceInterval() *float64 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetServiceInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceInterval
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetShardExpr() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetShardExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ShardExpr
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetShardIteratorType() *ShardIteratorStart {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetShardIteratorType() *ShardIteratorStart {
 	if i == nil {
 		return nil
 	}
 	return i.ShardIteratorType
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetPayloadFormat() *RecordDataFormat {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetPayloadFormat() *RecordDataFormat {
 	if i == nil {
 		return nil
 	}
 	return i.PayloadFormat
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetGetRecordsLimit() *float64 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetGetRecordsLimit() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimit
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetGetRecordsLimitTotal() *float64 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetGetRecordsLimitTotal() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimitTotal
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
 	if i == nil {
 		return nil
 	}
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetRegion() string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetVerifyKPLCheckSums() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetVerifyKPLCheckSums() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VerifyKPLCheckSums
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAvoidDuplicates() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAvoidDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1406,27 +1406,27 @@ func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *
 type InputKinesisUnionType string
 
 const (
-	InputKinesisUnionTypeInputKinesisSendToRoutesTrueWithConnectionsConstraint  InputKinesisUnionType = "InputKinesis_SendToRoutesTrueWithConnectionsConstraint"
+	InputKinesisUnionTypeInputKinesisSendToRoutesTrueConstraint                 InputKinesisUnionType = "InputKinesis_SendToRoutesTrueConstraint"
 	InputKinesisUnionTypeInputKinesisSendToRoutesFalseWithConnectionsConstraint InputKinesisUnionType = "InputKinesis_SendToRoutesFalseWithConnectionsConstraint"
-	InputKinesisUnionTypeInputKinesisPqEnabledFalseWithPqConstraint             InputKinesisUnionType = "InputKinesis_PqEnabledFalseWithPqConstraint"
+	InputKinesisUnionTypeInputKinesisPqEnabledFalseConstraint                   InputKinesisUnionType = "InputKinesis_PqEnabledFalseConstraint"
 	InputKinesisUnionTypeInputKinesisPqEnabledTrueWithPqConstraint              InputKinesisUnionType = "InputKinesis_PqEnabledTrueWithPqConstraint"
 )
 
 type InputKinesis struct {
-	InputKinesisSendToRoutesTrueWithConnectionsConstraint  *InputKinesisSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputKinesisSendToRoutesTrueConstraint                 *InputKinesisSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputKinesisSendToRoutesFalseWithConnectionsConstraint *InputKinesisSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputKinesisPqEnabledFalseWithPqConstraint             *InputKinesisPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputKinesisPqEnabledFalseConstraint                   *InputKinesisPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputKinesisPqEnabledTrueWithPqConstraint              *InputKinesisPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputKinesisUnionType
 }
 
-func CreateInputKinesisInputKinesisSendToRoutesTrueWithConnectionsConstraint(inputKinesisSendToRoutesTrueWithConnectionsConstraint InputKinesisSendToRoutesTrueWithConnectionsConstraint) InputKinesis {
-	typ := InputKinesisUnionTypeInputKinesisSendToRoutesTrueWithConnectionsConstraint
+func CreateInputKinesisInputKinesisSendToRoutesTrueConstraint(inputKinesisSendToRoutesTrueConstraint InputKinesisSendToRoutesTrueConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisSendToRoutesTrueConstraint
 
 	return InputKinesis{
-		InputKinesisSendToRoutesTrueWithConnectionsConstraint: &inputKinesisSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputKinesisSendToRoutesTrueConstraint: &inputKinesisSendToRoutesTrueConstraint,
+		Type:                                   typ,
 	}
 }
 
@@ -1439,12 +1439,12 @@ func CreateInputKinesisInputKinesisSendToRoutesFalseWithConnectionsConstraint(in
 	}
 }
 
-func CreateInputKinesisInputKinesisPqEnabledFalseWithPqConstraint(inputKinesisPqEnabledFalseWithPqConstraint InputKinesisPqEnabledFalseWithPqConstraint) InputKinesis {
-	typ := InputKinesisUnionTypeInputKinesisPqEnabledFalseWithPqConstraint
+func CreateInputKinesisInputKinesisPqEnabledFalseConstraint(inputKinesisPqEnabledFalseConstraint InputKinesisPqEnabledFalseConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisPqEnabledFalseConstraint
 
 	return InputKinesis{
-		InputKinesisPqEnabledFalseWithPqConstraint: &inputKinesisPqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputKinesisPqEnabledFalseConstraint: &inputKinesisPqEnabledFalseConstraint,
+		Type:                                 typ,
 	}
 }
 
@@ -1459,10 +1459,10 @@ func CreateInputKinesisInputKinesisPqEnabledTrueWithPqConstraint(inputKinesisPqE
 
 func (u *InputKinesis) UnmarshalJSON(data []byte) error {
 
-	var inputKinesisSendToRoutesTrueWithConnectionsConstraint InputKinesisSendToRoutesTrueWithConnectionsConstraint = InputKinesisSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputKinesisSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputKinesisSendToRoutesTrueWithConnectionsConstraint = &inputKinesisSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputKinesisUnionTypeInputKinesisSendToRoutesTrueWithConnectionsConstraint
+	var inputKinesisSendToRoutesTrueConstraint InputKinesisSendToRoutesTrueConstraint = InputKinesisSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputKinesisSendToRoutesTrueConstraint = &inputKinesisSendToRoutesTrueConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1473,10 +1473,10 @@ func (u *InputKinesis) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputKinesisPqEnabledFalseWithPqConstraint InputKinesisPqEnabledFalseWithPqConstraint = InputKinesisPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputKinesisPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputKinesisPqEnabledFalseWithPqConstraint = &inputKinesisPqEnabledFalseWithPqConstraint
-		u.Type = InputKinesisUnionTypeInputKinesisPqEnabledFalseWithPqConstraint
+	var inputKinesisPqEnabledFalseConstraint InputKinesisPqEnabledFalseConstraint = InputKinesisPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputKinesisPqEnabledFalseConstraint = &inputKinesisPqEnabledFalseConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1491,16 +1491,16 @@ func (u *InputKinesis) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputKinesis) MarshalJSON() ([]byte, error) {
-	if u.InputKinesisSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputKinesisSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputKinesisSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputKinesisSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputKinesisSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputKinesisPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputKinesisPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputKinesisPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputKinesisPqEnabledTrueWithPqConstraint != nil {

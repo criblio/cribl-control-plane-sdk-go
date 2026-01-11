@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputKafkaSendToRoutesTrueWithConnectionsConstraint
+### InputKafkaSendToRoutesTrueConstraint
 
 ```go
-inputKafka := operations.CreateInputKafkaInputKafkaSendToRoutesTrueWithConnectionsConstraint(operations.InputKafkaSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputKafka := operations.CreateInputKafkaInputKafkaSendToRoutesTrueConstraint(operations.InputKafkaSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputKafkaSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputKafka := operations.CreateInputKafkaInputKafkaSendToRoutesTrueWithConnectio
 inputKafka := operations.CreateInputKafkaInputKafkaSendToRoutesFalseWithConnectionsConstraint(operations.InputKafkaSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKafkaPqEnabledFalseWithPqConstraint
+### InputKafkaPqEnabledFalseConstraint
 
 ```go
-inputKafka := operations.CreateInputKafkaInputKafkaPqEnabledFalseWithPqConstraint(operations.InputKafkaPqEnabledFalseWithPqConstraint{/* values here */})
+inputKafka := operations.CreateInputKafkaInputKafkaPqEnabledFalseConstraint(operations.InputKafkaPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputKafkaPqEnabledTrueWithPqConstraint

@@ -26,7 +26,7 @@ type InputWefPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -143,7 +143,7 @@ func (i *InputWefPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputWefPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -297,10 +297,9 @@ func (i *InputWefPqEnabledTrueWithPqConstraint) GetLogFingerprintMismatch() *boo
 	return i.LogFingerprintMismatch
 }
 
-type InputWefPqEnabledFalseWithPqConstraint struct {
+type InputWefPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWefType `json:"type"`
@@ -314,7 +313,8 @@ type InputWefPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -357,228 +357,228 @@ type InputWefPqEnabledFalseWithPqConstraint struct {
 	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
 }
 
-func (i InputWefPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputWefPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputWefPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetType() InputWefType {
+func (i *InputWefPqEnabledFalseConstraint) GetType() InputWefType {
 	if i == nil {
 		return InputWefType("")
 	}
 	return i.Type
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputWefPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputWefPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWefPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetPort() *float64 {
+func (i *InputWefPqEnabledFalseConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetAuthMethod() *InputWefAuthenticationMethod {
+func (i *InputWefPqEnabledFalseConstraint) GetAuthMethod() *InputWefAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthMethod
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetTLS() *MTLSSettings {
+func (i *InputWefPqEnabledFalseConstraint) GetTLS() *MTLSSettings {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
+func (i *InputWefPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputWefPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputWefPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
+func (i *InputWefPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetCaFingerprint() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetCaFingerprint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CaFingerprint
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetKeytab() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetKeytab() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Keytab
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetPrincipal() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetPrincipal() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Principal
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetAllowMachineIDMismatch() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetAllowMachineIDMismatch() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AllowMachineIDMismatch
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetSubscriptions() []Subscription {
+func (i *InputWefPqEnabledFalseConstraint) GetSubscriptions() []Subscription {
 	if i == nil {
 		return []Subscription{}
 	}
 	return i.Subscriptions
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWefPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWefPqEnabledFalseWithPqConstraint) GetLogFingerprintMismatch() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetLogFingerprintMismatch() *bool {
 	if i == nil {
 		return nil
 	}
@@ -589,7 +589,7 @@ type InputWefSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWefType `json:"type"`
@@ -663,7 +663,7 @@ func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *
 	return i.SendToRoutes
 }
 
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1280,11 +1280,9 @@ func (s *Subscription) GetXMLQuery() *string {
 	return s.XMLQuery
 }
 
-type InputWefSendToRoutesTrueWithConnectionsConstraint struct {
+type InputWefSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWefType `json:"type"`
@@ -1297,7 +1295,9 @@ type InputWefSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -1340,228 +1340,228 @@ type InputWefSendToRoutesTrueWithConnectionsConstraint struct {
 	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
 }
 
-func (i InputWefSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputWefSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputWefSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetType() InputWefType {
+func (i *InputWefSendToRoutesTrueConstraint) GetType() InputWefType {
 	if i == nil {
 		return InputWefType("")
 	}
 	return i.Type
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputWefSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputWefSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWefSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetPort() *float64 {
+func (i *InputWefSendToRoutesTrueConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetAuthMethod() *InputWefAuthenticationMethod {
+func (i *InputWefSendToRoutesTrueConstraint) GetAuthMethod() *InputWefAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthMethod
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetTLS() *MTLSSettings {
+func (i *InputWefSendToRoutesTrueConstraint) GetTLS() *MTLSSettings {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
+func (i *InputWefSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputWefSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputWefSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
+func (i *InputWefSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetCaFingerprint() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetCaFingerprint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CaFingerprint
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetKeytab() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetKeytab() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Keytab
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetPrincipal() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetPrincipal() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Principal
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetAllowMachineIDMismatch() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetAllowMachineIDMismatch() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AllowMachineIDMismatch
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetSubscriptions() []Subscription {
+func (i *InputWefSendToRoutesTrueConstraint) GetSubscriptions() []Subscription {
 	if i == nil {
 		return []Subscription{}
 	}
 	return i.Subscriptions
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWefSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetLogFingerprintMismatch() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetLogFingerprintMismatch() *bool {
 	if i == nil {
 		return nil
 	}
@@ -1571,27 +1571,27 @@ func (i *InputWefSendToRoutesTrueWithConnectionsConstraint) GetLogFingerprintMis
 type InputWefUnionType string
 
 const (
-	InputWefUnionTypeInputWefSendToRoutesTrueWithConnectionsConstraint  InputWefUnionType = "InputWef_SendToRoutesTrueWithConnectionsConstraint"
+	InputWefUnionTypeInputWefSendToRoutesTrueConstraint                 InputWefUnionType = "InputWef_SendToRoutesTrueConstraint"
 	InputWefUnionTypeInputWefSendToRoutesFalseWithConnectionsConstraint InputWefUnionType = "InputWef_SendToRoutesFalseWithConnectionsConstraint"
-	InputWefUnionTypeInputWefPqEnabledFalseWithPqConstraint             InputWefUnionType = "InputWef_PqEnabledFalseWithPqConstraint"
+	InputWefUnionTypeInputWefPqEnabledFalseConstraint                   InputWefUnionType = "InputWef_PqEnabledFalseConstraint"
 	InputWefUnionTypeInputWefPqEnabledTrueWithPqConstraint              InputWefUnionType = "InputWef_PqEnabledTrueWithPqConstraint"
 )
 
 type InputWef struct {
-	InputWefSendToRoutesTrueWithConnectionsConstraint  *InputWefSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputWefSendToRoutesTrueConstraint                 *InputWefSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputWefSendToRoutesFalseWithConnectionsConstraint *InputWefSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputWefPqEnabledFalseWithPqConstraint             *InputWefPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputWefPqEnabledFalseConstraint                   *InputWefPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputWefPqEnabledTrueWithPqConstraint              *InputWefPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputWefUnionType
 }
 
-func CreateInputWefInputWefSendToRoutesTrueWithConnectionsConstraint(inputWefSendToRoutesTrueWithConnectionsConstraint InputWefSendToRoutesTrueWithConnectionsConstraint) InputWef {
-	typ := InputWefUnionTypeInputWefSendToRoutesTrueWithConnectionsConstraint
+func CreateInputWefInputWefSendToRoutesTrueConstraint(inputWefSendToRoutesTrueConstraint InputWefSendToRoutesTrueConstraint) InputWef {
+	typ := InputWefUnionTypeInputWefSendToRoutesTrueConstraint
 
 	return InputWef{
-		InputWefSendToRoutesTrueWithConnectionsConstraint: &inputWefSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputWefSendToRoutesTrueConstraint: &inputWefSendToRoutesTrueConstraint,
+		Type:                               typ,
 	}
 }
 
@@ -1604,12 +1604,12 @@ func CreateInputWefInputWefSendToRoutesFalseWithConnectionsConstraint(inputWefSe
 	}
 }
 
-func CreateInputWefInputWefPqEnabledFalseWithPqConstraint(inputWefPqEnabledFalseWithPqConstraint InputWefPqEnabledFalseWithPqConstraint) InputWef {
-	typ := InputWefUnionTypeInputWefPqEnabledFalseWithPqConstraint
+func CreateInputWefInputWefPqEnabledFalseConstraint(inputWefPqEnabledFalseConstraint InputWefPqEnabledFalseConstraint) InputWef {
+	typ := InputWefUnionTypeInputWefPqEnabledFalseConstraint
 
 	return InputWef{
-		InputWefPqEnabledFalseWithPqConstraint: &inputWefPqEnabledFalseWithPqConstraint,
-		Type:                                   typ,
+		InputWefPqEnabledFalseConstraint: &inputWefPqEnabledFalseConstraint,
+		Type:                             typ,
 	}
 }
 
@@ -1624,10 +1624,10 @@ func CreateInputWefInputWefPqEnabledTrueWithPqConstraint(inputWefPqEnabledTrueWi
 
 func (u *InputWef) UnmarshalJSON(data []byte) error {
 
-	var inputWefSendToRoutesTrueWithConnectionsConstraint InputWefSendToRoutesTrueWithConnectionsConstraint = InputWefSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWefSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputWefSendToRoutesTrueWithConnectionsConstraint = &inputWefSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputWefUnionTypeInputWefSendToRoutesTrueWithConnectionsConstraint
+	var inputWefSendToRoutesTrueConstraint InputWefSendToRoutesTrueConstraint = InputWefSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWefSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputWefSendToRoutesTrueConstraint = &inputWefSendToRoutesTrueConstraint
+		u.Type = InputWefUnionTypeInputWefSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1638,10 +1638,10 @@ func (u *InputWef) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputWefPqEnabledFalseWithPqConstraint InputWefPqEnabledFalseWithPqConstraint = InputWefPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWefPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputWefPqEnabledFalseWithPqConstraint = &inputWefPqEnabledFalseWithPqConstraint
-		u.Type = InputWefUnionTypeInputWefPqEnabledFalseWithPqConstraint
+	var inputWefPqEnabledFalseConstraint InputWefPqEnabledFalseConstraint = InputWefPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWefPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputWefPqEnabledFalseConstraint = &inputWefPqEnabledFalseConstraint
+		u.Type = InputWefUnionTypeInputWefPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1656,16 +1656,16 @@ func (u *InputWef) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputWef) MarshalJSON() ([]byte, error) {
-	if u.InputWefSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputWefSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputWefSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputWefSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputWefSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputWefSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputWefPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputWefPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputWefPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputWefPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputWefPqEnabledTrueWithPqConstraint != nil {

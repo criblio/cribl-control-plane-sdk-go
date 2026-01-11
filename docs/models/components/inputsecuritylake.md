@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint
+### InputSecurityLakeSendToRoutesTrueConstraint
 
 ```go
-inputSecurityLake := components.CreateInputSecurityLakeInputSecurityLakeSendToRoutesTrueWithConnectionsConstraint(components.InputSecurityLakeSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSecurityLake := components.CreateInputSecurityLakeInputSecurityLakeSendToRoutesTrueConstraint(components.InputSecurityLakeSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSecurityLake := components.CreateInputSecurityLakeInputSecurityLakeSendToRo
 inputSecurityLake := components.CreateInputSecurityLakeInputSecurityLakeSendToRoutesFalseWithConnectionsConstraint(components.InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSecurityLakePqEnabledFalseWithPqConstraint
+### InputSecurityLakePqEnabledFalseConstraint
 
 ```go
-inputSecurityLake := components.CreateInputSecurityLakeInputSecurityLakePqEnabledFalseWithPqConstraint(components.InputSecurityLakePqEnabledFalseWithPqConstraint{/* values here */})
+inputSecurityLake := components.CreateInputSecurityLakeInputSecurityLakePqEnabledFalseConstraint(components.InputSecurityLakePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSecurityLakePqEnabledTrueWithPqConstraint

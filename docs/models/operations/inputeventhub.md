@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputEventhubSendToRoutesTrueWithConnectionsConstraint
+### InputEventhubSendToRoutesTrueConstraint
 
 ```go
-inputEventhub := operations.CreateInputEventhubInputEventhubSendToRoutesTrueWithConnectionsConstraint(operations.InputEventhubSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputEventhub := operations.CreateInputEventhubInputEventhubSendToRoutesTrueConstraint(operations.InputEventhubSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputEventhubSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputEventhub := operations.CreateInputEventhubInputEventhubSendToRoutesTrueWith
 inputEventhub := operations.CreateInputEventhubInputEventhubSendToRoutesFalseWithConnectionsConstraint(operations.InputEventhubSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputEventhubPqEnabledFalseWithPqConstraint
+### InputEventhubPqEnabledFalseConstraint
 
 ```go
-inputEventhub := operations.CreateInputEventhubInputEventhubPqEnabledFalseWithPqConstraint(operations.InputEventhubPqEnabledFalseWithPqConstraint{/* values here */})
+inputEventhub := operations.CreateInputEventhubInputEventhubPqEnabledFalseConstraint(operations.InputEventhubPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputEventhubPqEnabledTrueWithPqConstraint

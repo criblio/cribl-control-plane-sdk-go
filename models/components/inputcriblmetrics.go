@@ -26,7 +26,7 @@ type InputCriblmetricsPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// A prefix that is applied to the metrics provided by Cribl Stream
 	Prefix *string `default:"cribl.logstream." json:"prefix"`
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
@@ -110,7 +110,7 @@ func (i *InputCriblmetricsPqEnabledTrueWithPqConstraint) GetStreamtags() []strin
 	return i.Streamtags
 }
 
-func (i *InputCriblmetricsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblmetricsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -145,10 +145,9 @@ func (i *InputCriblmetricsPqEnabledTrueWithPqConstraint) GetDescription() *strin
 	return i.Description
 }
 
-type InputCriblmetricsPqEnabledFalseWithPqConstraint struct {
+type InputCriblmetricsPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputCriblmetricsType `json:"type"`
@@ -162,7 +161,8 @@ type InputCriblmetricsPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// A prefix that is applied to the metrics provided by Cribl Stream
 	Prefix *string `default:"cribl.logstream." json:"prefix"`
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
@@ -172,109 +172,109 @@ type InputCriblmetricsPqEnabledFalseWithPqConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputCriblmetricsPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputCriblmetricsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetType() InputCriblmetricsType {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetType() InputCriblmetricsType {
 	if i == nil {
 		return InputCriblmetricsType("")
 	}
 	return i.Type
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetPrefix() *string {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetPrefix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Prefix
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetFullFidelity() *bool {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetFullFidelity() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FullFidelity
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblmetricsPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputCriblmetricsPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -285,7 +285,7 @@ type InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputCriblmetricsType `json:"type"`
@@ -326,7 +326,7 @@ func (i *InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToR
 	return i.SendToRoutes
 }
 
-func (i *InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -440,11 +440,9 @@ func (e *InputCriblmetricsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint struct {
+type InputCriblmetricsSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputCriblmetricsType `json:"type"`
@@ -457,7 +455,9 @@ type InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// A prefix that is applied to the metrics provided by Cribl Stream
 	Prefix *string `default:"cribl.logstream." json:"prefix"`
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
@@ -467,109 +467,109 @@ type InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputCriblmetricsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetType() InputCriblmetricsType {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetType() InputCriblmetricsType {
 	if i == nil {
 		return InputCriblmetricsType("")
 	}
 	return i.Type
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetPrefix() *string {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetPrefix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Prefix
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetFullFidelity() *bool {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetFullFidelity() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FullFidelity
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputCriblmetricsSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -579,26 +579,26 @@ func (i *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) GetDescript
 type InputCriblmetricsUnionType string
 
 const (
-	InputCriblmetricsUnionTypeInputCriblmetricsSendToRoutesTrueWithConnectionsConstraint  InputCriblmetricsUnionType = "InputCriblmetrics_SendToRoutesTrueWithConnectionsConstraint"
+	InputCriblmetricsUnionTypeInputCriblmetricsSendToRoutesTrueConstraint                 InputCriblmetricsUnionType = "InputCriblmetrics_SendToRoutesTrueConstraint"
 	InputCriblmetricsUnionTypeInputCriblmetricsSendToRoutesFalseWithConnectionsConstraint InputCriblmetricsUnionType = "InputCriblmetrics_SendToRoutesFalseWithConnectionsConstraint"
-	InputCriblmetricsUnionTypeInputCriblmetricsPqEnabledFalseWithPqConstraint             InputCriblmetricsUnionType = "InputCriblmetrics_PqEnabledFalseWithPqConstraint"
+	InputCriblmetricsUnionTypeInputCriblmetricsPqEnabledFalseConstraint                   InputCriblmetricsUnionType = "InputCriblmetrics_PqEnabledFalseConstraint"
 	InputCriblmetricsUnionTypeInputCriblmetricsPqEnabledTrueWithPqConstraint              InputCriblmetricsUnionType = "InputCriblmetrics_PqEnabledTrueWithPqConstraint"
 )
 
 type InputCriblmetrics struct {
-	InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint  *InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputCriblmetricsSendToRoutesTrueConstraint                 *InputCriblmetricsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint *InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputCriblmetricsPqEnabledFalseWithPqConstraint             *InputCriblmetricsPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputCriblmetricsPqEnabledFalseConstraint                   *InputCriblmetricsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputCriblmetricsPqEnabledTrueWithPqConstraint              *InputCriblmetricsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputCriblmetricsUnionType
 }
 
-func CreateInputCriblmetricsInputCriblmetricsSendToRoutesTrueWithConnectionsConstraint(inputCriblmetricsSendToRoutesTrueWithConnectionsConstraint InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint) InputCriblmetrics {
-	typ := InputCriblmetricsUnionTypeInputCriblmetricsSendToRoutesTrueWithConnectionsConstraint
+func CreateInputCriblmetricsInputCriblmetricsSendToRoutesTrueConstraint(inputCriblmetricsSendToRoutesTrueConstraint InputCriblmetricsSendToRoutesTrueConstraint) InputCriblmetrics {
+	typ := InputCriblmetricsUnionTypeInputCriblmetricsSendToRoutesTrueConstraint
 
 	return InputCriblmetrics{
-		InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint: &inputCriblmetricsSendToRoutesTrueWithConnectionsConstraint,
+		InputCriblmetricsSendToRoutesTrueConstraint: &inputCriblmetricsSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -612,11 +612,11 @@ func CreateInputCriblmetricsInputCriblmetricsSendToRoutesFalseWithConnectionsCon
 	}
 }
 
-func CreateInputCriblmetricsInputCriblmetricsPqEnabledFalseWithPqConstraint(inputCriblmetricsPqEnabledFalseWithPqConstraint InputCriblmetricsPqEnabledFalseWithPqConstraint) InputCriblmetrics {
-	typ := InputCriblmetricsUnionTypeInputCriblmetricsPqEnabledFalseWithPqConstraint
+func CreateInputCriblmetricsInputCriblmetricsPqEnabledFalseConstraint(inputCriblmetricsPqEnabledFalseConstraint InputCriblmetricsPqEnabledFalseConstraint) InputCriblmetrics {
+	typ := InputCriblmetricsUnionTypeInputCriblmetricsPqEnabledFalseConstraint
 
 	return InputCriblmetrics{
-		InputCriblmetricsPqEnabledFalseWithPqConstraint: &inputCriblmetricsPqEnabledFalseWithPqConstraint,
+		InputCriblmetricsPqEnabledFalseConstraint: &inputCriblmetricsPqEnabledFalseConstraint,
 		Type: typ,
 	}
 }
@@ -632,10 +632,10 @@ func CreateInputCriblmetricsInputCriblmetricsPqEnabledTrueWithPqConstraint(input
 
 func (u *InputCriblmetrics) UnmarshalJSON(data []byte) error {
 
-	var inputCriblmetricsSendToRoutesTrueWithConnectionsConstraint InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint = InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputCriblmetricsSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint = &inputCriblmetricsSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputCriblmetricsUnionTypeInputCriblmetricsSendToRoutesTrueWithConnectionsConstraint
+	var inputCriblmetricsSendToRoutesTrueConstraint InputCriblmetricsSendToRoutesTrueConstraint = InputCriblmetricsSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputCriblmetricsSendToRoutesTrueConstraint = &inputCriblmetricsSendToRoutesTrueConstraint
+		u.Type = InputCriblmetricsUnionTypeInputCriblmetricsSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -646,10 +646,10 @@ func (u *InputCriblmetrics) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputCriblmetricsPqEnabledFalseWithPqConstraint InputCriblmetricsPqEnabledFalseWithPqConstraint = InputCriblmetricsPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputCriblmetricsPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputCriblmetricsPqEnabledFalseWithPqConstraint = &inputCriblmetricsPqEnabledFalseWithPqConstraint
-		u.Type = InputCriblmetricsUnionTypeInputCriblmetricsPqEnabledFalseWithPqConstraint
+	var inputCriblmetricsPqEnabledFalseConstraint InputCriblmetricsPqEnabledFalseConstraint = InputCriblmetricsPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblmetricsPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputCriblmetricsPqEnabledFalseConstraint = &inputCriblmetricsPqEnabledFalseConstraint
+		u.Type = InputCriblmetricsUnionTypeInputCriblmetricsPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -664,16 +664,16 @@ func (u *InputCriblmetrics) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputCriblmetrics) MarshalJSON() ([]byte, error) {
-	if u.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputCriblmetricsSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputCriblmetricsPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputCriblmetricsPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputCriblmetricsPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblmetricsPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputCriblmetricsPqEnabledTrueWithPqConstraint != nil {

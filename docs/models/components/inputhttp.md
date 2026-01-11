@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputHTTPSendToRoutesTrueWithConnectionsConstraint
+### InputHTTPSendToRoutesTrueConstraint
 
 ```go
-inputHTTP := components.CreateInputHTTPInputHTTPSendToRoutesTrueWithConnectionsConstraint(components.InputHTTPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputHTTP := components.CreateInputHTTPInputHTTPSendToRoutesTrueConstraint(components.InputHTTPSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputHTTPSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputHTTP := components.CreateInputHTTPInputHTTPSendToRoutesTrueWithConnectionsC
 inputHTTP := components.CreateInputHTTPInputHTTPSendToRoutesFalseWithConnectionsConstraint(components.InputHTTPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputHTTPPqEnabledFalseWithPqConstraint
+### InputHTTPPqEnabledFalseConstraint
 
 ```go
-inputHTTP := components.CreateInputHTTPInputHTTPPqEnabledFalseWithPqConstraint(components.InputHTTPPqEnabledFalseWithPqConstraint{/* values here */})
+inputHTTP := components.CreateInputHTTPInputHTTPPqEnabledFalseConstraint(components.InputHTTPPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputHTTPPqEnabledTrueWithPqConstraint

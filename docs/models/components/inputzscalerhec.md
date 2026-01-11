@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputZscalerHecSendToRoutesTrueWithConnectionsConstraint
+### InputZscalerHecSendToRoutesTrueConstraint
 
 ```go
-inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecSendToRoutesTrueWithConnectionsConstraint(components.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecSendToRoutesTrueConstraint(components.InputZscalerHecSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputZscalerHecSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecSendToRoutesTr
 inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecSendToRoutesFalseWithConnectionsConstraint(components.InputZscalerHecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputZscalerHecPqEnabledFalseWithPqConstraint
+### InputZscalerHecPqEnabledFalseConstraint
 
 ```go
-inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecPqEnabledFalseWithPqConstraint(components.InputZscalerHecPqEnabledFalseWithPqConstraint{/* values here */})
+inputZscalerHec := components.CreateInputZscalerHecInputZscalerHecPqEnabledFalseConstraint(components.InputZscalerHecPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputZscalerHecPqEnabledTrueWithPqConstraint

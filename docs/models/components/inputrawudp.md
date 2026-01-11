@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputRawUDPSendToRoutesTrueWithConnectionsConstraint
+### InputRawUDPSendToRoutesTrueConstraint
 
 ```go
-inputRawUDP := components.CreateInputRawUDPInputRawUDPSendToRoutesTrueWithConnectionsConstraint(components.InputRawUDPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputRawUDP := components.CreateInputRawUDPInputRawUDPSendToRoutesTrueConstraint(components.InputRawUDPSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputRawUDPSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputRawUDP := components.CreateInputRawUDPInputRawUDPSendToRoutesTrueWithConnec
 inputRawUDP := components.CreateInputRawUDPInputRawUDPSendToRoutesFalseWithConnectionsConstraint(components.InputRawUDPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputRawUDPPqEnabledFalseWithPqConstraint
+### InputRawUDPPqEnabledFalseConstraint
 
 ```go
-inputRawUDP := components.CreateInputRawUDPInputRawUDPPqEnabledFalseWithPqConstraint(components.InputRawUDPPqEnabledFalseWithPqConstraint{/* values here */})
+inputRawUDP := components.CreateInputRawUDPInputRawUDPPqEnabledFalseConstraint(components.InputRawUDPPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputRawUDPPqEnabledTrueWithPqConstraint

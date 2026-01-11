@@ -26,7 +26,7 @@ type InputMskPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -180,7 +180,7 @@ func (i *InputMskPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputMskPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputMskPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -446,10 +446,9 @@ func (i *InputMskPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 	return i.AwsSecret
 }
 
-type InputMskPqEnabledFalseWithPqConstraint struct {
+type InputMskPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputMskType `json:"type"`
@@ -463,7 +462,8 @@ type InputMskPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -543,340 +543,340 @@ type InputMskPqEnabledFalseWithPqConstraint struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputMskPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputMskPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputMskPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputMskPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetType() InputMskType {
+func (i *InputMskPqEnabledFalseConstraint) GetType() InputMskType {
 	if i == nil {
 		return InputMskType("")
 	}
 	return i.Type
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputMskPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputMskPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputMskPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputMskPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetBrokers() []string {
+func (i *InputMskPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputMskPqEnabledFalseConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetTopics() []string {
+func (i *InputMskPqEnabledFalseConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetGroupID() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetFromBeginning() *bool {
+func (i *InputMskPqEnabledFalseConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetSessionTimeout() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetRebalanceTimeout() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetHeartbeatInterval() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputMskPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputMskPqEnabledFalseConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetConnectionTimeout() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetMaxRetries() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetMaxBackOff() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetInitialBackoff() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetBackoffRate() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAuthenticationTimeout() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetReauthenticationThreshold() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetRegion() string {
+func (i *InputMskPqEnabledFalseConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions {
+func (i *InputMskPqEnabledFalseConstraint) GetSignatureVersion() *SignatureVersionOptions {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
+func (i *InputMskPqEnabledFalseConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
+func (i *InputMskPqEnabledFalseConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
+func (i *InputMskPqEnabledFalseConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputMskPqEnabledFalseConstraint) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAutoCommitInterval() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAutoCommitThreshold() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetMaxBytesPerPartition() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetMaxBytes() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetMaxSocketErrors() *float64 {
+func (i *InputMskPqEnabledFalseConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputMskPqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
+func (i *InputMskPqEnabledFalseConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -887,7 +887,7 @@ type InputMskSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputMskType `json:"type"`
@@ -998,7 +998,7 @@ func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *
 	return i.SendToRoutes
 }
 
-func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1343,11 +1343,9 @@ func (e *InputMskType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputMskSendToRoutesTrueWithConnectionsConstraint struct {
+type InputMskSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputMskType `json:"type"`
@@ -1360,7 +1358,9 @@ type InputMskSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -1440,340 +1440,340 @@ type InputMskSendToRoutesTrueWithConnectionsConstraint struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputMskSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputMskSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputMskSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputMskSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetType() InputMskType {
+func (i *InputMskSendToRoutesTrueConstraint) GetType() InputMskType {
 	if i == nil {
 		return InputMskType("")
 	}
 	return i.Type
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputMskSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputMskSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputMskSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputMskSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputMskSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetBrokers() []string {
+func (i *InputMskSendToRoutesTrueConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetTopics() []string {
+func (i *InputMskSendToRoutesTrueConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetGroupID() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetFromBeginning() *bool {
+func (i *InputMskSendToRoutesTrueConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetSessionTimeout() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetRebalanceTimeout() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetHeartbeatInterval() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputMskSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputMskSendToRoutesTrueConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetConnectionTimeout() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetMaxRetries() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetMaxBackOff() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetInitialBackoff() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetBackoffRate() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAuthenticationTimeout() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetReauthenticationThreshold() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetRegion() string {
+func (i *InputMskSendToRoutesTrueConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions {
+func (i *InputMskSendToRoutesTrueConstraint) GetSignatureVersion() *SignatureVersionOptions {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
+func (i *InputMskSendToRoutesTrueConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
+func (i *InputMskSendToRoutesTrueConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
+func (i *InputMskSendToRoutesTrueConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputMskSendToRoutesTrueConstraint) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitInterval() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitThreshold() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetMaxBytesPerPartition() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetMaxBytes() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetMaxSocketErrors() *float64 {
+func (i *InputMskSendToRoutesTrueConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
+func (i *InputMskSendToRoutesTrueConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1783,27 +1783,27 @@ func (i *InputMskSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *stri
 type InputMskUnionType string
 
 const (
-	InputMskUnionTypeInputMskSendToRoutesTrueWithConnectionsConstraint  InputMskUnionType = "InputMsk_SendToRoutesTrueWithConnectionsConstraint"
+	InputMskUnionTypeInputMskSendToRoutesTrueConstraint                 InputMskUnionType = "InputMsk_SendToRoutesTrueConstraint"
 	InputMskUnionTypeInputMskSendToRoutesFalseWithConnectionsConstraint InputMskUnionType = "InputMsk_SendToRoutesFalseWithConnectionsConstraint"
-	InputMskUnionTypeInputMskPqEnabledFalseWithPqConstraint             InputMskUnionType = "InputMsk_PqEnabledFalseWithPqConstraint"
+	InputMskUnionTypeInputMskPqEnabledFalseConstraint                   InputMskUnionType = "InputMsk_PqEnabledFalseConstraint"
 	InputMskUnionTypeInputMskPqEnabledTrueWithPqConstraint              InputMskUnionType = "InputMsk_PqEnabledTrueWithPqConstraint"
 )
 
 type InputMsk struct {
-	InputMskSendToRoutesTrueWithConnectionsConstraint  *InputMskSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputMskSendToRoutesTrueConstraint                 *InputMskSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputMskSendToRoutesFalseWithConnectionsConstraint *InputMskSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputMskPqEnabledFalseWithPqConstraint             *InputMskPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputMskPqEnabledFalseConstraint                   *InputMskPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputMskPqEnabledTrueWithPqConstraint              *InputMskPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputMskUnionType
 }
 
-func CreateInputMskInputMskSendToRoutesTrueWithConnectionsConstraint(inputMskSendToRoutesTrueWithConnectionsConstraint InputMskSendToRoutesTrueWithConnectionsConstraint) InputMsk {
-	typ := InputMskUnionTypeInputMskSendToRoutesTrueWithConnectionsConstraint
+func CreateInputMskInputMskSendToRoutesTrueConstraint(inputMskSendToRoutesTrueConstraint InputMskSendToRoutesTrueConstraint) InputMsk {
+	typ := InputMskUnionTypeInputMskSendToRoutesTrueConstraint
 
 	return InputMsk{
-		InputMskSendToRoutesTrueWithConnectionsConstraint: &inputMskSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputMskSendToRoutesTrueConstraint: &inputMskSendToRoutesTrueConstraint,
+		Type:                               typ,
 	}
 }
 
@@ -1816,12 +1816,12 @@ func CreateInputMskInputMskSendToRoutesFalseWithConnectionsConstraint(inputMskSe
 	}
 }
 
-func CreateInputMskInputMskPqEnabledFalseWithPqConstraint(inputMskPqEnabledFalseWithPqConstraint InputMskPqEnabledFalseWithPqConstraint) InputMsk {
-	typ := InputMskUnionTypeInputMskPqEnabledFalseWithPqConstraint
+func CreateInputMskInputMskPqEnabledFalseConstraint(inputMskPqEnabledFalseConstraint InputMskPqEnabledFalseConstraint) InputMsk {
+	typ := InputMskUnionTypeInputMskPqEnabledFalseConstraint
 
 	return InputMsk{
-		InputMskPqEnabledFalseWithPqConstraint: &inputMskPqEnabledFalseWithPqConstraint,
-		Type:                                   typ,
+		InputMskPqEnabledFalseConstraint: &inputMskPqEnabledFalseConstraint,
+		Type:                             typ,
 	}
 }
 
@@ -1836,10 +1836,10 @@ func CreateInputMskInputMskPqEnabledTrueWithPqConstraint(inputMskPqEnabledTrueWi
 
 func (u *InputMsk) UnmarshalJSON(data []byte) error {
 
-	var inputMskSendToRoutesTrueWithConnectionsConstraint InputMskSendToRoutesTrueWithConnectionsConstraint = InputMskSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputMskSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputMskSendToRoutesTrueWithConnectionsConstraint = &inputMskSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputMskUnionTypeInputMskSendToRoutesTrueWithConnectionsConstraint
+	var inputMskSendToRoutesTrueConstraint InputMskSendToRoutesTrueConstraint = InputMskSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputMskSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputMskSendToRoutesTrueConstraint = &inputMskSendToRoutesTrueConstraint
+		u.Type = InputMskUnionTypeInputMskSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1850,10 +1850,10 @@ func (u *InputMsk) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputMskPqEnabledFalseWithPqConstraint InputMskPqEnabledFalseWithPqConstraint = InputMskPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputMskPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputMskPqEnabledFalseWithPqConstraint = &inputMskPqEnabledFalseWithPqConstraint
-		u.Type = InputMskUnionTypeInputMskPqEnabledFalseWithPqConstraint
+	var inputMskPqEnabledFalseConstraint InputMskPqEnabledFalseConstraint = InputMskPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputMskPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputMskPqEnabledFalseConstraint = &inputMskPqEnabledFalseConstraint
+		u.Type = InputMskUnionTypeInputMskPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1868,16 +1868,16 @@ func (u *InputMsk) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputMsk) MarshalJSON() ([]byte, error) {
-	if u.InputMskSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputMskSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputMskSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputMskSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputMskSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputMskSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputMskPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputMskPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputMskPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputMskPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputMskPqEnabledTrueWithPqConstraint != nil {

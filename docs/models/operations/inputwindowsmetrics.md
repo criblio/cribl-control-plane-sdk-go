@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint
+### InputWindowsMetricsSendToRoutesTrueConstraint
 
 ```go
-inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint(operations.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesTrueConstraint(operations.InputWindowsMetricsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsSe
 inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint(operations.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWindowsMetricsPqEnabledFalseWithPqConstraint
+### InputWindowsMetricsPqEnabledFalseConstraint
 
 ```go
-inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsPqEnabledFalseWithPqConstraint(operations.InputWindowsMetricsPqEnabledFalseWithPqConstraint{/* values here */})
+inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsPqEnabledFalseConstraint(operations.InputWindowsMetricsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputWindowsMetricsPqEnabledTrueWithPqConstraint

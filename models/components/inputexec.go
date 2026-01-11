@@ -72,7 +72,7 @@ type InputExecPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
@@ -166,7 +166,7 @@ func (i *InputExecPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputExecPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputExecPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -236,43 +236,43 @@ func (i *InputExecPqEnabledTrueWithPqConstraint) GetCronSchedule() *string {
 	return i.CronSchedule
 }
 
-type InputExecPqEnabledFalseWithPqConstraintType string
+type InputExecPqEnabledFalseConstraintType string
 
 const (
-	InputExecPqEnabledFalseWithPqConstraintTypeExec InputExecPqEnabledFalseWithPqConstraintType = "exec"
+	InputExecPqEnabledFalseConstraintTypeExec InputExecPqEnabledFalseConstraintType = "exec"
 )
 
-func (e InputExecPqEnabledFalseWithPqConstraintType) ToPointer() *InputExecPqEnabledFalseWithPqConstraintType {
+func (e InputExecPqEnabledFalseConstraintType) ToPointer() *InputExecPqEnabledFalseConstraintType {
 	return &e
 }
-func (e *InputExecPqEnabledFalseWithPqConstraintType) UnmarshalJSON(data []byte) error {
+func (e *InputExecPqEnabledFalseConstraintType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "exec":
-		*e = InputExecPqEnabledFalseWithPqConstraintType(v)
+		*e = InputExecPqEnabledFalseConstraintType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputExecPqEnabledFalseWithPqConstraintType: %v", v)
+		return fmt.Errorf("invalid value for InputExecPqEnabledFalseConstraintType: %v", v)
 	}
 }
 
-// PqEnabledFalseWithPqConstraintScheduleType - Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-type PqEnabledFalseWithPqConstraintScheduleType string
+// PqEnabledFalseConstraintScheduleType - Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+type PqEnabledFalseConstraintScheduleType string
 
 const (
-	PqEnabledFalseWithPqConstraintScheduleTypeInterval     PqEnabledFalseWithPqConstraintScheduleType = "interval"
-	PqEnabledFalseWithPqConstraintScheduleTypeCronSchedule PqEnabledFalseWithPqConstraintScheduleType = "cronSchedule"
+	PqEnabledFalseConstraintScheduleTypeInterval     PqEnabledFalseConstraintScheduleType = "interval"
+	PqEnabledFalseConstraintScheduleTypeCronSchedule PqEnabledFalseConstraintScheduleType = "cronSchedule"
 )
 
-func (e PqEnabledFalseWithPqConstraintScheduleType) ToPointer() *PqEnabledFalseWithPqConstraintScheduleType {
+func (e PqEnabledFalseConstraintScheduleType) ToPointer() *PqEnabledFalseConstraintScheduleType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PqEnabledFalseWithPqConstraintScheduleType) IsExact() bool {
+func (e *PqEnabledFalseConstraintScheduleType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "interval", "cronSchedule":
@@ -282,14 +282,13 @@ func (e *PqEnabledFalseWithPqConstraintScheduleType) IsExact() bool {
 	return false
 }
 
-type InputExecPqEnabledFalseWithPqConstraint struct {
+type InputExecPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string                                     `json:"id,omitempty"`
-	Type     InputExecPqEnabledFalseWithPqConstraintType `json:"type"`
-	Disabled *bool                                       `default:"false" json:"disabled"`
+	ID       *string                               `json:"id,omitempty"`
+	Type     InputExecPqEnabledFalseConstraintType `json:"type"`
+	Disabled *bool                                 `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -299,13 +298,14 @@ type InputExecPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
 	Retries *float64 `default:"10" json:"retries"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *PqEnabledFalseWithPqConstraintScheduleType `default:"interval" json:"scheduleType"`
+	ScheduleType *PqEnabledFalseConstraintScheduleType `default:"interval" json:"scheduleType"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -319,144 +319,144 @@ type InputExecPqEnabledFalseWithPqConstraint struct {
 	CronSchedule *string `default:"* * * * *" json:"cronSchedule"`
 }
 
-func (i InputExecPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputExecPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputExecPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "command"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputExecPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputExecPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetType() InputExecPqEnabledFalseWithPqConstraintType {
+func (i *InputExecPqEnabledFalseConstraint) GetType() InputExecPqEnabledFalseConstraintType {
 	if i == nil {
-		return InputExecPqEnabledFalseWithPqConstraintType("")
+		return InputExecPqEnabledFalseConstraintType("")
 	}
 	return i.Type
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputExecPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputExecPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputExecPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputExecPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputExecPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputExecPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetCommand() string {
+func (i *InputExecPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputExecPqEnabledFalseConstraint) GetCommand() string {
 	if i == nil {
 		return ""
 	}
 	return i.Command
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetRetries() *float64 {
+func (i *InputExecPqEnabledFalseConstraint) GetRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Retries
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetScheduleType() *PqEnabledFalseWithPqConstraintScheduleType {
+func (i *InputExecPqEnabledFalseConstraint) GetScheduleType() *PqEnabledFalseConstraintScheduleType {
 	if i == nil {
 		return nil
 	}
 	return i.ScheduleType
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
+func (i *InputExecPqEnabledFalseConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputExecPqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputExecPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputExecPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetInterval() *float64 {
+func (i *InputExecPqEnabledFalseConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputExecPqEnabledFalseWithPqConstraint) GetCronSchedule() *string {
+func (i *InputExecPqEnabledFalseConstraint) GetCronSchedule() *string {
 	if i == nil {
 		return nil
 	}
@@ -513,7 +513,7 @@ type InputExecSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                                                 `json:"id,omitempty"`
 	Type     InputExecSendToRoutesFalseWithConnectionsConstraintType `json:"type"`
@@ -564,7 +564,7 @@ func (i *InputExecSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() 
 	return i.SendToRoutes
 }
 
-func (i *InputExecSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputExecSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -690,43 +690,43 @@ func (i *InputExecSendToRoutesFalseWithConnectionsConstraint) GetCronSchedule() 
 	return i.CronSchedule
 }
 
-type InputExecSendToRoutesTrueWithConnectionsConstraintType string
+type InputExecSendToRoutesTrueConstraintType string
 
 const (
-	InputExecSendToRoutesTrueWithConnectionsConstraintTypeExec InputExecSendToRoutesTrueWithConnectionsConstraintType = "exec"
+	InputExecSendToRoutesTrueConstraintTypeExec InputExecSendToRoutesTrueConstraintType = "exec"
 )
 
-func (e InputExecSendToRoutesTrueWithConnectionsConstraintType) ToPointer() *InputExecSendToRoutesTrueWithConnectionsConstraintType {
+func (e InputExecSendToRoutesTrueConstraintType) ToPointer() *InputExecSendToRoutesTrueConstraintType {
 	return &e
 }
-func (e *InputExecSendToRoutesTrueWithConnectionsConstraintType) UnmarshalJSON(data []byte) error {
+func (e *InputExecSendToRoutesTrueConstraintType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "exec":
-		*e = InputExecSendToRoutesTrueWithConnectionsConstraintType(v)
+		*e = InputExecSendToRoutesTrueConstraintType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputExecSendToRoutesTrueWithConnectionsConstraintType: %v", v)
+		return fmt.Errorf("invalid value for InputExecSendToRoutesTrueConstraintType: %v", v)
 	}
 }
 
-// SendToRoutesTrueWithConnectionsConstraintScheduleType - Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-type SendToRoutesTrueWithConnectionsConstraintScheduleType string
+// SendToRoutesTrueConstraintScheduleType - Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+type SendToRoutesTrueConstraintScheduleType string
 
 const (
-	SendToRoutesTrueWithConnectionsConstraintScheduleTypeInterval     SendToRoutesTrueWithConnectionsConstraintScheduleType = "interval"
-	SendToRoutesTrueWithConnectionsConstraintScheduleTypeCronSchedule SendToRoutesTrueWithConnectionsConstraintScheduleType = "cronSchedule"
+	SendToRoutesTrueConstraintScheduleTypeInterval     SendToRoutesTrueConstraintScheduleType = "interval"
+	SendToRoutesTrueConstraintScheduleTypeCronSchedule SendToRoutesTrueConstraintScheduleType = "cronSchedule"
 )
 
-func (e SendToRoutesTrueWithConnectionsConstraintScheduleType) ToPointer() *SendToRoutesTrueWithConnectionsConstraintScheduleType {
+func (e SendToRoutesTrueConstraintScheduleType) ToPointer() *SendToRoutesTrueConstraintScheduleType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SendToRoutesTrueWithConnectionsConstraintScheduleType) IsExact() bool {
+func (e *SendToRoutesTrueConstraintScheduleType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "interval", "cronSchedule":
@@ -736,15 +736,13 @@ func (e *SendToRoutesTrueWithConnectionsConstraintScheduleType) IsExact() bool {
 	return false
 }
 
-type InputExecSendToRoutesTrueWithConnectionsConstraint struct {
+type InputExecSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
-	ID       *string                                                `json:"id,omitempty"`
-	Type     InputExecSendToRoutesTrueWithConnectionsConstraintType `json:"type"`
-	Disabled *bool                                                  `default:"false" json:"disabled"`
+	ID       *string                                 `json:"id,omitempty"`
+	Type     InputExecSendToRoutesTrueConstraintType `json:"type"`
+	Disabled *bool                                   `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
@@ -753,13 +751,15 @@ type InputExecSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
 	Retries *float64 `default:"10" json:"retries"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *SendToRoutesTrueWithConnectionsConstraintScheduleType `default:"interval" json:"scheduleType"`
+	ScheduleType *SendToRoutesTrueConstraintScheduleType `default:"interval" json:"scheduleType"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -773,144 +773,144 @@ type InputExecSendToRoutesTrueWithConnectionsConstraint struct {
 	CronSchedule *string `default:"* * * * *" json:"cronSchedule"`
 }
 
-func (i InputExecSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputExecSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputExecSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "command"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputExecSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputExecSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetType() InputExecSendToRoutesTrueWithConnectionsConstraintType {
+func (i *InputExecSendToRoutesTrueConstraint) GetType() InputExecSendToRoutesTrueConstraintType {
 	if i == nil {
-		return InputExecSendToRoutesTrueWithConnectionsConstraintType("")
+		return InputExecSendToRoutesTrueConstraintType("")
 	}
 	return i.Type
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputExecSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputExecSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputExecSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputExecSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputExecSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputExecSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputExecSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetCommand() string {
+func (i *InputExecSendToRoutesTrueConstraint) GetCommand() string {
 	if i == nil {
 		return ""
 	}
 	return i.Command
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetRetries() *float64 {
+func (i *InputExecSendToRoutesTrueConstraint) GetRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Retries
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetScheduleType() *SendToRoutesTrueWithConnectionsConstraintScheduleType {
+func (i *InputExecSendToRoutesTrueConstraint) GetScheduleType() *SendToRoutesTrueConstraintScheduleType {
 	if i == nil {
 		return nil
 	}
 	return i.ScheduleType
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
+func (i *InputExecSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputExecSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputExecSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputExecSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputExecSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetCronSchedule() *string {
+func (i *InputExecSendToRoutesTrueConstraint) GetCronSchedule() *string {
 	if i == nil {
 		return nil
 	}
@@ -920,27 +920,27 @@ func (i *InputExecSendToRoutesTrueWithConnectionsConstraint) GetCronSchedule() *
 type InputExecType string
 
 const (
-	InputExecTypeInputExecSendToRoutesTrueWithConnectionsConstraint  InputExecType = "InputExec_SendToRoutesTrueWithConnectionsConstraint"
+	InputExecTypeInputExecSendToRoutesTrueConstraint                 InputExecType = "InputExec_SendToRoutesTrueConstraint"
 	InputExecTypeInputExecSendToRoutesFalseWithConnectionsConstraint InputExecType = "InputExec_SendToRoutesFalseWithConnectionsConstraint"
-	InputExecTypeInputExecPqEnabledFalseWithPqConstraint             InputExecType = "InputExec_PqEnabledFalseWithPqConstraint"
+	InputExecTypeInputExecPqEnabledFalseConstraint                   InputExecType = "InputExec_PqEnabledFalseConstraint"
 	InputExecTypeInputExecPqEnabledTrueWithPqConstraint              InputExecType = "InputExec_PqEnabledTrueWithPqConstraint"
 )
 
 type InputExec struct {
-	InputExecSendToRoutesTrueWithConnectionsConstraint  *InputExecSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputExecSendToRoutesTrueConstraint                 *InputExecSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputExecSendToRoutesFalseWithConnectionsConstraint *InputExecSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputExecPqEnabledFalseWithPqConstraint             *InputExecPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputExecPqEnabledFalseConstraint                   *InputExecPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputExecPqEnabledTrueWithPqConstraint              *InputExecPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputExecType
 }
 
-func CreateInputExecInputExecSendToRoutesTrueWithConnectionsConstraint(inputExecSendToRoutesTrueWithConnectionsConstraint InputExecSendToRoutesTrueWithConnectionsConstraint) InputExec {
-	typ := InputExecTypeInputExecSendToRoutesTrueWithConnectionsConstraint
+func CreateInputExecInputExecSendToRoutesTrueConstraint(inputExecSendToRoutesTrueConstraint InputExecSendToRoutesTrueConstraint) InputExec {
+	typ := InputExecTypeInputExecSendToRoutesTrueConstraint
 
 	return InputExec{
-		InputExecSendToRoutesTrueWithConnectionsConstraint: &inputExecSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputExecSendToRoutesTrueConstraint: &inputExecSendToRoutesTrueConstraint,
+		Type:                                typ,
 	}
 }
 
@@ -953,12 +953,12 @@ func CreateInputExecInputExecSendToRoutesFalseWithConnectionsConstraint(inputExe
 	}
 }
 
-func CreateInputExecInputExecPqEnabledFalseWithPqConstraint(inputExecPqEnabledFalseWithPqConstraint InputExecPqEnabledFalseWithPqConstraint) InputExec {
-	typ := InputExecTypeInputExecPqEnabledFalseWithPqConstraint
+func CreateInputExecInputExecPqEnabledFalseConstraint(inputExecPqEnabledFalseConstraint InputExecPqEnabledFalseConstraint) InputExec {
+	typ := InputExecTypeInputExecPqEnabledFalseConstraint
 
 	return InputExec{
-		InputExecPqEnabledFalseWithPqConstraint: &inputExecPqEnabledFalseWithPqConstraint,
-		Type:                                    typ,
+		InputExecPqEnabledFalseConstraint: &inputExecPqEnabledFalseConstraint,
+		Type:                              typ,
 	}
 }
 
@@ -973,10 +973,10 @@ func CreateInputExecInputExecPqEnabledTrueWithPqConstraint(inputExecPqEnabledTru
 
 func (u *InputExec) UnmarshalJSON(data []byte) error {
 
-	var inputExecSendToRoutesTrueWithConnectionsConstraint InputExecSendToRoutesTrueWithConnectionsConstraint = InputExecSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputExecSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputExecSendToRoutesTrueWithConnectionsConstraint = &inputExecSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputExecTypeInputExecSendToRoutesTrueWithConnectionsConstraint
+	var inputExecSendToRoutesTrueConstraint InputExecSendToRoutesTrueConstraint = InputExecSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputExecSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputExecSendToRoutesTrueConstraint = &inputExecSendToRoutesTrueConstraint
+		u.Type = InputExecTypeInputExecSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -987,10 +987,10 @@ func (u *InputExec) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputExecPqEnabledFalseWithPqConstraint InputExecPqEnabledFalseWithPqConstraint = InputExecPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputExecPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputExecPqEnabledFalseWithPqConstraint = &inputExecPqEnabledFalseWithPqConstraint
-		u.Type = InputExecTypeInputExecPqEnabledFalseWithPqConstraint
+	var inputExecPqEnabledFalseConstraint InputExecPqEnabledFalseConstraint = InputExecPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputExecPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputExecPqEnabledFalseConstraint = &inputExecPqEnabledFalseConstraint
+		u.Type = InputExecTypeInputExecPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1005,16 +1005,16 @@ func (u *InputExec) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputExec) MarshalJSON() ([]byte, error) {
-	if u.InputExecSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputExecSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputExecSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputExecSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputExecSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputExecSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputExecPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputExecPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputExecPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputExecPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputExecPqEnabledTrueWithPqConstraint != nil {

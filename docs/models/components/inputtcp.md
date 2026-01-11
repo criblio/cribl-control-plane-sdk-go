@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputTCPSendToRoutesTrueWithConnectionsConstraint
+### InputTCPSendToRoutesTrueConstraint
 
 ```go
-inputTCP := components.CreateInputTCPInputTCPSendToRoutesTrueWithConnectionsConstraint(components.InputTCPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputTCP := components.CreateInputTCPInputTCPSendToRoutesTrueConstraint(components.InputTCPSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputTCPSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputTCP := components.CreateInputTCPInputTCPSendToRoutesTrueWithConnectionsCons
 inputTCP := components.CreateInputTCPInputTCPSendToRoutesFalseWithConnectionsConstraint(components.InputTCPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputTCPPqEnabledFalseWithPqConstraint
+### InputTCPPqEnabledFalseConstraint
 
 ```go
-inputTCP := components.CreateInputTCPInputTCPPqEnabledFalseWithPqConstraint(components.InputTCPPqEnabledFalseWithPqConstraint{/* values here */})
+inputTCP := components.CreateInputTCPInputTCPPqEnabledFalseConstraint(components.InputTCPPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputTCPPqEnabledTrueWithPqConstraint

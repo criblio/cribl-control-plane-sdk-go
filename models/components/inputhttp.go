@@ -26,7 +26,7 @@ type InputHTTPPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -144,7 +144,7 @@ func (i *InputHTTPPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputHTTPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputHTTPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -305,10 +305,9 @@ func (i *InputHTTPPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	return i.Description
 }
 
-type InputHTTPPqEnabledFalseWithPqConstraint struct {
+type InputHTTPPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputHTTPType `json:"type"`
@@ -322,7 +321,8 @@ type InputHTTPPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -366,235 +366,235 @@ type InputHTTPPqEnabledFalseWithPqConstraint struct {
 	Description   *string                  `json:"description,omitempty"`
 }
 
-func (i InputHTTPPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputHTTPPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputHTTPPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputHTTPPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetType() InputHTTPType {
+func (i *InputHTTPPqEnabledFalseConstraint) GetType() InputHTTPType {
 	if i == nil {
 		return InputHTTPType("")
 	}
 	return i.Type
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputHTTPPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputHTTPPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputHTTPPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputHTTPPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetPort() float64 {
+func (i *InputHTTPPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetAuthTokens() []string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputHTTPPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
+func (i *InputHTTPPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputHTTPPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
+func (i *InputHTTPPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
+func (i *InputHTTPPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputHTTPPqEnabledFalseConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
+func (i *InputHTTPPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
+func (i *InputHTTPPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputHTTPPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() *bool {
+func (i *InputHTTPPqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetCriblAPI() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetCriblAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CriblAPI
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetElasticAPI() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetElasticAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ElasticAPI
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetSplunkHecAPI() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetSplunkHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAPI
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetSplunkHecAcks() *bool {
+func (i *InputHTTPPqEnabledFalseConstraint) GetSplunkHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAcks
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputHTTPPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+func (i *InputHTTPPqEnabledFalseConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokensExt
 }
 
-func (i *InputHTTPPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputHTTPPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -605,7 +605,7 @@ type InputHTTPSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputHTTPType `json:"type"`
@@ -680,7 +680,7 @@ func (i *InputHTTPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() 
 	return i.SendToRoutes
 }
 
-func (i *InputHTTPSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputHTTPSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -920,11 +920,9 @@ func (e *InputHTTPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputHTTPSendToRoutesTrueWithConnectionsConstraint struct {
+type InputHTTPSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputHTTPType `json:"type"`
@@ -937,7 +935,9 @@ type InputHTTPSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -981,235 +981,235 @@ type InputHTTPSendToRoutesTrueWithConnectionsConstraint struct {
 	Description   *string                  `json:"description,omitempty"`
 }
 
-func (i InputHTTPSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputHTTPSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputHTTPSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetType() InputHTTPType {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetType() InputHTTPType {
 	if i == nil {
 		return InputHTTPType("")
 	}
 	return i.Type
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputHTTPSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetAuthTokens() []string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() *bool {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetCriblAPI() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetCriblAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CriblAPI
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetElasticAPI() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetElasticAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ElasticAPI
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetSplunkHecAPI() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetSplunkHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAPI
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetSplunkHecAcks() *bool {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetSplunkHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAcks
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokensExt
 }
 
-func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputHTTPSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1219,27 +1219,27 @@ func (i *InputHTTPSendToRoutesTrueWithConnectionsConstraint) GetDescription() *s
 type InputHTTPUnionType string
 
 const (
-	InputHTTPUnionTypeInputHTTPSendToRoutesTrueWithConnectionsConstraint  InputHTTPUnionType = "InputHttp_SendToRoutesTrueWithConnectionsConstraint"
+	InputHTTPUnionTypeInputHTTPSendToRoutesTrueConstraint                 InputHTTPUnionType = "InputHttp_SendToRoutesTrueConstraint"
 	InputHTTPUnionTypeInputHTTPSendToRoutesFalseWithConnectionsConstraint InputHTTPUnionType = "InputHttp_SendToRoutesFalseWithConnectionsConstraint"
-	InputHTTPUnionTypeInputHTTPPqEnabledFalseWithPqConstraint             InputHTTPUnionType = "InputHttp_PqEnabledFalseWithPqConstraint"
+	InputHTTPUnionTypeInputHTTPPqEnabledFalseConstraint                   InputHTTPUnionType = "InputHttp_PqEnabledFalseConstraint"
 	InputHTTPUnionTypeInputHTTPPqEnabledTrueWithPqConstraint              InputHTTPUnionType = "InputHttp_PqEnabledTrueWithPqConstraint"
 )
 
 type InputHTTP struct {
-	InputHTTPSendToRoutesTrueWithConnectionsConstraint  *InputHTTPSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputHTTPSendToRoutesTrueConstraint                 *InputHTTPSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputHTTPSendToRoutesFalseWithConnectionsConstraint *InputHTTPSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputHTTPPqEnabledFalseWithPqConstraint             *InputHTTPPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputHTTPPqEnabledFalseConstraint                   *InputHTTPPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputHTTPPqEnabledTrueWithPqConstraint              *InputHTTPPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputHTTPUnionType
 }
 
-func CreateInputHTTPInputHTTPSendToRoutesTrueWithConnectionsConstraint(inputHTTPSendToRoutesTrueWithConnectionsConstraint InputHTTPSendToRoutesTrueWithConnectionsConstraint) InputHTTP {
-	typ := InputHTTPUnionTypeInputHTTPSendToRoutesTrueWithConnectionsConstraint
+func CreateInputHTTPInputHTTPSendToRoutesTrueConstraint(inputHTTPSendToRoutesTrueConstraint InputHTTPSendToRoutesTrueConstraint) InputHTTP {
+	typ := InputHTTPUnionTypeInputHTTPSendToRoutesTrueConstraint
 
 	return InputHTTP{
-		InputHTTPSendToRoutesTrueWithConnectionsConstraint: &inputHTTPSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputHTTPSendToRoutesTrueConstraint: &inputHTTPSendToRoutesTrueConstraint,
+		Type:                                typ,
 	}
 }
 
@@ -1252,12 +1252,12 @@ func CreateInputHTTPInputHTTPSendToRoutesFalseWithConnectionsConstraint(inputHTT
 	}
 }
 
-func CreateInputHTTPInputHTTPPqEnabledFalseWithPqConstraint(inputHTTPPqEnabledFalseWithPqConstraint InputHTTPPqEnabledFalseWithPqConstraint) InputHTTP {
-	typ := InputHTTPUnionTypeInputHTTPPqEnabledFalseWithPqConstraint
+func CreateInputHTTPInputHTTPPqEnabledFalseConstraint(inputHTTPPqEnabledFalseConstraint InputHTTPPqEnabledFalseConstraint) InputHTTP {
+	typ := InputHTTPUnionTypeInputHTTPPqEnabledFalseConstraint
 
 	return InputHTTP{
-		InputHTTPPqEnabledFalseWithPqConstraint: &inputHTTPPqEnabledFalseWithPqConstraint,
-		Type:                                    typ,
+		InputHTTPPqEnabledFalseConstraint: &inputHTTPPqEnabledFalseConstraint,
+		Type:                              typ,
 	}
 }
 
@@ -1272,10 +1272,10 @@ func CreateInputHTTPInputHTTPPqEnabledTrueWithPqConstraint(inputHTTPPqEnabledTru
 
 func (u *InputHTTP) UnmarshalJSON(data []byte) error {
 
-	var inputHTTPSendToRoutesTrueWithConnectionsConstraint InputHTTPSendToRoutesTrueWithConnectionsConstraint = InputHTTPSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputHTTPSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputHTTPSendToRoutesTrueWithConnectionsConstraint = &inputHTTPSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputHTTPUnionTypeInputHTTPSendToRoutesTrueWithConnectionsConstraint
+	var inputHTTPSendToRoutesTrueConstraint InputHTTPSendToRoutesTrueConstraint = InputHTTPSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputHTTPSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputHTTPSendToRoutesTrueConstraint = &inputHTTPSendToRoutesTrueConstraint
+		u.Type = InputHTTPUnionTypeInputHTTPSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1286,10 +1286,10 @@ func (u *InputHTTP) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputHTTPPqEnabledFalseWithPqConstraint InputHTTPPqEnabledFalseWithPqConstraint = InputHTTPPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputHTTPPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputHTTPPqEnabledFalseWithPqConstraint = &inputHTTPPqEnabledFalseWithPqConstraint
-		u.Type = InputHTTPUnionTypeInputHTTPPqEnabledFalseWithPqConstraint
+	var inputHTTPPqEnabledFalseConstraint InputHTTPPqEnabledFalseConstraint = InputHTTPPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputHTTPPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputHTTPPqEnabledFalseConstraint = &inputHTTPPqEnabledFalseConstraint
+		u.Type = InputHTTPUnionTypeInputHTTPPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1304,16 +1304,16 @@ func (u *InputHTTP) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputHTTP) MarshalJSON() ([]byte, error) {
-	if u.InputHTTPSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputHTTPSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputHTTPSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputHTTPSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputHTTPSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputHTTPSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputHTTPPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputHTTPPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputHTTPPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputHTTPPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputHTTPPqEnabledTrueWithPqConstraint != nil {

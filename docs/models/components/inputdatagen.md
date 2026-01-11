@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputDatagenSendToRoutesTrueWithConnectionsConstraint
+### InputDatagenSendToRoutesTrueConstraint
 
 ```go
-inputDatagen := components.CreateInputDatagenInputDatagenSendToRoutesTrueWithConnectionsConstraint(components.InputDatagenSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputDatagen := components.CreateInputDatagenInputDatagenSendToRoutesTrueConstraint(components.InputDatagenSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputDatagenSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputDatagen := components.CreateInputDatagenInputDatagenSendToRoutesTrueWithCon
 inputDatagen := components.CreateInputDatagenInputDatagenSendToRoutesFalseWithConnectionsConstraint(components.InputDatagenSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatagenPqEnabledFalseWithPqConstraint
+### InputDatagenPqEnabledFalseConstraint
 
 ```go
-inputDatagen := components.CreateInputDatagenInputDatagenPqEnabledFalseWithPqConstraint(components.InputDatagenPqEnabledFalseWithPqConstraint{/* values here */})
+inputDatagen := components.CreateInputDatagenInputDatagenPqEnabledFalseConstraint(components.InputDatagenPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputDatagenPqEnabledTrueWithPqConstraint

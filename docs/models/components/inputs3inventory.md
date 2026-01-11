@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputS3InventorySendToRoutesTrueWithConnectionsConstraint
+### InputS3InventorySendToRoutesTrueConstraint
 
 ```go
-inputS3Inventory := components.CreateInputS3InventoryInputS3InventorySendToRoutesTrueWithConnectionsConstraint(components.InputS3InventorySendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputS3Inventory := components.CreateInputS3InventoryInputS3InventorySendToRoutesTrueConstraint(components.InputS3InventorySendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputS3InventorySendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputS3Inventory := components.CreateInputS3InventoryInputS3InventorySendToRoute
 inputS3Inventory := components.CreateInputS3InventoryInputS3InventorySendToRoutesFalseWithConnectionsConstraint(components.InputS3InventorySendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputS3InventoryPqEnabledFalseWithPqConstraint
+### InputS3InventoryPqEnabledFalseConstraint
 
 ```go
-inputS3Inventory := components.CreateInputS3InventoryInputS3InventoryPqEnabledFalseWithPqConstraint(components.InputS3InventoryPqEnabledFalseWithPqConstraint{/* values here */})
+inputS3Inventory := components.CreateInputS3InventoryInputS3InventoryPqEnabledFalseConstraint(components.InputS3InventoryPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputS3InventoryPqEnabledTrueWithPqConstraint

@@ -26,7 +26,7 @@ type InputCriblTCPPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -125,7 +125,7 @@ func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -216,10 +216,9 @@ func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	return i.Description
 }
 
-type InputCriblTCPPqEnabledFalseWithPqConstraint struct {
+type InputCriblTCPPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputCriblTCPType `json:"type"`
@@ -233,7 +232,8 @@ type InputCriblTCPPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -258,165 +258,165 @@ type InputCriblTCPPqEnabledFalseWithPqConstraint struct {
 	Description *string               `json:"description,omitempty"`
 }
 
-func (i InputCriblTCPPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputCriblTCPPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputCriblTCPPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetType() InputCriblTCPType {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetType() InputCriblTCPType {
 	if i == nil {
 		return InputCriblTCPType("")
 	}
 	return i.Type
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetPort() float64 {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetMaxActiveCxn() *float64 {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetSocketIdleTimeout() *float64 {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetSocketEndingMaxWait() *float64 {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetSocketMaxLifespan() *float64 {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetEnableLoadBalancing() *bool {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetAuthTokens() []ItemsTypeAuthTokens {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetAuthTokens() []ItemsTypeAuthTokens {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCriblTCPPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -427,7 +427,7 @@ type InputCriblTCPSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputCriblTCPType `json:"type"`
@@ -483,7 +483,7 @@ func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoute
 	return i.SendToRoutes
 }
 
-func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -653,11 +653,9 @@ func (e *InputCriblTCPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCriblTCPSendToRoutesTrueWithConnectionsConstraint struct {
+type InputCriblTCPSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputCriblTCPType `json:"type"`
@@ -670,7 +668,9 @@ type InputCriblTCPSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -695,165 +695,165 @@ type InputCriblTCPSendToRoutesTrueWithConnectionsConstraint struct {
 	Description *string               `json:"description,omitempty"`
 }
 
-func (i InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputCriblTCPSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetType() InputCriblTCPType {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetType() InputCriblTCPType {
 	if i == nil {
 		return InputCriblTCPType("")
 	}
 	return i.Type
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetSocketIdleTimeout() *float64 {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetSocketEndingMaxWait() *float64 {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetSocketMaxLifespan() *float64 {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetEnableLoadBalancing() *bool {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetAuthTokens() []ItemsTypeAuthTokens {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetAuthTokens() []ItemsTypeAuthTokens {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -863,27 +863,27 @@ func (i *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) GetDescription(
 type InputCriblTCPUnionType string
 
 const (
-	InputCriblTCPUnionTypeInputCriblTCPSendToRoutesTrueWithConnectionsConstraint  InputCriblTCPUnionType = "InputCriblTcp_SendToRoutesTrueWithConnectionsConstraint"
+	InputCriblTCPUnionTypeInputCriblTCPSendToRoutesTrueConstraint                 InputCriblTCPUnionType = "InputCriblTcp_SendToRoutesTrueConstraint"
 	InputCriblTCPUnionTypeInputCriblTCPSendToRoutesFalseWithConnectionsConstraint InputCriblTCPUnionType = "InputCriblTcp_SendToRoutesFalseWithConnectionsConstraint"
-	InputCriblTCPUnionTypeInputCriblTCPPqEnabledFalseWithPqConstraint             InputCriblTCPUnionType = "InputCriblTcp_PqEnabledFalseWithPqConstraint"
+	InputCriblTCPUnionTypeInputCriblTCPPqEnabledFalseConstraint                   InputCriblTCPUnionType = "InputCriblTcp_PqEnabledFalseConstraint"
 	InputCriblTCPUnionTypeInputCriblTCPPqEnabledTrueWithPqConstraint              InputCriblTCPUnionType = "InputCriblTcp_PqEnabledTrueWithPqConstraint"
 )
 
 type InputCriblTCP struct {
-	InputCriblTCPSendToRoutesTrueWithConnectionsConstraint  *InputCriblTCPSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputCriblTCPSendToRoutesTrueConstraint                 *InputCriblTCPSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputCriblTCPSendToRoutesFalseWithConnectionsConstraint *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputCriblTCPPqEnabledFalseWithPqConstraint             *InputCriblTCPPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputCriblTCPPqEnabledFalseConstraint                   *InputCriblTCPPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputCriblTCPPqEnabledTrueWithPqConstraint              *InputCriblTCPPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputCriblTCPUnionType
 }
 
-func CreateInputCriblTCPInputCriblTCPSendToRoutesTrueWithConnectionsConstraint(inputCriblTCPSendToRoutesTrueWithConnectionsConstraint InputCriblTCPSendToRoutesTrueWithConnectionsConstraint) InputCriblTCP {
-	typ := InputCriblTCPUnionTypeInputCriblTCPSendToRoutesTrueWithConnectionsConstraint
+func CreateInputCriblTCPInputCriblTCPSendToRoutesTrueConstraint(inputCriblTCPSendToRoutesTrueConstraint InputCriblTCPSendToRoutesTrueConstraint) InputCriblTCP {
+	typ := InputCriblTCPUnionTypeInputCriblTCPSendToRoutesTrueConstraint
 
 	return InputCriblTCP{
-		InputCriblTCPSendToRoutesTrueWithConnectionsConstraint: &inputCriblTCPSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputCriblTCPSendToRoutesTrueConstraint: &inputCriblTCPSendToRoutesTrueConstraint,
+		Type:                                    typ,
 	}
 }
 
@@ -896,12 +896,12 @@ func CreateInputCriblTCPInputCriblTCPSendToRoutesFalseWithConnectionsConstraint(
 	}
 }
 
-func CreateInputCriblTCPInputCriblTCPPqEnabledFalseWithPqConstraint(inputCriblTCPPqEnabledFalseWithPqConstraint InputCriblTCPPqEnabledFalseWithPqConstraint) InputCriblTCP {
-	typ := InputCriblTCPUnionTypeInputCriblTCPPqEnabledFalseWithPqConstraint
+func CreateInputCriblTCPInputCriblTCPPqEnabledFalseConstraint(inputCriblTCPPqEnabledFalseConstraint InputCriblTCPPqEnabledFalseConstraint) InputCriblTCP {
+	typ := InputCriblTCPUnionTypeInputCriblTCPPqEnabledFalseConstraint
 
 	return InputCriblTCP{
-		InputCriblTCPPqEnabledFalseWithPqConstraint: &inputCriblTCPPqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputCriblTCPPqEnabledFalseConstraint: &inputCriblTCPPqEnabledFalseConstraint,
+		Type:                                  typ,
 	}
 }
 
@@ -916,10 +916,10 @@ func CreateInputCriblTCPInputCriblTCPPqEnabledTrueWithPqConstraint(inputCriblTCP
 
 func (u *InputCriblTCP) UnmarshalJSON(data []byte) error {
 
-	var inputCriblTCPSendToRoutesTrueWithConnectionsConstraint InputCriblTCPSendToRoutesTrueWithConnectionsConstraint = InputCriblTCPSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputCriblTCPSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputCriblTCPSendToRoutesTrueWithConnectionsConstraint = &inputCriblTCPSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputCriblTCPUnionTypeInputCriblTCPSendToRoutesTrueWithConnectionsConstraint
+	var inputCriblTCPSendToRoutesTrueConstraint InputCriblTCPSendToRoutesTrueConstraint = InputCriblTCPSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblTCPSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputCriblTCPSendToRoutesTrueConstraint = &inputCriblTCPSendToRoutesTrueConstraint
+		u.Type = InputCriblTCPUnionTypeInputCriblTCPSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -930,10 +930,10 @@ func (u *InputCriblTCP) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputCriblTCPPqEnabledFalseWithPqConstraint InputCriblTCPPqEnabledFalseWithPqConstraint = InputCriblTCPPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputCriblTCPPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputCriblTCPPqEnabledFalseWithPqConstraint = &inputCriblTCPPqEnabledFalseWithPqConstraint
-		u.Type = InputCriblTCPUnionTypeInputCriblTCPPqEnabledFalseWithPqConstraint
+	var inputCriblTCPPqEnabledFalseConstraint InputCriblTCPPqEnabledFalseConstraint = InputCriblTCPPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblTCPPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputCriblTCPPqEnabledFalseConstraint = &inputCriblTCPPqEnabledFalseConstraint
+		u.Type = InputCriblTCPUnionTypeInputCriblTCPPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -948,16 +948,16 @@ func (u *InputCriblTCP) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputCriblTCP) MarshalJSON() ([]byte, error) {
-	if u.InputCriblTCPSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputCriblTCPSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputCriblTCPSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblTCPSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputCriblTCPSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputCriblTCPSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputCriblTCPPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputCriblTCPPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputCriblTCPPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblTCPPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputCriblTCPPqEnabledTrueWithPqConstraint != nil {

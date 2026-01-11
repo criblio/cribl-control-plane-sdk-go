@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputCriblTCPSendToRoutesTrueWithConnectionsConstraint
+### InputCriblTCPSendToRoutesTrueConstraint
 
 ```go
-inputCriblTCP := operations.CreateInputCriblTCPInputCriblTCPSendToRoutesTrueWithConnectionsConstraint(operations.InputCriblTCPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputCriblTCP := operations.CreateInputCriblTCPInputCriblTCPSendToRoutesTrueConstraint(operations.InputCriblTCPSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputCriblTCPSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputCriblTCP := operations.CreateInputCriblTCPInputCriblTCPSendToRoutesTrueWith
 inputCriblTCP := operations.CreateInputCriblTCPInputCriblTCPSendToRoutesFalseWithConnectionsConstraint(operations.InputCriblTCPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblTCPPqEnabledFalseWithPqConstraint
+### InputCriblTCPPqEnabledFalseConstraint
 
 ```go
-inputCriblTCP := operations.CreateInputCriblTCPInputCriblTCPPqEnabledFalseWithPqConstraint(operations.InputCriblTCPPqEnabledFalseWithPqConstraint{/* values here */})
+inputCriblTCP := operations.CreateInputCriblTCPInputCriblTCPPqEnabledFalseConstraint(operations.InputCriblTCPPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputCriblTCPPqEnabledTrueWithPqConstraint

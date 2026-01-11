@@ -26,7 +26,7 @@ type InputSplunkHecPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -156,7 +156,7 @@ func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -359,10 +359,9 @@ func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	return i.Description
 }
 
-type InputSplunkHecPqEnabledFalseWithPqConstraint struct {
+type InputSplunkHecPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputSplunkHecType `json:"type"`
@@ -376,7 +375,8 @@ type InputSplunkHecPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -432,277 +432,277 @@ type InputSplunkHecPqEnabledFalseWithPqConstraint struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputSplunkHecPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSplunkHecPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputSplunkHecPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetType() InputSplunkHecType {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetType() InputSplunkHecType {
 	if i == nil {
 		return InputSplunkHecType("")
 	}
 	return i.Type
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetPort() float64 {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetAuthTokens() []InputSplunkHecAuthToken {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetAuthTokens() []InputSplunkHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() any {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetSplunkHecAPI() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetSplunkHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAPI
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetAllowedIndexes() []string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetSplunkHecAcks() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetSplunkHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAcks
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetUseFwdTimezone() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetUseFwdTimezone() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UseFwdTimezone
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetDropControlFields() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetDropControlFields() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DropControlFields
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetExtractMetrics() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetAccessControlAllowOrigin() []string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetAccessControlAllowHeaders() []string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetEmitTokenMetrics() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputSplunkHecPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -713,7 +713,7 @@ type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputSplunkHecType `json:"type"`
@@ -800,7 +800,7 @@ func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetSendToRout
 	return i.SendToRoutes
 }
 
-func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1158,11 +1158,9 @@ func (i *InputSplunkHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata 
 	return i.Metadata
 }
 
-type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint struct {
+type InputSplunkHecSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputSplunkHecType `json:"type"`
@@ -1175,7 +1173,9 @@ type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -1231,277 +1231,277 @@ type InputSplunkHecSendToRoutesTrueWithConnectionsConstraint struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSplunkHecSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetType() InputSplunkHecType {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetType() InputSplunkHecType {
 	if i == nil {
 		return InputSplunkHecType("")
 	}
 	return i.Type
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetAuthTokens() []InputSplunkHecAuthToken {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetAuthTokens() []InputSplunkHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() any {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetSplunkHecAPI() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetSplunkHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAPI
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetAllowedIndexes() []string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetSplunkHecAcks() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetSplunkHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAcks
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetUseFwdTimezone() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetUseFwdTimezone() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UseFwdTimezone
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetDropControlFields() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetDropControlFields() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DropControlFields
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetExtractMetrics() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetAccessControlAllowOrigin() []string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetAccessControlAllowHeaders() []string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetEmitTokenMetrics() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1511,27 +1511,27 @@ func (i *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) GetDescription
 type InputSplunkHecUnionType string
 
 const (
-	InputSplunkHecUnionTypeInputSplunkHecSendToRoutesTrueWithConnectionsConstraint  InputSplunkHecUnionType = "InputSplunkHec_SendToRoutesTrueWithConnectionsConstraint"
+	InputSplunkHecUnionTypeInputSplunkHecSendToRoutesTrueConstraint                 InputSplunkHecUnionType = "InputSplunkHec_SendToRoutesTrueConstraint"
 	InputSplunkHecUnionTypeInputSplunkHecSendToRoutesFalseWithConnectionsConstraint InputSplunkHecUnionType = "InputSplunkHec_SendToRoutesFalseWithConnectionsConstraint"
-	InputSplunkHecUnionTypeInputSplunkHecPqEnabledFalseWithPqConstraint             InputSplunkHecUnionType = "InputSplunkHec_PqEnabledFalseWithPqConstraint"
+	InputSplunkHecUnionTypeInputSplunkHecPqEnabledFalseConstraint                   InputSplunkHecUnionType = "InputSplunkHec_PqEnabledFalseConstraint"
 	InputSplunkHecUnionTypeInputSplunkHecPqEnabledTrueWithPqConstraint              InputSplunkHecUnionType = "InputSplunkHec_PqEnabledTrueWithPqConstraint"
 )
 
 type InputSplunkHec struct {
-	InputSplunkHecSendToRoutesTrueWithConnectionsConstraint  *InputSplunkHecSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputSplunkHecSendToRoutesTrueConstraint                 *InputSplunkHecSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputSplunkHecSendToRoutesFalseWithConnectionsConstraint *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputSplunkHecPqEnabledFalseWithPqConstraint             *InputSplunkHecPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputSplunkHecPqEnabledFalseConstraint                   *InputSplunkHecPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputSplunkHecPqEnabledTrueWithPqConstraint              *InputSplunkHecPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputSplunkHecUnionType
 }
 
-func CreateInputSplunkHecInputSplunkHecSendToRoutesTrueWithConnectionsConstraint(inputSplunkHecSendToRoutesTrueWithConnectionsConstraint InputSplunkHecSendToRoutesTrueWithConnectionsConstraint) InputSplunkHec {
-	typ := InputSplunkHecUnionTypeInputSplunkHecSendToRoutesTrueWithConnectionsConstraint
+func CreateInputSplunkHecInputSplunkHecSendToRoutesTrueConstraint(inputSplunkHecSendToRoutesTrueConstraint InputSplunkHecSendToRoutesTrueConstraint) InputSplunkHec {
+	typ := InputSplunkHecUnionTypeInputSplunkHecSendToRoutesTrueConstraint
 
 	return InputSplunkHec{
-		InputSplunkHecSendToRoutesTrueWithConnectionsConstraint: &inputSplunkHecSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputSplunkHecSendToRoutesTrueConstraint: &inputSplunkHecSendToRoutesTrueConstraint,
+		Type:                                     typ,
 	}
 }
 
@@ -1544,12 +1544,12 @@ func CreateInputSplunkHecInputSplunkHecSendToRoutesFalseWithConnectionsConstrain
 	}
 }
 
-func CreateInputSplunkHecInputSplunkHecPqEnabledFalseWithPqConstraint(inputSplunkHecPqEnabledFalseWithPqConstraint InputSplunkHecPqEnabledFalseWithPqConstraint) InputSplunkHec {
-	typ := InputSplunkHecUnionTypeInputSplunkHecPqEnabledFalseWithPqConstraint
+func CreateInputSplunkHecInputSplunkHecPqEnabledFalseConstraint(inputSplunkHecPqEnabledFalseConstraint InputSplunkHecPqEnabledFalseConstraint) InputSplunkHec {
+	typ := InputSplunkHecUnionTypeInputSplunkHecPqEnabledFalseConstraint
 
 	return InputSplunkHec{
-		InputSplunkHecPqEnabledFalseWithPqConstraint: &inputSplunkHecPqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputSplunkHecPqEnabledFalseConstraint: &inputSplunkHecPqEnabledFalseConstraint,
+		Type:                                   typ,
 	}
 }
 
@@ -1564,10 +1564,10 @@ func CreateInputSplunkHecInputSplunkHecPqEnabledTrueWithPqConstraint(inputSplunk
 
 func (u *InputSplunkHec) UnmarshalJSON(data []byte) error {
 
-	var inputSplunkHecSendToRoutesTrueWithConnectionsConstraint InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = InputSplunkHecSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkHecSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint = &inputSplunkHecSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputSplunkHecUnionTypeInputSplunkHecSendToRoutesTrueWithConnectionsConstraint
+	var inputSplunkHecSendToRoutesTrueConstraint InputSplunkHecSendToRoutesTrueConstraint = InputSplunkHecSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkHecSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputSplunkHecSendToRoutesTrueConstraint = &inputSplunkHecSendToRoutesTrueConstraint
+		u.Type = InputSplunkHecUnionTypeInputSplunkHecSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1578,10 +1578,10 @@ func (u *InputSplunkHec) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputSplunkHecPqEnabledFalseWithPqConstraint InputSplunkHecPqEnabledFalseWithPqConstraint = InputSplunkHecPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkHecPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputSplunkHecPqEnabledFalseWithPqConstraint = &inputSplunkHecPqEnabledFalseWithPqConstraint
-		u.Type = InputSplunkHecUnionTypeInputSplunkHecPqEnabledFalseWithPqConstraint
+	var inputSplunkHecPqEnabledFalseConstraint InputSplunkHecPqEnabledFalseConstraint = InputSplunkHecPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSplunkHecPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputSplunkHecPqEnabledFalseConstraint = &inputSplunkHecPqEnabledFalseConstraint
+		u.Type = InputSplunkHecUnionTypeInputSplunkHecPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1596,16 +1596,16 @@ func (u *InputSplunkHec) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputSplunkHec) MarshalJSON() ([]byte, error) {
-	if u.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputSplunkHecSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputSplunkHecSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSplunkHecPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputSplunkHecPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputSplunkHecPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputSplunkHecPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputSplunkHecPqEnabledTrueWithPqConstraint != nil {

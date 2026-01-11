@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint
+### InputCriblLakeHTTPSendToRoutesTrueConstraint
 
 ```go
-inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint(operations.InputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesTrueConstraint(operations.InputCriblLakeHTTPSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPSendT
 inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint(operations.InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblLakeHTTPPqEnabledFalseWithPqConstraint
+### InputCriblLakeHTTPPqEnabledFalseConstraint
 
 ```go
-inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPPqEnabledFalseWithPqConstraint(operations.InputCriblLakeHTTPPqEnabledFalseWithPqConstraint{/* values here */})
+inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPPqEnabledFalseConstraint(operations.InputCriblLakeHTTPPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputCriblLakeHTTPPqEnabledTrueWithPqConstraint

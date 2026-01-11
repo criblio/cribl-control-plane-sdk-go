@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputFileSendToRoutesTrueWithConnectionsConstraint
+### InputFileSendToRoutesTrueConstraint
 
 ```go
-inputFile := operations.CreateInputFileInputFileSendToRoutesTrueWithConnectionsConstraint(operations.InputFileSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputFile := operations.CreateInputFileInputFileSendToRoutesTrueConstraint(operations.InputFileSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputFileSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputFile := operations.CreateInputFileInputFileSendToRoutesTrueWithConnectionsC
 inputFile := operations.CreateInputFileInputFileSendToRoutesFalseWithConnectionsConstraint(operations.InputFileSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFilePqEnabledFalseWithPqConstraint
+### InputFilePqEnabledFalseConstraint
 
 ```go
-inputFile := operations.CreateInputFileInputFilePqEnabledFalseWithPqConstraint(operations.InputFilePqEnabledFalseWithPqConstraint{/* values here */})
+inputFile := operations.CreateInputFileInputFilePqEnabledFalseConstraint(operations.InputFilePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputFilePqEnabledTrueWithPqConstraint

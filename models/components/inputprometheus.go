@@ -26,7 +26,7 @@ type InputPrometheusPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
@@ -174,7 +174,7 @@ func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetStreamtags() []string 
 	return i.Streamtags
 }
 
-func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -440,10 +440,9 @@ func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetCredentialsSecret() *s
 	return i.CredentialsSecret
 }
 
-type InputPrometheusPqEnabledFalseWithPqConstraint struct {
+type InputPrometheusPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputPrometheusType `json:"type"`
@@ -457,7 +456,8 @@ type InputPrometheusPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
@@ -531,340 +531,340 @@ type InputPrometheusPqEnabledFalseWithPqConstraint struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 }
 
-func (i InputPrometheusPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputPrometheusPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputPrometheusPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetType() InputPrometheusType {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetType() InputPrometheusType {
 	if i == nil {
 		return InputPrometheusType("")
 	}
 	return i.Type
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetDimensionList() []string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputPrometheusPqEnabledFalseConstraint) GetDimensionList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.DimensionList
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetDiscoveryType() *InputPrometheusDiscoveryType {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetDiscoveryType() *InputPrometheusDiscoveryType {
 	if i == nil {
 		return nil
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetInterval() *float64 {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetLogLevel() *InputPrometheusLogLevel {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetLogLevel() *InputPrometheusLogLevel {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetTimeout() *float64 {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetKeepAliveTime() *float64 {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetJobTimeout() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetMaxMissedKeepAlives() *float64 {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetTTL() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetAuthType() *AuthenticationMethodOptionsSasl {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptionsSasl {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetTargetList() []string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetTargetList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.TargetList
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetRecordType() *RecordTypeOptions {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetRecordType() *RecordTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.RecordType
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetScrapePort() *float64 {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetScrapePort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePort
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetNameList() []string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetNameList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.NameList
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetScrapeProtocol() *MetricsProtocol {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetScrapeProtocol() *MetricsProtocol {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocol
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetScrapePath() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetScrapePath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetUsePublicIP() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UsePublicIP
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetRegion() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetUsername() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetPassword() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputPrometheusPqEnabledFalseWithPqConstraint) GetCredentialsSecret() *string {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -875,7 +875,7 @@ type InputPrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputPrometheusType `json:"type"`
@@ -980,7 +980,7 @@ func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetSendToRou
 	return i.SendToRoutes
 }
 
-func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1400,11 +1400,9 @@ func (e *MetricsProtocol) IsExact() bool {
 	return false
 }
 
-type InputPrometheusSendToRoutesTrueWithConnectionsConstraint struct {
+type InputPrometheusSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputPrometheusType `json:"type"`
@@ -1417,7 +1415,9 @@ type InputPrometheusSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1491,340 +1491,340 @@ type InputPrometheusSendToRoutesTrueWithConnectionsConstraint struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 }
 
-func (i InputPrometheusSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputPrometheusSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputPrometheusSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetType() InputPrometheusType {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetType() InputPrometheusType {
 	if i == nil {
 		return InputPrometheusType("")
 	}
 	return i.Type
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetDimensionList() []string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetDimensionList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.DimensionList
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetDiscoveryType() *InputPrometheusDiscoveryType {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetDiscoveryType() *InputPrometheusDiscoveryType {
 	if i == nil {
 		return nil
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetLogLevel() *InputPrometheusLogLevel {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetLogLevel() *InputPrometheusLogLevel {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetTimeout() *float64 {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTime() *float64 {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetJobTimeout() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetMaxMissedKeepAlives() *float64 {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetTTL() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptionsSasl {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptionsSasl {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetTargetList() []string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetTargetList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.TargetList
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetRecordType() *RecordTypeOptions {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetRecordType() *RecordTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.RecordType
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapePort() *float64 {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetScrapePort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePort
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetNameList() []string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetNameList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.NameList
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapeProtocol() *MetricsProtocol {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetScrapeProtocol() *MetricsProtocol {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocol
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetScrapePath() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetScrapePath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetUsePublicIP() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UsePublicIP
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetRegion() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetUsername() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetPassword() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetCredentialsSecret() *string {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1834,26 +1834,26 @@ func (i *InputPrometheusSendToRoutesTrueWithConnectionsConstraint) GetCredential
 type InputPrometheusUnionType string
 
 const (
-	InputPrometheusUnionTypeInputPrometheusSendToRoutesTrueWithConnectionsConstraint  InputPrometheusUnionType = "InputPrometheus_SendToRoutesTrueWithConnectionsConstraint"
+	InputPrometheusUnionTypeInputPrometheusSendToRoutesTrueConstraint                 InputPrometheusUnionType = "InputPrometheus_SendToRoutesTrueConstraint"
 	InputPrometheusUnionTypeInputPrometheusSendToRoutesFalseWithConnectionsConstraint InputPrometheusUnionType = "InputPrometheus_SendToRoutesFalseWithConnectionsConstraint"
-	InputPrometheusUnionTypeInputPrometheusPqEnabledFalseWithPqConstraint             InputPrometheusUnionType = "InputPrometheus_PqEnabledFalseWithPqConstraint"
+	InputPrometheusUnionTypeInputPrometheusPqEnabledFalseConstraint                   InputPrometheusUnionType = "InputPrometheus_PqEnabledFalseConstraint"
 	InputPrometheusUnionTypeInputPrometheusPqEnabledTrueWithPqConstraint              InputPrometheusUnionType = "InputPrometheus_PqEnabledTrueWithPqConstraint"
 )
 
 type InputPrometheus struct {
-	InputPrometheusSendToRoutesTrueWithConnectionsConstraint  *InputPrometheusSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputPrometheusSendToRoutesTrueConstraint                 *InputPrometheusSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputPrometheusSendToRoutesFalseWithConnectionsConstraint *InputPrometheusSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputPrometheusPqEnabledFalseWithPqConstraint             *InputPrometheusPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputPrometheusPqEnabledFalseConstraint                   *InputPrometheusPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputPrometheusPqEnabledTrueWithPqConstraint              *InputPrometheusPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputPrometheusUnionType
 }
 
-func CreateInputPrometheusInputPrometheusSendToRoutesTrueWithConnectionsConstraint(inputPrometheusSendToRoutesTrueWithConnectionsConstraint InputPrometheusSendToRoutesTrueWithConnectionsConstraint) InputPrometheus {
-	typ := InputPrometheusUnionTypeInputPrometheusSendToRoutesTrueWithConnectionsConstraint
+func CreateInputPrometheusInputPrometheusSendToRoutesTrueConstraint(inputPrometheusSendToRoutesTrueConstraint InputPrometheusSendToRoutesTrueConstraint) InputPrometheus {
+	typ := InputPrometheusUnionTypeInputPrometheusSendToRoutesTrueConstraint
 
 	return InputPrometheus{
-		InputPrometheusSendToRoutesTrueWithConnectionsConstraint: &inputPrometheusSendToRoutesTrueWithConnectionsConstraint,
+		InputPrometheusSendToRoutesTrueConstraint: &inputPrometheusSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -1867,12 +1867,12 @@ func CreateInputPrometheusInputPrometheusSendToRoutesFalseWithConnectionsConstra
 	}
 }
 
-func CreateInputPrometheusInputPrometheusPqEnabledFalseWithPqConstraint(inputPrometheusPqEnabledFalseWithPqConstraint InputPrometheusPqEnabledFalseWithPqConstraint) InputPrometheus {
-	typ := InputPrometheusUnionTypeInputPrometheusPqEnabledFalseWithPqConstraint
+func CreateInputPrometheusInputPrometheusPqEnabledFalseConstraint(inputPrometheusPqEnabledFalseConstraint InputPrometheusPqEnabledFalseConstraint) InputPrometheus {
+	typ := InputPrometheusUnionTypeInputPrometheusPqEnabledFalseConstraint
 
 	return InputPrometheus{
-		InputPrometheusPqEnabledFalseWithPqConstraint: &inputPrometheusPqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputPrometheusPqEnabledFalseConstraint: &inputPrometheusPqEnabledFalseConstraint,
+		Type:                                    typ,
 	}
 }
 
@@ -1887,10 +1887,10 @@ func CreateInputPrometheusInputPrometheusPqEnabledTrueWithPqConstraint(inputProm
 
 func (u *InputPrometheus) UnmarshalJSON(data []byte) error {
 
-	var inputPrometheusSendToRoutesTrueWithConnectionsConstraint InputPrometheusSendToRoutesTrueWithConnectionsConstraint = InputPrometheusSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputPrometheusSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputPrometheusSendToRoutesTrueWithConnectionsConstraint = &inputPrometheusSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputPrometheusUnionTypeInputPrometheusSendToRoutesTrueWithConnectionsConstraint
+	var inputPrometheusSendToRoutesTrueConstraint InputPrometheusSendToRoutesTrueConstraint = InputPrometheusSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputPrometheusSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputPrometheusSendToRoutesTrueConstraint = &inputPrometheusSendToRoutesTrueConstraint
+		u.Type = InputPrometheusUnionTypeInputPrometheusSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1901,10 +1901,10 @@ func (u *InputPrometheus) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputPrometheusPqEnabledFalseWithPqConstraint InputPrometheusPqEnabledFalseWithPqConstraint = InputPrometheusPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputPrometheusPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputPrometheusPqEnabledFalseWithPqConstraint = &inputPrometheusPqEnabledFalseWithPqConstraint
-		u.Type = InputPrometheusUnionTypeInputPrometheusPqEnabledFalseWithPqConstraint
+	var inputPrometheusPqEnabledFalseConstraint InputPrometheusPqEnabledFalseConstraint = InputPrometheusPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputPrometheusPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputPrometheusPqEnabledFalseConstraint = &inputPrometheusPqEnabledFalseConstraint
+		u.Type = InputPrometheusUnionTypeInputPrometheusPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1919,16 +1919,16 @@ func (u *InputPrometheus) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputPrometheus) MarshalJSON() ([]byte, error) {
-	if u.InputPrometheusSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputPrometheusSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputPrometheusSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputPrometheusSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputPrometheusSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputPrometheusSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputPrometheusPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputPrometheusPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputPrometheusPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputPrometheusPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputPrometheusPqEnabledTrueWithPqConstraint != nil {

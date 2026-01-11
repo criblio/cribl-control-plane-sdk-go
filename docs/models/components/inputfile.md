@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputFileSendToRoutesTrueWithConnectionsConstraint
+### InputFileSendToRoutesTrueConstraint
 
 ```go
-inputFile := components.CreateInputFileInputFileSendToRoutesTrueWithConnectionsConstraint(components.InputFileSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputFile := components.CreateInputFileInputFileSendToRoutesTrueConstraint(components.InputFileSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputFileSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputFile := components.CreateInputFileInputFileSendToRoutesTrueWithConnectionsC
 inputFile := components.CreateInputFileInputFileSendToRoutesFalseWithConnectionsConstraint(components.InputFileSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFilePqEnabledFalseWithPqConstraint
+### InputFilePqEnabledFalseConstraint
 
 ```go
-inputFile := components.CreateInputFileInputFilePqEnabledFalseWithPqConstraint(components.InputFilePqEnabledFalseWithPqConstraint{/* values here */})
+inputFile := components.CreateInputFileInputFilePqEnabledFalseConstraint(components.InputFilePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputFilePqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
+### InputDatadogAgentSendToRoutesTrueConstraint
 
 ```go
-inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentSendToRoutesTrueWithConnectionsConstraint(operations.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentSendToRoutesTrueConstraint(operations.InputDatadogAgentSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentSendToRo
 inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentSendToRoutesFalseWithConnectionsConstraint(operations.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatadogAgentPqEnabledFalseWithPqConstraint
+### InputDatadogAgentPqEnabledFalseConstraint
 
 ```go
-inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentPqEnabledFalseWithPqConstraint(operations.InputDatadogAgentPqEnabledFalseWithPqConstraint{/* values here */})
+inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentPqEnabledFalseConstraint(operations.InputDatadogAgentPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputDatadogAgentPqEnabledTrueWithPqConstraint

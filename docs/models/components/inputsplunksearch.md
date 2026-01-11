@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint
+### InputSplunkSearchSendToRoutesTrueConstraint
 
 ```go
-inputSplunkSearch := components.CreateInputSplunkSearchInputSplunkSearchSendToRoutesTrueWithConnectionsConstraint(components.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSplunkSearch := components.CreateInputSplunkSearchInputSplunkSearchSendToRoutesTrueConstraint(components.InputSplunkSearchSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSplunkSearch := components.CreateInputSplunkSearchInputSplunkSearchSendToRo
 inputSplunkSearch := components.CreateInputSplunkSearchInputSplunkSearchSendToRoutesFalseWithConnectionsConstraint(components.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkSearchPqEnabledFalseWithPqConstraint
+### InputSplunkSearchPqEnabledFalseConstraint
 
 ```go
-inputSplunkSearch := components.CreateInputSplunkSearchInputSplunkSearchPqEnabledFalseWithPqConstraint(components.InputSplunkSearchPqEnabledFalseWithPqConstraint{/* values here */})
+inputSplunkSearch := components.CreateInputSplunkSearchInputSplunkSearchPqEnabledFalseConstraint(components.InputSplunkSearchPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSplunkSearchPqEnabledTrueWithPqConstraint

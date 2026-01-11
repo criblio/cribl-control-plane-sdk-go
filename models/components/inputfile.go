@@ -74,7 +74,7 @@ type InputFilePqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Choose how to discover files to monitor
 	Mode *PqEnabledTrueWithPqConstraintMode `default:"manual" json:"mode"`
 	// Time, in seconds, between scanning for files
@@ -189,7 +189,7 @@ func (i *InputFilePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputFilePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -336,45 +336,45 @@ func (i *InputFilePqEnabledTrueWithPqConstraint) GetIncludeUnidentifiableBinary(
 	return i.IncludeUnidentifiableBinary
 }
 
-type InputFilePqEnabledFalseWithPqConstraintType string
+type InputFilePqEnabledFalseConstraintType string
 
 const (
-	InputFilePqEnabledFalseWithPqConstraintTypeFile InputFilePqEnabledFalseWithPqConstraintType = "file"
+	InputFilePqEnabledFalseConstraintTypeFile InputFilePqEnabledFalseConstraintType = "file"
 )
 
-func (e InputFilePqEnabledFalseWithPqConstraintType) ToPointer() *InputFilePqEnabledFalseWithPqConstraintType {
+func (e InputFilePqEnabledFalseConstraintType) ToPointer() *InputFilePqEnabledFalseConstraintType {
 	return &e
 }
-func (e *InputFilePqEnabledFalseWithPqConstraintType) UnmarshalJSON(data []byte) error {
+func (e *InputFilePqEnabledFalseConstraintType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "file":
-		*e = InputFilePqEnabledFalseWithPqConstraintType(v)
+		*e = InputFilePqEnabledFalseConstraintType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputFilePqEnabledFalseWithPqConstraintType: %v", v)
+		return fmt.Errorf("invalid value for InputFilePqEnabledFalseConstraintType: %v", v)
 	}
 }
 
-// PqEnabledFalseWithPqConstraintMode - Choose how to discover files to monitor
-type PqEnabledFalseWithPqConstraintMode string
+// PqEnabledFalseConstraintMode - Choose how to discover files to monitor
+type PqEnabledFalseConstraintMode string
 
 const (
-	// PqEnabledFalseWithPqConstraintModeManual Manual
-	PqEnabledFalseWithPqConstraintModeManual PqEnabledFalseWithPqConstraintMode = "manual"
-	// PqEnabledFalseWithPqConstraintModeAuto Auto
-	PqEnabledFalseWithPqConstraintModeAuto PqEnabledFalseWithPqConstraintMode = "auto"
+	// PqEnabledFalseConstraintModeManual Manual
+	PqEnabledFalseConstraintModeManual PqEnabledFalseConstraintMode = "manual"
+	// PqEnabledFalseConstraintModeAuto Auto
+	PqEnabledFalseConstraintModeAuto PqEnabledFalseConstraintMode = "auto"
 )
 
-func (e PqEnabledFalseWithPqConstraintMode) ToPointer() *PqEnabledFalseWithPqConstraintMode {
+func (e PqEnabledFalseConstraintMode) ToPointer() *PqEnabledFalseConstraintMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PqEnabledFalseWithPqConstraintMode) IsExact() bool {
+func (e *PqEnabledFalseConstraintMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "manual", "auto":
@@ -384,14 +384,13 @@ func (e *PqEnabledFalseWithPqConstraintMode) IsExact() bool {
 	return false
 }
 
-type InputFilePqEnabledFalseWithPqConstraint struct {
+type InputFilePqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string                                     `json:"id,omitempty"`
-	Type     InputFilePqEnabledFalseWithPqConstraintType `json:"type"`
-	Disabled *bool                                       `default:"false" json:"disabled"`
+	ID       *string                               `json:"id,omitempty"`
+	Type     InputFilePqEnabledFalseConstraintType `json:"type"`
+	Disabled *bool                                 `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -401,9 +400,10 @@ type InputFilePqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *PqEnabledFalseWithPqConstraintMode `default:"manual" json:"mode"`
+	Mode *PqEnabledFalseConstraintMode `default:"manual" json:"mode"`
 	// Time, in seconds, between scanning for files
 	Interval *float64 `default:"10" json:"interval"`
 	// The full path of discovered files are matched against this wildcard list
@@ -442,221 +442,221 @@ type InputFilePqEnabledFalseWithPqConstraint struct {
 	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
 }
 
-func (i InputFilePqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputFilePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputFilePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputFilePqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetType() InputFilePqEnabledFalseWithPqConstraintType {
+func (i *InputFilePqEnabledFalseConstraint) GetType() InputFilePqEnabledFalseConstraintType {
 	if i == nil {
-		return InputFilePqEnabledFalseWithPqConstraintType("")
+		return InputFilePqEnabledFalseConstraintType("")
 	}
 	return i.Type
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputFilePqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputFilePqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputFilePqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputFilePqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetMode() *PqEnabledFalseWithPqConstraintMode {
+func (i *InputFilePqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputFilePqEnabledFalseConstraint) GetMode() *PqEnabledFalseConstraintMode {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetInterval() *float64 {
+func (i *InputFilePqEnabledFalseConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetFilenames() []string {
+func (i *InputFilePqEnabledFalseConstraint) GetFilenames() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Filenames
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetFilterArchivedFiles() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetFilterArchivedFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FilterArchivedFiles
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetTailOnly() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetTailOnly() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.TailOnly
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetIdleTimeout() *float64 {
+func (i *InputFilePqEnabledFalseConstraint) GetIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.IdleTimeout
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetMinAgeDur() *string {
+func (i *InputFilePqEnabledFalseConstraint) GetMinAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MinAgeDur
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetMaxAgeDur() *string {
+func (i *InputFilePqEnabledFalseConstraint) GetMaxAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MaxAgeDur
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetCheckFileModTime() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetCheckFileModTime() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CheckFileModTime
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetForceText() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetForceText() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ForceText
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetHashLen() *float64 {
+func (i *InputFilePqEnabledFalseConstraint) GetHashLen() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HashLen
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFilePqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
+func (i *InputFilePqEnabledFalseConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputFilePqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputFilePqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetPath() *string {
+func (i *InputFilePqEnabledFalseConstraint) GetPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Path
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetDepth() *float64 {
+func (i *InputFilePqEnabledFalseConstraint) GetDepth() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Depth
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetSuppressMissingPathErrors() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetSuppressMissingPathErrors() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SuppressMissingPathErrors
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetDeleteFiles() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetDeleteFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DeleteFiles
 }
 
-func (i *InputFilePqEnabledFalseWithPqConstraint) GetIncludeUnidentifiableBinary() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetIncludeUnidentifiableBinary() *bool {
 	if i == nil {
 		return nil
 	}
@@ -715,7 +715,7 @@ type InputFileSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                                                 `json:"id,omitempty"`
 	Type     InputFileSendToRoutesFalseWithConnectionsConstraintType `json:"type"`
@@ -787,7 +787,7 @@ func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() 
 	return i.SendToRoutes
 }
 
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -990,45 +990,45 @@ func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetIncludeUnidenti
 	return i.IncludeUnidentifiableBinary
 }
 
-type InputFileSendToRoutesTrueWithConnectionsConstraintType string
+type InputFileSendToRoutesTrueConstraintType string
 
 const (
-	InputFileSendToRoutesTrueWithConnectionsConstraintTypeFile InputFileSendToRoutesTrueWithConnectionsConstraintType = "file"
+	InputFileSendToRoutesTrueConstraintTypeFile InputFileSendToRoutesTrueConstraintType = "file"
 )
 
-func (e InputFileSendToRoutesTrueWithConnectionsConstraintType) ToPointer() *InputFileSendToRoutesTrueWithConnectionsConstraintType {
+func (e InputFileSendToRoutesTrueConstraintType) ToPointer() *InputFileSendToRoutesTrueConstraintType {
 	return &e
 }
-func (e *InputFileSendToRoutesTrueWithConnectionsConstraintType) UnmarshalJSON(data []byte) error {
+func (e *InputFileSendToRoutesTrueConstraintType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "file":
-		*e = InputFileSendToRoutesTrueWithConnectionsConstraintType(v)
+		*e = InputFileSendToRoutesTrueConstraintType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputFileSendToRoutesTrueWithConnectionsConstraintType: %v", v)
+		return fmt.Errorf("invalid value for InputFileSendToRoutesTrueConstraintType: %v", v)
 	}
 }
 
-// SendToRoutesTrueWithConnectionsConstraintMode - Choose how to discover files to monitor
-type SendToRoutesTrueWithConnectionsConstraintMode string
+// SendToRoutesTrueConstraintMode - Choose how to discover files to monitor
+type SendToRoutesTrueConstraintMode string
 
 const (
-	// SendToRoutesTrueWithConnectionsConstraintModeManual Manual
-	SendToRoutesTrueWithConnectionsConstraintModeManual SendToRoutesTrueWithConnectionsConstraintMode = "manual"
-	// SendToRoutesTrueWithConnectionsConstraintModeAuto Auto
-	SendToRoutesTrueWithConnectionsConstraintModeAuto SendToRoutesTrueWithConnectionsConstraintMode = "auto"
+	// SendToRoutesTrueConstraintModeManual Manual
+	SendToRoutesTrueConstraintModeManual SendToRoutesTrueConstraintMode = "manual"
+	// SendToRoutesTrueConstraintModeAuto Auto
+	SendToRoutesTrueConstraintModeAuto SendToRoutesTrueConstraintMode = "auto"
 )
 
-func (e SendToRoutesTrueWithConnectionsConstraintMode) ToPointer() *SendToRoutesTrueWithConnectionsConstraintMode {
+func (e SendToRoutesTrueConstraintMode) ToPointer() *SendToRoutesTrueConstraintMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SendToRoutesTrueWithConnectionsConstraintMode) IsExact() bool {
+func (e *SendToRoutesTrueConstraintMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "manual", "auto":
@@ -1038,15 +1038,13 @@ func (e *SendToRoutesTrueWithConnectionsConstraintMode) IsExact() bool {
 	return false
 }
 
-type InputFileSendToRoutesTrueWithConnectionsConstraint struct {
+type InputFileSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
-	ID       *string                                                `json:"id,omitempty"`
-	Type     InputFileSendToRoutesTrueWithConnectionsConstraintType `json:"type"`
-	Disabled *bool                                                  `default:"false" json:"disabled"`
+	ID       *string                                 `json:"id,omitempty"`
+	Type     InputFileSendToRoutesTrueConstraintType `json:"type"`
+	Disabled *bool                                   `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
@@ -1055,9 +1053,11 @@ type InputFileSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *SendToRoutesTrueWithConnectionsConstraintMode `default:"manual" json:"mode"`
+	Mode *SendToRoutesTrueConstraintMode `default:"manual" json:"mode"`
 	// Time, in seconds, between scanning for files
 	Interval *float64 `default:"10" json:"interval"`
 	// The full path of discovered files are matched against this wildcard list
@@ -1096,221 +1096,221 @@ type InputFileSendToRoutesTrueWithConnectionsConstraint struct {
 	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
 }
 
-func (i InputFileSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputFileSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputFileSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputFileSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetType() InputFileSendToRoutesTrueWithConnectionsConstraintType {
+func (i *InputFileSendToRoutesTrueConstraint) GetType() InputFileSendToRoutesTrueConstraintType {
 	if i == nil {
-		return InputFileSendToRoutesTrueWithConnectionsConstraintType("")
+		return InputFileSendToRoutesTrueConstraintType("")
 	}
 	return i.Type
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputFileSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputFileSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputFileSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputFileSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFileSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetMode() *SendToRoutesTrueWithConnectionsConstraintMode {
+func (i *InputFileSendToRoutesTrueConstraint) GetMode() *SendToRoutesTrueConstraintMode {
 	if i == nil {
 		return nil
 	}
 	return i.Mode
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputFileSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetFilenames() []string {
+func (i *InputFileSendToRoutesTrueConstraint) GetFilenames() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Filenames
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetFilterArchivedFiles() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetFilterArchivedFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FilterArchivedFiles
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetTailOnly() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetTailOnly() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.TailOnly
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetIdleTimeout() *float64 {
+func (i *InputFileSendToRoutesTrueConstraint) GetIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.IdleTimeout
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetMinAgeDur() *string {
+func (i *InputFileSendToRoutesTrueConstraint) GetMinAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MinAgeDur
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetMaxAgeDur() *string {
+func (i *InputFileSendToRoutesTrueConstraint) GetMaxAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MaxAgeDur
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetCheckFileModTime() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetCheckFileModTime() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CheckFileModTime
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetForceText() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetForceText() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ForceText
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetHashLen() *float64 {
+func (i *InputFileSendToRoutesTrueConstraint) GetHashLen() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HashLen
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFileSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
+func (i *InputFileSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputFileSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputFileSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetPath() *string {
+func (i *InputFileSendToRoutesTrueConstraint) GetPath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Path
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetDepth() *float64 {
+func (i *InputFileSendToRoutesTrueConstraint) GetDepth() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Depth
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetSuppressMissingPathErrors() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetSuppressMissingPathErrors() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SuppressMissingPathErrors
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetDeleteFiles() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetDeleteFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DeleteFiles
 }
 
-func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetIncludeUnidentifiableBinary() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetIncludeUnidentifiableBinary() *bool {
 	if i == nil {
 		return nil
 	}
@@ -1320,27 +1320,27 @@ func (i *InputFileSendToRoutesTrueWithConnectionsConstraint) GetIncludeUnidentif
 type InputFileType string
 
 const (
-	InputFileTypeInputFileSendToRoutesTrueWithConnectionsConstraint  InputFileType = "InputFile_SendToRoutesTrueWithConnectionsConstraint"
+	InputFileTypeInputFileSendToRoutesTrueConstraint                 InputFileType = "InputFile_SendToRoutesTrueConstraint"
 	InputFileTypeInputFileSendToRoutesFalseWithConnectionsConstraint InputFileType = "InputFile_SendToRoutesFalseWithConnectionsConstraint"
-	InputFileTypeInputFilePqEnabledFalseWithPqConstraint             InputFileType = "InputFile_PqEnabledFalseWithPqConstraint"
+	InputFileTypeInputFilePqEnabledFalseConstraint                   InputFileType = "InputFile_PqEnabledFalseConstraint"
 	InputFileTypeInputFilePqEnabledTrueWithPqConstraint              InputFileType = "InputFile_PqEnabledTrueWithPqConstraint"
 )
 
 type InputFile struct {
-	InputFileSendToRoutesTrueWithConnectionsConstraint  *InputFileSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputFileSendToRoutesTrueConstraint                 *InputFileSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputFileSendToRoutesFalseWithConnectionsConstraint *InputFileSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputFilePqEnabledFalseWithPqConstraint             *InputFilePqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputFilePqEnabledFalseConstraint                   *InputFilePqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputFilePqEnabledTrueWithPqConstraint              *InputFilePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputFileType
 }
 
-func CreateInputFileInputFileSendToRoutesTrueWithConnectionsConstraint(inputFileSendToRoutesTrueWithConnectionsConstraint InputFileSendToRoutesTrueWithConnectionsConstraint) InputFile {
-	typ := InputFileTypeInputFileSendToRoutesTrueWithConnectionsConstraint
+func CreateInputFileInputFileSendToRoutesTrueConstraint(inputFileSendToRoutesTrueConstraint InputFileSendToRoutesTrueConstraint) InputFile {
+	typ := InputFileTypeInputFileSendToRoutesTrueConstraint
 
 	return InputFile{
-		InputFileSendToRoutesTrueWithConnectionsConstraint: &inputFileSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputFileSendToRoutesTrueConstraint: &inputFileSendToRoutesTrueConstraint,
+		Type:                                typ,
 	}
 }
 
@@ -1353,12 +1353,12 @@ func CreateInputFileInputFileSendToRoutesFalseWithConnectionsConstraint(inputFil
 	}
 }
 
-func CreateInputFileInputFilePqEnabledFalseWithPqConstraint(inputFilePqEnabledFalseWithPqConstraint InputFilePqEnabledFalseWithPqConstraint) InputFile {
-	typ := InputFileTypeInputFilePqEnabledFalseWithPqConstraint
+func CreateInputFileInputFilePqEnabledFalseConstraint(inputFilePqEnabledFalseConstraint InputFilePqEnabledFalseConstraint) InputFile {
+	typ := InputFileTypeInputFilePqEnabledFalseConstraint
 
 	return InputFile{
-		InputFilePqEnabledFalseWithPqConstraint: &inputFilePqEnabledFalseWithPqConstraint,
-		Type:                                    typ,
+		InputFilePqEnabledFalseConstraint: &inputFilePqEnabledFalseConstraint,
+		Type:                              typ,
 	}
 }
 
@@ -1373,10 +1373,10 @@ func CreateInputFileInputFilePqEnabledTrueWithPqConstraint(inputFilePqEnabledTru
 
 func (u *InputFile) UnmarshalJSON(data []byte) error {
 
-	var inputFileSendToRoutesTrueWithConnectionsConstraint InputFileSendToRoutesTrueWithConnectionsConstraint = InputFileSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFileSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputFileSendToRoutesTrueWithConnectionsConstraint = &inputFileSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputFileTypeInputFileSendToRoutesTrueWithConnectionsConstraint
+	var inputFileSendToRoutesTrueConstraint InputFileSendToRoutesTrueConstraint = InputFileSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputFileSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputFileSendToRoutesTrueConstraint = &inputFileSendToRoutesTrueConstraint
+		u.Type = InputFileTypeInputFileSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1387,10 +1387,10 @@ func (u *InputFile) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputFilePqEnabledFalseWithPqConstraint InputFilePqEnabledFalseWithPqConstraint = InputFilePqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFilePqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputFilePqEnabledFalseWithPqConstraint = &inputFilePqEnabledFalseWithPqConstraint
-		u.Type = InputFileTypeInputFilePqEnabledFalseWithPqConstraint
+	var inputFilePqEnabledFalseConstraint InputFilePqEnabledFalseConstraint = InputFilePqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputFilePqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputFilePqEnabledFalseConstraint = &inputFilePqEnabledFalseConstraint
+		u.Type = InputFileTypeInputFilePqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1405,16 +1405,16 @@ func (u *InputFile) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputFile) MarshalJSON() ([]byte, error) {
-	if u.InputFileSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputFileSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputFileSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputFileSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputFileSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputFileSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputFilePqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputFilePqEnabledFalseWithPqConstraint, "", true)
+	if u.InputFilePqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputFilePqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputFilePqEnabledTrueWithPqConstraint != nil {

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputWizWebhookSendToRoutesTrueWithConnectionsConstraint
+### InputWizWebhookSendToRoutesTrueConstraint
 
 ```go
-inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookSendToRoutesTrueWithConnectionsConstraint(components.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookSendToRoutesTrueConstraint(components.InputWizWebhookSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputWizWebhookSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookSendToRoutesTr
 inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookSendToRoutesFalseWithConnectionsConstraint(components.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWizWebhookPqEnabledFalseWithPqConstraint
+### InputWizWebhookPqEnabledFalseConstraint
 
 ```go
-inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookPqEnabledFalseWithPqConstraint(components.InputWizWebhookPqEnabledFalseWithPqConstraint{/* values here */})
+inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookPqEnabledFalseConstraint(components.InputWizWebhookPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputWizWebhookPqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputTcpjsonSendToRoutesTrueWithConnectionsConstraint
+### InputTcpjsonSendToRoutesTrueConstraint
 
 ```go
-inputTcpjson := components.CreateInputTcpjsonInputTcpjsonSendToRoutesTrueWithConnectionsConstraint(components.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputTcpjson := components.CreateInputTcpjsonInputTcpjsonSendToRoutesTrueConstraint(components.InputTcpjsonSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputTcpjsonSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputTcpjson := components.CreateInputTcpjsonInputTcpjsonSendToRoutesTrueWithCon
 inputTcpjson := components.CreateInputTcpjsonInputTcpjsonSendToRoutesFalseWithConnectionsConstraint(components.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputTcpjsonPqEnabledFalseWithPqConstraint
+### InputTcpjsonPqEnabledFalseConstraint
 
 ```go
-inputTcpjson := components.CreateInputTcpjsonInputTcpjsonPqEnabledFalseWithPqConstraint(components.InputTcpjsonPqEnabledFalseWithPqConstraint{/* values here */})
+inputTcpjson := components.CreateInputTcpjsonInputTcpjsonPqEnabledFalseConstraint(components.InputTcpjsonPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputTcpjsonPqEnabledTrueWithPqConstraint

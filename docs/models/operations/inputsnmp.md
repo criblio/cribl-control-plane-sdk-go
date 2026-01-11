@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSnmpSendToRoutesTrueWithConnectionsConstraint
+### InputSnmpSendToRoutesTrueConstraint
 
 ```go
-inputSnmp := operations.CreateInputSnmpInputSnmpSendToRoutesTrueWithConnectionsConstraint(operations.InputSnmpSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSnmp := operations.CreateInputSnmpInputSnmpSendToRoutesTrueConstraint(operations.InputSnmpSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSnmpSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSnmp := operations.CreateInputSnmpInputSnmpSendToRoutesTrueWithConnectionsC
 inputSnmp := operations.CreateInputSnmpInputSnmpSendToRoutesFalseWithConnectionsConstraint(operations.InputSnmpSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSnmpPqEnabledFalseWithPqConstraint
+### InputSnmpPqEnabledFalseConstraint
 
 ```go
-inputSnmp := operations.CreateInputSnmpInputSnmpPqEnabledFalseWithPqConstraint(operations.InputSnmpPqEnabledFalseWithPqConstraint{/* values here */})
+inputSnmp := operations.CreateInputSnmpInputSnmpPqEnabledFalseConstraint(operations.InputSnmpPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSnmpPqEnabledTrueWithPqConstraint

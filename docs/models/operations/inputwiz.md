@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputWizSendToRoutesTrueWithConnectionsConstraint
+### InputWizSendToRoutesTrueConstraint
 
 ```go
-inputWiz := operations.CreateInputWizInputWizSendToRoutesTrueWithConnectionsConstraint(operations.InputWizSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputWiz := operations.CreateInputWizInputWizSendToRoutesTrueConstraint(operations.InputWizSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputWizSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputWiz := operations.CreateInputWizInputWizSendToRoutesTrueWithConnectionsCons
 inputWiz := operations.CreateInputWizInputWizSendToRoutesFalseWithConnectionsConstraint(operations.InputWizSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWizPqEnabledFalseWithPqConstraint
+### InputWizPqEnabledFalseConstraint
 
 ```go
-inputWiz := operations.CreateInputWizInputWizPqEnabledFalseWithPqConstraint(operations.InputWizPqEnabledFalseWithPqConstraint{/* values here */})
+inputWiz := operations.CreateInputWizInputWizPqEnabledFalseConstraint(operations.InputWizPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputWizPqEnabledTrueWithPqConstraint

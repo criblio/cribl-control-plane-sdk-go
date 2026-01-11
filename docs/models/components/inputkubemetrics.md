@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint
+### InputKubeMetricsSendToRoutesTrueConstraint
 
 ```go
-inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsSendToRoutesTrueWithConnectionsConstraint(components.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsSendToRoutesTrueConstraint(components.InputKubeMetricsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsSendToRoute
 inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsSendToRoutesFalseWithConnectionsConstraint(components.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeMetricsPqEnabledFalseWithPqConstraint
+### InputKubeMetricsPqEnabledFalseConstraint
 
 ```go
-inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsPqEnabledFalseWithPqConstraint(components.InputKubeMetricsPqEnabledFalseWithPqConstraint{/* values here */})
+inputKubeMetrics := components.CreateInputKubeMetricsInputKubeMetricsPqEnabledFalseConstraint(components.InputKubeMetricsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputKubeMetricsPqEnabledTrueWithPqConstraint

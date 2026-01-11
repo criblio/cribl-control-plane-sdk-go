@@ -26,7 +26,7 @@ type InputDatadogAgentPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -136,7 +136,7 @@ func (i *InputDatadogAgentPqEnabledTrueWithPqConstraint) GetStreamtags() []strin
 	return i.Streamtags
 }
 
-func (i *InputDatadogAgentPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputDatadogAgentPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -269,10 +269,9 @@ func (i *InputDatadogAgentPqEnabledTrueWithPqConstraint) GetDescription() *strin
 	return i.Description
 }
 
-type InputDatadogAgentPqEnabledFalseWithPqConstraint struct {
+type InputDatadogAgentPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputDatadogAgentType `json:"type"`
@@ -286,7 +285,8 @@ type InputDatadogAgentPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -322,207 +322,207 @@ type InputDatadogAgentPqEnabledFalseWithPqConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputDatadogAgentPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputDatadogAgentPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetType() InputDatadogAgentType {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetType() InputDatadogAgentType {
 	if i == nil {
 		return InputDatadogAgentType("")
 	}
 	return i.Type
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetPort() float64 {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() *bool {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetExtractMetrics() *bool {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetProxyMode() *InputDatadogAgentProxyMode {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetProxyMode() *InputDatadogAgentProxyMode {
 	if i == nil {
 		return nil
 	}
 	return i.ProxyMode
 }
 
-func (i *InputDatadogAgentPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputDatadogAgentPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -533,7 +533,7 @@ type InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputDatadogAgentType `json:"type"`
@@ -600,7 +600,7 @@ func (i *InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint) GetSendToR
 	return i.SendToRoutes
 }
 
-func (i *InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -844,11 +844,9 @@ func (i *InputDatadogAgentProxyMode) GetRejectUnauthorized() *bool {
 	return i.RejectUnauthorized
 }
 
-type InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint struct {
+type InputDatadogAgentSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputDatadogAgentType `json:"type"`
@@ -861,7 +859,9 @@ type InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -897,207 +897,207 @@ type InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputDatadogAgentSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetType() InputDatadogAgentType {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetType() InputDatadogAgentType {
 	if i == nil {
 		return InputDatadogAgentType("")
 	}
 	return i.Type
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() *bool {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetExtractMetrics() *bool {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetProxyMode() *InputDatadogAgentProxyMode {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetProxyMode() *InputDatadogAgentProxyMode {
 	if i == nil {
 		return nil
 	}
 	return i.ProxyMode
 }
 
-func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputDatadogAgentSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1107,26 +1107,26 @@ func (i *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) GetDescript
 type InputDatadogAgentUnionType string
 
 const (
-	InputDatadogAgentUnionTypeInputDatadogAgentSendToRoutesTrueWithConnectionsConstraint  InputDatadogAgentUnionType = "InputDatadogAgent_SendToRoutesTrueWithConnectionsConstraint"
+	InputDatadogAgentUnionTypeInputDatadogAgentSendToRoutesTrueConstraint                 InputDatadogAgentUnionType = "InputDatadogAgent_SendToRoutesTrueConstraint"
 	InputDatadogAgentUnionTypeInputDatadogAgentSendToRoutesFalseWithConnectionsConstraint InputDatadogAgentUnionType = "InputDatadogAgent_SendToRoutesFalseWithConnectionsConstraint"
-	InputDatadogAgentUnionTypeInputDatadogAgentPqEnabledFalseWithPqConstraint             InputDatadogAgentUnionType = "InputDatadogAgent_PqEnabledFalseWithPqConstraint"
+	InputDatadogAgentUnionTypeInputDatadogAgentPqEnabledFalseConstraint                   InputDatadogAgentUnionType = "InputDatadogAgent_PqEnabledFalseConstraint"
 	InputDatadogAgentUnionTypeInputDatadogAgentPqEnabledTrueWithPqConstraint              InputDatadogAgentUnionType = "InputDatadogAgent_PqEnabledTrueWithPqConstraint"
 )
 
 type InputDatadogAgent struct {
-	InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint  *InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputDatadogAgentSendToRoutesTrueConstraint                 *InputDatadogAgentSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint *InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputDatadogAgentPqEnabledFalseWithPqConstraint             *InputDatadogAgentPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputDatadogAgentPqEnabledFalseConstraint                   *InputDatadogAgentPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputDatadogAgentPqEnabledTrueWithPqConstraint              *InputDatadogAgentPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputDatadogAgentUnionType
 }
 
-func CreateInputDatadogAgentInputDatadogAgentSendToRoutesTrueWithConnectionsConstraint(inputDatadogAgentSendToRoutesTrueWithConnectionsConstraint InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint) InputDatadogAgent {
-	typ := InputDatadogAgentUnionTypeInputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
+func CreateInputDatadogAgentInputDatadogAgentSendToRoutesTrueConstraint(inputDatadogAgentSendToRoutesTrueConstraint InputDatadogAgentSendToRoutesTrueConstraint) InputDatadogAgent {
+	typ := InputDatadogAgentUnionTypeInputDatadogAgentSendToRoutesTrueConstraint
 
 	return InputDatadogAgent{
-		InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint: &inputDatadogAgentSendToRoutesTrueWithConnectionsConstraint,
+		InputDatadogAgentSendToRoutesTrueConstraint: &inputDatadogAgentSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -1140,11 +1140,11 @@ func CreateInputDatadogAgentInputDatadogAgentSendToRoutesFalseWithConnectionsCon
 	}
 }
 
-func CreateInputDatadogAgentInputDatadogAgentPqEnabledFalseWithPqConstraint(inputDatadogAgentPqEnabledFalseWithPqConstraint InputDatadogAgentPqEnabledFalseWithPqConstraint) InputDatadogAgent {
-	typ := InputDatadogAgentUnionTypeInputDatadogAgentPqEnabledFalseWithPqConstraint
+func CreateInputDatadogAgentInputDatadogAgentPqEnabledFalseConstraint(inputDatadogAgentPqEnabledFalseConstraint InputDatadogAgentPqEnabledFalseConstraint) InputDatadogAgent {
+	typ := InputDatadogAgentUnionTypeInputDatadogAgentPqEnabledFalseConstraint
 
 	return InputDatadogAgent{
-		InputDatadogAgentPqEnabledFalseWithPqConstraint: &inputDatadogAgentPqEnabledFalseWithPqConstraint,
+		InputDatadogAgentPqEnabledFalseConstraint: &inputDatadogAgentPqEnabledFalseConstraint,
 		Type: typ,
 	}
 }
@@ -1160,10 +1160,10 @@ func CreateInputDatadogAgentInputDatadogAgentPqEnabledTrueWithPqConstraint(input
 
 func (u *InputDatadogAgent) UnmarshalJSON(data []byte) error {
 
-	var inputDatadogAgentSendToRoutesTrueWithConnectionsConstraint InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint = InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputDatadogAgentSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint = &inputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputDatadogAgentUnionTypeInputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
+	var inputDatadogAgentSendToRoutesTrueConstraint InputDatadogAgentSendToRoutesTrueConstraint = InputDatadogAgentSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputDatadogAgentSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputDatadogAgentSendToRoutesTrueConstraint = &inputDatadogAgentSendToRoutesTrueConstraint
+		u.Type = InputDatadogAgentUnionTypeInputDatadogAgentSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1174,10 +1174,10 @@ func (u *InputDatadogAgent) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputDatadogAgentPqEnabledFalseWithPqConstraint InputDatadogAgentPqEnabledFalseWithPqConstraint = InputDatadogAgentPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputDatadogAgentPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputDatadogAgentPqEnabledFalseWithPqConstraint = &inputDatadogAgentPqEnabledFalseWithPqConstraint
-		u.Type = InputDatadogAgentUnionTypeInputDatadogAgentPqEnabledFalseWithPqConstraint
+	var inputDatadogAgentPqEnabledFalseConstraint InputDatadogAgentPqEnabledFalseConstraint = InputDatadogAgentPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputDatadogAgentPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputDatadogAgentPqEnabledFalseConstraint = &inputDatadogAgentPqEnabledFalseConstraint
+		u.Type = InputDatadogAgentUnionTypeInputDatadogAgentPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1192,16 +1192,16 @@ func (u *InputDatadogAgent) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputDatadogAgent) MarshalJSON() ([]byte, error) {
-	if u.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputDatadogAgentSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputDatadogAgentSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputDatadogAgentPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputDatadogAgentPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputDatadogAgentPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputDatadogAgentPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputDatadogAgentPqEnabledTrueWithPqConstraint != nil {

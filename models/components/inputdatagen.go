@@ -26,8 +26,8 @@ type InputDatagenPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Samples     []Sample               `json:"samples"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Samples     []Sample                       `json:"samples"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -107,7 +107,7 @@ func (i *InputDatagenPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputDatagenPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputDatagenPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -135,10 +135,9 @@ func (i *InputDatagenPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	return i.Description
 }
 
-type InputDatagenPqEnabledFalseWithPqConstraint struct {
+type InputDatagenPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputDatagenType `json:"type"`
@@ -152,109 +151,110 @@ type InputDatagenPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Samples     []Sample               `json:"samples"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	Samples     []Sample                       `json:"samples"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputDatagenPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputDatagenPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputDatagenPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputDatagenPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputDatagenPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetType() InputDatagenType {
+func (i *InputDatagenPqEnabledFalseConstraint) GetType() InputDatagenType {
 	if i == nil {
 		return InputDatagenType("")
 	}
 	return i.Type
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputDatagenPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputDatagenPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputDatagenPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputDatagenPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputDatagenPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputDatagenPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetSamples() []Sample {
+func (i *InputDatagenPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatagenPqEnabledFalseConstraint) GetSamples() []Sample {
 	if i == nil {
 		return []Sample{}
 	}
 	return i.Samples
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputDatagenPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputDatagenPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputDatagenPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -265,7 +265,7 @@ type InputDatagenSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputDatagenType `json:"type"`
@@ -303,7 +303,7 @@ func (i *InputDatagenSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes
 	return i.SendToRoutes
 }
 
-func (i *InputDatagenSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputDatagenSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -441,11 +441,9 @@ func (s *Sample) GetEventsPerSec() *float64 {
 	return s.EventsPerSec
 }
 
-type InputDatagenSendToRoutesTrueWithConnectionsConstraint struct {
+type InputDatagenSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputDatagenType `json:"type"`
@@ -458,109 +456,111 @@ type InputDatagenSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	Samples    []Sample `json:"samples"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	Samples     []Sample                       `json:"samples"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputDatagenSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputDatagenSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputDatagenSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetType() InputDatagenType {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetType() InputDatagenType {
 	if i == nil {
 		return InputDatagenType("")
 	}
 	return i.Type
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputDatagenSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetSamples() []Sample {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetSamples() []Sample {
 	if i == nil {
 		return []Sample{}
 	}
 	return i.Samples
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -570,27 +570,27 @@ func (i *InputDatagenSendToRoutesTrueWithConnectionsConstraint) GetDescription()
 type InputDatagenUnionType string
 
 const (
-	InputDatagenUnionTypeInputDatagenSendToRoutesTrueWithConnectionsConstraint  InputDatagenUnionType = "InputDatagen_SendToRoutesTrueWithConnectionsConstraint"
+	InputDatagenUnionTypeInputDatagenSendToRoutesTrueConstraint                 InputDatagenUnionType = "InputDatagen_SendToRoutesTrueConstraint"
 	InputDatagenUnionTypeInputDatagenSendToRoutesFalseWithConnectionsConstraint InputDatagenUnionType = "InputDatagen_SendToRoutesFalseWithConnectionsConstraint"
-	InputDatagenUnionTypeInputDatagenPqEnabledFalseWithPqConstraint             InputDatagenUnionType = "InputDatagen_PqEnabledFalseWithPqConstraint"
+	InputDatagenUnionTypeInputDatagenPqEnabledFalseConstraint                   InputDatagenUnionType = "InputDatagen_PqEnabledFalseConstraint"
 	InputDatagenUnionTypeInputDatagenPqEnabledTrueWithPqConstraint              InputDatagenUnionType = "InputDatagen_PqEnabledTrueWithPqConstraint"
 )
 
 type InputDatagen struct {
-	InputDatagenSendToRoutesTrueWithConnectionsConstraint  *InputDatagenSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputDatagenSendToRoutesTrueConstraint                 *InputDatagenSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputDatagenSendToRoutesFalseWithConnectionsConstraint *InputDatagenSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputDatagenPqEnabledFalseWithPqConstraint             *InputDatagenPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputDatagenPqEnabledFalseConstraint                   *InputDatagenPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputDatagenPqEnabledTrueWithPqConstraint              *InputDatagenPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputDatagenUnionType
 }
 
-func CreateInputDatagenInputDatagenSendToRoutesTrueWithConnectionsConstraint(inputDatagenSendToRoutesTrueWithConnectionsConstraint InputDatagenSendToRoutesTrueWithConnectionsConstraint) InputDatagen {
-	typ := InputDatagenUnionTypeInputDatagenSendToRoutesTrueWithConnectionsConstraint
+func CreateInputDatagenInputDatagenSendToRoutesTrueConstraint(inputDatagenSendToRoutesTrueConstraint InputDatagenSendToRoutesTrueConstraint) InputDatagen {
+	typ := InputDatagenUnionTypeInputDatagenSendToRoutesTrueConstraint
 
 	return InputDatagen{
-		InputDatagenSendToRoutesTrueWithConnectionsConstraint: &inputDatagenSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputDatagenSendToRoutesTrueConstraint: &inputDatagenSendToRoutesTrueConstraint,
+		Type:                                   typ,
 	}
 }
 
@@ -603,12 +603,12 @@ func CreateInputDatagenInputDatagenSendToRoutesFalseWithConnectionsConstraint(in
 	}
 }
 
-func CreateInputDatagenInputDatagenPqEnabledFalseWithPqConstraint(inputDatagenPqEnabledFalseWithPqConstraint InputDatagenPqEnabledFalseWithPqConstraint) InputDatagen {
-	typ := InputDatagenUnionTypeInputDatagenPqEnabledFalseWithPqConstraint
+func CreateInputDatagenInputDatagenPqEnabledFalseConstraint(inputDatagenPqEnabledFalseConstraint InputDatagenPqEnabledFalseConstraint) InputDatagen {
+	typ := InputDatagenUnionTypeInputDatagenPqEnabledFalseConstraint
 
 	return InputDatagen{
-		InputDatagenPqEnabledFalseWithPqConstraint: &inputDatagenPqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputDatagenPqEnabledFalseConstraint: &inputDatagenPqEnabledFalseConstraint,
+		Type:                                 typ,
 	}
 }
 
@@ -623,10 +623,10 @@ func CreateInputDatagenInputDatagenPqEnabledTrueWithPqConstraint(inputDatagenPqE
 
 func (u *InputDatagen) UnmarshalJSON(data []byte) error {
 
-	var inputDatagenSendToRoutesTrueWithConnectionsConstraint InputDatagenSendToRoutesTrueWithConnectionsConstraint = InputDatagenSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputDatagenSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputDatagenSendToRoutesTrueWithConnectionsConstraint = &inputDatagenSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputDatagenUnionTypeInputDatagenSendToRoutesTrueWithConnectionsConstraint
+	var inputDatagenSendToRoutesTrueConstraint InputDatagenSendToRoutesTrueConstraint = InputDatagenSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputDatagenSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputDatagenSendToRoutesTrueConstraint = &inputDatagenSendToRoutesTrueConstraint
+		u.Type = InputDatagenUnionTypeInputDatagenSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -637,10 +637,10 @@ func (u *InputDatagen) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputDatagenPqEnabledFalseWithPqConstraint InputDatagenPqEnabledFalseWithPqConstraint = InputDatagenPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputDatagenPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputDatagenPqEnabledFalseWithPqConstraint = &inputDatagenPqEnabledFalseWithPqConstraint
-		u.Type = InputDatagenUnionTypeInputDatagenPqEnabledFalseWithPqConstraint
+	var inputDatagenPqEnabledFalseConstraint InputDatagenPqEnabledFalseConstraint = InputDatagenPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputDatagenPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputDatagenPqEnabledFalseConstraint = &inputDatagenPqEnabledFalseConstraint
+		u.Type = InputDatagenUnionTypeInputDatagenPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -655,16 +655,16 @@ func (u *InputDatagen) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputDatagen) MarshalJSON() ([]byte, error) {
-	if u.InputDatagenSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputDatagenSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputDatagenSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputDatagenSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputDatagenSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputDatagenSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputDatagenPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputDatagenPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputDatagenPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputDatagenPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputDatagenPqEnabledTrueWithPqConstraint != nil {

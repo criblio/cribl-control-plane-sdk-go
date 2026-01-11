@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint
+### InputOffice365MsgTraceSendToRoutesTrueConstraint
 
 ```go
-inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint(operations.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceSendToRoutesTrueConstraint(operations.InputOffice365MsgTraceSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365M
 inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint(operations.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365MsgTracePqEnabledFalseWithPqConstraint
+### InputOffice365MsgTracePqEnabledFalseConstraint
 
 ```go
-inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTracePqEnabledFalseWithPqConstraint(operations.InputOffice365MsgTracePqEnabledFalseWithPqConstraint{/* values here */})
+inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTracePqEnabledFalseConstraint(operations.InputOffice365MsgTracePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputOffice365MsgTracePqEnabledTrueWithPqConstraint

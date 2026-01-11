@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputEventhubSendToRoutesTrueWithConnectionsConstraint
+### InputEventhubSendToRoutesTrueConstraint
 
 ```go
-inputEventhub := components.CreateInputEventhubInputEventhubSendToRoutesTrueWithConnectionsConstraint(components.InputEventhubSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputEventhub := components.CreateInputEventhubInputEventhubSendToRoutesTrueConstraint(components.InputEventhubSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputEventhubSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputEventhub := components.CreateInputEventhubInputEventhubSendToRoutesTrueWith
 inputEventhub := components.CreateInputEventhubInputEventhubSendToRoutesFalseWithConnectionsConstraint(components.InputEventhubSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputEventhubPqEnabledFalseWithPqConstraint
+### InputEventhubPqEnabledFalseConstraint
 
 ```go
-inputEventhub := components.CreateInputEventhubInputEventhubPqEnabledFalseWithPqConstraint(components.InputEventhubPqEnabledFalseWithPqConstraint{/* values here */})
+inputEventhub := components.CreateInputEventhubInputEventhubPqEnabledFalseConstraint(components.InputEventhubPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputEventhubPqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSystemStateSendToRoutesTrueWithConnectionsConstraint
+### InputSystemStateSendToRoutesTrueConstraint
 
 ```go
-inputSystemState := operations.CreateInputSystemStateInputSystemStateSendToRoutesTrueWithConnectionsConstraint(operations.InputSystemStateSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSystemState := operations.CreateInputSystemStateInputSystemStateSendToRoutesTrueConstraint(operations.InputSystemStateSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSystemStateSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSystemState := operations.CreateInputSystemStateInputSystemStateSendToRoute
 inputSystemState := operations.CreateInputSystemStateInputSystemStateSendToRoutesFalseWithConnectionsConstraint(operations.InputSystemStateSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSystemStatePqEnabledFalseWithPqConstraint
+### InputSystemStatePqEnabledFalseConstraint
 
 ```go
-inputSystemState := operations.CreateInputSystemStateInputSystemStatePqEnabledFalseWithPqConstraint(operations.InputSystemStatePqEnabledFalseWithPqConstraint{/* values here */})
+inputSystemState := operations.CreateInputSystemStateInputSystemStatePqEnabledFalseConstraint(operations.InputSystemStatePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSystemStatePqEnabledTrueWithPqConstraint

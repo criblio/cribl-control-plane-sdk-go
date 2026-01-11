@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputExecSendToRoutesTrueWithConnectionsConstraint
+### InputExecSendToRoutesTrueConstraint
 
 ```go
-inputExec := operations.CreateInputExecInputExecSendToRoutesTrueWithConnectionsConstraint(operations.InputExecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputExec := operations.CreateInputExecInputExecSendToRoutesTrueConstraint(operations.InputExecSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputExecSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputExec := operations.CreateInputExecInputExecSendToRoutesTrueWithConnectionsC
 inputExec := operations.CreateInputExecInputExecSendToRoutesFalseWithConnectionsConstraint(operations.InputExecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputExecPqEnabledFalseWithPqConstraint
+### InputExecPqEnabledFalseConstraint
 
 ```go
-inputExec := operations.CreateInputExecInputExecPqEnabledFalseWithPqConstraint(operations.InputExecPqEnabledFalseWithPqConstraint{/* values here */})
+inputExec := operations.CreateInputExecInputExecPqEnabledFalseConstraint(operations.InputExecPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputExecPqEnabledTrueWithPqConstraint

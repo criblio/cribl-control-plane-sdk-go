@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputNetflowSendToRoutesTrueWithConnectionsConstraint
+### InputNetflowSendToRoutesTrueConstraint
 
 ```go
-inputNetflow := operations.CreateInputNetflowInputNetflowSendToRoutesTrueWithConnectionsConstraint(operations.InputNetflowSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputNetflow := operations.CreateInputNetflowInputNetflowSendToRoutesTrueConstraint(operations.InputNetflowSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputNetflowSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputNetflow := operations.CreateInputNetflowInputNetflowSendToRoutesTrueWithCon
 inputNetflow := operations.CreateInputNetflowInputNetflowSendToRoutesFalseWithConnectionsConstraint(operations.InputNetflowSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputNetflowPqEnabledFalseWithPqConstraint
+### InputNetflowPqEnabledFalseConstraint
 
 ```go
-inputNetflow := operations.CreateInputNetflowInputNetflowPqEnabledFalseWithPqConstraint(operations.InputNetflowPqEnabledFalseWithPqConstraint{/* values here */})
+inputNetflow := operations.CreateInputNetflowInputNetflowPqEnabledFalseConstraint(operations.InputNetflowPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputNetflowPqEnabledTrueWithPqConstraint

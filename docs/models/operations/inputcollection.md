@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputCollectionSendToRoutesTrueWithConnectionsConstraint
+### InputCollectionSendToRoutesTrueConstraint
 
 ```go
-inputCollection := operations.CreateInputCollectionInputCollectionSendToRoutesTrueWithConnectionsConstraint(operations.InputCollectionSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputCollection := operations.CreateInputCollectionInputCollectionSendToRoutesTrueConstraint(operations.InputCollectionSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputCollectionSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputCollection := operations.CreateInputCollectionInputCollectionSendToRoutesTr
 inputCollection := operations.CreateInputCollectionInputCollectionSendToRoutesFalseWithConnectionsConstraint(operations.InputCollectionSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCollectionPqEnabledFalseWithPqConstraint
+### InputCollectionPqEnabledFalseConstraint
 
 ```go
-inputCollection := operations.CreateInputCollectionInputCollectionPqEnabledFalseWithPqConstraint(operations.InputCollectionPqEnabledFalseWithPqConstraint{/* values here */})
+inputCollection := operations.CreateInputCollectionInputCollectionPqEnabledFalseConstraint(operations.InputCollectionPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputCollectionPqEnabledTrueWithPqConstraint

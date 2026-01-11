@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputS3SendToRoutesTrueWithConnectionsConstraint
+### InputS3SendToRoutesTrueConstraint
 
 ```go
-inputS3 := components.CreateInputS3InputS3SendToRoutesTrueWithConnectionsConstraint(components.InputS3SendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputS3 := components.CreateInputS3InputS3SendToRoutesTrueConstraint(components.InputS3SendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputS3SendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputS3 := components.CreateInputS3InputS3SendToRoutesTrueWithConnectionsConstra
 inputS3 := components.CreateInputS3InputS3SendToRoutesFalseWithConnectionsConstraint(components.InputS3SendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputS3PqEnabledFalseWithPqConstraint
+### InputS3PqEnabledFalseConstraint
 
 ```go
-inputS3 := components.CreateInputS3InputS3PqEnabledFalseWithPqConstraint(components.InputS3PqEnabledFalseWithPqConstraint{/* values here */})
+inputS3 := components.CreateInputS3InputS3PqEnabledFalseConstraint(components.InputS3PqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputS3PqEnabledTrueWithPqConstraint

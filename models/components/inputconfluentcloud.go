@@ -26,7 +26,7 @@ type InputConfluentCloudPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                    `json:"brokers"`
 	TLS     *TLSSettingsClientSideType1 `json:"tls,omitempty"`
@@ -158,7 +158,7 @@ func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetStreamtags() []str
 	return i.Streamtags
 }
 
-func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -340,10 +340,9 @@ func (i *InputConfluentCloudPqEnabledTrueWithPqConstraint) GetDescription() *str
 	return i.Description
 }
 
-type InputConfluentCloudPqEnabledFalseWithPqConstraint struct {
+type InputConfluentCloudPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputConfluentCloudType `json:"type"`
@@ -357,7 +356,8 @@ type InputConfluentCloudPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                    `json:"brokers"`
 	TLS     *TLSSettingsClientSideType1 `json:"tls,omitempty"`
@@ -415,256 +415,256 @@ type InputConfluentCloudPqEnabledFalseWithPqConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputConfluentCloudPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputConfluentCloudPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetType() InputConfluentCloudType {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetType() InputConfluentCloudType {
 	if i == nil {
 		return InputConfluentCloudType("")
 	}
 	return i.Type
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetBrokers() []string {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetTopics() []string {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetGroupID() *string {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetFromBeginning() *bool {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetConnectionTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxRetries() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxBackOff() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetInitialBackoff() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetBackoffRate() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetAuthenticationTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetReauthenticationThreshold() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetSasl() *AuthenticationType {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetSessionTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetRebalanceTimeout() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetHeartbeatInterval() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetAutoCommitInterval() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetAutoCommitThreshold() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxBytesPerPartition() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxBytes() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMaxSocketErrors() *float64 {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputConfluentCloudPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputConfluentCloudPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -675,7 +675,7 @@ type InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputConfluentCloudType `json:"type"`
@@ -764,7 +764,7 @@ func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetSendT
 	return i.SendToRoutes
 }
 
-func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1025,11 +1025,9 @@ func (e *InputConfluentCloudType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint struct {
+type InputConfluentCloudSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputConfluentCloudType `json:"type"`
@@ -1042,7 +1040,9 @@ type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                    `json:"brokers"`
 	TLS     *TLSSettingsClientSideType1 `json:"tls,omitempty"`
@@ -1100,256 +1100,256 @@ type InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputConfluentCloudSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "brokers", "topics"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetType() InputConfluentCloudType {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetType() InputConfluentCloudType {
 	if i == nil {
 		return InputConfluentCloudType("")
 	}
 	return i.Type
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetBrokers() []string {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetBrokers() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Brokers
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsClientSideType1 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetTLS() *TLSSettingsClientSideType1 {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetTopics() []string {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetTopics() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Topics
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetGroupID() *string {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetGroupID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.GroupID
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetFromBeginning() *bool {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetFromBeginning() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.FromBeginning
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.KafkaSchemaRegistry
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetConnectionTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetConnectionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ConnectionTimeout
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxRetries() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetMaxRetries() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRetries
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxBackOff() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetMaxBackOff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBackOff
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetInitialBackoff() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetInitialBackoff() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.InitialBackoff
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetBackoffRate() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetBackoffRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BackoffRate
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetAuthenticationTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetAuthenticationTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AuthenticationTimeout
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetReauthenticationThreshold() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetReauthenticationThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetSasl() *AuthenticationType {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetSasl() *AuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.Sasl
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetSessionTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetSessionTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SessionTimeout
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetRebalanceTimeout() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetRebalanceTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RebalanceTimeout
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetHeartbeatInterval() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetHeartbeatInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.HeartbeatInterval
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitInterval() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetAutoCommitInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitInterval
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetAutoCommitThreshold() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetAutoCommitThreshold() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.AutoCommitThreshold
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxBytesPerPartition() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetMaxBytesPerPartition() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytesPerPartition
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxBytes() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetMaxBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBytes
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMaxSocketErrors() *float64 {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetMaxSocketErrors() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputConfluentCloudSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1359,26 +1359,26 @@ func (i *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) GetDescri
 type InputConfluentCloudUnionType string
 
 const (
-	InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint  InputConfluentCloudUnionType = "InputConfluentCloud_SendToRoutesTrueWithConnectionsConstraint"
+	InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueConstraint                 InputConfluentCloudUnionType = "InputConfluentCloud_SendToRoutesTrueConstraint"
 	InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesFalseWithConnectionsConstraint InputConfluentCloudUnionType = "InputConfluentCloud_SendToRoutesFalseWithConnectionsConstraint"
-	InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseWithPqConstraint             InputConfluentCloudUnionType = "InputConfluentCloud_PqEnabledFalseWithPqConstraint"
+	InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseConstraint                   InputConfluentCloudUnionType = "InputConfluentCloud_PqEnabledFalseConstraint"
 	InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledTrueWithPqConstraint              InputConfluentCloudUnionType = "InputConfluentCloud_PqEnabledTrueWithPqConstraint"
 )
 
 type InputConfluentCloud struct {
-	InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint  *InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputConfluentCloudSendToRoutesTrueConstraint                 *InputConfluentCloudSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint *InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputConfluentCloudPqEnabledFalseWithPqConstraint             *InputConfluentCloudPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputConfluentCloudPqEnabledFalseConstraint                   *InputConfluentCloudPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputConfluentCloudPqEnabledTrueWithPqConstraint              *InputConfluentCloudPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputConfluentCloudUnionType
 }
 
-func CreateInputConfluentCloudInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint(inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint) InputConfluentCloud {
-	typ := InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
+func CreateInputConfluentCloudInputConfluentCloudSendToRoutesTrueConstraint(inputConfluentCloudSendToRoutesTrueConstraint InputConfluentCloudSendToRoutesTrueConstraint) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueConstraint
 
 	return InputConfluentCloud{
-		InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint: &inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint,
+		InputConfluentCloudSendToRoutesTrueConstraint: &inputConfluentCloudSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -1392,11 +1392,11 @@ func CreateInputConfluentCloudInputConfluentCloudSendToRoutesFalseWithConnection
 	}
 }
 
-func CreateInputConfluentCloudInputConfluentCloudPqEnabledFalseWithPqConstraint(inputConfluentCloudPqEnabledFalseWithPqConstraint InputConfluentCloudPqEnabledFalseWithPqConstraint) InputConfluentCloud {
-	typ := InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseWithPqConstraint
+func CreateInputConfluentCloudInputConfluentCloudPqEnabledFalseConstraint(inputConfluentCloudPqEnabledFalseConstraint InputConfluentCloudPqEnabledFalseConstraint) InputConfluentCloud {
+	typ := InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseConstraint
 
 	return InputConfluentCloud{
-		InputConfluentCloudPqEnabledFalseWithPqConstraint: &inputConfluentCloudPqEnabledFalseWithPqConstraint,
+		InputConfluentCloudPqEnabledFalseConstraint: &inputConfluentCloudPqEnabledFalseConstraint,
 		Type: typ,
 	}
 }
@@ -1412,10 +1412,10 @@ func CreateInputConfluentCloudInputConfluentCloudPqEnabledTrueWithPqConstraint(i
 
 func (u *InputConfluentCloud) UnmarshalJSON(data []byte) error {
 
-	var inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint = &inputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
+	var inputConfluentCloudSendToRoutesTrueConstraint InputConfluentCloudSendToRoutesTrueConstraint = InputConfluentCloudSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputConfluentCloudSendToRoutesTrueConstraint = &inputConfluentCloudSendToRoutesTrueConstraint
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1426,10 +1426,10 @@ func (u *InputConfluentCloud) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputConfluentCloudPqEnabledFalseWithPqConstraint InputConfluentCloudPqEnabledFalseWithPqConstraint = InputConfluentCloudPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputConfluentCloudPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputConfluentCloudPqEnabledFalseWithPqConstraint = &inputConfluentCloudPqEnabledFalseWithPqConstraint
-		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseWithPqConstraint
+	var inputConfluentCloudPqEnabledFalseConstraint InputConfluentCloudPqEnabledFalseConstraint = InputConfluentCloudPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputConfluentCloudPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputConfluentCloudPqEnabledFalseConstraint = &inputConfluentCloudPqEnabledFalseConstraint
+		u.Type = InputConfluentCloudUnionTypeInputConfluentCloudPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1444,16 +1444,16 @@ func (u *InputConfluentCloud) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputConfluentCloud) MarshalJSON() ([]byte, error) {
-	if u.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputConfluentCloudSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputConfluentCloudPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputConfluentCloudPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputConfluentCloudPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputConfluentCloudPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputConfluentCloudPqEnabledTrueWithPqConstraint != nil {

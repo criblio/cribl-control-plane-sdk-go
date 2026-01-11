@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
+### InputConfluentCloudSendToRoutesTrueConstraint
 
 ```go
-inputConfluentCloud := operations.CreateInputConfluentCloudInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint(operations.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputConfluentCloud := operations.CreateInputConfluentCloudInputConfluentCloudSendToRoutesTrueConstraint(operations.InputConfluentCloudSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputConfluentCloud := operations.CreateInputConfluentCloudInputConfluentCloudSe
 inputConfluentCloud := operations.CreateInputConfluentCloudInputConfluentCloudSendToRoutesFalseWithConnectionsConstraint(operations.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputConfluentCloudPqEnabledFalseWithPqConstraint
+### InputConfluentCloudPqEnabledFalseConstraint
 
 ```go
-inputConfluentCloud := operations.CreateInputConfluentCloudInputConfluentCloudPqEnabledFalseWithPqConstraint(operations.InputConfluentCloudPqEnabledFalseWithPqConstraint{/* values here */})
+inputConfluentCloud := operations.CreateInputConfluentCloudInputConfluentCloudPqEnabledFalseConstraint(operations.InputConfluentCloudPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputConfluentCloudPqEnabledTrueWithPqConstraint
