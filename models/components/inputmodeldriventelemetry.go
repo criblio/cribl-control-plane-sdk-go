@@ -26,7 +26,7 @@ type InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -115,7 +115,7 @@ func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetStreamtags()
 	return i.Streamtags
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -171,10 +171,9 @@ func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetDescription(
 	return i.Description
 }
 
-type InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint struct {
+type InputModelDrivenTelemetryPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                       `json:"id,omitempty"`
 	Type     InputModelDrivenTelemetryType `json:"type"`
@@ -188,7 +187,8 @@ type InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -203,130 +203,130 @@ type InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint struct {
 	Description       *string  `json:"description,omitempty"`
 }
 
-func (i InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputModelDrivenTelemetryPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetType() InputModelDrivenTelemetryType {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetType() InputModelDrivenTelemetryType {
 	if i == nil {
 		return InputModelDrivenTelemetryType("")
 	}
 	return i.Type
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetPort() *float64 {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetMaxActiveCxn() *float64 {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetShutdownTimeoutMs() *float64 {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetShutdownTimeoutMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ShutdownTimeoutMs
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -337,7 +337,7 @@ type InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint struct 
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                       `json:"id,omitempty"`
 	Type     InputModelDrivenTelemetryType `json:"type"`
@@ -383,7 +383,7 @@ func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) Ge
 	return i.SendToRoutes
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -518,11 +518,9 @@ func (e *InputModelDrivenTelemetryType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint struct {
+type InputModelDrivenTelemetrySendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                       `json:"id,omitempty"`
 	Type     InputModelDrivenTelemetryType `json:"type"`
@@ -535,7 +533,9 @@ type InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -550,130 +550,130 @@ type InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint struct {
 	Description       *string  `json:"description,omitempty"`
 }
 
-func (i InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputModelDrivenTelemetrySendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetType() InputModelDrivenTelemetryType {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetType() InputModelDrivenTelemetryType {
 	if i == nil {
 		return InputModelDrivenTelemetryType("")
 	}
 	return i.Type
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPort() *float64 {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetShutdownTimeoutMs() *float64 {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetShutdownTimeoutMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ShutdownTimeoutMs
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -683,26 +683,26 @@ func (i *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) Get
 type InputModelDrivenTelemetryUnionType string
 
 const (
-	InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint  InputModelDrivenTelemetryUnionType = "InputModelDrivenTelemetry_SendToRoutesTrueWithConnectionsConstraint"
+	InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetrySendToRoutesTrueConstraint                 InputModelDrivenTelemetryUnionType = "InputModelDrivenTelemetry_SendToRoutesTrueConstraint"
 	InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint InputModelDrivenTelemetryUnionType = "InputModelDrivenTelemetry_SendToRoutesFalseWithConnectionsConstraint"
-	InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetryPqEnabledFalseWithPqConstraint             InputModelDrivenTelemetryUnionType = "InputModelDrivenTelemetry_PqEnabledFalseWithPqConstraint"
+	InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetryPqEnabledFalseConstraint                   InputModelDrivenTelemetryUnionType = "InputModelDrivenTelemetry_PqEnabledFalseConstraint"
 	InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetryPqEnabledTrueWithPqConstraint              InputModelDrivenTelemetryUnionType = "InputModelDrivenTelemetry_PqEnabledTrueWithPqConstraint"
 )
 
 type InputModelDrivenTelemetry struct {
-	InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint  *InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputModelDrivenTelemetrySendToRoutesTrueConstraint                 *InputModelDrivenTelemetrySendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint             *InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputModelDrivenTelemetryPqEnabledFalseConstraint                   *InputModelDrivenTelemetryPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint              *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputModelDrivenTelemetryUnionType
 }
 
-func CreateInputModelDrivenTelemetryInputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint(inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint) InputModelDrivenTelemetry {
-	typ := InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint
+func CreateInputModelDrivenTelemetryInputModelDrivenTelemetrySendToRoutesTrueConstraint(inputModelDrivenTelemetrySendToRoutesTrueConstraint InputModelDrivenTelemetrySendToRoutesTrueConstraint) InputModelDrivenTelemetry {
+	typ := InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetrySendToRoutesTrueConstraint
 
 	return InputModelDrivenTelemetry{
-		InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint: &inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint,
+		InputModelDrivenTelemetrySendToRoutesTrueConstraint: &inputModelDrivenTelemetrySendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -716,11 +716,11 @@ func CreateInputModelDrivenTelemetryInputModelDrivenTelemetrySendToRoutesFalseWi
 	}
 }
 
-func CreateInputModelDrivenTelemetryInputModelDrivenTelemetryPqEnabledFalseWithPqConstraint(inputModelDrivenTelemetryPqEnabledFalseWithPqConstraint InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint) InputModelDrivenTelemetry {
-	typ := InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetryPqEnabledFalseWithPqConstraint
+func CreateInputModelDrivenTelemetryInputModelDrivenTelemetryPqEnabledFalseConstraint(inputModelDrivenTelemetryPqEnabledFalseConstraint InputModelDrivenTelemetryPqEnabledFalseConstraint) InputModelDrivenTelemetry {
+	typ := InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetryPqEnabledFalseConstraint
 
 	return InputModelDrivenTelemetry{
-		InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint: &inputModelDrivenTelemetryPqEnabledFalseWithPqConstraint,
+		InputModelDrivenTelemetryPqEnabledFalseConstraint: &inputModelDrivenTelemetryPqEnabledFalseConstraint,
 		Type: typ,
 	}
 }
@@ -736,10 +736,10 @@ func CreateInputModelDrivenTelemetryInputModelDrivenTelemetryPqEnabledTrueWithPq
 
 func (u *InputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
 
-	var inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint = InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint = &inputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint
+	var inputModelDrivenTelemetrySendToRoutesTrueConstraint InputModelDrivenTelemetrySendToRoutesTrueConstraint = InputModelDrivenTelemetrySendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetrySendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputModelDrivenTelemetrySendToRoutesTrueConstraint = &inputModelDrivenTelemetrySendToRoutesTrueConstraint
+		u.Type = InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetrySendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -750,10 +750,10 @@ func (u *InputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputModelDrivenTelemetryPqEnabledFalseWithPqConstraint InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint = InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetryPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint = &inputModelDrivenTelemetryPqEnabledFalseWithPqConstraint
-		u.Type = InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetryPqEnabledFalseWithPqConstraint
+	var inputModelDrivenTelemetryPqEnabledFalseConstraint InputModelDrivenTelemetryPqEnabledFalseConstraint = InputModelDrivenTelemetryPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputModelDrivenTelemetryPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputModelDrivenTelemetryPqEnabledFalseConstraint = &inputModelDrivenTelemetryPqEnabledFalseConstraint
+		u.Type = InputModelDrivenTelemetryUnionTypeInputModelDrivenTelemetryPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -768,16 +768,16 @@ func (u *InputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
-	if u.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputModelDrivenTelemetrySendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputModelDrivenTelemetrySendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputModelDrivenTelemetryPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputModelDrivenTelemetryPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint != nil {

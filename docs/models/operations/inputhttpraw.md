@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputHTTPRawSendToRoutesTrueWithConnectionsConstraint
+### InputHTTPRawSendToRoutesTrueConstraint
 
 ```go
-inputHTTPRaw := operations.CreateInputHTTPRawInputHTTPRawSendToRoutesTrueWithConnectionsConstraint(operations.InputHTTPRawSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputHTTPRaw := operations.CreateInputHTTPRawInputHTTPRawSendToRoutesTrueConstraint(operations.InputHTTPRawSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputHTTPRawSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputHTTPRaw := operations.CreateInputHTTPRawInputHTTPRawSendToRoutesTrueWithCon
 inputHTTPRaw := operations.CreateInputHTTPRawInputHTTPRawSendToRoutesFalseWithConnectionsConstraint(operations.InputHTTPRawSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputHTTPRawPqEnabledFalseWithPqConstraint
+### InputHTTPRawPqEnabledFalseConstraint
 
 ```go
-inputHTTPRaw := operations.CreateInputHTTPRawInputHTTPRawPqEnabledFalseWithPqConstraint(operations.InputHTTPRawPqEnabledFalseWithPqConstraint{/* values here */})
+inputHTTPRaw := operations.CreateInputHTTPRawInputHTTPRawPqEnabledFalseConstraint(operations.InputHTTPRawPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputHTTPRawPqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputJournalFilesSendToRoutesTrueWithConnectionsConstraint
+### InputJournalFilesSendToRoutesTrueConstraint
 
 ```go
-inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesSendToRoutesTrueWithConnectionsConstraint(components.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesSendToRoutesTrueConstraint(components.InputJournalFilesSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputJournalFilesSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesSendToRo
 inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesSendToRoutesFalseWithConnectionsConstraint(components.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputJournalFilesPqEnabledFalseWithPqConstraint
+### InputJournalFilesPqEnabledFalseConstraint
 
 ```go
-inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesPqEnabledFalseWithPqConstraint(components.InputJournalFilesPqEnabledFalseWithPqConstraint{/* values here */})
+inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesPqEnabledFalseConstraint(components.InputJournalFilesPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputJournalFilesPqEnabledTrueWithPqConstraint

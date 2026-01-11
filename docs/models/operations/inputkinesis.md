@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputKinesisSendToRoutesTrueWithConnectionsConstraint
+### InputKinesisSendToRoutesTrueConstraint
 
 ```go
-inputKinesis := operations.CreateInputKinesisInputKinesisSendToRoutesTrueWithConnectionsConstraint(operations.InputKinesisSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputKinesis := operations.CreateInputKinesisInputKinesisSendToRoutesTrueConstraint(operations.InputKinesisSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputKinesisSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputKinesis := operations.CreateInputKinesisInputKinesisSendToRoutesTrueWithCon
 inputKinesis := operations.CreateInputKinesisInputKinesisSendToRoutesFalseWithConnectionsConstraint(operations.InputKinesisSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKinesisPqEnabledFalseWithPqConstraint
+### InputKinesisPqEnabledFalseConstraint
 
 ```go
-inputKinesis := operations.CreateInputKinesisInputKinesisPqEnabledFalseWithPqConstraint(operations.InputKinesisPqEnabledFalseWithPqConstraint{/* values here */})
+inputKinesis := operations.CreateInputKinesisInputKinesisPqEnabledFalseConstraint(operations.InputKinesisPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputKinesisPqEnabledTrueWithPqConstraint

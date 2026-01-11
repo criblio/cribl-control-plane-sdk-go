@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint
+### InputGooglePubsubSendToRoutesTrueConstraint
 
 ```go
-inputGooglePubsub := components.CreateInputGooglePubsubInputGooglePubsubSendToRoutesTrueWithConnectionsConstraint(components.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputGooglePubsub := components.CreateInputGooglePubsubInputGooglePubsubSendToRoutesTrueConstraint(components.InputGooglePubsubSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputGooglePubsub := components.CreateInputGooglePubsubInputGooglePubsubSendToRo
 inputGooglePubsub := components.CreateInputGooglePubsubInputGooglePubsubSendToRoutesFalseWithConnectionsConstraint(components.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputGooglePubsubPqEnabledFalseWithPqConstraint
+### InputGooglePubsubPqEnabledFalseConstraint
 
 ```go
-inputGooglePubsub := components.CreateInputGooglePubsubInputGooglePubsubPqEnabledFalseWithPqConstraint(components.InputGooglePubsubPqEnabledFalseWithPqConstraint{/* values here */})
+inputGooglePubsub := components.CreateInputGooglePubsubInputGooglePubsubPqEnabledFalseConstraint(components.InputGooglePubsubPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputGooglePubsubPqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint
+### InputOffice365MgmtSendToRoutesTrueConstraint
 
 ```go
-inputOffice365Mgmt := operations.CreateInputOffice365MgmtInputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint(operations.InputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputOffice365Mgmt := operations.CreateInputOffice365MgmtInputOffice365MgmtSendToRoutesTrueConstraint(operations.InputOffice365MgmtSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputOffice365Mgmt := operations.CreateInputOffice365MgmtInputOffice365MgmtSendT
 inputOffice365Mgmt := operations.CreateInputOffice365MgmtInputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint(operations.InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365MgmtPqEnabledFalseWithPqConstraint
+### InputOffice365MgmtPqEnabledFalseConstraint
 
 ```go
-inputOffice365Mgmt := operations.CreateInputOffice365MgmtInputOffice365MgmtPqEnabledFalseWithPqConstraint(operations.InputOffice365MgmtPqEnabledFalseWithPqConstraint{/* values here */})
+inputOffice365Mgmt := operations.CreateInputOffice365MgmtInputOffice365MgmtPqEnabledFalseConstraint(operations.InputOffice365MgmtPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputOffice365MgmtPqEnabledTrueWithPqConstraint

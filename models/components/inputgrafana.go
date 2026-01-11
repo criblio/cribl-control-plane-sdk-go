@@ -324,8 +324,8 @@ type InputGrafanaGrafana2 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -431,7 +431,7 @@ func (i *InputGrafanaGrafana2) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputGrafanaGrafana2) GetConnections() []ItemsTypeConnections {
+func (i *InputGrafanaGrafana2) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -900,8 +900,8 @@ type InputGrafanaGrafana1 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -1007,7 +1007,7 @@ func (i *InputGrafanaGrafana1) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputGrafanaGrafana1) GetConnections() []ItemsTypeConnections {
+func (i *InputGrafanaGrafana1) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}

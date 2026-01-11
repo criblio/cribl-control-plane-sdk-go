@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint
+### InputCriblmetricsSendToRoutesTrueConstraint
 
 ```go
-inputCriblmetrics := components.CreateInputCriblmetricsInputCriblmetricsSendToRoutesTrueWithConnectionsConstraint(components.InputCriblmetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputCriblmetrics := components.CreateInputCriblmetricsInputCriblmetricsSendToRoutesTrueConstraint(components.InputCriblmetricsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputCriblmetrics := components.CreateInputCriblmetricsInputCriblmetricsSendToRo
 inputCriblmetrics := components.CreateInputCriblmetricsInputCriblmetricsSendToRoutesFalseWithConnectionsConstraint(components.InputCriblmetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblmetricsPqEnabledFalseWithPqConstraint
+### InputCriblmetricsPqEnabledFalseConstraint
 
 ```go
-inputCriblmetrics := components.CreateInputCriblmetricsInputCriblmetricsPqEnabledFalseWithPqConstraint(components.InputCriblmetricsPqEnabledFalseWithPqConstraint{/* values here */})
+inputCriblmetrics := components.CreateInputCriblmetricsInputCriblmetricsPqEnabledFalseConstraint(components.InputCriblmetricsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputCriblmetricsPqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputCriblSendToRoutesTrueWithConnectionsConstraint
+### InputCriblSendToRoutesTrueConstraint
 
 ```go
-inputCribl := operations.CreateInputCriblInputCriblSendToRoutesTrueWithConnectionsConstraint(operations.InputCriblSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputCribl := operations.CreateInputCriblInputCriblSendToRoutesTrueConstraint(operations.InputCriblSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputCriblSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputCribl := operations.CreateInputCriblInputCriblSendToRoutesTrueWithConnectio
 inputCribl := operations.CreateInputCriblInputCriblSendToRoutesFalseWithConnectionsConstraint(operations.InputCriblSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblPqEnabledFalseWithPqConstraint
+### InputCriblPqEnabledFalseConstraint
 
 ```go
-inputCribl := operations.CreateInputCriblInputCriblPqEnabledFalseWithPqConstraint(operations.InputCriblPqEnabledFalseWithPqConstraint{/* values here */})
+inputCribl := operations.CreateInputCriblInputCriblPqEnabledFalseConstraint(operations.InputCriblPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputCriblPqEnabledTrueWithPqConstraint

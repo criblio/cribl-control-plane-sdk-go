@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputJournalFilesSendToRoutesTrueWithConnectionsConstraint
+### InputJournalFilesSendToRoutesTrueConstraint
 
 ```go
-inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesSendToRoutesTrueWithConnectionsConstraint(operations.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesSendToRoutesTrueConstraint(operations.InputJournalFilesSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputJournalFilesSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesSendToRo
 inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesSendToRoutesFalseWithConnectionsConstraint(operations.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputJournalFilesPqEnabledFalseWithPqConstraint
+### InputJournalFilesPqEnabledFalseConstraint
 
 ```go
-inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesPqEnabledFalseWithPqConstraint(operations.InputJournalFilesPqEnabledFalseWithPqConstraint{/* values here */})
+inputJournalFiles := operations.CreateInputJournalFilesInputJournalFilesPqEnabledFalseConstraint(operations.InputJournalFilesPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputJournalFilesPqEnabledTrueWithPqConstraint

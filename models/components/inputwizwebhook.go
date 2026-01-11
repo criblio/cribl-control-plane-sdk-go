@@ -26,7 +26,7 @@ type InputWizWebhookPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -145,7 +145,7 @@ func (i *InputWizWebhookPqEnabledTrueWithPqConstraint) GetStreamtags() []string 
 	return i.Streamtags
 }
 
-func (i *InputWizWebhookPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputWizWebhookPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -306,10 +306,9 @@ func (i *InputWizWebhookPqEnabledTrueWithPqConstraint) GetDescription() *string 
 	return i.Description
 }
 
-type InputWizWebhookPqEnabledFalseWithPqConstraint struct {
+type InputWizWebhookPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputWizWebhookType `json:"type"`
@@ -323,7 +322,8 @@ type InputWizWebhookPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -368,235 +368,235 @@ type InputWizWebhookPqEnabledFalseWithPqConstraint struct {
 	Description   *string                  `json:"description,omitempty"`
 }
 
-func (i InputWizWebhookPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputWizWebhookPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputWizWebhookPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetType() InputWizWebhookType {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetType() InputWizWebhookType {
 	if i == nil {
 		return InputWizWebhookType("")
 	}
 	return i.Type
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetPort() float64 {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetAuthTokens() []string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() *bool {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetAllowedPaths() []string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetAllowedPaths() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedPaths
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetAllowedMethods() []string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetAllowedMethods() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedMethods
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokensExt
 }
 
-func (i *InputWizWebhookPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputWizWebhookPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -607,7 +607,7 @@ type InputWizWebhookSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputWizWebhookType `json:"type"`
@@ -683,7 +683,7 @@ func (i *InputWizWebhookSendToRoutesFalseWithConnectionsConstraint) GetSendToRou
 	return i.SendToRoutes
 }
 
-func (i *InputWizWebhookSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputWizWebhookSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -923,11 +923,9 @@ func (e *InputWizWebhookType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputWizWebhookSendToRoutesTrueWithConnectionsConstraint struct {
+type InputWizWebhookSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputWizWebhookType `json:"type"`
@@ -940,7 +938,9 @@ type InputWizWebhookSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -985,235 +985,235 @@ type InputWizWebhookSendToRoutesTrueWithConnectionsConstraint struct {
 	Description   *string                  `json:"description,omitempty"`
 }
 
-func (i InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputWizWebhookSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetType() InputWizWebhookType {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetType() InputWizWebhookType {
 	if i == nil {
 		return InputWizWebhookType("")
 	}
 	return i.Type
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetAuthTokens() []string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() *bool {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetAllowedPaths() []string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetAllowedPaths() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedPaths
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetAllowedMethods() []string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetAllowedMethods() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedMethods
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokensExt
 }
 
-func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputWizWebhookSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1223,26 +1223,26 @@ func (i *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) GetDescriptio
 type InputWizWebhookUnionType string
 
 const (
-	InputWizWebhookUnionTypeInputWizWebhookSendToRoutesTrueWithConnectionsConstraint  InputWizWebhookUnionType = "InputWizWebhook_SendToRoutesTrueWithConnectionsConstraint"
+	InputWizWebhookUnionTypeInputWizWebhookSendToRoutesTrueConstraint                 InputWizWebhookUnionType = "InputWizWebhook_SendToRoutesTrueConstraint"
 	InputWizWebhookUnionTypeInputWizWebhookSendToRoutesFalseWithConnectionsConstraint InputWizWebhookUnionType = "InputWizWebhook_SendToRoutesFalseWithConnectionsConstraint"
-	InputWizWebhookUnionTypeInputWizWebhookPqEnabledFalseWithPqConstraint             InputWizWebhookUnionType = "InputWizWebhook_PqEnabledFalseWithPqConstraint"
+	InputWizWebhookUnionTypeInputWizWebhookPqEnabledFalseConstraint                   InputWizWebhookUnionType = "InputWizWebhook_PqEnabledFalseConstraint"
 	InputWizWebhookUnionTypeInputWizWebhookPqEnabledTrueWithPqConstraint              InputWizWebhookUnionType = "InputWizWebhook_PqEnabledTrueWithPqConstraint"
 )
 
 type InputWizWebhook struct {
-	InputWizWebhookSendToRoutesTrueWithConnectionsConstraint  *InputWizWebhookSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputWizWebhookSendToRoutesTrueConstraint                 *InputWizWebhookSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputWizWebhookSendToRoutesFalseWithConnectionsConstraint *InputWizWebhookSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputWizWebhookPqEnabledFalseWithPqConstraint             *InputWizWebhookPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputWizWebhookPqEnabledFalseConstraint                   *InputWizWebhookPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputWizWebhookPqEnabledTrueWithPqConstraint              *InputWizWebhookPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputWizWebhookUnionType
 }
 
-func CreateInputWizWebhookInputWizWebhookSendToRoutesTrueWithConnectionsConstraint(inputWizWebhookSendToRoutesTrueWithConnectionsConstraint InputWizWebhookSendToRoutesTrueWithConnectionsConstraint) InputWizWebhook {
-	typ := InputWizWebhookUnionTypeInputWizWebhookSendToRoutesTrueWithConnectionsConstraint
+func CreateInputWizWebhookInputWizWebhookSendToRoutesTrueConstraint(inputWizWebhookSendToRoutesTrueConstraint InputWizWebhookSendToRoutesTrueConstraint) InputWizWebhook {
+	typ := InputWizWebhookUnionTypeInputWizWebhookSendToRoutesTrueConstraint
 
 	return InputWizWebhook{
-		InputWizWebhookSendToRoutesTrueWithConnectionsConstraint: &inputWizWebhookSendToRoutesTrueWithConnectionsConstraint,
+		InputWizWebhookSendToRoutesTrueConstraint: &inputWizWebhookSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -1256,12 +1256,12 @@ func CreateInputWizWebhookInputWizWebhookSendToRoutesFalseWithConnectionsConstra
 	}
 }
 
-func CreateInputWizWebhookInputWizWebhookPqEnabledFalseWithPqConstraint(inputWizWebhookPqEnabledFalseWithPqConstraint InputWizWebhookPqEnabledFalseWithPqConstraint) InputWizWebhook {
-	typ := InputWizWebhookUnionTypeInputWizWebhookPqEnabledFalseWithPqConstraint
+func CreateInputWizWebhookInputWizWebhookPqEnabledFalseConstraint(inputWizWebhookPqEnabledFalseConstraint InputWizWebhookPqEnabledFalseConstraint) InputWizWebhook {
+	typ := InputWizWebhookUnionTypeInputWizWebhookPqEnabledFalseConstraint
 
 	return InputWizWebhook{
-		InputWizWebhookPqEnabledFalseWithPqConstraint: &inputWizWebhookPqEnabledFalseWithPqConstraint,
-		Type: typ,
+		InputWizWebhookPqEnabledFalseConstraint: &inputWizWebhookPqEnabledFalseConstraint,
+		Type:                                    typ,
 	}
 }
 
@@ -1276,10 +1276,10 @@ func CreateInputWizWebhookInputWizWebhookPqEnabledTrueWithPqConstraint(inputWizW
 
 func (u *InputWizWebhook) UnmarshalJSON(data []byte) error {
 
-	var inputWizWebhookSendToRoutesTrueWithConnectionsConstraint InputWizWebhookSendToRoutesTrueWithConnectionsConstraint = InputWizWebhookSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWizWebhookSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint = &inputWizWebhookSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputWizWebhookUnionTypeInputWizWebhookSendToRoutesTrueWithConnectionsConstraint
+	var inputWizWebhookSendToRoutesTrueConstraint InputWizWebhookSendToRoutesTrueConstraint = InputWizWebhookSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWizWebhookSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputWizWebhookSendToRoutesTrueConstraint = &inputWizWebhookSendToRoutesTrueConstraint
+		u.Type = InputWizWebhookUnionTypeInputWizWebhookSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1290,10 +1290,10 @@ func (u *InputWizWebhook) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputWizWebhookPqEnabledFalseWithPqConstraint InputWizWebhookPqEnabledFalseWithPqConstraint = InputWizWebhookPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWizWebhookPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputWizWebhookPqEnabledFalseWithPqConstraint = &inputWizWebhookPqEnabledFalseWithPqConstraint
-		u.Type = InputWizWebhookUnionTypeInputWizWebhookPqEnabledFalseWithPqConstraint
+	var inputWizWebhookPqEnabledFalseConstraint InputWizWebhookPqEnabledFalseConstraint = InputWizWebhookPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWizWebhookPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputWizWebhookPqEnabledFalseConstraint = &inputWizWebhookPqEnabledFalseConstraint
+		u.Type = InputWizWebhookUnionTypeInputWizWebhookPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1308,16 +1308,16 @@ func (u *InputWizWebhook) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputWizWebhook) MarshalJSON() ([]byte, error) {
-	if u.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputWizWebhookSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputWizWebhookSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputWizWebhookPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputWizWebhookPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputWizWebhookPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputWizWebhookPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputWizWebhookPqEnabledTrueWithPqConstraint != nil {

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint
+### InputOpenTelemetrySendToRoutesTrueConstraint
 
 ```go
-inputOpenTelemetry := operations.CreateInputOpenTelemetryInputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint(operations.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputOpenTelemetry := operations.CreateInputOpenTelemetryInputOpenTelemetrySendToRoutesTrueConstraint(operations.InputOpenTelemetrySendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputOpenTelemetry := operations.CreateInputOpenTelemetryInputOpenTelemetrySendT
 inputOpenTelemetry := operations.CreateInputOpenTelemetryInputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint(operations.InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOpenTelemetryPqEnabledFalseWithPqConstraint
+### InputOpenTelemetryPqEnabledFalseConstraint
 
 ```go
-inputOpenTelemetry := operations.CreateInputOpenTelemetryInputOpenTelemetryPqEnabledFalseWithPqConstraint(operations.InputOpenTelemetryPqEnabledFalseWithPqConstraint{/* values here */})
+inputOpenTelemetry := operations.CreateInputOpenTelemetryInputOpenTelemetryPqEnabledFalseConstraint(operations.InputOpenTelemetryPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputOpenTelemetryPqEnabledTrueWithPqConstraint

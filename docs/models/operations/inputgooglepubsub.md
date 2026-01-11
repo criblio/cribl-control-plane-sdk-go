@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint
+### InputGooglePubsubSendToRoutesTrueConstraint
 
 ```go
-inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubSendToRoutesTrueWithConnectionsConstraint(operations.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubSendToRoutesTrueConstraint(operations.InputGooglePubsubSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubSendToRo
 inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubSendToRoutesFalseWithConnectionsConstraint(operations.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputGooglePubsubPqEnabledFalseWithPqConstraint
+### InputGooglePubsubPqEnabledFalseConstraint
 
 ```go
-inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubPqEnabledFalseWithPqConstraint(operations.InputGooglePubsubPqEnabledFalseWithPqConstraint{/* values here */})
+inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubPqEnabledFalseConstraint(operations.InputGooglePubsubPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputGooglePubsubPqEnabledTrueWithPqConstraint

@@ -26,7 +26,7 @@ type InputS3PqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -170,7 +170,7 @@ func (i *InputS3PqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputS3PqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputS3PqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -429,10 +429,9 @@ func (i *InputS3PqEnabledTrueWithPqConstraint) GetProcessedTagValue() *string {
 	return i.ProcessedTagValue
 }
 
-type InputS3PqEnabledFalseWithPqConstraint struct {
+type InputS3PqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string     `json:"id,omitempty"`
 	Type     InputS3Type `json:"type"`
@@ -446,7 +445,8 @@ type InputS3PqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -516,333 +516,333 @@ type InputS3PqEnabledFalseWithPqConstraint struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputS3PqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputS3PqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputS3PqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetType() InputS3Type {
+func (i *InputS3PqEnabledFalseConstraint) GetType() InputS3Type {
 	if i == nil {
 		return InputS3Type("")
 	}
 	return i.Type
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputS3PqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputS3PqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetQueueName() string {
+func (i *InputS3PqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputS3PqEnabledFalseConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetFileFilter() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetAwsAccountID() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3PqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetRegion() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetEndpoint() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputS3PqEnabledFalseConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
+func (i *InputS3PqEnabledFalseConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetMaxMessages() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetVisibilityTimeout() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetNumReceivers() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetSkipOnError() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetIncludeSqsMetadata() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetEnableSQSAssumeRole() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputS3PqEnabledFalseConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputS3PqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetParquetChunkSizeMB() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetCheckpointing() *CheckpointingType {
+func (i *InputS3PqEnabledFalseConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetPollTimeout() *float64 {
+func (i *InputS3PqEnabledFalseConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetEncoding() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetTagAfterProcessing() *bool {
+func (i *InputS3PqEnabledFalseConstraint) GetTagAfterProcessing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetProcessedTagKey() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputS3PqEnabledFalseWithPqConstraint) GetProcessedTagValue() *string {
+func (i *InputS3PqEnabledFalseConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
@@ -853,7 +853,7 @@ type InputS3SendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string     `json:"id,omitempty"`
 	Type     InputS3Type `json:"type"`
@@ -954,7 +954,7 @@ func (i *InputS3SendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *b
 	return i.SendToRoutes
 }
 
-func (i *InputS3SendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputS3SendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1292,11 +1292,9 @@ func (e *InputS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputS3SendToRoutesTrueWithConnectionsConstraint struct {
+type InputS3SendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string     `json:"id,omitempty"`
 	Type     InputS3Type `json:"type"`
@@ -1309,7 +1307,9 @@ type InputS3SendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -1379,333 +1379,333 @@ type InputS3SendToRoutesTrueWithConnectionsConstraint struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputS3SendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputS3SendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputS3SendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetType() InputS3Type {
+func (i *InputS3SendToRoutesTrueConstraint) GetType() InputS3Type {
 	if i == nil {
 		return InputS3Type("")
 	}
 	return i.Type
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputS3SendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputS3SendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3SendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetQueueName() string {
+func (i *InputS3SendToRoutesTrueConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetFileFilter() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetAwsAccountID() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3SendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetRegion() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputS3SendToRoutesTrueConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
+func (i *InputS3SendToRoutesTrueConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetMaxMessages() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetNumReceivers() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetSkipOnError() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetIncludeSqsMetadata() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetEnableSQSAssumeRole() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputS3SendToRoutesTrueConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputS3SendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetParquetChunkSizeMB() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetCheckpointing() *CheckpointingType {
+func (i *InputS3SendToRoutesTrueConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetPollTimeout() *float64 {
+func (i *InputS3SendToRoutesTrueConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetEncoding() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetEncoding() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Encoding
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetTagAfterProcessing() *bool {
+func (i *InputS3SendToRoutesTrueConstraint) GetTagAfterProcessing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetProcessedTagKey() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetProcessedTagValue() *string {
+func (i *InputS3SendToRoutesTrueConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
@@ -1715,27 +1715,27 @@ func (i *InputS3SendToRoutesTrueWithConnectionsConstraint) GetProcessedTagValue(
 type InputS3UnionType string
 
 const (
-	InputS3UnionTypeInputS3SendToRoutesTrueWithConnectionsConstraint  InputS3UnionType = "InputS3_SendToRoutesTrueWithConnectionsConstraint"
+	InputS3UnionTypeInputS3SendToRoutesTrueConstraint                 InputS3UnionType = "InputS3_SendToRoutesTrueConstraint"
 	InputS3UnionTypeInputS3SendToRoutesFalseWithConnectionsConstraint InputS3UnionType = "InputS3_SendToRoutesFalseWithConnectionsConstraint"
-	InputS3UnionTypeInputS3PqEnabledFalseWithPqConstraint             InputS3UnionType = "InputS3_PqEnabledFalseWithPqConstraint"
+	InputS3UnionTypeInputS3PqEnabledFalseConstraint                   InputS3UnionType = "InputS3_PqEnabledFalseConstraint"
 	InputS3UnionTypeInputS3PqEnabledTrueWithPqConstraint              InputS3UnionType = "InputS3_PqEnabledTrueWithPqConstraint"
 )
 
 type InputS3 struct {
-	InputS3SendToRoutesTrueWithConnectionsConstraint  *InputS3SendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputS3SendToRoutesTrueConstraint                 *InputS3SendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputS3SendToRoutesFalseWithConnectionsConstraint *InputS3SendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputS3PqEnabledFalseWithPqConstraint             *InputS3PqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputS3PqEnabledFalseConstraint                   *InputS3PqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputS3PqEnabledTrueWithPqConstraint              *InputS3PqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputS3UnionType
 }
 
-func CreateInputS3InputS3SendToRoutesTrueWithConnectionsConstraint(inputS3SendToRoutesTrueWithConnectionsConstraint InputS3SendToRoutesTrueWithConnectionsConstraint) InputS3 {
-	typ := InputS3UnionTypeInputS3SendToRoutesTrueWithConnectionsConstraint
+func CreateInputS3InputS3SendToRoutesTrueConstraint(inputS3SendToRoutesTrueConstraint InputS3SendToRoutesTrueConstraint) InputS3 {
+	typ := InputS3UnionTypeInputS3SendToRoutesTrueConstraint
 
 	return InputS3{
-		InputS3SendToRoutesTrueWithConnectionsConstraint: &inputS3SendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputS3SendToRoutesTrueConstraint: &inputS3SendToRoutesTrueConstraint,
+		Type:                              typ,
 	}
 }
 
@@ -1748,12 +1748,12 @@ func CreateInputS3InputS3SendToRoutesFalseWithConnectionsConstraint(inputS3SendT
 	}
 }
 
-func CreateInputS3InputS3PqEnabledFalseWithPqConstraint(inputS3PqEnabledFalseWithPqConstraint InputS3PqEnabledFalseWithPqConstraint) InputS3 {
-	typ := InputS3UnionTypeInputS3PqEnabledFalseWithPqConstraint
+func CreateInputS3InputS3PqEnabledFalseConstraint(inputS3PqEnabledFalseConstraint InputS3PqEnabledFalseConstraint) InputS3 {
+	typ := InputS3UnionTypeInputS3PqEnabledFalseConstraint
 
 	return InputS3{
-		InputS3PqEnabledFalseWithPqConstraint: &inputS3PqEnabledFalseWithPqConstraint,
-		Type:                                  typ,
+		InputS3PqEnabledFalseConstraint: &inputS3PqEnabledFalseConstraint,
+		Type:                            typ,
 	}
 }
 
@@ -1768,10 +1768,10 @@ func CreateInputS3InputS3PqEnabledTrueWithPqConstraint(inputS3PqEnabledTrueWithP
 
 func (u *InputS3) UnmarshalJSON(data []byte) error {
 
-	var inputS3SendToRoutesTrueWithConnectionsConstraint InputS3SendToRoutesTrueWithConnectionsConstraint = InputS3SendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputS3SendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputS3SendToRoutesTrueWithConnectionsConstraint = &inputS3SendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputS3UnionTypeInputS3SendToRoutesTrueWithConnectionsConstraint
+	var inputS3SendToRoutesTrueConstraint InputS3SendToRoutesTrueConstraint = InputS3SendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputS3SendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputS3SendToRoutesTrueConstraint = &inputS3SendToRoutesTrueConstraint
+		u.Type = InputS3UnionTypeInputS3SendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1782,10 +1782,10 @@ func (u *InputS3) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputS3PqEnabledFalseWithPqConstraint InputS3PqEnabledFalseWithPqConstraint = InputS3PqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputS3PqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputS3PqEnabledFalseWithPqConstraint = &inputS3PqEnabledFalseWithPqConstraint
-		u.Type = InputS3UnionTypeInputS3PqEnabledFalseWithPqConstraint
+	var inputS3PqEnabledFalseConstraint InputS3PqEnabledFalseConstraint = InputS3PqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputS3PqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputS3PqEnabledFalseConstraint = &inputS3PqEnabledFalseConstraint
+		u.Type = InputS3UnionTypeInputS3PqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1800,16 +1800,16 @@ func (u *InputS3) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputS3) MarshalJSON() ([]byte, error) {
-	if u.InputS3SendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputS3SendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputS3SendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputS3SendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputS3SendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputS3SendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputS3PqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputS3PqEnabledFalseWithPqConstraint, "", true)
+	if u.InputS3PqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputS3PqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputS3PqEnabledTrueWithPqConstraint != nil {

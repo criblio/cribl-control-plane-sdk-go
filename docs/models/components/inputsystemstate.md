@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSystemStateSendToRoutesTrueWithConnectionsConstraint
+### InputSystemStateSendToRoutesTrueConstraint
 
 ```go
-inputSystemState := components.CreateInputSystemStateInputSystemStateSendToRoutesTrueWithConnectionsConstraint(components.InputSystemStateSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSystemState := components.CreateInputSystemStateInputSystemStateSendToRoutesTrueConstraint(components.InputSystemStateSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSystemStateSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSystemState := components.CreateInputSystemStateInputSystemStateSendToRoute
 inputSystemState := components.CreateInputSystemStateInputSystemStateSendToRoutesFalseWithConnectionsConstraint(components.InputSystemStateSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSystemStatePqEnabledFalseWithPqConstraint
+### InputSystemStatePqEnabledFalseConstraint
 
 ```go
-inputSystemState := components.CreateInputSystemStateInputSystemStatePqEnabledFalseWithPqConstraint(components.InputSystemStatePqEnabledFalseWithPqConstraint{/* values here */})
+inputSystemState := components.CreateInputSystemStateInputSystemStatePqEnabledFalseConstraint(components.InputSystemStatePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSystemStatePqEnabledTrueWithPqConstraint

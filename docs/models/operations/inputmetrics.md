@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputMetricsSendToRoutesTrueWithConnectionsConstraint
+### InputMetricsSendToRoutesTrueConstraint
 
 ```go
-inputMetrics := operations.CreateInputMetricsInputMetricsSendToRoutesTrueWithConnectionsConstraint(operations.InputMetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputMetrics := operations.CreateInputMetricsInputMetricsSendToRoutesTrueConstraint(operations.InputMetricsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputMetricsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputMetrics := operations.CreateInputMetricsInputMetricsSendToRoutesTrueWithCon
 inputMetrics := operations.CreateInputMetricsInputMetricsSendToRoutesFalseWithConnectionsConstraint(operations.InputMetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputMetricsPqEnabledFalseWithPqConstraint
+### InputMetricsPqEnabledFalseConstraint
 
 ```go
-inputMetrics := operations.CreateInputMetricsInputMetricsPqEnabledFalseWithPqConstraint(operations.InputMetricsPqEnabledFalseWithPqConstraint{/* values here */})
+inputMetrics := operations.CreateInputMetricsInputMetricsPqEnabledFalseConstraint(operations.InputMetricsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputMetricsPqEnabledTrueWithPqConstraint

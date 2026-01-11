@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSplunkHecSendToRoutesTrueWithConnectionsConstraint
+### InputSplunkHecSendToRoutesTrueConstraint
 
 ```go
-inputSplunkHec := components.CreateInputSplunkHecInputSplunkHecSendToRoutesTrueWithConnectionsConstraint(components.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSplunkHec := components.CreateInputSplunkHecInputSplunkHecSendToRoutesTrueConstraint(components.InputSplunkHecSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSplunkHecSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSplunkHec := components.CreateInputSplunkHecInputSplunkHecSendToRoutesTrueW
 inputSplunkHec := components.CreateInputSplunkHecInputSplunkHecSendToRoutesFalseWithConnectionsConstraint(components.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkHecPqEnabledFalseWithPqConstraint
+### InputSplunkHecPqEnabledFalseConstraint
 
 ```go
-inputSplunkHec := components.CreateInputSplunkHecInputSplunkHecPqEnabledFalseWithPqConstraint(components.InputSplunkHecPqEnabledFalseWithPqConstraint{/* values here */})
+inputSplunkHec := components.CreateInputSplunkHecInputSplunkHecPqEnabledFalseConstraint(components.InputSplunkHecPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSplunkHecPqEnabledTrueWithPqConstraint

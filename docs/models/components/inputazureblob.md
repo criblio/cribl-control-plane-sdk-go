@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputAzureBlobSendToRoutesTrueWithConnectionsConstraint
+### InputAzureBlobSendToRoutesTrueConstraint
 
 ```go
-inputAzureBlob := components.CreateInputAzureBlobInputAzureBlobSendToRoutesTrueWithConnectionsConstraint(components.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputAzureBlob := components.CreateInputAzureBlobInputAzureBlobSendToRoutesTrueConstraint(components.InputAzureBlobSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputAzureBlobSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputAzureBlob := components.CreateInputAzureBlobInputAzureBlobSendToRoutesTrueW
 inputAzureBlob := components.CreateInputAzureBlobInputAzureBlobSendToRoutesFalseWithConnectionsConstraint(components.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputAzureBlobPqEnabledFalseWithPqConstraint
+### InputAzureBlobPqEnabledFalseConstraint
 
 ```go
-inputAzureBlob := components.CreateInputAzureBlobInputAzureBlobPqEnabledFalseWithPqConstraint(components.InputAzureBlobPqEnabledFalseWithPqConstraint{/* values here */})
+inputAzureBlob := components.CreateInputAzureBlobInputAzureBlobPqEnabledFalseConstraint(components.InputAzureBlobPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputAzureBlobPqEnabledTrueWithPqConstraint

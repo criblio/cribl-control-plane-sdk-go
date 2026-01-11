@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputHTTPRawSendToRoutesTrueWithConnectionsConstraint
+### InputHTTPRawSendToRoutesTrueConstraint
 
 ```go
-inputHTTPRaw := components.CreateInputHTTPRawInputHTTPRawSendToRoutesTrueWithConnectionsConstraint(components.InputHTTPRawSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputHTTPRaw := components.CreateInputHTTPRawInputHTTPRawSendToRoutesTrueConstraint(components.InputHTTPRawSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputHTTPRawSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputHTTPRaw := components.CreateInputHTTPRawInputHTTPRawSendToRoutesTrueWithCon
 inputHTTPRaw := components.CreateInputHTTPRawInputHTTPRawSendToRoutesFalseWithConnectionsConstraint(components.InputHTTPRawSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputHTTPRawPqEnabledFalseWithPqConstraint
+### InputHTTPRawPqEnabledFalseConstraint
 
 ```go
-inputHTTPRaw := components.CreateInputHTTPRawInputHTTPRawPqEnabledFalseWithPqConstraint(components.InputHTTPRawPqEnabledFalseWithPqConstraint{/* values here */})
+inputHTTPRaw := components.CreateInputHTTPRawInputHTTPRawPqEnabledFalseConstraint(components.InputHTTPRawPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputHTTPRawPqEnabledTrueWithPqConstraint

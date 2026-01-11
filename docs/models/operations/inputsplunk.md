@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSplunkSendToRoutesTrueWithConnectionsConstraint
+### InputSplunkSendToRoutesTrueConstraint
 
 ```go
-inputSplunk := operations.CreateInputSplunkInputSplunkSendToRoutesTrueWithConnectionsConstraint(operations.InputSplunkSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSplunk := operations.CreateInputSplunkInputSplunkSendToRoutesTrueConstraint(operations.InputSplunkSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSplunkSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSplunk := operations.CreateInputSplunkInputSplunkSendToRoutesTrueWithConnec
 inputSplunk := operations.CreateInputSplunkInputSplunkSendToRoutesFalseWithConnectionsConstraint(operations.InputSplunkSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkPqEnabledFalseWithPqConstraint
+### InputSplunkPqEnabledFalseConstraint
 
 ```go
-inputSplunk := operations.CreateInputSplunkInputSplunkPqEnabledFalseWithPqConstraint(operations.InputSplunkPqEnabledFalseWithPqConstraint{/* values here */})
+inputSplunk := operations.CreateInputSplunkInputSplunkPqEnabledFalseConstraint(operations.InputSplunkPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSplunkPqEnabledTrueWithPqConstraint

@@ -26,7 +26,7 @@ type InputOffice365MsgTracePqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// URL to use when retrieving report data.
 	URL *string `default:"https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace" json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -156,7 +156,7 @@ func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetStreamtags() []
 	return i.Streamtags
 }
 
-func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -359,10 +359,9 @@ func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetCertOptions() *
 	return i.CertOptions
 }
 
-type InputOffice365MsgTracePqEnabledFalseWithPqConstraint struct {
+type InputOffice365MsgTracePqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                    `json:"id,omitempty"`
 	Type     InputOffice365MsgTraceType `json:"type"`
@@ -376,7 +375,8 @@ type InputOffice365MsgTracePqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// URL to use when retrieving report data.
 	URL *string `default:"https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace" json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -432,277 +432,277 @@ type InputOffice365MsgTracePqEnabledFalseWithPqConstraint struct {
 	CertOptions *CertOptions `json:"certOptions,omitempty"`
 }
 
-func (i InputOffice365MsgTracePqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputOffice365MsgTracePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetType() InputOffice365MsgTraceType {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetType() InputOffice365MsgTraceType {
 	if i == nil {
 		return InputOffice365MsgTraceType("")
 	}
 	return i.Type
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetURL() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.URL
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetInterval() *float64 {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetStartDate() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetStartDate() *string {
 	if i == nil {
 		return nil
 	}
 	return i.StartDate
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetEndDate() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetEndDate() *string {
 	if i == nil {
 		return nil
 	}
 	return i.EndDate
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetTimeout() *float64 {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetDisableTimeFilter() *bool {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetDisableTimeFilter() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableTimeFilter
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetAuthType() *InputOffice365MsgTraceAuthenticationMethod {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetAuthType() *InputOffice365MsgTraceAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetRescheduleDroppedTasks() *bool {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetRescheduleDroppedTasks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RescheduleDroppedTasks
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetMaxTaskReschedule() *float64 {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetMaxTaskReschedule() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxTaskReschedule
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetLogLevel() *InputOffice365MsgTraceLogLevel {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetLogLevel() *InputOffice365MsgTraceLogLevel {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetJobTimeout() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetKeepAliveTime() *float64 {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetMaxMissedKeepAlives() *float64 {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetTTL() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetRetryRules() *RetryRulesType1 {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetUsername() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetPassword() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetCredentialsSecret() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetClientSecret() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetTenantID() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetTenantID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TenantID
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetClientID() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetClientID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientID
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetResource() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetResource() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Resource
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetPlanType() *SubscriptionPlanOptions {
 	if i == nil {
 		return nil
 	}
 	return i.PlanType
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetTextSecret() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseWithPqConstraint) GetCertOptions() *CertOptions {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetCertOptions() *CertOptions {
 	if i == nil {
 		return nil
 	}
@@ -713,7 +713,7 @@ type InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                    `json:"id,omitempty"`
 	Type     InputOffice365MsgTraceType `json:"type"`
@@ -800,7 +800,7 @@ func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetSe
 	return i.SendToRoutes
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1184,11 +1184,9 @@ func (c *CertOptions) GetCertPath() string {
 	return c.CertPath
 }
 
-type InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint struct {
+type InputOffice365MsgTraceSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                    `json:"id,omitempty"`
 	Type     InputOffice365MsgTraceType `json:"type"`
@@ -1201,7 +1199,9 @@ type InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// URL to use when retrieving report data.
 	URL *string `default:"https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace" json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -1257,277 +1257,277 @@ type InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint struct {
 	CertOptions *CertOptions `json:"certOptions,omitempty"`
 }
 
-func (i InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputOffice365MsgTraceSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetType() InputOffice365MsgTraceType {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetType() InputOffice365MsgTraceType {
 	if i == nil {
 		return InputOffice365MsgTraceType("")
 	}
 	return i.Type
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetURL() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.URL
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetStartDate() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetStartDate() *string {
 	if i == nil {
 		return nil
 	}
 	return i.StartDate
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetEndDate() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetEndDate() *string {
 	if i == nil {
 		return nil
 	}
 	return i.EndDate
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetTimeout() *float64 {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetDisableTimeFilter() *bool {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetDisableTimeFilter() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableTimeFilter
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *InputOffice365MsgTraceAuthenticationMethod {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetAuthType() *InputOffice365MsgTraceAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetRescheduleDroppedTasks() *bool {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetRescheduleDroppedTasks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RescheduleDroppedTasks
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetMaxTaskReschedule() *float64 {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetMaxTaskReschedule() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxTaskReschedule
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetLogLevel() *InputOffice365MsgTraceLogLevel {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetLogLevel() *InputOffice365MsgTraceLogLevel {
 	if i == nil {
 		return nil
 	}
 	return i.LogLevel
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetJobTimeout() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
 	return i.JobTimeout
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTime() *float64 {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetKeepAliveTime() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTime
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetMaxMissedKeepAlives() *float64 {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetMaxMissedKeepAlives() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMissedKeepAlives
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetTTL() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetTTL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TTL
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetIgnoreGroupJobsLimit() *bool {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetIgnoreGroupJobsLimit() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetRetryRules() *RetryRulesType1 {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetRetryRules() *RetryRulesType1 {
 	if i == nil {
 		return nil
 	}
 	return i.RetryRules
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetUsername() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetPassword() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetCredentialsSecret() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetClientSecret() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetClientSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientSecret
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetTenantID() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetTenantID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TenantID
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetClientID() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetClientID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ClientID
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetResource() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetResource() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Resource
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetPlanType() *SubscriptionPlanOptions {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetPlanType() *SubscriptionPlanOptions {
 	if i == nil {
 		return nil
 	}
 	return i.PlanType
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetTextSecret() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetCertOptions() *CertOptions {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetCertOptions() *CertOptions {
 	if i == nil {
 		return nil
 	}
@@ -1537,26 +1537,26 @@ func (i *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) GetCer
 type InputOffice365MsgTraceUnionType string
 
 const (
-	InputOffice365MsgTraceUnionTypeInputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint  InputOffice365MsgTraceUnionType = "InputOffice365MsgTrace_SendToRoutesTrueWithConnectionsConstraint"
+	InputOffice365MsgTraceUnionTypeInputOffice365MsgTraceSendToRoutesTrueConstraint                 InputOffice365MsgTraceUnionType = "InputOffice365MsgTrace_SendToRoutesTrueConstraint"
 	InputOffice365MsgTraceUnionTypeInputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint InputOffice365MsgTraceUnionType = "InputOffice365MsgTrace_SendToRoutesFalseWithConnectionsConstraint"
-	InputOffice365MsgTraceUnionTypeInputOffice365MsgTracePqEnabledFalseWithPqConstraint             InputOffice365MsgTraceUnionType = "InputOffice365MsgTrace_PqEnabledFalseWithPqConstraint"
+	InputOffice365MsgTraceUnionTypeInputOffice365MsgTracePqEnabledFalseConstraint                   InputOffice365MsgTraceUnionType = "InputOffice365MsgTrace_PqEnabledFalseConstraint"
 	InputOffice365MsgTraceUnionTypeInputOffice365MsgTracePqEnabledTrueWithPqConstraint              InputOffice365MsgTraceUnionType = "InputOffice365MsgTrace_PqEnabledTrueWithPqConstraint"
 )
 
 type InputOffice365MsgTrace struct {
-	InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint  *InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputOffice365MsgTraceSendToRoutesTrueConstraint                 *InputOffice365MsgTraceSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputOffice365MsgTracePqEnabledFalseWithPqConstraint             *InputOffice365MsgTracePqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputOffice365MsgTracePqEnabledFalseConstraint                   *InputOffice365MsgTracePqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputOffice365MsgTracePqEnabledTrueWithPqConstraint              *InputOffice365MsgTracePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputOffice365MsgTraceUnionType
 }
 
-func CreateInputOffice365MsgTraceInputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint(inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint) InputOffice365MsgTrace {
-	typ := InputOffice365MsgTraceUnionTypeInputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint
+func CreateInputOffice365MsgTraceInputOffice365MsgTraceSendToRoutesTrueConstraint(inputOffice365MsgTraceSendToRoutesTrueConstraint InputOffice365MsgTraceSendToRoutesTrueConstraint) InputOffice365MsgTrace {
+	typ := InputOffice365MsgTraceUnionTypeInputOffice365MsgTraceSendToRoutesTrueConstraint
 
 	return InputOffice365MsgTrace{
-		InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint: &inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint,
+		InputOffice365MsgTraceSendToRoutesTrueConstraint: &inputOffice365MsgTraceSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -1570,11 +1570,11 @@ func CreateInputOffice365MsgTraceInputOffice365MsgTraceSendToRoutesFalseWithConn
 	}
 }
 
-func CreateInputOffice365MsgTraceInputOffice365MsgTracePqEnabledFalseWithPqConstraint(inputOffice365MsgTracePqEnabledFalseWithPqConstraint InputOffice365MsgTracePqEnabledFalseWithPqConstraint) InputOffice365MsgTrace {
-	typ := InputOffice365MsgTraceUnionTypeInputOffice365MsgTracePqEnabledFalseWithPqConstraint
+func CreateInputOffice365MsgTraceInputOffice365MsgTracePqEnabledFalseConstraint(inputOffice365MsgTracePqEnabledFalseConstraint InputOffice365MsgTracePqEnabledFalseConstraint) InputOffice365MsgTrace {
+	typ := InputOffice365MsgTraceUnionTypeInputOffice365MsgTracePqEnabledFalseConstraint
 
 	return InputOffice365MsgTrace{
-		InputOffice365MsgTracePqEnabledFalseWithPqConstraint: &inputOffice365MsgTracePqEnabledFalseWithPqConstraint,
+		InputOffice365MsgTracePqEnabledFalseConstraint: &inputOffice365MsgTracePqEnabledFalseConstraint,
 		Type: typ,
 	}
 }
@@ -1590,10 +1590,10 @@ func CreateInputOffice365MsgTraceInputOffice365MsgTracePqEnabledTrueWithPqConstr
 
 func (u *InputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
 
-	var inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint = InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint = &inputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputOffice365MsgTraceUnionTypeInputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint
+	var inputOffice365MsgTraceSendToRoutesTrueConstraint InputOffice365MsgTraceSendToRoutesTrueConstraint = InputOffice365MsgTraceSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOffice365MsgTraceSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputOffice365MsgTraceSendToRoutesTrueConstraint = &inputOffice365MsgTraceSendToRoutesTrueConstraint
+		u.Type = InputOffice365MsgTraceUnionTypeInputOffice365MsgTraceSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1604,10 +1604,10 @@ func (u *InputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputOffice365MsgTracePqEnabledFalseWithPqConstraint InputOffice365MsgTracePqEnabledFalseWithPqConstraint = InputOffice365MsgTracePqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputOffice365MsgTracePqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputOffice365MsgTracePqEnabledFalseWithPqConstraint = &inputOffice365MsgTracePqEnabledFalseWithPqConstraint
-		u.Type = InputOffice365MsgTraceUnionTypeInputOffice365MsgTracePqEnabledFalseWithPqConstraint
+	var inputOffice365MsgTracePqEnabledFalseConstraint InputOffice365MsgTracePqEnabledFalseConstraint = InputOffice365MsgTracePqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOffice365MsgTracePqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputOffice365MsgTracePqEnabledFalseConstraint = &inputOffice365MsgTracePqEnabledFalseConstraint
+		u.Type = InputOffice365MsgTraceUnionTypeInputOffice365MsgTracePqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1622,16 +1622,16 @@ func (u *InputOffice365MsgTrace) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
-	if u.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputOffice365MsgTraceSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputOffice365MsgTraceSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputOffice365MsgTracePqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputOffice365MsgTracePqEnabledFalseWithPqConstraint, "", true)
+	if u.InputOffice365MsgTracePqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputOffice365MsgTracePqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputOffice365MsgTracePqEnabledTrueWithPqConstraint != nil {

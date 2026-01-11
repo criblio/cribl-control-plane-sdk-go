@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
+### InputConfluentCloudSendToRoutesTrueConstraint
 
 ```go
-inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint(components.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudSendToRoutesTrueConstraint(components.InputConfluentCloudSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudSe
 inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudSendToRoutesFalseWithConnectionsConstraint(components.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputConfluentCloudPqEnabledFalseWithPqConstraint
+### InputConfluentCloudPqEnabledFalseConstraint
 
 ```go
-inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudPqEnabledFalseWithPqConstraint(components.InputConfluentCloudPqEnabledFalseWithPqConstraint{/* values here */})
+inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudPqEnabledFalseConstraint(components.InputConfluentCloudPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputConfluentCloudPqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputAppscopeSendToRoutesTrueWithConnectionsConstraint
+### InputAppscopeSendToRoutesTrueConstraint
 
 ```go
-inputAppscope := components.CreateInputAppscopeInputAppscopeSendToRoutesTrueWithConnectionsConstraint(components.InputAppscopeSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputAppscope := components.CreateInputAppscopeInputAppscopeSendToRoutesTrueConstraint(components.InputAppscopeSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputAppscopeSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputAppscope := components.CreateInputAppscopeInputAppscopeSendToRoutesTrueWith
 inputAppscope := components.CreateInputAppscopeInputAppscopeSendToRoutesFalseWithConnectionsConstraint(components.InputAppscopeSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputAppscopePqEnabledFalseWithPqConstraint
+### InputAppscopePqEnabledFalseConstraint
 
 ```go
-inputAppscope := components.CreateInputAppscopeInputAppscopePqEnabledFalseWithPqConstraint(components.InputAppscopePqEnabledFalseWithPqConstraint{/* values here */})
+inputAppscope := components.CreateInputAppscopeInputAppscopePqEnabledFalseConstraint(components.InputAppscopePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputAppscopePqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputElasticSendToRoutesTrueWithConnectionsConstraint
+### InputElasticSendToRoutesTrueConstraint
 
 ```go
-inputElastic := operations.CreateInputElasticInputElasticSendToRoutesTrueWithConnectionsConstraint(operations.InputElasticSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputElastic := operations.CreateInputElasticInputElasticSendToRoutesTrueConstraint(operations.InputElasticSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputElasticSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputElastic := operations.CreateInputElasticInputElasticSendToRoutesTrueWithCon
 inputElastic := operations.CreateInputElasticInputElasticSendToRoutesFalseWithConnectionsConstraint(operations.InputElasticSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputElasticPqEnabledFalseWithPqConstraint
+### InputElasticPqEnabledFalseConstraint
 
 ```go
-inputElastic := operations.CreateInputElasticInputElasticPqEnabledFalseWithPqConstraint(operations.InputElasticPqEnabledFalseWithPqConstraint{/* values here */})
+inputElastic := operations.CreateInputElasticInputElasticPqEnabledFalseConstraint(operations.InputElasticPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputElasticPqEnabledTrueWithPqConstraint

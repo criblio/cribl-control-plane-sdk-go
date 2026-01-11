@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint
+### InputModelDrivenTelemetrySendToRoutesTrueConstraint
 
 ```go
-inputModelDrivenTelemetry := components.CreateInputModelDrivenTelemetryInputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint(components.InputModelDrivenTelemetrySendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputModelDrivenTelemetry := components.CreateInputModelDrivenTelemetryInputModelDrivenTelemetrySendToRoutesTrueConstraint(components.InputModelDrivenTelemetrySendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputModelDrivenTelemetry := components.CreateInputModelDrivenTelemetryInputMode
 inputModelDrivenTelemetry := components.CreateInputModelDrivenTelemetryInputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint(components.InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint
+### InputModelDrivenTelemetryPqEnabledFalseConstraint
 
 ```go
-inputModelDrivenTelemetry := components.CreateInputModelDrivenTelemetryInputModelDrivenTelemetryPqEnabledFalseWithPqConstraint(components.InputModelDrivenTelemetryPqEnabledFalseWithPqConstraint{/* values here */})
+inputModelDrivenTelemetry := components.CreateInputModelDrivenTelemetryInputModelDrivenTelemetryPqEnabledFalseConstraint(components.InputModelDrivenTelemetryPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputFirehoseSendToRoutesTrueWithConnectionsConstraint
+### InputFirehoseSendToRoutesTrueConstraint
 
 ```go
-inputFirehose := components.CreateInputFirehoseInputFirehoseSendToRoutesTrueWithConnectionsConstraint(components.InputFirehoseSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputFirehose := components.CreateInputFirehoseInputFirehoseSendToRoutesTrueConstraint(components.InputFirehoseSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputFirehoseSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputFirehose := components.CreateInputFirehoseInputFirehoseSendToRoutesTrueWith
 inputFirehose := components.CreateInputFirehoseInputFirehoseSendToRoutesFalseWithConnectionsConstraint(components.InputFirehoseSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFirehosePqEnabledFalseWithPqConstraint
+### InputFirehosePqEnabledFalseConstraint
 
 ```go
-inputFirehose := components.CreateInputFirehoseInputFirehosePqEnabledFalseWithPqConstraint(components.InputFirehosePqEnabledFalseWithPqConstraint{/* values here */})
+inputFirehose := components.CreateInputFirehoseInputFirehosePqEnabledFalseConstraint(components.InputFirehosePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputFirehosePqEnabledTrueWithPqConstraint

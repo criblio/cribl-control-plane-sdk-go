@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputNetflowSendToRoutesTrueWithConnectionsConstraint
+### InputNetflowSendToRoutesTrueConstraint
 
 ```go
-inputNetflow := components.CreateInputNetflowInputNetflowSendToRoutesTrueWithConnectionsConstraint(components.InputNetflowSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputNetflow := components.CreateInputNetflowInputNetflowSendToRoutesTrueConstraint(components.InputNetflowSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputNetflowSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputNetflow := components.CreateInputNetflowInputNetflowSendToRoutesTrueWithCon
 inputNetflow := components.CreateInputNetflowInputNetflowSendToRoutesFalseWithConnectionsConstraint(components.InputNetflowSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputNetflowPqEnabledFalseWithPqConstraint
+### InputNetflowPqEnabledFalseConstraint
 
 ```go
-inputNetflow := components.CreateInputNetflowInputNetflowPqEnabledFalseWithPqConstraint(components.InputNetflowPqEnabledFalseWithPqConstraint{/* values here */})
+inputNetflow := components.CreateInputNetflowInputNetflowPqEnabledFalseConstraint(components.InputNetflowPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputNetflowPqEnabledTrueWithPqConstraint

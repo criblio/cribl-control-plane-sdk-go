@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
+### InputWinEventLogsSendToRoutesTrueConstraint
 
 ```go
-inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsSendToRoutesTrueWithConnectionsConstraint(operations.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsSendToRoutesTrueConstraint(operations.InputWinEventLogsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsSendToRo
 inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint(operations.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWinEventLogsPqEnabledFalseWithPqConstraint
+### InputWinEventLogsPqEnabledFalseConstraint
 
 ```go
-inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsPqEnabledFalseWithPqConstraint(operations.InputWinEventLogsPqEnabledFalseWithPqConstraint{/* values here */})
+inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsPqEnabledFalseConstraint(operations.InputWinEventLogsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputWinEventLogsPqEnabledTrueWithPqConstraint

@@ -26,7 +26,7 @@ type InputSnmpPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
@@ -122,7 +122,7 @@ func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -199,10 +199,9 @@ func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	return i.Description
 }
 
-type InputSnmpPqEnabledFalseWithPqConstraint struct {
+type InputSnmpPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputSnmpType `json:"type"`
@@ -216,7 +215,8 @@ type InputSnmpPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
@@ -238,151 +238,151 @@ type InputSnmpPqEnabledFalseWithPqConstraint struct {
 	Description       *string `json:"description,omitempty"`
 }
 
-func (i InputSnmpPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSnmpPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputSnmpPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputSnmpPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputSnmpPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetType() InputSnmpType {
+func (i *InputSnmpPqEnabledFalseConstraint) GetType() InputSnmpType {
 	if i == nil {
 		return InputSnmpType("")
 	}
 	return i.Type
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputSnmpPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputSnmpPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputSnmpPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputSnmpPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputSnmpPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSnmpPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputSnmpPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSnmpPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetPort() *float64 {
+func (i *InputSnmpPqEnabledFalseConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetSnmpV3Auth() *SNMPv3Authentication {
+func (i *InputSnmpPqEnabledFalseConstraint) GetSnmpV3Auth() *SNMPv3Authentication {
 	if i == nil {
 		return nil
 	}
 	return i.SnmpV3Auth
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetMaxBufferSize() *float64 {
+func (i *InputSnmpPqEnabledFalseConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetIPWhitelistRegex() *string {
+func (i *InputSnmpPqEnabledFalseConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSnmpPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetUDPSocketRxBufSize() *float64 {
+func (i *InputSnmpPqEnabledFalseConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetVarbindsWithTypes() *bool {
+func (i *InputSnmpPqEnabledFalseConstraint) GetVarbindsWithTypes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VarbindsWithTypes
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetBestEffortParsing() *bool {
+func (i *InputSnmpPqEnabledFalseConstraint) GetBestEffortParsing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.BestEffortParsing
 }
 
-func (i *InputSnmpPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputSnmpPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -393,7 +393,7 @@ type InputSnmpSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputSnmpType `json:"type"`
@@ -446,7 +446,7 @@ func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() 
 	return i.SendToRoutes
 }
 
-func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -727,11 +727,9 @@ func (s *SNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 	return s.V3Users
 }
 
-type InputSnmpSendToRoutesTrueWithConnectionsConstraint struct {
+type InputSnmpSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputSnmpType `json:"type"`
@@ -744,7 +742,9 @@ type InputSnmpSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
@@ -766,151 +766,151 @@ type InputSnmpSendToRoutesTrueWithConnectionsConstraint struct {
 	Description       *string `json:"description,omitempty"`
 }
 
-func (i InputSnmpSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSnmpSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputSnmpSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetType() InputSnmpType {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetType() InputSnmpType {
 	if i == nil {
 		return InputSnmpType("")
 	}
 	return i.Type
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSnmpSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetPort() *float64 {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetSnmpV3Auth() *SNMPv3Authentication {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetSnmpV3Auth() *SNMPv3Authentication {
 	if i == nil {
 		return nil
 	}
 	return i.SnmpV3Auth
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetMaxBufferSize() *float64 {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetIPWhitelistRegex() *string {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetUDPSocketRxBufSize() *float64 {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetVarbindsWithTypes() *bool {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetVarbindsWithTypes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VarbindsWithTypes
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetBestEffortParsing() *bool {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetBestEffortParsing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.BestEffortParsing
 }
 
-func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -920,27 +920,27 @@ func (i *InputSnmpSendToRoutesTrueWithConnectionsConstraint) GetDescription() *s
 type InputSnmpUnionType string
 
 const (
-	InputSnmpUnionTypeInputSnmpSendToRoutesTrueWithConnectionsConstraint  InputSnmpUnionType = "InputSnmp_SendToRoutesTrueWithConnectionsConstraint"
+	InputSnmpUnionTypeInputSnmpSendToRoutesTrueConstraint                 InputSnmpUnionType = "InputSnmp_SendToRoutesTrueConstraint"
 	InputSnmpUnionTypeInputSnmpSendToRoutesFalseWithConnectionsConstraint InputSnmpUnionType = "InputSnmp_SendToRoutesFalseWithConnectionsConstraint"
-	InputSnmpUnionTypeInputSnmpPqEnabledFalseWithPqConstraint             InputSnmpUnionType = "InputSnmp_PqEnabledFalseWithPqConstraint"
+	InputSnmpUnionTypeInputSnmpPqEnabledFalseConstraint                   InputSnmpUnionType = "InputSnmp_PqEnabledFalseConstraint"
 	InputSnmpUnionTypeInputSnmpPqEnabledTrueWithPqConstraint              InputSnmpUnionType = "InputSnmp_PqEnabledTrueWithPqConstraint"
 )
 
 type InputSnmp struct {
-	InputSnmpSendToRoutesTrueWithConnectionsConstraint  *InputSnmpSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputSnmpSendToRoutesTrueConstraint                 *InputSnmpSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputSnmpSendToRoutesFalseWithConnectionsConstraint *InputSnmpSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputSnmpPqEnabledFalseWithPqConstraint             *InputSnmpPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputSnmpPqEnabledFalseConstraint                   *InputSnmpPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputSnmpPqEnabledTrueWithPqConstraint              *InputSnmpPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputSnmpUnionType
 }
 
-func CreateInputSnmpInputSnmpSendToRoutesTrueWithConnectionsConstraint(inputSnmpSendToRoutesTrueWithConnectionsConstraint InputSnmpSendToRoutesTrueWithConnectionsConstraint) InputSnmp {
-	typ := InputSnmpUnionTypeInputSnmpSendToRoutesTrueWithConnectionsConstraint
+func CreateInputSnmpInputSnmpSendToRoutesTrueConstraint(inputSnmpSendToRoutesTrueConstraint InputSnmpSendToRoutesTrueConstraint) InputSnmp {
+	typ := InputSnmpUnionTypeInputSnmpSendToRoutesTrueConstraint
 
 	return InputSnmp{
-		InputSnmpSendToRoutesTrueWithConnectionsConstraint: &inputSnmpSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputSnmpSendToRoutesTrueConstraint: &inputSnmpSendToRoutesTrueConstraint,
+		Type:                                typ,
 	}
 }
 
@@ -953,12 +953,12 @@ func CreateInputSnmpInputSnmpSendToRoutesFalseWithConnectionsConstraint(inputSnm
 	}
 }
 
-func CreateInputSnmpInputSnmpPqEnabledFalseWithPqConstraint(inputSnmpPqEnabledFalseWithPqConstraint InputSnmpPqEnabledFalseWithPqConstraint) InputSnmp {
-	typ := InputSnmpUnionTypeInputSnmpPqEnabledFalseWithPqConstraint
+func CreateInputSnmpInputSnmpPqEnabledFalseConstraint(inputSnmpPqEnabledFalseConstraint InputSnmpPqEnabledFalseConstraint) InputSnmp {
+	typ := InputSnmpUnionTypeInputSnmpPqEnabledFalseConstraint
 
 	return InputSnmp{
-		InputSnmpPqEnabledFalseWithPqConstraint: &inputSnmpPqEnabledFalseWithPqConstraint,
-		Type:                                    typ,
+		InputSnmpPqEnabledFalseConstraint: &inputSnmpPqEnabledFalseConstraint,
+		Type:                              typ,
 	}
 }
 
@@ -973,10 +973,10 @@ func CreateInputSnmpInputSnmpPqEnabledTrueWithPqConstraint(inputSnmpPqEnabledTru
 
 func (u *InputSnmp) UnmarshalJSON(data []byte) error {
 
-	var inputSnmpSendToRoutesTrueWithConnectionsConstraint InputSnmpSendToRoutesTrueWithConnectionsConstraint = InputSnmpSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSnmpSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputSnmpSendToRoutesTrueWithConnectionsConstraint = &inputSnmpSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputSnmpUnionTypeInputSnmpSendToRoutesTrueWithConnectionsConstraint
+	var inputSnmpSendToRoutesTrueConstraint InputSnmpSendToRoutesTrueConstraint = InputSnmpSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSnmpSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputSnmpSendToRoutesTrueConstraint = &inputSnmpSendToRoutesTrueConstraint
+		u.Type = InputSnmpUnionTypeInputSnmpSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -987,10 +987,10 @@ func (u *InputSnmp) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputSnmpPqEnabledFalseWithPqConstraint InputSnmpPqEnabledFalseWithPqConstraint = InputSnmpPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSnmpPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputSnmpPqEnabledFalseWithPqConstraint = &inputSnmpPqEnabledFalseWithPqConstraint
-		u.Type = InputSnmpUnionTypeInputSnmpPqEnabledFalseWithPqConstraint
+	var inputSnmpPqEnabledFalseConstraint InputSnmpPqEnabledFalseConstraint = InputSnmpPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSnmpPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputSnmpPqEnabledFalseConstraint = &inputSnmpPqEnabledFalseConstraint
+		u.Type = InputSnmpUnionTypeInputSnmpPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1005,16 +1005,16 @@ func (u *InputSnmp) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputSnmp) MarshalJSON() ([]byte, error) {
-	if u.InputSnmpSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputSnmpSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputSnmpSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputSnmpSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputSnmpSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputSnmpSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputSnmpPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputSnmpPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputSnmpPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputSnmpPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputSnmpPqEnabledTrueWithPqConstraint != nil {

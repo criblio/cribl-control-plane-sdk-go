@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputElasticSendToRoutesTrueWithConnectionsConstraint
+### InputElasticSendToRoutesTrueConstraint
 
 ```go
-inputElastic := components.CreateInputElasticInputElasticSendToRoutesTrueWithConnectionsConstraint(components.InputElasticSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputElastic := components.CreateInputElasticInputElasticSendToRoutesTrueConstraint(components.InputElasticSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputElasticSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputElastic := components.CreateInputElasticInputElasticSendToRoutesTrueWithCon
 inputElastic := components.CreateInputElasticInputElasticSendToRoutesFalseWithConnectionsConstraint(components.InputElasticSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputElasticPqEnabledFalseWithPqConstraint
+### InputElasticPqEnabledFalseConstraint
 
 ```go
-inputElastic := components.CreateInputElasticInputElasticPqEnabledFalseWithPqConstraint(components.InputElasticPqEnabledFalseWithPqConstraint{/* values here */})
+inputElastic := components.CreateInputElasticInputElasticPqEnabledFalseConstraint(components.InputElasticPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputElasticPqEnabledTrueWithPqConstraint

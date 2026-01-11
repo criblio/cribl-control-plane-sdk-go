@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputLokiSendToRoutesTrueWithConnectionsConstraint
+### InputLokiSendToRoutesTrueConstraint
 
 ```go
-inputLoki := components.CreateInputLokiInputLokiSendToRoutesTrueWithConnectionsConstraint(components.InputLokiSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputLoki := components.CreateInputLokiInputLokiSendToRoutesTrueConstraint(components.InputLokiSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputLokiSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputLoki := components.CreateInputLokiInputLokiSendToRoutesTrueWithConnectionsC
 inputLoki := components.CreateInputLokiInputLokiSendToRoutesFalseWithConnectionsConstraint(components.InputLokiSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputLokiPqEnabledFalseWithPqConstraint
+### InputLokiPqEnabledFalseConstraint
 
 ```go
-inputLoki := components.CreateInputLokiInputLokiPqEnabledFalseWithPqConstraint(components.InputLokiPqEnabledFalseWithPqConstraint{/* values here */})
+inputLoki := components.CreateInputLokiInputLokiPqEnabledFalseConstraint(components.InputLokiPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputLokiPqEnabledTrueWithPqConstraint

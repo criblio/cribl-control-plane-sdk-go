@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputKafkaSendToRoutesTrueWithConnectionsConstraint
+### InputKafkaSendToRoutesTrueConstraint
 
 ```go
-inputKafka := components.CreateInputKafkaInputKafkaSendToRoutesTrueWithConnectionsConstraint(components.InputKafkaSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputKafka := components.CreateInputKafkaInputKafkaSendToRoutesTrueConstraint(components.InputKafkaSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputKafkaSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputKafka := components.CreateInputKafkaInputKafkaSendToRoutesTrueWithConnectio
 inputKafka := components.CreateInputKafkaInputKafkaSendToRoutesFalseWithConnectionsConstraint(components.InputKafkaSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKafkaPqEnabledFalseWithPqConstraint
+### InputKafkaPqEnabledFalseConstraint
 
 ```go
-inputKafka := components.CreateInputKafkaInputKafkaPqEnabledFalseWithPqConstraint(components.InputKafkaPqEnabledFalseWithPqConstraint{/* values here */})
+inputKafka := components.CreateInputKafkaInputKafkaPqEnabledFalseConstraint(components.InputKafkaPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputKafkaPqEnabledTrueWithPqConstraint

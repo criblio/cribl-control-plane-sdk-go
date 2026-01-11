@@ -26,7 +26,7 @@ type InputLokiPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -161,7 +161,7 @@ func (i *InputLokiPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputLokiPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputLokiPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -385,10 +385,9 @@ func (i *InputLokiPqEnabledTrueWithPqConstraint) GetOauthHeaders() []ItemsTypeOa
 	return i.OauthHeaders
 }
 
-type InputLokiPqEnabledFalseWithPqConstraint struct {
+type InputLokiPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputLokiType `json:"type"`
@@ -402,7 +401,8 @@ type InputLokiPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -463,298 +463,298 @@ type InputLokiPqEnabledFalseWithPqConstraint struct {
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
-func (i InputLokiPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputLokiPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputLokiPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputLokiPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetType() InputLokiType {
+func (i *InputLokiPqEnabledFalseConstraint) GetType() InputLokiType {
 	if i == nil {
 		return InputLokiType("")
 	}
 	return i.Type
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputLokiPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputLokiPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputLokiPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputLokiPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetHost() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputLokiPqEnabledFalseConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetPort() float64 {
+func (i *InputLokiPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputLokiPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
+func (i *InputLokiPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputLokiPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
+func (i *InputLokiPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
+func (i *InputLokiPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputLokiPqEnabledFalseConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
+func (i *InputLokiPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
+func (i *InputLokiPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputLokiPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() *bool {
+func (i *InputLokiPqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetLokiAPI() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetLokiAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LokiAPI
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetAuthType() *AuthenticationTypeOptionsLokiAuth {
+func (i *InputLokiPqEnabledFalseConstraint) GetAuthType() *AuthenticationTypeOptionsLokiAuth {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputLokiPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetUsername() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetPassword() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetToken() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetCredentialsSecret() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetTextSecret() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetLoginURL() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetSecretParamName() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetSecret() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetTokenAttributeName() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetAuthHeaderExpr() *string {
+func (i *InputLokiPqEnabledFalseConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetTokenTimeoutSecs() *float64 {
+func (i *InputLokiPqEnabledFalseConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputLokiPqEnabledFalseConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputLokiPqEnabledFalseWithPqConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputLokiPqEnabledFalseConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
@@ -765,7 +765,7 @@ type InputLokiSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputLokiType `json:"type"`
@@ -857,7 +857,7 @@ func (i *InputLokiSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() 
 	return i.SendToRoutes
 }
 
-func (i *InputLokiSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputLokiSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -1160,11 +1160,9 @@ func (e *InputLokiType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputLokiSendToRoutesTrueWithConnectionsConstraint struct {
+type InputLokiSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputLokiType `json:"type"`
@@ -1177,7 +1175,9 @@ type InputLokiSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -1238,298 +1238,298 @@ type InputLokiSendToRoutesTrueWithConnectionsConstraint struct {
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 }
 
-func (i InputLokiSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputLokiSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputLokiSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputLokiSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetType() InputLokiType {
+func (i *InputLokiSendToRoutesTrueConstraint) GetType() InputLokiType {
 	if i == nil {
 		return InputLokiType("")
 	}
 	return i.Type
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputLokiSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputLokiSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputLokiSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputLokiSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
+func (i *InputLokiSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputLokiSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
+func (i *InputLokiSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputLokiSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+func (i *InputLokiSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
+func (i *InputLokiSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputLokiSendToRoutesTrueConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
+func (i *InputLokiSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
+func (i *InputLokiSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputLokiSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() *bool {
+func (i *InputLokiSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetLokiAPI() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetLokiAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LokiAPI
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *AuthenticationTypeOptionsLokiAuth {
+func (i *InputLokiSendToRoutesTrueConstraint) GetAuthType() *AuthenticationTypeOptionsLokiAuth {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputLokiSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetUsername() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetPassword() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetToken() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetCredentialsSecret() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetTextSecret() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetLoginURL() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetSecretParamName() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetSecret() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetTokenAttributeName() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetAuthHeaderExpr() *string {
+func (i *InputLokiSendToRoutesTrueConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetTokenTimeoutSecs() *float64 {
+func (i *InputLokiSendToRoutesTrueConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputLokiSendToRoutesTrueConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputLokiSendToRoutesTrueConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
@@ -1539,27 +1539,27 @@ func (i *InputLokiSendToRoutesTrueWithConnectionsConstraint) GetOauthHeaders() [
 type InputLokiUnionType string
 
 const (
-	InputLokiUnionTypeInputLokiSendToRoutesTrueWithConnectionsConstraint  InputLokiUnionType = "InputLoki_SendToRoutesTrueWithConnectionsConstraint"
+	InputLokiUnionTypeInputLokiSendToRoutesTrueConstraint                 InputLokiUnionType = "InputLoki_SendToRoutesTrueConstraint"
 	InputLokiUnionTypeInputLokiSendToRoutesFalseWithConnectionsConstraint InputLokiUnionType = "InputLoki_SendToRoutesFalseWithConnectionsConstraint"
-	InputLokiUnionTypeInputLokiPqEnabledFalseWithPqConstraint             InputLokiUnionType = "InputLoki_PqEnabledFalseWithPqConstraint"
+	InputLokiUnionTypeInputLokiPqEnabledFalseConstraint                   InputLokiUnionType = "InputLoki_PqEnabledFalseConstraint"
 	InputLokiUnionTypeInputLokiPqEnabledTrueWithPqConstraint              InputLokiUnionType = "InputLoki_PqEnabledTrueWithPqConstraint"
 )
 
 type InputLoki struct {
-	InputLokiSendToRoutesTrueWithConnectionsConstraint  *InputLokiSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputLokiSendToRoutesTrueConstraint                 *InputLokiSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputLokiSendToRoutesFalseWithConnectionsConstraint *InputLokiSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputLokiPqEnabledFalseWithPqConstraint             *InputLokiPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputLokiPqEnabledFalseConstraint                   *InputLokiPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputLokiPqEnabledTrueWithPqConstraint              *InputLokiPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputLokiUnionType
 }
 
-func CreateInputLokiInputLokiSendToRoutesTrueWithConnectionsConstraint(inputLokiSendToRoutesTrueWithConnectionsConstraint InputLokiSendToRoutesTrueWithConnectionsConstraint) InputLoki {
-	typ := InputLokiUnionTypeInputLokiSendToRoutesTrueWithConnectionsConstraint
+func CreateInputLokiInputLokiSendToRoutesTrueConstraint(inputLokiSendToRoutesTrueConstraint InputLokiSendToRoutesTrueConstraint) InputLoki {
+	typ := InputLokiUnionTypeInputLokiSendToRoutesTrueConstraint
 
 	return InputLoki{
-		InputLokiSendToRoutesTrueWithConnectionsConstraint: &inputLokiSendToRoutesTrueWithConnectionsConstraint,
-		Type: typ,
+		InputLokiSendToRoutesTrueConstraint: &inputLokiSendToRoutesTrueConstraint,
+		Type:                                typ,
 	}
 }
 
@@ -1572,12 +1572,12 @@ func CreateInputLokiInputLokiSendToRoutesFalseWithConnectionsConstraint(inputLok
 	}
 }
 
-func CreateInputLokiInputLokiPqEnabledFalseWithPqConstraint(inputLokiPqEnabledFalseWithPqConstraint InputLokiPqEnabledFalseWithPqConstraint) InputLoki {
-	typ := InputLokiUnionTypeInputLokiPqEnabledFalseWithPqConstraint
+func CreateInputLokiInputLokiPqEnabledFalseConstraint(inputLokiPqEnabledFalseConstraint InputLokiPqEnabledFalseConstraint) InputLoki {
+	typ := InputLokiUnionTypeInputLokiPqEnabledFalseConstraint
 
 	return InputLoki{
-		InputLokiPqEnabledFalseWithPqConstraint: &inputLokiPqEnabledFalseWithPqConstraint,
-		Type:                                    typ,
+		InputLokiPqEnabledFalseConstraint: &inputLokiPqEnabledFalseConstraint,
+		Type:                              typ,
 	}
 }
 
@@ -1592,10 +1592,10 @@ func CreateInputLokiInputLokiPqEnabledTrueWithPqConstraint(inputLokiPqEnabledTru
 
 func (u *InputLoki) UnmarshalJSON(data []byte) error {
 
-	var inputLokiSendToRoutesTrueWithConnectionsConstraint InputLokiSendToRoutesTrueWithConnectionsConstraint = InputLokiSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputLokiSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputLokiSendToRoutesTrueWithConnectionsConstraint = &inputLokiSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputLokiUnionTypeInputLokiSendToRoutesTrueWithConnectionsConstraint
+	var inputLokiSendToRoutesTrueConstraint InputLokiSendToRoutesTrueConstraint = InputLokiSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputLokiSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputLokiSendToRoutesTrueConstraint = &inputLokiSendToRoutesTrueConstraint
+		u.Type = InputLokiUnionTypeInputLokiSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -1606,10 +1606,10 @@ func (u *InputLoki) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputLokiPqEnabledFalseWithPqConstraint InputLokiPqEnabledFalseWithPqConstraint = InputLokiPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputLokiPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputLokiPqEnabledFalseWithPqConstraint = &inputLokiPqEnabledFalseWithPqConstraint
-		u.Type = InputLokiUnionTypeInputLokiPqEnabledFalseWithPqConstraint
+	var inputLokiPqEnabledFalseConstraint InputLokiPqEnabledFalseConstraint = InputLokiPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputLokiPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputLokiPqEnabledFalseConstraint = &inputLokiPqEnabledFalseConstraint
+		u.Type = InputLokiUnionTypeInputLokiPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1624,16 +1624,16 @@ func (u *InputLoki) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputLoki) MarshalJSON() ([]byte, error) {
-	if u.InputLokiSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputLokiSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputLokiSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputLokiSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputLokiSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputLokiSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputLokiPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputLokiPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputLokiPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputLokiPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputLokiPqEnabledTrueWithPqConstraint != nil {

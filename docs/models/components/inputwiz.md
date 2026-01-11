@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputWizSendToRoutesTrueWithConnectionsConstraint
+### InputWizSendToRoutesTrueConstraint
 
 ```go
-inputWiz := components.CreateInputWizInputWizSendToRoutesTrueWithConnectionsConstraint(components.InputWizSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputWiz := components.CreateInputWizInputWizSendToRoutesTrueConstraint(components.InputWizSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputWizSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputWiz := components.CreateInputWizInputWizSendToRoutesTrueWithConnectionsCons
 inputWiz := components.CreateInputWizInputWizSendToRoutesFalseWithConnectionsConstraint(components.InputWizSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWizPqEnabledFalseWithPqConstraint
+### InputWizPqEnabledFalseConstraint
 
 ```go
-inputWiz := components.CreateInputWizInputWizPqEnabledFalseWithPqConstraint(components.InputWizPqEnabledFalseWithPqConstraint{/* values here */})
+inputWiz := components.CreateInputWizInputWizPqEnabledFalseConstraint(components.InputWizPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputWizPqEnabledTrueWithPqConstraint

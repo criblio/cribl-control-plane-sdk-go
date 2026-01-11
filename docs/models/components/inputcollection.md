@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputCollectionSendToRoutesTrueWithConnectionsConstraint
+### InputCollectionSendToRoutesTrueConstraint
 
 ```go
-inputCollection := components.CreateInputCollectionInputCollectionSendToRoutesTrueWithConnectionsConstraint(components.InputCollectionSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputCollection := components.CreateInputCollectionInputCollectionSendToRoutesTrueConstraint(components.InputCollectionSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputCollectionSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputCollection := components.CreateInputCollectionInputCollectionSendToRoutesTr
 inputCollection := components.CreateInputCollectionInputCollectionSendToRoutesFalseWithConnectionsConstraint(components.InputCollectionSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCollectionPqEnabledFalseWithPqConstraint
+### InputCollectionPqEnabledFalseConstraint
 
 ```go
-inputCollection := components.CreateInputCollectionInputCollectionPqEnabledFalseWithPqConstraint(components.InputCollectionPqEnabledFalseWithPqConstraint{/* values here */})
+inputCollection := components.CreateInputCollectionInputCollectionPqEnabledFalseConstraint(components.InputCollectionPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputCollectionPqEnabledTrueWithPqConstraint

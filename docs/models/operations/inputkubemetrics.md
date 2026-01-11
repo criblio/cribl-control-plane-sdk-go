@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint
+### InputKubeMetricsSendToRoutesTrueConstraint
 
 ```go
-inputKubeMetrics := operations.CreateInputKubeMetricsInputKubeMetricsSendToRoutesTrueWithConnectionsConstraint(operations.InputKubeMetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputKubeMetrics := operations.CreateInputKubeMetricsInputKubeMetricsSendToRoutesTrueConstraint(operations.InputKubeMetricsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputKubeMetrics := operations.CreateInputKubeMetricsInputKubeMetricsSendToRoute
 inputKubeMetrics := operations.CreateInputKubeMetricsInputKubeMetricsSendToRoutesFalseWithConnectionsConstraint(operations.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKubeMetricsPqEnabledFalseWithPqConstraint
+### InputKubeMetricsPqEnabledFalseConstraint
 
 ```go
-inputKubeMetrics := operations.CreateInputKubeMetricsInputKubeMetricsPqEnabledFalseWithPqConstraint(operations.InputKubeMetricsPqEnabledFalseWithPqConstraint{/* values here */})
+inputKubeMetrics := operations.CreateInputKubeMetricsInputKubeMetricsPqEnabledFalseConstraint(operations.InputKubeMetricsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputKubeMetricsPqEnabledTrueWithPqConstraint

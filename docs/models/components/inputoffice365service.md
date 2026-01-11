@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint
+### InputOffice365ServiceSendToRoutesTrueConstraint
 
 ```go
-inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint(components.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceSendToRoutesTrueConstraint(components.InputOffice365ServiceSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365Ser
 inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint(components.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365ServicePqEnabledFalseWithPqConstraint
+### InputOffice365ServicePqEnabledFalseConstraint
 
 ```go
-inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServicePqEnabledFalseWithPqConstraint(components.InputOffice365ServicePqEnabledFalseWithPqConstraint{/* values here */})
+inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServicePqEnabledFalseConstraint(components.InputOffice365ServicePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputOffice365ServicePqEnabledTrueWithPqConstraint

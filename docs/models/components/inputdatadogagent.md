@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
+### InputDatadogAgentSendToRoutesTrueConstraint
 
 ```go
-inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentSendToRoutesTrueWithConnectionsConstraint(components.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentSendToRoutesTrueConstraint(components.InputDatadogAgentSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentSendToRo
 inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentSendToRoutesFalseWithConnectionsConstraint(components.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatadogAgentPqEnabledFalseWithPqConstraint
+### InputDatadogAgentPqEnabledFalseConstraint
 
 ```go
-inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentPqEnabledFalseWithPqConstraint(components.InputDatadogAgentPqEnabledFalseWithPqConstraint{/* values here */})
+inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentPqEnabledFalseConstraint(components.InputDatadogAgentPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputDatadogAgentPqEnabledTrueWithPqConstraint

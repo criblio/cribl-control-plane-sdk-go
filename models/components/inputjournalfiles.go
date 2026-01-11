@@ -81,7 +81,7 @@ type InputJournalFilesPqEnabledTrueWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
@@ -173,7 +173,7 @@ func (i *InputJournalFilesPqEnabledTrueWithPqConstraint) GetStreamtags() []strin
 	return i.Streamtags
 }
 
-func (i *InputJournalFilesPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputJournalFilesPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -236,69 +236,68 @@ func (i *InputJournalFilesPqEnabledTrueWithPqConstraint) GetDescription() *strin
 	return i.Description
 }
 
-type InputJournalFilesPqEnabledFalseWithPqConstraintType string
+type InputJournalFilesPqEnabledFalseConstraintType string
 
 const (
-	InputJournalFilesPqEnabledFalseWithPqConstraintTypeJournalFiles InputJournalFilesPqEnabledFalseWithPqConstraintType = "journal_files"
+	InputJournalFilesPqEnabledFalseConstraintTypeJournalFiles InputJournalFilesPqEnabledFalseConstraintType = "journal_files"
 )
 
-func (e InputJournalFilesPqEnabledFalseWithPqConstraintType) ToPointer() *InputJournalFilesPqEnabledFalseWithPqConstraintType {
+func (e InputJournalFilesPqEnabledFalseConstraintType) ToPointer() *InputJournalFilesPqEnabledFalseConstraintType {
 	return &e
 }
-func (e *InputJournalFilesPqEnabledFalseWithPqConstraintType) UnmarshalJSON(data []byte) error {
+func (e *InputJournalFilesPqEnabledFalseConstraintType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "journal_files":
-		*e = InputJournalFilesPqEnabledFalseWithPqConstraintType(v)
+		*e = InputJournalFilesPqEnabledFalseConstraintType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputJournalFilesPqEnabledFalseWithPqConstraintType: %v", v)
+		return fmt.Errorf("invalid value for InputJournalFilesPqEnabledFalseConstraintType: %v", v)
 	}
 }
 
-type PqEnabledFalseWithPqConstraintRule struct {
+type PqEnabledFalseConstraintRule struct {
 	// JavaScript expression applied to Journal objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
 	Description *string `json:"description,omitempty"`
 }
 
-func (p PqEnabledFalseWithPqConstraintRule) MarshalJSON() ([]byte, error) {
+func (p PqEnabledFalseConstraintRule) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PqEnabledFalseWithPqConstraintRule) UnmarshalJSON(data []byte) error {
+func (p *PqEnabledFalseConstraintRule) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"filter"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PqEnabledFalseWithPqConstraintRule) GetFilter() string {
+func (p *PqEnabledFalseConstraintRule) GetFilter() string {
 	if p == nil {
 		return ""
 	}
 	return p.Filter
 }
 
-func (p *PqEnabledFalseWithPqConstraintRule) GetDescription() *string {
+func (p *PqEnabledFalseConstraintRule) GetDescription() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Description
 }
 
-type InputJournalFilesPqEnabledFalseWithPqConstraint struct {
+type InputJournalFilesPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string                                             `json:"id,omitempty"`
-	Type     InputJournalFilesPqEnabledFalseWithPqConstraintType `json:"type"`
-	Disabled *bool                                               `default:"false" json:"disabled"`
+	ID       *string                                       `json:"id,omitempty"`
+	Type     InputJournalFilesPqEnabledFalseConstraintType `json:"type"`
+	Disabled *bool                                         `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -308,7 +307,8 @@ type InputJournalFilesPqEnabledFalseWithPqConstraint struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
@@ -316,7 +316,7 @@ type InputJournalFilesPqEnabledFalseWithPqConstraint struct {
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
-	Rules []PqEnabledFalseWithPqConstraintRule `json:"rules,omitempty"`
+	Rules []PqEnabledFalseConstraintRule `json:"rules,omitempty"`
 	// Skip log messages that are not part of the current boot session.
 	CurrentBoot *bool `default:"false" json:"currentBoot"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
@@ -326,137 +326,137 @@ type InputJournalFilesPqEnabledFalseWithPqConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputJournalFilesPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
+func (i InputJournalFilesPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputJournalFilesPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetID() *string {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetType() InputJournalFilesPqEnabledFalseWithPqConstraintType {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetType() InputJournalFilesPqEnabledFalseConstraintType {
 	if i == nil {
-		return InputJournalFilesPqEnabledFalseWithPqConstraintType("")
+		return InputJournalFilesPqEnabledFalseConstraintType("")
 	}
 	return i.Type
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetPath() string {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetPath() string {
 	if i == nil {
 		return ""
 	}
 	return i.Path
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetInterval() *float64 {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetJournals() []string {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetJournals() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Journals
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetRules() []PqEnabledFalseWithPqConstraintRule {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetRules() []PqEnabledFalseConstraintRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetCurrentBoot() *bool {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetCurrentBoot() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CurrentBoot
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetMaxAgeDur() *string {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetMaxAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MaxAgeDur
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputJournalFilesPqEnabledFalseWithPqConstraint) GetDescription() *string {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -522,7 +522,7 @@ type InputJournalFilesSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                                                         `json:"id,omitempty"`
 	Type     InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType `json:"type"`
@@ -571,7 +571,7 @@ func (i *InputJournalFilesSendToRoutesFalseWithConnectionsConstraint) GetSendToR
 	return i.SendToRoutes
 }
 
-func (i *InputJournalFilesSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
+func (i *InputJournalFilesSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -690,70 +690,68 @@ func (i *InputJournalFilesSendToRoutesFalseWithConnectionsConstraint) GetDescrip
 	return i.Description
 }
 
-type InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType string
+type InputJournalFilesSendToRoutesTrueConstraintType string
 
 const (
-	InputJournalFilesSendToRoutesTrueWithConnectionsConstraintTypeJournalFiles InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType = "journal_files"
+	InputJournalFilesSendToRoutesTrueConstraintTypeJournalFiles InputJournalFilesSendToRoutesTrueConstraintType = "journal_files"
 )
 
-func (e InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType) ToPointer() *InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType {
+func (e InputJournalFilesSendToRoutesTrueConstraintType) ToPointer() *InputJournalFilesSendToRoutesTrueConstraintType {
 	return &e
 }
-func (e *InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType) UnmarshalJSON(data []byte) error {
+func (e *InputJournalFilesSendToRoutesTrueConstraintType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "journal_files":
-		*e = InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType(v)
+		*e = InputJournalFilesSendToRoutesTrueConstraintType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType: %v", v)
+		return fmt.Errorf("invalid value for InputJournalFilesSendToRoutesTrueConstraintType: %v", v)
 	}
 }
 
-type SendToRoutesTrueWithConnectionsConstraintRule struct {
+type SendToRoutesTrueConstraintRule struct {
 	// JavaScript expression applied to Journal objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
 	Description *string `json:"description,omitempty"`
 }
 
-func (s SendToRoutesTrueWithConnectionsConstraintRule) MarshalJSON() ([]byte, error) {
+func (s SendToRoutesTrueConstraintRule) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *SendToRoutesTrueWithConnectionsConstraintRule) UnmarshalJSON(data []byte) error {
+func (s *SendToRoutesTrueConstraintRule) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"filter"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SendToRoutesTrueWithConnectionsConstraintRule) GetFilter() string {
+func (s *SendToRoutesTrueConstraintRule) GetFilter() string {
 	if s == nil {
 		return ""
 	}
 	return s.Filter
 }
 
-func (s *SendToRoutesTrueWithConnectionsConstraintRule) GetDescription() *string {
+func (s *SendToRoutesTrueConstraintRule) GetDescription() *string {
 	if s == nil {
 		return nil
 	}
 	return s.Description
 }
 
-type InputJournalFilesSendToRoutesTrueWithConnectionsConstraint struct {
+type InputJournalFilesSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
-	ID       *string                                                        `json:"id,omitempty"`
-	Type     InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType `json:"type"`
-	Disabled *bool                                                          `default:"false" json:"disabled"`
+	ID       *string                                         `json:"id,omitempty"`
+	Type     InputJournalFilesSendToRoutesTrueConstraintType `json:"type"`
+	Disabled *bool                                           `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
@@ -762,7 +760,9 @@ type InputJournalFilesSendToRoutesTrueWithConnectionsConstraint struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
@@ -770,7 +770,7 @@ type InputJournalFilesSendToRoutesTrueWithConnectionsConstraint struct {
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
-	Rules []SendToRoutesTrueWithConnectionsConstraintRule `json:"rules,omitempty"`
+	Rules []SendToRoutesTrueConstraintRule `json:"rules,omitempty"`
 	// Skip log messages that are not part of the current boot session.
 	CurrentBoot *bool `default:"false" json:"currentBoot"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
@@ -780,137 +780,137 @@ type InputJournalFilesSendToRoutesTrueWithConnectionsConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+func (i InputJournalFilesSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetType() InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetType() InputJournalFilesSendToRoutesTrueConstraintType {
 	if i == nil {
-		return InputJournalFilesSendToRoutesTrueWithConnectionsConstraintType("")
+		return InputJournalFilesSendToRoutesTrueConstraintType("")
 	}
 	return i.Type
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetPath() string {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetPath() string {
 	if i == nil {
 		return ""
 	}
 	return i.Path
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetJournals() []string {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetJournals() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.Journals
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetRules() []SendToRoutesTrueWithConnectionsConstraintRule {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetRules() []SendToRoutesTrueConstraintRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetCurrentBoot() *bool {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetCurrentBoot() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CurrentBoot
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetMaxAgeDur() *string {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetMaxAgeDur() *string {
 	if i == nil {
 		return nil
 	}
 	return i.MaxAgeDur
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -920,26 +920,26 @@ func (i *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) GetDescript
 type InputJournalFilesType string
 
 const (
-	InputJournalFilesTypeInputJournalFilesSendToRoutesTrueWithConnectionsConstraint  InputJournalFilesType = "InputJournalFiles_SendToRoutesTrueWithConnectionsConstraint"
+	InputJournalFilesTypeInputJournalFilesSendToRoutesTrueConstraint                 InputJournalFilesType = "InputJournalFiles_SendToRoutesTrueConstraint"
 	InputJournalFilesTypeInputJournalFilesSendToRoutesFalseWithConnectionsConstraint InputJournalFilesType = "InputJournalFiles_SendToRoutesFalseWithConnectionsConstraint"
-	InputJournalFilesTypeInputJournalFilesPqEnabledFalseWithPqConstraint             InputJournalFilesType = "InputJournalFiles_PqEnabledFalseWithPqConstraint"
+	InputJournalFilesTypeInputJournalFilesPqEnabledFalseConstraint                   InputJournalFilesType = "InputJournalFiles_PqEnabledFalseConstraint"
 	InputJournalFilesTypeInputJournalFilesPqEnabledTrueWithPqConstraint              InputJournalFilesType = "InputJournalFiles_PqEnabledTrueWithPqConstraint"
 )
 
 type InputJournalFiles struct {
-	InputJournalFilesSendToRoutesTrueWithConnectionsConstraint  *InputJournalFilesSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputJournalFilesSendToRoutesTrueConstraint                 *InputJournalFilesSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
 	InputJournalFilesSendToRoutesFalseWithConnectionsConstraint *InputJournalFilesSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputJournalFilesPqEnabledFalseWithPqConstraint             *InputJournalFilesPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputJournalFilesPqEnabledFalseConstraint                   *InputJournalFilesPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
 	InputJournalFilesPqEnabledTrueWithPqConstraint              *InputJournalFilesPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputJournalFilesType
 }
 
-func CreateInputJournalFilesInputJournalFilesSendToRoutesTrueWithConnectionsConstraint(inputJournalFilesSendToRoutesTrueWithConnectionsConstraint InputJournalFilesSendToRoutesTrueWithConnectionsConstraint) InputJournalFiles {
-	typ := InputJournalFilesTypeInputJournalFilesSendToRoutesTrueWithConnectionsConstraint
+func CreateInputJournalFilesInputJournalFilesSendToRoutesTrueConstraint(inputJournalFilesSendToRoutesTrueConstraint InputJournalFilesSendToRoutesTrueConstraint) InputJournalFiles {
+	typ := InputJournalFilesTypeInputJournalFilesSendToRoutesTrueConstraint
 
 	return InputJournalFiles{
-		InputJournalFilesSendToRoutesTrueWithConnectionsConstraint: &inputJournalFilesSendToRoutesTrueWithConnectionsConstraint,
+		InputJournalFilesSendToRoutesTrueConstraint: &inputJournalFilesSendToRoutesTrueConstraint,
 		Type: typ,
 	}
 }
@@ -953,11 +953,11 @@ func CreateInputJournalFilesInputJournalFilesSendToRoutesFalseWithConnectionsCon
 	}
 }
 
-func CreateInputJournalFilesInputJournalFilesPqEnabledFalseWithPqConstraint(inputJournalFilesPqEnabledFalseWithPqConstraint InputJournalFilesPqEnabledFalseWithPqConstraint) InputJournalFiles {
-	typ := InputJournalFilesTypeInputJournalFilesPqEnabledFalseWithPqConstraint
+func CreateInputJournalFilesInputJournalFilesPqEnabledFalseConstraint(inputJournalFilesPqEnabledFalseConstraint InputJournalFilesPqEnabledFalseConstraint) InputJournalFiles {
+	typ := InputJournalFilesTypeInputJournalFilesPqEnabledFalseConstraint
 
 	return InputJournalFiles{
-		InputJournalFilesPqEnabledFalseWithPqConstraint: &inputJournalFilesPqEnabledFalseWithPqConstraint,
+		InputJournalFilesPqEnabledFalseConstraint: &inputJournalFilesPqEnabledFalseConstraint,
 		Type: typ,
 	}
 }
@@ -973,10 +973,10 @@ func CreateInputJournalFilesInputJournalFilesPqEnabledTrueWithPqConstraint(input
 
 func (u *InputJournalFiles) UnmarshalJSON(data []byte) error {
 
-	var inputJournalFilesSendToRoutesTrueWithConnectionsConstraint InputJournalFilesSendToRoutesTrueWithConnectionsConstraint = InputJournalFilesSendToRoutesTrueWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputJournalFilesSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint = &inputJournalFilesSendToRoutesTrueWithConnectionsConstraint
-		u.Type = InputJournalFilesTypeInputJournalFilesSendToRoutesTrueWithConnectionsConstraint
+	var inputJournalFilesSendToRoutesTrueConstraint InputJournalFilesSendToRoutesTrueConstraint = InputJournalFilesSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputJournalFilesSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputJournalFilesSendToRoutesTrueConstraint = &inputJournalFilesSendToRoutesTrueConstraint
+		u.Type = InputJournalFilesTypeInputJournalFilesSendToRoutesTrueConstraint
 		return nil
 	}
 
@@ -987,10 +987,10 @@ func (u *InputJournalFiles) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var inputJournalFilesPqEnabledFalseWithPqConstraint InputJournalFilesPqEnabledFalseWithPqConstraint = InputJournalFilesPqEnabledFalseWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputJournalFilesPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
-		u.InputJournalFilesPqEnabledFalseWithPqConstraint = &inputJournalFilesPqEnabledFalseWithPqConstraint
-		u.Type = InputJournalFilesTypeInputJournalFilesPqEnabledFalseWithPqConstraint
+	var inputJournalFilesPqEnabledFalseConstraint InputJournalFilesPqEnabledFalseConstraint = InputJournalFilesPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputJournalFilesPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputJournalFilesPqEnabledFalseConstraint = &inputJournalFilesPqEnabledFalseConstraint
+		u.Type = InputJournalFilesTypeInputJournalFilesPqEnabledFalseConstraint
 		return nil
 	}
 
@@ -1005,16 +1005,16 @@ func (u *InputJournalFiles) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputJournalFiles) MarshalJSON() ([]byte, error) {
-	if u.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint, "", true)
+	if u.InputJournalFilesSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputJournalFilesSendToRoutesTrueConstraint, "", true)
 	}
 
 	if u.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint != nil {
 		return utils.MarshalJSON(u.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputJournalFilesPqEnabledFalseWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputJournalFilesPqEnabledFalseWithPqConstraint, "", true)
+	if u.InputJournalFilesPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputJournalFilesPqEnabledFalseConstraint, "", true)
 	}
 
 	if u.InputJournalFilesPqEnabledTrueWithPqConstraint != nil {

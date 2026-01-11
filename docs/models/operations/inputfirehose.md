@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputFirehoseSendToRoutesTrueWithConnectionsConstraint
+### InputFirehoseSendToRoutesTrueConstraint
 
 ```go
-inputFirehose := operations.CreateInputFirehoseInputFirehoseSendToRoutesTrueWithConnectionsConstraint(operations.InputFirehoseSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputFirehose := operations.CreateInputFirehoseInputFirehoseSendToRoutesTrueConstraint(operations.InputFirehoseSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputFirehoseSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputFirehose := operations.CreateInputFirehoseInputFirehoseSendToRoutesTrueWith
 inputFirehose := operations.CreateInputFirehoseInputFirehoseSendToRoutesFalseWithConnectionsConstraint(operations.InputFirehoseSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFirehosePqEnabledFalseWithPqConstraint
+### InputFirehosePqEnabledFalseConstraint
 
 ```go
-inputFirehose := operations.CreateInputFirehoseInputFirehosePqEnabledFalseWithPqConstraint(operations.InputFirehosePqEnabledFalseWithPqConstraint{/* values here */})
+inputFirehose := operations.CreateInputFirehoseInputFirehosePqEnabledFalseConstraint(operations.InputFirehosePqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputFirehosePqEnabledTrueWithPqConstraint

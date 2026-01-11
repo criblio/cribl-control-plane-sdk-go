@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputWefSendToRoutesTrueWithConnectionsConstraint
+### InputWefSendToRoutesTrueConstraint
 
 ```go
-inputWef := components.CreateInputWefInputWefSendToRoutesTrueWithConnectionsConstraint(components.InputWefSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputWef := components.CreateInputWefInputWefSendToRoutesTrueConstraint(components.InputWefSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputWefSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputWef := components.CreateInputWefInputWefSendToRoutesTrueWithConnectionsCons
 inputWef := components.CreateInputWefInputWefSendToRoutesFalseWithConnectionsConstraint(components.InputWefSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWefPqEnabledFalseWithPqConstraint
+### InputWefPqEnabledFalseConstraint
 
 ```go
-inputWef := components.CreateInputWefInputWefPqEnabledFalseWithPqConstraint(components.InputWefPqEnabledFalseWithPqConstraint{/* values here */})
+inputWef := components.CreateInputWefInputWefPqEnabledFalseConstraint(components.InputWefPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputWefPqEnabledTrueWithPqConstraint

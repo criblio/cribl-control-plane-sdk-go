@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSplunkHecSendToRoutesTrueWithConnectionsConstraint
+### InputSplunkHecSendToRoutesTrueConstraint
 
 ```go
-inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecSendToRoutesTrueWithConnectionsConstraint(operations.InputSplunkHecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecSendToRoutesTrueConstraint(operations.InputSplunkHecSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSplunkHecSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecSendToRoutesTrueW
 inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecSendToRoutesFalseWithConnectionsConstraint(operations.InputSplunkHecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkHecPqEnabledFalseWithPqConstraint
+### InputSplunkHecPqEnabledFalseConstraint
 
 ```go
-inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecPqEnabledFalseWithPqConstraint(operations.InputSplunkHecPqEnabledFalseWithPqConstraint{/* values here */})
+inputSplunkHec := operations.CreateInputSplunkHecInputSplunkHecPqEnabledFalseConstraint(operations.InputSplunkHecPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSplunkHecPqEnabledTrueWithPqConstraint

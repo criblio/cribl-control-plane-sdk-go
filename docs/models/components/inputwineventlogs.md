@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
+### InputWinEventLogsSendToRoutesTrueConstraint
 
 ```go
-inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsSendToRoutesTrueWithConnectionsConstraint(components.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsSendToRoutesTrueConstraint(components.InputWinEventLogsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsSendToRo
 inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint(components.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWinEventLogsPqEnabledFalseWithPqConstraint
+### InputWinEventLogsPqEnabledFalseConstraint
 
 ```go
-inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsPqEnabledFalseWithPqConstraint(components.InputWinEventLogsPqEnabledFalseWithPqConstraint{/* values here */})
+inputWinEventLogs := components.CreateInputWinEventLogsInputWinEventLogsPqEnabledFalseConstraint(components.InputWinEventLogsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputWinEventLogsPqEnabledTrueWithPqConstraint

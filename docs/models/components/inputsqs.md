@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### InputSqsSendToRoutesTrueWithConnectionsConstraint
+### InputSqsSendToRoutesTrueConstraint
 
 ```go
-inputSqs := components.CreateInputSqsInputSqsSendToRoutesTrueWithConnectionsConstraint(components.InputSqsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
+inputSqs := components.CreateInputSqsInputSqsSendToRoutesTrueConstraint(components.InputSqsSendToRoutesTrueConstraint{/* values here */})
 ```
 
 ### InputSqsSendToRoutesFalseWithConnectionsConstraint
@@ -15,10 +15,10 @@ inputSqs := components.CreateInputSqsInputSqsSendToRoutesTrueWithConnectionsCons
 inputSqs := components.CreateInputSqsInputSqsSendToRoutesFalseWithConnectionsConstraint(components.InputSqsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSqsPqEnabledFalseWithPqConstraint
+### InputSqsPqEnabledFalseConstraint
 
 ```go
-inputSqs := components.CreateInputSqsInputSqsPqEnabledFalseWithPqConstraint(components.InputSqsPqEnabledFalseWithPqConstraint{/* values here */})
+inputSqs := components.CreateInputSqsInputSqsPqEnabledFalseConstraint(components.InputSqsPqEnabledFalseConstraint{/* values here */})
 ```
 
 ### InputSqsPqEnabledTrueWithPqConstraint
