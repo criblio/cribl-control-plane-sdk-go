@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputElasticInputCollectionPart1Type1 struct {
+type InputElasticPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -75,272 +75,273 @@ type InputElasticInputCollectionPart1Type1 struct {
 	CustomAPIVersion *string `default:"{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}" json:"customAPIVersion"`
 }
 
-func (i InputElasticInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputElasticPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputElasticInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetID() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetType() InputElasticType {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetType() InputElasticType {
 	if i == nil {
 		return InputElasticType("")
 	}
 	return i.Type
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetHost() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetPort() float64 {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetEnableHealthCheck() *bool {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetElasticAPI() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetElasticAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ElasticAPI
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetAuthType() *InputElasticAuthenticationType {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetAuthType() *InputElasticAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetAPIVersion() *InputElasticAPIVersion {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetAPIVersion() *InputElasticAPIVersion {
 	if i == nil {
 		return nil
 	}
 	return i.APIVersion
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetProxyMode() *InputElasticProxyMode {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetProxyMode() *InputElasticProxyMode {
 	if i == nil {
 		return nil
 	}
 	return i.ProxyMode
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetUsername() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetPassword() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetCredentialsSecret() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetAuthTokens() []string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputElasticInputCollectionPart1Type1) GetCustomAPIVersion() *string {
+func (i *InputElasticPqEnabledTrueWithPqConstraint) GetCustomAPIVersion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CustomAPIVersion
 }
 
-type InputElasticInputCollectionPart0Type1 struct {
+type InputElasticPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputElasticType `json:"type"`
@@ -355,7 +356,6 @@ type InputElasticInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -404,270 +404,270 @@ type InputElasticInputCollectionPart0Type1 struct {
 	CustomAPIVersion *string `default:"{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}" json:"customAPIVersion"`
 }
 
-func (i InputElasticInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputElasticPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputElasticInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputElasticInputCollectionPart0Type1) GetType() InputElasticType {
-	if i == nil {
-		return InputElasticType("")
-	}
-	return i.Type
-}
-
-func (i *InputElasticInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputElasticInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputElasticInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputElasticInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputElasticInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputElasticInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputElasticInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetHost() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetType() InputElasticType {
+	if i == nil {
+		return InputElasticType("")
+	}
+	return i.Type
+}
+
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetPort() float64 {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetEnableHealthCheck() *bool {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetElasticAPI() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetElasticAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ElasticAPI
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetAuthType() *InputElasticAuthenticationType {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetAuthType() *InputElasticAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetAPIVersion() *InputElasticAPIVersion {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetAPIVersion() *InputElasticAPIVersion {
 	if i == nil {
 		return nil
 	}
 	return i.APIVersion
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetProxyMode() *InputElasticProxyMode {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetProxyMode() *InputElasticProxyMode {
 	if i == nil {
 		return nil
 	}
 	return i.ProxyMode
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetUsername() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetPassword() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetCredentialsSecret() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetAuthTokens() []string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputElasticInputCollectionPart0Type1) GetCustomAPIVersion() *string {
+func (i *InputElasticPqEnabledFalseWithPqConstraint) GetCustomAPIVersion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CustomAPIVersion
 }
 
-type InputElasticInputCollectionPart1Type struct {
+type InputElasticSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -733,263 +733,263 @@ type InputElasticInputCollectionPart1Type struct {
 	CustomAPIVersion *string `default:"{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}" json:"customAPIVersion"`
 }
 
-func (i InputElasticInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputElasticSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputElasticInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetID() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetType() InputElasticType {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetType() InputElasticType {
 	if i == nil {
 		return InputElasticType("")
 	}
 	return i.Type
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetHost() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetPort() float64 {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetCaptureHeaders() *bool {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetSocketTimeout() *float64 {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetEnableHealthCheck() *bool {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetIPDenylistRegex() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetElasticAPI() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetElasticAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ElasticAPI
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetAuthType() *InputElasticAuthenticationType {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *InputElasticAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetAPIVersion() *InputElasticAPIVersion {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetAPIVersion() *InputElasticAPIVersion {
 	if i == nil {
 		return nil
 	}
 	return i.APIVersion
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetProxyMode() *InputElasticProxyMode {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetProxyMode() *InputElasticProxyMode {
 	if i == nil {
 		return nil
 	}
 	return i.ProxyMode
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetDescription() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetUsername() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetPassword() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetCredentialsSecret() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetAuthTokens() []string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputElasticInputCollectionPart1Type) GetCustomAPIVersion() *string {
+func (i *InputElasticSendToRoutesFalseWithConnectionsConstraint) GetCustomAPIVersion() *string {
 	if i == nil {
 		return nil
 	}
@@ -1191,9 +1191,11 @@ func (i *InputElasticProxyMode) GetTimeoutSec() *float64 {
 	return i.TimeoutSec
 }
 
-type InputElasticInputCollectionPart0Type struct {
+type InputElasticSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputElasticType `json:"type"`
@@ -1206,9 +1208,7 @@ type InputElasticInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -1257,263 +1257,263 @@ type InputElasticInputCollectionPart0Type struct {
 	CustomAPIVersion *string `default:"{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}" json:"customAPIVersion"`
 }
 
-func (i InputElasticInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputElasticSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputElasticInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputElasticInputCollectionPart0Type) GetType() InputElasticType {
-	if i == nil {
-		return InputElasticType("")
-	}
-	return i.Type
-}
-
-func (i *InputElasticInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputElasticInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputElasticInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputElasticInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputElasticInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputElasticInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetType() InputElasticType {
+	if i == nil {
+		return InputElasticType("")
+	}
+	return i.Type
+}
+
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetHost() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetPort() float64 {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetMaxActiveReq() *float64 {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetEnableProxyHeader() *bool {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetCaptureHeaders() *bool {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetSocketTimeout() *float64 {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetEnableHealthCheck() *bool {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetIPAllowlistRegex() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetIPDenylistRegex() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetElasticAPI() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetElasticAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ElasticAPI
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetAuthType() *InputElasticAuthenticationType {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetAuthType() *InputElasticAuthenticationType {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetAPIVersion() *InputElasticAPIVersion {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetAPIVersion() *InputElasticAPIVersion {
 	if i == nil {
 		return nil
 	}
 	return i.APIVersion
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetProxyMode() *InputElasticProxyMode {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetProxyMode() *InputElasticProxyMode {
 	if i == nil {
 		return nil
 	}
 	return i.ProxyMode
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetDescription() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetUsername() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetPassword() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetCredentialsSecret() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetAuthTokens() []string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputElasticInputCollectionPart0Type) GetCustomAPIVersion() *string {
+func (i *InputElasticSendToRoutesTrueWithConnectionsConstraint) GetCustomAPIVersion() *string {
 	if i == nil {
 		return nil
 	}
@@ -1523,84 +1523,84 @@ func (i *InputElasticInputCollectionPart0Type) GetCustomAPIVersion() *string {
 type InputElasticUnionType string
 
 const (
-	InputElasticUnionTypeInputElasticInputCollectionPart0Type  InputElasticUnionType = "InputElastic_InputCollectionPart0Type"
-	InputElasticUnionTypeInputElasticInputCollectionPart1Type  InputElasticUnionType = "InputElastic_InputCollectionPart1Type"
-	InputElasticUnionTypeInputElasticInputCollectionPart0Type1 InputElasticUnionType = "InputElastic_InputCollectionPart0Type1"
-	InputElasticUnionTypeInputElasticInputCollectionPart1Type1 InputElasticUnionType = "InputElastic_InputCollectionPart1Type1"
+	InputElasticUnionTypeInputElasticSendToRoutesTrueWithConnectionsConstraint  InputElasticUnionType = "InputElastic_SendToRoutesTrueWithConnectionsConstraint"
+	InputElasticUnionTypeInputElasticSendToRoutesFalseWithConnectionsConstraint InputElasticUnionType = "InputElastic_SendToRoutesFalseWithConnectionsConstraint"
+	InputElasticUnionTypeInputElasticPqEnabledFalseWithPqConstraint             InputElasticUnionType = "InputElastic_PqEnabledFalseWithPqConstraint"
+	InputElasticUnionTypeInputElasticPqEnabledTrueWithPqConstraint              InputElasticUnionType = "InputElastic_PqEnabledTrueWithPqConstraint"
 )
 
 type InputElastic struct {
-	InputElasticInputCollectionPart0Type  *InputElasticInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputElasticInputCollectionPart1Type  *InputElasticInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputElasticInputCollectionPart0Type1 *InputElasticInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputElasticInputCollectionPart1Type1 *InputElasticInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputElasticSendToRoutesTrueWithConnectionsConstraint  *InputElasticSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputElasticSendToRoutesFalseWithConnectionsConstraint *InputElasticSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputElasticPqEnabledFalseWithPqConstraint             *InputElasticPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputElasticPqEnabledTrueWithPqConstraint              *InputElasticPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputElasticUnionType
 }
 
-func CreateInputElasticInputElasticInputCollectionPart0Type(inputElasticInputCollectionPart0Type InputElasticInputCollectionPart0Type) InputElastic {
-	typ := InputElasticUnionTypeInputElasticInputCollectionPart0Type
+func CreateInputElasticInputElasticSendToRoutesTrueWithConnectionsConstraint(inputElasticSendToRoutesTrueWithConnectionsConstraint InputElasticSendToRoutesTrueWithConnectionsConstraint) InputElastic {
+	typ := InputElasticUnionTypeInputElasticSendToRoutesTrueWithConnectionsConstraint
 
 	return InputElastic{
-		InputElasticInputCollectionPart0Type: &inputElasticInputCollectionPart0Type,
-		Type:                                 typ,
+		InputElasticSendToRoutesTrueWithConnectionsConstraint: &inputElasticSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputElasticInputElasticInputCollectionPart1Type(inputElasticInputCollectionPart1Type InputElasticInputCollectionPart1Type) InputElastic {
-	typ := InputElasticUnionTypeInputElasticInputCollectionPart1Type
+func CreateInputElasticInputElasticSendToRoutesFalseWithConnectionsConstraint(inputElasticSendToRoutesFalseWithConnectionsConstraint InputElasticSendToRoutesFalseWithConnectionsConstraint) InputElastic {
+	typ := InputElasticUnionTypeInputElasticSendToRoutesFalseWithConnectionsConstraint
 
 	return InputElastic{
-		InputElasticInputCollectionPart1Type: &inputElasticInputCollectionPart1Type,
-		Type:                                 typ,
+		InputElasticSendToRoutesFalseWithConnectionsConstraint: &inputElasticSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputElasticInputElasticInputCollectionPart0Type1(inputElasticInputCollectionPart0Type1 InputElasticInputCollectionPart0Type1) InputElastic {
-	typ := InputElasticUnionTypeInputElasticInputCollectionPart0Type1
+func CreateInputElasticInputElasticPqEnabledFalseWithPqConstraint(inputElasticPqEnabledFalseWithPqConstraint InputElasticPqEnabledFalseWithPqConstraint) InputElastic {
+	typ := InputElasticUnionTypeInputElasticPqEnabledFalseWithPqConstraint
 
 	return InputElastic{
-		InputElasticInputCollectionPart0Type1: &inputElasticInputCollectionPart0Type1,
-		Type:                                  typ,
+		InputElasticPqEnabledFalseWithPqConstraint: &inputElasticPqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputElasticInputElasticInputCollectionPart1Type1(inputElasticInputCollectionPart1Type1 InputElasticInputCollectionPart1Type1) InputElastic {
-	typ := InputElasticUnionTypeInputElasticInputCollectionPart1Type1
+func CreateInputElasticInputElasticPqEnabledTrueWithPqConstraint(inputElasticPqEnabledTrueWithPqConstraint InputElasticPqEnabledTrueWithPqConstraint) InputElastic {
+	typ := InputElasticUnionTypeInputElasticPqEnabledTrueWithPqConstraint
 
 	return InputElastic{
-		InputElasticInputCollectionPart1Type1: &inputElasticInputCollectionPart1Type1,
-		Type:                                  typ,
+		InputElasticPqEnabledTrueWithPqConstraint: &inputElasticPqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputElastic) UnmarshalJSON(data []byte) error {
 
-	var inputElasticInputCollectionPart0Type InputElasticInputCollectionPart0Type = InputElasticInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputElasticInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputElasticInputCollectionPart0Type = &inputElasticInputCollectionPart0Type
-		u.Type = InputElasticUnionTypeInputElasticInputCollectionPart0Type
+	var inputElasticSendToRoutesTrueWithConnectionsConstraint InputElasticSendToRoutesTrueWithConnectionsConstraint = InputElasticSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputElasticSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputElasticSendToRoutesTrueWithConnectionsConstraint = &inputElasticSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputElasticUnionTypeInputElasticSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputElasticInputCollectionPart1Type InputElasticInputCollectionPart1Type = InputElasticInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputElasticInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputElasticInputCollectionPart1Type = &inputElasticInputCollectionPart1Type
-		u.Type = InputElasticUnionTypeInputElasticInputCollectionPart1Type
+	var inputElasticSendToRoutesFalseWithConnectionsConstraint InputElasticSendToRoutesFalseWithConnectionsConstraint = InputElasticSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputElasticSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputElasticSendToRoutesFalseWithConnectionsConstraint = &inputElasticSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputElasticUnionTypeInputElasticSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputElasticInputCollectionPart0Type1 InputElasticInputCollectionPart0Type1 = InputElasticInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputElasticInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputElasticInputCollectionPart0Type1 = &inputElasticInputCollectionPart0Type1
-		u.Type = InputElasticUnionTypeInputElasticInputCollectionPart0Type1
+	var inputElasticPqEnabledFalseWithPqConstraint InputElasticPqEnabledFalseWithPqConstraint = InputElasticPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputElasticPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputElasticPqEnabledFalseWithPqConstraint = &inputElasticPqEnabledFalseWithPqConstraint
+		u.Type = InputElasticUnionTypeInputElasticPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputElasticInputCollectionPart1Type1 InputElasticInputCollectionPart1Type1 = InputElasticInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputElasticInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputElasticInputCollectionPart1Type1 = &inputElasticInputCollectionPart1Type1
-		u.Type = InputElasticUnionTypeInputElasticInputCollectionPart1Type1
+	var inputElasticPqEnabledTrueWithPqConstraint InputElasticPqEnabledTrueWithPqConstraint = InputElasticPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputElasticPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputElasticPqEnabledTrueWithPqConstraint = &inputElasticPqEnabledTrueWithPqConstraint
+		u.Type = InputElasticUnionTypeInputElasticPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1608,20 +1608,20 @@ func (u *InputElastic) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputElastic) MarshalJSON() ([]byte, error) {
-	if u.InputElasticInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputElasticInputCollectionPart0Type, "", true)
+	if u.InputElasticSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputElasticSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputElasticInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputElasticInputCollectionPart1Type, "", true)
+	if u.InputElasticSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputElasticSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputElasticInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputElasticInputCollectionPart0Type1, "", true)
+	if u.InputElasticPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputElasticPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputElasticInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputElasticInputCollectionPart1Type1, "", true)
+	if u.InputElasticPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputElasticPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputElastic: all fields are null")

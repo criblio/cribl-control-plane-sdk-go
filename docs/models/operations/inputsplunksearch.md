@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputSplunkSearchInputCollectionPart0Type
+### InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputSplunkSearch := operations.CreateInputSplunkSearchInputSplunkSearchInputCollectionPart0Type(operations.InputSplunkSearchInputCollectionPart0Type{/* values here */})
+inputSplunkSearch := operations.CreateInputSplunkSearchInputSplunkSearchSendToRoutesTrueWithConnectionsConstraint(operations.InputSplunkSearchSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkSearchInputCollectionPart1Type
+### InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputSplunkSearch := operations.CreateInputSplunkSearchInputSplunkSearchInputCollectionPart1Type(operations.InputSplunkSearchInputCollectionPart1Type{/* values here */})
+inputSplunkSearch := operations.CreateInputSplunkSearchInputSplunkSearchSendToRoutesFalseWithConnectionsConstraint(operations.InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSplunkSearchInputCollectionPart0Type1
+### InputSplunkSearchPqEnabledFalseWithPqConstraint
 
 ```go
-inputSplunkSearch := operations.CreateInputSplunkSearchInputSplunkSearchInputCollectionPart0Type1(operations.InputSplunkSearchInputCollectionPart0Type1{/* values here */})
+inputSplunkSearch := operations.CreateInputSplunkSearchInputSplunkSearchPqEnabledFalseWithPqConstraint(operations.InputSplunkSearchPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputSplunkSearchInputCollectionPart1Type1
+### InputSplunkSearchPqEnabledTrueWithPqConstraint
 
 ```go
-inputSplunkSearch := operations.CreateInputSplunkSearchInputSplunkSearchInputCollectionPart1Type1(operations.InputSplunkSearchInputCollectionPart1Type1{/* values here */})
+inputSplunkSearch := operations.CreateInputSplunkSearchInputSplunkSearchPqEnabledTrueWithPqConstraint(operations.InputSplunkSearchPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

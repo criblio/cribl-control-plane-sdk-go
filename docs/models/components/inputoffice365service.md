@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputOffice365ServiceInputCollectionPart0Type
+### InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceInputCollectionPart0Type(components.InputOffice365ServiceInputCollectionPart0Type{/* values here */})
+inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint(components.InputOffice365ServiceSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365ServiceInputCollectionPart1Type
+### InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceInputCollectionPart1Type(components.InputOffice365ServiceInputCollectionPart1Type{/* values here */})
+inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint(components.InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365ServiceInputCollectionPart0Type1
+### InputOffice365ServicePqEnabledFalseWithPqConstraint
 
 ```go
-inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceInputCollectionPart0Type1(components.InputOffice365ServiceInputCollectionPart0Type1{/* values here */})
+inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServicePqEnabledFalseWithPqConstraint(components.InputOffice365ServicePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputOffice365ServiceInputCollectionPart1Type1
+### InputOffice365ServicePqEnabledTrueWithPqConstraint
 
 ```go
-inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServiceInputCollectionPart1Type1(components.InputOffice365ServiceInputCollectionPart1Type1{/* values here */})
+inputOffice365Service := components.CreateInputOffice365ServiceInputOffice365ServicePqEnabledTrueWithPqConstraint(components.InputOffice365ServicePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputLokiInputCollectionPart0Type
+### InputLokiSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputLoki := operations.CreateInputLokiInputLokiInputCollectionPart0Type(operations.InputLokiInputCollectionPart0Type{/* values here */})
+inputLoki := operations.CreateInputLokiInputLokiSendToRoutesTrueWithConnectionsConstraint(operations.InputLokiSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputLokiInputCollectionPart1Type
+### InputLokiSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputLoki := operations.CreateInputLokiInputLokiInputCollectionPart1Type(operations.InputLokiInputCollectionPart1Type{/* values here */})
+inputLoki := operations.CreateInputLokiInputLokiSendToRoutesFalseWithConnectionsConstraint(operations.InputLokiSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputLokiInputCollectionPart0Type1
+### InputLokiPqEnabledFalseWithPqConstraint
 
 ```go
-inputLoki := operations.CreateInputLokiInputLokiInputCollectionPart0Type1(operations.InputLokiInputCollectionPart0Type1{/* values here */})
+inputLoki := operations.CreateInputLokiInputLokiPqEnabledFalseWithPqConstraint(operations.InputLokiPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputLokiInputCollectionPart1Type1
+### InputLokiPqEnabledTrueWithPqConstraint
 
 ```go
-inputLoki := operations.CreateInputLokiInputLokiInputCollectionPart1Type1(operations.InputLokiInputCollectionPart1Type1{/* values here */})
+inputLoki := operations.CreateInputLokiInputLokiPqEnabledTrueWithPqConstraint(operations.InputLokiPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

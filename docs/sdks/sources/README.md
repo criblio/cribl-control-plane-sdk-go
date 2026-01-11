@@ -98,8 +98,14 @@ func main() {
     )
 
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAppscope(
-        operations.CreateInputAppscopeInputAppscopeInputCollectionPart0Type(
-            operations.InputAppscopeInputCollectionPart0Type{
+        operations.CreateInputAppscopeInputAppscopeSendToRoutesTrueWithConnectionsConstraint(
+            operations.InputAppscopeSendToRoutesTrueWithConnectionsConstraint{
+                Connections: []components.ItemsTypeConnections{
+                    components.ItemsTypeConnections{
+                        Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Output: "<value>",
+                    },
+                },
                 ID: "appscope-source",
                 Type: operations.InputAppscopeTypeAppscope,
                 Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -108,12 +114,6 @@ func main() {
                     "<value 1>",
                     "<value 2>",
                     "<value 3>",
-                },
-                Connections: []components.ItemsTypeConnections{
-                    components.ItemsTypeConnections{
-                        Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-                        Output: "<value>",
-                    },
                 },
                 Pq: &components.PqType{
                     PqControls: &components.PqTypePqControls{},
@@ -269,8 +269,14 @@ func main() {
     )
 
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAppscope(
-        components.CreateInputAppscopeInputAppscopeInputCollectionPart0Type(
-            components.InputAppscopeInputCollectionPart0Type{
+        components.CreateInputAppscopeInputAppscopeSendToRoutesTrueWithConnectionsConstraint(
+            components.InputAppscopeSendToRoutesTrueWithConnectionsConstraint{
+                Connections: []components.ItemsTypeConnections{
+                    components.ItemsTypeConnections{
+                        Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
+                        Output: "<value>",
+                    },
+                },
                 ID: criblcontrolplanesdkgo.Pointer("appscope-source"),
                 Type: components.InputAppscopeTypeAppscope,
                 Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -278,12 +284,6 @@ func main() {
                 Streamtags: []string{
                     "<value 1>",
                     "<value 2>",
-                },
-                Connections: []components.ItemsTypeConnections{
-                    components.ItemsTypeConnections{
-                        Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
-                        Output: "<value>",
-                    },
                 },
                 Pq: &components.PqType{
                     PqControls: &components.PqTypePqControls{},

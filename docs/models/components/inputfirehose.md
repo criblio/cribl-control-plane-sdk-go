@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputFirehoseInputCollectionPart0Type
+### InputFirehoseSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputFirehose := components.CreateInputFirehoseInputFirehoseInputCollectionPart0Type(components.InputFirehoseInputCollectionPart0Type{/* values here */})
+inputFirehose := components.CreateInputFirehoseInputFirehoseSendToRoutesTrueWithConnectionsConstraint(components.InputFirehoseSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFirehoseInputCollectionPart1Type
+### InputFirehoseSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputFirehose := components.CreateInputFirehoseInputFirehoseInputCollectionPart1Type(components.InputFirehoseInputCollectionPart1Type{/* values here */})
+inputFirehose := components.CreateInputFirehoseInputFirehoseSendToRoutesFalseWithConnectionsConstraint(components.InputFirehoseSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFirehoseInputCollectionPart0Type1
+### InputFirehosePqEnabledFalseWithPqConstraint
 
 ```go
-inputFirehose := components.CreateInputFirehoseInputFirehoseInputCollectionPart0Type1(components.InputFirehoseInputCollectionPart0Type1{/* values here */})
+inputFirehose := components.CreateInputFirehoseInputFirehosePqEnabledFalseWithPqConstraint(components.InputFirehosePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputFirehoseInputCollectionPart1Type1
+### InputFirehosePqEnabledTrueWithPqConstraint
 
 ```go
-inputFirehose := components.CreateInputFirehoseInputFirehoseInputCollectionPart1Type1(components.InputFirehoseInputCollectionPart1Type1{/* values here */})
+inputFirehose := components.CreateInputFirehoseInputFirehosePqEnabledTrueWithPqConstraint(components.InputFirehosePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

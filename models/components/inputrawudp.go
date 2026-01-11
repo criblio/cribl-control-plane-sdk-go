@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputRawUDPInputCollectionPart1Type1 struct {
+type InputRawUDPPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -46,153 +46,154 @@ type InputRawUDPInputCollectionPart1Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputRawUDPInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputRawUDPPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetID() *string {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetType() InputRawUDPType {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetType() InputRawUDPType {
 	if i == nil {
 		return InputRawUDPType("")
 	}
 	return i.Type
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetHost() *string {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetPort() float64 {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetMaxBufferSize() *float64 {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetIPWhitelistRegex() *string {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetSingleMsgUDPPackets() *bool {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetSingleMsgUDPPackets() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SingleMsgUDPPackets
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetIngestRawBytes() *bool {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetIngestRawBytes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IngestRawBytes
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetUDPSocketRxBufSize() *float64 {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputRawUDPInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputRawUDPInputCollectionPart0Type1 struct {
+type InputRawUDPPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputRawUDPType `json:"type"`
@@ -207,7 +208,6 @@ type InputRawUDPInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -227,151 +227,151 @@ type InputRawUDPInputCollectionPart0Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputRawUDPInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputRawUDPPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputRawUDPInputCollectionPart0Type1) GetType() InputRawUDPType {
-	if i == nil {
-		return InputRawUDPType("")
-	}
-	return i.Type
-}
-
-func (i *InputRawUDPInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputRawUDPInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputRawUDPInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputRawUDPInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputRawUDPInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputRawUDPInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputRawUDPInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetHost() *string {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetPort() float64 {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetMaxBufferSize() *float64 {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetIPWhitelistRegex() *string {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetSingleMsgUDPPackets() *bool {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetSingleMsgUDPPackets() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SingleMsgUDPPackets
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetIngestRawBytes() *bool {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetIngestRawBytes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IngestRawBytes
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetUDPSocketRxBufSize() *float64 {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputRawUDPInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputRawUDPPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputRawUDPInputCollectionPart1Type struct {
+type InputRawUDPSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -408,144 +408,144 @@ type InputRawUDPInputCollectionPart1Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputRawUDPInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputRawUDPSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetID() *string {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetType() InputRawUDPType {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetType() InputRawUDPType {
 	if i == nil {
 		return InputRawUDPType("")
 	}
 	return i.Type
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetHost() *string {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetPort() float64 {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetMaxBufferSize() *float64 {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetIPWhitelistRegex() *string {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetSingleMsgUDPPackets() *bool {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetSingleMsgUDPPackets() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SingleMsgUDPPackets
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetIngestRawBytes() *bool {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetIngestRawBytes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IngestRawBytes
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetUDPSocketRxBufSize() *float64 {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputRawUDPInputCollectionPart1Type) GetDescription() *string {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -575,9 +575,11 @@ func (e *InputRawUDPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputRawUDPInputCollectionPart0Type struct {
+type InputRawUDPSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputRawUDPType `json:"type"`
@@ -590,9 +592,7 @@ type InputRawUDPInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -612,144 +612,144 @@ type InputRawUDPInputCollectionPart0Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputRawUDPInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputRawUDPSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputRawUDPInputCollectionPart0Type) GetType() InputRawUDPType {
-	if i == nil {
-		return InputRawUDPType("")
-	}
-	return i.Type
-}
-
-func (i *InputRawUDPInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputRawUDPInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputRawUDPInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputRawUDPInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputRawUDPInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputRawUDPInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetHost() *string {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetPort() float64 {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetMaxBufferSize() *float64 {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetIPWhitelistRegex() *string {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetSingleMsgUDPPackets() *bool {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetSingleMsgUDPPackets() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SingleMsgUDPPackets
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetIngestRawBytes() *bool {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetIngestRawBytes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IngestRawBytes
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetUDPSocketRxBufSize() *float64 {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputRawUDPInputCollectionPart0Type) GetDescription() *string {
+func (i *InputRawUDPSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -759,84 +759,84 @@ func (i *InputRawUDPInputCollectionPart0Type) GetDescription() *string {
 type InputRawUDPUnionType string
 
 const (
-	InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type  InputRawUDPUnionType = "InputRawUdp_InputCollectionPart0Type"
-	InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type  InputRawUDPUnionType = "InputRawUdp_InputCollectionPart1Type"
-	InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type1 InputRawUDPUnionType = "InputRawUdp_InputCollectionPart0Type1"
-	InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type1 InputRawUDPUnionType = "InputRawUdp_InputCollectionPart1Type1"
+	InputRawUDPUnionTypeInputRawUDPSendToRoutesTrueWithConnectionsConstraint  InputRawUDPUnionType = "InputRawUdp_SendToRoutesTrueWithConnectionsConstraint"
+	InputRawUDPUnionTypeInputRawUDPSendToRoutesFalseWithConnectionsConstraint InputRawUDPUnionType = "InputRawUdp_SendToRoutesFalseWithConnectionsConstraint"
+	InputRawUDPUnionTypeInputRawUDPPqEnabledFalseWithPqConstraint             InputRawUDPUnionType = "InputRawUdp_PqEnabledFalseWithPqConstraint"
+	InputRawUDPUnionTypeInputRawUDPPqEnabledTrueWithPqConstraint              InputRawUDPUnionType = "InputRawUdp_PqEnabledTrueWithPqConstraint"
 )
 
 type InputRawUDP struct {
-	InputRawUDPInputCollectionPart0Type  *InputRawUDPInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputRawUDPInputCollectionPart1Type  *InputRawUDPInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputRawUDPInputCollectionPart0Type1 *InputRawUDPInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputRawUDPInputCollectionPart1Type1 *InputRawUDPInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputRawUDPSendToRoutesTrueWithConnectionsConstraint  *InputRawUDPSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputRawUDPSendToRoutesFalseWithConnectionsConstraint *InputRawUDPSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputRawUDPPqEnabledFalseWithPqConstraint             *InputRawUDPPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputRawUDPPqEnabledTrueWithPqConstraint              *InputRawUDPPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputRawUDPUnionType
 }
 
-func CreateInputRawUDPInputRawUDPInputCollectionPart0Type(inputRawUDPInputCollectionPart0Type InputRawUDPInputCollectionPart0Type) InputRawUDP {
-	typ := InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type
+func CreateInputRawUDPInputRawUDPSendToRoutesTrueWithConnectionsConstraint(inputRawUDPSendToRoutesTrueWithConnectionsConstraint InputRawUDPSendToRoutesTrueWithConnectionsConstraint) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPSendToRoutesTrueWithConnectionsConstraint
 
 	return InputRawUDP{
-		InputRawUDPInputCollectionPart0Type: &inputRawUDPInputCollectionPart0Type,
-		Type:                                typ,
+		InputRawUDPSendToRoutesTrueWithConnectionsConstraint: &inputRawUDPSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputRawUDPInputRawUDPInputCollectionPart1Type(inputRawUDPInputCollectionPart1Type InputRawUDPInputCollectionPart1Type) InputRawUDP {
-	typ := InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type
+func CreateInputRawUDPInputRawUDPSendToRoutesFalseWithConnectionsConstraint(inputRawUDPSendToRoutesFalseWithConnectionsConstraint InputRawUDPSendToRoutesFalseWithConnectionsConstraint) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPSendToRoutesFalseWithConnectionsConstraint
 
 	return InputRawUDP{
-		InputRawUDPInputCollectionPart1Type: &inputRawUDPInputCollectionPart1Type,
-		Type:                                typ,
+		InputRawUDPSendToRoutesFalseWithConnectionsConstraint: &inputRawUDPSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputRawUDPInputRawUDPInputCollectionPart0Type1(inputRawUDPInputCollectionPart0Type1 InputRawUDPInputCollectionPart0Type1) InputRawUDP {
-	typ := InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type1
+func CreateInputRawUDPInputRawUDPPqEnabledFalseWithPqConstraint(inputRawUDPPqEnabledFalseWithPqConstraint InputRawUDPPqEnabledFalseWithPqConstraint) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPPqEnabledFalseWithPqConstraint
 
 	return InputRawUDP{
-		InputRawUDPInputCollectionPart0Type1: &inputRawUDPInputCollectionPart0Type1,
-		Type:                                 typ,
+		InputRawUDPPqEnabledFalseWithPqConstraint: &inputRawUDPPqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputRawUDPInputRawUDPInputCollectionPart1Type1(inputRawUDPInputCollectionPart1Type1 InputRawUDPInputCollectionPart1Type1) InputRawUDP {
-	typ := InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type1
+func CreateInputRawUDPInputRawUDPPqEnabledTrueWithPqConstraint(inputRawUDPPqEnabledTrueWithPqConstraint InputRawUDPPqEnabledTrueWithPqConstraint) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPPqEnabledTrueWithPqConstraint
 
 	return InputRawUDP{
-		InputRawUDPInputCollectionPart1Type1: &inputRawUDPInputCollectionPart1Type1,
-		Type:                                 typ,
+		InputRawUDPPqEnabledTrueWithPqConstraint: &inputRawUDPPqEnabledTrueWithPqConstraint,
+		Type:                                     typ,
 	}
 }
 
 func (u *InputRawUDP) UnmarshalJSON(data []byte) error {
 
-	var inputRawUDPInputCollectionPart0Type InputRawUDPInputCollectionPart0Type = InputRawUDPInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputRawUDPInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputRawUDPInputCollectionPart0Type = &inputRawUDPInputCollectionPart0Type
-		u.Type = InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type
+	var inputRawUDPSendToRoutesTrueWithConnectionsConstraint InputRawUDPSendToRoutesTrueWithConnectionsConstraint = InputRawUDPSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputRawUDPSendToRoutesTrueWithConnectionsConstraint = &inputRawUDPSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputRawUDPUnionTypeInputRawUDPSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputRawUDPInputCollectionPart1Type InputRawUDPInputCollectionPart1Type = InputRawUDPInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputRawUDPInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputRawUDPInputCollectionPart1Type = &inputRawUDPInputCollectionPart1Type
-		u.Type = InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type
+	var inputRawUDPSendToRoutesFalseWithConnectionsConstraint InputRawUDPSendToRoutesFalseWithConnectionsConstraint = InputRawUDPSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputRawUDPSendToRoutesFalseWithConnectionsConstraint = &inputRawUDPSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputRawUDPUnionTypeInputRawUDPSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputRawUDPInputCollectionPart0Type1 InputRawUDPInputCollectionPart0Type1 = InputRawUDPInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputRawUDPInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputRawUDPInputCollectionPart0Type1 = &inputRawUDPInputCollectionPart0Type1
-		u.Type = InputRawUDPUnionTypeInputRawUDPInputCollectionPart0Type1
+	var inputRawUDPPqEnabledFalseWithPqConstraint InputRawUDPPqEnabledFalseWithPqConstraint = InputRawUDPPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputRawUDPPqEnabledFalseWithPqConstraint = &inputRawUDPPqEnabledFalseWithPqConstraint
+		u.Type = InputRawUDPUnionTypeInputRawUDPPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputRawUDPInputCollectionPart1Type1 InputRawUDPInputCollectionPart1Type1 = InputRawUDPInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputRawUDPInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputRawUDPInputCollectionPart1Type1 = &inputRawUDPInputCollectionPart1Type1
-		u.Type = InputRawUDPUnionTypeInputRawUDPInputCollectionPart1Type1
+	var inputRawUDPPqEnabledTrueWithPqConstraint InputRawUDPPqEnabledTrueWithPqConstraint = InputRawUDPPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputRawUDPPqEnabledTrueWithPqConstraint = &inputRawUDPPqEnabledTrueWithPqConstraint
+		u.Type = InputRawUDPUnionTypeInputRawUDPPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -844,20 +844,20 @@ func (u *InputRawUDP) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputRawUDP) MarshalJSON() ([]byte, error) {
-	if u.InputRawUDPInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputRawUDPInputCollectionPart0Type, "", true)
+	if u.InputRawUDPSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputRawUDPSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputRawUDPInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputRawUDPInputCollectionPart1Type, "", true)
+	if u.InputRawUDPSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputRawUDPSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputRawUDPInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputRawUDPInputCollectionPart0Type1, "", true)
+	if u.InputRawUDPPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputRawUDPPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputRawUDPInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputRawUDPInputCollectionPart1Type1, "", true)
+	if u.InputRawUDPPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputRawUDPPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputRawUDP: all fields are null")

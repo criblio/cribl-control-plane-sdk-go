@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputS3InventoryInputCollectionPart1Type1 struct {
+type InputS3InventoryPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -99,356 +99,357 @@ type InputS3InventoryInputCollectionPart1Type1 struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputS3InventoryInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputS3InventoryPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetID() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetType() InputS3InventoryType {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetType() InputS3InventoryType {
 	if i == nil {
 		return InputS3InventoryType("")
 	}
 	return i.Type
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetQueueName() string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetFileFilter() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetAwsAccountID() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetAwsSecretKey() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetRegion() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetEndpoint() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetReuseConnections() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetRejectUnauthorized() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetBreakerRulesets() []string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetMaxMessages() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetVisibilityTimeout() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetNumReceivers() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetSkipOnError() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetIncludeSqsMetadata() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetEnableAssumeRole() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetAssumeRoleArn() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetAssumeRoleExternalID() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetDurationSeconds() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetEnableSQSAssumeRole() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetParquetChunkSizeMB() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetCheckpointing() *CheckpointingType {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetPollTimeout() *float64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetChecksumSuffix() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetChecksumSuffix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ChecksumSuffix
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetMaxManifestSizeKB() *int64 {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetMaxManifestSizeKB() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxManifestSizeKB
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetValidateInventoryFiles() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetValidateInventoryFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ValidateInventoryFiles
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetAwsAPIKey() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetAwsSecret() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetProcessedTagKey() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type1) GetProcessedTagValue() *string {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagValue
 }
 
-type InputS3InventoryInputCollectionPart0Type1 struct {
+type InputS3InventoryPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputS3InventoryType `json:"type"`
@@ -463,7 +464,6 @@ type InputS3InventoryInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -536,354 +536,354 @@ type InputS3InventoryInputCollectionPart0Type1 struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputS3InventoryInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputS3InventoryPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type1) GetType() InputS3InventoryType {
-	if i == nil {
-		return InputS3InventoryType("")
-	}
-	return i.Type
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetQueueName() string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetType() InputS3InventoryType {
+	if i == nil {
+		return InputS3InventoryType("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetFileFilter() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetAwsAccountID() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetAwsSecretKey() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetRegion() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetEndpoint() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetReuseConnections() *bool {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetRejectUnauthorized() *bool {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetBreakerRulesets() []string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetMaxMessages() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetVisibilityTimeout() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetNumReceivers() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetSkipOnError() *bool {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetIncludeSqsMetadata() *bool {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetEnableAssumeRole() *bool {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetAssumeRoleArn() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetAssumeRoleExternalID() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetDurationSeconds() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetEnableSQSAssumeRole() *bool {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetParquetChunkSizeMB() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetCheckpointing() *CheckpointingType {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetPollTimeout() *float64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetChecksumSuffix() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetChecksumSuffix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ChecksumSuffix
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetMaxManifestSizeKB() *int64 {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetMaxManifestSizeKB() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxManifestSizeKB
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetValidateInventoryFiles() *bool {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetValidateInventoryFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ValidateInventoryFiles
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetAwsAPIKey() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetAwsSecret() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetProcessedTagKey() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type1) GetProcessedTagValue() *string {
+func (i *InputS3InventoryPqEnabledFalseWithPqConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagValue
 }
 
-type InputS3InventoryInputCollectionPart1Type struct {
+type InputS3InventorySendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -973,347 +973,347 @@ type InputS3InventoryInputCollectionPart1Type struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputS3InventoryInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputS3InventorySendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetID() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetType() InputS3InventoryType {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetType() InputS3InventoryType {
 	if i == nil {
 		return InputS3InventoryType("")
 	}
 	return i.Type
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetQueueName() string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetFileFilter() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetAwsAccountID() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetAwsSecretKey() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetRegion() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetEndpoint() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetReuseConnections() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetRejectUnauthorized() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetBreakerRulesets() []string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetMaxMessages() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetVisibilityTimeout() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetNumReceivers() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetSocketTimeout() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetSkipOnError() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetIncludeSqsMetadata() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetEnableAssumeRole() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetAssumeRoleArn() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetAssumeRoleExternalID() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetDurationSeconds() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetEnableSQSAssumeRole() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetParquetChunkSizeMB() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetCheckpointing() *CheckpointingType {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetPollTimeout() *float64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetChecksumSuffix() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetChecksumSuffix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ChecksumSuffix
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetMaxManifestSizeKB() *int64 {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetMaxManifestSizeKB() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxManifestSizeKB
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetValidateInventoryFiles() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetValidateInventoryFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ValidateInventoryFiles
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetDescription() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetAwsAPIKey() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetAwsSecret() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetProcessedTagKey() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputS3InventoryInputCollectionPart1Type) GetProcessedTagValue() *string {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
@@ -1343,9 +1343,11 @@ func (e *InputS3InventoryType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputS3InventoryInputCollectionPart0Type struct {
+type InputS3InventorySendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputS3InventoryType `json:"type"`
@@ -1358,9 +1360,7 @@ type InputS3InventoryInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -1433,347 +1433,347 @@ type InputS3InventoryInputCollectionPart0Type struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
 }
 
-func (i InputS3InventoryInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputS3InventorySendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type) GetType() InputS3InventoryType {
-	if i == nil {
-		return InputS3InventoryType("")
-	}
-	return i.Type
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputS3InventoryInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetType() InputS3InventoryType {
+	if i == nil {
+		return InputS3InventoryType("")
+	}
+	return i.Type
+}
+
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetQueueName() string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetFileFilter() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetFileFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileFilter
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetAwsAccountID() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetAwsSecretKey() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetRegion() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetEndpoint() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetReuseConnections() *bool {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetRejectUnauthorized() *bool {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetBreakerRulesets() []string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetMaxMessages() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetVisibilityTimeout() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetNumReceivers() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetSocketTimeout() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetSkipOnError() *bool {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetSkipOnError() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SkipOnError
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetIncludeSqsMetadata() *bool {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetIncludeSqsMetadata() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IncludeSqsMetadata
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetEnableAssumeRole() *bool {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetAssumeRoleArn() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetAssumeRoleExternalID() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetDurationSeconds() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetEnableSQSAssumeRole() *bool {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetEnableSQSAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableSQSAssumeRole
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetParquetChunkSizeMB() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetParquetChunkSizeMB() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkSizeMB
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetParquetChunkDownloadTimeout() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetParquetChunkDownloadTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetCheckpointing() *CheckpointingType {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetCheckpointing() *CheckpointingType {
 	if i == nil {
 		return nil
 	}
 	return i.Checkpointing
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetPollTimeout() *float64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetChecksumSuffix() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetChecksumSuffix() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ChecksumSuffix
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetMaxManifestSizeKB() *int64 {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetMaxManifestSizeKB() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxManifestSizeKB
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetValidateInventoryFiles() *bool {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetValidateInventoryFiles() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ValidateInventoryFiles
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetDescription() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetAwsAPIKey() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetAwsSecret() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetTagAfterProcessing() *TagAfterProcessingOptions {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetTagAfterProcessing() *TagAfterProcessingOptions {
 	if i == nil {
 		return nil
 	}
 	return i.TagAfterProcessing
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetProcessedTagKey() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetProcessedTagKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ProcessedTagKey
 }
 
-func (i *InputS3InventoryInputCollectionPart0Type) GetProcessedTagValue() *string {
+func (i *InputS3InventorySendToRoutesTrueWithConnectionsConstraint) GetProcessedTagValue() *string {
 	if i == nil {
 		return nil
 	}
@@ -1783,84 +1783,84 @@ func (i *InputS3InventoryInputCollectionPart0Type) GetProcessedTagValue() *strin
 type InputS3InventoryUnionType string
 
 const (
-	InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart0Type  InputS3InventoryUnionType = "InputS3Inventory_InputCollectionPart0Type"
-	InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart1Type  InputS3InventoryUnionType = "InputS3Inventory_InputCollectionPart1Type"
-	InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart0Type1 InputS3InventoryUnionType = "InputS3Inventory_InputCollectionPart0Type1"
-	InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart1Type1 InputS3InventoryUnionType = "InputS3Inventory_InputCollectionPart1Type1"
+	InputS3InventoryUnionTypeInputS3InventorySendToRoutesTrueWithConnectionsConstraint  InputS3InventoryUnionType = "InputS3Inventory_SendToRoutesTrueWithConnectionsConstraint"
+	InputS3InventoryUnionTypeInputS3InventorySendToRoutesFalseWithConnectionsConstraint InputS3InventoryUnionType = "InputS3Inventory_SendToRoutesFalseWithConnectionsConstraint"
+	InputS3InventoryUnionTypeInputS3InventoryPqEnabledFalseWithPqConstraint             InputS3InventoryUnionType = "InputS3Inventory_PqEnabledFalseWithPqConstraint"
+	InputS3InventoryUnionTypeInputS3InventoryPqEnabledTrueWithPqConstraint              InputS3InventoryUnionType = "InputS3Inventory_PqEnabledTrueWithPqConstraint"
 )
 
 type InputS3Inventory struct {
-	InputS3InventoryInputCollectionPart0Type  *InputS3InventoryInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputS3InventoryInputCollectionPart1Type  *InputS3InventoryInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputS3InventoryInputCollectionPart0Type1 *InputS3InventoryInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputS3InventoryInputCollectionPart1Type1 *InputS3InventoryInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputS3InventorySendToRoutesTrueWithConnectionsConstraint  *InputS3InventorySendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputS3InventorySendToRoutesFalseWithConnectionsConstraint *InputS3InventorySendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputS3InventoryPqEnabledFalseWithPqConstraint             *InputS3InventoryPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputS3InventoryPqEnabledTrueWithPqConstraint              *InputS3InventoryPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputS3InventoryUnionType
 }
 
-func CreateInputS3InventoryInputS3InventoryInputCollectionPart0Type(inputS3InventoryInputCollectionPart0Type InputS3InventoryInputCollectionPart0Type) InputS3Inventory {
-	typ := InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart0Type
+func CreateInputS3InventoryInputS3InventorySendToRoutesTrueWithConnectionsConstraint(inputS3InventorySendToRoutesTrueWithConnectionsConstraint InputS3InventorySendToRoutesTrueWithConnectionsConstraint) InputS3Inventory {
+	typ := InputS3InventoryUnionTypeInputS3InventorySendToRoutesTrueWithConnectionsConstraint
 
 	return InputS3Inventory{
-		InputS3InventoryInputCollectionPart0Type: &inputS3InventoryInputCollectionPart0Type,
-		Type:                                     typ,
-	}
-}
-
-func CreateInputS3InventoryInputS3InventoryInputCollectionPart1Type(inputS3InventoryInputCollectionPart1Type InputS3InventoryInputCollectionPart1Type) InputS3Inventory {
-	typ := InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart1Type
-
-	return InputS3Inventory{
-		InputS3InventoryInputCollectionPart1Type: &inputS3InventoryInputCollectionPart1Type,
-		Type:                                     typ,
-	}
-}
-
-func CreateInputS3InventoryInputS3InventoryInputCollectionPart0Type1(inputS3InventoryInputCollectionPart0Type1 InputS3InventoryInputCollectionPart0Type1) InputS3Inventory {
-	typ := InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart0Type1
-
-	return InputS3Inventory{
-		InputS3InventoryInputCollectionPart0Type1: &inputS3InventoryInputCollectionPart0Type1,
+		InputS3InventorySendToRoutesTrueWithConnectionsConstraint: &inputS3InventorySendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputS3InventoryInputS3InventoryInputCollectionPart1Type1(inputS3InventoryInputCollectionPart1Type1 InputS3InventoryInputCollectionPart1Type1) InputS3Inventory {
-	typ := InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart1Type1
+func CreateInputS3InventoryInputS3InventorySendToRoutesFalseWithConnectionsConstraint(inputS3InventorySendToRoutesFalseWithConnectionsConstraint InputS3InventorySendToRoutesFalseWithConnectionsConstraint) InputS3Inventory {
+	typ := InputS3InventoryUnionTypeInputS3InventorySendToRoutesFalseWithConnectionsConstraint
 
 	return InputS3Inventory{
-		InputS3InventoryInputCollectionPart1Type1: &inputS3InventoryInputCollectionPart1Type1,
+		InputS3InventorySendToRoutesFalseWithConnectionsConstraint: &inputS3InventorySendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryPqEnabledFalseWithPqConstraint(inputS3InventoryPqEnabledFalseWithPqConstraint InputS3InventoryPqEnabledFalseWithPqConstraint) InputS3Inventory {
+	typ := InputS3InventoryUnionTypeInputS3InventoryPqEnabledFalseWithPqConstraint
+
+	return InputS3Inventory{
+		InputS3InventoryPqEnabledFalseWithPqConstraint: &inputS3InventoryPqEnabledFalseWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputS3InventoryInputS3InventoryPqEnabledTrueWithPqConstraint(inputS3InventoryPqEnabledTrueWithPqConstraint InputS3InventoryPqEnabledTrueWithPqConstraint) InputS3Inventory {
+	typ := InputS3InventoryUnionTypeInputS3InventoryPqEnabledTrueWithPqConstraint
+
+	return InputS3Inventory{
+		InputS3InventoryPqEnabledTrueWithPqConstraint: &inputS3InventoryPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputS3Inventory) UnmarshalJSON(data []byte) error {
 
-	var inputS3InventoryInputCollectionPart0Type InputS3InventoryInputCollectionPart0Type = InputS3InventoryInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputS3InventoryInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputS3InventoryInputCollectionPart0Type = &inputS3InventoryInputCollectionPart0Type
-		u.Type = InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart0Type
+	var inputS3InventorySendToRoutesTrueWithConnectionsConstraint InputS3InventorySendToRoutesTrueWithConnectionsConstraint = InputS3InventorySendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventorySendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputS3InventorySendToRoutesTrueWithConnectionsConstraint = &inputS3InventorySendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputS3InventoryUnionTypeInputS3InventorySendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputS3InventoryInputCollectionPart1Type InputS3InventoryInputCollectionPart1Type = InputS3InventoryInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputS3InventoryInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputS3InventoryInputCollectionPart1Type = &inputS3InventoryInputCollectionPart1Type
-		u.Type = InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart1Type
+	var inputS3InventorySendToRoutesFalseWithConnectionsConstraint InputS3InventorySendToRoutesFalseWithConnectionsConstraint = InputS3InventorySendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventorySendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputS3InventorySendToRoutesFalseWithConnectionsConstraint = &inputS3InventorySendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputS3InventoryUnionTypeInputS3InventorySendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputS3InventoryInputCollectionPart0Type1 InputS3InventoryInputCollectionPart0Type1 = InputS3InventoryInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputS3InventoryInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputS3InventoryInputCollectionPart0Type1 = &inputS3InventoryInputCollectionPart0Type1
-		u.Type = InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart0Type1
+	var inputS3InventoryPqEnabledFalseWithPqConstraint InputS3InventoryPqEnabledFalseWithPqConstraint = InputS3InventoryPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputS3InventoryPqEnabledFalseWithPqConstraint = &inputS3InventoryPqEnabledFalseWithPqConstraint
+		u.Type = InputS3InventoryUnionTypeInputS3InventoryPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputS3InventoryInputCollectionPart1Type1 InputS3InventoryInputCollectionPart1Type1 = InputS3InventoryInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputS3InventoryInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputS3InventoryInputCollectionPart1Type1 = &inputS3InventoryInputCollectionPart1Type1
-		u.Type = InputS3InventoryUnionTypeInputS3InventoryInputCollectionPart1Type1
+	var inputS3InventoryPqEnabledTrueWithPqConstraint InputS3InventoryPqEnabledTrueWithPqConstraint = InputS3InventoryPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputS3InventoryPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputS3InventoryPqEnabledTrueWithPqConstraint = &inputS3InventoryPqEnabledTrueWithPqConstraint
+		u.Type = InputS3InventoryUnionTypeInputS3InventoryPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1868,20 +1868,20 @@ func (u *InputS3Inventory) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputS3Inventory) MarshalJSON() ([]byte, error) {
-	if u.InputS3InventoryInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputS3InventoryInputCollectionPart0Type, "", true)
+	if u.InputS3InventorySendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputS3InventorySendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputS3InventoryInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputS3InventoryInputCollectionPart1Type, "", true)
+	if u.InputS3InventorySendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputS3InventorySendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputS3InventoryInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputS3InventoryInputCollectionPart0Type1, "", true)
+	if u.InputS3InventoryPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputS3InventoryPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputS3InventoryInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputS3InventoryInputCollectionPart1Type1, "", true)
+	if u.InputS3InventoryPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputS3InventoryPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputS3Inventory: all fields are null")

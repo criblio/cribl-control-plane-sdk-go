@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputRawUDPInputCollectionPart0Type
+### InputRawUDPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputRawUDP := components.CreateInputRawUDPInputRawUDPInputCollectionPart0Type(components.InputRawUDPInputCollectionPart0Type{/* values here */})
+inputRawUDP := components.CreateInputRawUDPInputRawUDPSendToRoutesTrueWithConnectionsConstraint(components.InputRawUDPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputRawUDPInputCollectionPart1Type
+### InputRawUDPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputRawUDP := components.CreateInputRawUDPInputRawUDPInputCollectionPart1Type(components.InputRawUDPInputCollectionPart1Type{/* values here */})
+inputRawUDP := components.CreateInputRawUDPInputRawUDPSendToRoutesFalseWithConnectionsConstraint(components.InputRawUDPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputRawUDPInputCollectionPart0Type1
+### InputRawUDPPqEnabledFalseWithPqConstraint
 
 ```go
-inputRawUDP := components.CreateInputRawUDPInputRawUDPInputCollectionPart0Type1(components.InputRawUDPInputCollectionPart0Type1{/* values here */})
+inputRawUDP := components.CreateInputRawUDPInputRawUDPPqEnabledFalseWithPqConstraint(components.InputRawUDPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputRawUDPInputCollectionPart1Type1
+### InputRawUDPPqEnabledTrueWithPqConstraint
 
 ```go
-inputRawUDP := components.CreateInputRawUDPInputRawUDPInputCollectionPart1Type1(components.InputRawUDPInputCollectionPart1Type1{/* values here */})
+inputRawUDP := components.CreateInputRawUDPInputRawUDPPqEnabledTrueWithPqConstraint(components.InputRawUDPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputRawUDPInputCollectionPart0Type
+### InputRawUDPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputRawUDP := operations.CreateInputRawUDPInputRawUDPInputCollectionPart0Type(operations.InputRawUDPInputCollectionPart0Type{/* values here */})
+inputRawUDP := operations.CreateInputRawUDPInputRawUDPSendToRoutesTrueWithConnectionsConstraint(operations.InputRawUDPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputRawUDPInputCollectionPart1Type
+### InputRawUDPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputRawUDP := operations.CreateInputRawUDPInputRawUDPInputCollectionPart1Type(operations.InputRawUDPInputCollectionPart1Type{/* values here */})
+inputRawUDP := operations.CreateInputRawUDPInputRawUDPSendToRoutesFalseWithConnectionsConstraint(operations.InputRawUDPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputRawUDPInputCollectionPart0Type1
+### InputRawUDPPqEnabledFalseWithPqConstraint
 
 ```go
-inputRawUDP := operations.CreateInputRawUDPInputRawUDPInputCollectionPart0Type1(operations.InputRawUDPInputCollectionPart0Type1{/* values here */})
+inputRawUDP := operations.CreateInputRawUDPInputRawUDPPqEnabledFalseWithPqConstraint(operations.InputRawUDPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputRawUDPInputCollectionPart1Type1
+### InputRawUDPPqEnabledTrueWithPqConstraint
 
 ```go
-inputRawUDP := operations.CreateInputRawUDPInputRawUDPInputCollectionPart1Type1(operations.InputRawUDPInputCollectionPart1Type1{/* values here */})
+inputRawUDP := operations.CreateInputRawUDPInputRawUDPPqEnabledTrueWithPqConstraint(operations.InputRawUDPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

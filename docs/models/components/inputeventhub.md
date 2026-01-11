@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputEventhubInputCollectionPart0Type
+### InputEventhubSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputEventhub := components.CreateInputEventhubInputEventhubInputCollectionPart0Type(components.InputEventhubInputCollectionPart0Type{/* values here */})
+inputEventhub := components.CreateInputEventhubInputEventhubSendToRoutesTrueWithConnectionsConstraint(components.InputEventhubSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputEventhubInputCollectionPart1Type
+### InputEventhubSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputEventhub := components.CreateInputEventhubInputEventhubInputCollectionPart1Type(components.InputEventhubInputCollectionPart1Type{/* values here */})
+inputEventhub := components.CreateInputEventhubInputEventhubSendToRoutesFalseWithConnectionsConstraint(components.InputEventhubSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputEventhubInputCollectionPart0Type1
+### InputEventhubPqEnabledFalseWithPqConstraint
 
 ```go
-inputEventhub := components.CreateInputEventhubInputEventhubInputCollectionPart0Type1(components.InputEventhubInputCollectionPart0Type1{/* values here */})
+inputEventhub := components.CreateInputEventhubInputEventhubPqEnabledFalseWithPqConstraint(components.InputEventhubPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputEventhubInputCollectionPart1Type1
+### InputEventhubPqEnabledTrueWithPqConstraint
 
 ```go
-inputEventhub := components.CreateInputEventhubInputEventhubInputCollectionPart1Type1(components.InputEventhubInputCollectionPart1Type1{/* values here */})
+inputEventhub := components.CreateInputEventhubInputEventhubPqEnabledTrueWithPqConstraint(components.InputEventhubPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

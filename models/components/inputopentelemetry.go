@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputOpenTelemetryInputCollectionPart1Type1 struct {
+type InputOpenTelemetryPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -94,342 +94,343 @@ type InputOpenTelemetryInputCollectionPart1Type1 struct {
 	ExtractLogs *bool `default:"false" json:"extractLogs"`
 }
 
-func (i InputOpenTelemetryInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputOpenTelemetryPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetID() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetType() InputOpenTelemetryType {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetType() InputOpenTelemetryType {
 	if i == nil {
 		return InputOpenTelemetryType("")
 	}
 	return i.Type
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetHost() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPort() *float64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetEnableProxyHeader() any {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetCaptureHeaders() any {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetCaptureHeaders() any {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetActivityLogSampleRate() any {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetActivityLogSampleRate() any {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetEnableHealthCheck() *bool {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetProtocol() *InputOpenTelemetryProtocol {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetProtocol() *InputOpenTelemetryProtocol {
 	if i == nil {
 		return nil
 	}
 	return i.Protocol
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetExtractSpans() *bool {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetExtractSpans() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractSpans
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetExtractMetrics() *bool {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
 	if i == nil {
 		return nil
 	}
 	return i.OtlpVersion
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetAuthType() *AuthenticationTypeOptions {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetMaxActiveCxn() *float64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetUsername() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetPassword() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetToken() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetCredentialsSecret() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetTextSecret() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetLoginURL() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetSecretParamName() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetSecret() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetTokenAttributeName() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetAuthHeaderExpr() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetTokenTimeoutSecs() *float64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type1) GetExtractLogs() *bool {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetExtractLogs() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractLogs
 }
 
-type InputOpenTelemetryInputCollectionPart0Type1 struct {
+type InputOpenTelemetryPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputOpenTelemetryType `json:"type"`
@@ -444,7 +445,6 @@ type InputOpenTelemetryInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -512,340 +512,340 @@ type InputOpenTelemetryInputCollectionPart0Type1 struct {
 	ExtractLogs *bool `default:"false" json:"extractLogs"`
 }
 
-func (i InputOpenTelemetryInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputOpenTelemetryPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetType() InputOpenTelemetryType {
-	if i == nil {
-		return InputOpenTelemetryType("")
-	}
-	return i.Type
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetHost() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetType() InputOpenTelemetryType {
+	if i == nil {
+		return InputOpenTelemetryType("")
+	}
+	return i.Type
+}
+
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPort() *float64 {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetEnableProxyHeader() any {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetCaptureHeaders() any {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetCaptureHeaders() any {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetActivityLogSampleRate() any {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() any {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetEnableHealthCheck() *bool {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetProtocol() *InputOpenTelemetryProtocol {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetProtocol() *InputOpenTelemetryProtocol {
 	if i == nil {
 		return nil
 	}
 	return i.Protocol
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetExtractSpans() *bool {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetExtractSpans() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractSpans
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetExtractMetrics() *bool {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
 	if i == nil {
 		return nil
 	}
 	return i.OtlpVersion
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetAuthType() *AuthenticationTypeOptions {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetAuthType() *AuthenticationTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetMaxActiveCxn() *float64 {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetUsername() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetPassword() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetToken() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetCredentialsSecret() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetTextSecret() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetLoginURL() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetSecretParamName() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetSecret() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetTokenAttributeName() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetAuthHeaderExpr() *string {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetTokenTimeoutSecs() *float64 {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type1) GetExtractLogs() *bool {
+func (i *InputOpenTelemetryPqEnabledFalseWithPqConstraint) GetExtractLogs() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractLogs
 }
 
-type InputOpenTelemetryInputCollectionPart1Type struct {
+type InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -930,333 +930,333 @@ type InputOpenTelemetryInputCollectionPart1Type struct {
 	ExtractLogs *bool `default:"false" json:"extractLogs"`
 }
 
-func (i InputOpenTelemetryInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetID() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetType() InputOpenTelemetryType {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetType() InputOpenTelemetryType {
 	if i == nil {
 		return InputOpenTelemetryType("")
 	}
 	return i.Type
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetHost() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetPort() *float64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetEnableProxyHeader() any {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetCaptureHeaders() any {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() any {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetActivityLogSampleRate() any {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetActivityLogSampleRate() any {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetSocketTimeout() *float64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetEnableHealthCheck() *bool {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetIPDenylistRegex() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetProtocol() *InputOpenTelemetryProtocol {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetProtocol() *InputOpenTelemetryProtocol {
 	if i == nil {
 		return nil
 	}
 	return i.Protocol
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetExtractSpans() *bool {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetExtractSpans() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractSpans
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetExtractMetrics() *bool {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
 	if i == nil {
 		return nil
 	}
 	return i.OtlpVersion
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetAuthType() *AuthenticationTypeOptions {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetMaxActiveCxn() *float64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetDescription() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetUsername() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetPassword() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetToken() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetCredentialsSecret() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetTextSecret() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetLoginURL() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetSecretParamName() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetSecret() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetTokenAttributeName() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetAuthHeaderExpr() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetTokenTimeoutSecs() *float64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
 }
 
-func (i *InputOpenTelemetryInputCollectionPart1Type) GetExtractLogs() *bool {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetExtractLogs() *bool {
 	if i == nil {
 		return nil
 	}
@@ -1336,9 +1336,11 @@ func (e *InputOpenTelemetryOTLPVersion) IsExact() bool {
 	return false
 }
 
-type InputOpenTelemetryInputCollectionPart0Type struct {
+type InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputOpenTelemetryType `json:"type"`
@@ -1351,9 +1353,7 @@ type InputOpenTelemetryInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -1421,333 +1421,333 @@ type InputOpenTelemetryInputCollectionPart0Type struct {
 	ExtractLogs *bool `default:"false" json:"extractLogs"`
 }
 
-func (i InputOpenTelemetryInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetType() InputOpenTelemetryType {
-	if i == nil {
-		return InputOpenTelemetryType("")
-	}
-	return i.Type
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetType() InputOpenTelemetryType {
+	if i == nil {
+		return InputOpenTelemetryType("")
+	}
+	return i.Type
+}
+
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetHost() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetPort() *float64 {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetMaxActiveReq() *float64 {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetEnableProxyHeader() any {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetCaptureHeaders() any {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() any {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetActivityLogSampleRate() any {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() any {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetSocketTimeout() *float64 {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetEnableHealthCheck() *bool {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetIPAllowlistRegex() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetIPDenylistRegex() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetProtocol() *InputOpenTelemetryProtocol {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetProtocol() *InputOpenTelemetryProtocol {
 	if i == nil {
 		return nil
 	}
 	return i.Protocol
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetExtractSpans() *bool {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetExtractSpans() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractSpans
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetExtractMetrics() *bool {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
 	if i == nil {
 		return nil
 	}
 	return i.OtlpVersion
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetAuthType() *AuthenticationTypeOptions {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetAuthType() *AuthenticationTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetMaxActiveCxn() *float64 {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetDescription() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetUsername() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetPassword() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetToken() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Token
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetCredentialsSecret() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetTextSecret() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetLoginURL() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetLoginURL() *string {
 	if i == nil {
 		return nil
 	}
 	return i.LoginURL
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetSecretParamName() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetSecretParamName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SecretParamName
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetSecret() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Secret
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetTokenAttributeName() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetTokenAttributeName() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TokenAttributeName
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetAuthHeaderExpr() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetAuthHeaderExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthHeaderExpr
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetTokenTimeoutSecs() *float64 {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetTokenTimeoutSecs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TokenTimeoutSecs
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetOauthParams() []ItemsTypeOauthParams {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if i == nil {
 		return nil
 	}
 	return i.OauthHeaders
 }
 
-func (i *InputOpenTelemetryInputCollectionPart0Type) GetExtractLogs() *bool {
+func (i *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) GetExtractLogs() *bool {
 	if i == nil {
 		return nil
 	}
@@ -1757,84 +1757,84 @@ func (i *InputOpenTelemetryInputCollectionPart0Type) GetExtractLogs() *bool {
 type InputOpenTelemetryUnionType string
 
 const (
-	InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type  InputOpenTelemetryUnionType = "InputOpenTelemetry_InputCollectionPart0Type"
-	InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type  InputOpenTelemetryUnionType = "InputOpenTelemetry_InputCollectionPart1Type"
-	InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type1 InputOpenTelemetryUnionType = "InputOpenTelemetry_InputCollectionPart0Type1"
-	InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type1 InputOpenTelemetryUnionType = "InputOpenTelemetry_InputCollectionPart1Type1"
+	InputOpenTelemetryUnionTypeInputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint  InputOpenTelemetryUnionType = "InputOpenTelemetry_SendToRoutesTrueWithConnectionsConstraint"
+	InputOpenTelemetryUnionTypeInputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint InputOpenTelemetryUnionType = "InputOpenTelemetry_SendToRoutesFalseWithConnectionsConstraint"
+	InputOpenTelemetryUnionTypeInputOpenTelemetryPqEnabledFalseWithPqConstraint             InputOpenTelemetryUnionType = "InputOpenTelemetry_PqEnabledFalseWithPqConstraint"
+	InputOpenTelemetryUnionTypeInputOpenTelemetryPqEnabledTrueWithPqConstraint              InputOpenTelemetryUnionType = "InputOpenTelemetry_PqEnabledTrueWithPqConstraint"
 )
 
 type InputOpenTelemetry struct {
-	InputOpenTelemetryInputCollectionPart0Type  *InputOpenTelemetryInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputOpenTelemetryInputCollectionPart1Type  *InputOpenTelemetryInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputOpenTelemetryInputCollectionPart0Type1 *InputOpenTelemetryInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputOpenTelemetryInputCollectionPart1Type1 *InputOpenTelemetryInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint  *InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputOpenTelemetryPqEnabledFalseWithPqConstraint             *InputOpenTelemetryPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputOpenTelemetryPqEnabledTrueWithPqConstraint              *InputOpenTelemetryPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputOpenTelemetryUnionType
 }
 
-func CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart0Type(inputOpenTelemetryInputCollectionPart0Type InputOpenTelemetryInputCollectionPart0Type) InputOpenTelemetry {
-	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type
+func CreateInputOpenTelemetryInputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint(inputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint) InputOpenTelemetry {
+	typ := InputOpenTelemetryUnionTypeInputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint
 
 	return InputOpenTelemetry{
-		InputOpenTelemetryInputCollectionPart0Type: &inputOpenTelemetryInputCollectionPart0Type,
+		InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint: &inputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart1Type(inputOpenTelemetryInputCollectionPart1Type InputOpenTelemetryInputCollectionPart1Type) InputOpenTelemetry {
-	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type
+func CreateInputOpenTelemetryInputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint(inputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) InputOpenTelemetry {
+	typ := InputOpenTelemetryUnionTypeInputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint
 
 	return InputOpenTelemetry{
-		InputOpenTelemetryInputCollectionPart1Type: &inputOpenTelemetryInputCollectionPart1Type,
+		InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint: &inputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart0Type1(inputOpenTelemetryInputCollectionPart0Type1 InputOpenTelemetryInputCollectionPart0Type1) InputOpenTelemetry {
-	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type1
+func CreateInputOpenTelemetryInputOpenTelemetryPqEnabledFalseWithPqConstraint(inputOpenTelemetryPqEnabledFalseWithPqConstraint InputOpenTelemetryPqEnabledFalseWithPqConstraint) InputOpenTelemetry {
+	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryPqEnabledFalseWithPqConstraint
 
 	return InputOpenTelemetry{
-		InputOpenTelemetryInputCollectionPart0Type1: &inputOpenTelemetryInputCollectionPart0Type1,
+		InputOpenTelemetryPqEnabledFalseWithPqConstraint: &inputOpenTelemetryPqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart1Type1(inputOpenTelemetryInputCollectionPart1Type1 InputOpenTelemetryInputCollectionPart1Type1) InputOpenTelemetry {
-	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type1
+func CreateInputOpenTelemetryInputOpenTelemetryPqEnabledTrueWithPqConstraint(inputOpenTelemetryPqEnabledTrueWithPqConstraint InputOpenTelemetryPqEnabledTrueWithPqConstraint) InputOpenTelemetry {
+	typ := InputOpenTelemetryUnionTypeInputOpenTelemetryPqEnabledTrueWithPqConstraint
 
 	return InputOpenTelemetry{
-		InputOpenTelemetryInputCollectionPart1Type1: &inputOpenTelemetryInputCollectionPart1Type1,
+		InputOpenTelemetryPqEnabledTrueWithPqConstraint: &inputOpenTelemetryPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputOpenTelemetry) UnmarshalJSON(data []byte) error {
 
-	var inputOpenTelemetryInputCollectionPart0Type InputOpenTelemetryInputCollectionPart0Type = InputOpenTelemetryInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputOpenTelemetryInputCollectionPart0Type = &inputOpenTelemetryInputCollectionPart0Type
-		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type
+	var inputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint = InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint = &inputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputOpenTelemetryInputCollectionPart1Type InputOpenTelemetryInputCollectionPart1Type = InputOpenTelemetryInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputOpenTelemetryInputCollectionPart1Type = &inputOpenTelemetryInputCollectionPart1Type
-		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type
+	var inputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint = InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint = &inputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputOpenTelemetryInputCollectionPart0Type1 InputOpenTelemetryInputCollectionPart0Type1 = InputOpenTelemetryInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputOpenTelemetryInputCollectionPart0Type1 = &inputOpenTelemetryInputCollectionPart0Type1
-		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart0Type1
+	var inputOpenTelemetryPqEnabledFalseWithPqConstraint InputOpenTelemetryPqEnabledFalseWithPqConstraint = InputOpenTelemetryPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputOpenTelemetryPqEnabledFalseWithPqConstraint = &inputOpenTelemetryPqEnabledFalseWithPqConstraint
+		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputOpenTelemetryInputCollectionPart1Type1 InputOpenTelemetryInputCollectionPart1Type1 = InputOpenTelemetryInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputOpenTelemetryInputCollectionPart1Type1 = &inputOpenTelemetryInputCollectionPart1Type1
-		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryInputCollectionPart1Type1
+	var inputOpenTelemetryPqEnabledTrueWithPqConstraint InputOpenTelemetryPqEnabledTrueWithPqConstraint = InputOpenTelemetryPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputOpenTelemetryPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputOpenTelemetryPqEnabledTrueWithPqConstraint = &inputOpenTelemetryPqEnabledTrueWithPqConstraint
+		u.Type = InputOpenTelemetryUnionTypeInputOpenTelemetryPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1842,20 +1842,20 @@ func (u *InputOpenTelemetry) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputOpenTelemetry) MarshalJSON() ([]byte, error) {
-	if u.InputOpenTelemetryInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputOpenTelemetryInputCollectionPart0Type, "", true)
+	if u.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputOpenTelemetryInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputOpenTelemetryInputCollectionPart1Type, "", true)
+	if u.InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputOpenTelemetryInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputOpenTelemetryInputCollectionPart0Type1, "", true)
+	if u.InputOpenTelemetryPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputOpenTelemetryPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputOpenTelemetryInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputOpenTelemetryInputCollectionPart1Type1, "", true)
+	if u.InputOpenTelemetryPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputOpenTelemetryPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputOpenTelemetry: all fields are null")

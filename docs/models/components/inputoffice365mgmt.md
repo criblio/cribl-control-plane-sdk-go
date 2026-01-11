@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputOffice365MgmtInputCollectionPart0Type
+### InputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputOffice365Mgmt := components.CreateInputOffice365MgmtInputOffice365MgmtInputCollectionPart0Type(components.InputOffice365MgmtInputCollectionPart0Type{/* values here */})
+inputOffice365Mgmt := components.CreateInputOffice365MgmtInputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint(components.InputOffice365MgmtSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365MgmtInputCollectionPart1Type
+### InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputOffice365Mgmt := components.CreateInputOffice365MgmtInputOffice365MgmtInputCollectionPart1Type(components.InputOffice365MgmtInputCollectionPart1Type{/* values here */})
+inputOffice365Mgmt := components.CreateInputOffice365MgmtInputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint(components.InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365MgmtInputCollectionPart0Type1
+### InputOffice365MgmtPqEnabledFalseWithPqConstraint
 
 ```go
-inputOffice365Mgmt := components.CreateInputOffice365MgmtInputOffice365MgmtInputCollectionPart0Type1(components.InputOffice365MgmtInputCollectionPart0Type1{/* values here */})
+inputOffice365Mgmt := components.CreateInputOffice365MgmtInputOffice365MgmtPqEnabledFalseWithPqConstraint(components.InputOffice365MgmtPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputOffice365MgmtInputCollectionPart1Type1
+### InputOffice365MgmtPqEnabledTrueWithPqConstraint
 
 ```go
-inputOffice365Mgmt := components.CreateInputOffice365MgmtInputOffice365MgmtInputCollectionPart1Type1(components.InputOffice365MgmtInputCollectionPart1Type1{/* values here */})
+inputOffice365Mgmt := components.CreateInputOffice365MgmtInputOffice365MgmtPqEnabledTrueWithPqConstraint(components.InputOffice365MgmtPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

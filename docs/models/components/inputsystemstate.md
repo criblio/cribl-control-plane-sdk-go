@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputSystemStateInputCollectionPart0Type
+### InputSystemStateSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputSystemState := components.CreateInputSystemStateInputSystemStateInputCollectionPart0Type(components.InputSystemStateInputCollectionPart0Type{/* values here */})
+inputSystemState := components.CreateInputSystemStateInputSystemStateSendToRoutesTrueWithConnectionsConstraint(components.InputSystemStateSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSystemStateInputCollectionPart1Type
+### InputSystemStateSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputSystemState := components.CreateInputSystemStateInputSystemStateInputCollectionPart1Type(components.InputSystemStateInputCollectionPart1Type{/* values here */})
+inputSystemState := components.CreateInputSystemStateInputSystemStateSendToRoutesFalseWithConnectionsConstraint(components.InputSystemStateSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputSystemStateInputCollectionPart0Type1
+### InputSystemStatePqEnabledFalseWithPqConstraint
 
 ```go
-inputSystemState := components.CreateInputSystemStateInputSystemStateInputCollectionPart0Type1(components.InputSystemStateInputCollectionPart0Type1{/* values here */})
+inputSystemState := components.CreateInputSystemStateInputSystemStatePqEnabledFalseWithPqConstraint(components.InputSystemStatePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputSystemStateInputCollectionPart1Type1
+### InputSystemStatePqEnabledTrueWithPqConstraint
 
 ```go
-inputSystemState := components.CreateInputSystemStateInputSystemStateInputCollectionPart1Type1(components.InputSystemStateInputCollectionPart1Type1{/* values here */})
+inputSystemState := components.CreateInputSystemStateInputSystemStatePqEnabledTrueWithPqConstraint(components.InputSystemStatePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

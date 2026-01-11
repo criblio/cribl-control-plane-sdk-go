@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputMskInputCollectionPart0Type
+### InputMskSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputMsk := components.CreateInputMskInputMskInputCollectionPart0Type(components.InputMskInputCollectionPart0Type{/* values here */})
+inputMsk := components.CreateInputMskInputMskSendToRoutesTrueWithConnectionsConstraint(components.InputMskSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputMskInputCollectionPart1Type
+### InputMskSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputMsk := components.CreateInputMskInputMskInputCollectionPart1Type(components.InputMskInputCollectionPart1Type{/* values here */})
+inputMsk := components.CreateInputMskInputMskSendToRoutesFalseWithConnectionsConstraint(components.InputMskSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputMskInputCollectionPart0Type1
+### InputMskPqEnabledFalseWithPqConstraint
 
 ```go
-inputMsk := components.CreateInputMskInputMskInputCollectionPart0Type1(components.InputMskInputCollectionPart0Type1{/* values here */})
+inputMsk := components.CreateInputMskInputMskPqEnabledFalseWithPqConstraint(components.InputMskPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputMskInputCollectionPart1Type1
+### InputMskPqEnabledTrueWithPqConstraint
 
 ```go
-inputMsk := components.CreateInputMskInputMskInputCollectionPart1Type1(components.InputMskInputCollectionPart1Type1{/* values here */})
+inputMsk := components.CreateInputMskInputMskPqEnabledTrueWithPqConstraint(components.InputMskPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputEdgePrometheusInputCollectionPart0Type
+### InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputEdgePrometheus := operations.CreateInputEdgePrometheusInputEdgePrometheusInputCollectionPart0Type(operations.InputEdgePrometheusInputCollectionPart0Type{/* values here */})
+inputEdgePrometheus := operations.CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint(operations.InputEdgePrometheusSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputEdgePrometheusInputCollectionPart1Type
+### InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputEdgePrometheus := operations.CreateInputEdgePrometheusInputEdgePrometheusInputCollectionPart1Type(operations.InputEdgePrometheusInputCollectionPart1Type{/* values here */})
+inputEdgePrometheus := operations.CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint(operations.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputEdgePrometheusInputCollectionPart0Type1
+### InputEdgePrometheusPqEnabledFalseWithPqConstraint
 
 ```go
-inputEdgePrometheus := operations.CreateInputEdgePrometheusInputEdgePrometheusInputCollectionPart0Type1(operations.InputEdgePrometheusInputCollectionPart0Type1{/* values here */})
+inputEdgePrometheus := operations.CreateInputEdgePrometheusInputEdgePrometheusPqEnabledFalseWithPqConstraint(operations.InputEdgePrometheusPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputEdgePrometheusInputCollectionPart1Type1
+### InputEdgePrometheusPqEnabledTrueWithPqConstraint
 
 ```go
-inputEdgePrometheus := operations.CreateInputEdgePrometheusInputEdgePrometheusInputCollectionPart1Type1(operations.InputEdgePrometheusInputCollectionPart1Type1{/* values here */})
+inputEdgePrometheus := operations.CreateInputEdgePrometheusInputEdgePrometheusPqEnabledTrueWithPqConstraint(operations.InputEdgePrometheusPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

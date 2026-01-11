@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputWindowsMetricsInputCollectionPart1Type1 struct {
+type InputWindowsMetricsPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -39,139 +39,140 @@ type InputWindowsMetricsInputCollectionPart1Type1 struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputWindowsMetricsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetID() *string {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetType() InputWindowsMetricsType {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetType() InputWindowsMetricsType {
 	if i == nil {
 		return InputWindowsMetricsType("")
 	}
 	return i.Type
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetInterval() *float64 {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetHost() *InputWindowsMetricsHost {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetHost() *InputWindowsMetricsHost {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetProcess() *ProcessType {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetPersistence() *InputWindowsMetricsPersistence {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetPersistence() *InputWindowsMetricsPersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetDisableNativeModule() *bool {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputWindowsMetricsInputCollectionPart0Type1 struct {
+type InputWindowsMetricsPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputWindowsMetricsType `json:"type"`
@@ -186,7 +187,6 @@ type InputWindowsMetricsInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
 	Interval *float64                 `default:"10" json:"interval"`
 	Host     *InputWindowsMetricsHost `json:"host,omitempty"`
@@ -199,137 +199,137 @@ type InputWindowsMetricsInputCollectionPart0Type1 struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputWindowsMetricsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetType() InputWindowsMetricsType {
-	if i == nil {
-		return InputWindowsMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetInterval() *float64 {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetType() InputWindowsMetricsType {
+	if i == nil {
+		return InputWindowsMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetHost() *InputWindowsMetricsHost {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetHost() *InputWindowsMetricsHost {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetProcess() *ProcessType {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetPersistence() *InputWindowsMetricsPersistence {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetPersistence() *InputWindowsMetricsPersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetDisableNativeModule() *bool {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputWindowsMetricsPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputWindowsMetricsInputCollectionPart1Type struct {
+type InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -359,130 +359,130 @@ type InputWindowsMetricsInputCollectionPart1Type struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputWindowsMetricsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetID() *string {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetType() InputWindowsMetricsType {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetType() InputWindowsMetricsType {
 	if i == nil {
 		return InputWindowsMetricsType("")
 	}
 	return i.Type
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetInterval() *float64 {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetHost() *InputWindowsMetricsHost {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetHost() *InputWindowsMetricsHost {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetProcess() *ProcessType {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetPersistence() *InputWindowsMetricsPersistence {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *InputWindowsMetricsPersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetDisableNativeModule() *bool {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWindowsMetricsInputCollectionPart1Type) GetDescription() *string {
+func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1032,9 +1032,11 @@ func (i *InputWindowsMetricsPersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputWindowsMetricsInputCollectionPart0Type struct {
+type InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputWindowsMetricsType `json:"type"`
@@ -1047,9 +1049,7 @@ type InputWindowsMetricsInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
 	Interval *float64                 `default:"10" json:"interval"`
 	Host     *InputWindowsMetricsHost `json:"host,omitempty"`
@@ -1062,130 +1062,130 @@ type InputWindowsMetricsInputCollectionPart0Type struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputWindowsMetricsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetType() InputWindowsMetricsType {
-	if i == nil {
-		return InputWindowsMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetType() InputWindowsMetricsType {
+	if i == nil {
+		return InputWindowsMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetInterval() *float64 {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetHost() *InputWindowsMetricsHost {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetHost() *InputWindowsMetricsHost {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetProcess() *ProcessType {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetPersistence() *InputWindowsMetricsPersistence {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetPersistence() *InputWindowsMetricsPersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetDisableNativeModule() *bool {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWindowsMetricsInputCollectionPart0Type) GetDescription() *string {
+func (i *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1195,84 +1195,84 @@ func (i *InputWindowsMetricsInputCollectionPart0Type) GetDescription() *string {
 type InputWindowsMetricsUnionType string
 
 const (
-	InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart0Type  InputWindowsMetricsUnionType = "InputWindowsMetrics_InputCollectionPart0Type"
-	InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart1Type  InputWindowsMetricsUnionType = "InputWindowsMetrics_InputCollectionPart1Type"
-	InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart0Type1 InputWindowsMetricsUnionType = "InputWindowsMetrics_InputCollectionPart0Type1"
-	InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart1Type1 InputWindowsMetricsUnionType = "InputWindowsMetrics_InputCollectionPart1Type1"
+	InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint  InputWindowsMetricsUnionType = "InputWindowsMetrics_SendToRoutesTrueWithConnectionsConstraint"
+	InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint InputWindowsMetricsUnionType = "InputWindowsMetrics_SendToRoutesFalseWithConnectionsConstraint"
+	InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledFalseWithPqConstraint             InputWindowsMetricsUnionType = "InputWindowsMetrics_PqEnabledFalseWithPqConstraint"
+	InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledTrueWithPqConstraint              InputWindowsMetricsUnionType = "InputWindowsMetrics_PqEnabledTrueWithPqConstraint"
 )
 
 type InputWindowsMetrics struct {
-	InputWindowsMetricsInputCollectionPart0Type  *InputWindowsMetricsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputWindowsMetricsInputCollectionPart1Type  *InputWindowsMetricsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputWindowsMetricsInputCollectionPart0Type1 *InputWindowsMetricsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputWindowsMetricsInputCollectionPart1Type1 *InputWindowsMetricsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint  *InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputWindowsMetricsPqEnabledFalseWithPqConstraint             *InputWindowsMetricsPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputWindowsMetricsPqEnabledTrueWithPqConstraint              *InputWindowsMetricsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputWindowsMetricsUnionType
 }
 
-func CreateInputWindowsMetricsInputWindowsMetricsInputCollectionPart0Type(inputWindowsMetricsInputCollectionPart0Type InputWindowsMetricsInputCollectionPart0Type) InputWindowsMetrics {
-	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart0Type
+func CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint(inputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint) InputWindowsMetrics {
+	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint
 
 	return InputWindowsMetrics{
-		InputWindowsMetricsInputCollectionPart0Type: &inputWindowsMetricsInputCollectionPart0Type,
+		InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint: &inputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputWindowsMetricsInputWindowsMetricsInputCollectionPart1Type(inputWindowsMetricsInputCollectionPart1Type InputWindowsMetricsInputCollectionPart1Type) InputWindowsMetrics {
-	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart1Type
+func CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint(inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) InputWindowsMetrics {
+	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint
 
 	return InputWindowsMetrics{
-		InputWindowsMetricsInputCollectionPart1Type: &inputWindowsMetricsInputCollectionPart1Type,
+		InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint: &inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputWindowsMetricsInputWindowsMetricsInputCollectionPart0Type1(inputWindowsMetricsInputCollectionPart0Type1 InputWindowsMetricsInputCollectionPart0Type1) InputWindowsMetrics {
-	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart0Type1
+func CreateInputWindowsMetricsInputWindowsMetricsPqEnabledFalseWithPqConstraint(inputWindowsMetricsPqEnabledFalseWithPqConstraint InputWindowsMetricsPqEnabledFalseWithPqConstraint) InputWindowsMetrics {
+	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledFalseWithPqConstraint
 
 	return InputWindowsMetrics{
-		InputWindowsMetricsInputCollectionPart0Type1: &inputWindowsMetricsInputCollectionPart0Type1,
+		InputWindowsMetricsPqEnabledFalseWithPqConstraint: &inputWindowsMetricsPqEnabledFalseWithPqConstraint,
 		Type: typ,
 	}
 }
 
-func CreateInputWindowsMetricsInputWindowsMetricsInputCollectionPart1Type1(inputWindowsMetricsInputCollectionPart1Type1 InputWindowsMetricsInputCollectionPart1Type1) InputWindowsMetrics {
-	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart1Type1
+func CreateInputWindowsMetricsInputWindowsMetricsPqEnabledTrueWithPqConstraint(inputWindowsMetricsPqEnabledTrueWithPqConstraint InputWindowsMetricsPqEnabledTrueWithPqConstraint) InputWindowsMetrics {
+	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledTrueWithPqConstraint
 
 	return InputWindowsMetrics{
-		InputWindowsMetricsInputCollectionPart1Type1: &inputWindowsMetricsInputCollectionPart1Type1,
+		InputWindowsMetricsPqEnabledTrueWithPqConstraint: &inputWindowsMetricsPqEnabledTrueWithPqConstraint,
 		Type: typ,
 	}
 }
 
 func (u *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
 
-	var inputWindowsMetricsInputCollectionPart0Type InputWindowsMetricsInputCollectionPart0Type = InputWindowsMetricsInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputWindowsMetricsInputCollectionPart0Type = &inputWindowsMetricsInputCollectionPart0Type
-		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart0Type
+	var inputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint = InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint = &inputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputWindowsMetricsInputCollectionPart1Type InputWindowsMetricsInputCollectionPart1Type = InputWindowsMetricsInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputWindowsMetricsInputCollectionPart1Type = &inputWindowsMetricsInputCollectionPart1Type
-		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart1Type
+	var inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = &inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputWindowsMetricsInputCollectionPart0Type1 InputWindowsMetricsInputCollectionPart0Type1 = InputWindowsMetricsInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputWindowsMetricsInputCollectionPart0Type1 = &inputWindowsMetricsInputCollectionPart0Type1
-		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart0Type1
+	var inputWindowsMetricsPqEnabledFalseWithPqConstraint InputWindowsMetricsPqEnabledFalseWithPqConstraint = InputWindowsMetricsPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputWindowsMetricsPqEnabledFalseWithPqConstraint = &inputWindowsMetricsPqEnabledFalseWithPqConstraint
+		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputWindowsMetricsInputCollectionPart1Type1 InputWindowsMetricsInputCollectionPart1Type1 = InputWindowsMetricsInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputWindowsMetricsInputCollectionPart1Type1 = &inputWindowsMetricsInputCollectionPart1Type1
-		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsInputCollectionPart1Type1
+	var inputWindowsMetricsPqEnabledTrueWithPqConstraint InputWindowsMetricsPqEnabledTrueWithPqConstraint = InputWindowsMetricsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputWindowsMetricsPqEnabledTrueWithPqConstraint = &inputWindowsMetricsPqEnabledTrueWithPqConstraint
+		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1280,20 +1280,20 @@ func (u *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputWindowsMetrics) MarshalJSON() ([]byte, error) {
-	if u.InputWindowsMetricsInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputWindowsMetricsInputCollectionPart0Type, "", true)
+	if u.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputWindowsMetricsInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputWindowsMetricsInputCollectionPart1Type, "", true)
+	if u.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputWindowsMetricsInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputWindowsMetricsInputCollectionPart0Type1, "", true)
+	if u.InputWindowsMetricsPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputWindowsMetricsPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputWindowsMetricsInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputWindowsMetricsInputCollectionPart1Type1, "", true)
+	if u.InputWindowsMetricsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputWindowsMetricsPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputWindowsMetrics: all fields are null")

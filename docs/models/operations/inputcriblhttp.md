@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCriblHTTPInputCollectionPart0Type
+### InputCriblHTTPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCriblHTTP := operations.CreateInputCriblHTTPInputCriblHTTPInputCollectionPart0Type(operations.InputCriblHTTPInputCollectionPart0Type{/* values here */})
+inputCriblHTTP := operations.CreateInputCriblHTTPInputCriblHTTPSendToRoutesTrueWithConnectionsConstraint(operations.InputCriblHTTPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblHTTPInputCollectionPart1Type
+### InputCriblHTTPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCriblHTTP := operations.CreateInputCriblHTTPInputCriblHTTPInputCollectionPart1Type(operations.InputCriblHTTPInputCollectionPart1Type{/* values here */})
+inputCriblHTTP := operations.CreateInputCriblHTTPInputCriblHTTPSendToRoutesFalseWithConnectionsConstraint(operations.InputCriblHTTPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblHTTPInputCollectionPart0Type1
+### InputCriblHTTPPqEnabledFalseWithPqConstraint
 
 ```go
-inputCriblHTTP := operations.CreateInputCriblHTTPInputCriblHTTPInputCollectionPart0Type1(operations.InputCriblHTTPInputCollectionPart0Type1{/* values here */})
+inputCriblHTTP := operations.CreateInputCriblHTTPInputCriblHTTPPqEnabledFalseWithPqConstraint(operations.InputCriblHTTPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCriblHTTPInputCollectionPart1Type1
+### InputCriblHTTPPqEnabledTrueWithPqConstraint
 
 ```go
-inputCriblHTTP := operations.CreateInputCriblHTTPInputCriblHTTPInputCollectionPart1Type1(operations.InputCriblHTTPInputCollectionPart1Type1{/* values here */})
+inputCriblHTTP := operations.CreateInputCriblHTTPInputCriblHTTPPqEnabledTrueWithPqConstraint(operations.InputCriblHTTPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

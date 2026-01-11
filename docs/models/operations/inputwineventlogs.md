@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputWinEventLogsInputCollectionPart0Type
+### InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsInputCollectionPart0Type(operations.InputWinEventLogsInputCollectionPart0Type{/* values here */})
+inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsSendToRoutesTrueWithConnectionsConstraint(operations.InputWinEventLogsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWinEventLogsInputCollectionPart1Type
+### InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsInputCollectionPart1Type(operations.InputWinEventLogsInputCollectionPart1Type{/* values here */})
+inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint(operations.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWinEventLogsInputCollectionPart0Type1
+### InputWinEventLogsPqEnabledFalseWithPqConstraint
 
 ```go
-inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsInputCollectionPart0Type1(operations.InputWinEventLogsInputCollectionPart0Type1{/* values here */})
+inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsPqEnabledFalseWithPqConstraint(operations.InputWinEventLogsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputWinEventLogsInputCollectionPart1Type1
+### InputWinEventLogsPqEnabledTrueWithPqConstraint
 
 ```go
-inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsInputCollectionPart1Type1(operations.InputWinEventLogsInputCollectionPart1Type1{/* values here */})
+inputWinEventLogs := operations.CreateInputWinEventLogsInputWinEventLogsPqEnabledTrueWithPqConstraint(operations.InputWinEventLogsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

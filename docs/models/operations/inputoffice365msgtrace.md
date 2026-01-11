@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputOffice365MsgTraceInputCollectionPart0Type
+### InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceInputCollectionPart0Type(operations.InputOffice365MsgTraceInputCollectionPart0Type{/* values here */})
+inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint(operations.InputOffice365MsgTraceSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365MsgTraceInputCollectionPart1Type
+### InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceInputCollectionPart1Type(operations.InputOffice365MsgTraceInputCollectionPart1Type{/* values here */})
+inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint(operations.InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOffice365MsgTraceInputCollectionPart0Type1
+### InputOffice365MsgTracePqEnabledFalseWithPqConstraint
 
 ```go
-inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceInputCollectionPart0Type1(operations.InputOffice365MsgTraceInputCollectionPart0Type1{/* values here */})
+inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTracePqEnabledFalseWithPqConstraint(operations.InputOffice365MsgTracePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputOffice365MsgTraceInputCollectionPart1Type1
+### InputOffice365MsgTracePqEnabledTrueWithPqConstraint
 
 ```go
-inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTraceInputCollectionPart1Type1(operations.InputOffice365MsgTraceInputCollectionPart1Type1{/* values here */})
+inputOffice365MsgTrace := operations.CreateInputOffice365MsgTraceInputOffice365MsgTracePqEnabledTrueWithPqConstraint(operations.InputOffice365MsgTracePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputDatadogAgentInputCollectionPart0Type
+### InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentInputCollectionPart0Type(components.InputDatadogAgentInputCollectionPart0Type{/* values here */})
+inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentSendToRoutesTrueWithConnectionsConstraint(components.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatadogAgentInputCollectionPart1Type
+### InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentInputCollectionPart1Type(components.InputDatadogAgentInputCollectionPart1Type{/* values here */})
+inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentSendToRoutesFalseWithConnectionsConstraint(components.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatadogAgentInputCollectionPart0Type1
+### InputDatadogAgentPqEnabledFalseWithPqConstraint
 
 ```go
-inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentInputCollectionPart0Type1(components.InputDatadogAgentInputCollectionPart0Type1{/* values here */})
+inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentPqEnabledFalseWithPqConstraint(components.InputDatadogAgentPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputDatadogAgentInputCollectionPart1Type1
+### InputDatadogAgentPqEnabledTrueWithPqConstraint
 
 ```go
-inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentInputCollectionPart1Type1(components.InputDatadogAgentInputCollectionPart1Type1{/* values here */})
+inputDatadogAgent := components.CreateInputDatadogAgentInputDatadogAgentPqEnabledTrueWithPqConstraint(components.InputDatadogAgentPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

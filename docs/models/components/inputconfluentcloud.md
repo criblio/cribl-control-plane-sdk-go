@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputConfluentCloudInputCollectionPart0Type
+### InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudInputCollectionPart0Type(components.InputConfluentCloudInputCollectionPart0Type{/* values here */})
+inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudSendToRoutesTrueWithConnectionsConstraint(components.InputConfluentCloudSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputConfluentCloudInputCollectionPart1Type
+### InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudInputCollectionPart1Type(components.InputConfluentCloudInputCollectionPart1Type{/* values here */})
+inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudSendToRoutesFalseWithConnectionsConstraint(components.InputConfluentCloudSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputConfluentCloudInputCollectionPart0Type1
+### InputConfluentCloudPqEnabledFalseWithPqConstraint
 
 ```go
-inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudInputCollectionPart0Type1(components.InputConfluentCloudInputCollectionPart0Type1{/* values here */})
+inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudPqEnabledFalseWithPqConstraint(components.InputConfluentCloudPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputConfluentCloudInputCollectionPart1Type1
+### InputConfluentCloudPqEnabledTrueWithPqConstraint
 
 ```go
-inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudInputCollectionPart1Type1(components.InputConfluentCloudInputCollectionPart1Type1{/* values here */})
+inputConfluentCloud := components.CreateInputConfluentCloudInputConfluentCloudPqEnabledTrueWithPqConstraint(components.InputConfluentCloudPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

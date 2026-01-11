@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputKinesisInputCollectionPart1Type1 struct {
+type InputKinesisPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -76,265 +76,266 @@ type InputKinesisInputCollectionPart1Type1 struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputKinesisInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputKinesisPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetID() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetType() InputKinesisType {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetType() InputKinesisType {
 	if i == nil {
 		return InputKinesisType("")
 	}
 	return i.Type
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetStreamName() string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetStreamName() string {
 	if i == nil {
 		return ""
 	}
 	return i.StreamName
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetServiceInterval() *float64 {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetServiceInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceInterval
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetShardExpr() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetShardExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ShardExpr
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetShardIteratorType() *ShardIteratorStart {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetShardIteratorType() *ShardIteratorStart {
 	if i == nil {
 		return nil
 	}
 	return i.ShardIteratorType
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetPayloadFormat() *RecordDataFormat {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPayloadFormat() *RecordDataFormat {
 	if i == nil {
 		return nil
 	}
 	return i.PayloadFormat
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetGetRecordsLimit() *float64 {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetGetRecordsLimit() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimit
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetGetRecordsLimitTotal() *float64 {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetGetRecordsLimitTotal() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimitTotal
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
 	if i == nil {
 		return nil
 	}
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetAwsSecretKey() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetRegion() string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetEndpoint() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetSignatureVersion() *SignatureVersionOptions2 {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetReuseConnections() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetRejectUnauthorized() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetEnableAssumeRole() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetAssumeRoleArn() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetAssumeRoleExternalID() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetDurationSeconds() *float64 {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetVerifyKPLCheckSums() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetVerifyKPLCheckSums() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VerifyKPLCheckSums
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetAvoidDuplicates() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAvoidDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetAwsAPIKey() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputKinesisInputCollectionPart1Type1) GetAwsSecret() *string {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-type InputKinesisInputCollectionPart0Type1 struct {
+type InputKinesisPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
@@ -349,7 +350,6 @@ type InputKinesisInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -399,263 +399,263 @@ type InputKinesisInputCollectionPart0Type1 struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputKinesisInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputKinesisPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKinesisInputCollectionPart0Type1) GetType() InputKinesisType {
-	if i == nil {
-		return InputKinesisType("")
-	}
-	return i.Type
-}
-
-func (i *InputKinesisInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKinesisInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKinesisInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputKinesisInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKinesisInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKinesisInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputKinesisInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetStreamName() string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetType() InputKinesisType {
+	if i == nil {
+		return InputKinesisType("")
+	}
+	return i.Type
+}
+
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetStreamName() string {
 	if i == nil {
 		return ""
 	}
 	return i.StreamName
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetServiceInterval() *float64 {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetServiceInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceInterval
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetShardExpr() *string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetShardExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ShardExpr
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetShardIteratorType() *ShardIteratorStart {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetShardIteratorType() *ShardIteratorStart {
 	if i == nil {
 		return nil
 	}
 	return i.ShardIteratorType
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetPayloadFormat() *RecordDataFormat {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetPayloadFormat() *RecordDataFormat {
 	if i == nil {
 		return nil
 	}
 	return i.PayloadFormat
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetGetRecordsLimit() *float64 {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetGetRecordsLimit() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimit
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetGetRecordsLimitTotal() *float64 {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetGetRecordsLimitTotal() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimitTotal
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
 	if i == nil {
 		return nil
 	}
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetAwsSecretKey() *string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetRegion() string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetEndpoint() *string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetSignatureVersion() *SignatureVersionOptions2 {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetReuseConnections() *bool {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetRejectUnauthorized() *bool {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetEnableAssumeRole() *bool {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetAssumeRoleArn() *string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetAssumeRoleExternalID() *string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetDurationSeconds() *float64 {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetVerifyKPLCheckSums() *bool {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetVerifyKPLCheckSums() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VerifyKPLCheckSums
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetAvoidDuplicates() *bool {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAvoidDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetAwsAPIKey() *string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputKinesisInputCollectionPart0Type1) GetAwsSecret() *string {
+func (i *InputKinesisPqEnabledFalseWithPqConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-type InputKinesisInputCollectionPart1Type struct {
+type InputKinesisSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -722,256 +722,256 @@ type InputKinesisInputCollectionPart1Type struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputKinesisInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputKinesisSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKinesisInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetID() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetType() InputKinesisType {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetType() InputKinesisType {
 	if i == nil {
 		return InputKinesisType("")
 	}
 	return i.Type
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetStreamName() string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetStreamName() string {
 	if i == nil {
 		return ""
 	}
 	return i.StreamName
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetServiceInterval() *float64 {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetServiceInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceInterval
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetShardExpr() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetShardExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ShardExpr
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetShardIteratorType() *ShardIteratorStart {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetShardIteratorType() *ShardIteratorStart {
 	if i == nil {
 		return nil
 	}
 	return i.ShardIteratorType
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetPayloadFormat() *RecordDataFormat {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetPayloadFormat() *RecordDataFormat {
 	if i == nil {
 		return nil
 	}
 	return i.PayloadFormat
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetGetRecordsLimit() *float64 {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetGetRecordsLimit() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimit
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetGetRecordsLimitTotal() *float64 {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetGetRecordsLimitTotal() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimitTotal
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
 	if i == nil {
 		return nil
 	}
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetAwsSecretKey() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetRegion() string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetEndpoint() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetSignatureVersion() *SignatureVersionOptions2 {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetReuseConnections() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetRejectUnauthorized() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetEnableAssumeRole() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetAssumeRoleArn() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetAssumeRoleExternalID() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetDurationSeconds() *float64 {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetVerifyKPLCheckSums() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetVerifyKPLCheckSums() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VerifyKPLCheckSums
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetAvoidDuplicates() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAvoidDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetDescription() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetAwsAPIKey() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputKinesisInputCollectionPart1Type) GetAwsSecret() *string {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1080,9 +1080,11 @@ func (e *ShardLoadBalancing) IsExact() bool {
 	return false
 }
 
-type InputKinesisInputCollectionPart0Type struct {
+type InputKinesisSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
@@ -1095,9 +1097,7 @@ type InputKinesisInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -1147,256 +1147,256 @@ type InputKinesisInputCollectionPart0Type struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputKinesisInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputKinesisSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKinesisInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKinesisInputCollectionPart0Type) GetType() InputKinesisType {
-	if i == nil {
-		return InputKinesisType("")
-	}
-	return i.Type
-}
-
-func (i *InputKinesisInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKinesisInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKinesisInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKinesisInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputKinesisInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKinesisInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetType() InputKinesisType {
+	if i == nil {
+		return InputKinesisType("")
+	}
+	return i.Type
+}
+
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetStreamName() string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetStreamName() string {
 	if i == nil {
 		return ""
 	}
 	return i.StreamName
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetServiceInterval() *float64 {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetServiceInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceInterval
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetShardExpr() *string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetShardExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ShardExpr
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetShardIteratorType() *ShardIteratorStart {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetShardIteratorType() *ShardIteratorStart {
 	if i == nil {
 		return nil
 	}
 	return i.ShardIteratorType
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetPayloadFormat() *RecordDataFormat {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetPayloadFormat() *RecordDataFormat {
 	if i == nil {
 		return nil
 	}
 	return i.PayloadFormat
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetGetRecordsLimit() *float64 {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetGetRecordsLimit() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimit
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetGetRecordsLimitTotal() *float64 {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetGetRecordsLimitTotal() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimitTotal
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
 	if i == nil {
 		return nil
 	}
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetAwsSecretKey() *string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetRegion() string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetEndpoint() *string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetSignatureVersion() *SignatureVersionOptions2 {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetReuseConnections() *bool {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetRejectUnauthorized() *bool {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetEnableAssumeRole() *bool {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetAssumeRoleArn() *string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetAssumeRoleExternalID() *string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetDurationSeconds() *float64 {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetVerifyKPLCheckSums() *bool {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetVerifyKPLCheckSums() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VerifyKPLCheckSums
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetAvoidDuplicates() *bool {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAvoidDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetDescription() *string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetAwsAPIKey() *string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputKinesisInputCollectionPart0Type) GetAwsSecret() *string {
+func (i *InputKinesisSendToRoutesTrueWithConnectionsConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
@@ -1406,84 +1406,84 @@ func (i *InputKinesisInputCollectionPart0Type) GetAwsSecret() *string {
 type InputKinesisUnionType string
 
 const (
-	InputKinesisUnionTypeInputKinesisInputCollectionPart0Type  InputKinesisUnionType = "InputKinesis_InputCollectionPart0Type"
-	InputKinesisUnionTypeInputKinesisInputCollectionPart1Type  InputKinesisUnionType = "InputKinesis_InputCollectionPart1Type"
-	InputKinesisUnionTypeInputKinesisInputCollectionPart0Type1 InputKinesisUnionType = "InputKinesis_InputCollectionPart0Type1"
-	InputKinesisUnionTypeInputKinesisInputCollectionPart1Type1 InputKinesisUnionType = "InputKinesis_InputCollectionPart1Type1"
+	InputKinesisUnionTypeInputKinesisSendToRoutesTrueWithConnectionsConstraint  InputKinesisUnionType = "InputKinesis_SendToRoutesTrueWithConnectionsConstraint"
+	InputKinesisUnionTypeInputKinesisSendToRoutesFalseWithConnectionsConstraint InputKinesisUnionType = "InputKinesis_SendToRoutesFalseWithConnectionsConstraint"
+	InputKinesisUnionTypeInputKinesisPqEnabledFalseWithPqConstraint             InputKinesisUnionType = "InputKinesis_PqEnabledFalseWithPqConstraint"
+	InputKinesisUnionTypeInputKinesisPqEnabledTrueWithPqConstraint              InputKinesisUnionType = "InputKinesis_PqEnabledTrueWithPqConstraint"
 )
 
 type InputKinesis struct {
-	InputKinesisInputCollectionPart0Type  *InputKinesisInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputKinesisInputCollectionPart1Type  *InputKinesisInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputKinesisInputCollectionPart0Type1 *InputKinesisInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputKinesisInputCollectionPart1Type1 *InputKinesisInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputKinesisSendToRoutesTrueWithConnectionsConstraint  *InputKinesisSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputKinesisSendToRoutesFalseWithConnectionsConstraint *InputKinesisSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputKinesisPqEnabledFalseWithPqConstraint             *InputKinesisPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputKinesisPqEnabledTrueWithPqConstraint              *InputKinesisPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputKinesisUnionType
 }
 
-func CreateInputKinesisInputKinesisInputCollectionPart0Type(inputKinesisInputCollectionPart0Type InputKinesisInputCollectionPart0Type) InputKinesis {
-	typ := InputKinesisUnionTypeInputKinesisInputCollectionPart0Type
+func CreateInputKinesisInputKinesisSendToRoutesTrueWithConnectionsConstraint(inputKinesisSendToRoutesTrueWithConnectionsConstraint InputKinesisSendToRoutesTrueWithConnectionsConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisSendToRoutesTrueWithConnectionsConstraint
 
 	return InputKinesis{
-		InputKinesisInputCollectionPart0Type: &inputKinesisInputCollectionPart0Type,
-		Type:                                 typ,
+		InputKinesisSendToRoutesTrueWithConnectionsConstraint: &inputKinesisSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputKinesisInputKinesisInputCollectionPart1Type(inputKinesisInputCollectionPart1Type InputKinesisInputCollectionPart1Type) InputKinesis {
-	typ := InputKinesisUnionTypeInputKinesisInputCollectionPart1Type
+func CreateInputKinesisInputKinesisSendToRoutesFalseWithConnectionsConstraint(inputKinesisSendToRoutesFalseWithConnectionsConstraint InputKinesisSendToRoutesFalseWithConnectionsConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisSendToRoutesFalseWithConnectionsConstraint
 
 	return InputKinesis{
-		InputKinesisInputCollectionPart1Type: &inputKinesisInputCollectionPart1Type,
-		Type:                                 typ,
+		InputKinesisSendToRoutesFalseWithConnectionsConstraint: &inputKinesisSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputKinesisInputKinesisInputCollectionPart0Type1(inputKinesisInputCollectionPart0Type1 InputKinesisInputCollectionPart0Type1) InputKinesis {
-	typ := InputKinesisUnionTypeInputKinesisInputCollectionPart0Type1
+func CreateInputKinesisInputKinesisPqEnabledFalseWithPqConstraint(inputKinesisPqEnabledFalseWithPqConstraint InputKinesisPqEnabledFalseWithPqConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisPqEnabledFalseWithPqConstraint
 
 	return InputKinesis{
-		InputKinesisInputCollectionPart0Type1: &inputKinesisInputCollectionPart0Type1,
-		Type:                                  typ,
+		InputKinesisPqEnabledFalseWithPqConstraint: &inputKinesisPqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputKinesisInputKinesisInputCollectionPart1Type1(inputKinesisInputCollectionPart1Type1 InputKinesisInputCollectionPart1Type1) InputKinesis {
-	typ := InputKinesisUnionTypeInputKinesisInputCollectionPart1Type1
+func CreateInputKinesisInputKinesisPqEnabledTrueWithPqConstraint(inputKinesisPqEnabledTrueWithPqConstraint InputKinesisPqEnabledTrueWithPqConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisPqEnabledTrueWithPqConstraint
 
 	return InputKinesis{
-		InputKinesisInputCollectionPart1Type1: &inputKinesisInputCollectionPart1Type1,
-		Type:                                  typ,
+		InputKinesisPqEnabledTrueWithPqConstraint: &inputKinesisPqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputKinesis) UnmarshalJSON(data []byte) error {
 
-	var inputKinesisInputCollectionPart0Type InputKinesisInputCollectionPart0Type = InputKinesisInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputKinesisInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputKinesisInputCollectionPart0Type = &inputKinesisInputCollectionPart0Type
-		u.Type = InputKinesisUnionTypeInputKinesisInputCollectionPart0Type
+	var inputKinesisSendToRoutesTrueWithConnectionsConstraint InputKinesisSendToRoutesTrueWithConnectionsConstraint = InputKinesisSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKinesisSendToRoutesTrueWithConnectionsConstraint = &inputKinesisSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputKinesisInputCollectionPart1Type InputKinesisInputCollectionPart1Type = InputKinesisInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputKinesisInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputKinesisInputCollectionPart1Type = &inputKinesisInputCollectionPart1Type
-		u.Type = InputKinesisUnionTypeInputKinesisInputCollectionPart1Type
+	var inputKinesisSendToRoutesFalseWithConnectionsConstraint InputKinesisSendToRoutesFalseWithConnectionsConstraint = InputKinesisSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKinesisSendToRoutesFalseWithConnectionsConstraint = &inputKinesisSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputKinesisInputCollectionPart0Type1 InputKinesisInputCollectionPart0Type1 = InputKinesisInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputKinesisInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputKinesisInputCollectionPart0Type1 = &inputKinesisInputCollectionPart0Type1
-		u.Type = InputKinesisUnionTypeInputKinesisInputCollectionPart0Type1
+	var inputKinesisPqEnabledFalseWithPqConstraint InputKinesisPqEnabledFalseWithPqConstraint = InputKinesisPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputKinesisPqEnabledFalseWithPqConstraint = &inputKinesisPqEnabledFalseWithPqConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputKinesisInputCollectionPart1Type1 InputKinesisInputCollectionPart1Type1 = InputKinesisInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputKinesisInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputKinesisInputCollectionPart1Type1 = &inputKinesisInputCollectionPart1Type1
-		u.Type = InputKinesisUnionTypeInputKinesisInputCollectionPart1Type1
+	var inputKinesisPqEnabledTrueWithPqConstraint InputKinesisPqEnabledTrueWithPqConstraint = InputKinesisPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputKinesisPqEnabledTrueWithPqConstraint = &inputKinesisPqEnabledTrueWithPqConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1491,20 +1491,20 @@ func (u *InputKinesis) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputKinesis) MarshalJSON() ([]byte, error) {
-	if u.InputKinesisInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputKinesisInputCollectionPart0Type, "", true)
+	if u.InputKinesisSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputKinesisInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputKinesisInputCollectionPart1Type, "", true)
+	if u.InputKinesisSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputKinesisInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputKinesisInputCollectionPart0Type1, "", true)
+	if u.InputKinesisPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputKinesisInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputKinesisInputCollectionPart1Type1, "", true)
+	if u.InputKinesisPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputKinesis: all fields are null")

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputFileInputCollectionPart0Type
+### InputFileSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputFile := components.CreateInputFileInputFileInputCollectionPart0Type(components.InputFileInputCollectionPart0Type{/* values here */})
+inputFile := components.CreateInputFileInputFileSendToRoutesTrueWithConnectionsConstraint(components.InputFileSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFileInputCollectionPart1Type
+### InputFileSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputFile := components.CreateInputFileInputFileInputCollectionPart1Type(components.InputFileInputCollectionPart1Type{/* values here */})
+inputFile := components.CreateInputFileInputFileSendToRoutesFalseWithConnectionsConstraint(components.InputFileSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputFileInputCollectionPart0Type1
+### InputFilePqEnabledFalseWithPqConstraint
 
 ```go
-inputFile := components.CreateInputFileInputFileInputCollectionPart0Type1(components.InputFileInputCollectionPart0Type1{/* values here */})
+inputFile := components.CreateInputFileInputFilePqEnabledFalseWithPqConstraint(components.InputFilePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputFileInputCollectionPart1Type1
+### InputFilePqEnabledTrueWithPqConstraint
 
 ```go
-inputFile := components.CreateInputFileInputFileInputCollectionPart1Type1(components.InputFileInputCollectionPart1Type1{/* values here */})
+inputFile := components.CreateInputFileInputFilePqEnabledTrueWithPqConstraint(components.InputFilePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

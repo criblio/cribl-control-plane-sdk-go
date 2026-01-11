@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputNetflowInputCollectionPart1Type1 struct {
+type InputNetflowPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -52,174 +52,175 @@ type InputNetflowInputCollectionPart1Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputNetflowInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputNetflowPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetID() *string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetType() InputNetflowType {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetType() InputNetflowType {
 	if i == nil {
 		return InputNetflowType("")
 	}
 	return i.Type
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetHost() *string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetPort() *float64 {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetEnablePassThrough() *bool {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetEnablePassThrough() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnablePassThrough
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetUDPSocketRxBufSize() *float64 {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetTemplateCacheMinutes() *float64 {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetTemplateCacheMinutes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateCacheMinutes
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetV5Enabled() *bool {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetV5Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V5Enabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetV9Enabled() *bool {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetV9Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V9Enabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetIpfixEnabled() *bool {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetIpfixEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IpfixEnabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputNetflowInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputNetflowInputCollectionPart0Type1 struct {
+type InputNetflowPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputNetflowType `json:"type"`
@@ -234,7 +235,6 @@ type InputNetflowInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -260,172 +260,172 @@ type InputNetflowInputCollectionPart0Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputNetflowInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputNetflowPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputNetflowInputCollectionPart0Type1) GetType() InputNetflowType {
-	if i == nil {
-		return InputNetflowType("")
-	}
-	return i.Type
-}
-
-func (i *InputNetflowInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputNetflowInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputNetflowInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputNetflowInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputNetflowInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputNetflowInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputNetflowInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetHost() *string {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetType() InputNetflowType {
+	if i == nil {
+		return InputNetflowType("")
+	}
+	return i.Type
+}
+
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetPort() *float64 {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetEnablePassThrough() *bool {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetEnablePassThrough() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnablePassThrough
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetUDPSocketRxBufSize() *float64 {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetTemplateCacheMinutes() *float64 {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetTemplateCacheMinutes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateCacheMinutes
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetV5Enabled() *bool {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetV5Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V5Enabled
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetV9Enabled() *bool {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetV9Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V9Enabled
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetIpfixEnabled() *bool {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetIpfixEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IpfixEnabled
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputNetflowInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputNetflowPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputNetflowInputCollectionPart1Type struct {
+type InputNetflowSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -468,165 +468,165 @@ type InputNetflowInputCollectionPart1Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputNetflowInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputNetflowSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputNetflowInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetID() *string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetType() InputNetflowType {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetType() InputNetflowType {
 	if i == nil {
 		return InputNetflowType("")
 	}
 	return i.Type
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetHost() *string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetPort() *float64 {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetEnablePassThrough() *bool {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetEnablePassThrough() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnablePassThrough
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetIPDenylistRegex() *string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetUDPSocketRxBufSize() *float64 {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetTemplateCacheMinutes() *float64 {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetTemplateCacheMinutes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateCacheMinutes
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetV5Enabled() *bool {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetV5Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V5Enabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetV9Enabled() *bool {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetV9Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V9Enabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetIpfixEnabled() *bool {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetIpfixEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IpfixEnabled
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputNetflowInputCollectionPart1Type) GetDescription() *string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -656,9 +656,11 @@ func (e *InputNetflowType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputNetflowInputCollectionPart0Type struct {
+type InputNetflowSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputNetflowType `json:"type"`
@@ -671,9 +673,7 @@ type InputNetflowInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -699,165 +699,165 @@ type InputNetflowInputCollectionPart0Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputNetflowInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputNetflowSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputNetflowInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputNetflowInputCollectionPart0Type) GetType() InputNetflowType {
-	if i == nil {
-		return InputNetflowType("")
-	}
-	return i.Type
-}
-
-func (i *InputNetflowInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputNetflowInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputNetflowInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputNetflowInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputNetflowInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputNetflowInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetType() InputNetflowType {
+	if i == nil {
+		return InputNetflowType("")
+	}
+	return i.Type
+}
+
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetHost() *string {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetPort() *float64 {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetPort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Port
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetEnablePassThrough() *bool {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetEnablePassThrough() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnablePassThrough
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetIPAllowlistRegex() *string {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetIPDenylistRegex() *string {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetUDPSocketRxBufSize() *float64 {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetTemplateCacheMinutes() *float64 {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetTemplateCacheMinutes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.TemplateCacheMinutes
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetV5Enabled() *bool {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetV5Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V5Enabled
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetV9Enabled() *bool {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetV9Enabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.V9Enabled
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetIpfixEnabled() *bool {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetIpfixEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IpfixEnabled
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputNetflowInputCollectionPart0Type) GetDescription() *string {
+func (i *InputNetflowSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -867,84 +867,84 @@ func (i *InputNetflowInputCollectionPart0Type) GetDescription() *string {
 type InputNetflowUnionType string
 
 const (
-	InputNetflowUnionTypeInputNetflowInputCollectionPart0Type  InputNetflowUnionType = "InputNetflow_InputCollectionPart0Type"
-	InputNetflowUnionTypeInputNetflowInputCollectionPart1Type  InputNetflowUnionType = "InputNetflow_InputCollectionPart1Type"
-	InputNetflowUnionTypeInputNetflowInputCollectionPart0Type1 InputNetflowUnionType = "InputNetflow_InputCollectionPart0Type1"
-	InputNetflowUnionTypeInputNetflowInputCollectionPart1Type1 InputNetflowUnionType = "InputNetflow_InputCollectionPart1Type1"
+	InputNetflowUnionTypeInputNetflowSendToRoutesTrueWithConnectionsConstraint  InputNetflowUnionType = "InputNetflow_SendToRoutesTrueWithConnectionsConstraint"
+	InputNetflowUnionTypeInputNetflowSendToRoutesFalseWithConnectionsConstraint InputNetflowUnionType = "InputNetflow_SendToRoutesFalseWithConnectionsConstraint"
+	InputNetflowUnionTypeInputNetflowPqEnabledFalseWithPqConstraint             InputNetflowUnionType = "InputNetflow_PqEnabledFalseWithPqConstraint"
+	InputNetflowUnionTypeInputNetflowPqEnabledTrueWithPqConstraint              InputNetflowUnionType = "InputNetflow_PqEnabledTrueWithPqConstraint"
 )
 
 type InputNetflow struct {
-	InputNetflowInputCollectionPart0Type  *InputNetflowInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputNetflowInputCollectionPart1Type  *InputNetflowInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputNetflowInputCollectionPart0Type1 *InputNetflowInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputNetflowInputCollectionPart1Type1 *InputNetflowInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputNetflowSendToRoutesTrueWithConnectionsConstraint  *InputNetflowSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputNetflowSendToRoutesFalseWithConnectionsConstraint *InputNetflowSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputNetflowPqEnabledFalseWithPqConstraint             *InputNetflowPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputNetflowPqEnabledTrueWithPqConstraint              *InputNetflowPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputNetflowUnionType
 }
 
-func CreateInputNetflowInputNetflowInputCollectionPart0Type(inputNetflowInputCollectionPart0Type InputNetflowInputCollectionPart0Type) InputNetflow {
-	typ := InputNetflowUnionTypeInputNetflowInputCollectionPart0Type
+func CreateInputNetflowInputNetflowSendToRoutesTrueWithConnectionsConstraint(inputNetflowSendToRoutesTrueWithConnectionsConstraint InputNetflowSendToRoutesTrueWithConnectionsConstraint) InputNetflow {
+	typ := InputNetflowUnionTypeInputNetflowSendToRoutesTrueWithConnectionsConstraint
 
 	return InputNetflow{
-		InputNetflowInputCollectionPart0Type: &inputNetflowInputCollectionPart0Type,
-		Type:                                 typ,
+		InputNetflowSendToRoutesTrueWithConnectionsConstraint: &inputNetflowSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputNetflowInputNetflowInputCollectionPart1Type(inputNetflowInputCollectionPart1Type InputNetflowInputCollectionPart1Type) InputNetflow {
-	typ := InputNetflowUnionTypeInputNetflowInputCollectionPart1Type
+func CreateInputNetflowInputNetflowSendToRoutesFalseWithConnectionsConstraint(inputNetflowSendToRoutesFalseWithConnectionsConstraint InputNetflowSendToRoutesFalseWithConnectionsConstraint) InputNetflow {
+	typ := InputNetflowUnionTypeInputNetflowSendToRoutesFalseWithConnectionsConstraint
 
 	return InputNetflow{
-		InputNetflowInputCollectionPart1Type: &inputNetflowInputCollectionPart1Type,
-		Type:                                 typ,
+		InputNetflowSendToRoutesFalseWithConnectionsConstraint: &inputNetflowSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputNetflowInputNetflowInputCollectionPart0Type1(inputNetflowInputCollectionPart0Type1 InputNetflowInputCollectionPart0Type1) InputNetflow {
-	typ := InputNetflowUnionTypeInputNetflowInputCollectionPart0Type1
+func CreateInputNetflowInputNetflowPqEnabledFalseWithPqConstraint(inputNetflowPqEnabledFalseWithPqConstraint InputNetflowPqEnabledFalseWithPqConstraint) InputNetflow {
+	typ := InputNetflowUnionTypeInputNetflowPqEnabledFalseWithPqConstraint
 
 	return InputNetflow{
-		InputNetflowInputCollectionPart0Type1: &inputNetflowInputCollectionPart0Type1,
-		Type:                                  typ,
+		InputNetflowPqEnabledFalseWithPqConstraint: &inputNetflowPqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputNetflowInputNetflowInputCollectionPart1Type1(inputNetflowInputCollectionPart1Type1 InputNetflowInputCollectionPart1Type1) InputNetflow {
-	typ := InputNetflowUnionTypeInputNetflowInputCollectionPart1Type1
+func CreateInputNetflowInputNetflowPqEnabledTrueWithPqConstraint(inputNetflowPqEnabledTrueWithPqConstraint InputNetflowPqEnabledTrueWithPqConstraint) InputNetflow {
+	typ := InputNetflowUnionTypeInputNetflowPqEnabledTrueWithPqConstraint
 
 	return InputNetflow{
-		InputNetflowInputCollectionPart1Type1: &inputNetflowInputCollectionPart1Type1,
-		Type:                                  typ,
+		InputNetflowPqEnabledTrueWithPqConstraint: &inputNetflowPqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputNetflow) UnmarshalJSON(data []byte) error {
 
-	var inputNetflowInputCollectionPart0Type InputNetflowInputCollectionPart0Type = InputNetflowInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputNetflowInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputNetflowInputCollectionPart0Type = &inputNetflowInputCollectionPart0Type
-		u.Type = InputNetflowUnionTypeInputNetflowInputCollectionPart0Type
+	var inputNetflowSendToRoutesTrueWithConnectionsConstraint InputNetflowSendToRoutesTrueWithConnectionsConstraint = InputNetflowSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputNetflowSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputNetflowSendToRoutesTrueWithConnectionsConstraint = &inputNetflowSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputNetflowUnionTypeInputNetflowSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputNetflowInputCollectionPart1Type InputNetflowInputCollectionPart1Type = InputNetflowInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputNetflowInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputNetflowInputCollectionPart1Type = &inputNetflowInputCollectionPart1Type
-		u.Type = InputNetflowUnionTypeInputNetflowInputCollectionPart1Type
+	var inputNetflowSendToRoutesFalseWithConnectionsConstraint InputNetflowSendToRoutesFalseWithConnectionsConstraint = InputNetflowSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputNetflowSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputNetflowSendToRoutesFalseWithConnectionsConstraint = &inputNetflowSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputNetflowUnionTypeInputNetflowSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputNetflowInputCollectionPart0Type1 InputNetflowInputCollectionPart0Type1 = InputNetflowInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputNetflowInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputNetflowInputCollectionPart0Type1 = &inputNetflowInputCollectionPart0Type1
-		u.Type = InputNetflowUnionTypeInputNetflowInputCollectionPart0Type1
+	var inputNetflowPqEnabledFalseWithPqConstraint InputNetflowPqEnabledFalseWithPqConstraint = InputNetflowPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputNetflowPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputNetflowPqEnabledFalseWithPqConstraint = &inputNetflowPqEnabledFalseWithPqConstraint
+		u.Type = InputNetflowUnionTypeInputNetflowPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputNetflowInputCollectionPart1Type1 InputNetflowInputCollectionPart1Type1 = InputNetflowInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputNetflowInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputNetflowInputCollectionPart1Type1 = &inputNetflowInputCollectionPart1Type1
-		u.Type = InputNetflowUnionTypeInputNetflowInputCollectionPart1Type1
+	var inputNetflowPqEnabledTrueWithPqConstraint InputNetflowPqEnabledTrueWithPqConstraint = InputNetflowPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputNetflowPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputNetflowPqEnabledTrueWithPqConstraint = &inputNetflowPqEnabledTrueWithPqConstraint
+		u.Type = InputNetflowUnionTypeInputNetflowPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -952,20 +952,20 @@ func (u *InputNetflow) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputNetflow) MarshalJSON() ([]byte, error) {
-	if u.InputNetflowInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputNetflowInputCollectionPart0Type, "", true)
+	if u.InputNetflowSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputNetflowSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputNetflowInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputNetflowInputCollectionPart1Type, "", true)
+	if u.InputNetflowSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputNetflowSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputNetflowInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputNetflowInputCollectionPart0Type1, "", true)
+	if u.InputNetflowPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputNetflowPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputNetflowInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputNetflowInputCollectionPart1Type1, "", true)
+	if u.InputNetflowPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputNetflowPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputNetflow: all fields are null")

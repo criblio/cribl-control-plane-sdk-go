@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCriblLakeHTTPInputCollectionPart0Type
+### InputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCriblLakeHTTP := components.CreateInputCriblLakeHTTPInputCriblLakeHTTPInputCollectionPart0Type(components.InputCriblLakeHTTPInputCollectionPart0Type{/* values here */})
+inputCriblLakeHTTP := components.CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint(components.InputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblLakeHTTPInputCollectionPart1Type
+### InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCriblLakeHTTP := components.CreateInputCriblLakeHTTPInputCriblLakeHTTPInputCollectionPart1Type(components.InputCriblLakeHTTPInputCollectionPart1Type{/* values here */})
+inputCriblLakeHTTP := components.CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint(components.InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblLakeHTTPInputCollectionPart0Type1
+### InputCriblLakeHTTPPqEnabledFalseWithPqConstraint
 
 ```go
-inputCriblLakeHTTP := components.CreateInputCriblLakeHTTPInputCriblLakeHTTPInputCollectionPart0Type1(components.InputCriblLakeHTTPInputCollectionPart0Type1{/* values here */})
+inputCriblLakeHTTP := components.CreateInputCriblLakeHTTPInputCriblLakeHTTPPqEnabledFalseWithPqConstraint(components.InputCriblLakeHTTPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCriblLakeHTTPInputCollectionPart1Type1
+### InputCriblLakeHTTPPqEnabledTrueWithPqConstraint
 
 ```go
-inputCriblLakeHTTP := components.CreateInputCriblLakeHTTPInputCriblLakeHTTPInputCollectionPart1Type1(components.InputCriblLakeHTTPInputCollectionPart1Type1{/* values here */})
+inputCriblLakeHTTP := components.CreateInputCriblLakeHTTPInputCriblLakeHTTPPqEnabledTrueWithPqConstraint(components.InputCriblLakeHTTPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

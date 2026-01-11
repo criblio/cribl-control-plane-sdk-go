@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputWizInputCollectionPart0Type
+### InputWizSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputWiz := operations.CreateInputWizInputWizInputCollectionPart0Type(operations.InputWizInputCollectionPart0Type{/* values here */})
+inputWiz := operations.CreateInputWizInputWizSendToRoutesTrueWithConnectionsConstraint(operations.InputWizSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWizInputCollectionPart1Type
+### InputWizSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputWiz := operations.CreateInputWizInputWizInputCollectionPart1Type(operations.InputWizInputCollectionPart1Type{/* values here */})
+inputWiz := operations.CreateInputWizInputWizSendToRoutesFalseWithConnectionsConstraint(operations.InputWizSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWizInputCollectionPart0Type1
+### InputWizPqEnabledFalseWithPqConstraint
 
 ```go
-inputWiz := operations.CreateInputWizInputWizInputCollectionPart0Type1(operations.InputWizInputCollectionPart0Type1{/* values here */})
+inputWiz := operations.CreateInputWizInputWizPqEnabledFalseWithPqConstraint(operations.InputWizPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputWizInputCollectionPart1Type1
+### InputWizPqEnabledTrueWithPqConstraint
 
 ```go
-inputWiz := operations.CreateInputWizInputWizInputCollectionPart1Type1(operations.InputWizInputCollectionPart1Type1{/* values here */})
+inputWiz := operations.CreateInputWizInputWizPqEnabledTrueWithPqConstraint(operations.InputWizPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

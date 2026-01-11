@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputKubeLogsInputCollectionPart1Type1 struct {
+type InputKubeLogsPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -45,153 +45,154 @@ type InputKubeLogsInputCollectionPart1Type1 struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputKubeLogsInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputKubeLogsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetID() *string {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetType() InputKubeLogsType {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetType() InputKubeLogsType {
 	if i == nil {
 		return InputKubeLogsType("")
 	}
 	return i.Type
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetInterval() *float64 {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetRules() []InputKubeLogsRule {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetRules() []InputKubeLogsRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetTimestamps() *bool {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetTimestamps() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Timestamps
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetPersistence() *DiskSpoolingType {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetBreakerRulesets() []string {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetEnableLoadBalancing() *bool {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputKubeLogsInputCollectionPart0Type1 struct {
+type InputKubeLogsPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputKubeLogsType `json:"type"`
@@ -206,7 +207,6 @@ type InputKubeLogsInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Time, in seconds, between checks for new containers. Default is 15 secs.
 	Interval *float64 `default:"15" json:"interval"`
 	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
@@ -225,151 +225,151 @@ type InputKubeLogsInputCollectionPart0Type1 struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputKubeLogsInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputKubeLogsPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type1) GetType() InputKubeLogsType {
-	if i == nil {
-		return InputKubeLogsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetInterval() *float64 {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetType() InputKubeLogsType {
+	if i == nil {
+		return InputKubeLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetRules() []InputKubeLogsRule {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetRules() []InputKubeLogsRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetTimestamps() *bool {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetTimestamps() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Timestamps
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetPersistence() *DiskSpoolingType {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetBreakerRulesets() []string {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetStaleChannelFlushMs() *float64 {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetEnableLoadBalancing() *bool {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputKubeLogsPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputKubeLogsInputCollectionPart1Type struct {
+type InputKubeLogsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -405,144 +405,144 @@ type InputKubeLogsInputCollectionPart1Type struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputKubeLogsInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetID() *string {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetType() InputKubeLogsType {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetType() InputKubeLogsType {
 	if i == nil {
 		return InputKubeLogsType("")
 	}
 	return i.Type
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetInterval() *float64 {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetRules() []InputKubeLogsRule {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetRules() []InputKubeLogsRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetTimestamps() *bool {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetTimestamps() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Timestamps
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetPersistence() *DiskSpoolingType {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetBreakerRulesets() []string {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetEnableLoadBalancing() *bool {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputKubeLogsInputCollectionPart1Type) GetDescription() *string {
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -604,9 +604,11 @@ func (i *InputKubeLogsRule) GetDescription() *string {
 	return i.Description
 }
 
-type InputKubeLogsInputCollectionPart0Type struct {
+type InputKubeLogsSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputKubeLogsType `json:"type"`
@@ -619,9 +621,7 @@ type InputKubeLogsInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Time, in seconds, between checks for new containers. Default is 15 secs.
 	Interval *float64 `default:"15" json:"interval"`
 	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
@@ -640,144 +640,144 @@ type InputKubeLogsInputCollectionPart0Type struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputKubeLogsInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type) GetType() InputKubeLogsType {
-	if i == nil {
-		return InputKubeLogsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKubeLogsInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetType() InputKubeLogsType {
+	if i == nil {
+		return InputKubeLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetInterval() *float64 {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetRules() []InputKubeLogsRule {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetRules() []InputKubeLogsRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetTimestamps() *bool {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetTimestamps() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Timestamps
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetPersistence() *DiskSpoolingType {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetBreakerRulesets() []string {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetStaleChannelFlushMs() *float64 {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetEnableLoadBalancing() *bool {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputKubeLogsInputCollectionPart0Type) GetDescription() *string {
+func (i *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -787,84 +787,84 @@ func (i *InputKubeLogsInputCollectionPart0Type) GetDescription() *string {
 type InputKubeLogsUnionType string
 
 const (
-	InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart0Type  InputKubeLogsUnionType = "InputKubeLogs_InputCollectionPart0Type"
-	InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart1Type  InputKubeLogsUnionType = "InputKubeLogs_InputCollectionPart1Type"
-	InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart0Type1 InputKubeLogsUnionType = "InputKubeLogs_InputCollectionPart0Type1"
-	InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart1Type1 InputKubeLogsUnionType = "InputKubeLogs_InputCollectionPart1Type1"
+	InputKubeLogsUnionTypeInputKubeLogsSendToRoutesTrueWithConnectionsConstraint  InputKubeLogsUnionType = "InputKubeLogs_SendToRoutesTrueWithConnectionsConstraint"
+	InputKubeLogsUnionTypeInputKubeLogsSendToRoutesFalseWithConnectionsConstraint InputKubeLogsUnionType = "InputKubeLogs_SendToRoutesFalseWithConnectionsConstraint"
+	InputKubeLogsUnionTypeInputKubeLogsPqEnabledFalseWithPqConstraint             InputKubeLogsUnionType = "InputKubeLogs_PqEnabledFalseWithPqConstraint"
+	InputKubeLogsUnionTypeInputKubeLogsPqEnabledTrueWithPqConstraint              InputKubeLogsUnionType = "InputKubeLogs_PqEnabledTrueWithPqConstraint"
 )
 
 type InputKubeLogs struct {
-	InputKubeLogsInputCollectionPart0Type  *InputKubeLogsInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputKubeLogsInputCollectionPart1Type  *InputKubeLogsInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputKubeLogsInputCollectionPart0Type1 *InputKubeLogsInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputKubeLogsInputCollectionPart1Type1 *InputKubeLogsInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputKubeLogsSendToRoutesTrueWithConnectionsConstraint  *InputKubeLogsSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputKubeLogsSendToRoutesFalseWithConnectionsConstraint *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputKubeLogsPqEnabledFalseWithPqConstraint             *InputKubeLogsPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputKubeLogsPqEnabledTrueWithPqConstraint              *InputKubeLogsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputKubeLogsUnionType
 }
 
-func CreateInputKubeLogsInputKubeLogsInputCollectionPart0Type(inputKubeLogsInputCollectionPart0Type InputKubeLogsInputCollectionPart0Type) InputKubeLogs {
-	typ := InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart0Type
+func CreateInputKubeLogsInputKubeLogsSendToRoutesTrueWithConnectionsConstraint(inputKubeLogsSendToRoutesTrueWithConnectionsConstraint InputKubeLogsSendToRoutesTrueWithConnectionsConstraint) InputKubeLogs {
+	typ := InputKubeLogsUnionTypeInputKubeLogsSendToRoutesTrueWithConnectionsConstraint
 
 	return InputKubeLogs{
-		InputKubeLogsInputCollectionPart0Type: &inputKubeLogsInputCollectionPart0Type,
-		Type:                                  typ,
+		InputKubeLogsSendToRoutesTrueWithConnectionsConstraint: &inputKubeLogsSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputKubeLogsInputKubeLogsInputCollectionPart1Type(inputKubeLogsInputCollectionPart1Type InputKubeLogsInputCollectionPart1Type) InputKubeLogs {
-	typ := InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart1Type
+func CreateInputKubeLogsInputKubeLogsSendToRoutesFalseWithConnectionsConstraint(inputKubeLogsSendToRoutesFalseWithConnectionsConstraint InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) InputKubeLogs {
+	typ := InputKubeLogsUnionTypeInputKubeLogsSendToRoutesFalseWithConnectionsConstraint
 
 	return InputKubeLogs{
-		InputKubeLogsInputCollectionPart1Type: &inputKubeLogsInputCollectionPart1Type,
-		Type:                                  typ,
+		InputKubeLogsSendToRoutesFalseWithConnectionsConstraint: &inputKubeLogsSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputKubeLogsInputKubeLogsInputCollectionPart0Type1(inputKubeLogsInputCollectionPart0Type1 InputKubeLogsInputCollectionPart0Type1) InputKubeLogs {
-	typ := InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart0Type1
+func CreateInputKubeLogsInputKubeLogsPqEnabledFalseWithPqConstraint(inputKubeLogsPqEnabledFalseWithPqConstraint InputKubeLogsPqEnabledFalseWithPqConstraint) InputKubeLogs {
+	typ := InputKubeLogsUnionTypeInputKubeLogsPqEnabledFalseWithPqConstraint
 
 	return InputKubeLogs{
-		InputKubeLogsInputCollectionPart0Type1: &inputKubeLogsInputCollectionPart0Type1,
-		Type:                                   typ,
+		InputKubeLogsPqEnabledFalseWithPqConstraint: &inputKubeLogsPqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputKubeLogsInputKubeLogsInputCollectionPart1Type1(inputKubeLogsInputCollectionPart1Type1 InputKubeLogsInputCollectionPart1Type1) InputKubeLogs {
-	typ := InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart1Type1
+func CreateInputKubeLogsInputKubeLogsPqEnabledTrueWithPqConstraint(inputKubeLogsPqEnabledTrueWithPqConstraint InputKubeLogsPqEnabledTrueWithPqConstraint) InputKubeLogs {
+	typ := InputKubeLogsUnionTypeInputKubeLogsPqEnabledTrueWithPqConstraint
 
 	return InputKubeLogs{
-		InputKubeLogsInputCollectionPart1Type1: &inputKubeLogsInputCollectionPart1Type1,
-		Type:                                   typ,
+		InputKubeLogsPqEnabledTrueWithPqConstraint: &inputKubeLogsPqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputKubeLogs) UnmarshalJSON(data []byte) error {
 
-	var inputKubeLogsInputCollectionPart0Type InputKubeLogsInputCollectionPart0Type = InputKubeLogsInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputKubeLogsInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputKubeLogsInputCollectionPart0Type = &inputKubeLogsInputCollectionPart0Type
-		u.Type = InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart0Type
+	var inputKubeLogsSendToRoutesTrueWithConnectionsConstraint InputKubeLogsSendToRoutesTrueWithConnectionsConstraint = InputKubeLogsSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeLogsSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint = &inputKubeLogsSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputKubeLogsUnionTypeInputKubeLogsSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputKubeLogsInputCollectionPart1Type InputKubeLogsInputCollectionPart1Type = InputKubeLogsInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputKubeLogsInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputKubeLogsInputCollectionPart1Type = &inputKubeLogsInputCollectionPart1Type
-		u.Type = InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart1Type
+	var inputKubeLogsSendToRoutesFalseWithConnectionsConstraint InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = InputKubeLogsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeLogsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = &inputKubeLogsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputKubeLogsUnionTypeInputKubeLogsSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputKubeLogsInputCollectionPart0Type1 InputKubeLogsInputCollectionPart0Type1 = InputKubeLogsInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputKubeLogsInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputKubeLogsInputCollectionPart0Type1 = &inputKubeLogsInputCollectionPart0Type1
-		u.Type = InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart0Type1
+	var inputKubeLogsPqEnabledFalseWithPqConstraint InputKubeLogsPqEnabledFalseWithPqConstraint = InputKubeLogsPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeLogsPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputKubeLogsPqEnabledFalseWithPqConstraint = &inputKubeLogsPqEnabledFalseWithPqConstraint
+		u.Type = InputKubeLogsUnionTypeInputKubeLogsPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputKubeLogsInputCollectionPart1Type1 InputKubeLogsInputCollectionPart1Type1 = InputKubeLogsInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputKubeLogsInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputKubeLogsInputCollectionPart1Type1 = &inputKubeLogsInputCollectionPart1Type1
-		u.Type = InputKubeLogsUnionTypeInputKubeLogsInputCollectionPart1Type1
+	var inputKubeLogsPqEnabledTrueWithPqConstraint InputKubeLogsPqEnabledTrueWithPqConstraint = InputKubeLogsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeLogsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputKubeLogsPqEnabledTrueWithPqConstraint = &inputKubeLogsPqEnabledTrueWithPqConstraint
+		u.Type = InputKubeLogsUnionTypeInputKubeLogsPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -872,20 +872,20 @@ func (u *InputKubeLogs) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputKubeLogs) MarshalJSON() ([]byte, error) {
-	if u.InputKubeLogsInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputKubeLogsInputCollectionPart0Type, "", true)
+	if u.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeLogsSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputKubeLogsInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputKubeLogsInputCollectionPart1Type, "", true)
+	if u.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputKubeLogsInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputKubeLogsInputCollectionPart0Type1, "", true)
+	if u.InputKubeLogsPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeLogsPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputKubeLogsInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputKubeLogsInputCollectionPart1Type1, "", true)
+	if u.InputKubeLogsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeLogsPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputKubeLogs: all fields are null")

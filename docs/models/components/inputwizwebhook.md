@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputWizWebhookInputCollectionPart0Type
+### InputWizWebhookSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookInputCollectionPart0Type(components.InputWizWebhookInputCollectionPart0Type{/* values here */})
+inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookSendToRoutesTrueWithConnectionsConstraint(components.InputWizWebhookSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWizWebhookInputCollectionPart1Type
+### InputWizWebhookSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookInputCollectionPart1Type(components.InputWizWebhookInputCollectionPart1Type{/* values here */})
+inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookSendToRoutesFalseWithConnectionsConstraint(components.InputWizWebhookSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWizWebhookInputCollectionPart0Type1
+### InputWizWebhookPqEnabledFalseWithPqConstraint
 
 ```go
-inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookInputCollectionPart0Type1(components.InputWizWebhookInputCollectionPart0Type1{/* values here */})
+inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookPqEnabledFalseWithPqConstraint(components.InputWizWebhookPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputWizWebhookInputCollectionPart1Type1
+### InputWizWebhookPqEnabledTrueWithPqConstraint
 
 ```go
-inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookInputCollectionPart1Type1(components.InputWizWebhookInputCollectionPart1Type1{/* values here */})
+inputWizWebhook := components.CreateInputWizWebhookInputWizWebhookPqEnabledTrueWithPqConstraint(components.InputWizWebhookPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

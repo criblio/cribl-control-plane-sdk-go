@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputHTTPInputCollectionPart0Type
+### InputHTTPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputHTTP := operations.CreateInputHTTPInputHTTPInputCollectionPart0Type(operations.InputHTTPInputCollectionPart0Type{/* values here */})
+inputHTTP := operations.CreateInputHTTPInputHTTPSendToRoutesTrueWithConnectionsConstraint(operations.InputHTTPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputHTTPInputCollectionPart1Type
+### InputHTTPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputHTTP := operations.CreateInputHTTPInputHTTPInputCollectionPart1Type(operations.InputHTTPInputCollectionPart1Type{/* values here */})
+inputHTTP := operations.CreateInputHTTPInputHTTPSendToRoutesFalseWithConnectionsConstraint(operations.InputHTTPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputHTTPInputCollectionPart0Type1
+### InputHTTPPqEnabledFalseWithPqConstraint
 
 ```go
-inputHTTP := operations.CreateInputHTTPInputHTTPInputCollectionPart0Type1(operations.InputHTTPInputCollectionPart0Type1{/* values here */})
+inputHTTP := operations.CreateInputHTTPInputHTTPPqEnabledFalseWithPqConstraint(operations.InputHTTPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputHTTPInputCollectionPart1Type1
+### InputHTTPPqEnabledTrueWithPqConstraint
 
 ```go
-inputHTTP := operations.CreateInputHTTPInputHTTPInputCollectionPart1Type1(operations.InputHTTPInputCollectionPart1Type1{/* values here */})
+inputHTTP := operations.CreateInputHTTPInputHTTPPqEnabledTrueWithPqConstraint(operations.InputHTTPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputCriblInputCollectionPart1Type1 struct {
+type InputCriblPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -33,111 +33,112 @@ type InputCriblInputCollectionPart1Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputCriblInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputCriblPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetID() *string {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetType() InputCriblType {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetType() InputCriblType {
 	if i == nil {
 		return InputCriblType("")
 	}
 	return i.Type
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetFilter() *string {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputCriblPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputCriblInputCollectionPart0Type1 struct {
+type InputCriblPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string        `json:"id,omitempty"`
 	Type     InputCriblType `json:"type"`
@@ -152,116 +153,115 @@ type InputCriblInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	Filter      *string                `json:"filter,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputCriblInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputCriblPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputCriblPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCriblInputCollectionPart0Type1) GetType() InputCriblType {
-	if i == nil {
-		return InputCriblType("")
-	}
-	return i.Type
-}
-
-func (i *InputCriblInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCriblInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCriblInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputCriblInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputCriblInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputCriblInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputCriblInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblInputCollectionPart0Type1) GetFilter() *string {
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetType() InputCriblType {
+	if i == nil {
+		return InputCriblType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputCriblInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputCriblPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputCriblInputCollectionPart1Type struct {
+type InputCriblSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -285,102 +285,102 @@ type InputCriblInputCollectionPart1Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputCriblInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputCriblSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetID() *string {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetType() InputCriblType {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetType() InputCriblType {
 	if i == nil {
 		return InputCriblType("")
 	}
 	return i.Type
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetFilter() *string {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblInputCollectionPart1Type) GetDescription() *string {
+func (i *InputCriblSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -410,9 +410,11 @@ func (e *InputCriblType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputCriblInputCollectionPart0Type struct {
+type InputCriblSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string        `json:"id,omitempty"`
 	Type     InputCriblType `json:"type"`
@@ -425,111 +427,109 @@ type InputCriblInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
-	Filter      *string                `json:"filter,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	Filter     *string  `json:"filter,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputCriblInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputCriblSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCriblInputCollectionPart0Type) GetType() InputCriblType {
-	if i == nil {
-		return InputCriblType("")
-	}
-	return i.Type
-}
-
-func (i *InputCriblInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCriblInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCriblInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputCriblInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputCriblInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputCriblInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetType() InputCriblType {
+	if i == nil {
+		return InputCriblType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblInputCollectionPart0Type) GetFilter() *string {
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetFilter() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Filter
 }
 
-func (i *InputCriblInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblInputCollectionPart0Type) GetDescription() *string {
+func (i *InputCriblSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -539,84 +539,84 @@ func (i *InputCriblInputCollectionPart0Type) GetDescription() *string {
 type InputCriblUnionType string
 
 const (
-	InputCriblUnionTypeInputCriblInputCollectionPart0Type  InputCriblUnionType = "InputCribl_InputCollectionPart0Type"
-	InputCriblUnionTypeInputCriblInputCollectionPart1Type  InputCriblUnionType = "InputCribl_InputCollectionPart1Type"
-	InputCriblUnionTypeInputCriblInputCollectionPart0Type1 InputCriblUnionType = "InputCribl_InputCollectionPart0Type1"
-	InputCriblUnionTypeInputCriblInputCollectionPart1Type1 InputCriblUnionType = "InputCribl_InputCollectionPart1Type1"
+	InputCriblUnionTypeInputCriblSendToRoutesTrueWithConnectionsConstraint  InputCriblUnionType = "InputCribl_SendToRoutesTrueWithConnectionsConstraint"
+	InputCriblUnionTypeInputCriblSendToRoutesFalseWithConnectionsConstraint InputCriblUnionType = "InputCribl_SendToRoutesFalseWithConnectionsConstraint"
+	InputCriblUnionTypeInputCriblPqEnabledFalseWithPqConstraint             InputCriblUnionType = "InputCribl_PqEnabledFalseWithPqConstraint"
+	InputCriblUnionTypeInputCriblPqEnabledTrueWithPqConstraint              InputCriblUnionType = "InputCribl_PqEnabledTrueWithPqConstraint"
 )
 
 type InputCribl struct {
-	InputCriblInputCollectionPart0Type  *InputCriblInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputCriblInputCollectionPart1Type  *InputCriblInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputCriblInputCollectionPart0Type1 *InputCriblInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputCriblInputCollectionPart1Type1 *InputCriblInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputCriblSendToRoutesTrueWithConnectionsConstraint  *InputCriblSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputCriblSendToRoutesFalseWithConnectionsConstraint *InputCriblSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputCriblPqEnabledFalseWithPqConstraint             *InputCriblPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputCriblPqEnabledTrueWithPqConstraint              *InputCriblPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputCriblUnionType
 }
 
-func CreateInputCriblInputCriblInputCollectionPart0Type(inputCriblInputCollectionPart0Type InputCriblInputCollectionPart0Type) InputCribl {
-	typ := InputCriblUnionTypeInputCriblInputCollectionPart0Type
+func CreateInputCriblInputCriblSendToRoutesTrueWithConnectionsConstraint(inputCriblSendToRoutesTrueWithConnectionsConstraint InputCriblSendToRoutesTrueWithConnectionsConstraint) InputCribl {
+	typ := InputCriblUnionTypeInputCriblSendToRoutesTrueWithConnectionsConstraint
 
 	return InputCribl{
-		InputCriblInputCollectionPart0Type: &inputCriblInputCollectionPart0Type,
-		Type:                               typ,
+		InputCriblSendToRoutesTrueWithConnectionsConstraint: &inputCriblSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputCriblInputCriblInputCollectionPart1Type(inputCriblInputCollectionPart1Type InputCriblInputCollectionPart1Type) InputCribl {
-	typ := InputCriblUnionTypeInputCriblInputCollectionPart1Type
+func CreateInputCriblInputCriblSendToRoutesFalseWithConnectionsConstraint(inputCriblSendToRoutesFalseWithConnectionsConstraint InputCriblSendToRoutesFalseWithConnectionsConstraint) InputCribl {
+	typ := InputCriblUnionTypeInputCriblSendToRoutesFalseWithConnectionsConstraint
 
 	return InputCribl{
-		InputCriblInputCollectionPart1Type: &inputCriblInputCollectionPart1Type,
-		Type:                               typ,
+		InputCriblSendToRoutesFalseWithConnectionsConstraint: &inputCriblSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputCriblInputCriblInputCollectionPart0Type1(inputCriblInputCollectionPart0Type1 InputCriblInputCollectionPart0Type1) InputCribl {
-	typ := InputCriblUnionTypeInputCriblInputCollectionPart0Type1
+func CreateInputCriblInputCriblPqEnabledFalseWithPqConstraint(inputCriblPqEnabledFalseWithPqConstraint InputCriblPqEnabledFalseWithPqConstraint) InputCribl {
+	typ := InputCriblUnionTypeInputCriblPqEnabledFalseWithPqConstraint
 
 	return InputCribl{
-		InputCriblInputCollectionPart0Type1: &inputCriblInputCollectionPart0Type1,
-		Type:                                typ,
+		InputCriblPqEnabledFalseWithPqConstraint: &inputCriblPqEnabledFalseWithPqConstraint,
+		Type:                                     typ,
 	}
 }
 
-func CreateInputCriblInputCriblInputCollectionPart1Type1(inputCriblInputCollectionPart1Type1 InputCriblInputCollectionPart1Type1) InputCribl {
-	typ := InputCriblUnionTypeInputCriblInputCollectionPart1Type1
+func CreateInputCriblInputCriblPqEnabledTrueWithPqConstraint(inputCriblPqEnabledTrueWithPqConstraint InputCriblPqEnabledTrueWithPqConstraint) InputCribl {
+	typ := InputCriblUnionTypeInputCriblPqEnabledTrueWithPqConstraint
 
 	return InputCribl{
-		InputCriblInputCollectionPart1Type1: &inputCriblInputCollectionPart1Type1,
-		Type:                                typ,
+		InputCriblPqEnabledTrueWithPqConstraint: &inputCriblPqEnabledTrueWithPqConstraint,
+		Type:                                    typ,
 	}
 }
 
 func (u *InputCribl) UnmarshalJSON(data []byte) error {
 
-	var inputCriblInputCollectionPart0Type InputCriblInputCollectionPart0Type = InputCriblInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputCriblInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputCriblInputCollectionPart0Type = &inputCriblInputCollectionPart0Type
-		u.Type = InputCriblUnionTypeInputCriblInputCollectionPart0Type
+	var inputCriblSendToRoutesTrueWithConnectionsConstraint InputCriblSendToRoutesTrueWithConnectionsConstraint = InputCriblSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputCriblSendToRoutesTrueWithConnectionsConstraint = &inputCriblSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputCriblUnionTypeInputCriblSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputCriblInputCollectionPart1Type InputCriblInputCollectionPart1Type = InputCriblInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputCriblInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputCriblInputCollectionPart1Type = &inputCriblInputCollectionPart1Type
-		u.Type = InputCriblUnionTypeInputCriblInputCollectionPart1Type
+	var inputCriblSendToRoutesFalseWithConnectionsConstraint InputCriblSendToRoutesFalseWithConnectionsConstraint = InputCriblSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputCriblSendToRoutesFalseWithConnectionsConstraint = &inputCriblSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputCriblUnionTypeInputCriblSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputCriblInputCollectionPart0Type1 InputCriblInputCollectionPart0Type1 = InputCriblInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputCriblInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputCriblInputCollectionPart0Type1 = &inputCriblInputCollectionPart0Type1
-		u.Type = InputCriblUnionTypeInputCriblInputCollectionPart0Type1
+	var inputCriblPqEnabledFalseWithPqConstraint InputCriblPqEnabledFalseWithPqConstraint = InputCriblPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputCriblPqEnabledFalseWithPqConstraint = &inputCriblPqEnabledFalseWithPqConstraint
+		u.Type = InputCriblUnionTypeInputCriblPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputCriblInputCollectionPart1Type1 InputCriblInputCollectionPart1Type1 = InputCriblInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputCriblInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputCriblInputCollectionPart1Type1 = &inputCriblInputCollectionPart1Type1
-		u.Type = InputCriblUnionTypeInputCriblInputCollectionPart1Type1
+	var inputCriblPqEnabledTrueWithPqConstraint InputCriblPqEnabledTrueWithPqConstraint = InputCriblPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputCriblPqEnabledTrueWithPqConstraint = &inputCriblPqEnabledTrueWithPqConstraint
+		u.Type = InputCriblUnionTypeInputCriblPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -624,20 +624,20 @@ func (u *InputCribl) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputCribl) MarshalJSON() ([]byte, error) {
-	if u.InputCriblInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputCriblInputCollectionPart0Type, "", true)
+	if u.InputCriblSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputCriblInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputCriblInputCollectionPart1Type, "", true)
+	if u.InputCriblSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputCriblInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputCriblInputCollectionPart0Type1, "", true)
+	if u.InputCriblPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputCriblInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputCriblInputCollectionPart1Type1, "", true)
+	if u.InputCriblPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputCribl: all fields are null")

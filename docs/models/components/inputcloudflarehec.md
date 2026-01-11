@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCloudflareHecInputCollectionPart0Type
+### InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCloudflareHec := components.CreateInputCloudflareHecInputCloudflareHecInputCollectionPart0Type(components.InputCloudflareHecInputCollectionPart0Type{/* values here */})
+inputCloudflareHec := components.CreateInputCloudflareHecInputCloudflareHecSendToRoutesTrueWithConnectionsConstraint(components.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCloudflareHecInputCollectionPart1Type
+### InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCloudflareHec := components.CreateInputCloudflareHecInputCloudflareHecInputCollectionPart1Type(components.InputCloudflareHecInputCollectionPart1Type{/* values here */})
+inputCloudflareHec := components.CreateInputCloudflareHecInputCloudflareHecSendToRoutesFalseWithConnectionsConstraint(components.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCloudflareHecInputCollectionPart0Type1
+### InputCloudflareHecPqEnabledFalseWithPqConstraint
 
 ```go
-inputCloudflareHec := components.CreateInputCloudflareHecInputCloudflareHecInputCollectionPart0Type1(components.InputCloudflareHecInputCollectionPart0Type1{/* values here */})
+inputCloudflareHec := components.CreateInputCloudflareHecInputCloudflareHecPqEnabledFalseWithPqConstraint(components.InputCloudflareHecPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCloudflareHecInputCollectionPart1Type1
+### InputCloudflareHecPqEnabledTrueWithPqConstraint
 
 ```go
-inputCloudflareHec := components.CreateInputCloudflareHecInputCloudflareHecInputCollectionPart1Type1(components.InputCloudflareHecInputCollectionPart1Type1{/* values here */})
+inputCloudflareHec := components.CreateInputCloudflareHecInputCloudflareHecPqEnabledTrueWithPqConstraint(components.InputCloudflareHecPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

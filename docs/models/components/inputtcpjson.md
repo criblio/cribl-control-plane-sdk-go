@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputTcpjsonInputCollectionPart0Type
+### InputTcpjsonSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputTcpjson := components.CreateInputTcpjsonInputTcpjsonInputCollectionPart0Type(components.InputTcpjsonInputCollectionPart0Type{/* values here */})
+inputTcpjson := components.CreateInputTcpjsonInputTcpjsonSendToRoutesTrueWithConnectionsConstraint(components.InputTcpjsonSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputTcpjsonInputCollectionPart1Type
+### InputTcpjsonSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputTcpjson := components.CreateInputTcpjsonInputTcpjsonInputCollectionPart1Type(components.InputTcpjsonInputCollectionPart1Type{/* values here */})
+inputTcpjson := components.CreateInputTcpjsonInputTcpjsonSendToRoutesFalseWithConnectionsConstraint(components.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputTcpjsonInputCollectionPart0Type1
+### InputTcpjsonPqEnabledFalseWithPqConstraint
 
 ```go
-inputTcpjson := components.CreateInputTcpjsonInputTcpjsonInputCollectionPart0Type1(components.InputTcpjsonInputCollectionPart0Type1{/* values here */})
+inputTcpjson := components.CreateInputTcpjsonInputTcpjsonPqEnabledFalseWithPqConstraint(components.InputTcpjsonPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputTcpjsonInputCollectionPart1Type1
+### InputTcpjsonPqEnabledTrueWithPqConstraint
 
 ```go
-inputTcpjson := components.CreateInputTcpjsonInputTcpjsonInputCollectionPart1Type1(components.InputTcpjsonInputCollectionPart1Type1{/* values here */})
+inputTcpjson := components.CreateInputTcpjsonInputTcpjsonPqEnabledTrueWithPqConstraint(components.InputTcpjsonPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

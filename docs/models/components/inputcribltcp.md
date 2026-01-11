@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCriblTCPInputCollectionPart0Type
+### InputCriblTCPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCriblTCP := components.CreateInputCriblTCPInputCriblTCPInputCollectionPart0Type(components.InputCriblTCPInputCollectionPart0Type{/* values here */})
+inputCriblTCP := components.CreateInputCriblTCPInputCriblTCPSendToRoutesTrueWithConnectionsConstraint(components.InputCriblTCPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblTCPInputCollectionPart1Type
+### InputCriblTCPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCriblTCP := components.CreateInputCriblTCPInputCriblTCPInputCollectionPart1Type(components.InputCriblTCPInputCollectionPart1Type{/* values here */})
+inputCriblTCP := components.CreateInputCriblTCPInputCriblTCPSendToRoutesFalseWithConnectionsConstraint(components.InputCriblTCPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblTCPInputCollectionPart0Type1
+### InputCriblTCPPqEnabledFalseWithPqConstraint
 
 ```go
-inputCriblTCP := components.CreateInputCriblTCPInputCriblTCPInputCollectionPart0Type1(components.InputCriblTCPInputCollectionPart0Type1{/* values here */})
+inputCriblTCP := components.CreateInputCriblTCPInputCriblTCPPqEnabledFalseWithPqConstraint(components.InputCriblTCPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCriblTCPInputCollectionPart1Type1
+### InputCriblTCPPqEnabledTrueWithPqConstraint
 
 ```go
-inputCriblTCP := components.CreateInputCriblTCPInputCriblTCPInputCollectionPart1Type1(components.InputCriblTCPInputCollectionPart1Type1{/* values here */})
+inputCriblTCP := components.CreateInputCriblTCPInputCriblTCPPqEnabledTrueWithPqConstraint(components.InputCriblTCPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCloudflareHecInputCollectionPart0Type
+### InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCloudflareHec := operations.CreateInputCloudflareHecInputCloudflareHecInputCollectionPart0Type(operations.InputCloudflareHecInputCollectionPart0Type{/* values here */})
+inputCloudflareHec := operations.CreateInputCloudflareHecInputCloudflareHecSendToRoutesTrueWithConnectionsConstraint(operations.InputCloudflareHecSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCloudflareHecInputCollectionPart1Type
+### InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCloudflareHec := operations.CreateInputCloudflareHecInputCloudflareHecInputCollectionPart1Type(operations.InputCloudflareHecInputCollectionPart1Type{/* values here */})
+inputCloudflareHec := operations.CreateInputCloudflareHecInputCloudflareHecSendToRoutesFalseWithConnectionsConstraint(operations.InputCloudflareHecSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCloudflareHecInputCollectionPart0Type1
+### InputCloudflareHecPqEnabledFalseWithPqConstraint
 
 ```go
-inputCloudflareHec := operations.CreateInputCloudflareHecInputCloudflareHecInputCollectionPart0Type1(operations.InputCloudflareHecInputCollectionPart0Type1{/* values here */})
+inputCloudflareHec := operations.CreateInputCloudflareHecInputCloudflareHecPqEnabledFalseWithPqConstraint(operations.InputCloudflareHecPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCloudflareHecInputCollectionPart1Type1
+### InputCloudflareHecPqEnabledTrueWithPqConstraint
 
 ```go
-inputCloudflareHec := operations.CreateInputCloudflareHecInputCloudflareHecInputCollectionPart1Type1(operations.InputCloudflareHecInputCollectionPart1Type1{/* values here */})
+inputCloudflareHec := operations.CreateInputCloudflareHecInputCloudflareHecPqEnabledTrueWithPqConstraint(operations.InputCloudflareHecPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

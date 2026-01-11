@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputGooglePubsubInputCollectionPart0Type
+### InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubInputCollectionPart0Type(operations.InputGooglePubsubInputCollectionPart0Type{/* values here */})
+inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubSendToRoutesTrueWithConnectionsConstraint(operations.InputGooglePubsubSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputGooglePubsubInputCollectionPart1Type
+### InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubInputCollectionPart1Type(operations.InputGooglePubsubInputCollectionPart1Type{/* values here */})
+inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubSendToRoutesFalseWithConnectionsConstraint(operations.InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputGooglePubsubInputCollectionPart0Type1
+### InputGooglePubsubPqEnabledFalseWithPqConstraint
 
 ```go
-inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubInputCollectionPart0Type1(operations.InputGooglePubsubInputCollectionPart0Type1{/* values here */})
+inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubPqEnabledFalseWithPqConstraint(operations.InputGooglePubsubPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputGooglePubsubInputCollectionPart1Type1
+### InputGooglePubsubPqEnabledTrueWithPqConstraint
 
 ```go
-inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubInputCollectionPart1Type1(operations.InputGooglePubsubInputCollectionPart1Type1{/* values here */})
+inputGooglePubsub := operations.CreateInputGooglePubsubInputGooglePubsubPqEnabledTrueWithPqConstraint(operations.InputGooglePubsubPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

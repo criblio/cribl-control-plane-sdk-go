@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputWindowsMetricsInputCollectionPart0Type
+### InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsInputCollectionPart0Type(operations.InputWindowsMetricsInputCollectionPart0Type{/* values here */})
+inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint(operations.InputWindowsMetricsSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWindowsMetricsInputCollectionPart1Type
+### InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsInputCollectionPart1Type(operations.InputWindowsMetricsInputCollectionPart1Type{/* values here */})
+inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint(operations.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputWindowsMetricsInputCollectionPart0Type1
+### InputWindowsMetricsPqEnabledFalseWithPqConstraint
 
 ```go
-inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsInputCollectionPart0Type1(operations.InputWindowsMetricsInputCollectionPart0Type1{/* values here */})
+inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsPqEnabledFalseWithPqConstraint(operations.InputWindowsMetricsPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputWindowsMetricsInputCollectionPart1Type1
+### InputWindowsMetricsPqEnabledTrueWithPqConstraint
 
 ```go
-inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsInputCollectionPart1Type1(operations.InputWindowsMetricsInputCollectionPart1Type1{/* values here */})
+inputWindowsMetrics := operations.CreateInputWindowsMetricsInputWindowsMetricsPqEnabledTrueWithPqConstraint(operations.InputWindowsMetricsPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

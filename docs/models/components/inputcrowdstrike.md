@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCrowdstrikeInputCollectionPart0Type
+### InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCrowdstrike := components.CreateInputCrowdstrikeInputCrowdstrikeInputCollectionPart0Type(components.InputCrowdstrikeInputCollectionPart0Type{/* values here */})
+inputCrowdstrike := components.CreateInputCrowdstrikeInputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint(components.InputCrowdstrikeSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCrowdstrikeInputCollectionPart1Type
+### InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCrowdstrike := components.CreateInputCrowdstrikeInputCrowdstrikeInputCollectionPart1Type(components.InputCrowdstrikeInputCollectionPart1Type{/* values here */})
+inputCrowdstrike := components.CreateInputCrowdstrikeInputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint(components.InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCrowdstrikeInputCollectionPart0Type1
+### InputCrowdstrikePqEnabledFalseWithPqConstraint
 
 ```go
-inputCrowdstrike := components.CreateInputCrowdstrikeInputCrowdstrikeInputCollectionPart0Type1(components.InputCrowdstrikeInputCollectionPart0Type1{/* values here */})
+inputCrowdstrike := components.CreateInputCrowdstrikeInputCrowdstrikePqEnabledFalseWithPqConstraint(components.InputCrowdstrikePqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCrowdstrikeInputCollectionPart1Type1
+### InputCrowdstrikePqEnabledTrueWithPqConstraint
 
 ```go
-inputCrowdstrike := components.CreateInputCrowdstrikeInputCrowdstrikeInputCollectionPart1Type1(components.InputCrowdstrikeInputCollectionPart1Type1{/* values here */})
+inputCrowdstrike := components.CreateInputCrowdstrikeInputCrowdstrikePqEnabledTrueWithPqConstraint(components.InputCrowdstrikePqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

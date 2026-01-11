@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputFirehoseInputCollectionPart1Type1 struct {
+type InputFirehosePqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -61,209 +61,210 @@ type InputFirehoseInputCollectionPart1Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputFirehoseInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputFirehosePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetID() *string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetType() InputFirehoseType {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetType() InputFirehoseType {
 	if i == nil {
 		return InputFirehoseType("")
 	}
 	return i.Type
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetHost() *string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetPort() float64 {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetAuthTokens() []string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetEnableHealthCheck() *bool {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFirehoseInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputFirehoseInputCollectionPart0Type1 struct {
+type InputFirehosePqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputFirehoseType `json:"type"`
@@ -278,7 +279,6 @@ type InputFirehoseInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -313,207 +313,207 @@ type InputFirehoseInputCollectionPart0Type1 struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputFirehoseInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputFirehosePqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFirehoseInputCollectionPart0Type1) GetType() InputFirehoseType {
-	if i == nil {
-		return InputFirehoseType("")
-	}
-	return i.Type
-}
-
-func (i *InputFirehoseInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFirehoseInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFirehoseInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFirehoseInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFirehoseInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFirehoseInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFirehoseInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetHost() *string {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetType() InputFirehoseType {
+	if i == nil {
+		return InputFirehoseType("")
+	}
+	return i.Type
+}
+
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetPort() float64 {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetAuthTokens() []string {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetEnableHealthCheck() *bool {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFirehoseInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputFirehosePqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputFirehoseInputCollectionPart1Type struct {
+type InputFirehoseSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -565,200 +565,200 @@ type InputFirehoseInputCollectionPart1Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputFirehoseInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputFirehoseSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetID() *string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetType() InputFirehoseType {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetType() InputFirehoseType {
 	if i == nil {
 		return InputFirehoseType("")
 	}
 	return i.Type
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetHost() *string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetPort() float64 {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetAuthTokens() []string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetCaptureHeaders() *bool {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetSocketTimeout() *float64 {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetEnableHealthCheck() *bool {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetIPDenylistRegex() *string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFirehoseInputCollectionPart1Type) GetDescription() *string {
+func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -788,9 +788,11 @@ func (e *InputFirehoseType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputFirehoseInputCollectionPart0Type struct {
+type InputFirehoseSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputFirehoseType `json:"type"`
@@ -803,9 +805,7 @@ type InputFirehoseInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -840,200 +840,200 @@ type InputFirehoseInputCollectionPart0Type struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputFirehoseInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputFirehoseSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFirehoseInputCollectionPart0Type) GetType() InputFirehoseType {
-	if i == nil {
-		return InputFirehoseType("")
-	}
-	return i.Type
-}
-
-func (i *InputFirehoseInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFirehoseInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFirehoseInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFirehoseInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputFirehoseInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFirehoseInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetType() InputFirehoseType {
+	if i == nil {
+		return InputFirehoseType("")
+	}
+	return i.Type
+}
+
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetHost() *string {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetPort() float64 {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetAuthTokens() []string {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetMaxActiveReq() *float64 {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetEnableProxyHeader() *bool {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetCaptureHeaders() *bool {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetSocketTimeout() *float64 {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetEnableHealthCheck() *bool {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetIPAllowlistRegex() *string {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetIPDenylistRegex() *string {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFirehoseInputCollectionPart0Type) GetDescription() *string {
+func (i *InputFirehoseSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1043,84 +1043,84 @@ func (i *InputFirehoseInputCollectionPart0Type) GetDescription() *string {
 type InputFirehoseUnionType string
 
 const (
-	InputFirehoseUnionTypeInputFirehoseInputCollectionPart0Type  InputFirehoseUnionType = "InputFirehose_InputCollectionPart0Type"
-	InputFirehoseUnionTypeInputFirehoseInputCollectionPart1Type  InputFirehoseUnionType = "InputFirehose_InputCollectionPart1Type"
-	InputFirehoseUnionTypeInputFirehoseInputCollectionPart0Type1 InputFirehoseUnionType = "InputFirehose_InputCollectionPart0Type1"
-	InputFirehoseUnionTypeInputFirehoseInputCollectionPart1Type1 InputFirehoseUnionType = "InputFirehose_InputCollectionPart1Type1"
+	InputFirehoseUnionTypeInputFirehoseSendToRoutesTrueWithConnectionsConstraint  InputFirehoseUnionType = "InputFirehose_SendToRoutesTrueWithConnectionsConstraint"
+	InputFirehoseUnionTypeInputFirehoseSendToRoutesFalseWithConnectionsConstraint InputFirehoseUnionType = "InputFirehose_SendToRoutesFalseWithConnectionsConstraint"
+	InputFirehoseUnionTypeInputFirehosePqEnabledFalseWithPqConstraint             InputFirehoseUnionType = "InputFirehose_PqEnabledFalseWithPqConstraint"
+	InputFirehoseUnionTypeInputFirehosePqEnabledTrueWithPqConstraint              InputFirehoseUnionType = "InputFirehose_PqEnabledTrueWithPqConstraint"
 )
 
 type InputFirehose struct {
-	InputFirehoseInputCollectionPart0Type  *InputFirehoseInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputFirehoseInputCollectionPart1Type  *InputFirehoseInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputFirehoseInputCollectionPart0Type1 *InputFirehoseInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputFirehoseInputCollectionPart1Type1 *InputFirehoseInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputFirehoseSendToRoutesTrueWithConnectionsConstraint  *InputFirehoseSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputFirehoseSendToRoutesFalseWithConnectionsConstraint *InputFirehoseSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputFirehosePqEnabledFalseWithPqConstraint             *InputFirehosePqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputFirehosePqEnabledTrueWithPqConstraint              *InputFirehosePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputFirehoseUnionType
 }
 
-func CreateInputFirehoseInputFirehoseInputCollectionPart0Type(inputFirehoseInputCollectionPart0Type InputFirehoseInputCollectionPart0Type) InputFirehose {
-	typ := InputFirehoseUnionTypeInputFirehoseInputCollectionPart0Type
+func CreateInputFirehoseInputFirehoseSendToRoutesTrueWithConnectionsConstraint(inputFirehoseSendToRoutesTrueWithConnectionsConstraint InputFirehoseSendToRoutesTrueWithConnectionsConstraint) InputFirehose {
+	typ := InputFirehoseUnionTypeInputFirehoseSendToRoutesTrueWithConnectionsConstraint
 
 	return InputFirehose{
-		InputFirehoseInputCollectionPart0Type: &inputFirehoseInputCollectionPart0Type,
-		Type:                                  typ,
+		InputFirehoseSendToRoutesTrueWithConnectionsConstraint: &inputFirehoseSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputFirehoseInputFirehoseInputCollectionPart1Type(inputFirehoseInputCollectionPart1Type InputFirehoseInputCollectionPart1Type) InputFirehose {
-	typ := InputFirehoseUnionTypeInputFirehoseInputCollectionPart1Type
+func CreateInputFirehoseInputFirehoseSendToRoutesFalseWithConnectionsConstraint(inputFirehoseSendToRoutesFalseWithConnectionsConstraint InputFirehoseSendToRoutesFalseWithConnectionsConstraint) InputFirehose {
+	typ := InputFirehoseUnionTypeInputFirehoseSendToRoutesFalseWithConnectionsConstraint
 
 	return InputFirehose{
-		InputFirehoseInputCollectionPart1Type: &inputFirehoseInputCollectionPart1Type,
-		Type:                                  typ,
+		InputFirehoseSendToRoutesFalseWithConnectionsConstraint: &inputFirehoseSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputFirehoseInputFirehoseInputCollectionPart0Type1(inputFirehoseInputCollectionPart0Type1 InputFirehoseInputCollectionPart0Type1) InputFirehose {
-	typ := InputFirehoseUnionTypeInputFirehoseInputCollectionPart0Type1
+func CreateInputFirehoseInputFirehosePqEnabledFalseWithPqConstraint(inputFirehosePqEnabledFalseWithPqConstraint InputFirehosePqEnabledFalseWithPqConstraint) InputFirehose {
+	typ := InputFirehoseUnionTypeInputFirehosePqEnabledFalseWithPqConstraint
 
 	return InputFirehose{
-		InputFirehoseInputCollectionPart0Type1: &inputFirehoseInputCollectionPart0Type1,
-		Type:                                   typ,
+		InputFirehosePqEnabledFalseWithPqConstraint: &inputFirehosePqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputFirehoseInputFirehoseInputCollectionPart1Type1(inputFirehoseInputCollectionPart1Type1 InputFirehoseInputCollectionPart1Type1) InputFirehose {
-	typ := InputFirehoseUnionTypeInputFirehoseInputCollectionPart1Type1
+func CreateInputFirehoseInputFirehosePqEnabledTrueWithPqConstraint(inputFirehosePqEnabledTrueWithPqConstraint InputFirehosePqEnabledTrueWithPqConstraint) InputFirehose {
+	typ := InputFirehoseUnionTypeInputFirehosePqEnabledTrueWithPqConstraint
 
 	return InputFirehose{
-		InputFirehoseInputCollectionPart1Type1: &inputFirehoseInputCollectionPart1Type1,
-		Type:                                   typ,
+		InputFirehosePqEnabledTrueWithPqConstraint: &inputFirehosePqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputFirehose) UnmarshalJSON(data []byte) error {
 
-	var inputFirehoseInputCollectionPart0Type InputFirehoseInputCollectionPart0Type = InputFirehoseInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputFirehoseInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputFirehoseInputCollectionPart0Type = &inputFirehoseInputCollectionPart0Type
-		u.Type = InputFirehoseUnionTypeInputFirehoseInputCollectionPart0Type
+	var inputFirehoseSendToRoutesTrueWithConnectionsConstraint InputFirehoseSendToRoutesTrueWithConnectionsConstraint = InputFirehoseSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputFirehoseSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputFirehoseSendToRoutesTrueWithConnectionsConstraint = &inputFirehoseSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputFirehoseUnionTypeInputFirehoseSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputFirehoseInputCollectionPart1Type InputFirehoseInputCollectionPart1Type = InputFirehoseInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputFirehoseInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputFirehoseInputCollectionPart1Type = &inputFirehoseInputCollectionPart1Type
-		u.Type = InputFirehoseUnionTypeInputFirehoseInputCollectionPart1Type
+	var inputFirehoseSendToRoutesFalseWithConnectionsConstraint InputFirehoseSendToRoutesFalseWithConnectionsConstraint = InputFirehoseSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputFirehoseSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputFirehoseSendToRoutesFalseWithConnectionsConstraint = &inputFirehoseSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputFirehoseUnionTypeInputFirehoseSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputFirehoseInputCollectionPart0Type1 InputFirehoseInputCollectionPart0Type1 = InputFirehoseInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputFirehoseInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputFirehoseInputCollectionPart0Type1 = &inputFirehoseInputCollectionPart0Type1
-		u.Type = InputFirehoseUnionTypeInputFirehoseInputCollectionPart0Type1
+	var inputFirehosePqEnabledFalseWithPqConstraint InputFirehosePqEnabledFalseWithPqConstraint = InputFirehosePqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputFirehosePqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputFirehosePqEnabledFalseWithPqConstraint = &inputFirehosePqEnabledFalseWithPqConstraint
+		u.Type = InputFirehoseUnionTypeInputFirehosePqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputFirehoseInputCollectionPart1Type1 InputFirehoseInputCollectionPart1Type1 = InputFirehoseInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputFirehoseInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputFirehoseInputCollectionPart1Type1 = &inputFirehoseInputCollectionPart1Type1
-		u.Type = InputFirehoseUnionTypeInputFirehoseInputCollectionPart1Type1
+	var inputFirehosePqEnabledTrueWithPqConstraint InputFirehosePqEnabledTrueWithPqConstraint = InputFirehosePqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputFirehosePqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputFirehosePqEnabledTrueWithPqConstraint = &inputFirehosePqEnabledTrueWithPqConstraint
+		u.Type = InputFirehoseUnionTypeInputFirehosePqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1128,20 +1128,20 @@ func (u *InputFirehose) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputFirehose) MarshalJSON() ([]byte, error) {
-	if u.InputFirehoseInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputFirehoseInputCollectionPart0Type, "", true)
+	if u.InputFirehoseSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputFirehoseSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputFirehoseInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputFirehoseInputCollectionPart1Type, "", true)
+	if u.InputFirehoseSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputFirehoseSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputFirehoseInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputFirehoseInputCollectionPart0Type1, "", true)
+	if u.InputFirehosePqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputFirehosePqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputFirehoseInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputFirehoseInputCollectionPart1Type1, "", true)
+	if u.InputFirehosePqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputFirehosePqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputFirehose: all fields are null")

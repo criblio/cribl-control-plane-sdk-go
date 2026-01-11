@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputAzureBlobInputCollectionPart0Type
+### InputAzureBlobSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobInputCollectionPart0Type(operations.InputAzureBlobInputCollectionPart0Type{/* values here */})
+inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobSendToRoutesTrueWithConnectionsConstraint(operations.InputAzureBlobSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputAzureBlobInputCollectionPart1Type
+### InputAzureBlobSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobInputCollectionPart1Type(operations.InputAzureBlobInputCollectionPart1Type{/* values here */})
+inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobSendToRoutesFalseWithConnectionsConstraint(operations.InputAzureBlobSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputAzureBlobInputCollectionPart0Type1
+### InputAzureBlobPqEnabledFalseWithPqConstraint
 
 ```go
-inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobInputCollectionPart0Type1(operations.InputAzureBlobInputCollectionPart0Type1{/* values here */})
+inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobPqEnabledFalseWithPqConstraint(operations.InputAzureBlobPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputAzureBlobInputCollectionPart1Type1
+### InputAzureBlobPqEnabledTrueWithPqConstraint
 
 ```go
-inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobInputCollectionPart1Type1(operations.InputAzureBlobInputCollectionPart1Type1{/* values here */})
+inputAzureBlob := operations.CreateInputAzureBlobInputAzureBlobPqEnabledTrueWithPqConstraint(operations.InputAzureBlobPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

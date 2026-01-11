@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputTCPInputCollectionPart0Type
+### InputTCPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputTCP := operations.CreateInputTCPInputTCPInputCollectionPart0Type(operations.InputTCPInputCollectionPart0Type{/* values here */})
+inputTCP := operations.CreateInputTCPInputTCPSendToRoutesTrueWithConnectionsConstraint(operations.InputTCPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputTCPInputCollectionPart1Type
+### InputTCPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputTCP := operations.CreateInputTCPInputTCPInputCollectionPart1Type(operations.InputTCPInputCollectionPart1Type{/* values here */})
+inputTCP := operations.CreateInputTCPInputTCPSendToRoutesFalseWithConnectionsConstraint(operations.InputTCPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputTCPInputCollectionPart0Type1
+### InputTCPPqEnabledFalseWithPqConstraint
 
 ```go
-inputTCP := operations.CreateInputTCPInputTCPInputCollectionPart0Type1(operations.InputTCPInputCollectionPart0Type1{/* values here */})
+inputTCP := operations.CreateInputTCPInputTCPPqEnabledFalseWithPqConstraint(operations.InputTCPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputTCPInputCollectionPart1Type1
+### InputTCPPqEnabledTrueWithPqConstraint
 
 ```go
-inputTCP := operations.CreateInputTCPInputTCPInputCollectionPart1Type1(operations.InputTCPInputCollectionPart1Type1{/* values here */})
+inputTCP := operations.CreateInputTCPInputTCPPqEnabledTrueWithPqConstraint(operations.InputTCPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCriblLakeHTTPInputCollectionPart0Type
+### InputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPInputCollectionPart0Type(operations.InputCriblLakeHTTPInputCollectionPart0Type{/* values here */})
+inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint(operations.InputCriblLakeHTTPSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblLakeHTTPInputCollectionPart1Type
+### InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPInputCollectionPart1Type(operations.InputCriblLakeHTTPInputCollectionPart1Type{/* values here */})
+inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint(operations.InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblLakeHTTPInputCollectionPart0Type1
+### InputCriblLakeHTTPPqEnabledFalseWithPqConstraint
 
 ```go
-inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPInputCollectionPart0Type1(operations.InputCriblLakeHTTPInputCollectionPart0Type1{/* values here */})
+inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPPqEnabledFalseWithPqConstraint(operations.InputCriblLakeHTTPPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCriblLakeHTTPInputCollectionPart1Type1
+### InputCriblLakeHTTPPqEnabledTrueWithPqConstraint
 
 ```go
-inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPInputCollectionPart1Type1(operations.InputCriblLakeHTTPInputCollectionPart1Type1{/* values here */})
+inputCriblLakeHTTP := operations.CreateInputCriblLakeHTTPInputCriblLakeHTTPPqEnabledTrueWithPqConstraint(operations.InputCriblLakeHTTPPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

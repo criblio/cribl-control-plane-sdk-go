@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputOpenTelemetryInputCollectionPart0Type
+### InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputOpenTelemetry := components.CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart0Type(components.InputOpenTelemetryInputCollectionPart0Type{/* values here */})
+inputOpenTelemetry := components.CreateInputOpenTelemetryInputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint(components.InputOpenTelemetrySendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOpenTelemetryInputCollectionPart1Type
+### InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputOpenTelemetry := components.CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart1Type(components.InputOpenTelemetryInputCollectionPart1Type{/* values here */})
+inputOpenTelemetry := components.CreateInputOpenTelemetryInputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint(components.InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputOpenTelemetryInputCollectionPart0Type1
+### InputOpenTelemetryPqEnabledFalseWithPqConstraint
 
 ```go
-inputOpenTelemetry := components.CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart0Type1(components.InputOpenTelemetryInputCollectionPart0Type1{/* values here */})
+inputOpenTelemetry := components.CreateInputOpenTelemetryInputOpenTelemetryPqEnabledFalseWithPqConstraint(components.InputOpenTelemetryPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputOpenTelemetryInputCollectionPart1Type1
+### InputOpenTelemetryPqEnabledTrueWithPqConstraint
 
 ```go
-inputOpenTelemetry := components.CreateInputOpenTelemetryInputOpenTelemetryInputCollectionPart1Type1(components.InputOpenTelemetryInputCollectionPart1Type1{/* values here */})
+inputOpenTelemetry := components.CreateInputOpenTelemetryInputOpenTelemetryPqEnabledTrueWithPqConstraint(components.InputOpenTelemetryPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

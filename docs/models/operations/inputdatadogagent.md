@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputDatadogAgentInputCollectionPart0Type
+### InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentInputCollectionPart0Type(operations.InputDatadogAgentInputCollectionPart0Type{/* values here */})
+inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentSendToRoutesTrueWithConnectionsConstraint(operations.InputDatadogAgentSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatadogAgentInputCollectionPart1Type
+### InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentInputCollectionPart1Type(operations.InputDatadogAgentInputCollectionPart1Type{/* values here */})
+inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentSendToRoutesFalseWithConnectionsConstraint(operations.InputDatadogAgentSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputDatadogAgentInputCollectionPart0Type1
+### InputDatadogAgentPqEnabledFalseWithPqConstraint
 
 ```go
-inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentInputCollectionPart0Type1(operations.InputDatadogAgentInputCollectionPart0Type1{/* values here */})
+inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentPqEnabledFalseWithPqConstraint(operations.InputDatadogAgentPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputDatadogAgentInputCollectionPart1Type1
+### InputDatadogAgentPqEnabledTrueWithPqConstraint
 
 ```go
-inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentInputCollectionPart1Type1(operations.InputDatadogAgentInputCollectionPart1Type1{/* values here */})
+inputDatadogAgent := operations.CreateInputDatadogAgentInputDatadogAgentPqEnabledTrueWithPqConstraint(operations.InputDatadogAgentPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

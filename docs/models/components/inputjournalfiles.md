@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputJournalFilesInputCollectionPart0Type
+### InputJournalFilesSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesInputCollectionPart0Type(components.InputJournalFilesInputCollectionPart0Type{/* values here */})
+inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesSendToRoutesTrueWithConnectionsConstraint(components.InputJournalFilesSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputJournalFilesInputCollectionPart1Type
+### InputJournalFilesSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesInputCollectionPart1Type(components.InputJournalFilesInputCollectionPart1Type{/* values here */})
+inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesSendToRoutesFalseWithConnectionsConstraint(components.InputJournalFilesSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputJournalFilesInputCollectionPart0Type1
+### InputJournalFilesPqEnabledFalseWithPqConstraint
 
 ```go
-inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesInputCollectionPart0Type1(components.InputJournalFilesInputCollectionPart0Type1{/* values here */})
+inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesPqEnabledFalseWithPqConstraint(components.InputJournalFilesPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputJournalFilesInputCollectionPart1Type1
+### InputJournalFilesPqEnabledTrueWithPqConstraint
 
 ```go
-inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesInputCollectionPart1Type1(components.InputJournalFilesInputCollectionPart1Type1{/* values here */})
+inputJournalFiles := components.CreateInputJournalFilesInputJournalFilesPqEnabledTrueWithPqConstraint(components.InputJournalFilesPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

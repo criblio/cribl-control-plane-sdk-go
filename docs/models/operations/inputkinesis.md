@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputKinesisInputCollectionPart0Type
+### InputKinesisSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputKinesis := operations.CreateInputKinesisInputKinesisInputCollectionPart0Type(operations.InputKinesisInputCollectionPart0Type{/* values here */})
+inputKinesis := operations.CreateInputKinesisInputKinesisSendToRoutesTrueWithConnectionsConstraint(operations.InputKinesisSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKinesisInputCollectionPart1Type
+### InputKinesisSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputKinesis := operations.CreateInputKinesisInputKinesisInputCollectionPart1Type(operations.InputKinesisInputCollectionPart1Type{/* values here */})
+inputKinesis := operations.CreateInputKinesisInputKinesisSendToRoutesFalseWithConnectionsConstraint(operations.InputKinesisSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputKinesisInputCollectionPart0Type1
+### InputKinesisPqEnabledFalseWithPqConstraint
 
 ```go
-inputKinesis := operations.CreateInputKinesisInputKinesisInputCollectionPart0Type1(operations.InputKinesisInputCollectionPart0Type1{/* values here */})
+inputKinesis := operations.CreateInputKinesisInputKinesisPqEnabledFalseWithPqConstraint(operations.InputKinesisPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputKinesisInputCollectionPart1Type1
+### InputKinesisPqEnabledTrueWithPqConstraint
 
 ```go
-inputKinesis := operations.CreateInputKinesisInputKinesisInputCollectionPart1Type1(operations.InputKinesisInputCollectionPart1Type1{/* values here */})
+inputKinesis := operations.CreateInputKinesisInputKinesisPqEnabledTrueWithPqConstraint(operations.InputKinesisPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 

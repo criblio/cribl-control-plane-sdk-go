@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputZscalerHecInputCollectionPart1Type1 struct {
+type InputZscalerHecPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool   `default:"false" json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
@@ -72,251 +72,252 @@ type InputZscalerHecInputCollectionPart1Type1 struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputZscalerHecInputCollectionPart1Type1) MarshalJSON() ([]byte, error) {
+func (i InputZscalerHecPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) UnmarshalJSON(data []byte) error {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetPqEnabled() *bool {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetPq() *PqType {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetID() *string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetType() InputZscalerHecType {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetType() InputZscalerHecType {
 	if i == nil {
 		return InputZscalerHecType("")
 	}
 	return i.Type
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetDisabled() *bool {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetPipeline() *string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetSendToRoutes() *bool {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetEnvironment() *string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetStreamtags() []string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetConnections() []ItemsTypeConnections {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetHost() *string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetPort() float64 {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetAuthTokens() []InputZscalerHecAuthToken {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetAuthTokens() []InputZscalerHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetMaxActiveReq() *float64 {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetEnableProxyHeader() *bool {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetCaptureHeaders() *bool {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetActivityLogSampleRate() *float64 {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetRequestTimeout() *float64 {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetSocketTimeout() *float64 {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetEnableHealthCheck() any {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetIPAllowlistRegex() *string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetIPDenylistRegex() *string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetHecAPI() *string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.HecAPI
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetAllowedIndexes() []string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetHecAcks() *bool {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.HecAcks
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetAccessControlAllowOrigin() []string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetAccessControlAllowHeaders() []string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetEmitTokenMetrics() *bool {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type1) GetDescription() *string {
+func (i *InputZscalerHecPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputZscalerHecInputCollectionPart0Type1 struct {
+type InputZscalerHecPqEnabledFalseWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputZscalerHecType `json:"type"`
@@ -331,7 +332,6 @@ type InputZscalerHecInputCollectionPart0Type1 struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -377,249 +377,249 @@ type InputZscalerHecInputCollectionPart0Type1 struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputZscalerHecInputCollectionPart0Type1) MarshalJSON() ([]byte, error) {
+func (i InputZscalerHecPqEnabledFalseWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) UnmarshalJSON(data []byte) error {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetPqEnabled() *bool {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type1) GetType() InputZscalerHecType {
-	if i == nil {
-		return InputZscalerHecType("")
-	}
-	return i.Type
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type1) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type1) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type1) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type1) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type1) GetPq() *PqType {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetHost() *string {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetType() InputZscalerHecType {
+	if i == nil {
+		return InputZscalerHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetConnections() []ItemsTypeConnections {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetPort() float64 {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetAuthTokens() []InputZscalerHecAuthToken {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetAuthTokens() []InputZscalerHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetTLS() *TLSSettingsServerSideType {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetMaxActiveReq() *float64 {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetMaxRequestsPerSocket() *int64 {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetEnableProxyHeader() *bool {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetCaptureHeaders() *bool {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetActivityLogSampleRate() *float64 {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetRequestTimeout() *float64 {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetSocketTimeout() *float64 {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetKeepAliveTimeout() *float64 {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetEnableHealthCheck() any {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetIPAllowlistRegex() *string {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetIPDenylistRegex() *string {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetHecAPI() *string {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.HecAPI
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetAllowedIndexes() []string {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetHecAcks() *bool {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.HecAcks
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetAccessControlAllowOrigin() []string {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetAccessControlAllowHeaders() []string {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetEmitTokenMetrics() *bool {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type1) GetDescription() *string {
+func (i *InputZscalerHecPqEnabledFalseWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-type InputZscalerHecInputCollectionPart1Type struct {
+type InputZscalerHecSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -682,242 +682,242 @@ type InputZscalerHecInputCollectionPart1Type struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputZscalerHecInputCollectionPart1Type) MarshalJSON() ([]byte, error) {
+func (i InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) UnmarshalJSON(data []byte) error {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetSendToRoutes() *bool {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetConnections() []ItemsTypeConnections {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetID() *string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetType() InputZscalerHecType {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetType() InputZscalerHecType {
 	if i == nil {
 		return InputZscalerHecType("")
 	}
 	return i.Type
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetDisabled() *bool {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetPipeline() *string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetEnvironment() *string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetPqEnabled() *bool {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetStreamtags() []string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetPq() *PqType {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetHost() *string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetPort() float64 {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetAuthTokens() []InputZscalerHecAuthToken {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetAuthTokens() []InputZscalerHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetMaxActiveReq() *float64 {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetEnableProxyHeader() *bool {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetCaptureHeaders() *bool {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetActivityLogSampleRate() *float64 {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetRequestTimeout() *float64 {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetSocketTimeout() *float64 {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetKeepAliveTimeout() *float64 {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetEnableHealthCheck() any {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetIPAllowlistRegex() *string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetIPDenylistRegex() *string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetHecAPI() *string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.HecAPI
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetAllowedIndexes() []string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetHecAcks() *bool {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.HecAcks
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetAccessControlAllowOrigin() []string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetAccessControlAllowHeaders() []string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetEmitTokenMetrics() *bool {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputZscalerHecInputCollectionPart1Type) GetDescription() *string {
+func (i *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1022,9 +1022,11 @@ func (i *InputZscalerHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata
 	return i.Metadata
 }
 
-type InputZscalerHecInputCollectionPart0Type struct {
+type InputZscalerHecSendToRoutesTrueWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnections `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputZscalerHecType `json:"type"`
@@ -1037,9 +1039,7 @@ type InputZscalerHecInputCollectionPart0Type struct {
 	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -1085,242 +1085,242 @@ type InputZscalerHecInputCollectionPart0Type struct {
 	Description      *string `json:"description,omitempty"`
 }
 
-func (i InputZscalerHecInputCollectionPart0Type) MarshalJSON() ([]byte, error) {
+func (i InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) UnmarshalJSON(data []byte) error {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetSendToRoutes() *bool {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type) GetType() InputZscalerHecType {
-	if i == nil {
-		return InputZscalerHecType("")
-	}
-	return i.Type
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputZscalerHecInputCollectionPart0Type) GetConnections() []ItemsTypeConnections {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetConnections() []ItemsTypeConnections {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetPq() *PqType {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetType() InputZscalerHecType {
+	if i == nil {
+		return InputZscalerHecType("")
+	}
+	return i.Type
+}
+
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetHost() *string {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetPort() float64 {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetAuthTokens() []InputZscalerHecAuthToken {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetAuthTokens() []InputZscalerHecAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetTLS() *TLSSettingsServerSideType {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetMaxActiveReq() *float64 {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetMaxRequestsPerSocket() *int64 {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetEnableProxyHeader() *bool {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetCaptureHeaders() *bool {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetActivityLogSampleRate() *float64 {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetRequestTimeout() *float64 {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetSocketTimeout() *float64 {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetKeepAliveTimeout() *float64 {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetEnableHealthCheck() any {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetEnableHealthCheck() any {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetIPAllowlistRegex() *string {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetIPDenylistRegex() *string {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetHecAPI() *string {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.HecAPI
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetAllowedIndexes() []string {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetAllowedIndexes() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedIndexes
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetHecAcks() *bool {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.HecAcks
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetAccessControlAllowOrigin() []string {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowOrigin
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetAccessControlAllowHeaders() []string {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetAccessControlAllowHeaders() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AccessControlAllowHeaders
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetEmitTokenMetrics() *bool {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetEmitTokenMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EmitTokenMetrics
 }
 
-func (i *InputZscalerHecInputCollectionPart0Type) GetDescription() *string {
+func (i *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
@@ -1330,84 +1330,84 @@ func (i *InputZscalerHecInputCollectionPart0Type) GetDescription() *string {
 type InputZscalerHecUnionType string
 
 const (
-	InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type  InputZscalerHecUnionType = "InputZscalerHec_InputCollectionPart0Type"
-	InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type  InputZscalerHecUnionType = "InputZscalerHec_InputCollectionPart1Type"
-	InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type1 InputZscalerHecUnionType = "InputZscalerHec_InputCollectionPart0Type1"
-	InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type1 InputZscalerHecUnionType = "InputZscalerHec_InputCollectionPart1Type1"
+	InputZscalerHecUnionTypeInputZscalerHecSendToRoutesTrueWithConnectionsConstraint  InputZscalerHecUnionType = "InputZscalerHec_SendToRoutesTrueWithConnectionsConstraint"
+	InputZscalerHecUnionTypeInputZscalerHecSendToRoutesFalseWithConnectionsConstraint InputZscalerHecUnionType = "InputZscalerHec_SendToRoutesFalseWithConnectionsConstraint"
+	InputZscalerHecUnionTypeInputZscalerHecPqEnabledFalseWithPqConstraint             InputZscalerHecUnionType = "InputZscalerHec_PqEnabledFalseWithPqConstraint"
+	InputZscalerHecUnionTypeInputZscalerHecPqEnabledTrueWithPqConstraint              InputZscalerHecUnionType = "InputZscalerHec_PqEnabledTrueWithPqConstraint"
 )
 
 type InputZscalerHec struct {
-	InputZscalerHecInputCollectionPart0Type  *InputZscalerHecInputCollectionPart0Type  `queryParam:"inline" union:"member"`
-	InputZscalerHecInputCollectionPart1Type  *InputZscalerHecInputCollectionPart1Type  `queryParam:"inline" union:"member"`
-	InputZscalerHecInputCollectionPart0Type1 *InputZscalerHecInputCollectionPart0Type1 `queryParam:"inline" union:"member"`
-	InputZscalerHecInputCollectionPart1Type1 *InputZscalerHecInputCollectionPart1Type1 `queryParam:"inline" union:"member"`
+	InputZscalerHecSendToRoutesTrueWithConnectionsConstraint  *InputZscalerHecSendToRoutesTrueWithConnectionsConstraint  `queryParam:"inline" union:"member"`
+	InputZscalerHecSendToRoutesFalseWithConnectionsConstraint *InputZscalerHecSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputZscalerHecPqEnabledFalseWithPqConstraint             *InputZscalerHecPqEnabledFalseWithPqConstraint             `queryParam:"inline" union:"member"`
+	InputZscalerHecPqEnabledTrueWithPqConstraint              *InputZscalerHecPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
 
 	Type InputZscalerHecUnionType
 }
 
-func CreateInputZscalerHecInputZscalerHecInputCollectionPart0Type(inputZscalerHecInputCollectionPart0Type InputZscalerHecInputCollectionPart0Type) InputZscalerHec {
-	typ := InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type
+func CreateInputZscalerHecInputZscalerHecSendToRoutesTrueWithConnectionsConstraint(inputZscalerHecSendToRoutesTrueWithConnectionsConstraint InputZscalerHecSendToRoutesTrueWithConnectionsConstraint) InputZscalerHec {
+	typ := InputZscalerHecUnionTypeInputZscalerHecSendToRoutesTrueWithConnectionsConstraint
 
 	return InputZscalerHec{
-		InputZscalerHecInputCollectionPart0Type: &inputZscalerHecInputCollectionPart0Type,
-		Type:                                    typ,
+		InputZscalerHecSendToRoutesTrueWithConnectionsConstraint: &inputZscalerHecSendToRoutesTrueWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputZscalerHecInputZscalerHecInputCollectionPart1Type(inputZscalerHecInputCollectionPart1Type InputZscalerHecInputCollectionPart1Type) InputZscalerHec {
-	typ := InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type
+func CreateInputZscalerHecInputZscalerHecSendToRoutesFalseWithConnectionsConstraint(inputZscalerHecSendToRoutesFalseWithConnectionsConstraint InputZscalerHecSendToRoutesFalseWithConnectionsConstraint) InputZscalerHec {
+	typ := InputZscalerHecUnionTypeInputZscalerHecSendToRoutesFalseWithConnectionsConstraint
 
 	return InputZscalerHec{
-		InputZscalerHecInputCollectionPart1Type: &inputZscalerHecInputCollectionPart1Type,
-		Type:                                    typ,
+		InputZscalerHecSendToRoutesFalseWithConnectionsConstraint: &inputZscalerHecSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputZscalerHecInputZscalerHecInputCollectionPart0Type1(inputZscalerHecInputCollectionPart0Type1 InputZscalerHecInputCollectionPart0Type1) InputZscalerHec {
-	typ := InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type1
+func CreateInputZscalerHecInputZscalerHecPqEnabledFalseWithPqConstraint(inputZscalerHecPqEnabledFalseWithPqConstraint InputZscalerHecPqEnabledFalseWithPqConstraint) InputZscalerHec {
+	typ := InputZscalerHecUnionTypeInputZscalerHecPqEnabledFalseWithPqConstraint
 
 	return InputZscalerHec{
-		InputZscalerHecInputCollectionPart0Type1: &inputZscalerHecInputCollectionPart0Type1,
-		Type:                                     typ,
+		InputZscalerHecPqEnabledFalseWithPqConstraint: &inputZscalerHecPqEnabledFalseWithPqConstraint,
+		Type: typ,
 	}
 }
 
-func CreateInputZscalerHecInputZscalerHecInputCollectionPart1Type1(inputZscalerHecInputCollectionPart1Type1 InputZscalerHecInputCollectionPart1Type1) InputZscalerHec {
-	typ := InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type1
+func CreateInputZscalerHecInputZscalerHecPqEnabledTrueWithPqConstraint(inputZscalerHecPqEnabledTrueWithPqConstraint InputZscalerHecPqEnabledTrueWithPqConstraint) InputZscalerHec {
+	typ := InputZscalerHecUnionTypeInputZscalerHecPqEnabledTrueWithPqConstraint
 
 	return InputZscalerHec{
-		InputZscalerHecInputCollectionPart1Type1: &inputZscalerHecInputCollectionPart1Type1,
-		Type:                                     typ,
+		InputZscalerHecPqEnabledTrueWithPqConstraint: &inputZscalerHecPqEnabledTrueWithPqConstraint,
+		Type: typ,
 	}
 }
 
 func (u *InputZscalerHec) UnmarshalJSON(data []byte) error {
 
-	var inputZscalerHecInputCollectionPart0Type InputZscalerHecInputCollectionPart0Type = InputZscalerHecInputCollectionPart0Type{}
-	if err := utils.UnmarshalJSON(data, &inputZscalerHecInputCollectionPart0Type, "", true, nil); err == nil {
-		u.InputZscalerHecInputCollectionPart0Type = &inputZscalerHecInputCollectionPart0Type
-		u.Type = InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type
+	var inputZscalerHecSendToRoutesTrueWithConnectionsConstraint InputZscalerHecSendToRoutesTrueWithConnectionsConstraint = InputZscalerHecSendToRoutesTrueWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputZscalerHecSendToRoutesTrueWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint = &inputZscalerHecSendToRoutesTrueWithConnectionsConstraint
+		u.Type = InputZscalerHecUnionTypeInputZscalerHecSendToRoutesTrueWithConnectionsConstraint
 		return nil
 	}
 
-	var inputZscalerHecInputCollectionPart1Type InputZscalerHecInputCollectionPart1Type = InputZscalerHecInputCollectionPart1Type{}
-	if err := utils.UnmarshalJSON(data, &inputZscalerHecInputCollectionPart1Type, "", true, nil); err == nil {
-		u.InputZscalerHecInputCollectionPart1Type = &inputZscalerHecInputCollectionPart1Type
-		u.Type = InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type
+	var inputZscalerHecSendToRoutesFalseWithConnectionsConstraint InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = InputZscalerHecSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputZscalerHecSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputZscalerHecSendToRoutesFalseWithConnectionsConstraint = &inputZscalerHecSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputZscalerHecUnionTypeInputZscalerHecSendToRoutesFalseWithConnectionsConstraint
 		return nil
 	}
 
-	var inputZscalerHecInputCollectionPart0Type1 InputZscalerHecInputCollectionPart0Type1 = InputZscalerHecInputCollectionPart0Type1{}
-	if err := utils.UnmarshalJSON(data, &inputZscalerHecInputCollectionPart0Type1, "", true, nil); err == nil {
-		u.InputZscalerHecInputCollectionPart0Type1 = &inputZscalerHecInputCollectionPart0Type1
-		u.Type = InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart0Type1
+	var inputZscalerHecPqEnabledFalseWithPqConstraint InputZscalerHecPqEnabledFalseWithPqConstraint = InputZscalerHecPqEnabledFalseWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputZscalerHecPqEnabledFalseWithPqConstraint, "", true, nil); err == nil {
+		u.InputZscalerHecPqEnabledFalseWithPqConstraint = &inputZscalerHecPqEnabledFalseWithPqConstraint
+		u.Type = InputZscalerHecUnionTypeInputZscalerHecPqEnabledFalseWithPqConstraint
 		return nil
 	}
 
-	var inputZscalerHecInputCollectionPart1Type1 InputZscalerHecInputCollectionPart1Type1 = InputZscalerHecInputCollectionPart1Type1{}
-	if err := utils.UnmarshalJSON(data, &inputZscalerHecInputCollectionPart1Type1, "", true, nil); err == nil {
-		u.InputZscalerHecInputCollectionPart1Type1 = &inputZscalerHecInputCollectionPart1Type1
-		u.Type = InputZscalerHecUnionTypeInputZscalerHecInputCollectionPart1Type1
+	var inputZscalerHecPqEnabledTrueWithPqConstraint InputZscalerHecPqEnabledTrueWithPqConstraint = InputZscalerHecPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputZscalerHecPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputZscalerHecPqEnabledTrueWithPqConstraint = &inputZscalerHecPqEnabledTrueWithPqConstraint
+		u.Type = InputZscalerHecUnionTypeInputZscalerHecPqEnabledTrueWithPqConstraint
 		return nil
 	}
 
@@ -1415,20 +1415,20 @@ func (u *InputZscalerHec) UnmarshalJSON(data []byte) error {
 }
 
 func (u InputZscalerHec) MarshalJSON() ([]byte, error) {
-	if u.InputZscalerHecInputCollectionPart0Type != nil {
-		return utils.MarshalJSON(u.InputZscalerHecInputCollectionPart0Type, "", true)
+	if u.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputZscalerHecSendToRoutesTrueWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputZscalerHecInputCollectionPart1Type != nil {
-		return utils.MarshalJSON(u.InputZscalerHecInputCollectionPart1Type, "", true)
+	if u.InputZscalerHecSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputZscalerHecSendToRoutesFalseWithConnectionsConstraint, "", true)
 	}
 
-	if u.InputZscalerHecInputCollectionPart0Type1 != nil {
-		return utils.MarshalJSON(u.InputZscalerHecInputCollectionPart0Type1, "", true)
+	if u.InputZscalerHecPqEnabledFalseWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputZscalerHecPqEnabledFalseWithPqConstraint, "", true)
 	}
 
-	if u.InputZscalerHecInputCollectionPart1Type1 != nil {
-		return utils.MarshalJSON(u.InputZscalerHecInputCollectionPart1Type1, "", true)
+	if u.InputZscalerHecPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputZscalerHecPqEnabledTrueWithPqConstraint, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputZscalerHec: all fields are null")

@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### InputCriblInputCollectionPart0Type
+### InputCriblSendToRoutesTrueWithConnectionsConstraint
 
 ```go
-inputCribl := components.CreateInputCriblInputCriblInputCollectionPart0Type(components.InputCriblInputCollectionPart0Type{/* values here */})
+inputCribl := components.CreateInputCriblInputCriblSendToRoutesTrueWithConnectionsConstraint(components.InputCriblSendToRoutesTrueWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblInputCollectionPart1Type
+### InputCriblSendToRoutesFalseWithConnectionsConstraint
 
 ```go
-inputCribl := components.CreateInputCriblInputCriblInputCollectionPart1Type(components.InputCriblInputCollectionPart1Type{/* values here */})
+inputCribl := components.CreateInputCriblInputCriblSendToRoutesFalseWithConnectionsConstraint(components.InputCriblSendToRoutesFalseWithConnectionsConstraint{/* values here */})
 ```
 
-### InputCriblInputCollectionPart0Type1
+### InputCriblPqEnabledFalseWithPqConstraint
 
 ```go
-inputCribl := components.CreateInputCriblInputCriblInputCollectionPart0Type1(components.InputCriblInputCollectionPart0Type1{/* values here */})
+inputCribl := components.CreateInputCriblInputCriblPqEnabledFalseWithPqConstraint(components.InputCriblPqEnabledFalseWithPqConstraint{/* values here */})
 ```
 
-### InputCriblInputCollectionPart1Type1
+### InputCriblPqEnabledTrueWithPqConstraint
 
 ```go
-inputCribl := components.CreateInputCriblInputCriblInputCollectionPart1Type1(components.InputCriblInputCollectionPart1Type1{/* values here */})
+inputCribl := components.CreateInputCriblInputCriblPqEnabledTrueWithPqConstraint(components.InputCriblPqEnabledTrueWithPqConstraint{/* values here */})
 ```
 
