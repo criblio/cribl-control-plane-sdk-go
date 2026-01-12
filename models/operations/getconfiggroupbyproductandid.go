@@ -7,9 +7,9 @@ import (
 )
 
 type GetConfigGroupByProductAndIDRequest struct {
-	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+	// Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// The <code>id</code> of the Worker Group or Edge Fleet to get.
+	// The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
 	Fields *string `queryParam:"style=form,explode=true,name=fields"`

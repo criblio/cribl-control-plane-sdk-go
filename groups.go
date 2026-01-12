@@ -36,8 +36,8 @@ func newGroups(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 	}
 }
 
-// List all Worker Groups or Edge Fleets for the specified Cribl product
-// Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
+// List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+// Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
 func (s *Groups) List(ctx context.Context, product components.ProductsCore, fields *string, opts ...operations.Option) (*operations.ListConfigGroupByProductResponse, error) {
 	request := operations.ListConfigGroupByProductRequest{
 		Product: product,
@@ -284,8 +284,8 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 
 }
 
-// Create a Worker Group or Edge Fleet for the specified Cribl product
-// Create a new Worker Group or Edge Fleet for the specified Cribl product.
+// Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+// Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
 func (s *Groups) Create(ctx context.Context, product components.ProductsCore, groupCreateRequest components.GroupCreateRequest, opts ...operations.Option) (*operations.CreateConfigGroupByProductResponse, error) {
 	request := operations.CreateConfigGroupByProductRequest{
 		Product:            product,
@@ -535,8 +535,8 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 
 }
 
-// Get a Worker Group or Edge Fleet
-// Get the specified Worker Group or Edge Fleet.
+// Get a Worker Group, Outpost Group, or Edge Fleet
+// Get the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id string, fields *string, opts ...operations.Option) (*operations.GetConfigGroupByProductAndIDResponse, error) {
 	request := operations.GetConfigGroupByProductAndIDRequest{
 		Product: product,
@@ -784,8 +784,8 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 
 }
 
-// Update a Worker Group or Edge Fleet
-// Update the specified Worker Group or Edge Fleet.
+// Update a Worker Group, Outpost Group, or Edge Fleet
+// Update the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id string, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.UpdateConfigGroupByProductAndIDResponse, error) {
 	request := operations.UpdateConfigGroupByProductAndIDRequest{
 		Product:     product,
@@ -1036,8 +1036,8 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 
 }
 
-// Delete a Worker Group or Edge Fleet
-// Delete the specified Worker Group or Edge Fleet.
+// Delete a Worker Group, Outpost Group, or Edge Fleet
+// Delete the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.DeleteConfigGroupByProductAndIDResponse, error) {
 	request := operations.DeleteConfigGroupByProductAndIDRequest{
 		Product: product,
