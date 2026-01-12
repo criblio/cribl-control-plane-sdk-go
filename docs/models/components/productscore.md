@@ -3,7 +3,8 @@
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `ProductsCoreStream` | stream               |
-| `ProductsCoreEdge`   | edge                 |
+| Name                  | Value                 |
+| --------------------- | --------------------- |
+| `ProductsCoreStream`  | stream                |
+| `ProductsCoreEdge`    | edge                  |
+| `ProductsCoreOutpost` | outpost               |

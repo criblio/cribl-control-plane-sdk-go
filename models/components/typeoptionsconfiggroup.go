@@ -6,6 +6,7 @@ type TypeOptionsConfigGroup string
 
 const (
 	TypeOptionsConfigGroupEdge        TypeOptionsConfigGroup = "edge"
+	TypeOptionsConfigGroupOutpost     TypeOptionsConfigGroup = "outpost"
 	TypeOptionsConfigGroupStream      TypeOptionsConfigGroup = "stream"
 	TypeOptionsConfigGroupSearch      TypeOptionsConfigGroup = "search"
 	TypeOptionsConfigGroupLakeAccess  TypeOptionsConfigGroup = "lake_access"
@@ -20,7 +21,7 @@ func (e TypeOptionsConfigGroup) ToPointer() *TypeOptionsConfigGroup {
 func (e *TypeOptionsConfigGroup) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "edge", "stream", "search", "lake_access", "local_search":
+		case "edge", "outpost", "stream", "search", "lake_access", "local_search":
 			return true
 		}
 	}

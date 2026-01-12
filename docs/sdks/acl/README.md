@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [Get](#get) - Get the Access Control List for a Worker Group or Edge Fleet
+* [Get](#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
 
 ## Get
 
-Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
+Get the Access Control List (ACL) for the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -46,13 +46,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `ctx`                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                 | :heavy_check_mark:                                                                    | The context to use for the request.                                                   |
-| `product`                                                                             | [components.ProductsCore](../../models/components/productscore.md)                    | :heavy_check_mark:                                                                    | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                |
-| `id`                                                                                  | *string*                                                                              | :heavy_check_mark:                                                                    | The <code>id</code> of the Worker Group or Edge Fleet to get the ACL for.             |
-| `type_`                                                                               | [*components.RbacResource](../../models/components/rbacresource.md)                   | :heavy_minus_sign:                                                                    | Filter for limiting the response to ACL entries for the specified RBAC resource type. |
-| `opts`                                                                                | [][operations.Option](../../models/operations/option.md)                              | :heavy_minus_sign:                                                                    | The options for this request.                                                         |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `ctx`                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                     | :heavy_check_mark:                                                                        | The context to use for the request.                                                       |
+| `product`                                                                                 | [components.ProductsCore](../../models/components/productscore.md)                        | :heavy_check_mark:                                                                        | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                    |
+| `id`                                                                                      | *string*                                                                                  | :heavy_check_mark:                                                                        | The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the ACL for. |
+| `type_`                                                                                   | [*components.RbacResource](../../models/components/rbacresource.md)                       | :heavy_minus_sign:                                                                        | Filter for limiting the response to ACL entries for the specified RBAC resource type.     |
+| `opts`                                                                                    | [][operations.Option](../../models/operations/option.md)                                  | :heavy_minus_sign:                                                                        | The options for this request.                                                             |
 
 ### Response
 
