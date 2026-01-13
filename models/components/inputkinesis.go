@@ -4,9 +4,979 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputKinesisPqEnabledTrueWithPqConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputKinesisType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Kinesis Data Stream to read data from
+	StreamName string `json:"streamName"`
+	// Time interval in minutes between consecutive service calls
+	ServiceInterval *float64 `default:"1" json:"serviceInterval"`
+	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+	ShardExpr *string `default:"true" json:"shardExpr"`
+	// Location at which to start reading a shard for the first time
+	ShardIteratorType *ShardIteratorStart `default:"TRIM_HORIZON" json:"shardIteratorType"`
+	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+	PayloadFormat *RecordDataFormat `default:"cribl" json:"payloadFormat"`
+	// Maximum number of records per getRecords call
+	GetRecordsLimit *float64 `default:"5000" json:"getRecordsLimit"`
+	// Maximum number of records, across all shards, to pull down at once per Worker Process
+	GetRecordsLimitTotal *float64 `default:"20000" json:"getRecordsLimitTotal"`
+	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	// Region where the Kinesis stream is located
+	Region string `json:"region"`
+	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing Kinesis stream requests
+	SignatureVersion *SignatureVersionOptions2 `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access Kinesis stream
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Verify Kinesis Producer Library (KPL) event checksums
+	VerifyKPLCheckSums *bool `default:"false" json:"verifyKPLCheckSums"`
+	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+	AvoidDuplicates *bool `default:"false" json:"avoidDuplicates"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	AwsAPIKey   *string                         `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (i InputKinesisPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetType() InputKinesisType {
+	if i == nil {
+		return InputKinesisType("")
+	}
+	return i.Type
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetStreamName() string {
+	if i == nil {
+		return ""
+	}
+	return i.StreamName
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetServiceInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ServiceInterval
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetShardExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ShardExpr
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetShardIteratorType() *ShardIteratorStart {
+	if i == nil {
+		return nil
+	}
+	return i.ShardIteratorType
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPayloadFormat() *RecordDataFormat {
+	if i == nil {
+		return nil
+	}
+	return i.PayloadFormat
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetGetRecordsLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.GetRecordsLimit
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetGetRecordsLimitTotal() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.GetRecordsLimitTotal
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+	if i == nil {
+		return nil
+	}
+	return i.LoadBalancingAlgorithm
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetVerifyKPLCheckSums() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.VerifyKPLCheckSums
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAvoidDuplicates() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AvoidDuplicates
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+type InputKinesisPqEnabledFalseConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputKinesisType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Kinesis Data Stream to read data from
+	StreamName string `json:"streamName"`
+	// Time interval in minutes between consecutive service calls
+	ServiceInterval *float64 `default:"1" json:"serviceInterval"`
+	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+	ShardExpr *string `default:"true" json:"shardExpr"`
+	// Location at which to start reading a shard for the first time
+	ShardIteratorType *ShardIteratorStart `default:"TRIM_HORIZON" json:"shardIteratorType"`
+	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+	PayloadFormat *RecordDataFormat `default:"cribl" json:"payloadFormat"`
+	// Maximum number of records per getRecords call
+	GetRecordsLimit *float64 `default:"5000" json:"getRecordsLimit"`
+	// Maximum number of records, across all shards, to pull down at once per Worker Process
+	GetRecordsLimitTotal *float64 `default:"20000" json:"getRecordsLimitTotal"`
+	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	// Region where the Kinesis stream is located
+	Region string `json:"region"`
+	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing Kinesis stream requests
+	SignatureVersion *SignatureVersionOptions2 `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access Kinesis stream
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Verify Kinesis Producer Library (KPL) event checksums
+	VerifyKPLCheckSums *bool `default:"false" json:"verifyKPLCheckSums"`
+	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+	AvoidDuplicates *bool `default:"false" json:"avoidDuplicates"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	AwsAPIKey   *string                         `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (i InputKinesisPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetType() InputKinesisType {
+	if i == nil {
+		return InputKinesisType("")
+	}
+	return i.Type
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetStreamName() string {
+	if i == nil {
+		return ""
+	}
+	return i.StreamName
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetServiceInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ServiceInterval
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetShardExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ShardExpr
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetShardIteratorType() *ShardIteratorStart {
+	if i == nil {
+		return nil
+	}
+	return i.ShardIteratorType
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetPayloadFormat() *RecordDataFormat {
+	if i == nil {
+		return nil
+	}
+	return i.PayloadFormat
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetGetRecordsLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.GetRecordsLimit
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetGetRecordsLimitTotal() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.GetRecordsLimitTotal
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+	if i == nil {
+		return nil
+	}
+	return i.LoadBalancingAlgorithm
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetVerifyKPLCheckSums() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.VerifyKPLCheckSums
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetAvoidDuplicates() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AvoidDuplicates
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
+
+type InputKinesisSendToRoutesFalseWithConnectionsConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputKinesisType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Kinesis Data Stream to read data from
+	StreamName string `json:"streamName"`
+	// Time interval in minutes between consecutive service calls
+	ServiceInterval *float64 `default:"1" json:"serviceInterval"`
+	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+	ShardExpr *string `default:"true" json:"shardExpr"`
+	// Location at which to start reading a shard for the first time
+	ShardIteratorType *ShardIteratorStart `default:"TRIM_HORIZON" json:"shardIteratorType"`
+	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+	PayloadFormat *RecordDataFormat `default:"cribl" json:"payloadFormat"`
+	// Maximum number of records per getRecords call
+	GetRecordsLimit *float64 `default:"5000" json:"getRecordsLimit"`
+	// Maximum number of records, across all shards, to pull down at once per Worker Process
+	GetRecordsLimitTotal *float64 `default:"20000" json:"getRecordsLimitTotal"`
+	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	// Region where the Kinesis stream is located
+	Region string `json:"region"`
+	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// Signature version to use for signing Kinesis stream requests
+	SignatureVersion *SignatureVersionOptions2 `default:"v4" json:"signatureVersion"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	// Use Assume Role credentials to access Kinesis stream
+	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	// Verify Kinesis Producer Library (KPL) event checksums
+	VerifyKPLCheckSums *bool `default:"false" json:"verifyKPLCheckSums"`
+	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+	AvoidDuplicates *bool `default:"false" json:"avoidDuplicates"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+	AwsAPIKey   *string                         `json:"awsApiKey,omitempty"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitempty"`
+}
+
+func (i InputKinesisSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetType() InputKinesisType {
+	if i == nil {
+		return InputKinesisType("")
+	}
+	return i.Type
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetStreamName() string {
+	if i == nil {
+		return ""
+	}
+	return i.StreamName
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetServiceInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ServiceInterval
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetShardExpr() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ShardExpr
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetShardIteratorType() *ShardIteratorStart {
+	if i == nil {
+		return nil
+	}
+	return i.ShardIteratorType
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetPayloadFormat() *RecordDataFormat {
+	if i == nil {
+		return nil
+	}
+	return i.PayloadFormat
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetGetRecordsLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.GetRecordsLimit
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetGetRecordsLimitTotal() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.GetRecordsLimitTotal
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+	if i == nil {
+		return nil
+	}
+	return i.LoadBalancingAlgorithm
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAuthenticationMethod
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecretKey
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetRegion() string {
+	if i == nil {
+		return ""
+	}
+	return i.Region
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Endpoint
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
+	if i == nil {
+		return nil
+	}
+	return i.SignatureVersion
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ReuseConnections
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableAssumeRole
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleArn
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AssumeRoleExternalID
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.DurationSeconds
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetVerifyKPLCheckSums() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.VerifyKPLCheckSums
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAvoidDuplicates() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AvoidDuplicates
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsAPIKey
+}
+
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AwsSecret
+}
 
 type InputKinesisType string
 
@@ -110,15 +1080,15 @@ func (e *ShardLoadBalancing) IsExact() bool {
 	return false
 }
 
-type InputKinesis struct {
+type InputKinesisSendToRoutesTrueConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
 	Disabled *bool            `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -126,8 +1096,8 @@ type InputKinesis struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -177,258 +1147,365 @@ type InputKinesis struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 }
 
-func (i InputKinesis) MarshalJSON() ([]byte, error) {
+func (i InputKinesisSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKinesis) UnmarshalJSON(data []byte) error {
+func (i *InputKinesisSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesis) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKinesis) GetType() InputKinesisType {
-	if i == nil {
-		return InputKinesisType("")
-	}
-	return i.Type
-}
-
-func (i *InputKinesis) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKinesis) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKinesis) GetSendToRoutes() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKinesis) GetEnvironment() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKinesisSendToRoutesTrueConstraint) GetType() InputKinesisType {
+	if i == nil {
+		return InputKinesisType("")
+	}
+	return i.Type
+}
+
+func (i *InputKinesisSendToRoutesTrueConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKinesisSendToRoutesTrueConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKinesisSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKinesis) GetPqEnabled() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKinesis) GetStreamtags() []string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKinesis) GetConnections() []ItemsTypeConnections {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKinesis) GetPq() *PqType {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKinesis) GetStreamName() string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetStreamName() string {
 	if i == nil {
 		return ""
 	}
 	return i.StreamName
 }
 
-func (i *InputKinesis) GetServiceInterval() *float64 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetServiceInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ServiceInterval
 }
 
-func (i *InputKinesis) GetShardExpr() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetShardExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ShardExpr
 }
 
-func (i *InputKinesis) GetShardIteratorType() *ShardIteratorStart {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetShardIteratorType() *ShardIteratorStart {
 	if i == nil {
 		return nil
 	}
 	return i.ShardIteratorType
 }
 
-func (i *InputKinesis) GetPayloadFormat() *RecordDataFormat {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetPayloadFormat() *RecordDataFormat {
 	if i == nil {
 		return nil
 	}
 	return i.PayloadFormat
 }
 
-func (i *InputKinesis) GetGetRecordsLimit() *float64 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetGetRecordsLimit() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimit
 }
 
-func (i *InputKinesis) GetGetRecordsLimitTotal() *float64 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetGetRecordsLimitTotal() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.GetRecordsLimitTotal
 }
 
-func (i *InputKinesis) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetLoadBalancingAlgorithm() *ShardLoadBalancing {
 	if i == nil {
 		return nil
 	}
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesis) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputKinesis) GetAwsSecretKey() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputKinesis) GetRegion() string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetRegion() string {
 	if i == nil {
 		return ""
 	}
 	return i.Region
 }
 
-func (i *InputKinesis) GetEndpoint() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputKinesis) GetSignatureVersion() *SignatureVersionOptions2 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetSignatureVersion() *SignatureVersionOptions2 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputKinesis) GetReuseConnections() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputKinesis) GetRejectUnauthorized() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputKinesis) GetEnableAssumeRole() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputKinesis) GetAssumeRoleArn() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputKinesis) GetAssumeRoleExternalID() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputKinesis) GetDurationSeconds() *float64 {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputKinesis) GetVerifyKPLCheckSums() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetVerifyKPLCheckSums() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.VerifyKPLCheckSums
 }
 
-func (i *InputKinesis) GetAvoidDuplicates() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAvoidDuplicates() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesis) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKinesis) GetDescription() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputKinesis) GetAwsAPIKey() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputKinesis) GetAwsSecret() *string {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
+}
+
+type InputKinesisUnionType string
+
+const (
+	InputKinesisUnionTypeInputKinesisSendToRoutesTrueConstraint                 InputKinesisUnionType = "InputKinesis_SendToRoutesTrueConstraint"
+	InputKinesisUnionTypeInputKinesisSendToRoutesFalseWithConnectionsConstraint InputKinesisUnionType = "InputKinesis_SendToRoutesFalseWithConnectionsConstraint"
+	InputKinesisUnionTypeInputKinesisPqEnabledFalseConstraint                   InputKinesisUnionType = "InputKinesis_PqEnabledFalseConstraint"
+	InputKinesisUnionTypeInputKinesisPqEnabledTrueWithPqConstraint              InputKinesisUnionType = "InputKinesis_PqEnabledTrueWithPqConstraint"
+)
+
+type InputKinesis struct {
+	InputKinesisSendToRoutesTrueConstraint                 *InputKinesisSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
+	InputKinesisSendToRoutesFalseWithConnectionsConstraint *InputKinesisSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputKinesisPqEnabledFalseConstraint                   *InputKinesisPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
+	InputKinesisPqEnabledTrueWithPqConstraint              *InputKinesisPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
+
+	Type InputKinesisUnionType
+}
+
+func CreateInputKinesisInputKinesisSendToRoutesTrueConstraint(inputKinesisSendToRoutesTrueConstraint InputKinesisSendToRoutesTrueConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisSendToRoutesTrueConstraint
+
+	return InputKinesis{
+		InputKinesisSendToRoutesTrueConstraint: &inputKinesisSendToRoutesTrueConstraint,
+		Type:                                   typ,
+	}
+}
+
+func CreateInputKinesisInputKinesisSendToRoutesFalseWithConnectionsConstraint(inputKinesisSendToRoutesFalseWithConnectionsConstraint InputKinesisSendToRoutesFalseWithConnectionsConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisSendToRoutesFalseWithConnectionsConstraint
+
+	return InputKinesis{
+		InputKinesisSendToRoutesFalseWithConnectionsConstraint: &inputKinesisSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputKinesisInputKinesisPqEnabledFalseConstraint(inputKinesisPqEnabledFalseConstraint InputKinesisPqEnabledFalseConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisPqEnabledFalseConstraint
+
+	return InputKinesis{
+		InputKinesisPqEnabledFalseConstraint: &inputKinesisPqEnabledFalseConstraint,
+		Type:                                 typ,
+	}
+}
+
+func CreateInputKinesisInputKinesisPqEnabledTrueWithPqConstraint(inputKinesisPqEnabledTrueWithPqConstraint InputKinesisPqEnabledTrueWithPqConstraint) InputKinesis {
+	typ := InputKinesisUnionTypeInputKinesisPqEnabledTrueWithPqConstraint
+
+	return InputKinesis{
+		InputKinesisPqEnabledTrueWithPqConstraint: &inputKinesisPqEnabledTrueWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func (u *InputKinesis) UnmarshalJSON(data []byte) error {
+
+	var inputKinesisSendToRoutesTrueConstraint InputKinesisSendToRoutesTrueConstraint = InputKinesisSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputKinesisSendToRoutesTrueConstraint = &inputKinesisSendToRoutesTrueConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisSendToRoutesTrueConstraint
+		return nil
+	}
+
+	var inputKinesisSendToRoutesFalseWithConnectionsConstraint InputKinesisSendToRoutesFalseWithConnectionsConstraint = InputKinesisSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKinesisSendToRoutesFalseWithConnectionsConstraint = &inputKinesisSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisSendToRoutesFalseWithConnectionsConstraint
+		return nil
+	}
+
+	var inputKinesisPqEnabledFalseConstraint InputKinesisPqEnabledFalseConstraint = InputKinesisPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputKinesisPqEnabledFalseConstraint = &inputKinesisPqEnabledFalseConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisPqEnabledFalseConstraint
+		return nil
+	}
+
+	var inputKinesisPqEnabledTrueWithPqConstraint InputKinesisPqEnabledTrueWithPqConstraint = InputKinesisPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKinesisPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputKinesisPqEnabledTrueWithPqConstraint = &inputKinesisPqEnabledTrueWithPqConstraint
+		u.Type = InputKinesisUnionTypeInputKinesisPqEnabledTrueWithPqConstraint
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputKinesis", string(data))
+}
+
+func (u InputKinesis) MarshalJSON() ([]byte, error) {
+	if u.InputKinesisSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisSendToRoutesTrueConstraint, "", true)
+	}
+
+	if u.InputKinesisSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisSendToRoutesFalseWithConnectionsConstraint, "", true)
+	}
+
+	if u.InputKinesisPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisPqEnabledFalseConstraint, "", true)
+	}
+
+	if u.InputKinesisPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKinesisPqEnabledTrueWithPqConstraint, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputKinesis: all fields are null")
 }

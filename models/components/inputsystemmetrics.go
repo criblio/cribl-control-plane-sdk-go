@@ -4,9 +4,487 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputSystemMetricsPqEnabledTrueWithPqConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSystemMetricsType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval  *float64                `default:"10" json:"interval"`
+	Host      *InputSystemMetricsHost `json:"host,omitempty"`
+	Process   *ProcessType            `json:"process,omitempty"`
+	Container *Container              `json:"container,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputSystemMetricsPersistence  `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputSystemMetricsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetType() InputSystemMetricsType {
+	if i == nil {
+		return InputSystemMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetHost() *InputSystemMetricsHost {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetContainer() *Container {
+	if i == nil {
+		return nil
+	}
+	return i.Container
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetPersistence() *InputSystemMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemMetricsPqEnabledFalseConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSystemMetricsType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval  *float64                `default:"10" json:"interval"`
+	Host      *InputSystemMetricsHost `json:"host,omitempty"`
+	Process   *ProcessType            `json:"process,omitempty"`
+	Container *Container              `json:"container,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputSystemMetricsPersistence  `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputSystemMetricsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetType() InputSystemMetricsType {
+	if i == nil {
+		return InputSystemMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetHost() *InputSystemMetricsHost {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetContainer() *Container {
+	if i == nil {
+		return nil
+	}
+	return i.Container
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetPersistence() *InputSystemMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputSystemMetricsType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval  *float64                `default:"10" json:"interval"`
+	Host      *InputSystemMetricsHost `json:"host,omitempty"`
+	Process   *ProcessType            `json:"process,omitempty"`
+	Container *Container              `json:"container,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputSystemMetricsPersistence  `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetType() InputSystemMetricsType {
+	if i == nil {
+		return InputSystemMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetHost() *InputSystemMetricsHost {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetContainer() *Container {
+	if i == nil {
+		return nil
+	}
+	return i.Container
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *InputSystemMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputSystemMetricsType string
 
@@ -706,15 +1184,15 @@ func (i *InputSystemMetricsPersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputSystemMetrics struct {
+type InputSystemMetricsSendToRoutesTrueConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputSystemMetricsType `json:"type"`
 	Disabled *bool                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -722,8 +1200,8 @@ type InputSystemMetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
 	Interval  *float64                `default:"10" json:"interval"`
 	Host      *InputSystemMetricsHost `json:"host,omitempty"`
@@ -735,132 +1213,239 @@ type InputSystemMetrics struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
+func (i InputSystemMetricsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemMetrics) UnmarshalJSON(data []byte) error {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetrics) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSystemMetrics) GetType() InputSystemMetricsType {
-	if i == nil {
-		return InputSystemMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputSystemMetrics) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSystemMetrics) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemMetrics) GetSendToRoutes() *bool {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputSystemMetrics) GetEnvironment() *string {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetType() InputSystemMetricsType {
+	if i == nil {
+		return InputSystemMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSystemMetrics) GetPqEnabled() *bool {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSystemMetrics) GetStreamtags() []string {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSystemMetrics) GetConnections() []ItemsTypeConnections {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSystemMetrics) GetPq() *PqType {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSystemMetrics) GetInterval() *float64 {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputSystemMetrics) GetHost() *InputSystemMetricsHost {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetHost() *InputSystemMetricsHost {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputSystemMetrics) GetProcess() *ProcessType {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputSystemMetrics) GetContainer() *Container {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetContainer() *Container {
 	if i == nil {
 		return nil
 	}
 	return i.Container
 }
 
-func (i *InputSystemMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSystemMetrics) GetPersistence() *InputSystemMetricsPersistence {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetPersistence() *InputSystemMetricsPersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputSystemMetrics) GetDescription() *string {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputSystemMetricsUnionType string
+
+const (
+	InputSystemMetricsUnionTypeInputSystemMetricsSendToRoutesTrueConstraint                 InputSystemMetricsUnionType = "InputSystemMetrics_SendToRoutesTrueConstraint"
+	InputSystemMetricsUnionTypeInputSystemMetricsSendToRoutesFalseWithConnectionsConstraint InputSystemMetricsUnionType = "InputSystemMetrics_SendToRoutesFalseWithConnectionsConstraint"
+	InputSystemMetricsUnionTypeInputSystemMetricsPqEnabledFalseConstraint                   InputSystemMetricsUnionType = "InputSystemMetrics_PqEnabledFalseConstraint"
+	InputSystemMetricsUnionTypeInputSystemMetricsPqEnabledTrueWithPqConstraint              InputSystemMetricsUnionType = "InputSystemMetrics_PqEnabledTrueWithPqConstraint"
+)
+
+type InputSystemMetrics struct {
+	InputSystemMetricsSendToRoutesTrueConstraint                 *InputSystemMetricsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
+	InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputSystemMetricsPqEnabledFalseConstraint                   *InputSystemMetricsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
+	InputSystemMetricsPqEnabledTrueWithPqConstraint              *InputSystemMetricsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
+
+	Type InputSystemMetricsUnionType
+}
+
+func CreateInputSystemMetricsInputSystemMetricsSendToRoutesTrueConstraint(inputSystemMetricsSendToRoutesTrueConstraint InputSystemMetricsSendToRoutesTrueConstraint) InputSystemMetrics {
+	typ := InputSystemMetricsUnionTypeInputSystemMetricsSendToRoutesTrueConstraint
+
+	return InputSystemMetrics{
+		InputSystemMetricsSendToRoutesTrueConstraint: &inputSystemMetricsSendToRoutesTrueConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputSystemMetricsInputSystemMetricsSendToRoutesFalseWithConnectionsConstraint(inputSystemMetricsSendToRoutesFalseWithConnectionsConstraint InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) InputSystemMetrics {
+	typ := InputSystemMetricsUnionTypeInputSystemMetricsSendToRoutesFalseWithConnectionsConstraint
+
+	return InputSystemMetrics{
+		InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint: &inputSystemMetricsSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputSystemMetricsInputSystemMetricsPqEnabledFalseConstraint(inputSystemMetricsPqEnabledFalseConstraint InputSystemMetricsPqEnabledFalseConstraint) InputSystemMetrics {
+	typ := InputSystemMetricsUnionTypeInputSystemMetricsPqEnabledFalseConstraint
+
+	return InputSystemMetrics{
+		InputSystemMetricsPqEnabledFalseConstraint: &inputSystemMetricsPqEnabledFalseConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputSystemMetricsInputSystemMetricsPqEnabledTrueWithPqConstraint(inputSystemMetricsPqEnabledTrueWithPqConstraint InputSystemMetricsPqEnabledTrueWithPqConstraint) InputSystemMetrics {
+	typ := InputSystemMetricsUnionTypeInputSystemMetricsPqEnabledTrueWithPqConstraint
+
+	return InputSystemMetrics{
+		InputSystemMetricsPqEnabledTrueWithPqConstraint: &inputSystemMetricsPqEnabledTrueWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func (u *InputSystemMetrics) UnmarshalJSON(data []byte) error {
+
+	var inputSystemMetricsSendToRoutesTrueConstraint InputSystemMetricsSendToRoutesTrueConstraint = InputSystemMetricsSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSystemMetricsSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputSystemMetricsSendToRoutesTrueConstraint = &inputSystemMetricsSendToRoutesTrueConstraint
+		u.Type = InputSystemMetricsUnionTypeInputSystemMetricsSendToRoutesTrueConstraint
+		return nil
+	}
+
+	var inputSystemMetricsSendToRoutesFalseWithConnectionsConstraint InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint = InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSystemMetricsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint = &inputSystemMetricsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputSystemMetricsUnionTypeInputSystemMetricsSendToRoutesFalseWithConnectionsConstraint
+		return nil
+	}
+
+	var inputSystemMetricsPqEnabledFalseConstraint InputSystemMetricsPqEnabledFalseConstraint = InputSystemMetricsPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSystemMetricsPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputSystemMetricsPqEnabledFalseConstraint = &inputSystemMetricsPqEnabledFalseConstraint
+		u.Type = InputSystemMetricsUnionTypeInputSystemMetricsPqEnabledFalseConstraint
+		return nil
+	}
+
+	var inputSystemMetricsPqEnabledTrueWithPqConstraint InputSystemMetricsPqEnabledTrueWithPqConstraint = InputSystemMetricsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputSystemMetricsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputSystemMetricsPqEnabledTrueWithPqConstraint = &inputSystemMetricsPqEnabledTrueWithPqConstraint
+		u.Type = InputSystemMetricsUnionTypeInputSystemMetricsPqEnabledTrueWithPqConstraint
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSystemMetrics", string(data))
+}
+
+func (u InputSystemMetrics) MarshalJSON() ([]byte, error) {
+	if u.InputSystemMetricsSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputSystemMetricsSendToRoutesTrueConstraint, "", true)
+	}
+
+	if u.InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint, "", true)
+	}
+
+	if u.InputSystemMetricsPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputSystemMetricsPqEnabledFalseConstraint, "", true)
+	}
+
+	if u.InputSystemMetricsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputSystemMetricsPqEnabledTrueWithPqConstraint, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSystemMetrics: all fields are null")
 }

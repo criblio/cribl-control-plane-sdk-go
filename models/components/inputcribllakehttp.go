@@ -4,9 +4,895 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputCriblLakeHTTPPqEnabledTrueWithPqConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCriblLakeHTTPType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+	CriblAPI *string `default:"/cribl" json:"criblAPI"`
+	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+	ElasticAPI *string `default:"/elastic" json:"elasticAPI"`
+	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+	SplunkHecAPI  *string `default:"/services/collector" json:"splunkHecAPI"`
+	SplunkHecAcks *bool   `default:"false" json:"splunkHecAcks"`
+	// Fields to add to events from this input
+	Metadata      []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	AuthTokensExt []AuthTokensExt                 `json:"authTokensExt,omitempty"`
+	Description   *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetType() InputCriblLakeHTTPType {
+	if i == nil {
+		return InputCriblLakeHTTPType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetCriblAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CriblAPI
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetElasticAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ElasticAPI
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetSplunkHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAPI
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetSplunkHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAcks
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetAuthTokensExt() []AuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblLakeHTTPPqEnabledFalseConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCriblLakeHTTPType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+	CriblAPI *string `default:"/cribl" json:"criblAPI"`
+	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+	ElasticAPI *string `default:"/elastic" json:"elasticAPI"`
+	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+	SplunkHecAPI  *string `default:"/services/collector" json:"splunkHecAPI"`
+	SplunkHecAcks *bool   `default:"false" json:"splunkHecAcks"`
+	// Fields to add to events from this input
+	Metadata      []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	AuthTokensExt []AuthTokensExt                 `json:"authTokensExt,omitempty"`
+	Description   *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblLakeHTTPPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetType() InputCriblLakeHTTPType {
+	if i == nil {
+		return InputCriblLakeHTTPType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetCriblAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CriblAPI
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetElasticAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ElasticAPI
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetSplunkHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAPI
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetSplunkHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAcks
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetAuthTokensExt() []AuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputCriblLakeHTTPPqEnabledFalseConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string                `json:"id,omitempty"`
+	Type     InputCriblLakeHTTPType `json:"type"`
+	Disabled *bool                  `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+	CriblAPI *string `default:"/cribl" json:"criblAPI"`
+	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+	ElasticAPI *string `default:"/elastic" json:"elasticAPI"`
+	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+	SplunkHecAPI  *string `default:"/services/collector" json:"splunkHecAPI"`
+	SplunkHecAcks *bool   `default:"false" json:"splunkHecAcks"`
+	// Fields to add to events from this input
+	Metadata      []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	AuthTokensExt []AuthTokensExt                 `json:"authTokensExt,omitempty"`
+	Description   *string                         `json:"description,omitempty"`
+}
+
+func (i InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetType() InputCriblLakeHTTPType {
+	if i == nil {
+		return InputCriblLakeHTTPType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetCriblAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CriblAPI
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetElasticAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ElasticAPI
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetSplunkHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAPI
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetSplunkHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SplunkHecAcks
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetAuthTokensExt() []AuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputCriblLakeHTTPType string
 
@@ -154,15 +1040,15 @@ func (a *AuthTokensExt) GetElasticsearchMetadata() *ElasticsearchMetadata {
 	return a.ElasticsearchMetadata
 }
 
-type InputCriblLakeHTTP struct {
+type InputCriblLakeHTTPSendToRoutesTrueConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputCriblLakeHTTPType `json:"type"`
 	Disabled *bool                  `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -170,8 +1056,8 @@ type InputCriblLakeHTTP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -214,237 +1100,344 @@ type InputCriblLakeHTTP struct {
 	Description   *string                         `json:"description,omitempty"`
 }
 
-func (i InputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
+func (i InputCriblLakeHTTPSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputCriblLakeHTTP) UnmarshalJSON(data []byte) error {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblLakeHTTP) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputCriblLakeHTTP) GetType() InputCriblLakeHTTPType {
-	if i == nil {
-		return InputCriblLakeHTTPType("")
-	}
-	return i.Type
-}
-
-func (i *InputCriblLakeHTTP) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputCriblLakeHTTP) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputCriblLakeHTTP) GetSendToRoutes() *bool {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputCriblLakeHTTP) GetEnvironment() *string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetType() InputCriblLakeHTTPType {
+	if i == nil {
+		return InputCriblLakeHTTPType("")
+	}
+	return i.Type
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputCriblLakeHTTP) GetPqEnabled() *bool {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputCriblLakeHTTP) GetStreamtags() []string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputCriblLakeHTTP) GetConnections() []ItemsTypeConnections {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputCriblLakeHTTP) GetPq() *PqType {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputCriblLakeHTTP) GetHost() *string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputCriblLakeHTTP) GetPort() float64 {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputCriblLakeHTTP) GetAuthTokens() []string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputCriblLakeHTTP) GetTLS() *TLSSettingsServerSideType {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputCriblLakeHTTP) GetMaxActiveReq() *float64 {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputCriblLakeHTTP) GetMaxRequestsPerSocket() *int64 {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputCriblLakeHTTP) GetEnableProxyHeader() *bool {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputCriblLakeHTTP) GetCaptureHeaders() *bool {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputCriblLakeHTTP) GetActivityLogSampleRate() *float64 {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputCriblLakeHTTP) GetRequestTimeout() *float64 {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputCriblLakeHTTP) GetSocketTimeout() *float64 {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputCriblLakeHTTP) GetKeepAliveTimeout() *float64 {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputCriblLakeHTTP) GetEnableHealthCheck() *bool {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputCriblLakeHTTP) GetIPAllowlistRegex() *string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputCriblLakeHTTP) GetIPDenylistRegex() *string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputCriblLakeHTTP) GetCriblAPI() *string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetCriblAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CriblAPI
 }
 
-func (i *InputCriblLakeHTTP) GetElasticAPI() *string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetElasticAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ElasticAPI
 }
 
-func (i *InputCriblLakeHTTP) GetSplunkHecAPI() *string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetSplunkHecAPI() *string {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAPI
 }
 
-func (i *InputCriblLakeHTTP) GetSplunkHecAcks() *bool {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetSplunkHecAcks() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SplunkHecAcks
 }
 
-func (i *InputCriblLakeHTTP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputCriblLakeHTTP) GetAuthTokensExt() []AuthTokensExt {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetAuthTokensExt() []AuthTokensExt {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokensExt
 }
 
-func (i *InputCriblLakeHTTP) GetDescription() *string {
+func (i *InputCriblLakeHTTPSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputCriblLakeHTTPUnionType string
+
+const (
+	InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPSendToRoutesTrueConstraint                 InputCriblLakeHTTPUnionType = "InputCriblLakeHttp_SendToRoutesTrueConstraint"
+	InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint InputCriblLakeHTTPUnionType = "InputCriblLakeHttp_SendToRoutesFalseWithConnectionsConstraint"
+	InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPPqEnabledFalseConstraint                   InputCriblLakeHTTPUnionType = "InputCriblLakeHttp_PqEnabledFalseConstraint"
+	InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPPqEnabledTrueWithPqConstraint              InputCriblLakeHTTPUnionType = "InputCriblLakeHttp_PqEnabledTrueWithPqConstraint"
+)
+
+type InputCriblLakeHTTP struct {
+	InputCriblLakeHTTPSendToRoutesTrueConstraint                 *InputCriblLakeHTTPSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
+	InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint *InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputCriblLakeHTTPPqEnabledFalseConstraint                   *InputCriblLakeHTTPPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
+	InputCriblLakeHTTPPqEnabledTrueWithPqConstraint              *InputCriblLakeHTTPPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
+
+	Type InputCriblLakeHTTPUnionType
+}
+
+func CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesTrueConstraint(inputCriblLakeHTTPSendToRoutesTrueConstraint InputCriblLakeHTTPSendToRoutesTrueConstraint) InputCriblLakeHTTP {
+	typ := InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPSendToRoutesTrueConstraint
+
+	return InputCriblLakeHTTP{
+		InputCriblLakeHTTPSendToRoutesTrueConstraint: &inputCriblLakeHTTPSendToRoutesTrueConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputCriblLakeHTTPInputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint(inputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint) InputCriblLakeHTTP {
+	typ := InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint
+
+	return InputCriblLakeHTTP{
+		InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint: &inputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputCriblLakeHTTPInputCriblLakeHTTPPqEnabledFalseConstraint(inputCriblLakeHTTPPqEnabledFalseConstraint InputCriblLakeHTTPPqEnabledFalseConstraint) InputCriblLakeHTTP {
+	typ := InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPPqEnabledFalseConstraint
+
+	return InputCriblLakeHTTP{
+		InputCriblLakeHTTPPqEnabledFalseConstraint: &inputCriblLakeHTTPPqEnabledFalseConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputCriblLakeHTTPInputCriblLakeHTTPPqEnabledTrueWithPqConstraint(inputCriblLakeHTTPPqEnabledTrueWithPqConstraint InputCriblLakeHTTPPqEnabledTrueWithPqConstraint) InputCriblLakeHTTP {
+	typ := InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPPqEnabledTrueWithPqConstraint
+
+	return InputCriblLakeHTTP{
+		InputCriblLakeHTTPPqEnabledTrueWithPqConstraint: &inputCriblLakeHTTPPqEnabledTrueWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func (u *InputCriblLakeHTTP) UnmarshalJSON(data []byte) error {
+
+	var inputCriblLakeHTTPSendToRoutesTrueConstraint InputCriblLakeHTTPSendToRoutesTrueConstraint = InputCriblLakeHTTPSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblLakeHTTPSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputCriblLakeHTTPSendToRoutesTrueConstraint = &inputCriblLakeHTTPSendToRoutesTrueConstraint
+		u.Type = InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPSendToRoutesTrueConstraint
+		return nil
+	}
+
+	var inputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint = InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint = &inputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint
+		return nil
+	}
+
+	var inputCriblLakeHTTPPqEnabledFalseConstraint InputCriblLakeHTTPPqEnabledFalseConstraint = InputCriblLakeHTTPPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblLakeHTTPPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputCriblLakeHTTPPqEnabledFalseConstraint = &inputCriblLakeHTTPPqEnabledFalseConstraint
+		u.Type = InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPPqEnabledFalseConstraint
+		return nil
+	}
+
+	var inputCriblLakeHTTPPqEnabledTrueWithPqConstraint InputCriblLakeHTTPPqEnabledTrueWithPqConstraint = InputCriblLakeHTTPPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputCriblLakeHTTPPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputCriblLakeHTTPPqEnabledTrueWithPqConstraint = &inputCriblLakeHTTPPqEnabledTrueWithPqConstraint
+		u.Type = InputCriblLakeHTTPUnionTypeInputCriblLakeHTTPPqEnabledTrueWithPqConstraint
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputCriblLakeHTTP", string(data))
+}
+
+func (u InputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
+	if u.InputCriblLakeHTTPSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblLakeHTTPSendToRoutesTrueConstraint, "", true)
+	}
+
+	if u.InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblLakeHTTPSendToRoutesFalseWithConnectionsConstraint, "", true)
+	}
+
+	if u.InputCriblLakeHTTPPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblLakeHTTPPqEnabledFalseConstraint, "", true)
+	}
+
+	if u.InputCriblLakeHTTPPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputCriblLakeHTTPPqEnabledTrueWithPqConstraint, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputCriblLakeHTTP: all fields are null")
 }

@@ -4,9 +4,553 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputRawUDPPqEnabledTrueWithPqConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string         `json:"id,omitempty"`
+	Type     InputRawUDPType `json:"type"`
+	Disabled *bool           `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputRawUDPPqEnabledFalseConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string         `json:"id,omitempty"`
+	Type     InputRawUDPType `json:"type"`
+	Disabled *bool           `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPPqEnabledFalseConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputRawUDPSendToRoutesFalseWithConnectionsConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string         `json:"id,omitempty"`
+	Type     InputRawUDPType `json:"type"`
+	Disabled *bool           `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputRawUDPSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetIngestRawBytes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IngestRawBytes
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputRawUDPType string
 
@@ -31,15 +575,15 @@ func (e *InputRawUDPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputRawUDP struct {
+type InputRawUDPSendToRoutesTrueConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputRawUDPType `json:"type"`
 	Disabled *bool           `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -47,8 +591,8 @@ type InputRawUDP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -68,146 +612,253 @@ type InputRawUDP struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputRawUDP) MarshalJSON() ([]byte, error) {
+func (i InputRawUDPSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputRawUDP) UnmarshalJSON(data []byte) error {
+func (i *InputRawUDPSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDP) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputRawUDP) GetType() InputRawUDPType {
-	if i == nil {
-		return InputRawUDPType("")
-	}
-	return i.Type
-}
-
-func (i *InputRawUDP) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputRawUDP) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputRawUDP) GetSendToRoutes() *bool {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputRawUDP) GetEnvironment() *string {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetType() InputRawUDPType {
+	if i == nil {
+		return InputRawUDPType("")
+	}
+	return i.Type
+}
+
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputRawUDP) GetPqEnabled() *bool {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputRawUDP) GetStreamtags() []string {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputRawUDP) GetConnections() []ItemsTypeConnections {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputRawUDP) GetPq() *PqType {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputRawUDP) GetHost() *string {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputRawUDP) GetPort() float64 {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputRawUDP) GetMaxBufferSize() *float64 {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetMaxBufferSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxBufferSize
 }
 
-func (i *InputRawUDP) GetIPWhitelistRegex() *string {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputRawUDP) GetSingleMsgUDPPackets() *bool {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetSingleMsgUDPPackets() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SingleMsgUDPPackets
 }
 
-func (i *InputRawUDP) GetIngestRawBytes() *bool {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetIngestRawBytes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.IngestRawBytes
 }
 
-func (i *InputRawUDP) GetUDPSocketRxBufSize() *float64 {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetUDPSocketRxBufSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.UDPSocketRxBufSize
 }
 
-func (i *InputRawUDP) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputRawUDP) GetDescription() *string {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputRawUDPUnionType string
+
+const (
+	InputRawUDPUnionTypeInputRawUDPSendToRoutesTrueConstraint                 InputRawUDPUnionType = "InputRawUdp_SendToRoutesTrueConstraint"
+	InputRawUDPUnionTypeInputRawUDPSendToRoutesFalseWithConnectionsConstraint InputRawUDPUnionType = "InputRawUdp_SendToRoutesFalseWithConnectionsConstraint"
+	InputRawUDPUnionTypeInputRawUDPPqEnabledFalseConstraint                   InputRawUDPUnionType = "InputRawUdp_PqEnabledFalseConstraint"
+	InputRawUDPUnionTypeInputRawUDPPqEnabledTrueWithPqConstraint              InputRawUDPUnionType = "InputRawUdp_PqEnabledTrueWithPqConstraint"
+)
+
+type InputRawUDP struct {
+	InputRawUDPSendToRoutesTrueConstraint                 *InputRawUDPSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
+	InputRawUDPSendToRoutesFalseWithConnectionsConstraint *InputRawUDPSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputRawUDPPqEnabledFalseConstraint                   *InputRawUDPPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
+	InputRawUDPPqEnabledTrueWithPqConstraint              *InputRawUDPPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
+
+	Type InputRawUDPUnionType
+}
+
+func CreateInputRawUDPInputRawUDPSendToRoutesTrueConstraint(inputRawUDPSendToRoutesTrueConstraint InputRawUDPSendToRoutesTrueConstraint) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPSendToRoutesTrueConstraint
+
+	return InputRawUDP{
+		InputRawUDPSendToRoutesTrueConstraint: &inputRawUDPSendToRoutesTrueConstraint,
+		Type:                                  typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPSendToRoutesFalseWithConnectionsConstraint(inputRawUDPSendToRoutesFalseWithConnectionsConstraint InputRawUDPSendToRoutesFalseWithConnectionsConstraint) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPSendToRoutesFalseWithConnectionsConstraint
+
+	return InputRawUDP{
+		InputRawUDPSendToRoutesFalseWithConnectionsConstraint: &inputRawUDPSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPPqEnabledFalseConstraint(inputRawUDPPqEnabledFalseConstraint InputRawUDPPqEnabledFalseConstraint) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPPqEnabledFalseConstraint
+
+	return InputRawUDP{
+		InputRawUDPPqEnabledFalseConstraint: &inputRawUDPPqEnabledFalseConstraint,
+		Type:                                typ,
+	}
+}
+
+func CreateInputRawUDPInputRawUDPPqEnabledTrueWithPqConstraint(inputRawUDPPqEnabledTrueWithPqConstraint InputRawUDPPqEnabledTrueWithPqConstraint) InputRawUDP {
+	typ := InputRawUDPUnionTypeInputRawUDPPqEnabledTrueWithPqConstraint
+
+	return InputRawUDP{
+		InputRawUDPPqEnabledTrueWithPqConstraint: &inputRawUDPPqEnabledTrueWithPqConstraint,
+		Type:                                     typ,
+	}
+}
+
+func (u *InputRawUDP) UnmarshalJSON(data []byte) error {
+
+	var inputRawUDPSendToRoutesTrueConstraint InputRawUDPSendToRoutesTrueConstraint = InputRawUDPSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputRawUDPSendToRoutesTrueConstraint = &inputRawUDPSendToRoutesTrueConstraint
+		u.Type = InputRawUDPUnionTypeInputRawUDPSendToRoutesTrueConstraint
+		return nil
+	}
+
+	var inputRawUDPSendToRoutesFalseWithConnectionsConstraint InputRawUDPSendToRoutesFalseWithConnectionsConstraint = InputRawUDPSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputRawUDPSendToRoutesFalseWithConnectionsConstraint = &inputRawUDPSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputRawUDPUnionTypeInputRawUDPSendToRoutesFalseWithConnectionsConstraint
+		return nil
+	}
+
+	var inputRawUDPPqEnabledFalseConstraint InputRawUDPPqEnabledFalseConstraint = InputRawUDPPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputRawUDPPqEnabledFalseConstraint = &inputRawUDPPqEnabledFalseConstraint
+		u.Type = InputRawUDPUnionTypeInputRawUDPPqEnabledFalseConstraint
+		return nil
+	}
+
+	var inputRawUDPPqEnabledTrueWithPqConstraint InputRawUDPPqEnabledTrueWithPqConstraint = InputRawUDPPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputRawUDPPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputRawUDPPqEnabledTrueWithPqConstraint = &inputRawUDPPqEnabledTrueWithPqConstraint
+		u.Type = InputRawUDPUnionTypeInputRawUDPPqEnabledTrueWithPqConstraint
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputRawUDP", string(data))
+}
+
+func (u InputRawUDP) MarshalJSON() ([]byte, error) {
+	if u.InputRawUDPSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputRawUDPSendToRoutesTrueConstraint, "", true)
+	}
+
+	if u.InputRawUDPSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputRawUDPSendToRoutesFalseWithConnectionsConstraint, "", true)
+	}
+
+	if u.InputRawUDPPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputRawUDPPqEnabledFalseConstraint, "", true)
+	}
+
+	if u.InputRawUDPPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputRawUDPPqEnabledTrueWithPqConstraint, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputRawUDP: all fields are null")
 }

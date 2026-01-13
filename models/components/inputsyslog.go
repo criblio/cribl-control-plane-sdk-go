@@ -48,8 +48,8 @@ type InputSyslogSyslog2 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -163,7 +163,7 @@ func (i *InputSyslogSyslog2) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSyslogSyslog2) GetConnections() []ItemsTypeConnections {
+func (i *InputSyslogSyslog2) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
@@ -377,8 +377,8 @@ type InputSyslogSyslog1 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -492,7 +492,7 @@ func (i *InputSyslogSyslog1) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSyslogSyslog1) GetConnections() []ItemsTypeConnections {
+func (i *InputSyslogSyslog1) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
