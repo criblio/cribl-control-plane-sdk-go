@@ -7,9 +7,9 @@ import (
 )
 
 type GetConfigGroupACLTeamsByProductAndIDRequest struct {
-	// Name of the Cribl product that contains the Worker Group or Edge Fleet.
+	// Name of the Cribl product that contains the Worker Group, Outpost Group, or Edge Fleet.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// The <code>id</code> of the Worker Group or Edge Fleet to get the team ACL for.
+	// The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the team ACL for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Filter for limiting the response to ACL entries for the specified RBAC resource type.
 	Type *components.RbacResource `queryParam:"style=form,explode=true,name=type"`

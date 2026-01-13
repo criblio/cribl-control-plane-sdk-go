@@ -203,24 +203,24 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Groups](docs/sdks/groups/README.md)
 
-* [List](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [Get](docs/sdks/groups/README.md#get) - Get a Worker Group or Edge Fleet
-* [Update](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
-* [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
+* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [Get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
+* [Update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
+* [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
 * [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
 #### [Groups.Acl](docs/sdks/acl/README.md)
 
-* [Get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
+* [Get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
 
 ##### [Groups.Acl.Teams](docs/sdks/teams/README.md)
 
-* [Get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [Get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
 
 #### [Groups.Configs.Versions](docs/sdks/configsversions/README.md)
 
-* [Get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
+* [Get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 
 ### [Health](docs/sdks/health/README.md)
 
