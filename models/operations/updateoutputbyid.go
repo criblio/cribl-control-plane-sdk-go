@@ -59,6 +59,10 @@ func (u *UpdateOutputByIDRequest) GetOutputSplunkHec() *components.OutputSplunkH
 	return u.GetOutput().OutputSplunkHec
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputWizHec() *components.OutputWizHec {
+	return u.GetOutput().OutputWizHec
+}
+
 func (u *UpdateOutputByIDRequest) GetOutputTcpjson() *components.OutputTcpjson {
 	return u.GetOutput().OutputTcpjson
 }

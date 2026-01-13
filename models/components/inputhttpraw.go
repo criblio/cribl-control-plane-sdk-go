@@ -4,34 +4,15 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputHTTPRawType string
-
-const (
-	InputHTTPRawTypeHTTPRaw InputHTTPRawType = "http_raw"
-)
-
-func (e InputHTTPRawType) ToPointer() *InputHTTPRawType {
-	return &e
-}
-func (e *InputHTTPRawType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "http_raw":
-		*e = InputHTTPRawType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputHTTPRawType: %v", v)
-	}
-}
-
-type InputHTTPRaw struct {
+type InputHTTPRawPqEnabledTrueWithPqConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputHTTPRawType `json:"type"`
@@ -42,13 +23,10 @@ type InputHTTPRaw struct {
 	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `default:"0.0.0.0" json:"host"`
 	// Port to listen on
@@ -93,237 +71,1258 @@ type InputHTTPRaw struct {
 	Description   *string                  `json:"description,omitempty"`
 }
 
-func (i InputHTTPRaw) MarshalJSON() ([]byte, error) {
+func (i InputHTTPRawPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputHTTPRaw) UnmarshalJSON(data []byte) error {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputHTTPRaw) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputHTTPRaw) GetType() InputHTTPRawType {
-	if i == nil {
-		return InputHTTPRawType("")
-	}
-	return i.Type
-}
-
-func (i *InputHTTPRaw) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputHTTPRaw) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputHTTPRaw) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputHTTPRaw) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputHTTPRaw) GetPqEnabled() *bool {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputHTTPRaw) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputHTTPRaw) GetConnections() []ItemsTypeConnections {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputHTTPRaw) GetPq() *PqType {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputHTTPRaw) GetHost() *string {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetType() InputHTTPRawType {
+	if i == nil {
+		return InputHTTPRawType("")
+	}
+	return i.Type
+}
+
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetHost() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputHTTPRaw) GetPort() float64 {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputHTTPRaw) GetAuthTokens() []string {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputHTTPRaw) GetTLS() *TLSSettingsServerSideType {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputHTTPRaw) GetMaxActiveReq() *float64 {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputHTTPRaw) GetMaxRequestsPerSocket() *int64 {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputHTTPRaw) GetEnableProxyHeader() *bool {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputHTTPRaw) GetCaptureHeaders() *bool {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputHTTPRaw) GetActivityLogSampleRate() *float64 {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputHTTPRaw) GetRequestTimeout() *float64 {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputHTTPRaw) GetSocketTimeout() *float64 {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputHTTPRaw) GetKeepAliveTimeout() *float64 {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputHTTPRaw) GetEnableHealthCheck() *bool {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputHTTPRaw) GetIPAllowlistRegex() *string {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputHTTPRaw) GetIPDenylistRegex() *string {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputHTTPRaw) GetBreakerRulesets() []string {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputHTTPRaw) GetStaleChannelFlushMs() *float64 {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputHTTPRaw) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputHTTPRaw) GetAllowedPaths() []string {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetAllowedPaths() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedPaths
 }
 
-func (i *InputHTTPRaw) GetAllowedMethods() []string {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetAllowedMethods() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AllowedMethods
 }
 
-func (i *InputHTTPRaw) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokensExt
 }
 
-func (i *InputHTTPRaw) GetDescription() *string {
+func (i *InputHTTPRawPqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputHTTPRawPqEnabledFalseConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputHTTPRawType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List of URI paths accepted by this input, wildcards are supported, e.g /api/v*/hook. Defaults to allow all.
+	AllowedPaths []string `json:"allowedPaths,omitempty"`
+	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+	AllowedMethods []string `json:"allowedMethods,omitempty"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
+	Description   *string                  `json:"description,omitempty"`
+}
+
+func (i InputHTTPRawPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetType() InputHTTPRawType {
+	if i == nil {
+		return InputHTTPRawType("")
+	}
+	return i.Type
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetAllowedPaths() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedPaths
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetAllowedMethods() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedMethods
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputHTTPRawPqEnabledFalseConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputHTTPRawSendToRoutesFalseWithConnectionsConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputHTTPRawType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List of URI paths accepted by this input, wildcards are supported, e.g /api/v*/hook. Defaults to allow all.
+	AllowedPaths []string `json:"allowedPaths,omitempty"`
+	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+	AllowedMethods []string `json:"allowedMethods,omitempty"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
+	Description   *string                  `json:"description,omitempty"`
+}
+
+func (i InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetType() InputHTTPRawType {
+	if i == nil {
+		return InputHTTPRawType("")
+	}
+	return i.Type
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetAllowedPaths() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedPaths
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetAllowedMethods() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedMethods
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputHTTPRawType string
+
+const (
+	InputHTTPRawTypeHTTPRaw InputHTTPRawType = "http_raw"
+)
+
+func (e InputHTTPRawType) ToPointer() *InputHTTPRawType {
+	return &e
+}
+func (e *InputHTTPRawType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "http_raw":
+		*e = InputHTTPRawType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputHTTPRawType: %v", v)
+	}
+}
+
+type InputHTTPRawSendToRoutesTrueConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Unique ID for this input
+	ID       *string          `json:"id,omitempty"`
+	Type     InputHTTPRawType `json:"type"`
+	Disabled *bool            `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `default:"0.0.0.0" json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []string                   `json:"authTokens,omitempty"`
+	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `default:"5" json:"keepAliveTimeout"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// List of URI paths accepted by this input, wildcards are supported, e.g /api/v*/hook. Defaults to allow all.
+	AllowedPaths []string `json:"allowedPaths,omitempty"`
+	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+	AllowedMethods []string `json:"allowedMethods,omitempty"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
+	Description   *string                  `json:"description,omitempty"`
+}
+
+func (i InputHTTPRawSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetType() InputHTTPRawType {
+	if i == nil {
+		return InputHTTPRawType("")
+	}
+	return i.Type
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetAuthTokens() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetAllowedPaths() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedPaths
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetAllowedMethods() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedMethods
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokensExt
+}
+
+func (i *InputHTTPRawSendToRoutesTrueConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputHTTPRawUnionType string
+
+const (
+	InputHTTPRawUnionTypeInputHTTPRawSendToRoutesTrueConstraint                 InputHTTPRawUnionType = "InputHttpRaw_SendToRoutesTrueConstraint"
+	InputHTTPRawUnionTypeInputHTTPRawSendToRoutesFalseWithConnectionsConstraint InputHTTPRawUnionType = "InputHttpRaw_SendToRoutesFalseWithConnectionsConstraint"
+	InputHTTPRawUnionTypeInputHTTPRawPqEnabledFalseConstraint                   InputHTTPRawUnionType = "InputHttpRaw_PqEnabledFalseConstraint"
+	InputHTTPRawUnionTypeInputHTTPRawPqEnabledTrueWithPqConstraint              InputHTTPRawUnionType = "InputHttpRaw_PqEnabledTrueWithPqConstraint"
+)
+
+type InputHTTPRaw struct {
+	InputHTTPRawSendToRoutesTrueConstraint                 *InputHTTPRawSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
+	InputHTTPRawSendToRoutesFalseWithConnectionsConstraint *InputHTTPRawSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputHTTPRawPqEnabledFalseConstraint                   *InputHTTPRawPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
+	InputHTTPRawPqEnabledTrueWithPqConstraint              *InputHTTPRawPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
+
+	Type InputHTTPRawUnionType
+}
+
+func CreateInputHTTPRawInputHTTPRawSendToRoutesTrueConstraint(inputHTTPRawSendToRoutesTrueConstraint InputHTTPRawSendToRoutesTrueConstraint) InputHTTPRaw {
+	typ := InputHTTPRawUnionTypeInputHTTPRawSendToRoutesTrueConstraint
+
+	return InputHTTPRaw{
+		InputHTTPRawSendToRoutesTrueConstraint: &inputHTTPRawSendToRoutesTrueConstraint,
+		Type:                                   typ,
+	}
+}
+
+func CreateInputHTTPRawInputHTTPRawSendToRoutesFalseWithConnectionsConstraint(inputHTTPRawSendToRoutesFalseWithConnectionsConstraint InputHTTPRawSendToRoutesFalseWithConnectionsConstraint) InputHTTPRaw {
+	typ := InputHTTPRawUnionTypeInputHTTPRawSendToRoutesFalseWithConnectionsConstraint
+
+	return InputHTTPRaw{
+		InputHTTPRawSendToRoutesFalseWithConnectionsConstraint: &inputHTTPRawSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputHTTPRawInputHTTPRawPqEnabledFalseConstraint(inputHTTPRawPqEnabledFalseConstraint InputHTTPRawPqEnabledFalseConstraint) InputHTTPRaw {
+	typ := InputHTTPRawUnionTypeInputHTTPRawPqEnabledFalseConstraint
+
+	return InputHTTPRaw{
+		InputHTTPRawPqEnabledFalseConstraint: &inputHTTPRawPqEnabledFalseConstraint,
+		Type:                                 typ,
+	}
+}
+
+func CreateInputHTTPRawInputHTTPRawPqEnabledTrueWithPqConstraint(inputHTTPRawPqEnabledTrueWithPqConstraint InputHTTPRawPqEnabledTrueWithPqConstraint) InputHTTPRaw {
+	typ := InputHTTPRawUnionTypeInputHTTPRawPqEnabledTrueWithPqConstraint
+
+	return InputHTTPRaw{
+		InputHTTPRawPqEnabledTrueWithPqConstraint: &inputHTTPRawPqEnabledTrueWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func (u *InputHTTPRaw) UnmarshalJSON(data []byte) error {
+
+	var inputHTTPRawSendToRoutesTrueConstraint InputHTTPRawSendToRoutesTrueConstraint = InputHTTPRawSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputHTTPRawSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputHTTPRawSendToRoutesTrueConstraint = &inputHTTPRawSendToRoutesTrueConstraint
+		u.Type = InputHTTPRawUnionTypeInputHTTPRawSendToRoutesTrueConstraint
+		return nil
+	}
+
+	var inputHTTPRawSendToRoutesFalseWithConnectionsConstraint InputHTTPRawSendToRoutesFalseWithConnectionsConstraint = InputHTTPRawSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputHTTPRawSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputHTTPRawSendToRoutesFalseWithConnectionsConstraint = &inputHTTPRawSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputHTTPRawUnionTypeInputHTTPRawSendToRoutesFalseWithConnectionsConstraint
+		return nil
+	}
+
+	var inputHTTPRawPqEnabledFalseConstraint InputHTTPRawPqEnabledFalseConstraint = InputHTTPRawPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputHTTPRawPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputHTTPRawPqEnabledFalseConstraint = &inputHTTPRawPqEnabledFalseConstraint
+		u.Type = InputHTTPRawUnionTypeInputHTTPRawPqEnabledFalseConstraint
+		return nil
+	}
+
+	var inputHTTPRawPqEnabledTrueWithPqConstraint InputHTTPRawPqEnabledTrueWithPqConstraint = InputHTTPRawPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputHTTPRawPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputHTTPRawPqEnabledTrueWithPqConstraint = &inputHTTPRawPqEnabledTrueWithPqConstraint
+		u.Type = InputHTTPRawUnionTypeInputHTTPRawPqEnabledTrueWithPqConstraint
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputHTTPRaw", string(data))
+}
+
+func (u InputHTTPRaw) MarshalJSON() ([]byte, error) {
+	if u.InputHTTPRawSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputHTTPRawSendToRoutesTrueConstraint, "", true)
+	}
+
+	if u.InputHTTPRawSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputHTTPRawSendToRoutesFalseWithConnectionsConstraint, "", true)
+	}
+
+	if u.InputHTTPRawPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputHTTPRawPqEnabledFalseConstraint, "", true)
+	}
+
+	if u.InputHTTPRawPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputHTTPRawPqEnabledTrueWithPqConstraint, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputHTTPRaw: all fields are null")
 }

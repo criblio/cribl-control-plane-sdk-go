@@ -4,9 +4,550 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputKubeLogsPqEnabledTrueWithPqConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputKubeLogsType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Time, in seconds, between checks for new containers. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
+	Rules []InputKubeLogsRule `json:"rules,omitempty"`
+	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
+	Timestamps *bool `default:"false" json:"timestamps"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *DiskSpoolingType               `json:"persistence,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputKubeLogsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetType() InputKubeLogsType {
+	if i == nil {
+		return InputKubeLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetRules() []InputKubeLogsRule {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetTimestamps() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Timestamps
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetPersistence() *DiskSpoolingType {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetEnableLoadBalancing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableLoadBalancing
+}
+
+func (i *InputKubeLogsPqEnabledTrueWithPqConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeLogsPqEnabledFalseConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputKubeLogsType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Time, in seconds, between checks for new containers. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
+	Rules []InputKubeLogsRule `json:"rules,omitempty"`
+	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
+	Timestamps *bool `default:"false" json:"timestamps"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *DiskSpoolingType               `json:"persistence,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputKubeLogsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetType() InputKubeLogsType {
+	if i == nil {
+		return InputKubeLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetRules() []InputKubeLogsRule {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetTimestamps() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Timestamps
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetPersistence() *DiskSpoolingType {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetEnableLoadBalancing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableLoadBalancing
+}
+
+func (i *InputKubeLogsPqEnabledFalseConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeLogsSendToRoutesFalseWithConnectionsConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string           `json:"id,omitempty"`
+	Type     InputKubeLogsType `json:"type"`
+	Disabled *bool             `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Time, in seconds, between checks for new containers. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
+	Rules []InputKubeLogsRule `json:"rules,omitempty"`
+	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
+	Timestamps *bool `default:"false" json:"timestamps"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *DiskSpoolingType               `json:"persistence,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
+	Description         *string `json:"description,omitempty"`
+}
+
+func (i InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetType() InputKubeLogsType {
+	if i == nil {
+		return InputKubeLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetRules() []InputKubeLogsRule {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetTimestamps() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Timestamps
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *DiskSpoolingType {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetEnableLoadBalancing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableLoadBalancing
+}
+
+func (i *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputKubeLogsType string
 
@@ -63,15 +604,15 @@ func (i *InputKubeLogsRule) GetDescription() *string {
 	return i.Description
 }
 
-type InputKubeLogs struct {
+type InputKubeLogsSendToRoutesTrueConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputKubeLogsType `json:"type"`
 	Disabled *bool             `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -79,8 +620,8 @@ type InputKubeLogs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between checks for new containers. Default is 15 secs.
 	Interval *float64 `default:"15" json:"interval"`
 	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
@@ -99,146 +640,253 @@ type InputKubeLogs struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputKubeLogs) MarshalJSON() ([]byte, error) {
+func (i InputKubeLogsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeLogs) UnmarshalJSON(data []byte) error {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeLogs) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeLogs) GetType() InputKubeLogsType {
-	if i == nil {
-		return InputKubeLogsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeLogs) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeLogs) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeLogs) GetSendToRoutes() *bool {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeLogs) GetEnvironment() *string {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetType() InputKubeLogsType {
+	if i == nil {
+		return InputKubeLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeLogs) GetPqEnabled() *bool {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeLogs) GetStreamtags() []string {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeLogs) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeLogs) GetPq() *PqType {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeLogs) GetInterval() *float64 {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputKubeLogs) GetRules() []InputKubeLogsRule {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetRules() []InputKubeLogsRule {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeLogs) GetTimestamps() *bool {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetTimestamps() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Timestamps
 }
 
-func (i *InputKubeLogs) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeLogs) GetPersistence() *DiskSpoolingType {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputKubeLogs) GetBreakerRulesets() []string {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputKubeLogs) GetStaleChannelFlushMs() *float64 {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputKubeLogs) GetEnableLoadBalancing() *bool {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputKubeLogs) GetDescription() *string {
+func (i *InputKubeLogsSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputKubeLogsUnionType string
+
+const (
+	InputKubeLogsUnionTypeInputKubeLogsSendToRoutesTrueConstraint                 InputKubeLogsUnionType = "InputKubeLogs_SendToRoutesTrueConstraint"
+	InputKubeLogsUnionTypeInputKubeLogsSendToRoutesFalseWithConnectionsConstraint InputKubeLogsUnionType = "InputKubeLogs_SendToRoutesFalseWithConnectionsConstraint"
+	InputKubeLogsUnionTypeInputKubeLogsPqEnabledFalseConstraint                   InputKubeLogsUnionType = "InputKubeLogs_PqEnabledFalseConstraint"
+	InputKubeLogsUnionTypeInputKubeLogsPqEnabledTrueWithPqConstraint              InputKubeLogsUnionType = "InputKubeLogs_PqEnabledTrueWithPqConstraint"
+)
+
+type InputKubeLogs struct {
+	InputKubeLogsSendToRoutesTrueConstraint                 *InputKubeLogsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
+	InputKubeLogsSendToRoutesFalseWithConnectionsConstraint *InputKubeLogsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputKubeLogsPqEnabledFalseConstraint                   *InputKubeLogsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
+	InputKubeLogsPqEnabledTrueWithPqConstraint              *InputKubeLogsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
+
+	Type InputKubeLogsUnionType
+}
+
+func CreateInputKubeLogsInputKubeLogsSendToRoutesTrueConstraint(inputKubeLogsSendToRoutesTrueConstraint InputKubeLogsSendToRoutesTrueConstraint) InputKubeLogs {
+	typ := InputKubeLogsUnionTypeInputKubeLogsSendToRoutesTrueConstraint
+
+	return InputKubeLogs{
+		InputKubeLogsSendToRoutesTrueConstraint: &inputKubeLogsSendToRoutesTrueConstraint,
+		Type:                                    typ,
+	}
+}
+
+func CreateInputKubeLogsInputKubeLogsSendToRoutesFalseWithConnectionsConstraint(inputKubeLogsSendToRoutesFalseWithConnectionsConstraint InputKubeLogsSendToRoutesFalseWithConnectionsConstraint) InputKubeLogs {
+	typ := InputKubeLogsUnionTypeInputKubeLogsSendToRoutesFalseWithConnectionsConstraint
+
+	return InputKubeLogs{
+		InputKubeLogsSendToRoutesFalseWithConnectionsConstraint: &inputKubeLogsSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputKubeLogsInputKubeLogsPqEnabledFalseConstraint(inputKubeLogsPqEnabledFalseConstraint InputKubeLogsPqEnabledFalseConstraint) InputKubeLogs {
+	typ := InputKubeLogsUnionTypeInputKubeLogsPqEnabledFalseConstraint
+
+	return InputKubeLogs{
+		InputKubeLogsPqEnabledFalseConstraint: &inputKubeLogsPqEnabledFalseConstraint,
+		Type:                                  typ,
+	}
+}
+
+func CreateInputKubeLogsInputKubeLogsPqEnabledTrueWithPqConstraint(inputKubeLogsPqEnabledTrueWithPqConstraint InputKubeLogsPqEnabledTrueWithPqConstraint) InputKubeLogs {
+	typ := InputKubeLogsUnionTypeInputKubeLogsPqEnabledTrueWithPqConstraint
+
+	return InputKubeLogs{
+		InputKubeLogsPqEnabledTrueWithPqConstraint: &inputKubeLogsPqEnabledTrueWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func (u *InputKubeLogs) UnmarshalJSON(data []byte) error {
+
+	var inputKubeLogsSendToRoutesTrueConstraint InputKubeLogsSendToRoutesTrueConstraint = InputKubeLogsSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeLogsSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputKubeLogsSendToRoutesTrueConstraint = &inputKubeLogsSendToRoutesTrueConstraint
+		u.Type = InputKubeLogsUnionTypeInputKubeLogsSendToRoutesTrueConstraint
+		return nil
+	}
+
+	var inputKubeLogsSendToRoutesFalseWithConnectionsConstraint InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = InputKubeLogsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeLogsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = &inputKubeLogsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputKubeLogsUnionTypeInputKubeLogsSendToRoutesFalseWithConnectionsConstraint
+		return nil
+	}
+
+	var inputKubeLogsPqEnabledFalseConstraint InputKubeLogsPqEnabledFalseConstraint = InputKubeLogsPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeLogsPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputKubeLogsPqEnabledFalseConstraint = &inputKubeLogsPqEnabledFalseConstraint
+		u.Type = InputKubeLogsUnionTypeInputKubeLogsPqEnabledFalseConstraint
+		return nil
+	}
+
+	var inputKubeLogsPqEnabledTrueWithPqConstraint InputKubeLogsPqEnabledTrueWithPqConstraint = InputKubeLogsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeLogsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputKubeLogsPqEnabledTrueWithPqConstraint = &inputKubeLogsPqEnabledTrueWithPqConstraint
+		u.Type = InputKubeLogsUnionTypeInputKubeLogsPqEnabledTrueWithPqConstraint
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputKubeLogs", string(data))
+}
+
+func (u InputKubeLogs) MarshalJSON() ([]byte, error) {
+	if u.InputKubeLogsSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeLogsSendToRoutesTrueConstraint, "", true)
+	}
+
+	if u.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint, "", true)
+	}
+
+	if u.InputKubeLogsPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeLogsPqEnabledFalseConstraint, "", true)
+	}
+
+	if u.InputKubeLogsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeLogsPqEnabledTrueWithPqConstraint, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputKubeLogs: all fields are null")
 }

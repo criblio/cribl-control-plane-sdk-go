@@ -53,6 +53,12 @@ createOutputRequest := operations.CreateCreateOutputRequestSplunkLb(operations.O
 createOutputRequest := operations.CreateCreateOutputRequestSplunkHec(operations.OutputSplunkHec{/* values here */})
 ```
 
+### OutputWizHec
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestWizHec(operations.OutputWizHec{/* values here */})
+```
+
 ### OutputTcpjson
 
 ```go

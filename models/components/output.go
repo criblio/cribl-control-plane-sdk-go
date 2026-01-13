@@ -20,6 +20,7 @@ const (
 	OutputTypeSplunk                 OutputType = "splunk"
 	OutputTypeSplunkLb               OutputType = "splunk_lb"
 	OutputTypeSplunkHec              OutputType = "splunk_hec"
+	OutputTypeWizHec                 OutputType = "wiz_hec"
 	OutputTypeTcpjson                OutputType = "tcpjson"
 	OutputTypeWavefront              OutputType = "wavefront"
 	OutputTypeSignalfx               OutputType = "signalfx"
@@ -92,6 +93,7 @@ type Output struct {
 	OutputSplunk                 *OutputSplunk                 `queryParam:"inline" union:"member"`
 	OutputSplunkLb               *OutputSplunkLb               `queryParam:"inline" union:"member"`
 	OutputSplunkHec              *OutputSplunkHec              `queryParam:"inline" union:"member"`
+	OutputWizHec                 *OutputWizHec                 `queryParam:"inline" union:"member"`
 	OutputTcpjson                *OutputTcpjson                `queryParam:"inline" union:"member"`
 	OutputWavefront              *OutputWavefront              `queryParam:"inline" union:"member"`
 	OutputSignalfx               *OutputSignalfx               `queryParam:"inline" union:"member"`
@@ -250,6 +252,18 @@ func CreateOutputSplunkHec(splunkHec OutputSplunkHec) Output {
 	return Output{
 		OutputSplunkHec: &splunkHec,
 		Type:            typ,
+	}
+}
+
+func CreateOutputWizHec(wizHec OutputWizHec) Output {
+	typ := OutputTypeWizHec
+
+	typStr := OutputWizHecType(typ)
+	wizHec.Type = typStr
+
+	return Output{
+		OutputWizHec: &wizHec,
+		Type:         typ,
 	}
 }
 
@@ -1066,6 +1080,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputSplunkHec = outputSplunkHec
 		u.Type = OutputTypeSplunkHec
 		return nil
+	case "wiz_hec":
+		outputWizHec := new(OutputWizHec)
+		if err := utils.UnmarshalJSON(data, &outputWizHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == wiz_hec) type OutputWizHec within Output: %w", string(data), err)
+		}
+
+		u.OutputWizHec = outputWizHec
+		u.Type = OutputTypeWizHec
+		return nil
 	case "tcpjson":
 		outputTcpjson := new(OutputTcpjson)
 		if err := utils.UnmarshalJSON(data, &outputTcpjson, "", true, nil); err != nil {
@@ -1651,6 +1674,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputSplunkHec != nil {
 		return utils.MarshalJSON(u.OutputSplunkHec, "", true)
+	}
+
+	if u.OutputWizHec != nil {
+		return utils.MarshalJSON(u.OutputWizHec, "", true)
 	}
 
 	if u.OutputTcpjson != nil {

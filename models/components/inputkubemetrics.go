@@ -4,9 +4,442 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputKubeMetricsPqEnabledTrueWithPqConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeMetricsType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeMetricsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetType() InputKubeMetricsType {
+	if i == nil {
+		return InputKubeMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetPersistence() *InputKubeMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeMetricsPqEnabledTrueWithPqConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeMetricsPqEnabledFalseConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeMetricsType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeMetricsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetType() InputKubeMetricsType {
+	if i == nil {
+		return InputKubeMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetPersistence() *InputKubeMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeMetricsPqEnabledFalseConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+type InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string              `json:"id,omitempty"`
+	Type     InputKubeMetricsType `json:"type"`
+	Disabled *bool                `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+	Interval *float64 `default:"15" json:"interval"`
+	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+	Rules []ItemsTypeRules `json:"rules,omitempty"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputKubeMetricsPersistence    `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
+}
+
+func (i InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetType() InputKubeMetricsType {
+	if i == nil {
+		return InputKubeMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetRules() []ItemsTypeRules {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *InputKubeMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
 
 type InputKubeMetricsType string
 
@@ -98,15 +531,15 @@ func (i *InputKubeMetricsPersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputKubeMetrics struct {
+type InputKubeMetricsSendToRoutesTrueConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputKubeMetricsType `json:"type"`
 	Disabled *bool                `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -114,8 +547,8 @@ type InputKubeMetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
 	Interval *float64 `default:"15" json:"interval"`
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
@@ -126,118 +559,225 @@ type InputKubeMetrics struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKubeMetrics) MarshalJSON() ([]byte, error) {
+func (i InputKubeMetricsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeMetrics) UnmarshalJSON(data []byte) error {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeMetrics) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeMetrics) GetType() InputKubeMetricsType {
-	if i == nil {
-		return InputKubeMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeMetrics) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeMetrics) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeMetrics) GetSendToRoutes() *bool {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputKubeMetrics) GetEnvironment() *string {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetType() InputKubeMetricsType {
+	if i == nil {
+		return InputKubeMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeMetrics) GetPqEnabled() *bool {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeMetrics) GetStreamtags() []string {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeMetrics) GetConnections() []ItemsTypeConnections {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeMetrics) GetPq() *PqType {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeMetrics) GetInterval() *float64 {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputKubeMetrics) GetRules() []ItemsTypeRules {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetRules() []ItemsTypeRules {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeMetrics) GetPersistence() *InputKubeMetricsPersistence {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetPersistence() *InputKubeMetricsPersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputKubeMetrics) GetDescription() *string {
+func (i *InputKubeMetricsSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
+}
+
+type InputKubeMetricsUnionType string
+
+const (
+	InputKubeMetricsUnionTypeInputKubeMetricsSendToRoutesTrueConstraint                 InputKubeMetricsUnionType = "InputKubeMetrics_SendToRoutesTrueConstraint"
+	InputKubeMetricsUnionTypeInputKubeMetricsSendToRoutesFalseWithConnectionsConstraint InputKubeMetricsUnionType = "InputKubeMetrics_SendToRoutesFalseWithConnectionsConstraint"
+	InputKubeMetricsUnionTypeInputKubeMetricsPqEnabledFalseConstraint                   InputKubeMetricsUnionType = "InputKubeMetrics_PqEnabledFalseConstraint"
+	InputKubeMetricsUnionTypeInputKubeMetricsPqEnabledTrueWithPqConstraint              InputKubeMetricsUnionType = "InputKubeMetrics_PqEnabledTrueWithPqConstraint"
+)
+
+type InputKubeMetrics struct {
+	InputKubeMetricsSendToRoutesTrueConstraint                 *InputKubeMetricsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
+	InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint *InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputKubeMetricsPqEnabledFalseConstraint                   *InputKubeMetricsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
+	InputKubeMetricsPqEnabledTrueWithPqConstraint              *InputKubeMetricsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
+
+	Type InputKubeMetricsUnionType
+}
+
+func CreateInputKubeMetricsInputKubeMetricsSendToRoutesTrueConstraint(inputKubeMetricsSendToRoutesTrueConstraint InputKubeMetricsSendToRoutesTrueConstraint) InputKubeMetrics {
+	typ := InputKubeMetricsUnionTypeInputKubeMetricsSendToRoutesTrueConstraint
+
+	return InputKubeMetrics{
+		InputKubeMetricsSendToRoutesTrueConstraint: &inputKubeMetricsSendToRoutesTrueConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputKubeMetricsInputKubeMetricsSendToRoutesFalseWithConnectionsConstraint(inputKubeMetricsSendToRoutesFalseWithConnectionsConstraint InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint) InputKubeMetrics {
+	typ := InputKubeMetricsUnionTypeInputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
+
+	return InputKubeMetrics{
+		InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint: &inputKubeMetricsSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputKubeMetricsInputKubeMetricsPqEnabledFalseConstraint(inputKubeMetricsPqEnabledFalseConstraint InputKubeMetricsPqEnabledFalseConstraint) InputKubeMetrics {
+	typ := InputKubeMetricsUnionTypeInputKubeMetricsPqEnabledFalseConstraint
+
+	return InputKubeMetrics{
+		InputKubeMetricsPqEnabledFalseConstraint: &inputKubeMetricsPqEnabledFalseConstraint,
+		Type:                                     typ,
+	}
+}
+
+func CreateInputKubeMetricsInputKubeMetricsPqEnabledTrueWithPqConstraint(inputKubeMetricsPqEnabledTrueWithPqConstraint InputKubeMetricsPqEnabledTrueWithPqConstraint) InputKubeMetrics {
+	typ := InputKubeMetricsUnionTypeInputKubeMetricsPqEnabledTrueWithPqConstraint
+
+	return InputKubeMetrics{
+		InputKubeMetricsPqEnabledTrueWithPqConstraint: &inputKubeMetricsPqEnabledTrueWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func (u *InputKubeMetrics) UnmarshalJSON(data []byte) error {
+
+	var inputKubeMetricsSendToRoutesTrueConstraint InputKubeMetricsSendToRoutesTrueConstraint = InputKubeMetricsSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeMetricsSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputKubeMetricsSendToRoutesTrueConstraint = &inputKubeMetricsSendToRoutesTrueConstraint
+		u.Type = InputKubeMetricsUnionTypeInputKubeMetricsSendToRoutesTrueConstraint
+		return nil
+	}
+
+	var inputKubeMetricsSendToRoutesFalseWithConnectionsConstraint InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint = InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeMetricsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint = &inputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputKubeMetricsUnionTypeInputKubeMetricsSendToRoutesFalseWithConnectionsConstraint
+		return nil
+	}
+
+	var inputKubeMetricsPqEnabledFalseConstraint InputKubeMetricsPqEnabledFalseConstraint = InputKubeMetricsPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeMetricsPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputKubeMetricsPqEnabledFalseConstraint = &inputKubeMetricsPqEnabledFalseConstraint
+		u.Type = InputKubeMetricsUnionTypeInputKubeMetricsPqEnabledFalseConstraint
+		return nil
+	}
+
+	var inputKubeMetricsPqEnabledTrueWithPqConstraint InputKubeMetricsPqEnabledTrueWithPqConstraint = InputKubeMetricsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputKubeMetricsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputKubeMetricsPqEnabledTrueWithPqConstraint = &inputKubeMetricsPqEnabledTrueWithPqConstraint
+		u.Type = InputKubeMetricsUnionTypeInputKubeMetricsPqEnabledTrueWithPqConstraint
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputKubeMetrics", string(data))
+}
+
+func (u InputKubeMetrics) MarshalJSON() ([]byte, error) {
+	if u.InputKubeMetricsSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeMetricsSendToRoutesTrueConstraint, "", true)
+	}
+
+	if u.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeMetricsSendToRoutesFalseWithConnectionsConstraint, "", true)
+	}
+
+	if u.InputKubeMetricsPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeMetricsPqEnabledFalseConstraint, "", true)
+	}
+
+	if u.InputKubeMetricsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputKubeMetricsPqEnabledTrueWithPqConstraint, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputKubeMetrics: all fields are null")
 }

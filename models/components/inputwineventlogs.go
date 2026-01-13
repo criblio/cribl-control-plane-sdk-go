@@ -4,9 +4,607 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
+
+type InputWinEventLogsPqEnabledTrueWithPqConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	Pq        *PqType `json:"pq,omitempty"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputWinEventLogsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetReadMode() *ReadMode {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetEventFormat() *EventFormat {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsPqEnabledFalseConstraint struct {
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputWinEventLogsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetReadMode() *ReadMode {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetEventFormat() *EventFormat {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	// Unique ID for this input
+	ID       *string               `json:"id,omitempty"`
+	Type     InputWinEventLogsType `json:"type"`
+	Disabled *bool                 `default:"false" json:"disabled"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	Pq         *PqType  `json:"pq,omitempty"`
+	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+	LogNames []string `json:"logNames"`
+	// Read all stored and future event logs, or only future events
+	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	// Format of individual events
+	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	Interval *float64 `default:"10" json:"interval"`
+	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+	BatchSize *float64 `default:"500" json:"batchSize"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// The maximum number of bytes in an event before it is flushed to the pipelines
+	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	Description   *string  `json:"description,omitempty"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+}
+
+func (i InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetLogNames() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.LogNames
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetReadMode() *ReadMode {
+	if i == nil {
+		return nil
+	}
+	return i.ReadMode
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetEventFormat() *EventFormat {
+	if i == nil {
+		return nil
+	}
+	return i.EventFormat
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetBatchSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.BatchSize
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetMaxEventBytes() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxEventBytes
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDisableJSONRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableJSONRendering
+}
+
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetDisableXMLRendering() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableXMLRendering
+}
 
 type InputWinEventLogsType string
 
@@ -81,15 +679,15 @@ func (e *EventFormat) IsExact() bool {
 	return false
 }
 
-type InputWinEventLogs struct {
+type InputWinEventLogsSendToRoutesTrueConstraint struct {
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputWinEventLogsType `json:"type"`
 	Disabled *bool                 `default:"false" json:"disabled"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -97,8 +695,8 @@ type InputWinEventLogs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnections `json:"connections,omitempty"`
-	Pq          *PqType                `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
@@ -122,160 +720,267 @@ type InputWinEventLogs struct {
 	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
 }
 
-func (i InputWinEventLogs) MarshalJSON() ([]byte, error) {
+func (i InputWinEventLogsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWinEventLogs) UnmarshalJSON(data []byte) error {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogs) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWinEventLogs) GetType() InputWinEventLogsType {
-	if i == nil {
-		return InputWinEventLogsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWinEventLogs) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWinEventLogs) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWinEventLogs) GetSendToRoutes() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.SendToRoutes
 }
 
-func (i *InputWinEventLogs) GetEnvironment() *string {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetType() InputWinEventLogsType {
+	if i == nil {
+		return InputWinEventLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWinEventLogs) GetPqEnabled() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWinEventLogs) GetStreamtags() []string {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWinEventLogs) GetConnections() []ItemsTypeConnections {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWinEventLogs) GetPq() *PqType {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWinEventLogs) GetLogNames() []string {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetLogNames() []string {
 	if i == nil {
 		return []string{}
 	}
 	return i.LogNames
 }
 
-func (i *InputWinEventLogs) GetReadMode() *ReadMode {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetReadMode() *ReadMode {
 	if i == nil {
 		return nil
 	}
 	return i.ReadMode
 }
 
-func (i *InputWinEventLogs) GetEventFormat() *EventFormat {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetEventFormat() *EventFormat {
 	if i == nil {
 		return nil
 	}
 	return i.EventFormat
 }
 
-func (i *InputWinEventLogs) GetDisableNativeModule() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWinEventLogs) GetInterval() *float64 {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWinEventLogs) GetBatchSize() *float64 {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetBatchSize() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogs) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWinEventLogs) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetMaxEventBytes() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxEventBytes
 }
 
-func (i *InputWinEventLogs) GetDescription() *string {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWinEventLogs) GetDisableJSONRendering() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetDisableJSONRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableJSONRendering
 }
 
-func (i *InputWinEventLogs) GetDisableXMLRendering() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetDisableXMLRendering() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableXMLRendering
+}
+
+type InputWinEventLogsUnionType string
+
+const (
+	InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesTrueConstraint                 InputWinEventLogsUnionType = "InputWinEventLogs_SendToRoutesTrueConstraint"
+	InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint InputWinEventLogsUnionType = "InputWinEventLogs_SendToRoutesFalseWithConnectionsConstraint"
+	InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledFalseConstraint                   InputWinEventLogsUnionType = "InputWinEventLogs_PqEnabledFalseConstraint"
+	InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledTrueWithPqConstraint              InputWinEventLogsUnionType = "InputWinEventLogs_PqEnabledTrueWithPqConstraint"
+)
+
+type InputWinEventLogs struct {
+	InputWinEventLogsSendToRoutesTrueConstraint                 *InputWinEventLogsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
+	InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
+	InputWinEventLogsPqEnabledFalseConstraint                   *InputWinEventLogsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
+	InputWinEventLogsPqEnabledTrueWithPqConstraint              *InputWinEventLogsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
+
+	Type InputWinEventLogsUnionType
+}
+
+func CreateInputWinEventLogsInputWinEventLogsSendToRoutesTrueConstraint(inputWinEventLogsSendToRoutesTrueConstraint InputWinEventLogsSendToRoutesTrueConstraint) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesTrueConstraint
+
+	return InputWinEventLogs{
+		InputWinEventLogsSendToRoutesTrueConstraint: &inputWinEventLogsSendToRoutesTrueConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint(inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
+
+	return InputWinEventLogs{
+		InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint: &inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsPqEnabledFalseConstraint(inputWinEventLogsPqEnabledFalseConstraint InputWinEventLogsPqEnabledFalseConstraint) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledFalseConstraint
+
+	return InputWinEventLogs{
+		InputWinEventLogsPqEnabledFalseConstraint: &inputWinEventLogsPqEnabledFalseConstraint,
+		Type: typ,
+	}
+}
+
+func CreateInputWinEventLogsInputWinEventLogsPqEnabledTrueWithPqConstraint(inputWinEventLogsPqEnabledTrueWithPqConstraint InputWinEventLogsPqEnabledTrueWithPqConstraint) InputWinEventLogs {
+	typ := InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledTrueWithPqConstraint
+
+	return InputWinEventLogs{
+		InputWinEventLogsPqEnabledTrueWithPqConstraint: &inputWinEventLogsPqEnabledTrueWithPqConstraint,
+		Type: typ,
+	}
+}
+
+func (u *InputWinEventLogs) UnmarshalJSON(data []byte) error {
+
+	var inputWinEventLogsSendToRoutesTrueConstraint InputWinEventLogsSendToRoutesTrueConstraint = InputWinEventLogsSendToRoutesTrueConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsSendToRoutesTrueConstraint, "", true, nil); err == nil {
+		u.InputWinEventLogsSendToRoutesTrueConstraint = &inputWinEventLogsSendToRoutesTrueConstraint
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesTrueConstraint
+		return nil
+	}
+
+	var inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint = InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
+		u.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint = &inputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsSendToRoutesFalseWithConnectionsConstraint
+		return nil
+	}
+
+	var inputWinEventLogsPqEnabledFalseConstraint InputWinEventLogsPqEnabledFalseConstraint = InputWinEventLogsPqEnabledFalseConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsPqEnabledFalseConstraint, "", true, nil); err == nil {
+		u.InputWinEventLogsPqEnabledFalseConstraint = &inputWinEventLogsPqEnabledFalseConstraint
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledFalseConstraint
+		return nil
+	}
+
+	var inputWinEventLogsPqEnabledTrueWithPqConstraint InputWinEventLogsPqEnabledTrueWithPqConstraint = InputWinEventLogsPqEnabledTrueWithPqConstraint{}
+	if err := utils.UnmarshalJSON(data, &inputWinEventLogsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
+		u.InputWinEventLogsPqEnabledTrueWithPqConstraint = &inputWinEventLogsPqEnabledTrueWithPqConstraint
+		u.Type = InputWinEventLogsUnionTypeInputWinEventLogsPqEnabledTrueWithPqConstraint
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWinEventLogs", string(data))
+}
+
+func (u InputWinEventLogs) MarshalJSON() ([]byte, error) {
+	if u.InputWinEventLogsSendToRoutesTrueConstraint != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsSendToRoutesTrueConstraint, "", true)
+	}
+
+	if u.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint, "", true)
+	}
+
+	if u.InputWinEventLogsPqEnabledFalseConstraint != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsPqEnabledFalseConstraint, "", true)
+	}
+
+	if u.InputWinEventLogsPqEnabledTrueWithPqConstraint != nil {
+		return utils.MarshalJSON(u.InputWinEventLogsPqEnabledTrueWithPqConstraint, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputWinEventLogs: all fields are null")
 }
