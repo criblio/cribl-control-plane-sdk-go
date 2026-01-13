@@ -33,8 +33,8 @@ func newACL(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks
 	}
 }
 
-// Get the Access Control List for a Worker Group or Edge Fleet
-// Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
+// Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
+// Get the Access Control List (ACL) for the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetConfigGroupACLByProductAndIDResponse, error) {
 	request := operations.GetConfigGroupACLByProductAndIDRequest{
 		Product: product,
