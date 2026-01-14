@@ -32,65 +32,6 @@ func (e *PipelineFunctionDistinctID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type DistinctConfiguration struct {
-	// Defines the properties that are concatenated to produce distinct key
-	GroupBy []string `json:"groupBy"`
-	// maximum number of tracked combinations
-	MaxCombinations *float64 `json:"maxCombinations,omitempty"`
-	// maximum number of groupBy properties
-	MaxDepth *float64 `json:"maxDepth,omitempty"`
-	// indicator that the operator runs on a federated executor
-	IsFederated *bool `json:"isFederated,omitempty"`
-	// Toggle this on to suppress generating previews of intermediate results
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
-}
-
-func (d DistinctConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(d, "", false)
-}
-
-func (d *DistinctConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"groupBy"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (d *DistinctConfiguration) GetGroupBy() []string {
-	if d == nil {
-		return []string{}
-	}
-	return d.GroupBy
-}
-
-func (d *DistinctConfiguration) GetMaxCombinations() *float64 {
-	if d == nil {
-		return nil
-	}
-	return d.MaxCombinations
-}
-
-func (d *DistinctConfiguration) GetMaxDepth() *float64 {
-	if d == nil {
-		return nil
-	}
-	return d.MaxDepth
-}
-
-func (d *DistinctConfiguration) GetIsFederated() *bool {
-	if d == nil {
-		return nil
-	}
-	return d.IsFederated
-}
-
-func (d *DistinctConfiguration) GetSuppressPreviews() *bool {
-	if d == nil {
-		return nil
-	}
-	return d.SuppressPreviews
-}
-
 type PipelineFunctionDistinct struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -101,8 +42,8 @@ type PipelineFunctionDistinct struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                 `json:"final,omitempty"`
-	Conf  DistinctConfiguration `json:"conf"`
+	Final *bool                      `json:"final,omitempty"`
+	Conf  FunctionConfSchemaDistinct `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -153,9 +94,9 @@ func (p *PipelineFunctionDistinct) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionDistinct) GetConf() DistinctConfiguration {
+func (p *PipelineFunctionDistinct) GetConf() FunctionConfSchemaDistinct {
 	if p == nil {
-		return DistinctConfiguration{}
+		return FunctionConfSchemaDistinct{}
 	}
 	return p.Conf
 }

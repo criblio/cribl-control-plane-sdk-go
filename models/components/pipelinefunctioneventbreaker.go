@@ -32,61 +32,6 @@ func (e *PipelineFunctionEventBreakerID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionEventBreakerExistingOrNew string
-
-const (
-	// PipelineFunctionEventBreakerExistingOrNewExisting Use Existing
-	PipelineFunctionEventBreakerExistingOrNewExisting PipelineFunctionEventBreakerExistingOrNew = "existing"
-	// PipelineFunctionEventBreakerExistingOrNewNew Create New
-	PipelineFunctionEventBreakerExistingOrNewNew PipelineFunctionEventBreakerExistingOrNew = "new"
-)
-
-func (e PipelineFunctionEventBreakerExistingOrNew) ToPointer() *PipelineFunctionEventBreakerExistingOrNew {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionEventBreakerExistingOrNew) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "existing", "new":
-			return true
-		}
-	}
-	return false
-}
-
-type PipelineFunctionEventBreakerConf struct {
-	ExistingOrNew PipelineFunctionEventBreakerExistingOrNew `json:"existingOrNew"`
-	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
-}
-
-func (p PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionEventBreakerConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"existingOrNew"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionEventBreakerConf) GetExistingOrNew() PipelineFunctionEventBreakerExistingOrNew {
-	if p == nil {
-		return PipelineFunctionEventBreakerExistingOrNew("")
-	}
-	return p.ExistingOrNew
-}
-
-func (p *PipelineFunctionEventBreakerConf) GetShouldMarkCriblBreaker() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.ShouldMarkCriblBreaker
-}
-
 type PipelineFunctionEventBreaker struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -97,8 +42,8 @@ type PipelineFunctionEventBreaker struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                            `json:"final,omitempty"`
-	Conf  PipelineFunctionEventBreakerConf `json:"conf"`
+	Final *bool                          `json:"final,omitempty"`
+	Conf  FunctionConfSchemaEventBreaker `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -149,9 +94,9 @@ func (p *PipelineFunctionEventBreaker) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionEventBreaker) GetConf() PipelineFunctionEventBreakerConf {
+func (p *PipelineFunctionEventBreaker) GetConf() FunctionConfSchemaEventBreaker {
 	if p == nil {
-		return PipelineFunctionEventBreakerConf{}
+		return FunctionConfSchemaEventBreaker{}
 	}
 	return p.Conf
 }

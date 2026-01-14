@@ -32,124 +32,6 @@ func (e *PipelineFunctionSendID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineFunctionSendMode - In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
-type PipelineFunctionSendMode string
-
-const (
-	PipelineFunctionSendModeSender  PipelineFunctionSendMode = "sender"
-	PipelineFunctionSendModeMetrics PipelineFunctionSendMode = "metrics"
-)
-
-func (e PipelineFunctionSendMode) ToPointer() *PipelineFunctionSendMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionSendMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "sender", "metrics":
-			return true
-		}
-	}
-	return false
-}
-
-type SendConfiguration struct {
-	// Full URL to send search to.
-	URL *string `json:"url,omitempty"`
-	// Group within the workspace we're sending to.
-	Group *string `json:"group,omitempty"`
-	// Workspace within the deployment to send the search results to.
-	Workspace *string `json:"workspace,omitempty"`
-	// Template to build the URL to send from.
-	SendURLTemplate *string `json:"sendUrlTemplate,omitempty"`
-	// Id of the search this function is running on.
-	SearchID string `json:"searchId"`
-	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *string `json:"tee,omitempty"`
-	// How often are stats flushed in ms
-	FlushMs *float64 `json:"flushMs,omitempty"`
-	// Disables generation of intermediate stats. When true stats will be emitted only on end
-	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
-	// In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
-	Mode *PipelineFunctionSendMode `json:"mode,omitempty"`
-}
-
-func (s SendConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SendConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"searchId"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SendConfiguration) GetURL() *string {
-	if s == nil {
-		return nil
-	}
-	return s.URL
-}
-
-func (s *SendConfiguration) GetGroup() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Group
-}
-
-func (s *SendConfiguration) GetWorkspace() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Workspace
-}
-
-func (s *SendConfiguration) GetSendURLTemplate() *string {
-	if s == nil {
-		return nil
-	}
-	return s.SendURLTemplate
-}
-
-func (s *SendConfiguration) GetSearchID() string {
-	if s == nil {
-		return ""
-	}
-	return s.SearchID
-}
-
-func (s *SendConfiguration) GetTee() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Tee
-}
-
-func (s *SendConfiguration) GetFlushMs() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.FlushMs
-}
-
-func (s *SendConfiguration) GetSuppressPreviews() *bool {
-	if s == nil {
-		return nil
-	}
-	return s.SuppressPreviews
-}
-
-func (s *SendConfiguration) GetMode() *PipelineFunctionSendMode {
-	if s == nil {
-		return nil
-	}
-	return s.Mode
-}
-
 type PipelineFunctionSend struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -160,8 +42,8 @@ type PipelineFunctionSend struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool             `json:"final,omitempty"`
-	Conf  SendConfiguration `json:"conf"`
+	Final *bool                  `json:"final,omitempty"`
+	Conf  FunctionConfSchemaSend `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -212,9 +94,9 @@ func (p *PipelineFunctionSend) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionSend) GetConf() SendConfiguration {
+func (p *PipelineFunctionSend) GetConf() FunctionConfSchemaSend {
 	if p == nil {
-		return SendConfiguration{}
+		return FunctionConfSchemaSend{}
 	}
 	return p.Conf
 }

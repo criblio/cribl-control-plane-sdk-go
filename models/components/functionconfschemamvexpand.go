@@ -6,22 +6,22 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// FunctionConfSchemaMvExpandBagExpansionMode - decides if bag-values are expanded to bags or arrays
-type FunctionConfSchemaMvExpandBagExpansionMode string
+// BagExpansionMode - decides if bag-values are expanded to bags or arrays
+type BagExpansionMode string
 
 const (
-	// FunctionConfSchemaMvExpandBagExpansionModeBag Store as object
-	FunctionConfSchemaMvExpandBagExpansionModeBag FunctionConfSchemaMvExpandBagExpansionMode = "bag"
-	// FunctionConfSchemaMvExpandBagExpansionModeArray Store as array
-	FunctionConfSchemaMvExpandBagExpansionModeArray FunctionConfSchemaMvExpandBagExpansionMode = "array"
+	// BagExpansionModeBag Store as object
+	BagExpansionModeBag BagExpansionMode = "bag"
+	// BagExpansionModeArray Store as array
+	BagExpansionModeArray BagExpansionMode = "array"
 )
 
-func (e FunctionConfSchemaMvExpandBagExpansionMode) ToPointer() *FunctionConfSchemaMvExpandBagExpansionMode {
+func (e BagExpansionMode) ToPointer() *BagExpansionMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionConfSchemaMvExpandBagExpansionMode) IsExact() bool {
+func (e *BagExpansionMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "bag", "array":
@@ -41,7 +41,7 @@ type FunctionConfSchemaMvExpand struct {
 	// name of an optional index property generated into the output
 	ItemIndexName *string `json:"itemIndexName,omitempty"`
 	// decides if bag-values are expanded to bags or arrays
-	BagExpansionMode *FunctionConfSchemaMvExpandBagExpansionMode `json:"bagExpansionMode,omitempty"`
+	BagExpansionMode *BagExpansionMode `json:"bagExpansionMode,omitempty"`
 }
 
 func (f FunctionConfSchemaMvExpand) MarshalJSON() ([]byte, error) {
@@ -83,7 +83,7 @@ func (f *FunctionConfSchemaMvExpand) GetItemIndexName() *string {
 	return f.ItemIndexName
 }
 
-func (f *FunctionConfSchemaMvExpand) GetBagExpansionMode() *FunctionConfSchemaMvExpandBagExpansionMode {
+func (f *FunctionConfSchemaMvExpand) GetBagExpansionMode() *BagExpansionMode {
 	if f == nil {
 		return nil
 	}

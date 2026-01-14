@@ -32,47 +32,6 @@ func (e *PipelineFunctionPivotID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type SimplePivotConfiguration struct {
-	// Fields to be used for the left-most column.
-	LabelField string `json:"labelField"`
-	// Fields with the cell values (i.e. aggregates)
-	DataFields []string `json:"dataFields"`
-	// Fields to qualify or group data fields
-	QualifierFields []string `json:"qualifierFields"`
-}
-
-func (s SimplePivotConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SimplePivotConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"labelField", "dataFields", "qualifierFields"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SimplePivotConfiguration) GetLabelField() string {
-	if s == nil {
-		return ""
-	}
-	return s.LabelField
-}
-
-func (s *SimplePivotConfiguration) GetDataFields() []string {
-	if s == nil {
-		return []string{}
-	}
-	return s.DataFields
-}
-
-func (s *SimplePivotConfiguration) GetQualifierFields() []string {
-	if s == nil {
-		return []string{}
-	}
-	return s.QualifierFields
-}
-
 type PipelineFunctionPivot struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -83,8 +42,8 @@ type PipelineFunctionPivot struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
-	Conf  SimplePivotConfiguration `json:"conf"`
+	Final *bool                   `json:"final,omitempty"`
+	Conf  FunctionConfSchemaPivot `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -135,9 +94,9 @@ func (p *PipelineFunctionPivot) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionPivot) GetConf() SimplePivotConfiguration {
+func (p *PipelineFunctionPivot) GetConf() FunctionConfSchemaPivot {
 	if p == nil {
-		return SimplePivotConfiguration{}
+		return FunctionConfSchemaPivot{}
 	}
 	return p.Conf
 }

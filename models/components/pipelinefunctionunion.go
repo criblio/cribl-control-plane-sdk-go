@@ -32,38 +32,6 @@ func (e *PipelineFunctionUnionID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type UnionConfiguration struct {
-	// The id for this search job.
-	SearchJobID string `json:"searchJobId"`
-	// The stages we are unioning with.
-	StageIds []string `json:"stageIds"`
-}
-
-func (u UnionConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *UnionConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"searchJobId", "stageIds"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *UnionConfiguration) GetSearchJobID() string {
-	if u == nil {
-		return ""
-	}
-	return u.SearchJobID
-}
-
-func (u *UnionConfiguration) GetStageIds() []string {
-	if u == nil {
-		return []string{}
-	}
-	return u.StageIds
-}
-
 type PipelineFunctionUnion struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -74,8 +42,8 @@ type PipelineFunctionUnion struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool              `json:"final,omitempty"`
-	Conf  UnionConfiguration `json:"conf"`
+	Final *bool                   `json:"final,omitempty"`
+	Conf  FunctionConfSchemaUnion `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -126,9 +94,9 @@ func (p *PipelineFunctionUnion) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionUnion) GetConf() UnionConfiguration {
+func (p *PipelineFunctionUnion) GetConf() FunctionConfSchemaUnion {
 	if p == nil {
-		return UnionConfiguration{}
+		return FunctionConfSchemaUnion{}
 	}
 	return p.Conf
 }

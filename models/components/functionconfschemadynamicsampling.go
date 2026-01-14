@@ -6,22 +6,22 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// FunctionConfSchemaDynamicSamplingSampleMode - Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-type FunctionConfSchemaDynamicSamplingSampleMode string
+// SampleMode - Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
+type SampleMode string
 
 const (
-	// FunctionConfSchemaDynamicSamplingSampleModeLog Logarithmic
-	FunctionConfSchemaDynamicSamplingSampleModeLog FunctionConfSchemaDynamicSamplingSampleMode = "log"
-	// FunctionConfSchemaDynamicSamplingSampleModeSqrt Square Root
-	FunctionConfSchemaDynamicSamplingSampleModeSqrt FunctionConfSchemaDynamicSamplingSampleMode = "sqrt"
+	// SampleModeLog Logarithmic
+	SampleModeLog SampleMode = "log"
+	// SampleModeSqrt Square Root
+	SampleModeSqrt SampleMode = "sqrt"
 )
 
-func (e FunctionConfSchemaDynamicSamplingSampleMode) ToPointer() *FunctionConfSchemaDynamicSamplingSampleMode {
+func (e SampleMode) ToPointer() *SampleMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionConfSchemaDynamicSamplingSampleMode) IsExact() bool {
+func (e *SampleMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "log", "sqrt":
@@ -33,7 +33,7 @@ func (e *FunctionConfSchemaDynamicSamplingSampleMode) IsExact() bool {
 
 type FunctionConfSchemaDynamicSampling struct {
 	// Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-	Mode *FunctionConfSchemaDynamicSamplingSampleMode `json:"mode,omitempty"`
+	Mode *SampleMode `json:"mode,omitempty"`
 	// Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
 	KeyExpr *string `json:"keyExpr,omitempty"`
 	// How often (in seconds) sample rates will be adjusted
@@ -55,7 +55,7 @@ func (f *FunctionConfSchemaDynamicSampling) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionConfSchemaDynamicSampling) GetMode() *FunctionConfSchemaDynamicSamplingSampleMode {
+func (f *FunctionConfSchemaDynamicSampling) GetMode() *SampleMode {
 	if f == nil {
 		return nil
 	}
