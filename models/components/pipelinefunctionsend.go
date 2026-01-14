@@ -59,17 +59,17 @@ type SendConfiguration struct {
 	// Full URL to send search to.
 	URL *string `json:"url,omitempty"`
 	// Group within the workspace we're sending to.
-	Group *string `default:"default" json:"group"`
+	Group *string `json:"group,omitempty"`
 	// Workspace within the deployment to send the search results to.
-	Workspace *string `default:"main" json:"workspace"`
+	Workspace *string `json:"workspace,omitempty"`
 	// Template to build the URL to send from.
 	SendURLTemplate *string `json:"sendUrlTemplate,omitempty"`
 	// Id of the search this function is running on.
 	SearchID string `json:"searchId"`
 	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *string `default:"false" json:"tee"`
+	Tee *string `json:"tee,omitempty"`
 	// How often are stats flushed in ms
-	FlushMs *float64 `default:"1000" json:"flushMs"`
+	FlushMs *float64 `json:"flushMs,omitempty"`
 	// Disables generation of intermediate stats. When true stats will be emitted only on end
 	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
 	// In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
@@ -152,7 +152,7 @@ func (s *SendConfiguration) GetMode() *PipelineFunctionSendMode {
 
 type PipelineFunctionSend struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionSendID `json:"id"`
 	// Simple description of this step

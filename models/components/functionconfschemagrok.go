@@ -34,7 +34,7 @@ type FunctionConfSchemaGrok struct {
 	Pattern     *string                             `json:"pattern,omitempty"`
 	PatternList []FunctionConfSchemaGrokPatternList `json:"patternList,omitempty"`
 	// Field on which to perform Grok extractions
-	Source *string `default:"_raw" json:"source"`
+	Source *string `json:"source,omitempty"`
 }
 
 func (f FunctionConfSchemaGrok) MarshalJSON() ([]byte, error) {

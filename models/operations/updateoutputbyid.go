@@ -27,10 +27,6 @@ func (u *UpdateOutputByIDRequest) GetOutput() components.Output {
 	return u.Output
 }
 
-func (u *UpdateOutputByIDRequest) GetOutputDefault() *components.OutputDefault {
-	return u.GetOutput().OutputDefault
-}
-
 func (u *UpdateOutputByIDRequest) GetOutputWebhook() *components.OutputWebhook {
 	return u.GetOutput().OutputWebhook
 }

@@ -36,8 +36,8 @@ type PipelineFunctionSensitiveDataScannerRule struct {
 	// The ID of the ruleset to use for the scan
 	RulesetID string `json:"rulesetId"`
 	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
-	ReplaceExpr *string `default:"'REDACTED'" json:"replaceExpr"`
-	Disabled    *bool   `default:"false" json:"disabled"`
+	ReplaceExpr string `json:"replaceExpr"`
+	Disabled    *bool  `json:"disabled,omitempty"`
 }
 
 func (p PipelineFunctionSensitiveDataScannerRule) MarshalJSON() ([]byte, error) {
@@ -45,7 +45,7 @@ func (p PipelineFunctionSensitiveDataScannerRule) MarshalJSON() ([]byte, error) 
 }
 
 func (p *PipelineFunctionSensitiveDataScannerRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rulesetId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rulesetId", "replaceExpr"}); err != nil {
 		return err
 	}
 	return nil
@@ -58,9 +58,9 @@ func (p *PipelineFunctionSensitiveDataScannerRule) GetRulesetID() string {
 	return p.RulesetID
 }
 
-func (p *PipelineFunctionSensitiveDataScannerRule) GetReplaceExpr() *string {
+func (p *PipelineFunctionSensitiveDataScannerRule) GetReplaceExpr() string {
 	if p == nil {
-		return nil
+		return ""
 	}
 	return p.ReplaceExpr
 }
@@ -111,8 +111,8 @@ type PipelineFunctionSensitiveDataScannerConf struct {
 	// Fields to add when mitigation is applied to an event
 	Flags []PipelineFunctionSensitiveDataScannerFlag `json:"flags,omitempty"`
 	// Add matching ruleset IDs to a field called "__detected"
-	IncludeDetectedRules *bool `default:"true" json:"includeDetectedRules"`
-	BackgroundDetection  *bool `default:"false" json:"backgroundDetection"`
+	IncludeDetectedRules *bool `json:"includeDetectedRules,omitempty"`
+	BackgroundDetection  *bool `json:"backgroundDetection,omitempty"`
 }
 
 func (p PipelineFunctionSensitiveDataScannerConf) MarshalJSON() ([]byte, error) {
@@ -170,7 +170,7 @@ func (p *PipelineFunctionSensitiveDataScannerConf) GetBackgroundDetection() *boo
 
 type PipelineFunctionSensitiveDataScanner struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionSensitiveDataScannerID `json:"id"`
 	// Simple description of this step

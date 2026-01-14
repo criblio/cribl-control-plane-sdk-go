@@ -114,10 +114,10 @@ func (e *FunctionConfSchemaRedisAuthenticationMethod) IsExact() bool {
 type FunctionConfSchemaRedis struct {
 	Commands []FunctionConfSchemaRedisCommand `json:"commands,omitempty"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *FunctionConfSchemaRedisDeploymentType       `default:"standalone" json:"deploymentType"`
-	AuthType       *FunctionConfSchemaRedisAuthenticationMethod `default:"none" json:"authType"`
+	DeploymentType *FunctionConfSchemaRedisDeploymentType       `json:"deploymentType,omitempty"`
+	AuthType       *FunctionConfSchemaRedisAuthenticationMethod `json:"authType,omitempty"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `default:"60" json:"maxBlockSecs"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
 }

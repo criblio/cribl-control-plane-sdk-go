@@ -11,16 +11,16 @@ import (
 
 type InputRawUDPPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputRawUDPType `json:"type"`
-	Disabled *bool           `default:"false" json:"disabled"`
+	Disabled *bool           `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,17 +28,17 @@ type InputRawUDPPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
-	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
 	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
-	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	IngestRawBytes *bool `json:"ingestRawBytes,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Fields to add to events from this input
@@ -51,15 +51,15 @@ func (i InputRawUDPPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) 
 }
 
 func (i *InputRawUDPPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -127,9 +127,9 @@ func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeC
 	return i.Connections
 }
 
-func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -192,15 +192,15 @@ func (i *InputRawUDPPqEnabledTrueWithPqConstraint) GetDescription() *string {
 
 type InputRawUDPPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputRawUDPType `json:"type"`
-	Disabled *bool           `default:"false" json:"disabled"`
+	Disabled *bool           `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -209,17 +209,17 @@ type InputRawUDPPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
-	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
 	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
-	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	IngestRawBytes *bool `json:"ingestRawBytes,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Fields to add to events from this input
@@ -232,15 +232,15 @@ func (i InputRawUDPPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputRawUDPPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDPPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputRawUDPPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -308,9 +308,9 @@ func (i *InputRawUDPPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputRawUDPPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputRawUDPPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -373,34 +373,34 @@ func (i *InputRawUDPPqEnabledFalseConstraint) GetDescription() *string {
 
 type InputRawUDPSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputRawUDPType `json:"type"`
-	Disabled *bool           `default:"false" json:"disabled"`
+	Disabled *bool           `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
-	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
 	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
-	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	IngestRawBytes *bool `json:"ingestRawBytes,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Fields to add to events from this input
@@ -413,15 +413,15 @@ func (i InputRawUDPSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]
 }
 
 func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -489,9 +489,9 @@ func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType 
 	return i.Pq
 }
 
-func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputRawUDPSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -577,34 +577,34 @@ func (e *InputRawUDPType) UnmarshalJSON(data []byte) error {
 
 type InputRawUDPSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputRawUDPType `json:"type"`
-	Disabled *bool           `default:"false" json:"disabled"`
+	Disabled *bool           `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
-	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
 	// If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
-	IngestRawBytes *bool `default:"false" json:"ingestRawBytes"`
+	IngestRawBytes *bool `json:"ingestRawBytes,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Fields to add to events from this input
@@ -617,15 +617,15 @@ func (i InputRawUDPSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputRawUDPSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputRawUDPSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -693,9 +693,9 @@ func (i *InputRawUDPSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputRawUDPSendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputRawUDPSendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }

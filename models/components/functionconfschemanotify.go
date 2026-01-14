@@ -66,9 +66,9 @@ func (e *FunctionConfSchemaNotifyCountComparator) IsExact() bool {
 
 type FunctionConfSchemaNotify struct {
 	// Group the notification belongs to
-	Group *string `default:"default" json:"group"`
+	Group *string `json:"group,omitempty"`
 	// Workspace within the deployment to send the search results to.
-	NotificationID *string `default:"main" json:"notificationId"`
+	NotificationID *string `json:"notificationId,omitempty"`
 	// Id of the search this function is running on.
 	SearchID *string `json:"searchId,omitempty"`
 	// Id of the saved query
@@ -80,9 +80,9 @@ type FunctionConfSchemaNotify struct {
 	// Operation to be applied over the results count
 	TriggerComparator *FunctionConfSchemaNotifyCountComparator `json:"triggerComparator,omitempty"`
 	// How many results that match trigger the condition
-	TriggerCount *float64 `default:"0" json:"triggerCount"`
+	TriggerCount *float64 `json:"triggerCount,omitempty"`
 	// Number of results to include in the notification event
-	ResultsLimit *float64 `default:"50" json:"resultsLimit"`
+	ResultsLimit *float64 `json:"resultsLimit,omitempty"`
 	// Url of the search results
 	SearchURL *string `json:"searchUrl,omitempty"`
 	// Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl

@@ -9,10 +9,10 @@ import (
 type FunctionConfSchemaOtlpMetrics struct {
 	// The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
 	ResourceAttributePrefixes []string            `json:"resourceAttributePrefixes,omitempty"`
-	DropNonMetricEvents       *bool               `default:"false" json:"dropNonMetricEvents"`
-	OtlpVersion               *OtlpVersionOptions `default:"0.10.0" json:"otlpVersion"`
+	DropNonMetricEvents       *bool               `json:"dropNonMetricEvents,omitempty"`
+	OtlpVersion               *OtlpVersionOptions `json:"otlpVersion,omitempty"`
 	// Batch OTLP metrics by shared top-level `resource` attributes
-	BatchOTLPMetrics *bool `default:"false" json:"batchOTLPMetrics"`
+	BatchOTLPMetrics *bool `json:"batchOTLPMetrics,omitempty"`
 }
 
 func (f FunctionConfSchemaOtlpMetrics) MarshalJSON() ([]byte, error) {

@@ -11,16 +11,16 @@ import (
 
 type InputSystemMetricsPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputSystemMetricsType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,7 +28,7 @@ type InputSystemMetricsPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval  *float64                `default:"10" json:"interval"`
+	Interval  *float64                `json:"interval,omitempty"`
 	Host      *InputSystemMetricsHost `json:"host,omitempty"`
 	Process   *ProcessType            `json:"process,omitempty"`
 	Container *Container              `json:"container,omitempty"`
@@ -43,15 +43,15 @@ func (i InputSystemMetricsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, 
 }
 
 func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -170,15 +170,15 @@ func (i *InputSystemMetricsPqEnabledTrueWithPqConstraint) GetDescription() *stri
 
 type InputSystemMetricsPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputSystemMetricsType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -187,7 +187,7 @@ type InputSystemMetricsPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval  *float64                `default:"10" json:"interval"`
+	Interval  *float64                `json:"interval,omitempty"`
 	Host      *InputSystemMetricsHost `json:"host,omitempty"`
 	Process   *ProcessType            `json:"process,omitempty"`
 	Container *Container              `json:"container,omitempty"`
@@ -202,15 +202,15 @@ func (i InputSystemMetricsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error
 }
 
 func (i *InputSystemMetricsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputSystemMetricsPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -329,24 +329,24 @@ func (i *InputSystemMetricsPqEnabledFalseConstraint) GetDescription() *string {
 
 type InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputSystemMetricsType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval  *float64                `default:"10" json:"interval"`
+	Interval  *float64                `json:"interval,omitempty"`
 	Host      *InputSystemMetricsHost `json:"host,omitempty"`
 	Process   *ProcessType            `json:"process,omitempty"`
 	Container *Container              `json:"container,omitempty"`
@@ -361,15 +361,15 @@ func (i InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) MarshalJSO
 }
 
 func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputSystemMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -540,9 +540,9 @@ func (e *InputSystemMetricsSystemMode) IsExact() bool {
 
 type InputSystemMetricsSystem struct {
 	// Select the level of detail for system metrics
-	Mode *InputSystemMetricsSystemMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsSystemMode `json:"mode,omitempty"`
 	// Generate metrics for the numbers of processes in various states
-	Processes *bool `default:"false" json:"processes"`
+	Processes *bool `json:"processes,omitempty"`
 }
 
 func (i InputSystemMetricsSystem) MarshalJSON() ([]byte, error) {
@@ -601,13 +601,13 @@ func (e *InputSystemMetricsCPUMode) IsExact() bool {
 
 type InputSystemMetricsCPU struct {
 	// Select the level of detail for CPU metrics
-	Mode *InputSystemMetricsCPUMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsCPUMode `json:"mode,omitempty"`
 	// Generate metrics for each CPU
-	PerCPU *bool `default:"false" json:"perCpu"`
+	PerCPU *bool `json:"perCpu,omitempty"`
 	// Generate metrics for all CPU states
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Generate raw, monotonic CPU time counters
-	Time *bool `default:"false" json:"time"`
+	Time *bool `json:"time,omitempty"`
 }
 
 func (i InputSystemMetricsCPU) MarshalJSON() ([]byte, error) {
@@ -680,9 +680,9 @@ func (e *InputSystemMetricsMemoryMode) IsExact() bool {
 
 type InputSystemMetricsMemory struct {
 	// Select the level of detail for memory metrics
-	Mode *InputSystemMetricsMemoryMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsMemoryMode `json:"mode,omitempty"`
 	// Generate metrics for all memory states
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 }
 
 func (i InputSystemMetricsMemory) MarshalJSON() ([]byte, error) {
@@ -741,15 +741,15 @@ func (e *InputSystemMetricsNetworkMode) IsExact() bool {
 
 type InputSystemMetricsNetwork struct {
 	// Select the level of detail for network metrics
-	Mode *InputSystemMetricsNetworkMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsNetworkMode `json:"mode,omitempty"`
 	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-	Protocols *bool `default:"false" json:"protocols"`
+	Protocols *bool `json:"protocols,omitempty"`
 	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
-	PerInterface *bool `default:"false" json:"perInterface"`
+	PerInterface *bool `json:"perInterface,omitempty"`
 }
 
 func (i InputSystemMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -829,11 +829,11 @@ func (e *InputSystemMetricsDiskMode) IsExact() bool {
 
 type InputSystemMetricsDisk struct {
 	// Select the level of detail for disk metrics
-	Mode *InputSystemMetricsDiskMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsDiskMode `json:"mode,omitempty"`
 	// Generate full disk metrics
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Generate filesystem inode metrics
-	Inodes *bool `default:"false" json:"inodes"`
+	Inodes *bool `json:"inodes,omitempty"`
 	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
@@ -841,7 +841,7 @@ type InputSystemMetricsDisk struct {
 	// Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
 	Fstypes []string `json:"fstypes,omitempty"`
 	// Generate separate metrics for each device
-	PerDevice *bool `default:"false" json:"perDevice"`
+	PerDevice *bool `json:"perDevice,omitempty"`
 }
 
 func (i InputSystemMetricsDisk) MarshalJSON() ([]byte, error) {
@@ -960,7 +960,7 @@ func (i *InputSystemMetricsCustom) GetDisk() *InputSystemMetricsDisk {
 
 type InputSystemMetricsHost struct {
 	// Select level of detail for host metrics
-	Mode   *ModeOptionsHost          `default:"basic" json:"mode"`
+	Mode   *ModeOptionsHost          `json:"mode,omitempty"`
 	Custom *InputSystemMetricsCustom `json:"custom,omitempty"`
 }
 
@@ -1042,19 +1042,19 @@ func (i *InputSystemMetricsFilter) GetExpr() string {
 
 type Container struct {
 	// Select the level of detail for container metrics
-	Mode *ContainerMode `default:"basic" json:"mode"`
+	Mode *ContainerMode `json:"mode,omitempty"`
 	// Full paths for Docker's UNIX-domain socket
 	DockerSocket []string `json:"dockerSocket,omitempty"`
 	// Timeout, in seconds, for the Docker API
-	DockerTimeout *float64 `default:"5" json:"dockerTimeout"`
+	DockerTimeout *float64 `json:"dockerTimeout,omitempty"`
 	// Containers matching any of these will be included. All are included if no filters are added.
 	Filters []InputSystemMetricsFilter `json:"filters,omitempty"`
 	// Include stopped and paused containers
-	AllContainers *bool `default:"false" json:"allContainers"`
+	AllContainers *bool `json:"allContainers,omitempty"`
 	// Generate separate metrics for each device
-	PerDevice *bool `default:"false" json:"perDevice"`
+	PerDevice *bool `json:"perDevice,omitempty"`
 	// Generate full container metrics
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 }
 
 func (c Container) MarshalJSON() ([]byte, error) {
@@ -1119,16 +1119,16 @@ func (c *Container) GetDetail() *bool {
 
 type InputSystemMetricsPersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
+	TimeWindow *string `json:"timeWindow,omitempty"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
+	MaxDataSize *string `json:"maxDataSize,omitempty"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `default:"24h" json:"maxDataTime"`
-	Compress    *DataCompressionFormatOptionsPersistence `default:"gzip" json:"compress"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
-	DestPath *string `default:"$CRIBL_HOME/state/system_metrics" json:"destPath"`
+	DestPath *string `json:"destPath,omitempty"`
 }
 
 func (i InputSystemMetricsPersistence) MarshalJSON() ([]byte, error) {
@@ -1186,24 +1186,24 @@ func (i *InputSystemMetricsPersistence) GetDestPath() *string {
 
 type InputSystemMetricsSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputSystemMetricsType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval  *float64                `default:"10" json:"interval"`
+	Interval  *float64                `json:"interval,omitempty"`
 	Host      *InputSystemMetricsHost `json:"host,omitempty"`
 	Process   *ProcessType            `json:"process,omitempty"`
 	Container *Container              `json:"container,omitempty"`
@@ -1218,15 +1218,15 @@ func (i InputSystemMetricsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, err
 }
 
 func (i *InputSystemMetricsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputSystemMetricsSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }

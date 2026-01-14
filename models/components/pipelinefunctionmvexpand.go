@@ -63,11 +63,11 @@ type PipelineFunctionMvExpandConf struct {
 	// stores the value as new target field name
 	TargetNames []string `json:"targetNames,omitempty"`
 	// max. number of rows generated out of every source events
-	RowLimit *float64 `default:"9007199254740991" json:"rowLimit"`
+	RowLimit *float64 `json:"rowLimit,omitempty"`
 	// name of an optional index property generated into the output
 	ItemIndexName *string `json:"itemIndexName,omitempty"`
 	// decides if bag-values are expanded to bags or arrays
-	BagExpansionMode *PipelineFunctionMvExpandBagExpansionMode `default:"bag" json:"bagExpansionMode"`
+	BagExpansionMode *PipelineFunctionMvExpandBagExpansionMode `json:"bagExpansionMode,omitempty"`
 }
 
 func (p PipelineFunctionMvExpandConf) MarshalJSON() ([]byte, error) {
@@ -118,7 +118,7 @@ func (p *PipelineFunctionMvExpandConf) GetBagExpansionMode() *PipelineFunctionMv
 
 type PipelineFunctionMvExpand struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionMvExpandID `json:"id"`
 	// Simple description of this step

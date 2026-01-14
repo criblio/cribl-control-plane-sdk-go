@@ -9,7 +9,7 @@ import (
 type ItemsTypeAuthTokens struct {
 	// Select or create a stored text secret
 	TokenSecret string `json:"tokenSecret"`
-	Enabled     *bool  `default:"true" json:"enabled"`
+	Enabled     *bool  `json:"enabled,omitempty"`
 	// Optional token description
 	Description *string `json:"description,omitempty"`
 }

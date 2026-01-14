@@ -36,61 +36,61 @@ type InputSyslogSyslog2 struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputSyslogType2 `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort *float64 `json:"udpPort,omitempty"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort float64 `json:"tcpPort"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `default:"local" json:"timestampTimezone"`
+	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
 	// Treat UDP packet data received as full syslog message
-	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Wildcard list of fields to keep from source data; * = ALL (default)
 	KeepFieldsList []string `json:"keepFieldsList,omitempty"`
 	// Enable if incoming messages use octet counting per RFC 6587.
-	OctetCounting *bool `default:"false" json:"octetCounting"`
+	OctetCounting *bool `json:"octetCounting,omitempty"`
 	// Enable if we should infer the syslog framing of the incoming messages.
-	InferFraming *bool `default:"true" json:"inferFraming"`
+	InferFraming *bool `json:"inferFraming,omitempty"`
 	// Enable if we should infer octet counting only if the messages comply with RFC 5424.
-	StrictlyInferOctetCounting *bool `default:"true" json:"strictlyInferOctetCounting"`
+	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitempty"`
 	// Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
-	AllowNonStandardAppName *bool `default:"false" json:"allowNonStandardAppName"`
+	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitempty"`
 	// Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64                   `default:"0" json:"socketMaxLifespan"`
+	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitempty"`
 	Description         *string `json:"description,omitempty"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
@@ -101,7 +101,7 @@ func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tcpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "tcpPort"}); err != nil {
 		return err
 	}
 	return nil
@@ -177,9 +177,9 @@ func (i *InputSyslogSyslog2) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSyslogSyslog2) GetHost() *string {
+func (i *InputSyslogSyslog2) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -365,61 +365,61 @@ type InputSyslogSyslog1 struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputSyslogType1 `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort float64 `json:"udpPort"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort *float64 `json:"tcpPort,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `default:"local" json:"timestampTimezone"`
+	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
 	// Treat UDP packet data received as full syslog message
-	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Wildcard list of fields to keep from source data; * = ALL (default)
 	KeepFieldsList []string `json:"keepFieldsList,omitempty"`
 	// Enable if incoming messages use octet counting per RFC 6587.
-	OctetCounting *bool `default:"false" json:"octetCounting"`
+	OctetCounting *bool `json:"octetCounting,omitempty"`
 	// Enable if we should infer the syslog framing of the incoming messages.
-	InferFraming *bool `default:"true" json:"inferFraming"`
+	InferFraming *bool `json:"inferFraming,omitempty"`
 	// Enable if we should infer octet counting only if the messages comply with RFC 5424.
-	StrictlyInferOctetCounting *bool `default:"true" json:"strictlyInferOctetCounting"`
+	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitempty"`
 	// Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
-	AllowNonStandardAppName *bool `default:"false" json:"allowNonStandardAppName"`
+	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitempty"`
 	// Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64                   `default:"0" json:"socketMaxLifespan"`
+	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitempty"`
 	Description         *string `json:"description,omitempty"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
@@ -430,7 +430,7 @@ func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "udpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "udpPort"}); err != nil {
 		return err
 	}
 	return nil
@@ -506,9 +506,9 @@ func (i *InputSyslogSyslog1) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSyslogSyslog1) GetHost() *string {
+func (i *InputSyslogSyslog1) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }

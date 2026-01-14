@@ -11,16 +11,16 @@ import (
 
 type InputWinEventLogsPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputWinEventLogsType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -30,24 +30,24 @@ type InputWinEventLogsPqEnabledTrueWithPqConstraint struct {
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	ReadMode *ReadMode `json:"readMode,omitempty"`
 	// Format of individual events
-	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	EventFormat *EventFormat `json:"eventFormat,omitempty"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
-	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
 	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	BatchSize *float64 `default:"500" json:"batchSize"`
+	BatchSize *float64 `json:"batchSize,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
 	Description   *string  `json:"description,omitempty"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	DisableJSONRendering *bool `json:"disableJsonRendering,omitempty"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+	DisableXMLRendering *bool `json:"disableXmlRendering,omitempty"`
 }
 
 func (i InputWinEventLogsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
@@ -55,15 +55,15 @@ func (i InputWinEventLogsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, e
 }
 
 func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -210,15 +210,15 @@ func (i *InputWinEventLogsPqEnabledTrueWithPqConstraint) GetDisableXMLRendering(
 
 type InputWinEventLogsPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputWinEventLogsType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -229,24 +229,24 @@ type InputWinEventLogsPqEnabledFalseConstraint struct {
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	ReadMode *ReadMode `json:"readMode,omitempty"`
 	// Format of individual events
-	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	EventFormat *EventFormat `json:"eventFormat,omitempty"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
-	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
 	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	BatchSize *float64 `default:"500" json:"batchSize"`
+	BatchSize *float64 `json:"batchSize,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
 	Description   *string  `json:"description,omitempty"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	DisableJSONRendering *bool `json:"disableJsonRendering,omitempty"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+	DisableXMLRendering *bool `json:"disableXmlRendering,omitempty"`
 }
 
 func (i InputWinEventLogsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
@@ -254,15 +254,15 @@ func (i InputWinEventLogsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputWinEventLogsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogsPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputWinEventLogsPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -409,43 +409,43 @@ func (i *InputWinEventLogsPqEnabledFalseConstraint) GetDisableXMLRendering() *bo
 
 type InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputWinEventLogsType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	ReadMode *ReadMode `json:"readMode,omitempty"`
 	// Format of individual events
-	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	EventFormat *EventFormat `json:"eventFormat,omitempty"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
-	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
 	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	BatchSize *float64 `default:"500" json:"batchSize"`
+	BatchSize *float64 `json:"batchSize,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
 	Description   *string  `json:"description,omitempty"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	DisableJSONRendering *bool `json:"disableJsonRendering,omitempty"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+	DisableXMLRendering *bool `json:"disableXmlRendering,omitempty"`
 }
 
 func (i InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
@@ -453,15 +453,15 @@ func (i InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON
 }
 
 func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputWinEventLogsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -681,17 +681,17 @@ func (e *EventFormat) IsExact() bool {
 
 type InputWinEventLogsSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputWinEventLogsType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -700,24 +700,24 @@ type InputWinEventLogsSendToRoutesTrueConstraint struct {
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *ReadMode `default:"newest" json:"readMode"`
+	ReadMode *ReadMode `json:"readMode,omitempty"`
 	// Format of individual events
-	EventFormat *EventFormat `default:"json" json:"eventFormat"`
+	EventFormat *EventFormat `json:"eventFormat,omitempty"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
-	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
 	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
-	BatchSize *float64 `default:"500" json:"batchSize"`
+	BatchSize *float64 `json:"batchSize,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `default:"51200" json:"maxEventBytes"`
+	MaxEventBytes *float64 `json:"maxEventBytes,omitempty"`
 	Description   *string  `json:"description,omitempty"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableJSONRendering *bool `default:"false" json:"disableJsonRendering"`
+	DisableJSONRendering *bool `json:"disableJsonRendering,omitempty"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
-	DisableXMLRendering *bool `default:"true" json:"disableXmlRendering"`
+	DisableXMLRendering *bool `json:"disableXmlRendering,omitempty"`
 }
 
 func (i InputWinEventLogsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
@@ -725,15 +725,15 @@ func (i InputWinEventLogsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, erro
 }
 
 func (i *InputWinEventLogsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "logNames"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "logNames"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputWinEventLogsSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }

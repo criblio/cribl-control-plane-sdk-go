@@ -44,7 +44,7 @@ type ScriptCollectorConf struct {
 	// Script to run to perform data collections. Task passed in as $CRIBL_COLLECT_ARG. Should output results to stdout.
 	CollectScript string `json:"collectScript"`
 	// Shell to use to execute scripts.
-	Shell *string `default:"/bin/bash" json:"shell"`
+	Shell *string `json:"shell,omitempty"`
 	// Environment variables to expose to the discover and collect scripts.
 	EnvVars []EnvVar `json:"envVars,omitempty"`
 }

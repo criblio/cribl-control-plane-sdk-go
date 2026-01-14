@@ -10,11 +10,11 @@ type FunctionConfSchemaDistinct struct {
 	// Defines the properties that are concatenated to produce distinct key
 	GroupBy []string `json:"groupBy,omitempty"`
 	// maximum number of tracked combinations
-	MaxCombinations *float64 `default:"10000" json:"maxCombinations"`
+	MaxCombinations *float64 `json:"maxCombinations,omitempty"`
 	// maximum number of groupBy properties
-	MaxDepth *float64 `default:"15" json:"maxDepth"`
+	MaxDepth *float64 `json:"maxDepth,omitempty"`
 	// indicator that the operator runs on a federated executor
-	IsFederated *bool `default:"false" json:"isFederated"`
+	IsFederated *bool `json:"isFederated,omitempty"`
 	// Toggle this on to suppress generating previews of intermediate results
 	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
 }

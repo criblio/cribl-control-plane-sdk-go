@@ -2,16 +2,13 @@
 
 package components
 
-// AuthenticationMethodOptions - AWS authentication method. Choose Auto to use IAM roles.
 type AuthenticationMethodOptions string
 
 const (
-	// AuthenticationMethodOptionsAuto Auto
-	AuthenticationMethodOptionsAuto AuthenticationMethodOptions = "auto"
-	// AuthenticationMethodOptionsManual Manual
-	AuthenticationMethodOptionsManual AuthenticationMethodOptions = "manual"
-	// AuthenticationMethodOptionsSecret Secret Key pair
-	AuthenticationMethodOptionsSecret AuthenticationMethodOptions = "secret"
+	AuthenticationMethodOptionsManual       AuthenticationMethodOptions = "manual"
+	AuthenticationMethodOptionsSecret       AuthenticationMethodOptions = "secret"
+	AuthenticationMethodOptionsClientSecret AuthenticationMethodOptions = "clientSecret"
+	AuthenticationMethodOptionsClientCert   AuthenticationMethodOptions = "clientCert"
 )
 
 func (e AuthenticationMethodOptions) ToPointer() *AuthenticationMethodOptions {
@@ -22,7 +19,7 @@ func (e AuthenticationMethodOptions) ToPointer() *AuthenticationMethodOptions {
 func (e *AuthenticationMethodOptions) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "manual", "secret":
+		case "manual", "secret", "clientSecret", "clientCert":
 			return true
 		}
 	}

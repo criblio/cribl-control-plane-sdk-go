@@ -34,9 +34,9 @@ func (e *PipelineFunctionUnrollID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionUnrollConf struct {
 	// Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
-	SrcExpr *string `default:"_raw" json:"srcExpr"`
+	SrcExpr string `json:"srcExpr"`
 	// Field in destination event in which to place the unrolled value
-	DstField *string `default:"_raw" json:"dstField"`
+	DstField string `json:"dstField"`
 }
 
 func (p PipelineFunctionUnrollConf) MarshalJSON() ([]byte, error) {
@@ -44,29 +44,29 @@ func (p PipelineFunctionUnrollConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionUnrollConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"srcExpr", "dstField"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionUnrollConf) GetSrcExpr() *string {
+func (p *PipelineFunctionUnrollConf) GetSrcExpr() string {
 	if p == nil {
-		return nil
+		return ""
 	}
 	return p.SrcExpr
 }
 
-func (p *PipelineFunctionUnrollConf) GetDstField() *string {
+func (p *PipelineFunctionUnrollConf) GetDstField() string {
 	if p == nil {
-		return nil
+		return ""
 	}
 	return p.DstField
 }
 
 type PipelineFunctionUnroll struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionUnrollID `json:"id"`
 	// Simple description of this step

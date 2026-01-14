@@ -92,9 +92,9 @@ func (e *PipelineFunctionNotifyCountComparator) IsExact() bool {
 
 type NotifyConfiguration struct {
 	// Group the notification belongs to
-	Group *string `default:"default" json:"group"`
+	Group string `json:"group"`
 	// Workspace within the deployment to send the search results to.
-	NotificationID *string `default:"main" json:"notificationId"`
+	NotificationID string `json:"notificationId"`
 	// Id of the search this function is running on.
 	SearchID string `json:"searchId"`
 	// Id of the saved query
@@ -106,9 +106,9 @@ type NotifyConfiguration struct {
 	// Operation to be applied over the results count
 	TriggerComparator *PipelineFunctionNotifyCountComparator `json:"triggerComparator,omitempty"`
 	// How many results that match trigger the condition
-	TriggerCount *float64 `default:"0" json:"triggerCount"`
+	TriggerCount *float64 `json:"triggerCount,omitempty"`
 	// Number of results to include in the notification event
-	ResultsLimit *float64 `default:"50" json:"resultsLimit"`
+	ResultsLimit *float64 `json:"resultsLimit,omitempty"`
 	// Url of the search results
 	SearchURL string `json:"searchUrl"`
 	// Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
@@ -126,22 +126,22 @@ func (n NotifyConfiguration) MarshalJSON() ([]byte, error) {
 }
 
 func (n *NotifyConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"searchId", "savedQueryId", "searchUrl", "authToken", "messagesEndpoint"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"group", "notificationId", "searchId", "savedQueryId", "searchUrl", "authToken", "messagesEndpoint"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (n *NotifyConfiguration) GetGroup() *string {
+func (n *NotifyConfiguration) GetGroup() string {
 	if n == nil {
-		return nil
+		return ""
 	}
 	return n.Group
 }
 
-func (n *NotifyConfiguration) GetNotificationID() *string {
+func (n *NotifyConfiguration) GetNotificationID() string {
 	if n == nil {
-		return nil
+		return ""
 	}
 	return n.NotificationID
 }
@@ -232,7 +232,7 @@ func (n *NotifyConfiguration) GetTenantID() *string {
 
 type PipelineFunctionNotify struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionNotifyID `json:"id"`
 	// Simple description of this step

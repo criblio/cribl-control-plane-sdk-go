@@ -63,31 +63,3 @@ func (c *CollectorSplunk) GetConf() SplunkCollectorConf {
 	}
 	return c.Conf
 }
-
-func (c *CollectorSplunk) GetConfNone() *SplunkAuthenticationNone {
-	return c.GetConf().SplunkAuthenticationNone
-}
-
-func (c *CollectorSplunk) GetConfBasic() *SplunkAuthenticationBasic {
-	return c.GetConf().SplunkAuthenticationBasic
-}
-
-func (c *CollectorSplunk) GetConfBasicSecret() *SplunkAuthenticationBasicSecret {
-	return c.GetConf().SplunkAuthenticationBasicSecret
-}
-
-func (c *CollectorSplunk) GetConfToken() *SplunkAuthenticationToken {
-	return c.GetConf().SplunkAuthenticationToken
-}
-
-func (c *CollectorSplunk) GetConfTokenSecret() *SplunkAuthenticationTokenSecret {
-	return c.GetConf().SplunkAuthenticationTokenSecret
-}
-
-func (c *CollectorSplunk) GetConfLogin() *SplunkAuthenticationLogin {
-	return c.GetConf().SplunkAuthenticationLogin
-}
-
-func (c *CollectorSplunk) GetConfLoginSecret() *SplunkAuthenticationLoginSecret {
-	return c.GetConf().SplunkAuthenticationLoginSecret
-}

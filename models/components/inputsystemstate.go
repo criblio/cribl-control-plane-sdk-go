@@ -11,16 +11,16 @@ import (
 
 type InputSystemStatePqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,13 +28,13 @@ type InputSystemStatePqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `default:"300" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
 	Description         *string `json:"description,omitempty"`
 }
 
@@ -43,15 +43,15 @@ func (i InputSystemStatePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, er
 }
 
 func (i *InputSystemStatePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -163,15 +163,15 @@ func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetDescription() *string
 
 type InputSystemStatePqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -180,13 +180,13 @@ type InputSystemStatePqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `default:"300" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
 	Description         *string `json:"description,omitempty"`
 }
 
@@ -195,15 +195,15 @@ func (i InputSystemStatePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) 
 }
 
 func (i *InputSystemStatePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStatePqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputSystemStatePqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -315,30 +315,30 @@ func (i *InputSystemStatePqEnabledFalseConstraint) GetDescription() *string {
 
 type InputSystemStateSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `default:"300" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
 	Description         *string `json:"description,omitempty"`
 }
 
@@ -347,15 +347,15 @@ func (i InputSystemStateSendToRoutesFalseWithConnectionsConstraint) MarshalJSON(
 }
 
 func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -490,7 +490,7 @@ func (e *InputSystemStateType) UnmarshalJSON(data []byte) error {
 
 // HostsFile - Creates events based on entries collected from the hosts file
 type HostsFile struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (h HostsFile) MarshalJSON() ([]byte, error) {
@@ -513,7 +513,7 @@ func (h *HostsFile) GetEnable() *bool {
 
 // Interfaces - Creates events for each of the host’s network interfaces
 type Interfaces struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (i Interfaces) MarshalJSON() ([]byte, error) {
@@ -536,7 +536,7 @@ func (i *Interfaces) GetEnable() *bool {
 
 // DisksAndFileSystems - Creates events for physical disks, partitions, and file systems
 type DisksAndFileSystems struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (d DisksAndFileSystems) MarshalJSON() ([]byte, error) {
@@ -559,7 +559,7 @@ func (d *DisksAndFileSystems) GetEnable() *bool {
 
 // HostInfo - Creates events based on the host system’s current state
 type HostInfo struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (h HostInfo) MarshalJSON() ([]byte, error) {
@@ -582,7 +582,7 @@ func (h *HostInfo) GetEnable() *bool {
 
 // InputSystemStateRoutes - Creates events based on entries collected from the host’s network routes
 type InputSystemStateRoutes struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (i InputSystemStateRoutes) MarshalJSON() ([]byte, error) {
@@ -605,7 +605,7 @@ func (i *InputSystemStateRoutes) GetEnable() *bool {
 
 // DNS - Creates events for DNS resolvers and search entries
 type DNS struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (d DNS) MarshalJSON() ([]byte, error) {
@@ -628,7 +628,7 @@ func (d *DNS) GetEnable() *bool {
 
 // UsersAndGroups - Creates events for local users and groups
 type UsersAndGroups struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (u UsersAndGroups) MarshalJSON() ([]byte, error) {
@@ -651,7 +651,7 @@ func (u *UsersAndGroups) GetEnable() *bool {
 
 // Firewall - Creates events for Firewall rules entries
 type Firewall struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (f Firewall) MarshalJSON() ([]byte, error) {
@@ -674,7 +674,7 @@ func (f *Firewall) GetEnable() *bool {
 
 // Services - Creates events from the list of services
 type Services struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (s Services) MarshalJSON() ([]byte, error) {
@@ -697,7 +697,7 @@ func (s *Services) GetEnable() *bool {
 
 // ListeningPorts - Creates events from list of listening ports
 type ListeningPorts struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (l ListeningPorts) MarshalJSON() ([]byte, error) {
@@ -720,7 +720,7 @@ func (l *ListeningPorts) GetEnable() *bool {
 
 // LoggedInUsers - Creates events from list of logged-in users
 type LoggedInUsers struct {
-	Enable *bool `default:"true" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 func (l LoggedInUsers) MarshalJSON() ([]byte, error) {
@@ -854,40 +854,18 @@ func (c *Collectors) GetLoginUsers() *LoggedInUsers {
 	return c.LoginUsers
 }
 
-type DataCompressionFormat string
-
-const (
-	DataCompressionFormatNone DataCompressionFormat = "none"
-	DataCompressionFormatGzip DataCompressionFormat = "gzip"
-)
-
-func (e DataCompressionFormat) ToPointer() *DataCompressionFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DataCompressionFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
 type InputSystemStatePersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
+	TimeWindow *string `json:"timeWindow,omitempty"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
+	MaxDataSize *string `json:"maxDataSize,omitempty"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                `default:"24h" json:"maxDataTime"`
-	Compress    *DataCompressionFormat `default:"none" json:"compress"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
-	DestPath *string `default:"$CRIBL_HOME/state/system_state" json:"destPath"`
+	DestPath *string `json:"destPath,omitempty"`
 }
 
 func (i InputSystemStatePersistence) MarshalJSON() ([]byte, error) {
@@ -929,7 +907,7 @@ func (i *InputSystemStatePersistence) GetMaxDataTime() *string {
 	return i.MaxDataTime
 }
 
-func (i *InputSystemStatePersistence) GetCompress() *DataCompressionFormat {
+func (i *InputSystemStatePersistence) GetCompress() *DataCompressionFormatOptionsPersistence {
 	if i == nil {
 		return nil
 	}
@@ -945,30 +923,30 @@ func (i *InputSystemStatePersistence) GetDestPath() *string {
 
 type InputSystemStateSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `default:"300" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
+	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
 	Description         *string `json:"description,omitempty"`
 }
 
@@ -977,15 +955,15 @@ func (i InputSystemStateSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error
 }
 
 func (i *InputSystemStateSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }

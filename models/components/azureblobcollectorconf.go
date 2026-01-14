@@ -68,7 +68,7 @@ func (a *AzureBlobAuthTypeClientCertExtractor) GetExpression() string {
 
 type AzureBlobAuthTypeClientCert struct {
 	// Enter authentication data directly, or select a secret referencing your auth data
-	AuthType *AzureBlobAuthTypeClientCertAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *AzureBlobAuthTypeClientCertAuthenticationMethod `json:"authType,omitempty"`
 	// The name of your Azure storage account
 	StorageAccountName string `json:"storageAccountName"`
 	// The service principal's tenant ID
@@ -89,17 +89,17 @@ type AzureBlobAuthTypeClientCert struct {
 	// Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
 	Extractors []AzureBlobAuthTypeClientCertExtractor `json:"extractors,omitempty"`
 	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
+	Recurse *bool `json:"recurse,omitempty"`
 	// Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
-	IncludeMetadata *bool `default:"true" json:"includeMetadata"`
+	IncludeMetadata *bool `json:"includeMetadata,omitempty"`
 	// Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
-	IncludeTags *bool `default:"true" json:"includeTags"`
+	IncludeTags *bool `json:"includeTags,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
 }
 
 func (a AzureBlobAuthTypeClientCert) MarshalJSON() ([]byte, error) {
@@ -291,7 +291,7 @@ func (a *AzureBlobAuthTypeClientSecretExtractor) GetExpression() string {
 
 type AzureBlobAuthTypeClientSecret struct {
 	// Enter authentication data directly, or select a secret referencing your auth data
-	AuthType *AzureBlobAuthTypeClientSecretAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *AzureBlobAuthTypeClientSecretAuthenticationMethod `json:"authType,omitempty"`
 	// The name of your Azure storage account
 	StorageAccountName string `json:"storageAccountName"`
 	// The service principal's tenant ID
@@ -303,7 +303,7 @@ type AzureBlobAuthTypeClientSecret struct {
 	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
 	EndpointSuffix *string `json:"endpointSuffix,omitempty"`
 	// The Azure cloud to use. Defaults to Azure Public Cloud.
-	AzureCloud *string `default:"azure" json:"azureCloud"`
+	AzureCloud *string `json:"azureCloud,omitempty"`
 	// An optional predefined Destination that will be used to auto-populate Collector settings
 	OutputName *string `json:"outputName,omitempty"`
 	// Container to collect from. This value can be a constant, or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: myBucket-${C.vars.myVar}
@@ -313,17 +313,17 @@ type AzureBlobAuthTypeClientSecret struct {
 	// Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
 	Extractors []AzureBlobAuthTypeClientSecretExtractor `json:"extractors,omitempty"`
 	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
+	Recurse *bool `json:"recurse,omitempty"`
 	// Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
-	IncludeMetadata *bool `default:"true" json:"includeMetadata"`
+	IncludeMetadata *bool `json:"includeMetadata,omitempty"`
 	// Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
-	IncludeTags *bool `default:"true" json:"includeTags"`
+	IncludeTags *bool `json:"includeTags,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
 }
 
 func (a AzureBlobAuthTypeClientSecret) MarshalJSON() ([]byte, error) {
@@ -515,7 +515,7 @@ func (a *AzureBlobAuthTypeSecretExtractor) GetExpression() string {
 
 type AzureBlobAuthTypeSecret struct {
 	// Enter authentication data directly, or select a secret referencing your auth data
-	AuthType *AzureBlobAuthTypeSecretAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *AzureBlobAuthTypeSecretAuthenticationMethod `json:"authType,omitempty"`
 	// Text secret
 	TextSecret string `json:"textSecret"`
 	// An optional predefined Destination that will be used to auto-populate Collector settings
@@ -527,17 +527,17 @@ type AzureBlobAuthTypeSecret struct {
 	// Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
 	Extractors []AzureBlobAuthTypeSecretExtractor `json:"extractors,omitempty"`
 	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
+	Recurse *bool `json:"recurse,omitempty"`
 	// Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
-	IncludeMetadata *bool `default:"true" json:"includeMetadata"`
+	IncludeMetadata *bool `json:"includeMetadata,omitempty"`
 	// Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
-	IncludeTags *bool `default:"true" json:"includeTags"`
+	IncludeTags *bool `json:"includeTags,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
 }
 
 func (a AzureBlobAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -694,7 +694,7 @@ func (a *AzureBlobAuthTypeManualExtractor) GetExpression() string {
 
 type AzureBlobAuthTypeManual struct {
 	// Enter authentication data directly, or select a secret referencing your auth data
-	AuthType *AzureBlobAuthTypeManualAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *AzureBlobAuthTypeManualAuthenticationMethod `json:"authType,omitempty"`
 	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString string `json:"connectionString"`
 	// An optional predefined Destination that will be used to auto-populate Collector settings
@@ -706,17 +706,17 @@ type AzureBlobAuthTypeManual struct {
 	// Extractors allow use of template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)} will enrich discovery results with a human-readable "date" field.
 	Extractors []AzureBlobAuthTypeManualExtractor `json:"extractors,omitempty"`
 	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
+	Recurse *bool `json:"recurse,omitempty"`
 	// Include Azure Blob metadata in collected events. In each event, metadata will be located at: __collectible.metadata.
-	IncludeMetadata *bool `default:"true" json:"includeMetadata"`
+	IncludeMetadata *bool `json:"includeMetadata,omitempty"`
 	// Include Azure Blob tags in collected events. In each event, tags will be located at: __collectible.tags. Disable this feature when using a Shared Access Signature Connection String, to prevent errors.
-	IncludeTags *bool `default:"true" json:"includeTags"`
+	IncludeTags *bool `json:"includeTags,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
 }
 
 func (a AzureBlobAuthTypeManual) MarshalJSON() ([]byte, error) {

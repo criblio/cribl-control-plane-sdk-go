@@ -59,15 +59,15 @@ func (e *PipelineFunctionSerdeOperationMode) IsExact() bool {
 
 type PipelineFunctionSerdeConf struct {
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-	Mode *PipelineFunctionSerdeOperationMode `default:"extract" json:"mode"`
+	Mode PipelineFunctionSerdeOperationMode `json:"mode"`
 	// Parser or formatter type to use
-	Type       *TypeOptions `default:"csv" json:"type"`
-	DelimChar  any          `json:"delimChar,omitempty"`
-	QuoteChar  any          `json:"quoteChar,omitempty"`
-	EscapeChar any          `json:"escapeChar,omitempty"`
-	NullValue  any          `json:"nullValue,omitempty"`
+	Type       TypeOptions `json:"type"`
+	DelimChar  any         `json:"delimChar,omitempty"`
+	QuoteChar  any         `json:"quoteChar,omitempty"`
+	EscapeChar any         `json:"escapeChar,omitempty"`
+	NullValue  any         `json:"nullValue,omitempty"`
 	// Field containing text to be parsed
-	SrcField *string `default:"_raw" json:"srcField"`
+	SrcField *string `json:"srcField,omitempty"`
 	// Name of the field to add fields to. Extract mode only.
 	DstField    *string `json:"dstField,omitempty"`
 	CleanFields any     `json:"cleanFields,omitempty"`
@@ -78,22 +78,22 @@ func (p PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"mode", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionSerdeConf) GetMode() *PipelineFunctionSerdeOperationMode {
+func (p *PipelineFunctionSerdeConf) GetMode() PipelineFunctionSerdeOperationMode {
 	if p == nil {
-		return nil
+		return PipelineFunctionSerdeOperationMode("")
 	}
 	return p.Mode
 }
 
-func (p *PipelineFunctionSerdeConf) GetType() *TypeOptions {
+func (p *PipelineFunctionSerdeConf) GetType() TypeOptions {
 	if p == nil {
-		return nil
+		return TypeOptions("")
 	}
 	return p.Type
 }
@@ -149,7 +149,7 @@ func (p *PipelineFunctionSerdeConf) GetCleanFields() any {
 
 type PipelineFunctionSerde struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionSerdeID `json:"id"`
 	// Simple description of this step

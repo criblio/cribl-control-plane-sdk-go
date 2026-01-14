@@ -11,16 +11,16 @@ import (
 
 type InputAzureBlobPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputAzureBlobType `json:"type"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	Disabled *bool              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -30,29 +30,29 @@ type InputAzureBlobPqEnabledTrueWithPqConstraint struct {
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	FileFilter *string `json:"fileFilter,omitempty"`
 	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
-	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	NumReceivers *float64 `json:"numReceivers,omitempty"`
 	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
-	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	MaxMessages *float64 `json:"maxMessages,omitempty"`
 	// The duration (in seconds) which pollers should be validated and restarted if exited
-	ServicePeriodSecs *float64 `default:"5" json:"servicePeriodSecs"`
+	ServicePeriodSecs *float64 `json:"servicePeriodSecs,omitempty"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `default:"false" json:"skipOnError"`
+	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                      `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
-	Description                 *string                       `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                     `json:"parquetChunkDownloadTimeout,omitempty"`
+	AuthType                    *AuthenticationMethodOptions `json:"authType,omitempty"`
+	Description                 *string                      `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -77,15 +77,15 @@ func (i InputAzureBlobPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, erro
 }
 
 func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -237,7 +237,7 @@ func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetParquetChunkDownloadTim
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -316,15 +316,15 @@ func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetCertificate() *Certific
 
 type InputAzureBlobPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputAzureBlobType `json:"type"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	Disabled *bool              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -335,29 +335,29 @@ type InputAzureBlobPqEnabledFalseConstraint struct {
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	FileFilter *string `json:"fileFilter,omitempty"`
 	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
-	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	NumReceivers *float64 `json:"numReceivers,omitempty"`
 	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
-	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	MaxMessages *float64 `json:"maxMessages,omitempty"`
 	// The duration (in seconds) which pollers should be validated and restarted if exited
-	ServicePeriodSecs *float64 `default:"5" json:"servicePeriodSecs"`
+	ServicePeriodSecs *float64 `json:"servicePeriodSecs,omitempty"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `default:"false" json:"skipOnError"`
+	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                      `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
-	Description                 *string                       `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                     `json:"parquetChunkDownloadTimeout,omitempty"`
+	AuthType                    *AuthenticationMethodOptions `json:"authType,omitempty"`
+	Description                 *string                      `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -382,15 +382,15 @@ func (i InputAzureBlobPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputAzureBlobPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAzureBlobPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -542,7 +542,7 @@ func (i *InputAzureBlobPqEnabledFalseConstraint) GetParquetChunkDownloadTimeout(
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -621,48 +621,48 @@ func (i *InputAzureBlobPqEnabledFalseConstraint) GetCertificate() *CertificateTy
 
 type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputAzureBlobType `json:"type"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	Disabled *bool              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	FileFilter *string `json:"fileFilter,omitempty"`
 	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
-	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	NumReceivers *float64 `json:"numReceivers,omitempty"`
 	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
-	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	MaxMessages *float64 `json:"maxMessages,omitempty"`
 	// The duration (in seconds) which pollers should be validated and restarted if exited
-	ServicePeriodSecs *float64 `default:"5" json:"servicePeriodSecs"`
+	ServicePeriodSecs *float64 `json:"servicePeriodSecs,omitempty"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `default:"false" json:"skipOnError"`
+	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                      `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
-	Description                 *string                       `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                     `json:"parquetChunkDownloadTimeout,omitempty"`
+	AuthType                    *AuthenticationMethodOptions `json:"authType,omitempty"`
+	Description                 *string                      `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -687,15 +687,15 @@ func (i InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() 
 }
 
 func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -847,7 +847,7 @@ func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetParquetChu
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -949,17 +949,17 @@ func (e *InputAzureBlobType) UnmarshalJSON(data []byte) error {
 
 type InputAzureBlobSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputAzureBlobType `json:"type"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	Disabled *bool              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -968,29 +968,29 @@ type InputAzureBlobSendToRoutesTrueConstraint struct {
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	FileFilter *string `json:"fileFilter,omitempty"`
 	// The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
-	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	NumReceivers *float64 `json:"numReceivers,omitempty"`
 	// The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
-	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	MaxMessages *float64 `json:"maxMessages,omitempty"`
 	// The duration (in seconds) which pollers should be validated and restarted if exited
-	ServicePeriodSecs *float64 `default:"5" json:"servicePeriodSecs"`
+	ServicePeriodSecs *float64 `json:"servicePeriodSecs,omitempty"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `default:"false" json:"skipOnError"`
+	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                      `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
-	Description                 *string                       `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                     `json:"parquetChunkDownloadTimeout,omitempty"`
+	AuthType                    *AuthenticationMethodOptions `json:"authType,omitempty"`
+	Description                 *string                      `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -1015,15 +1015,15 @@ func (i InputAzureBlobSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) 
 }
 
 func (i *InputAzureBlobSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAzureBlobSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1175,7 +1175,7 @@ func (i *InputAzureBlobSendToRoutesTrueConstraint) GetParquetChunkDownloadTimeou
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}

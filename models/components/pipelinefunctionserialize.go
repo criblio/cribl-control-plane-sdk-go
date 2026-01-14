@@ -67,17 +67,17 @@ func (e *PipelineFunctionSerializeType) IsExact() bool {
 
 type PipelineFunctionSerializeConf struct {
 	// Data output format
-	Type       *PipelineFunctionSerializeType `default:"csv" json:"type"`
-	DelimChar  any                            `json:"delimChar,omitempty"`
-	QuoteChar  any                            `json:"quoteChar,omitempty"`
-	EscapeChar any                            `json:"escapeChar,omitempty"`
-	NullValue  any                            `json:"nullValue,omitempty"`
+	Type       PipelineFunctionSerializeType `json:"type"`
+	DelimChar  any                           `json:"delimChar,omitempty"`
+	QuoteChar  any                           `json:"quoteChar,omitempty"`
+	EscapeChar any                           `json:"escapeChar,omitempty"`
+	NullValue  any                           `json:"nullValue,omitempty"`
 	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
 	Fields []string `json:"fields,omitempty"`
 	// Field containing object to serialize. Leave blank to serialize top-level event fields.
 	SrcField *string `json:"srcField,omitempty"`
 	// Field to serialize data to
-	DstField *string `default:"_raw" json:"dstField"`
+	DstField *string `json:"dstField,omitempty"`
 }
 
 func (p PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
@@ -85,15 +85,15 @@ func (p PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSerializeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionSerializeConf) GetType() *PipelineFunctionSerializeType {
+func (p *PipelineFunctionSerializeConf) GetType() PipelineFunctionSerializeType {
 	if p == nil {
-		return nil
+		return PipelineFunctionSerializeType("")
 	}
 	return p.Type
 }
@@ -149,7 +149,7 @@ func (p *PipelineFunctionSerializeConf) GetDstField() *string {
 
 type PipelineFunctionSerialize struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionSerializeID `json:"id"`
 	// Simple description of this step

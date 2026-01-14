@@ -82,10 +82,10 @@ func (e *WhereToCapture) IsExact() bool {
 
 type CaptureSettings struct {
 	// Amount of time to keep capture open, in seconds
-	Duration *float64 `default:"60" json:"duration"`
+	Duration *float64 `json:"duration,omitempty"`
 	// Maximum number of events to capture
-	MaxEvents *float64        `default:"100" json:"maxEvents"`
-	Level     *WhereToCapture `default:"0" json:"level"`
+	MaxEvents *float64        `json:"maxEvents,omitempty"`
+	Level     *WhereToCapture `json:"level,omitempty"`
 }
 
 func (c CaptureSettings) MarshalJSON() ([]byte, error) {
@@ -122,37 +122,37 @@ func (c *CaptureSettings) GetLevel() *WhereToCapture {
 
 type RunnableJobCollectionRun struct {
 	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
 	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Level at which to set task logging
-	LogLevel *LogLevelOptionsSavedJobCollectionScheduleRun `default:"info" json:"logLevel"`
+	LogLevel *LogLevelOptionsSavedJobCollectionScheduleRun `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-	Mode          *RunnableJobCollectionMode `default:"list" json:"mode"`
-	TimeRangeType *TimeRange                 `default:"relative" json:"timeRangeType"`
+	Mode          RunnableJobCollectionMode `json:"mode"`
+	TimeRangeType *TimeRange                `json:"timeRangeType,omitempty"`
 	// Earliest time to collect data for the selected timezone
 	Earliest *float64 `json:"earliest,omitempty"`
 	// Latest time to collect data for the selected timezone
 	Latest *float64 `json:"latest,omitempty"`
 	// Timezone to use for Earliest and Latest times
-	TimestampTimezone *string       `default:"UTC" json:"timestampTimezone"`
+	TimestampTimezone *string       `json:"timestampTimezone,omitempty"`
 	TimeWarning       *MetricsStore `json:"timeWarning,omitempty"`
 	// A filter for tokens in the provided collect path and/or the events being collected
-	Expression *string `default:"true" json:"expression"`
+	Expression *string `json:"expression,omitempty"`
 	// Limits the bundle size for small tasks. For example,
 	//
 	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
+	MinTaskSize *string `json:"minTaskSize,omitempty"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
 	//
 	//
 	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-	MaxTaskSize *string `default:"10MB" json:"maxTaskSize"`
+	MaxTaskSize *string `json:"maxTaskSize,omitempty"`
 	// Send discover results to Routes
-	DiscoverToRoutes *bool            `default:"false" json:"discoverToRoutes"`
+	DiscoverToRoutes *bool            `json:"discoverToRoutes,omitempty"`
 	Capture          *CaptureSettings `json:"capture,omitempty"`
 }
 
@@ -161,7 +161,7 @@ func (r RunnableJobCollectionRun) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RunnableJobCollectionRun) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"mode"}); err != nil {
 		return err
 	}
 	return nil
@@ -195,9 +195,9 @@ func (r *RunnableJobCollectionRun) GetJobTimeout() *string {
 	return r.JobTimeout
 }
 
-func (r *RunnableJobCollectionRun) GetMode() *RunnableJobCollectionMode {
+func (r *RunnableJobCollectionRun) GetMode() RunnableJobCollectionMode {
 	if r == nil {
-		return nil
+		return RunnableJobCollectionMode("")
 	}
 	return r.Mode
 }
@@ -278,13 +278,13 @@ type RunnableJobCollection struct {
 	Description *string                           `json:"description,omitempty"`
 	Type        *JobTypeOptionsSavedJobCollection `json:"type,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
 	RemoveFields []string `json:"removeFields,omitempty"`
 	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution
-	ResumeOnBoot *bool `default:"false" json:"resumeOnBoot"`
+	ResumeOnBoot *bool `json:"resumeOnBoot,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Configuration for a scheduled job
@@ -292,11 +292,11 @@ type RunnableJobCollection struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// If enabled, tasks are created and run by the same Worker Node
-	WorkerAffinity *bool `default:"false" json:"workerAffinity"`
+	WorkerAffinity *bool `json:"workerAffinity,omitempty"`
 	// Collector configuration
-	Collector Collector                    `json:"collector"`
-	Input     *InputTypeSavedJobCollection `json:"input,omitempty"`
-	Run       RunnableJobCollectionRun     `json:"run"`
+	Collector Collector                                    `json:"collector"`
+	Input     *TypeCollectionWithBreakerRulesetsConstraint `json:"input,omitempty"`
+	Run       RunnableJobCollectionRun                     `json:"run"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -434,7 +434,7 @@ func (r *RunnableJobCollection) GetCollectorSplunk() *CollectorSplunk {
 	return r.GetCollector().CollectorSplunk
 }
 
-func (r *RunnableJobCollection) GetInput() *InputTypeSavedJobCollection {
+func (r *RunnableJobCollection) GetInput() *TypeCollectionWithBreakerRulesetsConstraint {
 	if r == nil {
 		return nil
 	}

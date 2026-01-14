@@ -38,9 +38,9 @@ type PipelineFunctionXMLUnrollConf struct {
 	// Regex matching elements to copy into each unrolled event. Example: ^root\.(childA|childB|childC)$
 	Inherit *string `json:"inherit,omitempty"`
 	// Add a field with this name, containing the index at which the item was located, starting from 0
-	UnrollIdxField *string `default:"unroll_idx" json:"unrollIdxField"`
+	UnrollIdxField *string `json:"unrollIdxField,omitempty"`
 	// Pretty print the output XML
-	Pretty *bool `default:"false" json:"pretty"`
+	Pretty *bool `json:"pretty,omitempty"`
 }
 
 func (p PipelineFunctionXMLUnrollConf) MarshalJSON() ([]byte, error) {
@@ -84,7 +84,7 @@ func (p *PipelineFunctionXMLUnrollConf) GetPretty() *bool {
 
 type PipelineFunctionXMLUnroll struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionXMLUnrollID `json:"id"`
 	// Simple description of this step

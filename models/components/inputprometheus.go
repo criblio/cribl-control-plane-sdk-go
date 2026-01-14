@@ -11,16 +11,16 @@ import (
 
 type InputPrometheusPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputPrometheusType `json:"type"`
-	Disabled *bool               `default:"false" json:"disabled"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -30,49 +30,49 @@ type InputPrometheusPqEnabledTrueWithPqConstraint struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputPrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType *InputPrometheusDiscoveryType `json:"discoveryType,omitempty"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel *InputPrometheusLogLevel `default:"info" json:"logLevel"`
+	LogLevel InputPrometheusLogLevel `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsSasl `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
 	Description *string                          `json:"description,omitempty"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *MetricsProtocol `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *MetricsProtocol `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -81,17 +81,17 @@ type InputPrometheusPqEnabledTrueWithPqConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitempty"`
 	// Password for Prometheus Basic authentication
@@ -105,15 +105,15 @@ func (i InputPrometheusPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, err
 }
 
 func (i *InputPrometheusPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "interval", "logLevel"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -195,16 +195,16 @@ func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetDiscoveryType() *Input
 	return i.DiscoveryType
 }
 
-func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
+func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
 
-func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetLogLevel() *InputPrometheusLogLevel {
+func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetLogLevel() InputPrometheusLogLevel {
 	if i == nil {
-		return nil
+		return InputPrometheusLogLevel("")
 	}
 	return i.LogLevel
 }
@@ -321,7 +321,7 @@ func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -442,15 +442,15 @@ func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetCredentialsSecret() *s
 
 type InputPrometheusPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputPrometheusType `json:"type"`
-	Disabled *bool               `default:"false" json:"disabled"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -461,49 +461,49 @@ type InputPrometheusPqEnabledFalseConstraint struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputPrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType *InputPrometheusDiscoveryType `json:"discoveryType,omitempty"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel *InputPrometheusLogLevel `default:"info" json:"logLevel"`
+	LogLevel InputPrometheusLogLevel `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsSasl `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
 	Description *string                          `json:"description,omitempty"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *MetricsProtocol `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *MetricsProtocol `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -512,17 +512,17 @@ type InputPrometheusPqEnabledFalseConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitempty"`
 	// Password for Prometheus Basic authentication
@@ -536,15 +536,15 @@ func (i InputPrometheusPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputPrometheusPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "interval", "logLevel"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheusPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -626,16 +626,16 @@ func (i *InputPrometheusPqEnabledFalseConstraint) GetDiscoveryType() *InputProme
 	return i.DiscoveryType
 }
 
-func (i *InputPrometheusPqEnabledFalseConstraint) GetInterval() *float64 {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
 
-func (i *InputPrometheusPqEnabledFalseConstraint) GetLogLevel() *InputPrometheusLogLevel {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetLogLevel() InputPrometheusLogLevel {
 	if i == nil {
-		return nil
+		return InputPrometheusLogLevel("")
 	}
 	return i.LogLevel
 }
@@ -752,7 +752,7 @@ func (i *InputPrometheusPqEnabledFalseConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -873,68 +873,68 @@ func (i *InputPrometheusPqEnabledFalseConstraint) GetCredentialsSecret() *string
 
 type InputPrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputPrometheusType `json:"type"`
-	Disabled *bool               `default:"false" json:"disabled"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputPrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType *InputPrometheusDiscoveryType `json:"discoveryType,omitempty"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel *InputPrometheusLogLevel `default:"info" json:"logLevel"`
+	LogLevel InputPrometheusLogLevel `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsSasl `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
 	Description *string                          `json:"description,omitempty"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *MetricsProtocol `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *MetricsProtocol `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -943,17 +943,17 @@ type InputPrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitempty"`
 	// Password for Prometheus Basic authentication
@@ -967,15 +967,15 @@ func (i InputPrometheusSendToRoutesFalseWithConnectionsConstraint) MarshalJSON()
 }
 
 func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "interval", "logLevel"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1057,16 +1057,16 @@ func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetDiscovery
 	return i.DiscoveryType
 }
 
-func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
 
-func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetLogLevel() *InputPrometheusLogLevel {
+func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetLogLevel() InputPrometheusLogLevel {
 	if i == nil {
-		return nil
+		return InputPrometheusLogLevel("")
 	}
 	return i.LogLevel
 }
@@ -1183,7 +1183,7 @@ func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePat
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -1402,17 +1402,17 @@ func (e *MetricsProtocol) IsExact() bool {
 
 type InputPrometheusSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputPrometheusType `json:"type"`
-	Disabled *bool               `default:"false" json:"disabled"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -1421,49 +1421,49 @@ type InputPrometheusSendToRoutesTrueConstraint struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputPrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType *InputPrometheusDiscoveryType `json:"discoveryType,omitempty"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Collector runtime log level
-	LogLevel *InputPrometheusLogLevel `default:"info" json:"logLevel"`
+	LogLevel InputPrometheusLogLevel `json:"logLevel"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsSasl `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
 	Description *string                          `json:"description,omitempty"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *MetricsProtocol `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *MetricsProtocol `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -1472,17 +1472,17 @@ type InputPrometheusSendToRoutesTrueConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitempty"`
 	// Password for Prometheus Basic authentication
@@ -1496,15 +1496,15 @@ func (i InputPrometheusSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputPrometheusSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "interval", "logLevel"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputPrometheusSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1586,16 +1586,16 @@ func (i *InputPrometheusSendToRoutesTrueConstraint) GetDiscoveryType() *InputPro
 	return i.DiscoveryType
 }
 
-func (i *InputPrometheusSendToRoutesTrueConstraint) GetInterval() *float64 {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
 
-func (i *InputPrometheusSendToRoutesTrueConstraint) GetLogLevel() *InputPrometheusLogLevel {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetLogLevel() InputPrometheusLogLevel {
 	if i == nil {
-		return nil
+		return InputPrometheusLogLevel("")
 	}
 	return i.LogLevel
 }
@@ -1712,7 +1712,7 @@ func (i *InputPrometheusSendToRoutesTrueConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}

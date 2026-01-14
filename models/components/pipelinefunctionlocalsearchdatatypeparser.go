@@ -34,7 +34,7 @@ func (e *PipelineFunctionLocalSearchDatatypeParserID) UnmarshalJSON(data []byte)
 
 type PipelineFunctionLocalSearchDatatypeParser struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionLocalSearchDatatypeParserID `json:"id"`
 	// Simple description of this step

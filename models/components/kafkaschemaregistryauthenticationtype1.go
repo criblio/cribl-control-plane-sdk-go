@@ -7,15 +7,15 @@ import (
 )
 
 type KafkaSchemaRegistryAuthenticationType1 struct {
-	Disabled *bool `default:"true" json:"disabled"`
+	Disabled bool `json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
-	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
+	SchemaRegistryURL *string `json:"schemaRegistryURL,omitempty"`
 	// Maximum time to wait for a Schema Registry connection to complete successfully
-	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
 	// Maximum time to wait for the Schema Registry to respond to a request
-	RequestTimeout *float64 `default:"30000" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// Maximum number of times to try fetching schemas from the Schema Registry
-	MaxRetries *float64 `default:"1" json:"maxRetries"`
+	MaxRetries *float64 `json:"maxRetries,omitempty"`
 	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
 	Auth *AuthTypeKafkaSchemaRegistry                  `json:"auth,omitempty"`
 	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
@@ -30,15 +30,15 @@ func (k KafkaSchemaRegistryAuthenticationType1) MarshalJSON() ([]byte, error) {
 }
 
 func (k *KafkaSchemaRegistryAuthenticationType1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &k, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &k, "", false, []string{"disabled"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (k *KafkaSchemaRegistryAuthenticationType1) GetDisabled() *bool {
+func (k *KafkaSchemaRegistryAuthenticationType1) GetDisabled() bool {
 	if k == nil {
-		return nil
+		return false
 	}
 	return k.Disabled
 }

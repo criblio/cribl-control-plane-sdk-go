@@ -11,16 +11,16 @@ import (
 
 type InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                       `json:"id,omitempty"`
 	Type     InputModelDrivenTelemetryType `json:"type"`
-	Disabled *bool                         `default:"false" json:"disabled"`
+	Disabled *bool                         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,16 +28,16 @@ type InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64                   `default:"57000" json:"port"`
+	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
-	ShutdownTimeoutMs *float64 `default:"5000" json:"shutdownTimeoutMs"`
+	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitempty"`
 	Description       *string  `json:"description,omitempty"`
 }
 
@@ -46,15 +46,15 @@ func (i InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) MarshalJSON() ([
 }
 
 func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -122,16 +122,16 @@ func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetConnections(
 	return i.Connections
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetPort() *float64 {
+func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -173,15 +173,15 @@ func (i *InputModelDrivenTelemetryPqEnabledTrueWithPqConstraint) GetDescription(
 
 type InputModelDrivenTelemetryPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                       `json:"id,omitempty"`
 	Type     InputModelDrivenTelemetryType `json:"type"`
-	Disabled *bool                         `default:"false" json:"disabled"`
+	Disabled *bool                         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -190,16 +190,16 @@ type InputModelDrivenTelemetryPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64                   `default:"57000" json:"port"`
+	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
-	ShutdownTimeoutMs *float64 `default:"5000" json:"shutdownTimeoutMs"`
+	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitempty"`
 	Description       *string  `json:"description,omitempty"`
 }
 
@@ -208,15 +208,15 @@ func (i InputModelDrivenTelemetryPqEnabledFalseConstraint) MarshalJSON() ([]byte
 }
 
 func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -284,16 +284,16 @@ func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPort() *float64 {
+func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -335,33 +335,33 @@ func (i *InputModelDrivenTelemetryPqEnabledFalseConstraint) GetDescription() *st
 
 type InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                       `json:"id,omitempty"`
 	Type     InputModelDrivenTelemetryType `json:"type"`
-	Disabled *bool                         `default:"false" json:"disabled"`
+	Disabled *bool                         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64                   `default:"57000" json:"port"`
+	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
-	ShutdownTimeoutMs *float64 `default:"5000" json:"shutdownTimeoutMs"`
+	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitempty"`
 	Description       *string  `json:"description,omitempty"`
 }
 
@@ -370,15 +370,15 @@ func (i InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) Mar
 }
 
 func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -446,16 +446,16 @@ func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) Ge
 	return i.Pq
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPort() *float64 {
+func (i *InputModelDrivenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -520,33 +520,33 @@ func (e *InputModelDrivenTelemetryType) UnmarshalJSON(data []byte) error {
 
 type InputModelDrivenTelemetrySendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                       `json:"id,omitempty"`
 	Type     InputModelDrivenTelemetryType `json:"type"`
-	Disabled *bool                         `default:"false" json:"disabled"`
+	Disabled *bool                         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64                   `default:"57000" json:"port"`
+	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
-	ShutdownTimeoutMs *float64 `default:"5000" json:"shutdownTimeoutMs"`
+	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitempty"`
 	Description       *string  `json:"description,omitempty"`
 }
 
@@ -555,15 +555,15 @@ func (i InputModelDrivenTelemetrySendToRoutesTrueConstraint) MarshalJSON() ([]by
 }
 
 func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -631,16 +631,16 @@ func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetPort() *float64 {
+func (i *InputModelDrivenTelemetrySendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }

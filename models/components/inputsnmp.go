@@ -11,16 +11,16 @@ import (
 
 type InputSnmpPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputSnmpType `json:"type"`
-	Disabled *bool         `default:"false" json:"disabled"`
+	Disabled *bool         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,23 +28,23 @@ type InputSnmpPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
-	Port *float64 `default:"162" json:"port"`
+	Port float64 `json:"port"`
 	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
-	VarbindsWithTypes *bool `default:"false" json:"varbindsWithTypes"`
+	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitempty"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `default:"false" json:"bestEffortParsing"`
+	BestEffortParsing *bool   `json:"bestEffortParsing,omitempty"`
 	Description       *string `json:"description,omitempty"`
 }
 
@@ -53,15 +53,15 @@ func (i InputSnmpPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmpPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -129,16 +129,16 @@ func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeCon
 	return i.Connections
 }
 
-func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetPort() *float64 {
+func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -201,15 +201,15 @@ func (i *InputSnmpPqEnabledTrueWithPqConstraint) GetDescription() *string {
 
 type InputSnmpPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputSnmpType `json:"type"`
-	Disabled *bool         `default:"false" json:"disabled"`
+	Disabled *bool         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -218,23 +218,23 @@ type InputSnmpPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
-	Port *float64 `default:"162" json:"port"`
+	Port float64 `json:"port"`
 	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
-	VarbindsWithTypes *bool `default:"false" json:"varbindsWithTypes"`
+	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitempty"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `default:"false" json:"bestEffortParsing"`
+	BestEffortParsing *bool   `json:"bestEffortParsing,omitempty"`
 	Description       *string `json:"description,omitempty"`
 }
 
@@ -243,15 +243,15 @@ func (i InputSnmpPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmpPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSnmpPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputSnmpPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -319,16 +319,16 @@ func (i *InputSnmpPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSnmpPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputSnmpPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputSnmpPqEnabledFalseConstraint) GetPort() *float64 {
+func (i *InputSnmpPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -391,40 +391,40 @@ func (i *InputSnmpPqEnabledFalseConstraint) GetDescription() *string {
 
 type InputSnmpSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputSnmpType `json:"type"`
-	Disabled *bool         `default:"false" json:"disabled"`
+	Disabled *bool         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
-	Port *float64 `default:"162" json:"port"`
+	Port float64 `json:"port"`
 	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
-	VarbindsWithTypes *bool `default:"false" json:"varbindsWithTypes"`
+	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitempty"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `default:"false" json:"bestEffortParsing"`
+	BestEffortParsing *bool   `json:"bestEffortParsing,omitempty"`
 	Description       *string `json:"description,omitempty"`
 }
 
@@ -433,15 +433,15 @@ func (i InputSnmpSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]by
 }
 
 func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -509,16 +509,16 @@ func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetPort() *float64 {
+func (i *InputSnmpSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -634,9 +634,9 @@ func (e *PrivacyProtocol) IsExact() bool {
 
 type InputSnmpV3User struct {
 	Name         string                               `json:"name"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `default:"none" json:"authProtocol"`
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitempty"`
 	AuthKey      *string                              `json:"authKey,omitempty"`
-	PrivProtocol *PrivacyProtocol                     `default:"none" json:"privProtocol"`
+	PrivProtocol *PrivacyProtocol                     `json:"privProtocol,omitempty"`
 	PrivKey      *string                              `json:"privKey,omitempty"`
 }
 
@@ -688,9 +688,9 @@ func (i *InputSnmpV3User) GetPrivKey() *string {
 
 // SNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 type SNMPv3Authentication struct {
-	V3AuthEnabled *bool `default:"false" json:"v3AuthEnabled"`
+	V3AuthEnabled bool `json:"v3AuthEnabled"`
 	// Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
-	AllowUnmatchedTrap *bool `default:"false" json:"allowUnmatchedTrap"`
+	AllowUnmatchedTrap *bool `json:"allowUnmatchedTrap,omitempty"`
 	// User credentials for receiving v3 traps
 	V3Users []InputSnmpV3User `json:"v3Users,omitempty"`
 }
@@ -700,15 +700,15 @@ func (s SNMPv3Authentication) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SNMPv3Authentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"v3AuthEnabled"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SNMPv3Authentication) GetV3AuthEnabled() *bool {
+func (s *SNMPv3Authentication) GetV3AuthEnabled() bool {
 	if s == nil {
-		return nil
+		return false
 	}
 	return s.V3AuthEnabled
 }
@@ -729,40 +729,40 @@ func (s *SNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 
 type InputSnmpSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string       `json:"id,omitempty"`
 	Type     InputSnmpType `json:"type"`
-	Disabled *bool         `default:"false" json:"disabled"`
+	Disabled *bool         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
-	Port *float64 `default:"162" json:"port"`
+	Port float64 `json:"port"`
 	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
-	VarbindsWithTypes *bool `default:"false" json:"varbindsWithTypes"`
+	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitempty"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `default:"false" json:"bestEffortParsing"`
+	BestEffortParsing *bool   `json:"bestEffortParsing,omitempty"`
 	Description       *string `json:"description,omitempty"`
 }
 
@@ -771,15 +771,15 @@ func (i InputSnmpSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSnmpSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSnmpSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -847,16 +847,16 @@ func (i *InputSnmpSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSnmpSendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputSnmpSendToRoutesTrueConstraint) GetPort() *float64 {
+func (i *InputSnmpSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }

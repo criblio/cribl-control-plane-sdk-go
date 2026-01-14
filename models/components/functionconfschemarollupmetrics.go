@@ -39,9 +39,9 @@ type FunctionConfSchemaRollupMetrics struct {
 	// List of dimensions across which to perform rollups. Supports wildcards. Defaults to all original dimensions.
 	Dimensions []string `json:"dimensions,omitempty"`
 	// The time span of the rollup window. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"30s" json:"timeWindow"`
+	TimeWindow *string `json:"timeWindow,omitempty"`
 	// The operation to use when rolling up gauge metrics. Defaults to last.
-	GaugeRollup *GaugeUpdate `default:"last" json:"gaugeRollup"`
+	GaugeRollup *GaugeUpdate `json:"gaugeRollup,omitempty"`
 }
 
 func (f FunctionConfSchemaRollupMetrics) MarshalJSON() ([]byte, error) {

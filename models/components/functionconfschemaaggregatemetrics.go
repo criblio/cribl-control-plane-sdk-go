@@ -36,7 +36,7 @@ func (e *FunctionConfSchemaAggregateMetricsMetricType) IsExact() bool {
 
 type FunctionConfSchemaAggregateMetricsAggregation struct {
 	// The output metric type
-	MetricType *FunctionConfSchemaAggregateMetricsMetricType `default:"automatic" json:"metricType"`
+	MetricType FunctionConfSchemaAggregateMetricsMetricType `json:"metricType"`
 	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
 	Agg string `json:"agg"`
 }
@@ -46,15 +46,15 @@ func (f FunctionConfSchemaAggregateMetricsAggregation) MarshalJSON() ([]byte, er
 }
 
 func (f *FunctionConfSchemaAggregateMetricsAggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"agg"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"metricType", "agg"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaAggregateMetricsAggregation) GetMetricType() *FunctionConfSchemaAggregateMetricsMetricType {
+func (f *FunctionConfSchemaAggregateMetricsAggregation) GetMetricType() FunctionConfSchemaAggregateMetricsMetricType {
 	if f == nil {
-		return nil
+		return FunctionConfSchemaAggregateMetricsMetricType("")
 	}
 	return f.MetricType
 }
@@ -99,15 +99,15 @@ func (f *FunctionConfSchemaAggregateMetricsAdd) GetValue() string {
 
 type FunctionConfSchemaAggregateMetrics struct {
 	// Pass through the original events along with the aggregation events
-	Passthrough *bool `default:"false" json:"passthrough"`
+	Passthrough *bool `json:"passthrough,omitempty"`
 	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `default:"false" json:"preserveGroupBys"`
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
 	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `default:"false" json:"sufficientStatsOnly"`
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
 	// A prefix that is prepended to all of the fields output by this Aggregations Function
 	Prefix *string `json:"prefix,omitempty"`
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"10s" json:"timeWindow"`
+	TimeWindow *string `json:"timeWindow,omitempty"`
 	// Combination of Aggregation function and output metric type
 	Aggregations []FunctionConfSchemaAggregateMetricsAggregation `json:"aggregations,omitempty"`
 	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
@@ -117,13 +117,13 @@ type FunctionConfSchemaAggregateMetrics struct {
 	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
 	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
 	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `default:"false" json:"cumulative"`
+	Cumulative *bool `json:"cumulative,omitempty"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `default:"true" json:"shouldTreatDotsAsLiterals"`
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
 	// Set of key-value pairs to evaluate and add/set
 	Add []FunctionConfSchemaAggregateMetricsAdd `json:"add,omitempty"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
 }
 
 func (f FunctionConfSchemaAggregateMetrics) MarshalJSON() ([]byte, error) {

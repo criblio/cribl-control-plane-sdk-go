@@ -12,9 +12,9 @@ type FunctionConfSchemaEventstats struct {
 	// Fields to group aggregates by, supports wildcard expressions.
 	GroupBys []string `json:"groupBys,omitempty"`
 	// Specifies how many events are at max kept in memory to be enriched with aggregations
-	MaxEvents *float64 `default:"50000" json:"maxEvents"`
+	MaxEvents *float64 `json:"maxEvents,omitempty"`
 	// Determines if aggregations should flush when an input stream is closed. If disabled, time window settings will control flush behavior.
-	FlushOnInputClose *bool `default:"false" json:"flushOnInputClose"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
 }
 
 func (f FunctionConfSchemaEventstats) MarshalJSON() ([]byte, error) {

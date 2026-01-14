@@ -11,16 +11,16 @@ import (
 
 type InputOpenTelemetryPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputOpenTelemetryType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,43 +28,43 @@ type InputOpenTelemetryPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64                   `default:"4317" json:"port"`
+	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket  *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitempty"`
 	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
 	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
 	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
-	KeepAliveTimeout *float64 `default:"15" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Select whether to leverage gRPC or HTTP for OpenTelemetry
-	Protocol *InputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	Protocol *InputOpenTelemetryProtocol `json:"protocol,omitempty"`
 	// Enable to extract each incoming span to a separate event
-	ExtractSpans *bool `default:"false" json:"extractSpans"`
+	ExtractSpans *bool `json:"extractSpans,omitempty"`
 	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
-	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// The version of OTLP Protobuf definitions to use when interpreting received data
-	OtlpVersion *InputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	OtlpVersion *InputOpenTelemetryOTLPVersion `json:"otlpVersion,omitempty"`
 	// OpenTelemetry authentication type
-	AuthType *AuthenticationTypeOptions `default:"none" json:"authType"`
+	AuthType *AuthenticationTypeOptions `json:"authType,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	Description  *string  `json:"description,omitempty"`
 	Username     *string  `json:"username,omitempty"`
 	Password     *string  `json:"password,omitempty"`
@@ -83,15 +83,15 @@ type InputOpenTelemetryPqEnabledTrueWithPqConstraint struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Enable to extract each incoming log record to a separate event
-	ExtractLogs *bool `default:"false" json:"extractLogs"`
+	ExtractLogs *bool `json:"extractLogs,omitempty"`
 }
 
 func (i InputOpenTelemetryPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
@@ -99,15 +99,15 @@ func (i InputOpenTelemetryPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, 
 }
 
 func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -175,16 +175,16 @@ func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetConnections() []Ite
 	return i.Connections
 }
 
-func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPort() *float64 {
+func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -429,15 +429,15 @@ func (i *InputOpenTelemetryPqEnabledTrueWithPqConstraint) GetExtractLogs() *bool
 
 type InputOpenTelemetryPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputOpenTelemetryType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -446,43 +446,43 @@ type InputOpenTelemetryPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64                   `default:"4317" json:"port"`
+	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket  *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitempty"`
 	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
 	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
 	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
-	KeepAliveTimeout *float64 `default:"15" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Select whether to leverage gRPC or HTTP for OpenTelemetry
-	Protocol *InputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	Protocol *InputOpenTelemetryProtocol `json:"protocol,omitempty"`
 	// Enable to extract each incoming span to a separate event
-	ExtractSpans *bool `default:"false" json:"extractSpans"`
+	ExtractSpans *bool `json:"extractSpans,omitempty"`
 	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
-	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// The version of OTLP Protobuf definitions to use when interpreting received data
-	OtlpVersion *InputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	OtlpVersion *InputOpenTelemetryOTLPVersion `json:"otlpVersion,omitempty"`
 	// OpenTelemetry authentication type
-	AuthType *AuthenticationTypeOptions `default:"none" json:"authType"`
+	AuthType *AuthenticationTypeOptions `json:"authType,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	Description  *string  `json:"description,omitempty"`
 	Username     *string  `json:"username,omitempty"`
 	Password     *string  `json:"password,omitempty"`
@@ -501,15 +501,15 @@ type InputOpenTelemetryPqEnabledFalseConstraint struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Enable to extract each incoming log record to a separate event
-	ExtractLogs *bool `default:"false" json:"extractLogs"`
+	ExtractLogs *bool `json:"extractLogs,omitempty"`
 }
 
 func (i InputOpenTelemetryPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
@@ -517,15 +517,15 @@ func (i InputOpenTelemetryPqEnabledFalseConstraint) MarshalJSON() ([]byte, error
 }
 
 func (i *InputOpenTelemetryPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetryPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputOpenTelemetryPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -593,16 +593,16 @@ func (i *InputOpenTelemetryPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputOpenTelemetryPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputOpenTelemetryPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetryPqEnabledFalseConstraint) GetPort() *float64 {
+func (i *InputOpenTelemetryPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -847,60 +847,60 @@ func (i *InputOpenTelemetryPqEnabledFalseConstraint) GetExtractLogs() *bool {
 
 type InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputOpenTelemetryType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64                   `default:"4317" json:"port"`
+	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket  *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitempty"`
 	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
 	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
 	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
-	KeepAliveTimeout *float64 `default:"15" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Select whether to leverage gRPC or HTTP for OpenTelemetry
-	Protocol *InputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	Protocol *InputOpenTelemetryProtocol `json:"protocol,omitempty"`
 	// Enable to extract each incoming span to a separate event
-	ExtractSpans *bool `default:"false" json:"extractSpans"`
+	ExtractSpans *bool `json:"extractSpans,omitempty"`
 	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
-	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// The version of OTLP Protobuf definitions to use when interpreting received data
-	OtlpVersion *InputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	OtlpVersion *InputOpenTelemetryOTLPVersion `json:"otlpVersion,omitempty"`
 	// OpenTelemetry authentication type
-	AuthType *AuthenticationTypeOptions `default:"none" json:"authType"`
+	AuthType *AuthenticationTypeOptions `json:"authType,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	Description  *string  `json:"description,omitempty"`
 	Username     *string  `json:"username,omitempty"`
 	Password     *string  `json:"password,omitempty"`
@@ -919,15 +919,15 @@ type InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Enable to extract each incoming log record to a separate event
-	ExtractLogs *bool `default:"false" json:"extractLogs"`
+	ExtractLogs *bool `json:"extractLogs,omitempty"`
 }
 
 func (i InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
@@ -935,15 +935,15 @@ func (i InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) MarshalJSO
 }
 
 func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1011,16 +1011,16 @@ func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPq() *
 	return i.Pq
 }
 
-func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPort() *float64 {
+func (i *InputOpenTelemetrySendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -1338,60 +1338,60 @@ func (e *InputOpenTelemetryOTLPVersion) IsExact() bool {
 
 type InputOpenTelemetrySendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputOpenTelemetryType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64                   `default:"4317" json:"port"`
+	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket  *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket  *int64 `json:"maxRequestsPerSocket,omitempty"`
 	EnableProxyHeader     any    `json:"enableProxyHeader,omitempty"`
 	CaptureHeaders        any    `json:"captureHeaders,omitempty"`
 	ActivityLogSampleRate any    `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
-	KeepAliveTimeout *float64 `default:"15" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Select whether to leverage gRPC or HTTP for OpenTelemetry
-	Protocol *InputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	Protocol *InputOpenTelemetryProtocol `json:"protocol,omitempty"`
 	// Enable to extract each incoming span to a separate event
-	ExtractSpans *bool `default:"false" json:"extractSpans"`
+	ExtractSpans *bool `json:"extractSpans,omitempty"`
 	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
-	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// The version of OTLP Protobuf definitions to use when interpreting received data
-	OtlpVersion *InputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	OtlpVersion *InputOpenTelemetryOTLPVersion `json:"otlpVersion,omitempty"`
 	// OpenTelemetry authentication type
-	AuthType *AuthenticationTypeOptions `default:"none" json:"authType"`
+	AuthType *AuthenticationTypeOptions `json:"authType,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	Description  *string  `json:"description,omitempty"`
 	Username     *string  `json:"username,omitempty"`
 	Password     *string  `json:"password,omitempty"`
@@ -1410,15 +1410,15 @@ type InputOpenTelemetrySendToRoutesTrueConstraint struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Enable to extract each incoming log record to a separate event
-	ExtractLogs *bool `default:"false" json:"extractLogs"`
+	ExtractLogs *bool `json:"extractLogs,omitempty"`
 }
 
 func (i InputOpenTelemetrySendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
@@ -1426,15 +1426,15 @@ func (i InputOpenTelemetrySendToRoutesTrueConstraint) MarshalJSON() ([]byte, err
 }
 
 func (i *InputOpenTelemetrySendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOpenTelemetrySendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputOpenTelemetrySendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1502,16 +1502,16 @@ func (i *InputOpenTelemetrySendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputOpenTelemetrySendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputOpenTelemetrySendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputOpenTelemetrySendToRoutesTrueConstraint) GetPort() *float64 {
+func (i *InputOpenTelemetrySendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }

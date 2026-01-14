@@ -57,16 +57,16 @@ func (e *PqEnabledTrueWithPqConstraintScheduleType) IsExact() bool {
 
 type InputExecPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                                    `json:"id,omitempty"`
 	Type     InputExecPqEnabledTrueWithPqConstraintType `json:"type"`
-	Disabled *bool                                      `default:"false" json:"disabled"`
+	Disabled *bool                                      `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -76,20 +76,20 @@ type InputExecPqEnabledTrueWithPqConstraint struct {
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
-	Retries *float64 `default:"10" json:"retries"`
+	Retries *float64 `json:"retries,omitempty"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *PqEnabledTrueWithPqConstraintScheduleType `default:"interval" json:"scheduleType"`
+	ScheduleType *PqEnabledTrueWithPqConstraintScheduleType `json:"scheduleType,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Interval between command executions in seconds.
-	Interval *float64 `default:"60" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Cron schedule to execute the command on.
-	CronSchedule *string `default:"* * * * *" json:"cronSchedule"`
+	CronSchedule *string `json:"cronSchedule,omitempty"`
 }
 
 func (i InputExecPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
@@ -97,15 +97,15 @@ func (i InputExecPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputExecPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "command"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputExecPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputExecPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -284,15 +284,15 @@ func (e *PqEnabledFalseConstraintScheduleType) IsExact() bool {
 
 type InputExecPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                               `json:"id,omitempty"`
 	Type     InputExecPqEnabledFalseConstraintType `json:"type"`
-	Disabled *bool                                 `default:"false" json:"disabled"`
+	Disabled *bool                                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -303,20 +303,20 @@ type InputExecPqEnabledFalseConstraint struct {
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
-	Retries *float64 `default:"10" json:"retries"`
+	Retries *float64 `json:"retries,omitempty"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *PqEnabledFalseConstraintScheduleType `default:"interval" json:"scheduleType"`
+	ScheduleType *PqEnabledFalseConstraintScheduleType `json:"scheduleType,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Interval between command executions in seconds.
-	Interval *float64 `default:"60" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Cron schedule to execute the command on.
-	CronSchedule *string `default:"* * * * *" json:"cronSchedule"`
+	CronSchedule *string `json:"cronSchedule,omitempty"`
 }
 
 func (i InputExecPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
@@ -324,15 +324,15 @@ func (i InputExecPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputExecPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "command"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputExecPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputExecPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -511,39 +511,39 @@ func (e *SendToRoutesFalseWithConnectionsConstraintScheduleType) IsExact() bool 
 
 type InputExecSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                                                 `json:"id,omitempty"`
 	Type     InputExecSendToRoutesFalseWithConnectionsConstraintType `json:"type"`
-	Disabled *bool                                                   `default:"false" json:"disabled"`
+	Disabled *bool                                                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
-	Retries *float64 `default:"10" json:"retries"`
+	Retries *float64 `json:"retries,omitempty"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *SendToRoutesFalseWithConnectionsConstraintScheduleType `default:"interval" json:"scheduleType"`
+	ScheduleType *SendToRoutesFalseWithConnectionsConstraintScheduleType `json:"scheduleType,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Interval between command executions in seconds.
-	Interval *float64 `default:"60" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Cron schedule to execute the command on.
-	CronSchedule *string `default:"* * * * *" json:"cronSchedule"`
+	CronSchedule *string `json:"cronSchedule,omitempty"`
 }
 
 func (i InputExecSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
@@ -551,15 +551,15 @@ func (i InputExecSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]by
 }
 
 func (i *InputExecSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "command"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputExecSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputExecSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -738,17 +738,17 @@ func (e *SendToRoutesTrueConstraintScheduleType) IsExact() bool {
 
 type InputExecSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                                 `json:"id,omitempty"`
 	Type     InputExecSendToRoutesTrueConstraintType `json:"type"`
-	Disabled *bool                                   `default:"false" json:"disabled"`
+	Disabled *bool                                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -757,20 +757,20 @@ type InputExecSendToRoutesTrueConstraint struct {
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Maximum number of retry attempts in the event that the command fails
-	Retries *float64 `default:"10" json:"retries"`
+	Retries *float64 `json:"retries,omitempty"`
 	// Select a schedule type; either an interval (in seconds) or a cron-style schedule.
-	ScheduleType *SendToRoutesTrueConstraintScheduleType `default:"interval" json:"scheduleType"`
+	ScheduleType *SendToRoutesTrueConstraintScheduleType `json:"scheduleType,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Interval between command executions in seconds.
-	Interval *float64 `default:"60" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// Cron schedule to execute the command on.
-	CronSchedule *string `default:"* * * * *" json:"cronSchedule"`
+	CronSchedule *string `json:"cronSchedule,omitempty"`
 }
 
 func (i InputExecSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
@@ -778,15 +778,15 @@ func (i InputExecSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputExecSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "command"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "command"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputExecSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputExecSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }

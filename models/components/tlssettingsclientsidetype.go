@@ -7,9 +7,9 @@ import (
 )
 
 type TLSSettingsClientSideType struct {
-	Disabled *bool `default:"false" json:"disabled"`
+	Disabled bool `json:"disabled"`
 	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 }
 
 func (t TLSSettingsClientSideType) MarshalJSON() ([]byte, error) {
@@ -17,15 +17,15 @@ func (t TLSSettingsClientSideType) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TLSSettingsClientSideType) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"disabled"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (t *TLSSettingsClientSideType) GetDisabled() *bool {
+func (t *TLSSettingsClientSideType) GetDisabled() bool {
 	if t == nil {
-		return nil
+		return false
 	}
 	return t.Disabled
 }

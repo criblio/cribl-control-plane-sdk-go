@@ -34,17 +34,17 @@ func (e *PipelineFunctionAggregationID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionAggregationConf struct {
 	// Pass through the original events along with the aggregation events
-	Passthrough *bool `default:"false" json:"passthrough"`
+	Passthrough *bool `json:"passthrough,omitempty"`
 	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `default:"false" json:"preserveGroupBys"`
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
 	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `default:"false" json:"sufficientStatsOnly"`
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
 	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
-	MetricsMode *bool `default:"false" json:"metricsMode"`
+	MetricsMode *bool `json:"metricsMode,omitempty"`
 	// A prefix that is prepended to all of the fields output by this Aggregations Function
 	Prefix *string `json:"prefix,omitempty"`
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"10s" json:"timeWindow"`
+	TimeWindow string `json:"timeWindow"`
 	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
 	Aggregations []string `json:"aggregations"`
 	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
@@ -54,15 +54,15 @@ type PipelineFunctionAggregationConf struct {
 	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
 	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
 	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `default:"false" json:"cumulative"`
+	Cumulative *bool `json:"cumulative,omitempty"`
 	// Allows Cribl Search-specific aggregation configuration
 	SearchAggMode *string `json:"searchAggMode,omitempty"`
 	// Set of key-value pairs to evaluate and add/set
 	Add []ItemsTypeAdd `json:"add,omitempty"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `default:"false" json:"shouldTreatDotsAsLiterals"`
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
 }
 
 func (p PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
@@ -70,7 +70,7 @@ func (p PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregationConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "aggregations"}); err != nil {
 		return err
 	}
 	return nil
@@ -111,9 +111,9 @@ func (p *PipelineFunctionAggregationConf) GetPrefix() *string {
 	return p.Prefix
 }
 
-func (p *PipelineFunctionAggregationConf) GetTimeWindow() *string {
+func (p *PipelineFunctionAggregationConf) GetTimeWindow() string {
 	if p == nil {
-		return nil
+		return ""
 	}
 	return p.TimeWindow
 }
@@ -183,7 +183,7 @@ func (p *PipelineFunctionAggregationConf) GetFlushOnInputClose() *bool {
 
 type PipelineFunctionAggregation struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionAggregationID `json:"id"`
 	// Simple description of this step

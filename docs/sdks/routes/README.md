@@ -161,9 +161,11 @@ func main() {
                 Disabled: criblcontrolplanesdkgo.Pointer(true),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
                 Pipeline: "main",
+                EnableOutputExpression: criblcontrolplanesdkgo.Pointer(false),
                 Output: "<value>",
                 OutputExpression: "<value>",
                 Description: criblcontrolplanesdkgo.Pointer("Route access logs to main pipeline"),
+                Final: criblcontrolplanesdkgo.Pointer(true),
             },
         },
         Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{

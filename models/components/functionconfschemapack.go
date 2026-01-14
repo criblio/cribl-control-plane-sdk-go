@@ -10,7 +10,7 @@ type FunctionConfSchemaPack struct {
 	// List of fields to keep, everything else will be packed
 	UnpackedFields []string `json:"unpackedFields,omitempty"`
 	// Name of the (packed) target field
-	Target *string `default:"_pack" json:"target"`
+	Target *string `json:"target,omitempty"`
 }
 
 func (f FunctionConfSchemaPack) MarshalJSON() ([]byte, error) {

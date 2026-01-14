@@ -34,7 +34,7 @@ func (e *PipelineFunctionOtlpTracesID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionOtlpTraces struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionOtlpTracesID `json:"id"`
 	// Simple description of this step

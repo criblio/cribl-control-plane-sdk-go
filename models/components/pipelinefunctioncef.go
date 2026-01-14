@@ -34,7 +34,7 @@ func (e *PipelineFunctionCefID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionCef struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionCefID `json:"id"`
 	// Simple description of this step
@@ -110,7 +110,7 @@ func (p *PipelineFunctionCef) GetGroupID() *string {
 
 type PipelineFunctionCefInput struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionCefID `json:"id"`
 	// Simple description of this step

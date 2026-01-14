@@ -10,11 +10,11 @@ type FunctionConfSchemaCode struct {
 	// Caution: This Function will be evaluated in an unprotected context. This means that you will be able to execute almost any JavaScript code.
 	Code *string `json:"code,omitempty"`
 	// The maximum number of allowed iterations within this Function. Defaults to 5,000.
-	MaxNumOfIterations *float64 `default:"5000" json:"maxNumOfIterations"`
+	MaxNumOfIterations *float64 `json:"maxNumOfIterations,omitempty"`
 	// Rate at which this Function logs errors. For example, a value of 1 (the default) logs every error, a value of 10 logs every tenth error, and so on.
-	ActiveLogSampleRate *float64 `default:"1" json:"activeLogSampleRate"`
+	ActiveLogSampleRate *float64 `json:"activeLogSampleRate,omitempty"`
 	// Logs from this Function will be sent to a unique channel in the form `func:code:${pipelineName}:${functionIndex}`. Disable to use the generic `func:code` log channel instead.
-	UseUniqueLogChannel *bool `default:"true" json:"useUniqueLogChannel"`
+	UseUniqueLogChannel *bool `json:"useUniqueLogChannel,omitempty"`
 }
 
 func (f FunctionConfSchemaCode) MarshalJSON() ([]byte, error) {

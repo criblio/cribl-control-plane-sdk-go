@@ -33,15 +33,15 @@ func (e *FunctionConfSchemaSerdeOperationMode) IsExact() bool {
 
 type FunctionConfSchemaSerde struct {
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-	Mode *FunctionConfSchemaSerdeOperationMode `default:"extract" json:"mode"`
+	Mode *FunctionConfSchemaSerdeOperationMode `json:"mode,omitempty"`
 	// Parser or formatter type to use
-	Type       *TypeOptions `default:"csv" json:"type"`
+	Type       *TypeOptions `json:"type,omitempty"`
 	DelimChar  any          `json:"delimChar,omitempty"`
 	QuoteChar  any          `json:"quoteChar,omitempty"`
 	EscapeChar any          `json:"escapeChar,omitempty"`
 	NullValue  any          `json:"nullValue,omitempty"`
 	// Field containing text to be parsed
-	SrcField *string `default:"_raw" json:"srcField"`
+	SrcField *string `json:"srcField,omitempty"`
 	// Name of the field to add fields to. Extract mode only.
 	DstField    *string `json:"dstField,omitempty"`
 	CleanFields any     `json:"cleanFields,omitempty"`
