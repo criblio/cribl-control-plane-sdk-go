@@ -34,8 +34,10 @@ type InputSystemStatePqEnabledTrueWithPqConstraint struct {
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
-	Description         *string `json:"description,omitempty"`
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeLastLogModule *bool   `default:"false" json:"disableNativeLastLogModule"`
+	Description                *string `json:"description,omitempty"`
 }
 
 func (i InputSystemStatePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
@@ -154,6 +156,13 @@ func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetDisableNativeModule()
 	return i.DisableNativeModule
 }
 
+func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetDisableNativeLastLogModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeLastLogModule
+}
+
 func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
@@ -186,8 +195,10 @@ type InputSystemStatePqEnabledFalseConstraint struct {
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
-	Description         *string `json:"description,omitempty"`
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeLastLogModule *bool   `default:"false" json:"disableNativeLastLogModule"`
+	Description                *string `json:"description,omitempty"`
 }
 
 func (i InputSystemStatePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
@@ -306,6 +317,13 @@ func (i *InputSystemStatePqEnabledFalseConstraint) GetDisableNativeModule() *boo
 	return i.DisableNativeModule
 }
 
+func (i *InputSystemStatePqEnabledFalseConstraint) GetDisableNativeLastLogModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeLastLogModule
+}
+
 func (i *InputSystemStatePqEnabledFalseConstraint) GetDescription() *string {
 	if i == nil {
 		return nil
@@ -338,8 +356,10 @@ type InputSystemStateSendToRoutesFalseWithConnectionsConstraint struct {
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
-	Description         *string `json:"description,omitempty"`
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeLastLogModule *bool   `default:"false" json:"disableNativeLastLogModule"`
+	Description                *string `json:"description,omitempty"`
 }
 
 func (i InputSystemStateSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
@@ -456,6 +476,13 @@ func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetDisableN
 		return nil
 	}
 	return i.DisableNativeModule
+}
+
+func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetDisableNativeLastLogModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeLastLogModule
 }
 
 func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
@@ -968,8 +995,10 @@ type InputSystemStateSendToRoutesTrueConstraint struct {
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `default:"false" json:"disableNativeModule"`
-	Description         *string `json:"description,omitempty"`
+	DisableNativeModule *bool `default:"false" json:"disableNativeModule"`
+	// Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeLastLogModule *bool   `default:"false" json:"disableNativeLastLogModule"`
+	Description                *string `json:"description,omitempty"`
 }
 
 func (i InputSystemStateSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
@@ -1086,6 +1115,13 @@ func (i *InputSystemStateSendToRoutesTrueConstraint) GetDisableNativeModule() *b
 		return nil
 	}
 	return i.DisableNativeModule
+}
+
+func (i *InputSystemStateSendToRoutesTrueConstraint) GetDisableNativeLastLogModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeLastLogModule
 }
 
 func (i *InputSystemStateSendToRoutesTrueConstraint) GetDescription() *string {

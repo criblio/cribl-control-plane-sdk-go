@@ -4016,7 +4016,7 @@ type OutputXsiam struct {
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `default:"5" json:"concurrency"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `default:"10000" json:"maxPayloadSizeKB"`
+	MaxPayloadSizeKB *float64 `default:"9500" json:"maxPayloadSizeKB"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
 	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
