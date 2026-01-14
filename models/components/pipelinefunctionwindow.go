@@ -32,6 +32,56 @@ func (e *PipelineFunctionWindowID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionWindowConf struct {
+	// Identifies the unique ID, used for a event window
+	EventWindowID float64 `json:"eventWindowId"`
+	// All window functions, tracked by this event window
+	RegisteredFunctions []string `json:"registeredFunctions"`
+	// Number of events to keep before the current event in the window
+	TailEventCount *float64 `json:"tailEventCount,omitempty"`
+	// Number of events to keep after the current event in the window
+	HeadEventCount *float64 `json:"headEventCount,omitempty"`
+}
+
+func (p PipelineFunctionWindowConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionWindowConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"eventWindowId", "registeredFunctions"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionWindowConf) GetEventWindowID() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.EventWindowID
+}
+
+func (p *PipelineFunctionWindowConf) GetRegisteredFunctions() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.RegisteredFunctions
+}
+
+func (p *PipelineFunctionWindowConf) GetTailEventCount() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.TailEventCount
+}
+
+func (p *PipelineFunctionWindowConf) GetHeadEventCount() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.HeadEventCount
+}
+
 type PipelineFunctionWindow struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +92,8 @@ type PipelineFunctionWindow struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
-	Conf  FunctionConfSchemaWindow `json:"conf"`
+	Final *bool                      `json:"final,omitempty"`
+	Conf  PipelineFunctionWindowConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +144,9 @@ func (p *PipelineFunctionWindow) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionWindow) GetConf() FunctionConfSchemaWindow {
+func (p *PipelineFunctionWindow) GetConf() PipelineFunctionWindowConf {
 	if p == nil {
-		return FunctionConfSchemaWindow{}
+		return PipelineFunctionWindowConf{}
 	}
 	return p.Conf
 }

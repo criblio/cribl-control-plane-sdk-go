@@ -32,6 +32,121 @@ func (e *PipelineFunctionSerdeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionSerdeOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type PipelineFunctionSerdeOperationMode string
+
+const (
+	// PipelineFunctionSerdeOperationModeExtract Extract
+	PipelineFunctionSerdeOperationModeExtract PipelineFunctionSerdeOperationMode = "extract"
+	// PipelineFunctionSerdeOperationModeReserialize Reserialize
+	PipelineFunctionSerdeOperationModeReserialize PipelineFunctionSerdeOperationMode = "reserialize"
+)
+
+func (e PipelineFunctionSerdeOperationMode) ToPointer() *PipelineFunctionSerdeOperationMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PipelineFunctionSerdeOperationMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "extract", "reserialize":
+			return true
+		}
+	}
+	return false
+}
+
+type PipelineFunctionSerdeConf struct {
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode PipelineFunctionSerdeOperationMode `json:"mode"`
+	// Parser or formatter type to use
+	Type       TypeOptions `json:"type"`
+	DelimChar  any         `json:"delimChar,omitempty"`
+	QuoteChar  any         `json:"quoteChar,omitempty"`
+	EscapeChar any         `json:"escapeChar,omitempty"`
+	NullValue  any         `json:"nullValue,omitempty"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitempty"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField    *string `json:"dstField,omitempty"`
+	CleanFields any     `json:"cleanFields,omitempty"`
+}
+
+func (p PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"mode", "type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionSerdeConf) GetMode() PipelineFunctionSerdeOperationMode {
+	if p == nil {
+		return PipelineFunctionSerdeOperationMode("")
+	}
+	return p.Mode
+}
+
+func (p *PipelineFunctionSerdeConf) GetType() TypeOptions {
+	if p == nil {
+		return TypeOptions("")
+	}
+	return p.Type
+}
+
+func (p *PipelineFunctionSerdeConf) GetDelimChar() any {
+	if p == nil {
+		return nil
+	}
+	return p.DelimChar
+}
+
+func (p *PipelineFunctionSerdeConf) GetQuoteChar() any {
+	if p == nil {
+		return nil
+	}
+	return p.QuoteChar
+}
+
+func (p *PipelineFunctionSerdeConf) GetEscapeChar() any {
+	if p == nil {
+		return nil
+	}
+	return p.EscapeChar
+}
+
+func (p *PipelineFunctionSerdeConf) GetNullValue() any {
+	if p == nil {
+		return nil
+	}
+	return p.NullValue
+}
+
+func (p *PipelineFunctionSerdeConf) GetSrcField() *string {
+	if p == nil {
+		return nil
+	}
+	return p.SrcField
+}
+
+func (p *PipelineFunctionSerdeConf) GetDstField() *string {
+	if p == nil {
+		return nil
+	}
+	return p.DstField
+}
+
+func (p *PipelineFunctionSerdeConf) GetCleanFields() any {
+	if p == nil {
+		return nil
+	}
+	return p.CleanFields
+}
+
 type PipelineFunctionSerde struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +157,8 @@ type PipelineFunctionSerde struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                   `json:"final,omitempty"`
-	Conf  FunctionConfSchemaSerde `json:"conf"`
+	Final *bool                     `json:"final,omitempty"`
+	Conf  PipelineFunctionSerdeConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +209,9 @@ func (p *PipelineFunctionSerde) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionSerde) GetConf() FunctionConfSchemaSerde {
+func (p *PipelineFunctionSerde) GetConf() PipelineFunctionSerdeConf {
 	if p == nil {
-		return FunctionConfSchemaSerde{}
+		return PipelineFunctionSerdeConf{}
 	}
 	return p.Conf
 }

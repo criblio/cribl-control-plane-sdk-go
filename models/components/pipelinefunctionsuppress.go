@@ -32,6 +32,83 @@ func (e *PipelineFunctionSuppressID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionSuppressConf struct {
+	// Suppression key expression used to uniquely identify events to suppress. For example, `${ip}:${port}` will use fields ip and port from each event to generate the key.
+	KeyExpr string `json:"keyExpr"`
+	// The number of events to allow per time period
+	Allow float64 `json:"allow"`
+	// The number of seconds to suppress events after 'Number to allow' events are received
+	SuppressPeriodSec float64 `json:"suppressPeriodSec"`
+	// If disabled, suppressed events will be tagged with suppress=1 but not dropped
+	DropEventsMode *bool `json:"dropEventsMode,omitempty"`
+	// The maximum number of keys that can be cached before idle entries are removed. Leave at default unless you understand the implications of changing.
+	MaxCacheSize *float64 `json:"maxCacheSize,omitempty"`
+	// The number of suppression periods 'Suppression Period' of inactivity before a cache entry is considered idle. Leave at default unless you understand the implications of changing.
+	CacheIdleTimeoutPeriods *float64 `json:"cacheIdleTimeoutPeriods,omitempty"`
+	// Check cache for idle sessions every N events when cache size is > 'Maximum Cache Size'. Leave at default unless you understand the implications of changing.
+	NumEventsIdleTimeoutTrigger *float64 `json:"numEventsIdleTimeoutTrigger,omitempty"`
+}
+
+func (p PipelineFunctionSuppressConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionSuppressConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"keyExpr", "allow", "suppressPeriodSec"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionSuppressConf) GetKeyExpr() string {
+	if p == nil {
+		return ""
+	}
+	return p.KeyExpr
+}
+
+func (p *PipelineFunctionSuppressConf) GetAllow() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.Allow
+}
+
+func (p *PipelineFunctionSuppressConf) GetSuppressPeriodSec() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.SuppressPeriodSec
+}
+
+func (p *PipelineFunctionSuppressConf) GetDropEventsMode() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.DropEventsMode
+}
+
+func (p *PipelineFunctionSuppressConf) GetMaxCacheSize() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.MaxCacheSize
+}
+
+func (p *PipelineFunctionSuppressConf) GetCacheIdleTimeoutPeriods() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.CacheIdleTimeoutPeriods
+}
+
+func (p *PipelineFunctionSuppressConf) GetNumEventsIdleTimeoutTrigger() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.NumEventsIdleTimeoutTrigger
+}
+
 type PipelineFunctionSuppress struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +119,8 @@ type PipelineFunctionSuppress struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitempty"`
-	Conf  FunctionConfSchemaSuppress `json:"conf"`
+	Final *bool                        `json:"final,omitempty"`
+	Conf  PipelineFunctionSuppressConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +171,9 @@ func (p *PipelineFunctionSuppress) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionSuppress) GetConf() FunctionConfSchemaSuppress {
+func (p *PipelineFunctionSuppress) GetConf() PipelineFunctionSuppressConf {
 	if p == nil {
-		return FunctionConfSchemaSuppress{}
+		return PipelineFunctionSuppressConf{}
 	}
 	return p.Conf
 }

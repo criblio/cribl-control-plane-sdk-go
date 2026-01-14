@@ -6,32 +6,32 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FieldCondition struct {
+type FunctionConfSchemaJoinFieldCondition struct {
 	// The field name to join on, on the left side.
 	LeftFieldName string `json:"leftFieldName"`
 	// The field name on the right side of the data, i.e. the stage results, that we are joining with
 	RightFieldName string `json:"rightFieldName"`
 }
 
-func (f FieldCondition) MarshalJSON() ([]byte, error) {
+func (f FunctionConfSchemaJoinFieldCondition) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FieldCondition) UnmarshalJSON(data []byte) error {
+func (f *FunctionConfSchemaJoinFieldCondition) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"leftFieldName", "rightFieldName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FieldCondition) GetLeftFieldName() string {
+func (f *FunctionConfSchemaJoinFieldCondition) GetLeftFieldName() string {
 	if f == nil {
 		return ""
 	}
 	return f.LeftFieldName
 }
 
-func (f *FieldCondition) GetRightFieldName() string {
+func (f *FunctionConfSchemaJoinFieldCondition) GetRightFieldName() string {
 	if f == nil {
 		return ""
 	}
@@ -44,7 +44,7 @@ type FunctionConfSchemaJoin struct {
 	// Hints passed to the join function
 	Hints map[string]string `json:"hints,omitempty"`
 	// Fields to use when joining
-	FieldConditions []FieldCondition `json:"fieldConditions,omitempty"`
+	FieldConditions []FunctionConfSchemaJoinFieldCondition `json:"fieldConditions,omitempty"`
 	// The id for this search job.
 	SearchJobID *string `json:"searchJobId,omitempty"`
 	// The stage we are joining with.
@@ -76,7 +76,7 @@ func (f *FunctionConfSchemaJoin) GetHints() map[string]string {
 	return f.Hints
 }
 
-func (f *FunctionConfSchemaJoin) GetFieldConditions() []FieldCondition {
+func (f *FunctionConfSchemaJoin) GetFieldConditions() []FunctionConfSchemaJoinFieldCondition {
 	if f == nil {
 		return nil
 	}

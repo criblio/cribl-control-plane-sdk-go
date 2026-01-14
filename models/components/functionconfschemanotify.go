@@ -6,22 +6,22 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// TriggerType - Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
-type TriggerType string
+// FunctionConfSchemaNotifyTriggerType - Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
+type FunctionConfSchemaNotifyTriggerType string
 
 const (
-	// TriggerTypeCustom Where
-	TriggerTypeCustom TriggerType = "custom"
-	// TriggerTypeResultsCount Count of Results
-	TriggerTypeResultsCount TriggerType = "resultsCount"
+	// FunctionConfSchemaNotifyTriggerTypeCustom Where
+	FunctionConfSchemaNotifyTriggerTypeCustom FunctionConfSchemaNotifyTriggerType = "custom"
+	// FunctionConfSchemaNotifyTriggerTypeResultsCount Count of Results
+	FunctionConfSchemaNotifyTriggerTypeResultsCount FunctionConfSchemaNotifyTriggerType = "resultsCount"
 )
 
-func (e TriggerType) ToPointer() *TriggerType {
+func (e FunctionConfSchemaNotifyTriggerType) ToPointer() *FunctionConfSchemaNotifyTriggerType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TriggerType) IsExact() bool {
+func (e *FunctionConfSchemaNotifyTriggerType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "custom", "resultsCount":
@@ -31,30 +31,30 @@ func (e *TriggerType) IsExact() bool {
 	return false
 }
 
-// CountComparator - Operation to be applied over the results count
-type CountComparator string
+// FunctionConfSchemaNotifyCountComparator - Operation to be applied over the results count
+type FunctionConfSchemaNotifyCountComparator string
 
 const (
-	// CountComparatorGreaterThan greater than
-	CountComparatorGreaterThan CountComparator = ">"
-	// CountComparatorLessThan less than
-	CountComparatorLessThan CountComparator = "<"
-	// CountComparatorEqualEqualEqual equals
-	CountComparatorEqualEqualEqual CountComparator = "==="
-	// CountComparatorNotEqualEqual not equal to
-	CountComparatorNotEqualEqual CountComparator = "!=="
-	// CountComparatorGreaterThanEqual greater than or equal to
-	CountComparatorGreaterThanEqual CountComparator = ">="
-	// CountComparatorLessThanEqual less than or equal to
-	CountComparatorLessThanEqual CountComparator = "<="
+	// FunctionConfSchemaNotifyCountComparatorGreaterThan greater than
+	FunctionConfSchemaNotifyCountComparatorGreaterThan FunctionConfSchemaNotifyCountComparator = ">"
+	// FunctionConfSchemaNotifyCountComparatorLessThan less than
+	FunctionConfSchemaNotifyCountComparatorLessThan FunctionConfSchemaNotifyCountComparator = "<"
+	// FunctionConfSchemaNotifyCountComparatorEqualEqualEqual equals
+	FunctionConfSchemaNotifyCountComparatorEqualEqualEqual FunctionConfSchemaNotifyCountComparator = "==="
+	// FunctionConfSchemaNotifyCountComparatorNotEqualEqual not equal to
+	FunctionConfSchemaNotifyCountComparatorNotEqualEqual FunctionConfSchemaNotifyCountComparator = "!=="
+	// FunctionConfSchemaNotifyCountComparatorGreaterThanEqual greater than or equal to
+	FunctionConfSchemaNotifyCountComparatorGreaterThanEqual FunctionConfSchemaNotifyCountComparator = ">="
+	// FunctionConfSchemaNotifyCountComparatorLessThanEqual less than or equal to
+	FunctionConfSchemaNotifyCountComparatorLessThanEqual FunctionConfSchemaNotifyCountComparator = "<="
 )
 
-func (e CountComparator) ToPointer() *CountComparator {
+func (e FunctionConfSchemaNotifyCountComparator) ToPointer() *FunctionConfSchemaNotifyCountComparator {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CountComparator) IsExact() bool {
+func (e *FunctionConfSchemaNotifyCountComparator) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case ">", "<", "===", "!==", ">=", "<=":
@@ -76,9 +76,9 @@ type FunctionConfSchemaNotify struct {
 	// Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
 	Trigger *string `json:"trigger,omitempty"`
 	// Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
-	TriggerType *TriggerType `json:"triggerType,omitempty"`
+	TriggerType *FunctionConfSchemaNotifyTriggerType `json:"triggerType,omitempty"`
 	// Operation to be applied over the results count
-	TriggerComparator *CountComparator `json:"triggerComparator,omitempty"`
+	TriggerComparator *FunctionConfSchemaNotifyCountComparator `json:"triggerComparator,omitempty"`
 	// How many results that match trigger the condition
 	TriggerCount *float64 `json:"triggerCount,omitempty"`
 	// Number of results to include in the notification event
@@ -141,14 +141,14 @@ func (f *FunctionConfSchemaNotify) GetTrigger() *string {
 	return f.Trigger
 }
 
-func (f *FunctionConfSchemaNotify) GetTriggerType() *TriggerType {
+func (f *FunctionConfSchemaNotify) GetTriggerType() *FunctionConfSchemaNotifyTriggerType {
 	if f == nil {
 		return nil
 	}
 	return f.TriggerType
 }
 
-func (f *FunctionConfSchemaNotify) GetTriggerComparator() *CountComparator {
+func (f *FunctionConfSchemaNotify) GetTriggerComparator() *FunctionConfSchemaNotifyCountComparator {
 	if f == nil {
 		return nil
 	}

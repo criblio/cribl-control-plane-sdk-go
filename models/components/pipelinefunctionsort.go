@@ -32,6 +32,65 @@ func (e *PipelineFunctionSortID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type SortConfiguration struct {
+	// Has to be unique if there are multiple sorts on the pipeline.
+	SortID *string `json:"sortId,omitempty"`
+	// The expression can access the events via the 'left' and 'right' properties.
+	ComparisonExpression string `json:"comparisonExpression"`
+	// Limits the output to N (highest/lowest) events
+	TopN *float64 `json:"topN,omitempty"`
+	// Specifies the number of events that can flow into this function
+	MaxEvents *float64 `json:"maxEvents,omitempty"`
+	// Toggle this on to suppress generating previews of intermediate results
+	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
+}
+
+func (s SortConfiguration) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SortConfiguration) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"comparisonExpression"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SortConfiguration) GetSortID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SortID
+}
+
+func (s *SortConfiguration) GetComparisonExpression() string {
+	if s == nil {
+		return ""
+	}
+	return s.ComparisonExpression
+}
+
+func (s *SortConfiguration) GetTopN() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.TopN
+}
+
+func (s *SortConfiguration) GetMaxEvents() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.MaxEvents
+}
+
+func (s *SortConfiguration) GetSuppressPreviews() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.SuppressPreviews
+}
+
 type PipelineFunctionSort struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +101,8 @@ type PipelineFunctionSort struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                  `json:"final,omitempty"`
-	Conf  FunctionConfSchemaSort `json:"conf"`
+	Final *bool             `json:"final,omitempty"`
+	Conf  SortConfiguration `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +153,9 @@ func (p *PipelineFunctionSort) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionSort) GetConf() FunctionConfSchemaSort {
+func (p *PipelineFunctionSort) GetConf() SortConfiguration {
 	if p == nil {
-		return FunctionConfSchemaSort{}
+		return SortConfiguration{}
 	}
 	return p.Conf
 }

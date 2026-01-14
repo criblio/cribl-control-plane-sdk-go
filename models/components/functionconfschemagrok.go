@@ -6,33 +6,33 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type PatternList struct {
+type FunctionConfSchemaGrokPatternList struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
 	Pattern string `json:"pattern"`
 }
 
-func (p PatternList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (f FunctionConfSchemaGrokPatternList) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (p *PatternList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"pattern"}); err != nil {
+func (f *FunctionConfSchemaGrokPatternList) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"pattern"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PatternList) GetPattern() string {
-	if p == nil {
+func (f *FunctionConfSchemaGrokPatternList) GetPattern() string {
+	if f == nil {
 		return ""
 	}
-	return p.Pattern
+	return f.Pattern
 }
 
 type FunctionConfSchemaGrok struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string       `json:"pattern,omitempty"`
-	PatternList []PatternList `json:"patternList,omitempty"`
+	Pattern     *string                             `json:"pattern,omitempty"`
+	PatternList []FunctionConfSchemaGrokPatternList `json:"patternList,omitempty"`
 	// Field on which to perform Grok extractions
 	Source *string `json:"source,omitempty"`
 }
@@ -55,7 +55,7 @@ func (f *FunctionConfSchemaGrok) GetPattern() *string {
 	return f.Pattern
 }
 
-func (f *FunctionConfSchemaGrok) GetPatternList() []PatternList {
+func (f *FunctionConfSchemaGrok) GetPatternList() []FunctionConfSchemaGrokPatternList {
 	if f == nil {
 		return nil
 	}

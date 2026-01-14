@@ -32,6 +32,47 @@ func (e *PipelineFunctionDropDimensionsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionDropDimensionsConf struct {
+	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
+	TimeWindow string `json:"timeWindow"`
+	// One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
+	DropDimensions []string `json:"dropDimensions"`
+	// Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
+}
+
+func (p PipelineFunctionDropDimensionsConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionDropDimensionsConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "dropDimensions"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionDropDimensionsConf) GetTimeWindow() string {
+	if p == nil {
+		return ""
+	}
+	return p.TimeWindow
+}
+
+func (p *PipelineFunctionDropDimensionsConf) GetDropDimensions() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.DropDimensions
+}
+
+func (p *PipelineFunctionDropDimensionsConf) GetFlushOnInputClose() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.FlushOnInputClose
+}
+
 type PipelineFunctionDropDimensions struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +83,8 @@ type PipelineFunctionDropDimensions struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                            `json:"final,omitempty"`
-	Conf  FunctionConfSchemaDropDimensions `json:"conf"`
+	Final *bool                              `json:"final,omitempty"`
+	Conf  PipelineFunctionDropDimensionsConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +135,9 @@ func (p *PipelineFunctionDropDimensions) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionDropDimensions) GetConf() FunctionConfSchemaDropDimensions {
+func (p *PipelineFunctionDropDimensions) GetConf() PipelineFunctionDropDimensionsConf {
 	if p == nil {
-		return FunctionConfSchemaDropDimensions{}
+		return PipelineFunctionDropDimensionsConf{}
 	}
 	return p.Conf
 }

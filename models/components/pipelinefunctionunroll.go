@@ -32,6 +32,38 @@ func (e *PipelineFunctionUnrollID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionUnrollConf struct {
+	// Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
+	SrcExpr string `json:"srcExpr"`
+	// Field in destination event in which to place the unrolled value
+	DstField string `json:"dstField"`
+}
+
+func (p PipelineFunctionUnrollConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionUnrollConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"srcExpr", "dstField"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionUnrollConf) GetSrcExpr() string {
+	if p == nil {
+		return ""
+	}
+	return p.SrcExpr
+}
+
+func (p *PipelineFunctionUnrollConf) GetDstField() string {
+	if p == nil {
+		return ""
+	}
+	return p.DstField
+}
+
 type PipelineFunctionUnroll struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +74,8 @@ type PipelineFunctionUnroll struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
-	Conf  FunctionConfSchemaUnroll `json:"conf"`
+	Final *bool                      `json:"final,omitempty"`
+	Conf  PipelineFunctionUnrollConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +126,9 @@ func (p *PipelineFunctionUnroll) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionUnroll) GetConf() FunctionConfSchemaUnroll {
+func (p *PipelineFunctionUnroll) GetConf() PipelineFunctionUnrollConf {
 	if p == nil {
-		return FunctionConfSchemaUnroll{}
+		return PipelineFunctionUnrollConf{}
 	}
 	return p.Conf
 }

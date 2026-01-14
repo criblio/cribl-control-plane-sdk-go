@@ -6,22 +6,22 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// OperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-type OperationMode string
+// FunctionConfSchemaSerdeOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type FunctionConfSchemaSerdeOperationMode string
 
 const (
-	// OperationModeExtract Extract
-	OperationModeExtract OperationMode = "extract"
-	// OperationModeReserialize Reserialize
-	OperationModeReserialize OperationMode = "reserialize"
+	// FunctionConfSchemaSerdeOperationModeExtract Extract
+	FunctionConfSchemaSerdeOperationModeExtract FunctionConfSchemaSerdeOperationMode = "extract"
+	// FunctionConfSchemaSerdeOperationModeReserialize Reserialize
+	FunctionConfSchemaSerdeOperationModeReserialize FunctionConfSchemaSerdeOperationMode = "reserialize"
 )
 
-func (e OperationMode) ToPointer() *OperationMode {
+func (e FunctionConfSchemaSerdeOperationMode) ToPointer() *FunctionConfSchemaSerdeOperationMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OperationMode) IsExact() bool {
+func (e *FunctionConfSchemaSerdeOperationMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "extract", "reserialize":
@@ -33,7 +33,7 @@ func (e *OperationMode) IsExact() bool {
 
 type FunctionConfSchemaSerde struct {
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-	Mode *OperationMode `json:"mode,omitempty"`
+	Mode *FunctionConfSchemaSerdeOperationMode `json:"mode,omitempty"`
 	// Parser or formatter type to use
 	Type       *TypeOptions `json:"type,omitempty"`
 	DelimChar  any          `json:"delimChar,omitempty"`
@@ -58,7 +58,7 @@ func (f *FunctionConfSchemaSerde) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionConfSchemaSerde) GetMode() *OperationMode {
+func (f *FunctionConfSchemaSerde) GetMode() *FunctionConfSchemaSerdeOperationMode {
 	if f == nil {
 		return nil
 	}

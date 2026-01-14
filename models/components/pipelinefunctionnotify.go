@@ -32,6 +32,204 @@ func (e *PipelineFunctionNotifyID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionNotifyTriggerType - Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
+type PipelineFunctionNotifyTriggerType string
+
+const (
+	// PipelineFunctionNotifyTriggerTypeCustom Where
+	PipelineFunctionNotifyTriggerTypeCustom PipelineFunctionNotifyTriggerType = "custom"
+	// PipelineFunctionNotifyTriggerTypeResultsCount Count of Results
+	PipelineFunctionNotifyTriggerTypeResultsCount PipelineFunctionNotifyTriggerType = "resultsCount"
+)
+
+func (e PipelineFunctionNotifyTriggerType) ToPointer() *PipelineFunctionNotifyTriggerType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PipelineFunctionNotifyTriggerType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "custom", "resultsCount":
+			return true
+		}
+	}
+	return false
+}
+
+// PipelineFunctionNotifyCountComparator - Operation to be applied over the results count
+type PipelineFunctionNotifyCountComparator string
+
+const (
+	// PipelineFunctionNotifyCountComparatorGreaterThan greater than
+	PipelineFunctionNotifyCountComparatorGreaterThan PipelineFunctionNotifyCountComparator = ">"
+	// PipelineFunctionNotifyCountComparatorLessThan less than
+	PipelineFunctionNotifyCountComparatorLessThan PipelineFunctionNotifyCountComparator = "<"
+	// PipelineFunctionNotifyCountComparatorEqualEqualEqual equals
+	PipelineFunctionNotifyCountComparatorEqualEqualEqual PipelineFunctionNotifyCountComparator = "==="
+	// PipelineFunctionNotifyCountComparatorNotEqualEqual not equal to
+	PipelineFunctionNotifyCountComparatorNotEqualEqual PipelineFunctionNotifyCountComparator = "!=="
+	// PipelineFunctionNotifyCountComparatorGreaterThanEqual greater than or equal to
+	PipelineFunctionNotifyCountComparatorGreaterThanEqual PipelineFunctionNotifyCountComparator = ">="
+	// PipelineFunctionNotifyCountComparatorLessThanEqual less than or equal to
+	PipelineFunctionNotifyCountComparatorLessThanEqual PipelineFunctionNotifyCountComparator = "<="
+)
+
+func (e PipelineFunctionNotifyCountComparator) ToPointer() *PipelineFunctionNotifyCountComparator {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PipelineFunctionNotifyCountComparator) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case ">", "<", "===", "!==", ">=", "<=":
+			return true
+		}
+	}
+	return false
+}
+
+type NotifyConfiguration struct {
+	// Group the notification belongs to
+	Group string `json:"group"`
+	// Workspace within the deployment to send the search results to.
+	NotificationID string `json:"notificationId"`
+	// Id of the search this function is running on.
+	SearchID string `json:"searchId"`
+	// Id of the saved query
+	SavedQueryID string `json:"savedQueryId"`
+	// Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
+	Trigger *string `json:"trigger,omitempty"`
+	// Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
+	TriggerType *PipelineFunctionNotifyTriggerType `json:"triggerType,omitempty"`
+	// Operation to be applied over the results count
+	TriggerComparator *PipelineFunctionNotifyCountComparator `json:"triggerComparator,omitempty"`
+	// How many results that match trigger the condition
+	TriggerCount *float64 `json:"triggerCount,omitempty"`
+	// Number of results to include in the notification event
+	ResultsLimit *float64 `json:"resultsLimit,omitempty"`
+	// Url of the search results
+	SearchURL string `json:"searchUrl"`
+	// Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
+	Message *string `json:"message,omitempty"`
+	// Auth token for sending notification messages
+	AuthToken string `json:"authToken"`
+	// System messages api endpoint
+	MessagesEndpoint string `json:"messagesEndpoint"`
+	// Current tenant id
+	TenantID *string `json:"tenantId,omitempty"`
+}
+
+func (n NotifyConfiguration) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(n, "", false)
+}
+
+func (n *NotifyConfiguration) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &n, "", false, []string{"group", "notificationId", "searchId", "savedQueryId", "searchUrl", "authToken", "messagesEndpoint"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (n *NotifyConfiguration) GetGroup() string {
+	if n == nil {
+		return ""
+	}
+	return n.Group
+}
+
+func (n *NotifyConfiguration) GetNotificationID() string {
+	if n == nil {
+		return ""
+	}
+	return n.NotificationID
+}
+
+func (n *NotifyConfiguration) GetSearchID() string {
+	if n == nil {
+		return ""
+	}
+	return n.SearchID
+}
+
+func (n *NotifyConfiguration) GetSavedQueryID() string {
+	if n == nil {
+		return ""
+	}
+	return n.SavedQueryID
+}
+
+func (n *NotifyConfiguration) GetTrigger() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Trigger
+}
+
+func (n *NotifyConfiguration) GetTriggerType() *PipelineFunctionNotifyTriggerType {
+	if n == nil {
+		return nil
+	}
+	return n.TriggerType
+}
+
+func (n *NotifyConfiguration) GetTriggerComparator() *PipelineFunctionNotifyCountComparator {
+	if n == nil {
+		return nil
+	}
+	return n.TriggerComparator
+}
+
+func (n *NotifyConfiguration) GetTriggerCount() *float64 {
+	if n == nil {
+		return nil
+	}
+	return n.TriggerCount
+}
+
+func (n *NotifyConfiguration) GetResultsLimit() *float64 {
+	if n == nil {
+		return nil
+	}
+	return n.ResultsLimit
+}
+
+func (n *NotifyConfiguration) GetSearchURL() string {
+	if n == nil {
+		return ""
+	}
+	return n.SearchURL
+}
+
+func (n *NotifyConfiguration) GetMessage() *string {
+	if n == nil {
+		return nil
+	}
+	return n.Message
+}
+
+func (n *NotifyConfiguration) GetAuthToken() string {
+	if n == nil {
+		return ""
+	}
+	return n.AuthToken
+}
+
+func (n *NotifyConfiguration) GetMessagesEndpoint() string {
+	if n == nil {
+		return ""
+	}
+	return n.MessagesEndpoint
+}
+
+func (n *NotifyConfiguration) GetTenantID() *string {
+	if n == nil {
+		return nil
+	}
+	return n.TenantID
+}
+
 type PipelineFunctionNotify struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +240,8 @@ type PipelineFunctionNotify struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
-	Conf  FunctionConfSchemaNotify `json:"conf"`
+	Final *bool               `json:"final,omitempty"`
+	Conf  NotifyConfiguration `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +292,9 @@ func (p *PipelineFunctionNotify) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionNotify) GetConf() FunctionConfSchemaNotify {
+func (p *PipelineFunctionNotify) GetConf() NotifyConfiguration {
 	if p == nil {
-		return FunctionConfSchemaNotify{}
+		return NotifyConfiguration{}
 	}
 	return p.Conf
 }
