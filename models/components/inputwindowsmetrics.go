@@ -4,490 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputWindowsMetricsPqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
-	Type     InputWindowsMetricsType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval *float64                 `json:"interval,omitempty"`
-	Host     *InputWindowsMetricsHost `json:"host,omitempty"`
-	Process  *ProcessType             `json:"process,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitempty"`
-	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
-}
-
-func (i InputWindowsMetricsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetType() InputWindowsMetricsType {
-	if i == nil {
-		return InputWindowsMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetHost() *InputWindowsMetricsHost {
-	if i == nil {
-		return nil
-	}
-	return i.Host
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetProcess() *ProcessType {
-	if i == nil {
-		return nil
-	}
-	return i.Process
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetPersistence() *InputWindowsMetricsPersistence {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetDisableNativeModule() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DisableNativeModule
-}
-
-func (i *InputWindowsMetricsPqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-type InputWindowsMetricsPqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
-	Type     InputWindowsMetricsType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval *float64                 `json:"interval,omitempty"`
-	Host     *InputWindowsMetricsHost `json:"host,omitempty"`
-	Process  *ProcessType             `json:"process,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitempty"`
-	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
-}
-
-func (i InputWindowsMetricsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetType() InputWindowsMetricsType {
-	if i == nil {
-		return InputWindowsMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetHost() *InputWindowsMetricsHost {
-	if i == nil {
-		return nil
-	}
-	return i.Host
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetProcess() *ProcessType {
-	if i == nil {
-		return nil
-	}
-	return i.Process
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetPersistence() *InputWindowsMetricsPersistence {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetDisableNativeModule() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DisableNativeModule
-}
-
-func (i *InputWindowsMetricsPqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-type InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
-	Type     InputWindowsMetricsType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval *float64                 `json:"interval,omitempty"`
-	Host     *InputWindowsMetricsHost `json:"host,omitempty"`
-	Process  *ProcessType             `json:"process,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitempty"`
-	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
-}
-
-func (i InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetType() InputWindowsMetricsType {
-	if i == nil {
-		return InputWindowsMetricsType("")
-	}
-	return i.Type
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetHost() *InputWindowsMetricsHost {
-	if i == nil {
-		return nil
-	}
-	return i.Host
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetProcess() *ProcessType {
-	if i == nil {
-		return nil
-	}
-	return i.Process
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *InputWindowsMetricsPersistence {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetDisableNativeModule() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DisableNativeModule
-}
-
-func (i *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
 
 type InputWindowsMetricsType string
 
@@ -1032,15 +551,15 @@ func (i *InputWindowsMetricsPersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputWindowsMetricsSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
+type InputWindowsMetrics struct {
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputWindowsMetricsType `json:"type"`
 	Disabled *bool                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -1062,239 +581,132 @@ type InputWindowsMetricsSendToRoutesTrueConstraint struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputWindowsMetricsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
+func (i *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputWindowsMetrics) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetType() InputWindowsMetricsType {
+func (i *InputWindowsMetrics) GetType() InputWindowsMetricsType {
 	if i == nil {
 		return InputWindowsMetricsType("")
 	}
 	return i.Type
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputWindowsMetrics) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputWindowsMetrics) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputWindowsMetrics) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWindowsMetrics) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputWindowsMetrics) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputWindowsMetrics) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputWindowsMetrics) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputWindowsMetrics) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetInterval() *float64 {
+func (i *InputWindowsMetrics) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetHost() *InputWindowsMetricsHost {
+func (i *InputWindowsMetrics) GetHost() *InputWindowsMetricsHost {
 	if i == nil {
 		return nil
 	}
 	return i.Host
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetProcess() *ProcessType {
+func (i *InputWindowsMetrics) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
 	return i.Process
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWindowsMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetPersistence() *InputWindowsMetricsPersistence {
+func (i *InputWindowsMetrics) GetPersistence() *InputWindowsMetricsPersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetDisableNativeModule() *bool {
+func (i *InputWindowsMetrics) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputWindowsMetricsSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputWindowsMetrics) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
-}
-
-type InputWindowsMetricsUnionType string
-
-const (
-	InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesTrueConstraint                 InputWindowsMetricsUnionType = "InputWindowsMetrics_SendToRoutesTrueConstraint"
-	InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint InputWindowsMetricsUnionType = "InputWindowsMetrics_SendToRoutesFalseWithConnectionsConstraint"
-	InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledFalseConstraint                   InputWindowsMetricsUnionType = "InputWindowsMetrics_PqEnabledFalseConstraint"
-	InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledTrueWithPqConstraint              InputWindowsMetricsUnionType = "InputWindowsMetrics_PqEnabledTrueWithPqConstraint"
-)
-
-type InputWindowsMetrics struct {
-	InputWindowsMetricsSendToRoutesTrueConstraint                 *InputWindowsMetricsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint *InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputWindowsMetricsPqEnabledFalseConstraint                   *InputWindowsMetricsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputWindowsMetricsPqEnabledTrueWithPqConstraint              *InputWindowsMetricsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputWindowsMetricsUnionType
-}
-
-func CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesTrueConstraint(inputWindowsMetricsSendToRoutesTrueConstraint InputWindowsMetricsSendToRoutesTrueConstraint) InputWindowsMetrics {
-	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesTrueConstraint
-
-	return InputWindowsMetrics{
-		InputWindowsMetricsSendToRoutesTrueConstraint: &inputWindowsMetricsSendToRoutesTrueConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputWindowsMetricsInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint(inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint) InputWindowsMetrics {
-	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint
-
-	return InputWindowsMetrics{
-		InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint: &inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputWindowsMetricsInputWindowsMetricsPqEnabledFalseConstraint(inputWindowsMetricsPqEnabledFalseConstraint InputWindowsMetricsPqEnabledFalseConstraint) InputWindowsMetrics {
-	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledFalseConstraint
-
-	return InputWindowsMetrics{
-		InputWindowsMetricsPqEnabledFalseConstraint: &inputWindowsMetricsPqEnabledFalseConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputWindowsMetricsInputWindowsMetricsPqEnabledTrueWithPqConstraint(inputWindowsMetricsPqEnabledTrueWithPqConstraint InputWindowsMetricsPqEnabledTrueWithPqConstraint) InputWindowsMetrics {
-	typ := InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledTrueWithPqConstraint
-
-	return InputWindowsMetrics{
-		InputWindowsMetricsPqEnabledTrueWithPqConstraint: &inputWindowsMetricsPqEnabledTrueWithPqConstraint,
-		Type: typ,
-	}
-}
-
-func (u *InputWindowsMetrics) UnmarshalJSON(data []byte) error {
-
-	var inputWindowsMetricsSendToRoutesTrueConstraint InputWindowsMetricsSendToRoutesTrueConstraint = InputWindowsMetricsSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputWindowsMetricsSendToRoutesTrueConstraint = &inputWindowsMetricsSendToRoutesTrueConstraint
-		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint = &inputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputWindowsMetricsPqEnabledFalseConstraint InputWindowsMetricsPqEnabledFalseConstraint = InputWindowsMetricsPqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsPqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputWindowsMetricsPqEnabledFalseConstraint = &inputWindowsMetricsPqEnabledFalseConstraint
-		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputWindowsMetricsPqEnabledTrueWithPqConstraint InputWindowsMetricsPqEnabledTrueWithPqConstraint = InputWindowsMetricsPqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWindowsMetricsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputWindowsMetricsPqEnabledTrueWithPqConstraint = &inputWindowsMetricsPqEnabledTrueWithPqConstraint
-		u.Type = InputWindowsMetricsUnionTypeInputWindowsMetricsPqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWindowsMetrics", string(data))
-}
-
-func (u InputWindowsMetrics) MarshalJSON() ([]byte, error) {
-	if u.InputWindowsMetricsSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputWindowsMetricsSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputWindowsMetricsSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputWindowsMetricsPqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputWindowsMetricsPqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputWindowsMetricsPqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputWindowsMetricsPqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputWindowsMetrics: all fields are null")
 }

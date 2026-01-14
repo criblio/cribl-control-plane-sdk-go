@@ -1,0 +1,11 @@
+# CPUSystemMetrics
+
+
+## Fields
+
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `Mode`                                                                              | [*operations.CPUModeSystemMetrics](../../models/operations/cpumodesystemmetrics.md) | :heavy_minus_sign:                                                                  | Select the level of detail for CPU metrics                                          |
+| `PerCPU`                                                                            | **bool*                                                                             | :heavy_minus_sign:                                                                  | Generate metrics for each CPU                                                       |
+| `Detail`                                                                            | **bool*                                                                             | :heavy_minus_sign:                                                                  | Generate metrics for all CPU states                                                 |
+| `Time`                                                                              | **bool*                                                                             | :heavy_minus_sign:                                                                  | Generate raw, monotonic CPU time counters                                           |

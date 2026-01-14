@@ -4,466 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputSystemStatePqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `json:"interval,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Collectors  *Collectors                     `json:"collectors,omitempty"`
-	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
-	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
-}
-
-func (i InputSystemStatePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetType() InputSystemStateType {
-	if i == nil {
-		return InputSystemStateType("")
-	}
-	return i.Type
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetCollectors() *Collectors {
-	if i == nil {
-		return nil
-	}
-	return i.Collectors
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetPersistence() *InputSystemStatePersistence {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetDisableNativeModule() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DisableNativeModule
-}
-
-func (i *InputSystemStatePqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-type InputSystemStatePqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `json:"interval,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Collectors  *Collectors                     `json:"collectors,omitempty"`
-	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
-	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
-}
-
-func (i InputSystemStatePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetType() InputSystemStateType {
-	if i == nil {
-		return InputSystemStateType("")
-	}
-	return i.Type
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetCollectors() *Collectors {
-	if i == nil {
-		return nil
-	}
-	return i.Collectors
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetPersistence() *InputSystemStatePersistence {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetDisableNativeModule() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DisableNativeModule
-}
-
-func (i *InputSystemStatePqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-type InputSystemStateSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-	Interval *float64 `json:"interval,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Collectors  *Collectors                     `json:"collectors,omitempty"`
-	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
-	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
-}
-
-func (i InputSystemStateSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetType() InputSystemStateType {
-	if i == nil {
-		return InputSystemStateType("")
-	}
-	return i.Type
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetCollectors() *Collectors {
-	if i == nil {
-		return nil
-	}
-	return i.Collectors
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *InputSystemStatePersistence {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetDisableNativeModule() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DisableNativeModule
-}
-
-func (i *InputSystemStateSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
 
 type InputSystemStateType string
 
@@ -921,15 +464,15 @@ func (i *InputSystemStatePersistence) GetDestPath() *string {
 	return i.DestPath
 }
 
-type InputSystemStateSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
+type InputSystemState struct {
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputSystemStateType `json:"type"`
 	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -950,232 +493,125 @@ type InputSystemStateSendToRoutesTrueConstraint struct {
 	Description         *string `json:"description,omitempty"`
 }
 
-func (i InputSystemStateSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSystemState) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
+func (i *InputSystemState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputSystemState) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetType() InputSystemStateType {
+func (i *InputSystemState) GetType() InputSystemStateType {
 	if i == nil {
 		return InputSystemStateType("")
 	}
 	return i.Type
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputSystemState) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputSystemState) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputSystemState) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemState) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputSystemState) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputSystemState) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputSystemState) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputSystemState) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetInterval() *float64 {
+func (i *InputSystemState) GetInterval() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Interval
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSystemState) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetCollectors() *Collectors {
+func (i *InputSystemState) GetCollectors() *Collectors {
 	if i == nil {
 		return nil
 	}
 	return i.Collectors
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetPersistence() *InputSystemStatePersistence {
+func (i *InputSystemState) GetPersistence() *InputSystemStatePersistence {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetDisableNativeModule() *bool {
+func (i *InputSystemState) GetDisableNativeModule() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DisableNativeModule
 }
 
-func (i *InputSystemStateSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputSystemState) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
-}
-
-type InputSystemStateUnionType string
-
-const (
-	InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueConstraint                 InputSystemStateUnionType = "InputSystemState_SendToRoutesTrueConstraint"
-	InputSystemStateUnionTypeInputSystemStateSendToRoutesFalseWithConnectionsConstraint InputSystemStateUnionType = "InputSystemState_SendToRoutesFalseWithConnectionsConstraint"
-	InputSystemStateUnionTypeInputSystemStatePqEnabledFalseConstraint                   InputSystemStateUnionType = "InputSystemState_PqEnabledFalseConstraint"
-	InputSystemStateUnionTypeInputSystemStatePqEnabledTrueWithPqConstraint              InputSystemStateUnionType = "InputSystemState_PqEnabledTrueWithPqConstraint"
-)
-
-type InputSystemState struct {
-	InputSystemStateSendToRoutesTrueConstraint                 *InputSystemStateSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputSystemStateSendToRoutesFalseWithConnectionsConstraint *InputSystemStateSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputSystemStatePqEnabledFalseConstraint                   *InputSystemStatePqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputSystemStatePqEnabledTrueWithPqConstraint              *InputSystemStatePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputSystemStateUnionType
-}
-
-func CreateInputSystemStateInputSystemStateSendToRoutesTrueConstraint(inputSystemStateSendToRoutesTrueConstraint InputSystemStateSendToRoutesTrueConstraint) InputSystemState {
-	typ := InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueConstraint
-
-	return InputSystemState{
-		InputSystemStateSendToRoutesTrueConstraint: &inputSystemStateSendToRoutesTrueConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputSystemStateInputSystemStateSendToRoutesFalseWithConnectionsConstraint(inputSystemStateSendToRoutesFalseWithConnectionsConstraint InputSystemStateSendToRoutesFalseWithConnectionsConstraint) InputSystemState {
-	typ := InputSystemStateUnionTypeInputSystemStateSendToRoutesFalseWithConnectionsConstraint
-
-	return InputSystemState{
-		InputSystemStateSendToRoutesFalseWithConnectionsConstraint: &inputSystemStateSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputSystemStateInputSystemStatePqEnabledFalseConstraint(inputSystemStatePqEnabledFalseConstraint InputSystemStatePqEnabledFalseConstraint) InputSystemState {
-	typ := InputSystemStateUnionTypeInputSystemStatePqEnabledFalseConstraint
-
-	return InputSystemState{
-		InputSystemStatePqEnabledFalseConstraint: &inputSystemStatePqEnabledFalseConstraint,
-		Type:                                     typ,
-	}
-}
-
-func CreateInputSystemStateInputSystemStatePqEnabledTrueWithPqConstraint(inputSystemStatePqEnabledTrueWithPqConstraint InputSystemStatePqEnabledTrueWithPqConstraint) InputSystemState {
-	typ := InputSystemStateUnionTypeInputSystemStatePqEnabledTrueWithPqConstraint
-
-	return InputSystemState{
-		InputSystemStatePqEnabledTrueWithPqConstraint: &inputSystemStatePqEnabledTrueWithPqConstraint,
-		Type: typ,
-	}
-}
-
-func (u *InputSystemState) UnmarshalJSON(data []byte) error {
-
-	var inputSystemStateSendToRoutesTrueConstraint InputSystemStateSendToRoutesTrueConstraint = InputSystemStateSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSystemStateSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputSystemStateSendToRoutesTrueConstraint = &inputSystemStateSendToRoutesTrueConstraint
-		u.Type = InputSystemStateUnionTypeInputSystemStateSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputSystemStateSendToRoutesFalseWithConnectionsConstraint InputSystemStateSendToRoutesFalseWithConnectionsConstraint = InputSystemStateSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSystemStateSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputSystemStateSendToRoutesFalseWithConnectionsConstraint = &inputSystemStateSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputSystemStateUnionTypeInputSystemStateSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputSystemStatePqEnabledFalseConstraint InputSystemStatePqEnabledFalseConstraint = InputSystemStatePqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSystemStatePqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputSystemStatePqEnabledFalseConstraint = &inputSystemStatePqEnabledFalseConstraint
-		u.Type = InputSystemStateUnionTypeInputSystemStatePqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputSystemStatePqEnabledTrueWithPqConstraint InputSystemStatePqEnabledTrueWithPqConstraint = InputSystemStatePqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSystemStatePqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputSystemStatePqEnabledTrueWithPqConstraint = &inputSystemStatePqEnabledTrueWithPqConstraint
-		u.Type = InputSystemStateUnionTypeInputSystemStatePqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSystemState", string(data))
-}
-
-func (u InputSystemState) MarshalJSON() ([]byte, error) {
-	if u.InputSystemStateSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputSystemStateSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputSystemStateSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputSystemStateSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputSystemStatePqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputSystemStatePqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputSystemStatePqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputSystemStatePqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputSystemState: all fields are null")
 }

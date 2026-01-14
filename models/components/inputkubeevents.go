@@ -4,391 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputKubeEventsPqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string             `json:"id,omitempty"`
-	Type     InputKubeEventsType `json:"type"`
-	Disabled *bool               `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Filtering on event fields
-	Rules []ItemsTypeRules `json:"rules,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-}
-
-func (i InputKubeEventsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetType() InputKubeEventsType {
-	if i == nil {
-		return InputKubeEventsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetRules() []ItemsTypeRules {
-	if i == nil {
-		return nil
-	}
-	return i.Rules
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputKubeEventsPqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-type InputKubeEventsPqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string             `json:"id,omitempty"`
-	Type     InputKubeEventsType `json:"type"`
-	Disabled *bool               `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Filtering on event fields
-	Rules []ItemsTypeRules `json:"rules,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-}
-
-func (i InputKubeEventsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetType() InputKubeEventsType {
-	if i == nil {
-		return InputKubeEventsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetRules() []ItemsTypeRules {
-	if i == nil {
-		return nil
-	}
-	return i.Rules
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputKubeEventsPqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-type InputKubeEventsSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string             `json:"id,omitempty"`
-	Type     InputKubeEventsType `json:"type"`
-	Disabled *bool               `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Filtering on event fields
-	Rules []ItemsTypeRules `json:"rules,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-}
-
-func (i InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetType() InputKubeEventsType {
-	if i == nil {
-		return InputKubeEventsType("")
-	}
-	return i.Type
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetRules() []ItemsTypeRules {
-	if i == nil {
-		return nil
-	}
-	return i.Rules
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
 
 type InputKubeEventsType string
 
@@ -413,15 +31,15 @@ func (e *InputKubeEventsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputKubeEventsSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
+type InputKubeEvents struct {
 	// Unique ID for this input
 	ID       *string             `json:"id,omitempty"`
 	Type     InputKubeEventsType `json:"type"`
 	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -438,211 +56,104 @@ type InputKubeEventsSendToRoutesTrueConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputKubeEventsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputKubeEvents) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
+func (i *InputKubeEvents) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputKubeEvents) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetType() InputKubeEventsType {
+func (i *InputKubeEvents) GetType() InputKubeEventsType {
 	if i == nil {
 		return InputKubeEventsType("")
 	}
 	return i.Type
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputKubeEvents) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputKubeEvents) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputKubeEvents) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputKubeEvents) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputKubeEvents) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputKubeEvents) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputKubeEvents) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputKubeEvents) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetRules() []ItemsTypeRules {
+func (i *InputKubeEvents) GetRules() []ItemsTypeRules {
 	if i == nil {
 		return nil
 	}
 	return i.Rules
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputKubeEvents) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputKubeEventsSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputKubeEvents) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
-}
-
-type InputKubeEventsUnionType string
-
-const (
-	InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueConstraint                 InputKubeEventsUnionType = "InputKubeEvents_SendToRoutesTrueConstraint"
-	InputKubeEventsUnionTypeInputKubeEventsSendToRoutesFalseWithConnectionsConstraint InputKubeEventsUnionType = "InputKubeEvents_SendToRoutesFalseWithConnectionsConstraint"
-	InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseConstraint                   InputKubeEventsUnionType = "InputKubeEvents_PqEnabledFalseConstraint"
-	InputKubeEventsUnionTypeInputKubeEventsPqEnabledTrueWithPqConstraint              InputKubeEventsUnionType = "InputKubeEvents_PqEnabledTrueWithPqConstraint"
-)
-
-type InputKubeEvents struct {
-	InputKubeEventsSendToRoutesTrueConstraint                 *InputKubeEventsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputKubeEventsSendToRoutesFalseWithConnectionsConstraint *InputKubeEventsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputKubeEventsPqEnabledFalseConstraint                   *InputKubeEventsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputKubeEventsPqEnabledTrueWithPqConstraint              *InputKubeEventsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputKubeEventsUnionType
-}
-
-func CreateInputKubeEventsInputKubeEventsSendToRoutesTrueConstraint(inputKubeEventsSendToRoutesTrueConstraint InputKubeEventsSendToRoutesTrueConstraint) InputKubeEvents {
-	typ := InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueConstraint
-
-	return InputKubeEvents{
-		InputKubeEventsSendToRoutesTrueConstraint: &inputKubeEventsSendToRoutesTrueConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputKubeEventsInputKubeEventsSendToRoutesFalseWithConnectionsConstraint(inputKubeEventsSendToRoutesFalseWithConnectionsConstraint InputKubeEventsSendToRoutesFalseWithConnectionsConstraint) InputKubeEvents {
-	typ := InputKubeEventsUnionTypeInputKubeEventsSendToRoutesFalseWithConnectionsConstraint
-
-	return InputKubeEvents{
-		InputKubeEventsSendToRoutesFalseWithConnectionsConstraint: &inputKubeEventsSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputKubeEventsInputKubeEventsPqEnabledFalseConstraint(inputKubeEventsPqEnabledFalseConstraint InputKubeEventsPqEnabledFalseConstraint) InputKubeEvents {
-	typ := InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseConstraint
-
-	return InputKubeEvents{
-		InputKubeEventsPqEnabledFalseConstraint: &inputKubeEventsPqEnabledFalseConstraint,
-		Type:                                    typ,
-	}
-}
-
-func CreateInputKubeEventsInputKubeEventsPqEnabledTrueWithPqConstraint(inputKubeEventsPqEnabledTrueWithPqConstraint InputKubeEventsPqEnabledTrueWithPqConstraint) InputKubeEvents {
-	typ := InputKubeEventsUnionTypeInputKubeEventsPqEnabledTrueWithPqConstraint
-
-	return InputKubeEvents{
-		InputKubeEventsPqEnabledTrueWithPqConstraint: &inputKubeEventsPqEnabledTrueWithPqConstraint,
-		Type: typ,
-	}
-}
-
-func (u *InputKubeEvents) UnmarshalJSON(data []byte) error {
-
-	var inputKubeEventsSendToRoutesTrueConstraint InputKubeEventsSendToRoutesTrueConstraint = InputKubeEventsSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputKubeEventsSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputKubeEventsSendToRoutesTrueConstraint = &inputKubeEventsSendToRoutesTrueConstraint
-		u.Type = InputKubeEventsUnionTypeInputKubeEventsSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputKubeEventsSendToRoutesFalseWithConnectionsConstraint InputKubeEventsSendToRoutesFalseWithConnectionsConstraint = InputKubeEventsSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputKubeEventsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint = &inputKubeEventsSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputKubeEventsUnionTypeInputKubeEventsSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputKubeEventsPqEnabledFalseConstraint InputKubeEventsPqEnabledFalseConstraint = InputKubeEventsPqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputKubeEventsPqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputKubeEventsPqEnabledFalseConstraint = &inputKubeEventsPqEnabledFalseConstraint
-		u.Type = InputKubeEventsUnionTypeInputKubeEventsPqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputKubeEventsPqEnabledTrueWithPqConstraint InputKubeEventsPqEnabledTrueWithPqConstraint = InputKubeEventsPqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputKubeEventsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputKubeEventsPqEnabledTrueWithPqConstraint = &inputKubeEventsPqEnabledTrueWithPqConstraint
-		u.Type = InputKubeEventsUnionTypeInputKubeEventsPqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputKubeEvents", string(data))
-}
-
-func (u InputKubeEvents) MarshalJSON() ([]byte, error) {
-	if u.InputKubeEventsSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputKubeEventsSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputKubeEventsSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputKubeEventsPqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputKubeEventsPqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputKubeEventsPqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputKubeEventsPqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputKubeEvents: all fields are null")
 }

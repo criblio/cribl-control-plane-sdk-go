@@ -4,712 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputTcpjsonPqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string          `json:"id,omitempty"`
-	Type     InputTcpjsonType `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                     `json:"description,omitempty"`
-	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
-}
-
-func (i InputTcpjsonPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetType() InputTcpjsonType {
-	if i == nil {
-		return InputTcpjsonType("")
-	}
-	return i.Type
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetEnableLoadBalancing() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableLoadBalancing
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetAuthToken() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthToken
-}
-
-func (i *InputTcpjsonPqEnabledTrueWithPqConstraint) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
-
-type InputTcpjsonPqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string          `json:"id,omitempty"`
-	Type     InputTcpjsonType `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                     `json:"description,omitempty"`
-	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
-}
-
-func (i InputTcpjsonPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetType() InputTcpjsonType {
-	if i == nil {
-		return InputTcpjsonType("")
-	}
-	return i.Type
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetEnableLoadBalancing() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableLoadBalancing
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetAuthToken() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthToken
-}
-
-func (i *InputTcpjsonPqEnabledFalseConstraint) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
-
-type InputTcpjsonSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string          `json:"id,omitempty"`
-	Type     InputTcpjsonType `json:"type"`
-	Disabled *bool            `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
-	Description *string                                     `json:"description,omitempty"`
-	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `json:"authToken,omitempty"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
-}
-
-func (i InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetType() InputTcpjsonType {
-	if i == nil {
-		return InputTcpjsonType("")
-	}
-	return i.Type
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetEnableLoadBalancing() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableLoadBalancing
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetAuthToken() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthToken
-}
-
-func (i *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
 
 type InputTcpjsonType string
 
@@ -734,15 +31,15 @@ func (e *InputTcpjsonType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputTcpjsonSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
+type InputTcpjson struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputTcpjsonType `json:"type"`
 	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -782,295 +79,188 @@ type InputTcpjsonSendToRoutesTrueConstraint struct {
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputTcpjsonSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputTcpjson) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
+func (i *InputTcpjson) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputTcpjson) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetType() InputTcpjsonType {
+func (i *InputTcpjson) GetType() InputTcpjsonType {
 	if i == nil {
 		return InputTcpjsonType("")
 	}
 	return i.Type
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputTcpjson) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputTcpjson) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputTcpjson) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputTcpjson) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputTcpjson) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputTcpjson) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputTcpjson) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputTcpjson) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetHost() string {
+func (i *InputTcpjson) GetHost() string {
 	if i == nil {
 		return ""
 	}
 	return i.Host
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetPort() float64 {
+func (i *InputTcpjson) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputTcpjson) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetIPWhitelistRegex() *string {
+func (i *InputTcpjson) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetMaxActiveCxn() *float64 {
+func (i *InputTcpjson) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetSocketIdleTimeout() *float64 {
+func (i *InputTcpjson) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetSocketEndingMaxWait() *float64 {
+func (i *InputTcpjson) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetSocketMaxLifespan() *float64 {
+func (i *InputTcpjson) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
+func (i *InputTcpjson) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputTcpjson) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetEnableLoadBalancing() *bool {
+func (i *InputTcpjson) GetEnableLoadBalancing() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableLoadBalancing
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+func (i *InputTcpjson) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputTcpjson) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetAuthToken() *string {
+func (i *InputTcpjson) GetAuthToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthToken
 }
 
-func (i *InputTcpjsonSendToRoutesTrueConstraint) GetTextSecret() *string {
+func (i *InputTcpjson) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
-}
-
-type InputTcpjsonUnionType string
-
-const (
-	InputTcpjsonUnionTypeInputTcpjsonSendToRoutesTrueConstraint                 InputTcpjsonUnionType = "InputTcpjson_SendToRoutesTrueConstraint"
-	InputTcpjsonUnionTypeInputTcpjsonSendToRoutesFalseWithConnectionsConstraint InputTcpjsonUnionType = "InputTcpjson_SendToRoutesFalseWithConnectionsConstraint"
-	InputTcpjsonUnionTypeInputTcpjsonPqEnabledFalseConstraint                   InputTcpjsonUnionType = "InputTcpjson_PqEnabledFalseConstraint"
-	InputTcpjsonUnionTypeInputTcpjsonPqEnabledTrueWithPqConstraint              InputTcpjsonUnionType = "InputTcpjson_PqEnabledTrueWithPqConstraint"
-)
-
-type InputTcpjson struct {
-	InputTcpjsonSendToRoutesTrueConstraint                 *InputTcpjsonSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputTcpjsonSendToRoutesFalseWithConnectionsConstraint *InputTcpjsonSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputTcpjsonPqEnabledFalseConstraint                   *InputTcpjsonPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputTcpjsonPqEnabledTrueWithPqConstraint              *InputTcpjsonPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputTcpjsonUnionType
-}
-
-func CreateInputTcpjsonInputTcpjsonSendToRoutesTrueConstraint(inputTcpjsonSendToRoutesTrueConstraint InputTcpjsonSendToRoutesTrueConstraint) InputTcpjson {
-	typ := InputTcpjsonUnionTypeInputTcpjsonSendToRoutesTrueConstraint
-
-	return InputTcpjson{
-		InputTcpjsonSendToRoutesTrueConstraint: &inputTcpjsonSendToRoutesTrueConstraint,
-		Type:                                   typ,
-	}
-}
-
-func CreateInputTcpjsonInputTcpjsonSendToRoutesFalseWithConnectionsConstraint(inputTcpjsonSendToRoutesFalseWithConnectionsConstraint InputTcpjsonSendToRoutesFalseWithConnectionsConstraint) InputTcpjson {
-	typ := InputTcpjsonUnionTypeInputTcpjsonSendToRoutesFalseWithConnectionsConstraint
-
-	return InputTcpjson{
-		InputTcpjsonSendToRoutesFalseWithConnectionsConstraint: &inputTcpjsonSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputTcpjsonInputTcpjsonPqEnabledFalseConstraint(inputTcpjsonPqEnabledFalseConstraint InputTcpjsonPqEnabledFalseConstraint) InputTcpjson {
-	typ := InputTcpjsonUnionTypeInputTcpjsonPqEnabledFalseConstraint
-
-	return InputTcpjson{
-		InputTcpjsonPqEnabledFalseConstraint: &inputTcpjsonPqEnabledFalseConstraint,
-		Type:                                 typ,
-	}
-}
-
-func CreateInputTcpjsonInputTcpjsonPqEnabledTrueWithPqConstraint(inputTcpjsonPqEnabledTrueWithPqConstraint InputTcpjsonPqEnabledTrueWithPqConstraint) InputTcpjson {
-	typ := InputTcpjsonUnionTypeInputTcpjsonPqEnabledTrueWithPqConstraint
-
-	return InputTcpjson{
-		InputTcpjsonPqEnabledTrueWithPqConstraint: &inputTcpjsonPqEnabledTrueWithPqConstraint,
-		Type: typ,
-	}
-}
-
-func (u *InputTcpjson) UnmarshalJSON(data []byte) error {
-
-	var inputTcpjsonSendToRoutesTrueConstraint InputTcpjsonSendToRoutesTrueConstraint = InputTcpjsonSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputTcpjsonSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputTcpjsonSendToRoutesTrueConstraint = &inputTcpjsonSendToRoutesTrueConstraint
-		u.Type = InputTcpjsonUnionTypeInputTcpjsonSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputTcpjsonSendToRoutesFalseWithConnectionsConstraint InputTcpjsonSendToRoutesFalseWithConnectionsConstraint = InputTcpjsonSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputTcpjsonSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint = &inputTcpjsonSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputTcpjsonUnionTypeInputTcpjsonSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputTcpjsonPqEnabledFalseConstraint InputTcpjsonPqEnabledFalseConstraint = InputTcpjsonPqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputTcpjsonPqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputTcpjsonPqEnabledFalseConstraint = &inputTcpjsonPqEnabledFalseConstraint
-		u.Type = InputTcpjsonUnionTypeInputTcpjsonPqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputTcpjsonPqEnabledTrueWithPqConstraint InputTcpjsonPqEnabledTrueWithPqConstraint = InputTcpjsonPqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputTcpjsonPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputTcpjsonPqEnabledTrueWithPqConstraint = &inputTcpjsonPqEnabledTrueWithPqConstraint
-		u.Type = InputTcpjsonUnionTypeInputTcpjsonPqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputTcpjson", string(data))
-}
-
-func (u InputTcpjson) MarshalJSON() ([]byte, error) {
-	if u.InputTcpjsonSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputTcpjsonSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputTcpjsonSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputTcpjsonPqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputTcpjsonPqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputTcpjsonPqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputTcpjsonPqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputTcpjson: all fields are null")
 }
