@@ -32,6 +32,65 @@ func (e *PipelineFunctionMvPullID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionMvPullConf struct {
+	// Field name of the array within events that contains the data objects of interest. Can be a path.
+	ArrayPath string `json:"arrayPath"`
+	// Extract the K-V pair's key from this field, relative to the data object.
+	RelativeKeyPath string `json:"relativeKeyPath"`
+	// Extract the K-V pair's value from this field, relative to the data object.
+	RelativeValuePath string `json:"relativeValuePath"`
+	// Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
+	TargetBagPath *string `json:"targetBagPath,omitempty"`
+	// Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
+	DeleteOriginal *bool `json:"deleteOriginal,omitempty"`
+}
+
+func (p PipelineFunctionMvPullConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionMvPullConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"arrayPath", "relativeKeyPath", "relativeValuePath"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionMvPullConf) GetArrayPath() string {
+	if p == nil {
+		return ""
+	}
+	return p.ArrayPath
+}
+
+func (p *PipelineFunctionMvPullConf) GetRelativeKeyPath() string {
+	if p == nil {
+		return ""
+	}
+	return p.RelativeKeyPath
+}
+
+func (p *PipelineFunctionMvPullConf) GetRelativeValuePath() string {
+	if p == nil {
+		return ""
+	}
+	return p.RelativeValuePath
+}
+
+func (p *PipelineFunctionMvPullConf) GetTargetBagPath() *string {
+	if p == nil {
+		return nil
+	}
+	return p.TargetBagPath
+}
+
+func (p *PipelineFunctionMvPullConf) GetDeleteOriginal() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.DeleteOriginal
+}
+
 type PipelineFunctionMvPull struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +101,8 @@ type PipelineFunctionMvPull struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
-	Conf  FunctionConfSchemaMvPull `json:"conf"`
+	Final *bool                      `json:"final,omitempty"`
+	Conf  PipelineFunctionMvPullConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +153,9 @@ func (p *PipelineFunctionMvPull) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionMvPull) GetConf() FunctionConfSchemaMvPull {
+func (p *PipelineFunctionMvPull) GetConf() PipelineFunctionMvPullConf {
 	if p == nil {
-		return FunctionConfSchemaMvPull{}
+		return PipelineFunctionMvPullConf{}
 	}
 	return p.Conf
 }

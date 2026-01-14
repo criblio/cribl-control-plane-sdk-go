@@ -32,6 +32,155 @@ func (e *PipelineFunctionAggregationID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionAggregationConf struct {
+	// Pass through the original events along with the aggregation events
+	Passthrough *bool `json:"passthrough,omitempty"`
+	// Preserve the structure of the original aggregation event's groupby fields
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
+	// Output only statistics that are sufficient for the supplied aggregations
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
+	// Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
+	MetricsMode *bool `json:"metricsMode,omitempty"`
+	// A prefix that is prepended to all of the fields output by this Aggregations Function
+	Prefix *string `json:"prefix,omitempty"`
+	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
+	TimeWindow string `json:"timeWindow"`
+	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
+	Aggregations []string `json:"aggregations"`
+	// Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
+	Groupbys []string `json:"groupbys,omitempty"`
+	// The maximum number of events to include in any given aggregation event
+	FlushEventLimit *float64 `json:"flushEventLimit,omitempty"`
+	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
+	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
+	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
+	Cumulative *bool `json:"cumulative,omitempty"`
+	// Allows Cribl Search-specific aggregation configuration
+	SearchAggMode *string `json:"searchAggMode,omitempty"`
+	// Set of key-value pairs to evaluate and add/set
+	Add []ItemsTypeAdd `json:"add,omitempty"`
+	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
+	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
+}
+
+func (p PipelineFunctionAggregationConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionAggregationConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "aggregations"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionAggregationConf) GetPassthrough() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Passthrough
+}
+
+func (p *PipelineFunctionAggregationConf) GetPreserveGroupBys() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.PreserveGroupBys
+}
+
+func (p *PipelineFunctionAggregationConf) GetSufficientStatsOnly() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SufficientStatsOnly
+}
+
+func (p *PipelineFunctionAggregationConf) GetMetricsMode() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.MetricsMode
+}
+
+func (p *PipelineFunctionAggregationConf) GetPrefix() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Prefix
+}
+
+func (p *PipelineFunctionAggregationConf) GetTimeWindow() string {
+	if p == nil {
+		return ""
+	}
+	return p.TimeWindow
+}
+
+func (p *PipelineFunctionAggregationConf) GetAggregations() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.Aggregations
+}
+
+func (p *PipelineFunctionAggregationConf) GetGroupbys() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Groupbys
+}
+
+func (p *PipelineFunctionAggregationConf) GetFlushEventLimit() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.FlushEventLimit
+}
+
+func (p *PipelineFunctionAggregationConf) GetFlushMemLimit() *string {
+	if p == nil {
+		return nil
+	}
+	return p.FlushMemLimit
+}
+
+func (p *PipelineFunctionAggregationConf) GetCumulative() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Cumulative
+}
+
+func (p *PipelineFunctionAggregationConf) GetSearchAggMode() *string {
+	if p == nil {
+		return nil
+	}
+	return p.SearchAggMode
+}
+
+func (p *PipelineFunctionAggregationConf) GetAdd() []ItemsTypeAdd {
+	if p == nil {
+		return nil
+	}
+	return p.Add
+}
+
+func (p *PipelineFunctionAggregationConf) GetShouldTreatDotsAsLiterals() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.ShouldTreatDotsAsLiterals
+}
+
+func (p *PipelineFunctionAggregationConf) GetFlushOnInputClose() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.FlushOnInputClose
+}
+
 type PipelineFunctionAggregation struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +191,8 @@ type PipelineFunctionAggregation struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                         `json:"final,omitempty"`
-	Conf  FunctionConfSchemaAggregation `json:"conf"`
+	Final *bool                           `json:"final,omitempty"`
+	Conf  PipelineFunctionAggregationConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +243,9 @@ func (p *PipelineFunctionAggregation) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionAggregation) GetConf() FunctionConfSchemaAggregation {
+func (p *PipelineFunctionAggregation) GetConf() PipelineFunctionAggregationConf {
 	if p == nil {
-		return FunctionConfSchemaAggregation{}
+		return PipelineFunctionAggregationConf{}
 	}
 	return p.Conf
 }

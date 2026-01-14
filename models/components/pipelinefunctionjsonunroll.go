@@ -32,6 +32,38 @@ func (e *PipelineFunctionJSONUnrollID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionJSONUnrollConf struct {
+	// Path to array to unroll, such as foo.0.bar
+	Path string `json:"path"`
+	// Name of each exploded array element in each new event. Leave empty to expand the array element with its original name.
+	Name *string `json:"name,omitempty"`
+}
+
+func (p PipelineFunctionJSONUnrollConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionJSONUnrollConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"path"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionJSONUnrollConf) GetPath() string {
+	if p == nil {
+		return ""
+	}
+	return p.Path
+}
+
+func (p *PipelineFunctionJSONUnrollConf) GetName() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Name
+}
+
 type PipelineFunctionJSONUnroll struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +74,8 @@ type PipelineFunctionJSONUnroll struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                        `json:"final,omitempty"`
-	Conf  FunctionConfSchemaJSONUnroll `json:"conf"`
+	Final *bool                          `json:"final,omitempty"`
+	Conf  PipelineFunctionJSONUnrollConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +126,9 @@ func (p *PipelineFunctionJSONUnroll) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionJSONUnroll) GetConf() FunctionConfSchemaJSONUnroll {
+func (p *PipelineFunctionJSONUnroll) GetConf() PipelineFunctionJSONUnrollConf {
 	if p == nil {
-		return FunctionConfSchemaJSONUnroll{}
+		return PipelineFunctionJSONUnrollConf{}
 	}
 	return p.Conf
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type Command struct {
+type FunctionConfSchemaRedisCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
 	OutField *string `json:"outField,omitempty"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
@@ -17,63 +17,63 @@ type Command struct {
 	ArgsExpr *string `json:"argsExpr,omitempty"`
 }
 
-func (c Command) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (f FunctionConfSchemaRedisCommand) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (c *Command) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"command", "keyExpr"}); err != nil {
+func (f *FunctionConfSchemaRedisCommand) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"command", "keyExpr"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *Command) GetOutField() *string {
-	if c == nil {
+func (f *FunctionConfSchemaRedisCommand) GetOutField() *string {
+	if f == nil {
 		return nil
 	}
-	return c.OutField
+	return f.OutField
 }
 
-func (c *Command) GetCommand() string {
-	if c == nil {
+func (f *FunctionConfSchemaRedisCommand) GetCommand() string {
+	if f == nil {
 		return ""
 	}
-	return c.Command
+	return f.Command
 }
 
-func (c *Command) GetKeyExpr() string {
-	if c == nil {
+func (f *FunctionConfSchemaRedisCommand) GetKeyExpr() string {
+	if f == nil {
 		return ""
 	}
-	return c.KeyExpr
+	return f.KeyExpr
 }
 
-func (c *Command) GetArgsExpr() *string {
-	if c == nil {
+func (f *FunctionConfSchemaRedisCommand) GetArgsExpr() *string {
+	if f == nil {
 		return nil
 	}
-	return c.ArgsExpr
+	return f.ArgsExpr
 }
 
-// DeploymentType - How the Redis server is configured. Defaults to Standalone
-type DeploymentType string
+// FunctionConfSchemaRedisDeploymentType - How the Redis server is configured. Defaults to Standalone
+type FunctionConfSchemaRedisDeploymentType string
 
 const (
-	// DeploymentTypeStandalone Standalone
-	DeploymentTypeStandalone DeploymentType = "standalone"
-	// DeploymentTypeCluster Cluster
-	DeploymentTypeCluster DeploymentType = "cluster"
-	// DeploymentTypeSentinel Sentinel
-	DeploymentTypeSentinel DeploymentType = "sentinel"
+	// FunctionConfSchemaRedisDeploymentTypeStandalone Standalone
+	FunctionConfSchemaRedisDeploymentTypeStandalone FunctionConfSchemaRedisDeploymentType = "standalone"
+	// FunctionConfSchemaRedisDeploymentTypeCluster Cluster
+	FunctionConfSchemaRedisDeploymentTypeCluster FunctionConfSchemaRedisDeploymentType = "cluster"
+	// FunctionConfSchemaRedisDeploymentTypeSentinel Sentinel
+	FunctionConfSchemaRedisDeploymentTypeSentinel FunctionConfSchemaRedisDeploymentType = "sentinel"
 )
 
-func (e DeploymentType) ToPointer() *DeploymentType {
+func (e FunctionConfSchemaRedisDeploymentType) ToPointer() *FunctionConfSchemaRedisDeploymentType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DeploymentType) IsExact() bool {
+func (e *FunctionConfSchemaRedisDeploymentType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standalone", "cluster", "sentinel":
@@ -112,9 +112,9 @@ func (e *FunctionConfSchemaRedisAuthenticationMethod) IsExact() bool {
 }
 
 type FunctionConfSchemaRedis struct {
-	Commands []Command `json:"commands,omitempty"`
+	Commands []FunctionConfSchemaRedisCommand `json:"commands,omitempty"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *DeploymentType                              `json:"deploymentType,omitempty"`
+	DeploymentType *FunctionConfSchemaRedisDeploymentType       `json:"deploymentType,omitempty"`
 	AuthType       *FunctionConfSchemaRedisAuthenticationMethod `json:"authType,omitempty"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
@@ -133,14 +133,14 @@ func (f *FunctionConfSchemaRedis) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionConfSchemaRedis) GetCommands() []Command {
+func (f *FunctionConfSchemaRedis) GetCommands() []FunctionConfSchemaRedisCommand {
 	if f == nil {
 		return nil
 	}
 	return f.Commands
 }
 
-func (f *FunctionConfSchemaRedis) GetDeploymentType() *DeploymentType {
+func (f *FunctionConfSchemaRedis) GetDeploymentType() *FunctionConfSchemaRedisDeploymentType {
 	if f == nil {
 		return nil
 	}

@@ -32,6 +32,69 @@ func (e *PipelineFunctionGrokID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionGrokPatternList struct {
+	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+	Pattern string `json:"pattern"`
+}
+
+func (p PipelineFunctionGrokPatternList) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionGrokPatternList) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"pattern"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionGrokPatternList) GetPattern() string {
+	if p == nil {
+		return ""
+	}
+	return p.Pattern
+}
+
+type PipelineFunctionGrokConf struct {
+	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+	Pattern     string                            `json:"pattern"`
+	PatternList []PipelineFunctionGrokPatternList `json:"patternList,omitempty"`
+	// Field on which to perform Grok extractions
+	Source *string `json:"source,omitempty"`
+}
+
+func (p PipelineFunctionGrokConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionGrokConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"pattern"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionGrokConf) GetPattern() string {
+	if p == nil {
+		return ""
+	}
+	return p.Pattern
+}
+
+func (p *PipelineFunctionGrokConf) GetPatternList() []PipelineFunctionGrokPatternList {
+	if p == nil {
+		return nil
+	}
+	return p.PatternList
+}
+
+func (p *PipelineFunctionGrokConf) GetSource() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Source
+}
+
 type PipelineFunctionGrok struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +105,8 @@ type PipelineFunctionGrok struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                  `json:"final,omitempty"`
-	Conf  FunctionConfSchemaGrok `json:"conf"`
+	Final *bool                    `json:"final,omitempty"`
+	Conf  PipelineFunctionGrokConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +157,9 @@ func (p *PipelineFunctionGrok) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionGrok) GetConf() FunctionConfSchemaGrok {
+func (p *PipelineFunctionGrok) GetConf() PipelineFunctionGrokConf {
 	if p == nil {
-		return FunctionConfSchemaGrok{}
+		return PipelineFunctionGrokConf{}
 	}
 	return p.Conf
 }

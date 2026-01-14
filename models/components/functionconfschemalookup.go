@@ -6,39 +6,39 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InField struct {
+type FunctionConfSchemaLookupInField struct {
 	// Field name as it appears in events
 	EventField string `json:"eventField"`
 	// Optional: The field name as it appears in the lookup file. Defaults to event field name
 	LookupField *string `json:"lookupField,omitempty"`
 }
 
-func (i InField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (f FunctionConfSchemaLookupInField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (i *InField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"eventField"}); err != nil {
+func (f *FunctionConfSchemaLookupInField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"eventField"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InField) GetEventField() string {
-	if i == nil {
+func (f *FunctionConfSchemaLookupInField) GetEventField() string {
+	if f == nil {
 		return ""
 	}
-	return i.EventField
+	return f.EventField
 }
 
-func (i *InField) GetLookupField() *string {
-	if i == nil {
+func (f *FunctionConfSchemaLookupInField) GetLookupField() *string {
+	if f == nil {
 		return nil
 	}
-	return i.LookupField
+	return f.LookupField
 }
 
-type OutField struct {
+type FunctionConfSchemaLookupOutField struct {
 	// The field name as it appears in the lookup file
 	LookupField string `json:"lookupField"`
 	// Optional: Field name to add to event. Defaults to lookup field name.
@@ -47,36 +47,36 @@ type OutField struct {
 	DefaultValue *string `json:"defaultValue,omitempty"`
 }
 
-func (o OutField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
+func (f FunctionConfSchemaLookupOutField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (o *OutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"lookupField"}); err != nil {
+func (f *FunctionConfSchemaLookupOutField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"lookupField"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutField) GetLookupField() string {
-	if o == nil {
+func (f *FunctionConfSchemaLookupOutField) GetLookupField() string {
+	if f == nil {
 		return ""
 	}
-	return o.LookupField
+	return f.LookupField
 }
 
-func (o *OutField) GetEventField() *string {
-	if o == nil {
+func (f *FunctionConfSchemaLookupOutField) GetEventField() *string {
+	if f == nil {
 		return nil
 	}
-	return o.EventField
+	return f.EventField
 }
 
-func (o *OutField) GetDefaultValue() *string {
-	if o == nil {
+func (f *FunctionConfSchemaLookupOutField) GetDefaultValue() *string {
+	if f == nil {
 		return nil
 	}
-	return o.DefaultValue
+	return f.DefaultValue
 }
 
 type FunctionConfSchemaLookup struct {
@@ -88,9 +88,9 @@ type FunctionConfSchemaLookup struct {
 	MatchType       any   `json:"matchType,omitempty"`
 	ReloadPeriodSec any   `json:"reloadPeriodSec,omitempty"`
 	// Fields that should be used to key into the lookup table
-	InFields []InField `json:"inFields,omitempty"`
+	InFields []FunctionConfSchemaLookupInField `json:"inFields,omitempty"`
 	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []OutField `json:"outFields,omitempty"`
+	OutFields []FunctionConfSchemaLookupOutField `json:"outFields,omitempty"`
 	// Add the looked-up values to _raw, as key=value pairs
 	AddToEvent *bool `json:"addToEvent,omitempty"`
 	IgnoreCase any   `json:"ignoreCase,omitempty"`
@@ -142,14 +142,14 @@ func (f *FunctionConfSchemaLookup) GetReloadPeriodSec() any {
 	return f.ReloadPeriodSec
 }
 
-func (f *FunctionConfSchemaLookup) GetInFields() []InField {
+func (f *FunctionConfSchemaLookup) GetInFields() []FunctionConfSchemaLookupInField {
 	if f == nil {
 		return nil
 	}
 	return f.InFields
 }
 
-func (f *FunctionConfSchemaLookup) GetOutFields() []OutField {
+func (f *FunctionConfSchemaLookup) GetOutFields() []FunctionConfSchemaLookupOutField {
 	if f == nil {
 		return nil
 	}

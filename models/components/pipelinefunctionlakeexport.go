@@ -32,6 +32,74 @@ func (e *PipelineFunctionLakeExportID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type LakeExportConfiguration struct {
+	// Id of the search job this function is running on.
+	SearchJobID string `json:"searchJobId"`
+	// Name of the dataset
+	Dataset string `json:"dataset"`
+	// Name of the lake
+	Lake *string `json:"lake,omitempty"`
+	// Tee results to search. When set to true results will be shipped instead of stats
+	Tee *string `json:"tee,omitempty"`
+	// How often are stats flushed in ms
+	FlushMs *float64 `json:"flushMs,omitempty"`
+	// Disables generation of intermediate stats. When true stats will be emitted only on end
+	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
+}
+
+func (l LakeExportConfiguration) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *LakeExportConfiguration) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, []string{"searchJobId", "dataset"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *LakeExportConfiguration) GetSearchJobID() string {
+	if l == nil {
+		return ""
+	}
+	return l.SearchJobID
+}
+
+func (l *LakeExportConfiguration) GetDataset() string {
+	if l == nil {
+		return ""
+	}
+	return l.Dataset
+}
+
+func (l *LakeExportConfiguration) GetLake() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Lake
+}
+
+func (l *LakeExportConfiguration) GetTee() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Tee
+}
+
+func (l *LakeExportConfiguration) GetFlushMs() *float64 {
+	if l == nil {
+		return nil
+	}
+	return l.FlushMs
+}
+
+func (l *LakeExportConfiguration) GetSuppressPreviews() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.SuppressPreviews
+}
+
 type PipelineFunctionLakeExport struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +110,8 @@ type PipelineFunctionLakeExport struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                        `json:"final,omitempty"`
-	Conf  FunctionConfSchemaLakeExport `json:"conf"`
+	Final *bool                   `json:"final,omitempty"`
+	Conf  LakeExportConfiguration `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +162,9 @@ func (p *PipelineFunctionLakeExport) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionLakeExport) GetConf() FunctionConfSchemaLakeExport {
+func (p *PipelineFunctionLakeExport) GetConf() LakeExportConfiguration {
 	if p == nil {
-		return FunctionConfSchemaLakeExport{}
+		return LakeExportConfiguration{}
 	}
 	return p.Conf
 }

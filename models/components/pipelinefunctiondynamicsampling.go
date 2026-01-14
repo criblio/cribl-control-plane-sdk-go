@@ -32,6 +32,90 @@ func (e *PipelineFunctionDynamicSamplingID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionDynamicSamplingSampleMode - Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
+type PipelineFunctionDynamicSamplingSampleMode string
+
+const (
+	// PipelineFunctionDynamicSamplingSampleModeLog Logarithmic
+	PipelineFunctionDynamicSamplingSampleModeLog PipelineFunctionDynamicSamplingSampleMode = "log"
+	// PipelineFunctionDynamicSamplingSampleModeSqrt Square Root
+	PipelineFunctionDynamicSamplingSampleModeSqrt PipelineFunctionDynamicSamplingSampleMode = "sqrt"
+)
+
+func (e PipelineFunctionDynamicSamplingSampleMode) ToPointer() *PipelineFunctionDynamicSamplingSampleMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PipelineFunctionDynamicSamplingSampleMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "log", "sqrt":
+			return true
+		}
+	}
+	return false
+}
+
+type PipelineFunctionDynamicSamplingConf struct {
+	// Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
+	Mode PipelineFunctionDynamicSamplingSampleMode `json:"mode"`
+	// Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
+	KeyExpr string `json:"keyExpr"`
+	// How often (in seconds) sample rates will be adjusted
+	SamplePeriod *float64 `json:"samplePeriod,omitempty"`
+	// Minimum number of events that must be received in previous sample period for sampling mode to be applied to current period. If the number of events received for a sample group is less than this minimum, a sample rate of 1:1 is used.
+	MinEvents *float64 `json:"minEvents,omitempty"`
+	// Maximum sampling rate. If computed sampling rate is above this value, it will be limited to this value.
+	MaxSampleRate *float64 `json:"maxSampleRate,omitempty"`
+}
+
+func (p PipelineFunctionDynamicSamplingConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionDynamicSamplingConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"mode", "keyExpr"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionDynamicSamplingConf) GetMode() PipelineFunctionDynamicSamplingSampleMode {
+	if p == nil {
+		return PipelineFunctionDynamicSamplingSampleMode("")
+	}
+	return p.Mode
+}
+
+func (p *PipelineFunctionDynamicSamplingConf) GetKeyExpr() string {
+	if p == nil {
+		return ""
+	}
+	return p.KeyExpr
+}
+
+func (p *PipelineFunctionDynamicSamplingConf) GetSamplePeriod() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.SamplePeriod
+}
+
+func (p *PipelineFunctionDynamicSamplingConf) GetMinEvents() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.MinEvents
+}
+
+func (p *PipelineFunctionDynamicSamplingConf) GetMaxSampleRate() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.MaxSampleRate
+}
+
 type PipelineFunctionDynamicSampling struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +126,8 @@ type PipelineFunctionDynamicSampling struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                             `json:"final,omitempty"`
-	Conf  FunctionConfSchemaDynamicSampling `json:"conf"`
+	Final *bool                               `json:"final,omitempty"`
+	Conf  PipelineFunctionDynamicSamplingConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +178,9 @@ func (p *PipelineFunctionDynamicSampling) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionDynamicSampling) GetConf() FunctionConfSchemaDynamicSampling {
+func (p *PipelineFunctionDynamicSampling) GetConf() PipelineFunctionDynamicSamplingConf {
 	if p == nil {
-		return FunctionConfSchemaDynamicSampling{}
+		return PipelineFunctionDynamicSamplingConf{}
 	}
 	return p.Conf
 }

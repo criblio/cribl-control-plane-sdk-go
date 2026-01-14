@@ -32,6 +32,56 @@ func (e *PipelineFunctionXMLUnrollID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionXMLUnrollConf struct {
+	// Path to array to unroll. Example: ^root\.child\.ElementToUnroll$
+	Unroll string `json:"unroll"`
+	// Regex matching elements to copy into each unrolled event. Example: ^root\.(childA|childB|childC)$
+	Inherit *string `json:"inherit,omitempty"`
+	// Add a field with this name, containing the index at which the item was located, starting from 0
+	UnrollIdxField *string `json:"unrollIdxField,omitempty"`
+	// Pretty print the output XML
+	Pretty *bool `json:"pretty,omitempty"`
+}
+
+func (p PipelineFunctionXMLUnrollConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionXMLUnrollConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"unroll"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionXMLUnrollConf) GetUnroll() string {
+	if p == nil {
+		return ""
+	}
+	return p.Unroll
+}
+
+func (p *PipelineFunctionXMLUnrollConf) GetInherit() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Inherit
+}
+
+func (p *PipelineFunctionXMLUnrollConf) GetUnrollIdxField() *string {
+	if p == nil {
+		return nil
+	}
+	return p.UnrollIdxField
+}
+
+func (p *PipelineFunctionXMLUnrollConf) GetPretty() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Pretty
+}
+
 type PipelineFunctionXMLUnroll struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +92,8 @@ type PipelineFunctionXMLUnroll struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                       `json:"final,omitempty"`
-	Conf  FunctionConfSchemaXMLUnroll `json:"conf"`
+	Final *bool                         `json:"final,omitempty"`
+	Conf  PipelineFunctionXMLUnrollConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +144,9 @@ func (p *PipelineFunctionXMLUnroll) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionXMLUnroll) GetConf() FunctionConfSchemaXMLUnroll {
+func (p *PipelineFunctionXMLUnroll) GetConf() PipelineFunctionXMLUnrollConf {
 	if p == nil {
-		return FunctionConfSchemaXMLUnroll{}
+		return PipelineFunctionXMLUnrollConf{}
 	}
 	return p.Conf
 }

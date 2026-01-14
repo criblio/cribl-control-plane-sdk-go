@@ -6,16 +6,16 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// MappingOfFieldNames - Mapping event property names to output field names
-type MappingOfFieldNames struct {
+// FunctionConfSchemaStoreMappingOfFieldNames - Mapping event property names to output field names
+type FunctionConfSchemaStoreMappingOfFieldNames struct {
 }
 
-func (m MappingOfFieldNames) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(m, "", false)
+func (f FunctionConfSchemaStoreMappingOfFieldNames) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (m *MappingOfFieldNames) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+func (f *FunctionConfSchemaStoreMappingOfFieldNames) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -29,7 +29,7 @@ type FunctionConfSchemaStore struct {
 	// The knowledge object's description
 	Description *string `json:"description,omitempty"`
 	// Mapping event property names to output field names
-	FieldMapping *MappingOfFieldNames `json:"fieldMapping,omitempty"`
+	FieldMapping *FunctionConfSchemaStoreMappingOfFieldNames `json:"fieldMapping,omitempty"`
 	// Character to be used as value delimiter in output
 	Separator *string `json:"separator,omitempty"`
 	// For existing files, an error is thrown if overwrite is false or the file is replaced if overwrite is true
@@ -76,7 +76,7 @@ func (f *FunctionConfSchemaStore) GetDescription() *string {
 	return f.Description
 }
 
-func (f *FunctionConfSchemaStore) GetFieldMapping() *MappingOfFieldNames {
+func (f *FunctionConfSchemaStore) GetFieldMapping() *FunctionConfSchemaStoreMappingOfFieldNames {
 	if f == nil {
 		return nil
 	}

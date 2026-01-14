@@ -6,21 +6,21 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type ExistingOrNew string
+type FunctionConfSchemaEventBreakerExistingOrNew string
 
 const (
-	// ExistingOrNewExisting Use Existing
-	ExistingOrNewExisting ExistingOrNew = "existing"
-	// ExistingOrNewNew Create New
-	ExistingOrNewNew ExistingOrNew = "new"
+	// FunctionConfSchemaEventBreakerExistingOrNewExisting Use Existing
+	FunctionConfSchemaEventBreakerExistingOrNewExisting FunctionConfSchemaEventBreakerExistingOrNew = "existing"
+	// FunctionConfSchemaEventBreakerExistingOrNewNew Create New
+	FunctionConfSchemaEventBreakerExistingOrNewNew FunctionConfSchemaEventBreakerExistingOrNew = "new"
 )
 
-func (e ExistingOrNew) ToPointer() *ExistingOrNew {
+func (e FunctionConfSchemaEventBreakerExistingOrNew) ToPointer() *FunctionConfSchemaEventBreakerExistingOrNew {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ExistingOrNew) IsExact() bool {
+func (e *FunctionConfSchemaEventBreakerExistingOrNew) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "existing", "new":
@@ -31,7 +31,7 @@ func (e *ExistingOrNew) IsExact() bool {
 }
 
 type FunctionConfSchemaEventBreaker struct {
-	ExistingOrNew *ExistingOrNew `json:"existingOrNew,omitempty"`
+	ExistingOrNew *FunctionConfSchemaEventBreakerExistingOrNew `json:"existingOrNew,omitempty"`
 	// Add this Function name to the cribl_breaker field
 	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
 }
@@ -47,7 +47,7 @@ func (f *FunctionConfSchemaEventBreaker) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionConfSchemaEventBreaker) GetExistingOrNew() *ExistingOrNew {
+func (f *FunctionConfSchemaEventBreaker) GetExistingOrNew() *FunctionConfSchemaEventBreakerExistingOrNew {
 	if f == nil {
 		return nil
 	}

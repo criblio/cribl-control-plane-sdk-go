@@ -32,6 +32,55 @@ func (e *PipelineFunctionTeeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionTeeConf struct {
+	// Command to execute and feed events to, via stdin. One JSON-formatted event per line.
+	Command string   `json:"command"`
+	Args    []string `json:"args,omitempty"`
+	// Restart the process if it exits and/or we fail to write to it
+	RestartOnExit *bool `json:"restartOnExit,omitempty"`
+	// Environment variables to overwrite or set
+	Env map[string]string `json:"env,omitempty"`
+}
+
+func (p PipelineFunctionTeeConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionTeeConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"command"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionTeeConf) GetCommand() string {
+	if p == nil {
+		return ""
+	}
+	return p.Command
+}
+
+func (p *PipelineFunctionTeeConf) GetArgs() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Args
+}
+
+func (p *PipelineFunctionTeeConf) GetRestartOnExit() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.RestartOnExit
+}
+
+func (p *PipelineFunctionTeeConf) GetEnv() map[string]string {
+	if p == nil {
+		return nil
+	}
+	return p.Env
+}
+
 type PipelineFunctionTee struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +91,8 @@ type PipelineFunctionTee struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                 `json:"final,omitempty"`
-	Conf  FunctionConfSchemaTee `json:"conf"`
+	Final *bool                   `json:"final,omitempty"`
+	Conf  PipelineFunctionTeeConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +143,9 @@ func (p *PipelineFunctionTee) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionTee) GetConf() FunctionConfSchemaTee {
+func (p *PipelineFunctionTee) GetConf() PipelineFunctionTeeConf {
 	if p == nil {
-		return FunctionConfSchemaTee{}
+		return PipelineFunctionTeeConf{}
 	}
 	return p.Conf
 }

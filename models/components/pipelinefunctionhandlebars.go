@@ -32,6 +32,106 @@ func (e *PipelineFunctionHandlebarsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionHandlebarsTemplateDefinition struct {
+	// Unique identifier for this template
+	ID string `json:"id"`
+	// Handlebars template string
+	Content string `json:"content"`
+	// Optional description of what this template is used for
+	Description *string `json:"description,omitempty"`
+	// Type categorization for the template (e.g., Universal, Email, Slack)
+	Type string `json:"type"`
+}
+
+func (p PipelineFunctionHandlebarsTemplateDefinition) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionHandlebarsTemplateDefinition) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "content", "type"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionHandlebarsTemplateDefinition) GetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.ID
+}
+
+func (p *PipelineFunctionHandlebarsTemplateDefinition) GetContent() string {
+	if p == nil {
+		return ""
+	}
+	return p.Content
+}
+
+func (p *PipelineFunctionHandlebarsTemplateDefinition) GetDescription() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Description
+}
+
+func (p *PipelineFunctionHandlebarsTemplateDefinition) GetType() string {
+	if p == nil {
+		return ""
+	}
+	return p.Type
+}
+
+type PipelineFunctionHandlebarsConf struct {
+	// Array of template definitions. Uses event.__template_id to select template at runtime.
+	Templates []PipelineFunctionHandlebarsTemplateDefinition `json:"templates"`
+	// Field name to store the rendered template result. Defaults to _raw.
+	TargetField *string `json:"targetField,omitempty"`
+	// Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
+	ParseJSON *bool `json:"parseJson,omitempty"`
+	// Remove the target field if the rendered result is empty or null.
+	RemoveOnNull *bool `json:"removeOnNull,omitempty"`
+}
+
+func (p PipelineFunctionHandlebarsConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionHandlebarsConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"templates"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionHandlebarsConf) GetTemplates() []PipelineFunctionHandlebarsTemplateDefinition {
+	if p == nil {
+		return []PipelineFunctionHandlebarsTemplateDefinition{}
+	}
+	return p.Templates
+}
+
+func (p *PipelineFunctionHandlebarsConf) GetTargetField() *string {
+	if p == nil {
+		return nil
+	}
+	return p.TargetField
+}
+
+func (p *PipelineFunctionHandlebarsConf) GetParseJSON() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.ParseJSON
+}
+
+func (p *PipelineFunctionHandlebarsConf) GetRemoveOnNull() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.RemoveOnNull
+}
+
 type PipelineFunctionHandlebars struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +142,8 @@ type PipelineFunctionHandlebars struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                        `json:"final,omitempty"`
-	Conf  FunctionConfSchemaHandlebars `json:"conf"`
+	Final *bool                          `json:"final,omitempty"`
+	Conf  PipelineFunctionHandlebarsConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +194,9 @@ func (p *PipelineFunctionHandlebars) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionHandlebars) GetConf() FunctionConfSchemaHandlebars {
+func (p *PipelineFunctionHandlebars) GetConf() PipelineFunctionHandlebarsConf {
 	if p == nil {
-		return FunctionConfSchemaHandlebars{}
+		return PipelineFunctionHandlebarsConf{}
 	}
 	return p.Conf
 }

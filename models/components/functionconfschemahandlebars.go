@@ -6,7 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type TemplateDefinition struct {
+type FunctionConfSchemaHandlebarsTemplateDefinition struct {
 	// Unique identifier for this template
 	ID string `json:"id"`
 	// Handlebars template string
@@ -17,48 +17,48 @@ type TemplateDefinition struct {
 	Type string `json:"type"`
 }
 
-func (t TemplateDefinition) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
+func (f FunctionConfSchemaHandlebarsTemplateDefinition) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (t *TemplateDefinition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"id", "content", "type"}); err != nil {
+func (f *FunctionConfSchemaHandlebarsTemplateDefinition) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"id", "content", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (t *TemplateDefinition) GetID() string {
-	if t == nil {
+func (f *FunctionConfSchemaHandlebarsTemplateDefinition) GetID() string {
+	if f == nil {
 		return ""
 	}
-	return t.ID
+	return f.ID
 }
 
-func (t *TemplateDefinition) GetContent() string {
-	if t == nil {
+func (f *FunctionConfSchemaHandlebarsTemplateDefinition) GetContent() string {
+	if f == nil {
 		return ""
 	}
-	return t.Content
+	return f.Content
 }
 
-func (t *TemplateDefinition) GetDescription() *string {
-	if t == nil {
+func (f *FunctionConfSchemaHandlebarsTemplateDefinition) GetDescription() *string {
+	if f == nil {
 		return nil
 	}
-	return t.Description
+	return f.Description
 }
 
-func (t *TemplateDefinition) GetType() string {
-	if t == nil {
+func (f *FunctionConfSchemaHandlebarsTemplateDefinition) GetType() string {
+	if f == nil {
 		return ""
 	}
-	return t.Type
+	return f.Type
 }
 
 type FunctionConfSchemaHandlebars struct {
 	// Array of template definitions. Uses event.__template_id to select template at runtime.
-	Templates []TemplateDefinition `json:"templates,omitempty"`
+	Templates []FunctionConfSchemaHandlebarsTemplateDefinition `json:"templates,omitempty"`
 	// Field name to store the rendered template result. Defaults to _raw.
 	TargetField *string `json:"targetField,omitempty"`
 	// Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
@@ -78,7 +78,7 @@ func (f *FunctionConfSchemaHandlebars) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionConfSchemaHandlebars) GetTemplates() []TemplateDefinition {
+func (f *FunctionConfSchemaHandlebars) GetTemplates() []FunctionConfSchemaHandlebarsTemplateDefinition {
 	if f == nil {
 		return nil
 	}

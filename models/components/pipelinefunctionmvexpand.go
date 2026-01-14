@@ -32,6 +32,90 @@ func (e *PipelineFunctionMvExpandID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionMvExpandBagExpansionMode - decides if bag-values are expanded to bags or arrays
+type PipelineFunctionMvExpandBagExpansionMode string
+
+const (
+	// PipelineFunctionMvExpandBagExpansionModeBag Store as object
+	PipelineFunctionMvExpandBagExpansionModeBag PipelineFunctionMvExpandBagExpansionMode = "bag"
+	// PipelineFunctionMvExpandBagExpansionModeArray Store as array
+	PipelineFunctionMvExpandBagExpansionModeArray PipelineFunctionMvExpandBagExpansionMode = "array"
+)
+
+func (e PipelineFunctionMvExpandBagExpansionMode) ToPointer() *PipelineFunctionMvExpandBagExpansionMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PipelineFunctionMvExpandBagExpansionMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "bag", "array":
+			return true
+		}
+	}
+	return false
+}
+
+type PipelineFunctionMvExpandConf struct {
+	// Array of property-/field-names to expand
+	SourceFields []string `json:"sourceFields"`
+	// stores the value as new target field name
+	TargetNames []string `json:"targetNames,omitempty"`
+	// max. number of rows generated out of every source events
+	RowLimit *float64 `json:"rowLimit,omitempty"`
+	// name of an optional index property generated into the output
+	ItemIndexName *string `json:"itemIndexName,omitempty"`
+	// decides if bag-values are expanded to bags or arrays
+	BagExpansionMode *PipelineFunctionMvExpandBagExpansionMode `json:"bagExpansionMode,omitempty"`
+}
+
+func (p PipelineFunctionMvExpandConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionMvExpandConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"sourceFields"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionMvExpandConf) GetSourceFields() []string {
+	if p == nil {
+		return []string{}
+	}
+	return p.SourceFields
+}
+
+func (p *PipelineFunctionMvExpandConf) GetTargetNames() []string {
+	if p == nil {
+		return nil
+	}
+	return p.TargetNames
+}
+
+func (p *PipelineFunctionMvExpandConf) GetRowLimit() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.RowLimit
+}
+
+func (p *PipelineFunctionMvExpandConf) GetItemIndexName() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ItemIndexName
+}
+
+func (p *PipelineFunctionMvExpandConf) GetBagExpansionMode() *PipelineFunctionMvExpandBagExpansionMode {
+	if p == nil {
+		return nil
+	}
+	return p.BagExpansionMode
+}
+
 type PipelineFunctionMvExpand struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +126,8 @@ type PipelineFunctionMvExpand struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitempty"`
-	Conf  FunctionConfSchemaMvExpand `json:"conf"`
+	Final *bool                        `json:"final,omitempty"`
+	Conf  PipelineFunctionMvExpandConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +178,9 @@ func (p *PipelineFunctionMvExpand) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionMvExpand) GetConf() FunctionConfSchemaMvExpand {
+func (p *PipelineFunctionMvExpand) GetConf() PipelineFunctionMvExpandConf {
 	if p == nil {
-		return FunctionConfSchemaMvExpand{}
+		return PipelineFunctionMvExpandConf{}
 	}
 	return p.Conf
 }

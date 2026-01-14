@@ -32,6 +32,142 @@ func (e *PipelineFunctionSensitiveDataScannerID) UnmarshalJSON(data []byte) erro
 	}
 }
 
+type PipelineFunctionSensitiveDataScannerRule struct {
+	// The ID of the ruleset to use for the scan
+	RulesetID string `json:"rulesetId"`
+	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
+	ReplaceExpr string `json:"replaceExpr"`
+	Disabled    *bool  `json:"disabled,omitempty"`
+}
+
+func (p PipelineFunctionSensitiveDataScannerRule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionSensitiveDataScannerRule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rulesetId", "replaceExpr"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionSensitiveDataScannerRule) GetRulesetID() string {
+	if p == nil {
+		return ""
+	}
+	return p.RulesetID
+}
+
+func (p *PipelineFunctionSensitiveDataScannerRule) GetReplaceExpr() string {
+	if p == nil {
+		return ""
+	}
+	return p.ReplaceExpr
+}
+
+func (p *PipelineFunctionSensitiveDataScannerRule) GetDisabled() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.Disabled
+}
+
+type PipelineFunctionSensitiveDataScannerFlag struct {
+	Name  *string `json:"name,omitempty"`
+	Value string  `json:"value"`
+}
+
+func (p PipelineFunctionSensitiveDataScannerFlag) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionSensitiveDataScannerFlag) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"value"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionSensitiveDataScannerFlag) GetName() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Name
+}
+
+func (p *PipelineFunctionSensitiveDataScannerFlag) GetValue() string {
+	if p == nil {
+		return ""
+	}
+	return p.Value
+}
+
+type PipelineFunctionSensitiveDataScannerConf struct {
+	Rules []PipelineFunctionSensitiveDataScannerRule `json:"rules"`
+	// Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
+	Fields []string `json:"fields,omitempty"`
+	// Fields that the mitigation expression will not be applied to. Supports wildcards (*).
+	ExcludeFields []string `json:"excludeFields,omitempty"`
+	// Fields to add when mitigation is applied to an event
+	Flags []PipelineFunctionSensitiveDataScannerFlag `json:"flags,omitempty"`
+	// Add matching ruleset IDs to a field called "__detected"
+	IncludeDetectedRules *bool `json:"includeDetectedRules,omitempty"`
+	BackgroundDetection  *bool `json:"backgroundDetection,omitempty"`
+}
+
+func (p PipelineFunctionSensitiveDataScannerConf) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionSensitiveDataScannerConf) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"rules"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionSensitiveDataScannerConf) GetRules() []PipelineFunctionSensitiveDataScannerRule {
+	if p == nil {
+		return []PipelineFunctionSensitiveDataScannerRule{}
+	}
+	return p.Rules
+}
+
+func (p *PipelineFunctionSensitiveDataScannerConf) GetFields() []string {
+	if p == nil {
+		return nil
+	}
+	return p.Fields
+}
+
+func (p *PipelineFunctionSensitiveDataScannerConf) GetExcludeFields() []string {
+	if p == nil {
+		return nil
+	}
+	return p.ExcludeFields
+}
+
+func (p *PipelineFunctionSensitiveDataScannerConf) GetFlags() []PipelineFunctionSensitiveDataScannerFlag {
+	if p == nil {
+		return nil
+	}
+	return p.Flags
+}
+
+func (p *PipelineFunctionSensitiveDataScannerConf) GetIncludeDetectedRules() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IncludeDetectedRules
+}
+
+func (p *PipelineFunctionSensitiveDataScannerConf) GetBackgroundDetection() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.BackgroundDetection
+}
+
 type PipelineFunctionSensitiveDataScanner struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -42,8 +178,8 @@ type PipelineFunctionSensitiveDataScanner struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                                  `json:"final,omitempty"`
-	Conf  FunctionConfSchemaSensitiveDataScanner `json:"conf"`
+	Final *bool                                    `json:"final,omitempty"`
+	Conf  PipelineFunctionSensitiveDataScannerConf `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -94,9 +230,9 @@ func (p *PipelineFunctionSensitiveDataScanner) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionSensitiveDataScanner) GetConf() FunctionConfSchemaSensitiveDataScanner {
+func (p *PipelineFunctionSensitiveDataScanner) GetConf() PipelineFunctionSensitiveDataScannerConf {
 	if p == nil {
-		return FunctionConfSchemaSensitiveDataScanner{}
+		return PipelineFunctionSensitiveDataScannerConf{}
 	}
 	return p.Conf
 }
