@@ -2944,8 +2944,8 @@ type InputSecurityLakePqEnabledTrueWithPqConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -3107,7 +3107,7 @@ func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAwsAccountID() *stri
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSecurityLakePqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -3363,8 +3363,8 @@ type InputSecurityLakePqEnabledFalseConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -3526,7 +3526,7 @@ func (i *InputSecurityLakePqEnabledFalseConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLakePqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSecurityLakePqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -3782,8 +3782,8 @@ type InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -3945,7 +3945,7 @@ func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAwsAcco
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSecurityLakeSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -4224,8 +4224,8 @@ type InputSecurityLakeSendToRoutesTrueConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -4387,7 +4387,7 @@ func (i *InputSecurityLakeSendToRoutesTrueConstraint) GetAwsAccountID() *string 
 	return i.AwsAccountID
 }
 
-func (i *InputSecurityLakeSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSecurityLakeSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -7046,7 +7046,7 @@ type InputWizPqEnabledTrueWithPqConstraint struct {
 	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *components.RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -7219,7 +7219,7 @@ func (i *InputWizPqEnabledTrueWithPqConstraint) GetRetryRules() *components.Retr
 	return i.RetryRules
 }
 
-func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -7288,7 +7288,7 @@ type InputWizPqEnabledFalseConstraint struct {
 	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *components.RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -7461,7 +7461,7 @@ func (i *InputWizPqEnabledFalseConstraint) GetRetryRules() *components.RetryRule
 	return i.RetryRules
 }
 
-func (i *InputWizPqEnabledFalseConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputWizPqEnabledFalseConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -7530,7 +7530,7 @@ type InputWizSendToRoutesFalseWithConnectionsConstraint struct {
 	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *components.RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -7703,7 +7703,7 @@ func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetRetryRules() *co
 	return i.RetryRules
 }
 
-func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -7972,7 +7972,7 @@ type InputWizSendToRoutesTrueConstraint struct {
 	Metadata   []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *components.RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -8145,7 +8145,7 @@ func (i *InputWizSendToRoutesTrueConstraint) GetRetryRules() *components.RetryRu
 	return i.RetryRules
 }
 
-func (i *InputWizSendToRoutesTrueConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputWizSendToRoutesTrueConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -17538,8 +17538,8 @@ type InputSqsPqEnabledTrueWithPqConstraint struct {
 	// Create queue if it does not exist
 	CreateQueue *bool `default:"false" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -17683,7 +17683,7 @@ func (i *InputSqsPqEnabledTrueWithPqConstraint) GetCreateQueue() *bool {
 	return i.CreateQueue
 }
 
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -17843,8 +17843,8 @@ type InputSqsPqEnabledFalseConstraint struct {
 	// Create queue if it does not exist
 	CreateQueue *bool `default:"false" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -17988,7 +17988,7 @@ func (i *InputSqsPqEnabledFalseConstraint) GetCreateQueue() *bool {
 	return i.CreateQueue
 }
 
-func (i *InputSqsPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqsPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -18148,8 +18148,8 @@ type InputSqsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Create queue if it does not exist
 	CreateQueue *bool `default:"false" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -18293,7 +18293,7 @@ func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetCreateQueue() *b
 	return i.CreateQueue
 }
 
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -18501,8 +18501,8 @@ type InputSqsSendToRoutesTrueConstraint struct {
 	// Create queue if it does not exist
 	CreateQueue *bool `default:"false" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -18646,7 +18646,7 @@ func (i *InputSqsSendToRoutesTrueConstraint) GetCreateQueue() *bool {
 	return i.CreateQueue
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqsSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -22556,8 +22556,8 @@ type InputS3InventoryPqEnabledTrueWithPqConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -22723,7 +22723,7 @@ func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAccountID() *strin
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -22993,8 +22993,8 @@ type InputS3InventoryPqEnabledFalseConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -23160,7 +23160,7 @@ func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -23430,8 +23430,8 @@ type InputS3InventorySendToRoutesFalseWithConnectionsConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -23597,7 +23597,7 @@ func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAccou
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -23890,8 +23890,8 @@ type InputS3InventorySendToRoutesTrueConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -24057,7 +24057,7 @@ func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -24434,8 +24434,8 @@ type InputS3PqEnabledTrueWithPqConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -24598,7 +24598,7 @@ func (i *InputS3PqEnabledTrueWithPqConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3PqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3PqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -24854,8 +24854,8 @@ type InputS3PqEnabledFalseConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -25018,7 +25018,7 @@ func (i *InputS3PqEnabledFalseConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3PqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3PqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -25274,8 +25274,8 @@ type InputS3SendToRoutesFalseWithConnectionsConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -25438,7 +25438,7 @@ func (i *InputS3SendToRoutesFalseWithConnectionsConstraint) GetAwsAccountID() *s
 	return i.AwsAccountID
 }
 
-func (i *InputS3SendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3SendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -25717,8 +25717,8 @@ type InputS3SendToRoutesTrueConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -25881,7 +25881,7 @@ func (i *InputS3SendToRoutesTrueConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3SendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3SendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -27814,8 +27814,8 @@ type InputKinesisPqEnabledTrueWithPqConstraint struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -27983,7 +27983,7 @@ func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetLoadBalancingAlgorithm() 
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -28137,8 +28137,8 @@ type InputKinesisPqEnabledFalseConstraint struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -28306,7 +28306,7 @@ func (i *InputKinesisPqEnabledFalseConstraint) GetLoadBalancingAlgorithm() *Shar
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -28460,8 +28460,8 @@ type InputKinesisSendToRoutesFalseWithConnectionsConstraint struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -28629,7 +28629,7 @@ func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetLoadBalancin
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -28885,8 +28885,8 @@ type InputKinesisSendToRoutesTrueConstraint struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -29054,7 +29054,7 @@ func (i *InputKinesisSendToRoutesTrueConstraint) GetLoadBalancingAlgorithm() *Sh
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -32490,8 +32490,8 @@ type InputCrowdstrikePqEnabledTrueWithPqConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -32649,7 +32649,7 @@ func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAwsAccountID() *strin
 	return i.AwsAccountID
 }
 
-func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputCrowdstrikePqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -32891,8 +32891,8 @@ type InputCrowdstrikePqEnabledFalseConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -33050,7 +33050,7 @@ func (i *InputCrowdstrikePqEnabledFalseConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputCrowdstrikePqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputCrowdstrikePqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -33292,8 +33292,8 @@ type InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -33451,7 +33451,7 @@ func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAwsAccou
 	return i.AwsAccountID
 }
 
-func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputCrowdstrikeSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -33716,8 +33716,8 @@ type InputCrowdstrikeSendToRoutesTrueConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -33875,7 +33875,7 @@ func (i *InputCrowdstrikeSendToRoutesTrueConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputCrowdstrikeSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputCrowdstrikeSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -51996,7 +51996,7 @@ type InputOffice365ServicePqEnabledTrueWithPqConstraint struct {
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitempty"`
 	RetryRules    *components.RetryRulesType1          `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -52169,7 +52169,7 @@ func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetRetryRules() *co
 	return i.RetryRules
 }
 
-func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputOffice365ServicePqEnabledTrueWithPqConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -52239,7 +52239,7 @@ type InputOffice365ServicePqEnabledFalseConstraint struct {
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitempty"`
 	RetryRules    *components.RetryRulesType1          `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -52412,7 +52412,7 @@ func (i *InputOffice365ServicePqEnabledFalseConstraint) GetRetryRules() *compone
 	return i.RetryRules
 }
 
-func (i *InputOffice365ServicePqEnabledFalseConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputOffice365ServicePqEnabledFalseConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -52482,7 +52482,7 @@ type InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint struct {
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitempty"`
 	RetryRules    *components.RetryRulesType1          `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -52655,7 +52655,7 @@ func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetRet
 	return i.RetryRules
 }
 
-func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputOffice365ServiceSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -52805,7 +52805,7 @@ type InputOffice365ServiceSendToRoutesTrueConstraint struct {
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitempty"`
 	RetryRules    *components.RetryRulesType1          `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -52978,7 +52978,7 @@ func (i *InputOffice365ServiceSendToRoutesTrueConstraint) GetRetryRules() *compo
 	return i.RetryRules
 }
 
-func (i *InputOffice365ServiceSendToRoutesTrueConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputOffice365ServiceSendToRoutesTrueConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -53159,7 +53159,7 @@ type InputOffice365MgmtPqEnabledTrueWithPqConstraint struct {
 	IngestionLag *float64                    `default:"0" json:"ingestionLag"`
 	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -53346,7 +53346,7 @@ func (i *InputOffice365MgmtPqEnabledTrueWithPqConstraint) GetRetryRules() *compo
 	return i.RetryRules
 }
 
-func (i *InputOffice365MgmtPqEnabledTrueWithPqConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputOffice365MgmtPqEnabledTrueWithPqConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -53420,7 +53420,7 @@ type InputOffice365MgmtPqEnabledFalseConstraint struct {
 	IngestionLag *float64                    `default:"0" json:"ingestionLag"`
 	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -53607,7 +53607,7 @@ func (i *InputOffice365MgmtPqEnabledFalseConstraint) GetRetryRules() *components
 	return i.RetryRules
 }
 
-func (i *InputOffice365MgmtPqEnabledFalseConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputOffice365MgmtPqEnabledFalseConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -53681,7 +53681,7 @@ type InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint struct {
 	IngestionLag *float64                    `default:"0" json:"ingestionLag"`
 	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -53868,7 +53868,7 @@ func (i *InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint) GetRetryR
 	return i.RetryRules
 }
 
-func (i *InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -54022,7 +54022,7 @@ type InputOffice365MgmtSendToRoutesTrueConstraint struct {
 	IngestionLag *float64                    `default:"0" json:"ingestionLag"`
 	RetryRules   *components.RetryRulesType1 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -54209,7 +54209,7 @@ func (i *InputOffice365MgmtSendToRoutesTrueConstraint) GetRetryRules() *componen
 	return i.RetryRules
 }
 
-func (i *InputOffice365MgmtSendToRoutesTrueConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
+func (i *InputOffice365MgmtSendToRoutesTrueConstraint) GetAuthType() *components.AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -54388,8 +54388,8 @@ type InputEdgePrometheusPqEnabledTrueWithPqConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                                 `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -54613,7 +54613,7 @@ func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePath() *stri
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -54811,8 +54811,8 @@ type InputEdgePrometheusPqEnabledFalseConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                                 `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -55036,7 +55036,7 @@ func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -55234,8 +55234,8 @@ type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                                 `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -55459,7 +55459,7 @@ func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrap
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -55817,8 +55817,8 @@ type InputEdgePrometheusSendToRoutesTrueConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                                 `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -56042,7 +56042,7 @@ func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapePath() *string 
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -56361,8 +56361,8 @@ type InputPrometheusPqEnabledTrueWithPqConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                                 `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -56615,7 +56615,7 @@ func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputPrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -56792,8 +56792,8 @@ type InputPrometheusPqEnabledFalseConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                                 `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -57046,7 +57046,7 @@ func (i *InputPrometheusPqEnabledFalseConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputPrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -57223,8 +57223,8 @@ type InputPrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                                 `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -57477,7 +57477,7 @@ func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePat
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputPrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -57752,8 +57752,8 @@ type InputPrometheusSendToRoutesTrueConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                                 `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -58006,7 +58006,7 @@ func (i *InputPrometheusSendToRoutesTrueConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputPrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputPrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -65828,9 +65828,9 @@ type InputAzureBlobPqEnabledTrueWithPqConstraint struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                                `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *components.AuthenticationMethodOptions `default:"manual" json:"authType"`
-	Description                 *string                                 `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                                 `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description                 *string                                  `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -66015,7 +66015,7 @@ func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetParquetChunkDownloadTim
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetAuthType() *components.AuthenticationMethodOptions {
+func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -66133,9 +66133,9 @@ type InputAzureBlobPqEnabledFalseConstraint struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                                `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *components.AuthenticationMethodOptions `default:"manual" json:"authType"`
-	Description                 *string                                 `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                                 `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description                 *string                                  `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -66320,7 +66320,7 @@ func (i *InputAzureBlobPqEnabledFalseConstraint) GetParquetChunkDownloadTimeout(
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobPqEnabledFalseConstraint) GetAuthType() *components.AuthenticationMethodOptions {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -66438,9 +66438,9 @@ type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                                `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *components.AuthenticationMethodOptions `default:"manual" json:"authType"`
-	Description                 *string                                 `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                                 `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description                 *string                                  `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -66625,7 +66625,7 @@ func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetParquetChu
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *components.AuthenticationMethodOptions {
+func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -66766,9 +66766,9 @@ type InputAzureBlobSendToRoutesTrueConstraint struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                                `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *components.AuthenticationMethodOptions `default:"manual" json:"authType"`
-	Description                 *string                                 `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                                 `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description                 *string                                  `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -66953,7 +66953,7 @@ func (i *InputAzureBlobSendToRoutesTrueConstraint) GetParquetChunkDownloadTimeou
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobSendToRoutesTrueConstraint) GetAuthType() *components.AuthenticationMethodOptions {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetAuthType() *components.AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -73410,8 +73410,8 @@ type InputMskPqEnabledTrueWithPqConstraint struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -73647,7 +73647,7 @@ func (i *InputMskPqEnabledTrueWithPqConstraint) GetReauthenticationThreshold() *
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -73847,8 +73847,8 @@ type InputMskPqEnabledFalseConstraint struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -74084,7 +74084,7 @@ func (i *InputMskPqEnabledFalseConstraint) GetReauthenticationThreshold() *float
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -74284,8 +74284,8 @@ type InputMskSendToRoutesFalseWithConnectionsConstraint struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -74521,7 +74521,7 @@ func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetReauthentication
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -74744,8 +74744,8 @@ type InputMskSendToRoutesTrueConstraint struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -74981,7 +74981,7 @@ func (i *InputMskSendToRoutesTrueConstraint) GetReauthenticationThreshold() *flo
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}

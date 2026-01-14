@@ -34,8 +34,8 @@ type InputS3InventoryPqEnabledTrueWithPqConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -201,7 +201,7 @@ func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAccountID() *strin
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -471,8 +471,8 @@ type InputS3InventoryPqEnabledFalseConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -638,7 +638,7 @@ func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -908,8 +908,8 @@ type InputS3InventorySendToRoutesFalseWithConnectionsConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -1075,7 +1075,7 @@ func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAccou
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -1368,8 +1368,8 @@ type InputS3InventorySendToRoutesTrueConstraint struct {
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -1535,7 +1535,7 @@ func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}

@@ -91,7 +91,7 @@ type OutputHoneycomb struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions3 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
@@ -285,7 +285,7 @@ func (o *OutputHoneycomb) GetOnBackpressure() *BackpressureBehaviorOptions {
 	return o.OnBackpressure
 }
 
-func (o *OutputHoneycomb) GetAuthType() *AuthenticationMethodOptions2 {
+func (o *OutputHoneycomb) GetAuthType() *AuthenticationMethodOptions3 {
 	if o == nil {
 		return nil
 	}

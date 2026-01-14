@@ -93,8 +93,8 @@ type OutputSqs struct {
 	// Create queue if it does not exist.
 	CreateQueue *bool `default:"true" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -238,7 +238,7 @@ func (o *OutputSqs) GetCreateQueue() *bool {
 	return o.CreateQueue
 }
 
-func (o *OutputSqs) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputSqs) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}

@@ -53,8 +53,8 @@ type InputEdgePrometheusPqEnabledTrueWithPqConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -278,7 +278,7 @@ func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePath() *stri
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -476,8 +476,8 @@ type InputEdgePrometheusPqEnabledFalseConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -701,7 +701,7 @@ func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -899,8 +899,8 @@ type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -1124,7 +1124,7 @@ func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrap
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -1482,8 +1482,8 @@ type InputEdgePrometheusSendToRoutesTrueConstraint struct {
 	// Path to use when collecting metrics from discovered targets
 	ScrapePath *string `default:"/metrics" json:"scrapePath"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
@@ -1707,7 +1707,7 @@ func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapePath() *string 
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}

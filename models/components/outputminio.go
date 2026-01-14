@@ -48,7 +48,7 @@ type OutputMinio struct {
 	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// Region where the MinIO service/cluster is located
@@ -213,7 +213,7 @@ func (o *OutputMinio) GetBucket() string {
 	return o.Bucket
 }
 
-func (o *OutputMinio) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputMinio) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}

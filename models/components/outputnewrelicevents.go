@@ -95,7 +95,7 @@ type OutputNewrelicEvents struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions3 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	CustomURL   *string                       `json:"customUrl,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -304,7 +304,7 @@ func (o *OutputNewrelicEvents) GetOnBackpressure() *BackpressureBehaviorOptions 
 	return o.OnBackpressure
 }
 
-func (o *OutputNewrelicEvents) GetAuthType() *AuthenticationMethodOptions2 {
+func (o *OutputNewrelicEvents) GetAuthType() *AuthenticationMethodOptions3 {
 	if o == nil {
 		return nil
 	}

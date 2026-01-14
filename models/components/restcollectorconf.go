@@ -91,14 +91,10 @@ func (r *RestAuthenticationHmacDiscovery) GetDiscoverType() *RestAuthenticationH
 type RestAuthenticationHmacCollectMethod string
 
 const (
-	// RestAuthenticationHmacCollectMethodGet GET
-	RestAuthenticationHmacCollectMethodGet RestAuthenticationHmacCollectMethod = "get"
-	// RestAuthenticationHmacCollectMethodPost POST
-	RestAuthenticationHmacCollectMethodPost RestAuthenticationHmacCollectMethod = "post"
-	// RestAuthenticationHmacCollectMethodPostWithBody POST with Body
+	RestAuthenticationHmacCollectMethodGet          RestAuthenticationHmacCollectMethod = "get"
+	RestAuthenticationHmacCollectMethodPost         RestAuthenticationHmacCollectMethod = "post"
 	RestAuthenticationHmacCollectMethodPostWithBody RestAuthenticationHmacCollectMethod = "post_with_body"
-	// RestAuthenticationHmacCollectMethodOther Other
-	RestAuthenticationHmacCollectMethodOther RestAuthenticationHmacCollectMethod = "other"
+	RestAuthenticationHmacCollectMethodOther        RestAuthenticationHmacCollectMethod = "other"
 )
 
 func (e RestAuthenticationHmacCollectMethod) ToPointer() *RestAuthenticationHmacCollectMethod {
@@ -569,14 +565,10 @@ func (r *RestAuthenticationGoogleOauthSecretDiscovery) GetDiscoverType() *RestAu
 type RestAuthenticationGoogleOauthSecretCollectMethod string
 
 const (
-	// RestAuthenticationGoogleOauthSecretCollectMethodGet GET
-	RestAuthenticationGoogleOauthSecretCollectMethodGet RestAuthenticationGoogleOauthSecretCollectMethod = "get"
-	// RestAuthenticationGoogleOauthSecretCollectMethodPost POST
-	RestAuthenticationGoogleOauthSecretCollectMethodPost RestAuthenticationGoogleOauthSecretCollectMethod = "post"
-	// RestAuthenticationGoogleOauthSecretCollectMethodPostWithBody POST with Body
+	RestAuthenticationGoogleOauthSecretCollectMethodGet          RestAuthenticationGoogleOauthSecretCollectMethod = "get"
+	RestAuthenticationGoogleOauthSecretCollectMethodPost         RestAuthenticationGoogleOauthSecretCollectMethod = "post"
 	RestAuthenticationGoogleOauthSecretCollectMethodPostWithBody RestAuthenticationGoogleOauthSecretCollectMethod = "post_with_body"
-	// RestAuthenticationGoogleOauthSecretCollectMethodOther Other
-	RestAuthenticationGoogleOauthSecretCollectMethodOther RestAuthenticationGoogleOauthSecretCollectMethod = "other"
+	RestAuthenticationGoogleOauthSecretCollectMethodOther        RestAuthenticationGoogleOauthSecretCollectMethod = "other"
 )
 
 func (e RestAuthenticationGoogleOauthSecretCollectMethod) ToPointer() *RestAuthenticationGoogleOauthSecretCollectMethod {
@@ -1065,14 +1057,10 @@ func (r *RestAuthenticationGoogleOauthDiscovery) GetDiscoverType() *RestAuthenti
 type RestAuthenticationGoogleOauthCollectMethod string
 
 const (
-	// RestAuthenticationGoogleOauthCollectMethodGet GET
-	RestAuthenticationGoogleOauthCollectMethodGet RestAuthenticationGoogleOauthCollectMethod = "get"
-	// RestAuthenticationGoogleOauthCollectMethodPost POST
-	RestAuthenticationGoogleOauthCollectMethodPost RestAuthenticationGoogleOauthCollectMethod = "post"
-	// RestAuthenticationGoogleOauthCollectMethodPostWithBody POST with Body
+	RestAuthenticationGoogleOauthCollectMethodGet          RestAuthenticationGoogleOauthCollectMethod = "get"
+	RestAuthenticationGoogleOauthCollectMethodPost         RestAuthenticationGoogleOauthCollectMethod = "post"
 	RestAuthenticationGoogleOauthCollectMethodPostWithBody RestAuthenticationGoogleOauthCollectMethod = "post_with_body"
-	// RestAuthenticationGoogleOauthCollectMethodOther Other
-	RestAuthenticationGoogleOauthCollectMethodOther RestAuthenticationGoogleOauthCollectMethod = "other"
+	RestAuthenticationGoogleOauthCollectMethodOther        RestAuthenticationGoogleOauthCollectMethod = "other"
 )
 
 func (e RestAuthenticationGoogleOauthCollectMethod) ToPointer() *RestAuthenticationGoogleOauthCollectMethod {
@@ -1561,14 +1549,10 @@ func (r *RestAuthenticationOauthSecretDiscovery) GetDiscoverType() *RestAuthenti
 type RestAuthenticationOauthSecretCollectMethod string
 
 const (
-	// RestAuthenticationOauthSecretCollectMethodGet GET
-	RestAuthenticationOauthSecretCollectMethodGet RestAuthenticationOauthSecretCollectMethod = "get"
-	// RestAuthenticationOauthSecretCollectMethodPost POST
-	RestAuthenticationOauthSecretCollectMethodPost RestAuthenticationOauthSecretCollectMethod = "post"
-	// RestAuthenticationOauthSecretCollectMethodPostWithBody POST with Body
+	RestAuthenticationOauthSecretCollectMethodGet          RestAuthenticationOauthSecretCollectMethod = "get"
+	RestAuthenticationOauthSecretCollectMethodPost         RestAuthenticationOauthSecretCollectMethod = "post"
 	RestAuthenticationOauthSecretCollectMethodPostWithBody RestAuthenticationOauthSecretCollectMethod = "post_with_body"
-	// RestAuthenticationOauthSecretCollectMethodOther Other
-	RestAuthenticationOauthSecretCollectMethodOther RestAuthenticationOauthSecretCollectMethod = "other"
+	RestAuthenticationOauthSecretCollectMethodOther        RestAuthenticationOauthSecretCollectMethod = "other"
 )
 
 func (e RestAuthenticationOauthSecretCollectMethod) ToPointer() *RestAuthenticationOauthSecretCollectMethod {
@@ -2101,14 +2085,10 @@ func (r *RestAuthenticationOauthDiscovery) GetDiscoverType() *RestAuthentication
 type RestAuthenticationOauthCollectMethod string
 
 const (
-	// RestAuthenticationOauthCollectMethodGet GET
-	RestAuthenticationOauthCollectMethodGet RestAuthenticationOauthCollectMethod = "get"
-	// RestAuthenticationOauthCollectMethodPost POST
-	RestAuthenticationOauthCollectMethodPost RestAuthenticationOauthCollectMethod = "post"
-	// RestAuthenticationOauthCollectMethodPostWithBody POST with Body
+	RestAuthenticationOauthCollectMethodGet          RestAuthenticationOauthCollectMethod = "get"
+	RestAuthenticationOauthCollectMethodPost         RestAuthenticationOauthCollectMethod = "post"
 	RestAuthenticationOauthCollectMethodPostWithBody RestAuthenticationOauthCollectMethod = "post_with_body"
-	// RestAuthenticationOauthCollectMethodOther Other
-	RestAuthenticationOauthCollectMethodOther RestAuthenticationOauthCollectMethod = "other"
+	RestAuthenticationOauthCollectMethodOther        RestAuthenticationOauthCollectMethod = "other"
 )
 
 func (e RestAuthenticationOauthCollectMethod) ToPointer() *RestAuthenticationOauthCollectMethod {
@@ -2641,14 +2621,10 @@ func (r *RestAuthenticationLoginSecretDiscovery) GetDiscoverType() *RestAuthenti
 type RestAuthenticationLoginSecretCollectMethod string
 
 const (
-	// RestAuthenticationLoginSecretCollectMethodGet GET
-	RestAuthenticationLoginSecretCollectMethodGet RestAuthenticationLoginSecretCollectMethod = "get"
-	// RestAuthenticationLoginSecretCollectMethodPost POST
-	RestAuthenticationLoginSecretCollectMethodPost RestAuthenticationLoginSecretCollectMethod = "post"
-	// RestAuthenticationLoginSecretCollectMethodPostWithBody POST with Body
+	RestAuthenticationLoginSecretCollectMethodGet          RestAuthenticationLoginSecretCollectMethod = "get"
+	RestAuthenticationLoginSecretCollectMethodPost         RestAuthenticationLoginSecretCollectMethod = "post"
 	RestAuthenticationLoginSecretCollectMethodPostWithBody RestAuthenticationLoginSecretCollectMethod = "post_with_body"
-	// RestAuthenticationLoginSecretCollectMethodOther Other
-	RestAuthenticationLoginSecretCollectMethodOther RestAuthenticationLoginSecretCollectMethod = "other"
+	RestAuthenticationLoginSecretCollectMethodOther        RestAuthenticationLoginSecretCollectMethod = "other"
 )
 
 func (e RestAuthenticationLoginSecretCollectMethod) ToPointer() *RestAuthenticationLoginSecretCollectMethod {
@@ -3172,14 +3148,10 @@ func (r *RestAuthenticationLoginDiscovery) GetDiscoverType() *RestAuthentication
 type RestAuthenticationLoginCollectMethod string
 
 const (
-	// RestAuthenticationLoginCollectMethodGet GET
-	RestAuthenticationLoginCollectMethodGet RestAuthenticationLoginCollectMethod = "get"
-	// RestAuthenticationLoginCollectMethodPost POST
-	RestAuthenticationLoginCollectMethodPost RestAuthenticationLoginCollectMethod = "post"
-	// RestAuthenticationLoginCollectMethodPostWithBody POST with Body
+	RestAuthenticationLoginCollectMethodGet          RestAuthenticationLoginCollectMethod = "get"
+	RestAuthenticationLoginCollectMethodPost         RestAuthenticationLoginCollectMethod = "post"
 	RestAuthenticationLoginCollectMethodPostWithBody RestAuthenticationLoginCollectMethod = "post_with_body"
-	// RestAuthenticationLoginCollectMethodOther Other
-	RestAuthenticationLoginCollectMethodOther RestAuthenticationLoginCollectMethod = "other"
+	RestAuthenticationLoginCollectMethodOther        RestAuthenticationLoginCollectMethod = "other"
 )
 
 func (e RestAuthenticationLoginCollectMethod) ToPointer() *RestAuthenticationLoginCollectMethod {
@@ -3710,14 +3682,10 @@ func (r *RestAuthenticationBasicSecretDiscovery) GetDiscoverType() *RestAuthenti
 type RestAuthenticationBasicSecretCollectMethod string
 
 const (
-	// RestAuthenticationBasicSecretCollectMethodGet GET
-	RestAuthenticationBasicSecretCollectMethodGet RestAuthenticationBasicSecretCollectMethod = "get"
-	// RestAuthenticationBasicSecretCollectMethodPost POST
-	RestAuthenticationBasicSecretCollectMethodPost RestAuthenticationBasicSecretCollectMethod = "post"
-	// RestAuthenticationBasicSecretCollectMethodPostWithBody POST with Body
+	RestAuthenticationBasicSecretCollectMethodGet          RestAuthenticationBasicSecretCollectMethod = "get"
+	RestAuthenticationBasicSecretCollectMethodPost         RestAuthenticationBasicSecretCollectMethod = "post"
 	RestAuthenticationBasicSecretCollectMethodPostWithBody RestAuthenticationBasicSecretCollectMethod = "post_with_body"
-	// RestAuthenticationBasicSecretCollectMethodOther Other
-	RestAuthenticationBasicSecretCollectMethodOther RestAuthenticationBasicSecretCollectMethod = "other"
+	RestAuthenticationBasicSecretCollectMethodOther        RestAuthenticationBasicSecretCollectMethod = "other"
 )
 
 func (e RestAuthenticationBasicSecretCollectMethod) ToPointer() *RestAuthenticationBasicSecretCollectMethod {
@@ -4188,14 +4156,10 @@ func (r *RestAuthenticationBasicDiscovery) GetDiscoverType() *RestAuthentication
 type RestAuthenticationBasicCollectMethod string
 
 const (
-	// RestAuthenticationBasicCollectMethodGet GET
-	RestAuthenticationBasicCollectMethodGet RestAuthenticationBasicCollectMethod = "get"
-	// RestAuthenticationBasicCollectMethodPost POST
-	RestAuthenticationBasicCollectMethodPost RestAuthenticationBasicCollectMethod = "post"
-	// RestAuthenticationBasicCollectMethodPostWithBody POST with Body
+	RestAuthenticationBasicCollectMethodGet          RestAuthenticationBasicCollectMethod = "get"
+	RestAuthenticationBasicCollectMethodPost         RestAuthenticationBasicCollectMethod = "post"
 	RestAuthenticationBasicCollectMethodPostWithBody RestAuthenticationBasicCollectMethod = "post_with_body"
-	// RestAuthenticationBasicCollectMethodOther Other
-	RestAuthenticationBasicCollectMethodOther RestAuthenticationBasicCollectMethod = "other"
+	RestAuthenticationBasicCollectMethodOther        RestAuthenticationBasicCollectMethod = "other"
 )
 
 func (e RestAuthenticationBasicCollectMethod) ToPointer() *RestAuthenticationBasicCollectMethod {
@@ -4673,14 +4637,10 @@ func (r *RestAuthenticationNoneDiscovery) GetDiscoverType() *RestAuthenticationN
 type RestAuthenticationNoneCollectMethod string
 
 const (
-	// RestAuthenticationNoneCollectMethodGet GET
-	RestAuthenticationNoneCollectMethodGet RestAuthenticationNoneCollectMethod = "get"
-	// RestAuthenticationNoneCollectMethodPost POST
-	RestAuthenticationNoneCollectMethodPost RestAuthenticationNoneCollectMethod = "post"
-	// RestAuthenticationNoneCollectMethodPostWithBody POST with Body
+	RestAuthenticationNoneCollectMethodGet          RestAuthenticationNoneCollectMethod = "get"
+	RestAuthenticationNoneCollectMethodPost         RestAuthenticationNoneCollectMethod = "post"
 	RestAuthenticationNoneCollectMethodPostWithBody RestAuthenticationNoneCollectMethod = "post_with_body"
-	// RestAuthenticationNoneCollectMethodOther Other
-	RestAuthenticationNoneCollectMethodOther RestAuthenticationNoneCollectMethod = "other"
+	RestAuthenticationNoneCollectMethodOther        RestAuthenticationNoneCollectMethod = "other"
 )
 
 func (e RestAuthenticationNoneCollectMethod) ToPointer() *RestAuthenticationNoneCollectMethod {
@@ -5063,14 +5023,10 @@ func (r *RestAuthenticationNone) GetScheduling() *RestAuthenticationNoneScheduli
 type RestCollectMethodOtherCollectMethod string
 
 const (
-	// RestCollectMethodOtherCollectMethodGet GET
-	RestCollectMethodOtherCollectMethodGet RestCollectMethodOtherCollectMethod = "get"
-	// RestCollectMethodOtherCollectMethodPost POST
-	RestCollectMethodOtherCollectMethodPost RestCollectMethodOtherCollectMethod = "post"
-	// RestCollectMethodOtherCollectMethodPostWithBody POST with Body
+	RestCollectMethodOtherCollectMethodGet          RestCollectMethodOtherCollectMethod = "get"
+	RestCollectMethodOtherCollectMethodPost         RestCollectMethodOtherCollectMethod = "post"
 	RestCollectMethodOtherCollectMethodPostWithBody RestCollectMethodOtherCollectMethod = "post_with_body"
-	// RestCollectMethodOtherCollectMethodOther Other
-	RestCollectMethodOtherCollectMethodOther RestCollectMethodOtherCollectMethod = "other"
+	RestCollectMethodOtherCollectMethodOther        RestCollectMethodOtherCollectMethod = "other"
 )
 
 func (e RestCollectMethodOtherCollectMethod) ToPointer() *RestCollectMethodOtherCollectMethod {
@@ -5532,14 +5488,10 @@ func (r *RestCollectMethodOther) GetScheduling() *RestCollectMethodOtherScheduli
 type RestCollectMethodPostWithBodyCollectMethod string
 
 const (
-	// RestCollectMethodPostWithBodyCollectMethodGet GET
-	RestCollectMethodPostWithBodyCollectMethodGet RestCollectMethodPostWithBodyCollectMethod = "get"
-	// RestCollectMethodPostWithBodyCollectMethodPost POST
-	RestCollectMethodPostWithBodyCollectMethodPost RestCollectMethodPostWithBodyCollectMethod = "post"
-	// RestCollectMethodPostWithBodyCollectMethodPostWithBody POST with Body
+	RestCollectMethodPostWithBodyCollectMethodGet          RestCollectMethodPostWithBodyCollectMethod = "get"
+	RestCollectMethodPostWithBodyCollectMethodPost         RestCollectMethodPostWithBodyCollectMethod = "post"
 	RestCollectMethodPostWithBodyCollectMethodPostWithBody RestCollectMethodPostWithBodyCollectMethod = "post_with_body"
-	// RestCollectMethodPostWithBodyCollectMethodOther Other
-	RestCollectMethodPostWithBodyCollectMethodOther RestCollectMethodPostWithBodyCollectMethod = "other"
+	RestCollectMethodPostWithBodyCollectMethodOther        RestCollectMethodPostWithBodyCollectMethod = "other"
 )
 
 func (e RestCollectMethodPostWithBodyCollectMethod) ToPointer() *RestCollectMethodPostWithBodyCollectMethod {
@@ -6001,14 +5953,10 @@ func (r *RestCollectMethodPostWithBody) GetScheduling() *RestCollectMethodPostWi
 type RestCollectMethodPostCollectMethod string
 
 const (
-	// RestCollectMethodPostCollectMethodGet GET
-	RestCollectMethodPostCollectMethodGet RestCollectMethodPostCollectMethod = "get"
-	// RestCollectMethodPostCollectMethodPost POST
-	RestCollectMethodPostCollectMethodPost RestCollectMethodPostCollectMethod = "post"
-	// RestCollectMethodPostCollectMethodPostWithBody POST with Body
+	RestCollectMethodPostCollectMethodGet          RestCollectMethodPostCollectMethod = "get"
+	RestCollectMethodPostCollectMethodPost         RestCollectMethodPostCollectMethod = "post"
 	RestCollectMethodPostCollectMethodPostWithBody RestCollectMethodPostCollectMethod = "post_with_body"
-	// RestCollectMethodPostCollectMethodOther Other
-	RestCollectMethodPostCollectMethodOther RestCollectMethodPostCollectMethod = "other"
+	RestCollectMethodPostCollectMethodOther        RestCollectMethodPostCollectMethod = "other"
 )
 
 func (e RestCollectMethodPostCollectMethod) ToPointer() *RestCollectMethodPostCollectMethod {
@@ -6470,14 +6418,10 @@ func (r *RestCollectMethodPost) GetScheduling() *RestCollectMethodPostScheduling
 type RestCollectMethodGetCollectMethod string
 
 const (
-	// RestCollectMethodGetCollectMethodGet GET
-	RestCollectMethodGetCollectMethodGet RestCollectMethodGetCollectMethod = "get"
-	// RestCollectMethodGetCollectMethodPost POST
-	RestCollectMethodGetCollectMethodPost RestCollectMethodGetCollectMethod = "post"
-	// RestCollectMethodGetCollectMethodPostWithBody POST with Body
+	RestCollectMethodGetCollectMethodGet          RestCollectMethodGetCollectMethod = "get"
+	RestCollectMethodGetCollectMethodPost         RestCollectMethodGetCollectMethod = "post"
 	RestCollectMethodGetCollectMethodPostWithBody RestCollectMethodGetCollectMethod = "post_with_body"
-	// RestCollectMethodGetCollectMethodOther Other
-	RestCollectMethodGetCollectMethodOther RestCollectMethodGetCollectMethod = "other"
+	RestCollectMethodGetCollectMethodOther        RestCollectMethodGetCollectMethod = "other"
 )
 
 func (e RestCollectMethodGetCollectMethod) ToPointer() *RestCollectMethodGetCollectMethod {

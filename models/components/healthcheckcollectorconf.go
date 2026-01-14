@@ -93,11 +93,8 @@ func (h *HealthCheckAuthenticationOauthSecretDiscovery) GetDiscoverType() *Healt
 type HealthCheckAuthenticationOauthSecretHealthCheckMethod string
 
 const (
-	// HealthCheckAuthenticationOauthSecretHealthCheckMethodGet GET
-	HealthCheckAuthenticationOauthSecretHealthCheckMethodGet HealthCheckAuthenticationOauthSecretHealthCheckMethod = "get"
-	// HealthCheckAuthenticationOauthSecretHealthCheckMethodPost POST
-	HealthCheckAuthenticationOauthSecretHealthCheckMethodPost HealthCheckAuthenticationOauthSecretHealthCheckMethod = "post"
-	// HealthCheckAuthenticationOauthSecretHealthCheckMethodPostWithBody POST with Body
+	HealthCheckAuthenticationOauthSecretHealthCheckMethodGet          HealthCheckAuthenticationOauthSecretHealthCheckMethod = "get"
+	HealthCheckAuthenticationOauthSecretHealthCheckMethodPost         HealthCheckAuthenticationOauthSecretHealthCheckMethod = "post"
 	HealthCheckAuthenticationOauthSecretHealthCheckMethodPostWithBody HealthCheckAuthenticationOauthSecretHealthCheckMethod = "post_with_body"
 )
 
@@ -484,11 +481,8 @@ func (h *HealthCheckAuthenticationOauthDiscovery) GetDiscoverType() *HealthCheck
 type HealthCheckAuthenticationOauthHealthCheckMethod string
 
 const (
-	// HealthCheckAuthenticationOauthHealthCheckMethodGet GET
-	HealthCheckAuthenticationOauthHealthCheckMethodGet HealthCheckAuthenticationOauthHealthCheckMethod = "get"
-	// HealthCheckAuthenticationOauthHealthCheckMethodPost POST
-	HealthCheckAuthenticationOauthHealthCheckMethodPost HealthCheckAuthenticationOauthHealthCheckMethod = "post"
-	// HealthCheckAuthenticationOauthHealthCheckMethodPostWithBody POST with Body
+	HealthCheckAuthenticationOauthHealthCheckMethodGet          HealthCheckAuthenticationOauthHealthCheckMethod = "get"
+	HealthCheckAuthenticationOauthHealthCheckMethodPost         HealthCheckAuthenticationOauthHealthCheckMethod = "post"
 	HealthCheckAuthenticationOauthHealthCheckMethodPostWithBody HealthCheckAuthenticationOauthHealthCheckMethod = "post_with_body"
 )
 
@@ -875,11 +869,8 @@ func (h *HealthCheckAuthenticationLoginSecretDiscovery) GetDiscoverType() *Healt
 type HealthCheckAuthenticationLoginSecretHealthCheckMethod string
 
 const (
-	// HealthCheckAuthenticationLoginSecretHealthCheckMethodGet GET
-	HealthCheckAuthenticationLoginSecretHealthCheckMethodGet HealthCheckAuthenticationLoginSecretHealthCheckMethod = "get"
-	// HealthCheckAuthenticationLoginSecretHealthCheckMethodPost POST
-	HealthCheckAuthenticationLoginSecretHealthCheckMethodPost HealthCheckAuthenticationLoginSecretHealthCheckMethod = "post"
-	// HealthCheckAuthenticationLoginSecretHealthCheckMethodPostWithBody POST with Body
+	HealthCheckAuthenticationLoginSecretHealthCheckMethodGet          HealthCheckAuthenticationLoginSecretHealthCheckMethod = "get"
+	HealthCheckAuthenticationLoginSecretHealthCheckMethodPost         HealthCheckAuthenticationLoginSecretHealthCheckMethod = "post"
 	HealthCheckAuthenticationLoginSecretHealthCheckMethodPostWithBody HealthCheckAuthenticationLoginSecretHealthCheckMethod = "post_with_body"
 )
 
@@ -1257,11 +1248,8 @@ func (h *HealthCheckAuthenticationLoginDiscovery) GetDiscoverType() *HealthCheck
 type HealthCheckAuthenticationLoginHealthCheckMethod string
 
 const (
-	// HealthCheckAuthenticationLoginHealthCheckMethodGet GET
-	HealthCheckAuthenticationLoginHealthCheckMethodGet HealthCheckAuthenticationLoginHealthCheckMethod = "get"
-	// HealthCheckAuthenticationLoginHealthCheckMethodPost POST
-	HealthCheckAuthenticationLoginHealthCheckMethodPost HealthCheckAuthenticationLoginHealthCheckMethod = "post"
-	// HealthCheckAuthenticationLoginHealthCheckMethodPostWithBody POST with Body
+	HealthCheckAuthenticationLoginHealthCheckMethodGet          HealthCheckAuthenticationLoginHealthCheckMethod = "get"
+	HealthCheckAuthenticationLoginHealthCheckMethodPost         HealthCheckAuthenticationLoginHealthCheckMethod = "post"
 	HealthCheckAuthenticationLoginHealthCheckMethodPostWithBody HealthCheckAuthenticationLoginHealthCheckMethod = "post_with_body"
 )
 
@@ -1648,11 +1636,8 @@ func (h *HealthCheckAuthenticationBasicSecretDiscovery) GetDiscoverType() *Healt
 type HealthCheckAuthenticationBasicSecretHealthCheckMethod string
 
 const (
-	// HealthCheckAuthenticationBasicSecretHealthCheckMethodGet GET
-	HealthCheckAuthenticationBasicSecretHealthCheckMethodGet HealthCheckAuthenticationBasicSecretHealthCheckMethod = "get"
-	// HealthCheckAuthenticationBasicSecretHealthCheckMethodPost POST
-	HealthCheckAuthenticationBasicSecretHealthCheckMethodPost HealthCheckAuthenticationBasicSecretHealthCheckMethod = "post"
-	// HealthCheckAuthenticationBasicSecretHealthCheckMethodPostWithBody POST with Body
+	HealthCheckAuthenticationBasicSecretHealthCheckMethodGet          HealthCheckAuthenticationBasicSecretHealthCheckMethod = "get"
+	HealthCheckAuthenticationBasicSecretHealthCheckMethodPost         HealthCheckAuthenticationBasicSecretHealthCheckMethod = "post"
 	HealthCheckAuthenticationBasicSecretHealthCheckMethodPostWithBody HealthCheckAuthenticationBasicSecretHealthCheckMethod = "post_with_body"
 )
 
@@ -1985,11 +1970,8 @@ func (h *HealthCheckAuthenticationBasicDiscovery) GetDiscoverType() *HealthCheck
 type HealthCheckAuthenticationBasicHealthCheckMethod string
 
 const (
-	// HealthCheckAuthenticationBasicHealthCheckMethodGet GET
-	HealthCheckAuthenticationBasicHealthCheckMethodGet HealthCheckAuthenticationBasicHealthCheckMethod = "get"
-	// HealthCheckAuthenticationBasicHealthCheckMethodPost POST
-	HealthCheckAuthenticationBasicHealthCheckMethodPost HealthCheckAuthenticationBasicHealthCheckMethod = "post"
-	// HealthCheckAuthenticationBasicHealthCheckMethodPostWithBody POST with Body
+	HealthCheckAuthenticationBasicHealthCheckMethodGet          HealthCheckAuthenticationBasicHealthCheckMethod = "get"
+	HealthCheckAuthenticationBasicHealthCheckMethodPost         HealthCheckAuthenticationBasicHealthCheckMethod = "post"
 	HealthCheckAuthenticationBasicHealthCheckMethodPostWithBody HealthCheckAuthenticationBasicHealthCheckMethod = "post_with_body"
 )
 
@@ -2331,11 +2313,8 @@ func (h *HealthCheckAuthenticationNoneDiscovery) GetDiscoverType() *HealthCheckA
 type HealthCheckAuthenticationNoneHealthCheckMethod string
 
 const (
-	// HealthCheckAuthenticationNoneHealthCheckMethodGet GET
-	HealthCheckAuthenticationNoneHealthCheckMethodGet HealthCheckAuthenticationNoneHealthCheckMethod = "get"
-	// HealthCheckAuthenticationNoneHealthCheckMethodPost POST
-	HealthCheckAuthenticationNoneHealthCheckMethodPost HealthCheckAuthenticationNoneHealthCheckMethod = "post"
-	// HealthCheckAuthenticationNoneHealthCheckMethodPostWithBody POST with Body
+	HealthCheckAuthenticationNoneHealthCheckMethodGet          HealthCheckAuthenticationNoneHealthCheckMethod = "get"
+	HealthCheckAuthenticationNoneHealthCheckMethodPost         HealthCheckAuthenticationNoneHealthCheckMethod = "post"
 	HealthCheckAuthenticationNoneHealthCheckMethodPostWithBody HealthCheckAuthenticationNoneHealthCheckMethod = "post_with_body"
 )
 
@@ -2579,11 +2558,8 @@ func (h *HealthCheckAuthenticationNone) GetRetryRules() *HealthCheckAuthenticati
 type HealthCheckCollectMethodPostWithBodyHealthCheckMethod string
 
 const (
-	// HealthCheckCollectMethodPostWithBodyHealthCheckMethodGet GET
-	HealthCheckCollectMethodPostWithBodyHealthCheckMethodGet HealthCheckCollectMethodPostWithBodyHealthCheckMethod = "get"
-	// HealthCheckCollectMethodPostWithBodyHealthCheckMethodPost POST
-	HealthCheckCollectMethodPostWithBodyHealthCheckMethodPost HealthCheckCollectMethodPostWithBodyHealthCheckMethod = "post"
-	// HealthCheckCollectMethodPostWithBodyHealthCheckMethodPostWithBody POST with Body
+	HealthCheckCollectMethodPostWithBodyHealthCheckMethodGet          HealthCheckCollectMethodPostWithBodyHealthCheckMethod = "get"
+	HealthCheckCollectMethodPostWithBodyHealthCheckMethodPost         HealthCheckCollectMethodPostWithBodyHealthCheckMethod = "post"
 	HealthCheckCollectMethodPostWithBodyHealthCheckMethodPostWithBody HealthCheckCollectMethodPostWithBodyHealthCheckMethod = "post_with_body"
 )
 
@@ -2907,11 +2883,8 @@ func (h *HealthCheckCollectMethodPostWithBody) GetRetryRules() *HealthCheckColle
 type HealthCheckCollectMethodPostHealthCheckMethod string
 
 const (
-	// HealthCheckCollectMethodPostHealthCheckMethodGet GET
-	HealthCheckCollectMethodPostHealthCheckMethodGet HealthCheckCollectMethodPostHealthCheckMethod = "get"
-	// HealthCheckCollectMethodPostHealthCheckMethodPost POST
-	HealthCheckCollectMethodPostHealthCheckMethodPost HealthCheckCollectMethodPostHealthCheckMethod = "post"
-	// HealthCheckCollectMethodPostHealthCheckMethodPostWithBody POST with Body
+	HealthCheckCollectMethodPostHealthCheckMethodGet          HealthCheckCollectMethodPostHealthCheckMethod = "get"
+	HealthCheckCollectMethodPostHealthCheckMethodPost         HealthCheckCollectMethodPostHealthCheckMethod = "post"
 	HealthCheckCollectMethodPostHealthCheckMethodPostWithBody HealthCheckCollectMethodPostHealthCheckMethod = "post_with_body"
 )
 
@@ -3235,11 +3208,8 @@ func (h *HealthCheckCollectMethodPost) GetRetryRules() *HealthCheckCollectMethod
 type HealthCheckCollectMethodGetHealthCheckMethod string
 
 const (
-	// HealthCheckCollectMethodGetHealthCheckMethodGet GET
-	HealthCheckCollectMethodGetHealthCheckMethodGet HealthCheckCollectMethodGetHealthCheckMethod = "get"
-	// HealthCheckCollectMethodGetHealthCheckMethodPost POST
-	HealthCheckCollectMethodGetHealthCheckMethodPost HealthCheckCollectMethodGetHealthCheckMethod = "post"
-	// HealthCheckCollectMethodGetHealthCheckMethodPostWithBody POST with Body
+	HealthCheckCollectMethodGetHealthCheckMethodGet          HealthCheckCollectMethodGetHealthCheckMethod = "get"
+	HealthCheckCollectMethodGetHealthCheckMethodPost         HealthCheckCollectMethodGetHealthCheckMethod = "post"
 	HealthCheckCollectMethodGetHealthCheckMethodPostWithBody HealthCheckCollectMethodGetHealthCheckMethod = "post_with_body"
 )
 

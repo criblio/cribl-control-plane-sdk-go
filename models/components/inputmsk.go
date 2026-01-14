@@ -69,8 +69,8 @@ type InputMskPqEnabledTrueWithPqConstraint struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -306,7 +306,7 @@ func (i *InputMskPqEnabledTrueWithPqConstraint) GetReauthenticationThreshold() *
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -506,8 +506,8 @@ type InputMskPqEnabledFalseConstraint struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -743,7 +743,7 @@ func (i *InputMskPqEnabledFalseConstraint) GetReauthenticationThreshold() *float
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -943,8 +943,8 @@ type InputMskSendToRoutesFalseWithConnectionsConstraint struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -1180,7 +1180,7 @@ func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetReauthentication
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -1403,8 +1403,8 @@ type InputMskSendToRoutesTrueConstraint struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -1640,7 +1640,7 @@ func (i *InputMskSendToRoutesTrueConstraint) GetReauthenticationThreshold() *flo
 	return i.ReauthenticationThreshold
 }
 
-func (i *InputMskSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputMskSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}

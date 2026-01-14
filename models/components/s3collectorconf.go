@@ -13,9 +13,7 @@ import (
 type S3AwsAuthenticationMethodSecretPartitioningScheme string
 
 const (
-	// S3AwsAuthenticationMethodSecretPartitioningSchemeNone Defined in Path
 	S3AwsAuthenticationMethodSecretPartitioningSchemeNone S3AwsAuthenticationMethodSecretPartitioningScheme = "none"
-	// S3AwsAuthenticationMethodSecretPartitioningSchemeDdss DDSS
 	S3AwsAuthenticationMethodSecretPartitioningSchemeDdss S3AwsAuthenticationMethodSecretPartitioningScheme = "ddss"
 )
 
@@ -281,9 +279,7 @@ func (s *S3AwsAuthenticationMethodSecret) GetDisableTimeFilter() *bool {
 type S3AwsAuthenticationMethodManualPartitioningScheme string
 
 const (
-	// S3AwsAuthenticationMethodManualPartitioningSchemeNone Defined in Path
 	S3AwsAuthenticationMethodManualPartitioningSchemeNone S3AwsAuthenticationMethodManualPartitioningScheme = "none"
-	// S3AwsAuthenticationMethodManualPartitioningSchemeDdss DDSS
 	S3AwsAuthenticationMethodManualPartitioningSchemeDdss S3AwsAuthenticationMethodManualPartitioningScheme = "ddss"
 )
 
@@ -558,9 +554,7 @@ func (s *S3AwsAuthenticationMethodManual) GetDisableTimeFilter() *bool {
 type S3AwsAuthenticationMethodAutoPartitioningScheme string
 
 const (
-	// S3AwsAuthenticationMethodAutoPartitioningSchemeNone Defined in Path
 	S3AwsAuthenticationMethodAutoPartitioningSchemeNone S3AwsAuthenticationMethodAutoPartitioningScheme = "none"
-	// S3AwsAuthenticationMethodAutoPartitioningSchemeDdss DDSS
 	S3AwsAuthenticationMethodAutoPartitioningSchemeDdss S3AwsAuthenticationMethodAutoPartitioningScheme = "ddss"
 )
 
@@ -817,9 +811,7 @@ func (s *S3AwsAuthenticationMethodAuto) GetDisableTimeFilter() *bool {
 type S3PartitioningSchemeNonePartitioningScheme string
 
 const (
-	// S3PartitioningSchemeNonePartitioningSchemeNone Defined in Path
 	S3PartitioningSchemeNonePartitioningSchemeNone S3PartitioningSchemeNonePartitioningScheme = "none"
-	// S3PartitioningSchemeNonePartitioningSchemeDdss DDSS
 	S3PartitioningSchemeNonePartitioningSchemeDdss S3PartitioningSchemeNonePartitioningScheme = "ddss"
 )
 
@@ -1076,9 +1068,7 @@ func (s *S3PartitioningSchemeNone) GetDisableTimeFilter() *bool {
 type S3PartitioningSchemeDdssPartitioningScheme string
 
 const (
-	// S3PartitioningSchemeDdssPartitioningSchemeNone Defined in Path
 	S3PartitioningSchemeDdssPartitioningSchemeNone S3PartitioningSchemeDdssPartitioningScheme = "none"
-	// S3PartitioningSchemeDdssPartitioningSchemeDdss DDSS
 	S3PartitioningSchemeDdssPartitioningSchemeDdss S3PartitioningSchemeDdssPartitioningScheme = "ddss"
 )
 

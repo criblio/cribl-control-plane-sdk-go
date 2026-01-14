@@ -55,7 +55,7 @@ type InputOffice365MgmtPqEnabledTrueWithPqConstraint struct {
 	IngestionLag *float64         `default:"0" json:"ingestionLag"`
 	RetryRules   *RetryRulesType1 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -242,7 +242,7 @@ func (i *InputOffice365MgmtPqEnabledTrueWithPqConstraint) GetRetryRules() *Retry
 	return i.RetryRules
 }
 
-func (i *InputOffice365MgmtPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365MgmtPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -316,7 +316,7 @@ type InputOffice365MgmtPqEnabledFalseConstraint struct {
 	IngestionLag *float64         `default:"0" json:"ingestionLag"`
 	RetryRules   *RetryRulesType1 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -503,7 +503,7 @@ func (i *InputOffice365MgmtPqEnabledFalseConstraint) GetRetryRules() *RetryRules
 	return i.RetryRules
 }
 
-func (i *InputOffice365MgmtPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365MgmtPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -577,7 +577,7 @@ type InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint struct {
 	IngestionLag *float64         `default:"0" json:"ingestionLag"`
 	RetryRules   *RetryRulesType1 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -764,7 +764,7 @@ func (i *InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint) GetRetryR
 	return i.RetryRules
 }
 
-func (i *InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365MgmtSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -918,7 +918,7 @@ type InputOffice365MgmtSendToRoutesTrueConstraint struct {
 	IngestionLag *float64         `default:"0" json:"ingestionLag"`
 	RetryRules   *RetryRulesType1 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// Office 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -1105,7 +1105,7 @@ func (i *InputOffice365MgmtSendToRoutesTrueConstraint) GetRetryRules() *RetryRul
 	return i.RetryRules
 }
 
-func (i *InputOffice365MgmtSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputOffice365MgmtSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
