@@ -32155,6 +32155,7 @@ func (o *OutputDefault) GetDefaultID() string {
 type CreateOutputRequestType string
 
 const (
+	CreateOutputRequestTypeDefault                CreateOutputRequestType = "default"
 	CreateOutputRequestTypeWebhook                CreateOutputRequestType = "webhook"
 	CreateOutputRequestTypeSentinel               CreateOutputRequestType = "sentinel"
 	CreateOutputRequestTypeDevnull                CreateOutputRequestType = "devnull"
@@ -32300,6 +32301,18 @@ type CreateOutputRequest struct {
 	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
 
 	Type CreateOutputRequestType
+}
+
+func CreateCreateOutputRequestDefault(defaultT OutputDefault) CreateOutputRequest {
+	typ := CreateOutputRequestTypeDefault
+
+	typStr := TypeDefault(typ)
+	defaultT.Type = typStr
+
+	return CreateOutputRequest{
+		OutputDefault: &defaultT,
+		Type:          typ,
+	}
 }
 
 func CreateCreateOutputRequestWebhook(webhook OutputWebhook) CreateOutputRequest {
@@ -33139,6 +33152,15 @@ func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.Type {
+	case "default":
+		outputDefault := new(OutputDefault)
+		if err := utils.UnmarshalJSON(data, &outputDefault, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == default) type OutputDefault within CreateOutputRequest: %w", string(data), err)
+		}
+
+		u.OutputDefault = outputDefault
+		u.Type = CreateOutputRequestTypeDefault
+		return nil
 	case "webhook":
 		outputWebhook := new(OutputWebhook)
 		if err := utils.UnmarshalJSON(data, &outputWebhook, "", true, nil); err != nil {

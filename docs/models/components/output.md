@@ -3,6 +3,12 @@
 
 ## Supported Types
 
+### OutputDefault
+
+```go
+output := components.CreateOutputDefault(components.OutputDefault{/* values here */})
+```
+
 ### OutputWebhook
 
 ```go

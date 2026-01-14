@@ -276,10 +276,10 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputFilesystem(
-        components.OutputFilesystem{
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputDefault(
+        components.OutputDefault{
             ID: criblcontrolplanesdkgo.Pointer("default-output"),
-            Type: components.OutputFilesystemTypeFilesystem,
+            Type: components.OutputDefaultTypeDefault,
             Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
             SystemFields: []string{
                 "<value 1>",
@@ -289,47 +289,7 @@ func main() {
                 "<value 1>",
                 "<value 2>",
             },
-            DestPath: "<value>",
-            StagePath: criblcontrolplanesdkgo.Pointer("<value>"),
-            AddIDToStagePath: criblcontrolplanesdkgo.Pointer(false),
-            RemoveEmptyDirs: criblcontrolplanesdkgo.Pointer(true),
-            PartitionExpr: criblcontrolplanesdkgo.Pointer("<value>"),
-            Format: components.DataFormatOptionsJSON.ToPointer(),
-            BaseFileName: criblcontrolplanesdkgo.Pointer("<value>"),
-            FileNameSuffix: criblcontrolplanesdkgo.Pointer("<value>"),
-            MaxFileSizeMB: criblcontrolplanesdkgo.Pointer[float64](4562.74),
-            MaxFileOpenTimeSec: criblcontrolplanesdkgo.Pointer[float64](2532.09),
-            MaxFileIdleTimeSec: criblcontrolplanesdkgo.Pointer[float64](1271.28),
-            MaxOpenFiles: criblcontrolplanesdkgo.Pointer[float64](3246.22),
-            HeaderLine: criblcontrolplanesdkgo.Pointer("<value>"),
-            WriteHighWaterMark: criblcontrolplanesdkgo.Pointer[float64](3612.5),
-            OnBackpressure: components.BackpressureBehaviorOptions1Block.ToPointer(),
-            DeadletterEnabled: criblcontrolplanesdkgo.Pointer(true),
-            OnDiskFullBackpressure: components.DiskSpaceProtectionOptionsBlock.ToPointer(),
-            ForceCloseOnShutdown: criblcontrolplanesdkgo.Pointer(false),
-            Description: criblcontrolplanesdkgo.Pointer("bouncy tenderly yet immediate"),
-            Compress: components.CompressionOptions2Gzip.ToPointer(),
-            CompressionLevel: components.CompressionLevelOptionsBestCompression.ToPointer(),
-            AutomaticSchema: criblcontrolplanesdkgo.Pointer(false),
-            ParquetSchema: criblcontrolplanesdkgo.Pointer("<value>"),
-            ParquetVersion: components.ParquetVersionOptionsParquet10.ToPointer(),
-            ParquetDataPageVersion: components.DataPageVersionOptionsDataPageV2.ToPointer(),
-            ParquetRowGroupLength: criblcontrolplanesdkgo.Pointer[float64](1944.46),
-            ParquetPageSize: criblcontrolplanesdkgo.Pointer("<value>"),
-            ShouldLogInvalidRows: criblcontrolplanesdkgo.Pointer(false),
-            KeyValueMetadata: []components.ItemsTypeKeyValueMetadata{
-                components.ItemsTypeKeyValueMetadata{
-                    Key: "<key>",
-                    Value: "<value>",
-                },
-            },
-            EnableStatistics: criblcontrolplanesdkgo.Pointer(true),
-            EnableWritePageIndex: criblcontrolplanesdkgo.Pointer(true),
-            EnablePageChecksum: criblcontrolplanesdkgo.Pointer(false),
-            EmptyDirCleanupSec: criblcontrolplanesdkgo.Pointer[float64](1965.22),
-            DirectoryBatchSize: criblcontrolplanesdkgo.Pointer[float64](3079.24),
-            DeadletterPath: criblcontrolplanesdkgo.Pointer("<value>"),
-            MaxRetryNum: criblcontrolplanesdkgo.Pointer[float64](7017.51),
+            DefaultID: "my-default-output",
         },
     ))
     if err != nil {
