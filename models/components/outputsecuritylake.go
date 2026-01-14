@@ -72,7 +72,7 @@ type OutputSecurityLake struct {
 	Region       string  `json:"region"`
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Amazon Security Lake requests
@@ -245,7 +245,7 @@ func (o *OutputSecurityLake) GetAwsSecretKey() *string {
 	return o.AwsSecretKey
 }
 
-func (o *OutputSecurityLake) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputSecurityLake) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}

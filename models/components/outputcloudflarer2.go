@@ -31,30 +31,6 @@ func (e *OutputCloudflareR2Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputCloudflareR2AuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputCloudflareR2AuthenticationMethod string
-
-const (
-	OutputCloudflareR2AuthenticationMethodAuto   OutputCloudflareR2AuthenticationMethod = "auto"
-	OutputCloudflareR2AuthenticationMethodSecret OutputCloudflareR2AuthenticationMethod = "secret"
-	OutputCloudflareR2AuthenticationMethodManual OutputCloudflareR2AuthenticationMethod = "manual"
-)
-
-func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2AuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2AuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "secret", "manual":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCloudflareR2 struct {
 	// Unique ID for this output
 	ID   *string                `json:"id,omitempty"`
@@ -72,7 +48,7 @@ type OutputCloudflareR2 struct {
 	// Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputCloudflareR2AuthenticationMethod `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
 	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	Region       any     `json:"region,omitempty"`
@@ -235,7 +211,7 @@ func (o *OutputCloudflareR2) GetBucket() string {
 	return o.Bucket
 }
 
-func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *OutputCloudflareR2AuthenticationMethod {
+func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if o == nil {
 		return nil
 	}

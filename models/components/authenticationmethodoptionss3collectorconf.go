@@ -6,11 +6,8 @@ package components
 type AuthenticationMethodOptionsS3CollectorConf string
 
 const (
-	// AuthenticationMethodOptionsS3CollectorConfAuto Auto
-	AuthenticationMethodOptionsS3CollectorConfAuto AuthenticationMethodOptionsS3CollectorConf = "auto"
-	// AuthenticationMethodOptionsS3CollectorConfManual Manual
+	AuthenticationMethodOptionsS3CollectorConfAuto   AuthenticationMethodOptionsS3CollectorConf = "auto"
 	AuthenticationMethodOptionsS3CollectorConfManual AuthenticationMethodOptionsS3CollectorConf = "manual"
-	// AuthenticationMethodOptionsS3CollectorConfSecret Secret Key pair
 	AuthenticationMethodOptionsS3CollectorConfSecret AuthenticationMethodOptionsS3CollectorConf = "secret"
 )
 

@@ -12,3 +12,5 @@ Authentication method for Discover and Collect REST calls
 | `SplunkAuthenticationLoginAuthenticationBasicSecret` | basicSecret                                          |
 | `SplunkAuthenticationLoginAuthenticationToken`       | token                                                |
 | `SplunkAuthenticationLoginAuthenticationTokenSecret` | tokenSecret                                          |
+| `SplunkAuthenticationLoginAuthenticationLogin`       | login                                                |
+| `SplunkAuthenticationLoginAuthenticationLoginSecret` | loginSecret                                          |

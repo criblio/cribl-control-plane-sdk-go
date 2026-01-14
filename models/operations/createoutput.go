@@ -33,30 +33,6 @@ func (e *TypeCloudflareR2) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// AuthenticationMethodCloudflareR2 - AWS authentication method. Choose Auto to use IAM roles.
-type AuthenticationMethodCloudflareR2 string
-
-const (
-	AuthenticationMethodCloudflareR2Auto   AuthenticationMethodCloudflareR2 = "auto"
-	AuthenticationMethodCloudflareR2Secret AuthenticationMethodCloudflareR2 = "secret"
-	AuthenticationMethodCloudflareR2Manual AuthenticationMethodCloudflareR2 = "manual"
-)
-
-func (e AuthenticationMethodCloudflareR2) ToPointer() *AuthenticationMethodCloudflareR2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthenticationMethodCloudflareR2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "secret", "manual":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCloudflareR2 struct {
 	// Unique ID for this output
 	ID   string           `json:"id"`
@@ -74,7 +50,7 @@ type OutputCloudflareR2 struct {
 	// Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodCloudflareR2 `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
 	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	Region       any     `json:"region,omitempty"`
@@ -237,7 +213,7 @@ func (o *OutputCloudflareR2) GetBucket() string {
 	return o.Bucket
 }
 
-func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *AuthenticationMethodCloudflareR2 {
+func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if o == nil {
 		return nil
 	}
@@ -5861,7 +5837,7 @@ type OutputSecurityLake struct {
 	Region       string  `json:"region"`
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Amazon Security Lake requests
@@ -6034,7 +6010,7 @@ func (o *OutputSecurityLake) GetAwsSecretKey() *string {
 	return o.AwsSecretKey
 }
 
-func (o *OutputSecurityLake) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputSecurityLake) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -6426,7 +6402,7 @@ type OutputDlS3 struct {
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
@@ -6607,7 +6583,7 @@ func (o *OutputDlS3) GetAwsSecretKey() *string {
 	return o.AwsSecretKey
 }
 
-func (o *OutputDlS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputDlS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -9238,7 +9214,7 @@ type OutputDataset struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType *components.AuthenticationMethodOptions3 `default:"manual" json:"authType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -9470,7 +9446,7 @@ func (o *OutputDataset) GetOnBackpressure() *components.BackpressureBehaviorOpti
 	return o.OnBackpressure
 }
 
-func (o *OutputDataset) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (o *OutputDataset) GetAuthType() *components.AuthenticationMethodOptions3 {
 	if o == nil {
 		return nil
 	}
@@ -12901,7 +12877,7 @@ type OutputDatadog struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType *components.AuthenticationMethodOptions3 `default:"manual" json:"authType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -13168,7 +13144,7 @@ func (o *OutputDatadog) GetOnBackpressure() *components.BackpressureBehaviorOpti
 	return o.OnBackpressure
 }
 
-func (o *OutputDatadog) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (o *OutputDatadog) GetAuthType() *components.AuthenticationMethodOptions3 {
 	if o == nil {
 		return nil
 	}
@@ -13936,8 +13912,8 @@ type OutputSqs struct {
 	// Create queue if it does not exist.
 	CreateQueue *bool `default:"true" json:"createQueue"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -14081,7 +14057,7 @@ func (o *OutputSqs) GetCreateQueue() *bool {
 	return o.CreateQueue
 }
 
-func (o *OutputSqs) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputSqs) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -14370,8 +14346,8 @@ type OutputSns struct {
 	// Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
 	MaxRetries *float64 `json:"maxRetries,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the SNS is located
 	Region *string `json:"region,omitempty"`
 	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
@@ -14493,7 +14469,7 @@ func (o *OutputSns) GetMaxRetries() *float64 {
 	return o.MaxRetries
 }
 
-func (o *OutputSns) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputSns) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -15772,7 +15748,7 @@ type OutputMinio struct {
 	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// Region where the MinIO service/cluster is located
@@ -15937,7 +15913,7 @@ func (o *OutputMinio) GetBucket() string {
 	return o.Bucket
 }
 
-func (o *OutputMinio) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputMinio) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -16334,8 +16310,8 @@ type OutputCloudwatch struct {
 	// Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
 	LogStreamName string `json:"logStreamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the CloudWatchLogs is located
 	Region string `json:"region"`
 	// CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
@@ -16454,7 +16430,7 @@ func (o *OutputCloudwatch) GetLogStreamName() string {
 	return o.LogStreamName
 }
 
-func (o *OutputCloudwatch) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputCloudwatch) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -17339,7 +17315,7 @@ type OutputNewrelicEvents struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions3 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	CustomURL   *string                                  `json:"customUrl,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -17548,7 +17524,7 @@ func (o *OutputNewrelicEvents) GetOnBackpressure() *components.BackpressureBehav
 	return o.OnBackpressure
 }
 
-func (o *OutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (o *OutputNewrelicEvents) GetAuthType() *components.AuthenticationMethodOptions3 {
 	if o == nil {
 		return nil
 	}
@@ -17804,7 +17780,7 @@ type OutputNewrelic struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType *components.AuthenticationMethodOptions3 `default:"manual" json:"authType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -18022,7 +17998,7 @@ func (o *OutputNewrelic) GetOnBackpressure() *components.BackpressureBehaviorOpt
 	return o.OnBackpressure
 }
 
-func (o *OutputNewrelic) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (o *OutputNewrelic) GetAuthType() *components.AuthenticationMethodOptions3 {
 	if o == nil {
 		return nil
 	}
@@ -19324,8 +19300,8 @@ type OutputMsk struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -19550,7 +19526,7 @@ func (o *OutputMsk) GetReauthenticationThreshold() *float64 {
 	return o.ReauthenticationThreshold
 }
 
-func (o *OutputMsk) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputMsk) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -22003,23 +21979,23 @@ func (e *TypeGoogleCloudStorage) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AuthenticationMethodGoogleCloudStorage string
+type AwsAuthenticationMethodAuthenticationMethod string
 
 const (
-	// AuthenticationMethodGoogleCloudStorageAuto auto
-	AuthenticationMethodGoogleCloudStorageAuto AuthenticationMethodGoogleCloudStorage = "auto"
-	// AuthenticationMethodGoogleCloudStorageManual manual
-	AuthenticationMethodGoogleCloudStorageManual AuthenticationMethodGoogleCloudStorage = "manual"
-	// AuthenticationMethodGoogleCloudStorageSecret Secret Key pair
-	AuthenticationMethodGoogleCloudStorageSecret AuthenticationMethodGoogleCloudStorage = "secret"
+	// AwsAuthenticationMethodAuthenticationMethodAuto auto
+	AwsAuthenticationMethodAuthenticationMethodAuto AwsAuthenticationMethodAuthenticationMethod = "auto"
+	// AwsAuthenticationMethodAuthenticationMethodManual manual
+	AwsAuthenticationMethodAuthenticationMethodManual AwsAuthenticationMethodAuthenticationMethod = "manual"
+	// AwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
+	AwsAuthenticationMethodAuthenticationMethodSecret AwsAuthenticationMethodAuthenticationMethod = "secret"
 )
 
-func (e AuthenticationMethodGoogleCloudStorage) ToPointer() *AuthenticationMethodGoogleCloudStorage {
+func (e AwsAuthenticationMethodAuthenticationMethod) ToPointer() *AwsAuthenticationMethodAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthenticationMethodGoogleCloudStorage) IsExact() bool {
+func (e *AwsAuthenticationMethodAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "manual", "secret":
@@ -22048,8 +22024,8 @@ type OutputGoogleCloudStorage struct {
 	// Google Cloud Storage service endpoint
 	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *components.SignatureVersionOptions4    `default:"v4" json:"signatureVersion"`
-	AwsAuthenticationMethod *AuthenticationMethodGoogleCloudStorage `default:"manual" json:"awsAuthenticationMethod"`
+	SignatureVersion        *components.SignatureVersionOptions4         `default:"v4" json:"signatureVersion"`
+	AwsAuthenticationMethod *AwsAuthenticationMethodAuthenticationMethod `default:"manual" json:"awsAuthenticationMethod"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
@@ -22220,7 +22196,7 @@ func (o *OutputGoogleCloudStorage) GetSignatureVersion() *components.SignatureVe
 	return o.SignatureVersion
 }
 
-func (o *OutputGoogleCloudStorage) GetAwsAuthenticationMethod() *AuthenticationMethodGoogleCloudStorage {
+func (o *OutputGoogleCloudStorage) GetAwsAuthenticationMethod() *AwsAuthenticationMethodAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
@@ -23635,7 +23611,7 @@ type OutputHoneycomb struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType    *components.AuthenticationMethodOptions3 `default:"manual" json:"authType"`
 	Description *string                                  `json:"description,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
@@ -23829,7 +23805,7 @@ func (o *OutputHoneycomb) GetOnBackpressure() *components.BackpressureBehaviorOp
 	return o.OnBackpressure
 }
 
-func (o *OutputHoneycomb) GetAuthType() *components.AuthenticationMethodOptions2 {
+func (o *OutputHoneycomb) GetAuthType() *components.AuthenticationMethodOptions3 {
 	if o == nil {
 		return nil
 	}
@@ -24011,8 +23987,8 @@ type OutputKinesis struct {
 	// Kinesis stream name to send events to.
 	StreamName string `json:"streamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                                `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                 `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -24134,7 +24110,7 @@ func (o *OutputKinesis) GetStreamName() string {
 	return o.StreamName
 }
 
-func (o *OutputKinesis) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputKinesis) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -25930,10 +25906,10 @@ type OutputAzureBlob struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `default:"block" json:"onDiskFullBackpressure"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                                   `default:"false" json:"forceCloseOnShutdown"`
-	AuthType             *components.AuthenticationMethodOptions `default:"manual" json:"authType"`
-	StorageClass         *BlobAccessTier                         `default:"Inferred" json:"storageClass"`
-	Description          *string                                 `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool                                    `default:"false" json:"forceCloseOnShutdown"`
+	AuthType             *components.AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	StorageClass         *BlobAccessTier                          `default:"Inferred" json:"storageClass"`
+	Description          *string                                  `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *components.CompressionOptions2 `default:"gzip" json:"compress"`
 	// Compression level to apply before moving files to final destination
@@ -26187,7 +26163,7 @@ func (o *OutputAzureBlob) GetForceCloseOnShutdown() *bool {
 	return o.ForceCloseOnShutdown
 }
 
-func (o *OutputAzureBlob) GetAuthType() *components.AuthenticationMethodOptions {
+func (o *OutputAzureBlob) GetAuthType() *components.AuthenticationMethodOptions1 {
 	if o == nil {
 		return nil
 	}
@@ -26432,7 +26408,7 @@ type OutputS3 struct {
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *components.AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
@@ -26613,7 +26589,7 @@ func (o *OutputS3) GetAwsSecretKey() *string {
 	return o.AwsSecretKey
 }
 
-func (o *OutputS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}

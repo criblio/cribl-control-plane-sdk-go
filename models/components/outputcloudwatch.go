@@ -62,8 +62,8 @@ type OutputCloudwatch struct {
 	// Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
 	LogStreamName string `json:"logStreamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the CloudWatchLogs is located
 	Region string `json:"region"`
 	// CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
@@ -182,7 +182,7 @@ func (o *OutputCloudwatch) GetLogStreamName() string {
 	return o.LogStreamName
 }
 
-func (o *OutputCloudwatch) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputCloudwatch) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}

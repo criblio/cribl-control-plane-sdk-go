@@ -2,7 +2,7 @@
 
 package components
 
-// AuthenticationMethodOptions2 - Enter API key directly, or select a stored secret
+// AuthenticationMethodOptions2 - Enter client secret directly, or select a stored secret
 type AuthenticationMethodOptions2 string
 
 const (

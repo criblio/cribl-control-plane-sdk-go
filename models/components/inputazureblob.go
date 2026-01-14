@@ -50,9 +50,9 @@ type InputAzureBlobPqEnabledTrueWithPqConstraint struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                     `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *AuthenticationMethodOptions `default:"manual" json:"authType"`
-	Description                 *string                      `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                      `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description                 *string                       `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -237,7 +237,7 @@ func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetParquetChunkDownloadTim
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions {
+func (i *InputAzureBlobPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -355,9 +355,9 @@ type InputAzureBlobPqEnabledFalseConstraint struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                     `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *AuthenticationMethodOptions `default:"manual" json:"authType"`
-	Description                 *string                      `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                      `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description                 *string                       `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -542,7 +542,7 @@ func (i *InputAzureBlobPqEnabledFalseConstraint) GetParquetChunkDownloadTimeout(
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions {
+func (i *InputAzureBlobPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -660,9 +660,9 @@ type InputAzureBlobSendToRoutesFalseWithConnectionsConstraint struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                     `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *AuthenticationMethodOptions `default:"manual" json:"authType"`
-	Description                 *string                      `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                      `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description                 *string                       `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -847,7 +847,7 @@ func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetParquetChu
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions {
+func (i *InputAzureBlobSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -988,9 +988,9 @@ type InputAzureBlobSendToRoutesTrueConstraint struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                     `default:"600" json:"parquetChunkDownloadTimeout"`
-	AuthType                    *AuthenticationMethodOptions `default:"manual" json:"authType"`
-	Description                 *string                      `json:"description,omitempty"`
+	ParquetChunkDownloadTimeout *float64                      `default:"600" json:"parquetChunkDownloadTimeout"`
+	AuthType                    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	Description                 *string                       `json:"description,omitempty"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitempty"`
 	// Select or create a stored text secret
@@ -1175,7 +1175,7 @@ func (i *InputAzureBlobSendToRoutesTrueConstraint) GetParquetChunkDownloadTimeou
 	return i.ParquetChunkDownloadTimeout
 }
 
-func (i *InputAzureBlobSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions {
+func (i *InputAzureBlobSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}

@@ -85,8 +85,8 @@ type OutputKinesis struct {
 	// Kinesis stream name to send events to.
 	StreamName string `json:"streamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -208,7 +208,7 @@ func (o *OutputKinesis) GetStreamName() string {
 	return o.StreamName
 }
 
-func (o *OutputKinesis) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputKinesis) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}

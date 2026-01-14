@@ -44,8 +44,8 @@ type InputKinesisPqEnabledTrueWithPqConstraint struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -213,7 +213,7 @@ func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetLoadBalancingAlgorithm() 
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -367,8 +367,8 @@ type InputKinesisPqEnabledFalseConstraint struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -536,7 +536,7 @@ func (i *InputKinesisPqEnabledFalseConstraint) GetLoadBalancingAlgorithm() *Shar
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -690,8 +690,8 @@ type InputKinesisSendToRoutesFalseWithConnectionsConstraint struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -859,7 +859,7 @@ func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetLoadBalancin
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}
@@ -1115,8 +1115,8 @@ type InputKinesisSendToRoutesTrueConstraint struct {
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
 	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -1284,7 +1284,7 @@ func (i *InputKinesisSendToRoutesTrueConstraint) GetLoadBalancingAlgorithm() *Sh
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if i == nil {
 		return nil
 	}

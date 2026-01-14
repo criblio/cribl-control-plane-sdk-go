@@ -152,7 +152,7 @@ type OutputNewrelic struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
 	// Enter API key directly, or select a stored secret
-	AuthType *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType *AuthenticationMethodOptions3 `default:"manual" json:"authType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitempty"`
 	Description        *string  `json:"description,omitempty"`
@@ -370,7 +370,7 @@ func (o *OutputNewrelic) GetOnBackpressure() *BackpressureBehaviorOptions {
 	return o.OnBackpressure
 }
 
-func (o *OutputNewrelic) GetAuthType() *AuthenticationMethodOptions2 {
+func (o *OutputNewrelic) GetAuthType() *AuthenticationMethodOptions3 {
 	if o == nil {
 		return nil
 	}

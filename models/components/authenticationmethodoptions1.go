@@ -2,12 +2,13 @@
 
 package components
 
-// AuthenticationMethodOptions1 - Enter client secret directly, or select a stored secret
 type AuthenticationMethodOptions1 string
 
 const (
-	AuthenticationMethodOptions1Manual AuthenticationMethodOptions1 = "manual"
-	AuthenticationMethodOptions1Secret AuthenticationMethodOptions1 = "secret"
+	AuthenticationMethodOptions1Manual       AuthenticationMethodOptions1 = "manual"
+	AuthenticationMethodOptions1Secret       AuthenticationMethodOptions1 = "secret"
+	AuthenticationMethodOptions1ClientSecret AuthenticationMethodOptions1 = "clientSecret"
+	AuthenticationMethodOptions1ClientCert   AuthenticationMethodOptions1 = "clientCert"
 )
 
 func (e AuthenticationMethodOptions1) ToPointer() *AuthenticationMethodOptions1 {
@@ -18,7 +19,7 @@ func (e AuthenticationMethodOptions1) ToPointer() *AuthenticationMethodOptions1 
 func (e *AuthenticationMethodOptions1) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "manual", "secret":
+		case "manual", "secret", "clientSecret", "clientCert":
 			return true
 		}
 	}

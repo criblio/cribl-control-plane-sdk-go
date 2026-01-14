@@ -50,7 +50,7 @@ type InputWizPqEnabledTrueWithPqConstraint struct {
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -223,7 +223,7 @@ func (i *InputWizPqEnabledTrueWithPqConstraint) GetRetryRules() *RetryRulesType 
 	return i.RetryRules
 }
 
-func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -292,7 +292,7 @@ type InputWizPqEnabledFalseConstraint struct {
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -465,7 +465,7 @@ func (i *InputWizPqEnabledFalseConstraint) GetRetryRules() *RetryRulesType {
 	return i.RetryRules
 }
 
-func (i *InputWizPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -534,7 +534,7 @@ type InputWizSendToRoutesFalseWithConnectionsConstraint struct {
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -707,7 +707,7 @@ func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetRetryRules() *Re
 	return i.RetryRules
 }
 
-func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}
@@ -976,7 +976,7 @@ type InputWizSendToRoutesTrueConstraint struct {
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions1 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -1149,7 +1149,7 @@ func (i *InputWizSendToRoutesTrueConstraint) GetRetryRules() *RetryRulesType {
 	return i.RetryRules
 }
 
-func (i *InputWizSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions1 {
+func (i *InputWizSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions2 {
 	if i == nil {
 		return nil
 	}

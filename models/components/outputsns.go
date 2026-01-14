@@ -87,8 +87,8 @@ type OutputSns struct {
 	// Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
 	MaxRetries *float64 `json:"maxRetries,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
 	// Region where the SNS is located
 	Region *string `json:"region,omitempty"`
 	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
@@ -210,7 +210,7 @@ func (o *OutputSns) GetMaxRetries() *float64 {
 	return o.MaxRetries
 }
 
-func (o *OutputSns) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputSns) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
