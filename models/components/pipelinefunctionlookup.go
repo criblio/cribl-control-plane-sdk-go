@@ -32,170 +32,6 @@ func (e *PipelineFunctionLookupID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionLookupInField struct {
-	// Field name as it appears in events
-	EventField string `json:"eventField"`
-	// Optional: The field name as it appears in the lookup file. Defaults to event field name
-	LookupField *string `json:"lookupField,omitempty"`
-}
-
-func (p PipelineFunctionLookupInField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionLookupInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"eventField"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionLookupInField) GetEventField() string {
-	if p == nil {
-		return ""
-	}
-	return p.EventField
-}
-
-func (p *PipelineFunctionLookupInField) GetLookupField() *string {
-	if p == nil {
-		return nil
-	}
-	return p.LookupField
-}
-
-type PipelineFunctionLookupOutField struct {
-	// The field name as it appears in the lookup file
-	LookupField string `json:"lookupField"`
-	// Optional: Field name to add to event. Defaults to lookup field name.
-	EventField *string `json:"eventField,omitempty"`
-	// Optional: Value to assign if lookup entry is not found
-	DefaultValue *string `json:"defaultValue,omitempty"`
-}
-
-func (p PipelineFunctionLookupOutField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionLookupOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"lookupField"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionLookupOutField) GetLookupField() string {
-	if p == nil {
-		return ""
-	}
-	return p.LookupField
-}
-
-func (p *PipelineFunctionLookupOutField) GetEventField() *string {
-	if p == nil {
-		return nil
-	}
-	return p.EventField
-}
-
-func (p *PipelineFunctionLookupOutField) GetDefaultValue() *string {
-	if p == nil {
-		return nil
-	}
-	return p.DefaultValue
-}
-
-type PipelineFunctionLookupConf struct {
-	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
-	File string `json:"file"`
-	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup        *bool `json:"dbLookup,omitempty"`
-	MatchMode       any   `json:"matchMode,omitempty"`
-	MatchType       any   `json:"matchType,omitempty"`
-	ReloadPeriodSec any   `json:"reloadPeriodSec,omitempty"`
-	// Fields that should be used to key into the lookup table
-	InFields []PipelineFunctionLookupInField `json:"inFields,omitempty"`
-	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []PipelineFunctionLookupOutField `json:"outFields,omitempty"`
-	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `json:"addToEvent,omitempty"`
-	IgnoreCase any   `json:"ignoreCase,omitempty"`
-}
-
-func (p PipelineFunctionLookupConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionLookupConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"file"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionLookupConf) GetFile() string {
-	if p == nil {
-		return ""
-	}
-	return p.File
-}
-
-func (p *PipelineFunctionLookupConf) GetDbLookup() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.DbLookup
-}
-
-func (p *PipelineFunctionLookupConf) GetMatchMode() any {
-	if p == nil {
-		return nil
-	}
-	return p.MatchMode
-}
-
-func (p *PipelineFunctionLookupConf) GetMatchType() any {
-	if p == nil {
-		return nil
-	}
-	return p.MatchType
-}
-
-func (p *PipelineFunctionLookupConf) GetReloadPeriodSec() any {
-	if p == nil {
-		return nil
-	}
-	return p.ReloadPeriodSec
-}
-
-func (p *PipelineFunctionLookupConf) GetInFields() []PipelineFunctionLookupInField {
-	if p == nil {
-		return nil
-	}
-	return p.InFields
-}
-
-func (p *PipelineFunctionLookupConf) GetOutFields() []PipelineFunctionLookupOutField {
-	if p == nil {
-		return nil
-	}
-	return p.OutFields
-}
-
-func (p *PipelineFunctionLookupConf) GetAddToEvent() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.AddToEvent
-}
-
-func (p *PipelineFunctionLookupConf) GetIgnoreCase() any {
-	if p == nil {
-		return nil
-	}
-	return p.IgnoreCase
-}
-
 type PipelineFunctionLookup struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -206,8 +42,8 @@ type PipelineFunctionLookup struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitempty"`
-	Conf  PipelineFunctionLookupConf `json:"conf"`
+	Final *bool                    `json:"final,omitempty"`
+	Conf  FunctionConfSchemaLookup `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -258,9 +94,9 @@ func (p *PipelineFunctionLookup) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionLookup) GetConf() PipelineFunctionLookupConf {
+func (p *PipelineFunctionLookup) GetConf() FunctionConfSchemaLookup {
 	if p == nil {
-		return PipelineFunctionLookupConf{}
+		return FunctionConfSchemaLookup{}
 	}
 	return p.Conf
 }

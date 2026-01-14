@@ -32,38 +32,6 @@ func (e *PipelineFunctionPackID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionPackConf struct {
-	// List of fields to keep, everything else will be packed
-	UnpackedFields []string `json:"unpackedFields"`
-	// Name of the (packed) target field
-	Target *string `json:"target,omitempty"`
-}
-
-func (p PipelineFunctionPackConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionPackConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"unpackedFields"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionPackConf) GetUnpackedFields() []string {
-	if p == nil {
-		return []string{}
-	}
-	return p.UnpackedFields
-}
-
-func (p *PipelineFunctionPackConf) GetTarget() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Target
-}
-
 type PipelineFunctionPack struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -74,8 +42,8 @@ type PipelineFunctionPack struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitempty"`
-	Conf  PipelineFunctionPackConf `json:"conf"`
+	Final *bool                  `json:"final,omitempty"`
+	Conf  FunctionConfSchemaPack `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -126,9 +94,9 @@ func (p *PipelineFunctionPack) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionPack) GetConf() PipelineFunctionPackConf {
+func (p *PipelineFunctionPack) GetConf() FunctionConfSchemaPack {
 	if p == nil {
-		return PipelineFunctionPackConf{}
+		return FunctionConfSchemaPack{}
 	}
 	return p.Conf
 }

@@ -32,111 +32,6 @@ func (e *PipelineFunctionGeoipID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionGeoipAdditionalField struct {
-	// Field name in which to find an IP to look up. Can be nested.
-	ExtraInField string `json:"extraInField"`
-	// Field name in which to store the GeoIP lookup results
-	ExtraOutField string `json:"extraOutField"`
-}
-
-func (p PipelineFunctionGeoipAdditionalField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionGeoipAdditionalField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"extraInField", "extraOutField"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionGeoipAdditionalField) GetExtraInField() string {
-	if p == nil {
-		return ""
-	}
-	return p.ExtraInField
-}
-
-func (p *PipelineFunctionGeoipAdditionalField) GetExtraOutField() string {
-	if p == nil {
-		return ""
-	}
-	return p.ExtraOutField
-}
-
-// PipelineFunctionGeoipOutputFieldMappings - Search-specific mappings for granular control over event enrichment
-type PipelineFunctionGeoipOutputFieldMappings struct {
-}
-
-func (p PipelineFunctionGeoipOutputFieldMappings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionGeoipOutputFieldMappings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type PipelineFunctionGeoipConf struct {
-	// Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
-	File string `json:"file"`
-	// Field name in which to find an IP to look up. Can be nested.
-	InField *string `json:"inField,omitempty"`
-	// Field name in which to store the GeoIP lookup results
-	OutField         *string                                `json:"outField,omitempty"`
-	AdditionalFields []PipelineFunctionGeoipAdditionalField `json:"additionalFields,omitempty"`
-	// Search-specific mappings for granular control over event enrichment
-	OutFieldMappings *PipelineFunctionGeoipOutputFieldMappings `json:"outFieldMappings,omitempty"`
-}
-
-func (p PipelineFunctionGeoipConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionGeoipConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"file"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionGeoipConf) GetFile() string {
-	if p == nil {
-		return ""
-	}
-	return p.File
-}
-
-func (p *PipelineFunctionGeoipConf) GetInField() *string {
-	if p == nil {
-		return nil
-	}
-	return p.InField
-}
-
-func (p *PipelineFunctionGeoipConf) GetOutField() *string {
-	if p == nil {
-		return nil
-	}
-	return p.OutField
-}
-
-func (p *PipelineFunctionGeoipConf) GetAdditionalFields() []PipelineFunctionGeoipAdditionalField {
-	if p == nil {
-		return nil
-	}
-	return p.AdditionalFields
-}
-
-func (p *PipelineFunctionGeoipConf) GetOutFieldMappings() *PipelineFunctionGeoipOutputFieldMappings {
-	if p == nil {
-		return nil
-	}
-	return p.OutFieldMappings
-}
-
 type PipelineFunctionGeoip struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -147,8 +42,8 @@ type PipelineFunctionGeoip struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitempty"`
-	Conf  PipelineFunctionGeoipConf `json:"conf"`
+	Final *bool                   `json:"final,omitempty"`
+	Conf  FunctionConfSchemaGeoip `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -199,9 +94,9 @@ func (p *PipelineFunctionGeoip) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionGeoip) GetConf() PipelineFunctionGeoipConf {
+func (p *PipelineFunctionGeoip) GetConf() FunctionConfSchemaGeoip {
 	if p == nil {
-		return PipelineFunctionGeoipConf{}
+		return FunctionConfSchemaGeoip{}
 	}
 	return p.Conf
 }

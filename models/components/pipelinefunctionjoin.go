@@ -32,97 +32,6 @@ func (e *PipelineFunctionJoinID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionJoinFieldCondition struct {
-	// The field name to join on, on the left side.
-	LeftFieldName string `json:"leftFieldName"`
-	// The field name on the right side of the data, i.e. the stage results, that we are joining with
-	RightFieldName string `json:"rightFieldName"`
-}
-
-func (p PipelineFunctionJoinFieldCondition) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionJoinFieldCondition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"leftFieldName", "rightFieldName"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionJoinFieldCondition) GetLeftFieldName() string {
-	if p == nil {
-		return ""
-	}
-	return p.LeftFieldName
-}
-
-func (p *PipelineFunctionJoinFieldCondition) GetRightFieldName() string {
-	if p == nil {
-		return ""
-	}
-	return p.RightFieldName
-}
-
-type JoinConfiguration struct {
-	// Join kind, e.g. inner
-	Kind *string `json:"kind,omitempty"`
-	// Hints passed to the join function
-	Hints map[string]string `json:"hints,omitempty"`
-	// Fields to use when joining
-	FieldConditions []PipelineFunctionJoinFieldCondition `json:"fieldConditions"`
-	// The id for this search job.
-	SearchJobID *string `json:"searchJobId,omitempty"`
-	// The stage we are joining with.
-	StageID *string `json:"stageId,omitempty"`
-}
-
-func (j JoinConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(j, "", false)
-}
-
-func (j *JoinConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &j, "", false, []string{"fieldConditions"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (j *JoinConfiguration) GetKind() *string {
-	if j == nil {
-		return nil
-	}
-	return j.Kind
-}
-
-func (j *JoinConfiguration) GetHints() map[string]string {
-	if j == nil {
-		return nil
-	}
-	return j.Hints
-}
-
-func (j *JoinConfiguration) GetFieldConditions() []PipelineFunctionJoinFieldCondition {
-	if j == nil {
-		return []PipelineFunctionJoinFieldCondition{}
-	}
-	return j.FieldConditions
-}
-
-func (j *JoinConfiguration) GetSearchJobID() *string {
-	if j == nil {
-		return nil
-	}
-	return j.SearchJobID
-}
-
-func (j *JoinConfiguration) GetStageID() *string {
-	if j == nil {
-		return nil
-	}
-	return j.StageID
-}
-
 type PipelineFunctionJoin struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -133,8 +42,8 @@ type PipelineFunctionJoin struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool             `json:"final,omitempty"`
-	Conf  JoinConfiguration `json:"conf"`
+	Final *bool                  `json:"final,omitempty"`
+	Conf  FunctionConfSchemaJoin `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -185,9 +94,9 @@ func (p *PipelineFunctionJoin) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionJoin) GetConf() JoinConfiguration {
+func (p *PipelineFunctionJoin) GetConf() FunctionConfSchemaJoin {
 	if p == nil {
-		return JoinConfiguration{}
+		return FunctionConfSchemaJoin{}
 	}
 	return p.Conf
 }

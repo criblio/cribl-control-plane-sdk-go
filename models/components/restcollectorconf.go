@@ -2559,28 +2559,28 @@ func (r *RestAuthenticationOauth) GetScheduling() *RestAuthenticationOauthSchedu
 	return r.Scheduling
 }
 
-// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication string
+// RestAuthenticationLoginSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+type RestAuthenticationLoginSecretAuthentication string
 
 const (
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationNone              RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "none"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationBasic             RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "basic"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationBasicSecret       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "basicSecret"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationLogin             RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "login"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationLoginSecret       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "loginSecret"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationOauth             RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "oauth"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationOauthSecret       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "oauthSecret"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationGoogleOauth       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "google_oauth"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationGoogleOauthSecret RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "google_oauthSecret"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthenticationHmac              RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication = "hmac"
+	RestAuthenticationLoginSecretAuthenticationNone              RestAuthenticationLoginSecretAuthentication = "none"
+	RestAuthenticationLoginSecretAuthenticationBasic             RestAuthenticationLoginSecretAuthentication = "basic"
+	RestAuthenticationLoginSecretAuthenticationBasicSecret       RestAuthenticationLoginSecretAuthentication = "basicSecret"
+	RestAuthenticationLoginSecretAuthenticationLogin             RestAuthenticationLoginSecretAuthentication = "login"
+	RestAuthenticationLoginSecretAuthenticationLoginSecret       RestAuthenticationLoginSecretAuthentication = "loginSecret"
+	RestAuthenticationLoginSecretAuthenticationOauth             RestAuthenticationLoginSecretAuthentication = "oauth"
+	RestAuthenticationLoginSecretAuthenticationOauthSecret       RestAuthenticationLoginSecretAuthentication = "oauthSecret"
+	RestAuthenticationLoginSecretAuthenticationGoogleOauth       RestAuthenticationLoginSecretAuthentication = "google_oauth"
+	RestAuthenticationLoginSecretAuthenticationGoogleOauthSecret RestAuthenticationLoginSecretAuthentication = "google_oauthSecret"
+	RestAuthenticationLoginSecretAuthenticationHmac              RestAuthenticationLoginSecretAuthentication = "hmac"
 )
 
-func (e RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication) ToPointer() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication {
+func (e RestAuthenticationLoginSecretAuthentication) ToPointer() *RestAuthenticationLoginSecretAuthentication {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication) IsExact() bool {
+func (e *RestAuthenticationLoginSecretAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret", "google_oauth", "google_oauthSecret", "hmac":
@@ -2590,22 +2590,22 @@ func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication) 
 	return false
 }
 
-// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType string
+// RestAuthenticationLoginSecretDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type RestAuthenticationLoginSecretDiscoverType string
 
 const (
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverTypeHTTP RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType = "http"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverTypeJSON RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType = "json"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverTypeList RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType = "list"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverTypeNone RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType = "none"
+	RestAuthenticationLoginSecretDiscoverTypeHTTP RestAuthenticationLoginSecretDiscoverType = "http"
+	RestAuthenticationLoginSecretDiscoverTypeJSON RestAuthenticationLoginSecretDiscoverType = "json"
+	RestAuthenticationLoginSecretDiscoverTypeList RestAuthenticationLoginSecretDiscoverType = "list"
+	RestAuthenticationLoginSecretDiscoverTypeNone RestAuthenticationLoginSecretDiscoverType = "none"
 )
 
-func (e RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType) ToPointer() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType {
+func (e RestAuthenticationLoginSecretDiscoverType) ToPointer() *RestAuthenticationLoginSecretDiscoverType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType) IsExact() bool {
+func (e *RestAuthenticationLoginSecretDiscoverType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "http", "json", "list", "none":
@@ -2615,48 +2615,48 @@ func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType) Is
 	return false
 }
 
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery struct {
+type RestAuthenticationLoginSecretDiscovery struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType `json:"discoverType"`
+	DiscoverType RestAuthenticationLoginSecretDiscoverType `json:"discoverType"`
 }
 
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginSecretDiscovery) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginSecretDiscovery) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery) GetDiscoverType() RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType {
+func (r *RestAuthenticationLoginSecretDiscovery) GetDiscoverType() RestAuthenticationLoginSecretDiscoverType {
 	if r == nil {
-		return RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscoverType("")
+		return RestAuthenticationLoginSecretDiscoverType("")
 	}
 	return r.DiscoverType
 }
 
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod string
+type RestAuthenticationLoginSecretCollectMethod string
 
 const (
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethodGet GET
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethodGet RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod = "get"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethodPost POST
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethodPost RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod = "post"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethodPostWithBody POST with Body
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethodPostWithBody RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod = "post_with_body"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethodOther Other
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethodOther RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod = "other"
+	// RestAuthenticationLoginSecretCollectMethodGet GET
+	RestAuthenticationLoginSecretCollectMethodGet RestAuthenticationLoginSecretCollectMethod = "get"
+	// RestAuthenticationLoginSecretCollectMethodPost POST
+	RestAuthenticationLoginSecretCollectMethodPost RestAuthenticationLoginSecretCollectMethod = "post"
+	// RestAuthenticationLoginSecretCollectMethodPostWithBody POST with Body
+	RestAuthenticationLoginSecretCollectMethodPostWithBody RestAuthenticationLoginSecretCollectMethod = "post_with_body"
+	// RestAuthenticationLoginSecretCollectMethodOther Other
+	RestAuthenticationLoginSecretCollectMethodOther RestAuthenticationLoginSecretCollectMethod = "other"
 )
 
-func (e RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod) ToPointer() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod {
+func (e RestAuthenticationLoginSecretCollectMethod) ToPointer() *RestAuthenticationLoginSecretCollectMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod) IsExact() bool {
+func (e *RestAuthenticationLoginSecretCollectMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "get", "post", "post_with_body", "other":
@@ -2666,29 +2666,29 @@ func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod) I
 	return false
 }
 
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum string
+type RestAuthenticationLoginSecretPaginationEnum string
 
 const (
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumNone None
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumNone RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum = "none"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumResponseBody Response Body Attribute
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumResponseBody RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum = "response_body"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumResponseHeader Response Header Attribute
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumResponseHeader RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum = "response_header"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumResponseHeaderLink RFC 5988 - Web Linking
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumResponseHeaderLink RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum = "response_header_link"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumRequestOffset Offset/Limit
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumRequestOffset RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum = "request_offset"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumRequestPage Page/Size
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnumRequestPage RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum = "request_page"
+	// RestAuthenticationLoginSecretPaginationEnumNone None
+	RestAuthenticationLoginSecretPaginationEnumNone RestAuthenticationLoginSecretPaginationEnum = "none"
+	// RestAuthenticationLoginSecretPaginationEnumResponseBody Response Body Attribute
+	RestAuthenticationLoginSecretPaginationEnumResponseBody RestAuthenticationLoginSecretPaginationEnum = "response_body"
+	// RestAuthenticationLoginSecretPaginationEnumResponseHeader Response Header Attribute
+	RestAuthenticationLoginSecretPaginationEnumResponseHeader RestAuthenticationLoginSecretPaginationEnum = "response_header"
+	// RestAuthenticationLoginSecretPaginationEnumResponseHeaderLink RFC 5988 - Web Linking
+	RestAuthenticationLoginSecretPaginationEnumResponseHeaderLink RestAuthenticationLoginSecretPaginationEnum = "response_header_link"
+	// RestAuthenticationLoginSecretPaginationEnumRequestOffset Offset/Limit
+	RestAuthenticationLoginSecretPaginationEnumRequestOffset RestAuthenticationLoginSecretPaginationEnum = "request_offset"
+	// RestAuthenticationLoginSecretPaginationEnumRequestPage Page/Size
+	RestAuthenticationLoginSecretPaginationEnumRequestPage RestAuthenticationLoginSecretPaginationEnum = "request_page"
 )
 
-func (e RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum) ToPointer() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum {
+func (e RestAuthenticationLoginSecretPaginationEnum) ToPointer() *RestAuthenticationLoginSecretPaginationEnum {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum) IsExact() bool {
+func (e *RestAuthenticationLoginSecretPaginationEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "response_body", "response_header", "response_header_link", "request_offset", "request_page":
@@ -2698,29 +2698,29 @@ func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum) 
 	return false
 }
 
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination struct {
-	Type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum `json:"type"`
+type RestAuthenticationLoginSecretPagination struct {
+	Type RestAuthenticationLoginSecretPaginationEnum `json:"type"`
 }
 
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginSecretPagination) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginSecretPagination) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination) GetType() RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum {
+func (r *RestAuthenticationLoginSecretPagination) GetType() RestAuthenticationLoginSecretPaginationEnum {
 	if r == nil {
-		return RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePaginationEnum("")
+		return RestAuthenticationLoginSecretPaginationEnum("")
 	}
 	return r.Type
 }
 
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules struct {
+type RestAuthenticationLoginSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	Interval            any                                                `json:"interval,omitempty"`
@@ -2733,1284 +2733,150 @@ type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules struct {
 	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (r *RestAuthenticationLoginSecretRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if r == nil {
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetInterval() any {
+func (r *RestAuthenticationLoginSecretRetryRules) GetInterval() any {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetLimit() any {
+func (r *RestAuthenticationLoginSecretRetryRules) GetLimit() any {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetMultiplier() any {
+func (r *RestAuthenticationLoginSecretRetryRules) GetMultiplier() any {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginSecretRetryRules) GetMaxIntervalMs() any {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetCodes() any {
+func (r *RestAuthenticationLoginSecretRetryRules) GetCodes() any {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetEnableHeader() any {
+func (r *RestAuthenticationLoginSecretRetryRules) GetEnableHeader() any {
 	if r == nil {
 		return nil
 	}
 	return r.EnableHeader
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginSecretRetryRules) GetRetryConnectTimeout() any {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginSecretRetryRules) GetRetryConnectReset() any {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking struct {
+type RestAuthenticationLoginSecretStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitempty"`
 }
 
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginSecretStateTracking) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginSecretStateTracking) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking) GetEnabled() *bool {
+func (r *RestAuthenticationLoginSecretStateTracking) GetEnabled() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.Enabled
 }
 
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling struct {
-	StateTracking *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking `json:"stateTracking,omitempty"`
+type RestAuthenticationLoginSecretScheduling struct {
+	StateTracking *RestAuthenticationLoginSecretStateTracking `json:"stateTracking,omitempty"`
 }
 
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginSecretScheduling) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginSecretScheduling) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling) GetStateTracking() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueStateTracking {
+func (r *RestAuthenticationLoginSecretScheduling) GetStateTracking() *RestAuthenticationLoginSecretStateTracking {
 	if r == nil {
 		return nil
 	}
 	return r.StateTracking
 }
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue struct {
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitempty"`
-	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-	Authentication RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication `json:"authentication"`
-	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL string `json:"loginUrl"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret string `json:"credentialsSecret"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody string `json:"loginBody"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `json:"authHeaderKey,omitempty"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     string                                                            `json:"authHeaderExpr"`
-	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams               `json:"authRequestHeaders,omitempty"`
-	Discovery          *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery `json:"discovery,omitempty"`
-	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                                               `json:"collectUrl"`
-	CollectMethod         RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod `json:"collectMethod"`
-	CollectVerb           any                                                                  `json:"collectVerb,omitempty"`
-	CollectRequestParams  any                                                                  `json:"collectRequestParams,omitempty"`
-	CollectBody           any                                                                  `json:"collectBody,omitempty"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                  `json:"collectRequestHeaders,omitempty"`
-	Pagination            *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination   `json:"pagination,omitempty"`
-	// HTTP request inactivity timeout. Use 0 to disable.
-	Timeout *float64 `json:"timeout,omitempty"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
-	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
-	// Decode the URL before sending requests (including pagination requests)
-	DecodeURL *bool `json:"decodeUrl,omitempty"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
-	// Enable to add response headers to the resHeaders field under the __collectible object
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// Stop pagination when the Event Breaker produces no events
-	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitempty"`
-	// List of headers that are safe to log in plain text
-	SafeHeaders []string                                                           `json:"safeHeaders,omitempty"`
-	RetryRules  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules `json:"retryRules,omitempty"`
-	Scheduling  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling `json:"__scheduling,omitempty"`
-}
-
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "credentialsSecret", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetGetAuthTokenFromHeader() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.GetAuthTokenFromHeader
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetAuthentication() RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication {
-	if r == nil {
-		return RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueAuthentication("")
-	}
-	return r.Authentication
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetLoginURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.LoginURL
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetCredentialsSecret() string {
-	if r == nil {
-		return ""
-	}
-	return r.CredentialsSecret
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetLoginBody() string {
-	if r == nil {
-		return ""
-	}
-	return r.LoginBody
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetAuthHeaderKey() *string {
-	if r == nil {
-		return nil
-	}
-	return r.AuthHeaderKey
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetAuthHeaderExpr() string {
-	if r == nil {
-		return ""
-	}
-	return r.AuthHeaderExpr
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.AuthRequestHeaders
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetDiscovery() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueDiscovery {
-	if r == nil {
-		return nil
-	}
-	return r.Discovery
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetCollectURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.CollectURL
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetCollectMethod() RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod {
-	if r == nil {
-		return RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueCollectMethod("")
-	}
-	return r.CollectMethod
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetCollectVerb() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectVerb
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetCollectRequestParams() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectRequestParams
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetCollectBody() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectBody
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.CollectRequestHeaders
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetPagination() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTruePagination {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetTimeout() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Timeout
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetUseRoundRobinDNS() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.UseRoundRobinDNS
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetDisableTimeFilter() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.DisableTimeFilter
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetDecodeURL() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.DecodeURL
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetRejectUnauthorized() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RejectUnauthorized
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetCaptureHeaders() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.CaptureHeaders
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetStopOnEmptyResults() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.StopOnEmptyResults
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetSafeHeaders() []string {
-	if r == nil {
-		return nil
-	}
-	return r.SafeHeaders
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetRetryRules() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRetryRules {
-	if r == nil {
-		return nil
-	}
-	return r.RetryRules
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) GetScheduling() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueScheduling {
-	if r == nil {
-		return nil
-	}
-	return r.Scheduling
-}
-
-// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication string
-
-const (
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationNone              RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "none"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationBasic             RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "basic"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationBasicSecret       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "basicSecret"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationLogin             RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "login"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationLoginSecret       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "loginSecret"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationOauth             RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "oauth"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationOauthSecret       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "oauthSecret"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationGoogleOauth       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "google_oauth"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationGoogleOauthSecret RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "google_oauthSecret"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthenticationHmac              RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication = "hmac"
-)
-
-func (e RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication) ToPointer() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret", "google_oauth", "google_oauthSecret", "hmac":
-			return true
-		}
-	}
-	return false
-}
-
-// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType string
-
-const (
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverTypeHTTP RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType = "http"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverTypeJSON RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType = "json"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverTypeList RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType = "list"
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverTypeNone RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType = "none"
-)
-
-func (e RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType) ToPointer() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery struct {
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType `json:"discoverType"`
-}
-
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery) GetDiscoverType() RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType {
-	if r == nil {
-		return RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod string
-
-const (
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethodGet GET
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethodGet RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod = "get"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethodPost POST
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethodPost RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod = "post"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethodPostWithBody POST with Body
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethodPostWithBody RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod = "post_with_body"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethodOther Other
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethodOther RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod = "other"
-)
-
-func (e RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod) ToPointer() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body", "other":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum string
-
-const (
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumNone None
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumNone RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum = "none"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumResponseBody Response Body Attribute
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumResponseBody RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum = "response_body"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumResponseHeader Response Header Attribute
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumResponseHeader RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum = "response_header"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumResponseHeaderLink RFC 5988 - Web Linking
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumResponseHeaderLink RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum = "response_header_link"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumRequestOffset Offset/Limit
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumRequestOffset RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum = "request_offset"
-	// RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumRequestPage Page/Size
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnumRequestPage RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum = "request_page"
-)
-
-func (e RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum) ToPointer() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "response_body", "response_header", "response_header_link", "request_offset", "request_page":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination struct {
-	Type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum `json:"type"`
-}
-
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination) GetType() RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum {
-	if r == nil {
-		return RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePaginationEnum("")
-	}
-	return r.Type
-}
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules struct {
-	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-}
-
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if r == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
-}
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking struct {
-	// Track collection progress between consecutive scheduled executions
-	Enabled *bool `json:"enabled,omitempty"`
-}
-
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling struct {
-	StateTracking *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking `json:"stateTracking,omitempty"`
-}
-
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling) GetStateTracking() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking {
-	if r == nil {
-		return nil
-	}
-	return r.StateTracking
-}
-
-type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse struct {
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitempty"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-	Authentication RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication `json:"authentication"`
-	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL string `json:"loginUrl"`
-	// Select or create a stored secret that references your login credentials
-	CredentialsSecret string `json:"credentialsSecret"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody string `json:"loginBody"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `json:"authHeaderKey,omitempty"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     string                                                             `json:"authHeaderExpr"`
-	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                `json:"authRequestHeaders,omitempty"`
-	Discovery          *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery `json:"discovery,omitempty"`
-	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                                                `json:"collectUrl"`
-	CollectMethod         RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod `json:"collectMethod"`
-	CollectVerb           any                                                                   `json:"collectVerb,omitempty"`
-	CollectRequestParams  any                                                                   `json:"collectRequestParams,omitempty"`
-	CollectBody           any                                                                   `json:"collectBody,omitempty"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams                   `json:"collectRequestHeaders,omitempty"`
-	Pagination            *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination   `json:"pagination,omitempty"`
-	// HTTP request inactivity timeout. Use 0 to disable.
-	Timeout *float64 `json:"timeout,omitempty"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
-	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
-	// Decode the URL before sending requests (including pagination requests)
-	DecodeURL *bool `json:"decodeUrl,omitempty"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
-	// Enable to add response headers to the resHeaders field under the __collectible object
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// Stop pagination when the Event Breaker produces no events
-	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitempty"`
-	// List of headers that are safe to log in plain text
-	SafeHeaders []string                                                            `json:"safeHeaders,omitempty"`
-	RetryRules  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules `json:"retryRules,omitempty"`
-	Scheduling  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling `json:"__scheduling,omitempty"`
-}
-
-func (r RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "credentialsSecret", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetGetAuthTokenFromHeader() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.GetAuthTokenFromHeader
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetTokenRespAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TokenRespAttribute
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetAuthentication() RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication {
-	if r == nil {
-		return RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseAuthentication("")
-	}
-	return r.Authentication
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetLoginURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.LoginURL
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetCredentialsSecret() string {
-	if r == nil {
-		return ""
-	}
-	return r.CredentialsSecret
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetLoginBody() string {
-	if r == nil {
-		return ""
-	}
-	return r.LoginBody
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetAuthHeaderKey() *string {
-	if r == nil {
-		return nil
-	}
-	return r.AuthHeaderKey
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetAuthHeaderExpr() string {
-	if r == nil {
-		return ""
-	}
-	return r.AuthHeaderExpr
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.AuthRequestHeaders
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetDiscovery() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseDiscovery {
-	if r == nil {
-		return nil
-	}
-	return r.Discovery
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetCollectURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.CollectURL
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetCollectMethod() RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod {
-	if r == nil {
-		return RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseCollectMethod("")
-	}
-	return r.CollectMethod
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetCollectVerb() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectVerb
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetCollectRequestParams() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectRequestParams
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetCollectBody() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectBody
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.CollectRequestHeaders
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetPagination() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalsePagination {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetTimeout() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Timeout
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetUseRoundRobinDNS() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.UseRoundRobinDNS
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetDisableTimeFilter() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.DisableTimeFilter
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetDecodeURL() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.DecodeURL
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetRejectUnauthorized() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RejectUnauthorized
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetCaptureHeaders() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.CaptureHeaders
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetStopOnEmptyResults() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.StopOnEmptyResults
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetSafeHeaders() []string {
-	if r == nil {
-		return nil
-	}
-	return r.SafeHeaders
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetRetryRules() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRetryRules {
-	if r == nil {
-		return nil
-	}
-	return r.RetryRules
-}
-
-func (r *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) GetScheduling() *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseScheduling {
-	if r == nil {
-		return nil
-	}
-	return r.Scheduling
-}
-
-type RestAuthenticationLoginSecretType string
-
-const (
-	RestAuthenticationLoginSecretTypeRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse RestAuthenticationLoginSecretType = "RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse"
-	RestAuthenticationLoginSecretTypeRestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue  RestAuthenticationLoginSecretType = "RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue"
-)
 
 type RestAuthenticationLoginSecret struct {
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse *RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse `queryParam:"inline" union:"member"`
-	RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue  *RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue  `queryParam:"inline" union:"member"`
-
-	Type RestAuthenticationLoginSecretType
-}
-
-func CreateRestAuthenticationLoginSecretRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse(restAuthenticationLoginSecretGetAuthTokenFromHeaderFalse RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse) RestAuthenticationLoginSecret {
-	typ := RestAuthenticationLoginSecretTypeRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse
-
-	return RestAuthenticationLoginSecret{
-		RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse: &restAuthenticationLoginSecretGetAuthTokenFromHeaderFalse,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationLoginSecretRestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue(restAuthenticationLoginSecretGetAuthTokenFromHeaderTrue RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue) RestAuthenticationLoginSecret {
-	typ := RestAuthenticationLoginSecretTypeRestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue
-
-	return RestAuthenticationLoginSecret{
-		RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue: &restAuthenticationLoginSecretGetAuthTokenFromHeaderTrue,
-		Type: typ,
-	}
-}
-
-func (u *RestAuthenticationLoginSecret) UnmarshalJSON(data []byte) error {
-
-	var restAuthenticationLoginSecretGetAuthTokenFromHeaderFalse RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse = RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse{}
-	if err := utils.UnmarshalJSON(data, &restAuthenticationLoginSecretGetAuthTokenFromHeaderFalse, "", true, nil); err == nil {
-		u.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse = &restAuthenticationLoginSecretGetAuthTokenFromHeaderFalse
-		u.Type = RestAuthenticationLoginSecretTypeRestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse
-		return nil
-	}
-
-	var restAuthenticationLoginSecretGetAuthTokenFromHeaderTrue RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue = RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue{}
-	if err := utils.UnmarshalJSON(data, &restAuthenticationLoginSecretGetAuthTokenFromHeaderTrue, "", true, nil); err == nil {
-		u.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue = &restAuthenticationLoginSecretGetAuthTokenFromHeaderTrue
-		u.Type = RestAuthenticationLoginSecretTypeRestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLoginSecret", string(data))
-}
-
-func (u RestAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
-	if u.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse != nil {
-		return utils.MarshalJSON(u.RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalse, "", true)
-	}
-
-	if u.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue != nil {
-		return utils.MarshalJSON(u.RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrue, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type RestAuthenticationLoginSecret: all fields are null")
-}
-
-// RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-type RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication string
-
-const (
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationNone              RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "none"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationBasic             RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "basic"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationBasicSecret       RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "basicSecret"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationLogin             RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "login"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationLoginSecret       RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "loginSecret"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationOauth             RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "oauth"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationOauthSecret       RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "oauthSecret"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationGoogleOauth       RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "google_oauth"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationGoogleOauthSecret RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "google_oauthSecret"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthenticationHmac              RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication = "hmac"
-)
-
-func (e RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication) ToPointer() *RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret", "google_oauth", "google_oauthSecret", "hmac":
-			return true
-		}
-	}
-	return false
-}
-
-// RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType string
-
-const (
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverTypeHTTP RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType = "http"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverTypeJSON RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType = "json"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverTypeList RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType = "list"
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverTypeNone RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType = "none"
-)
-
-func (e RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType) ToPointer() *RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery struct {
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType `json:"discoverType"`
-}
-
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery) GetDiscoverType() RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType {
-	if r == nil {
-		return RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod string
-
-const (
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethodGet GET
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethodGet RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod = "get"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethodPost POST
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethodPost RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod = "post"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethodPostWithBody POST with Body
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethodPostWithBody RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod = "post_with_body"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethodOther Other
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethodOther RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod = "other"
-)
-
-func (e RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod) ToPointer() *RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "get", "post", "post_with_body", "other":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum string
-
-const (
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumNone None
-	RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumNone RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = "none"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumResponseBody Response Body Attribute
-	RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumResponseBody RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = "response_body"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumResponseHeader Response Header Attribute
-	RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumResponseHeader RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = "response_header"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumResponseHeaderLink RFC 5988 - Web Linking
-	RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumResponseHeaderLink RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = "response_header_link"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumRequestOffset Offset/Limit
-	RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumRequestOffset RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = "request_offset"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumRequestPage Page/Size
-	RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnumRequestPage RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum = "request_page"
-)
-
-func (e RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum) ToPointer() *RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "response_body", "response_header", "response_header_link", "request_offset", "request_page":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination struct {
-	Type RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum `json:"type"`
-}
-
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination) GetType() RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum {
-	if r == nil {
-		return RestAuthenticationLoginGetAuthTokenFromHeaderTruePaginationEnum("")
-	}
-	return r.Type
-}
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules struct {
-	// The algorithm to use when performing HTTP retries
-	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	Interval            any                                                `json:"interval,omitempty"`
-	Limit               any                                                `json:"limit,omitempty"`
-	Multiplier          any                                                `json:"multiplier,omitempty"`
-	MaxIntervalMs       any                                                `json:"maxIntervalMs,omitempty"`
-	Codes               any                                                `json:"codes,omitempty"`
-	EnableHeader        any                                                `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
-}
-
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if r == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetInterval() any {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetLimit() any {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetMultiplier() any {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetMaxIntervalMs() any {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetCodes() any {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetEnableHeader() any {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetRetryConnectTimeout() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules) GetRetryConnectReset() any {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
-}
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking struct {
-	// Track collection progress between consecutive scheduled executions
-	Enabled *bool `json:"enabled,omitempty"`
-}
-
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling struct {
-	StateTracking *RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking `json:"stateTracking,omitempty"`
-}
-
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling) GetStateTracking() *RestAuthenticationLoginGetAuthTokenFromHeaderTrueStateTracking {
-	if r == nil {
-		return nil
-	}
-	return r.StateTracking
-}
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderTrue struct {
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitempty"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-	Authentication RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication `json:"authentication"`
+	Authentication RestAuthenticationLoginSecretAuthentication `json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
 	LoginURL string `json:"loginUrl"`
-	Username string `json:"username"`
-	Password string `json:"password"`
+	// Select or create a stored secret that references your login credentials
+	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
 	LoginBody string `json:"loginBody"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitempty"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitempty"`
-	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     string                                                      `json:"authHeaderExpr"`
-	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams         `json:"authRequestHeaders,omitempty"`
-	Discovery          *RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery `json:"discovery,omitempty"`
+	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     string                                              `json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"authRequestHeaders,omitempty"`
+	Discovery          *RestAuthenticationLoginSecretDiscovery             `json:"discovery,omitempty"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                                         `json:"collectUrl"`
-	CollectMethod         RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod `json:"collectMethod"`
-	CollectVerb           any                                                            `json:"collectVerb,omitempty"`
-	CollectRequestParams  any                                                            `json:"collectRequestParams,omitempty"`
-	CollectBody           any                                                            `json:"collectBody,omitempty"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams            `json:"collectRequestHeaders,omitempty"`
-	Pagination            *RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination   `json:"pagination,omitempty"`
+	CollectURL            string                                              `json:"collectUrl"`
+	CollectMethod         RestAuthenticationLoginSecretCollectMethod          `json:"collectMethod"`
+	CollectVerb           any                                                 `json:"collectVerb,omitempty"`
+	CollectRequestParams  any                                                 `json:"collectRequestParams,omitempty"`
+	CollectBody           any                                                 `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitempty"`
+	Pagination            *RestAuthenticationLoginSecretPagination            `json:"pagination,omitempty"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitempty"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
@@ -4026,233 +2892,226 @@ type RestAuthenticationLoginGetAuthTokenFromHeaderTrue struct {
 	// Stop pagination when the Event Breaker produces no events
 	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitempty"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string                                                     `json:"safeHeaders,omitempty"`
-	RetryRules  *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules `json:"retryRules,omitempty"`
-	Scheduling  *RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling `json:"__scheduling,omitempty"`
+	SafeHeaders []string                                 `json:"safeHeaders,omitempty"`
+	RetryRules  *RestAuthenticationLoginSecretRetryRules `json:"retryRules,omitempty"`
+	Scheduling  *RestAuthenticationLoginSecretScheduling `json:"__scheduling,omitempty"`
 }
 
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderTrue) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "username", "password", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
+func (r *RestAuthenticationLoginSecret) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "credentialsSecret", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetGetAuthTokenFromHeader() *bool {
+func (r *RestAuthenticationLoginSecret) GetAuthentication() RestAuthenticationLoginSecretAuthentication {
 	if r == nil {
-		return nil
-	}
-	return r.GetAuthTokenFromHeader
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetAuthentication() RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication {
-	if r == nil {
-		return RestAuthenticationLoginGetAuthTokenFromHeaderTrueAuthentication("")
+		return RestAuthenticationLoginSecretAuthentication("")
 	}
 	return r.Authentication
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetLoginURL() string {
+func (r *RestAuthenticationLoginSecret) GetLoginURL() string {
 	if r == nil {
 		return ""
 	}
 	return r.LoginURL
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetUsername() string {
+func (r *RestAuthenticationLoginSecret) GetCredentialsSecret() string {
 	if r == nil {
 		return ""
 	}
-	return r.Username
+	return r.CredentialsSecret
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetPassword() string {
-	if r == nil {
-		return ""
-	}
-	return r.Password
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetLoginBody() string {
+func (r *RestAuthenticationLoginSecret) GetLoginBody() string {
 	if r == nil {
 		return ""
 	}
 	return r.LoginBody
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetAuthHeaderKey() *string {
+func (r *RestAuthenticationLoginSecret) GetGetAuthTokenFromHeader() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.GetAuthTokenFromHeader
+}
+
+func (r *RestAuthenticationLoginSecret) GetAuthHeaderKey() *string {
 	if r == nil {
 		return nil
 	}
 	return r.AuthHeaderKey
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetAuthHeaderExpr() string {
+func (r *RestAuthenticationLoginSecret) GetAuthHeaderExpr() string {
 	if r == nil {
 		return ""
 	}
 	return r.AuthHeaderExpr
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecret) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
 	if r == nil {
 		return nil
 	}
 	return r.AuthRequestHeaders
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetDiscovery() *RestAuthenticationLoginGetAuthTokenFromHeaderTrueDiscovery {
+func (r *RestAuthenticationLoginSecret) GetDiscovery() *RestAuthenticationLoginSecretDiscovery {
 	if r == nil {
 		return nil
 	}
 	return r.Discovery
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetCollectURL() string {
+func (r *RestAuthenticationLoginSecret) GetCollectURL() string {
 	if r == nil {
 		return ""
 	}
 	return r.CollectURL
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetCollectMethod() RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod {
+func (r *RestAuthenticationLoginSecret) GetCollectMethod() RestAuthenticationLoginSecretCollectMethod {
 	if r == nil {
-		return RestAuthenticationLoginGetAuthTokenFromHeaderTrueCollectMethod("")
+		return RestAuthenticationLoginSecretCollectMethod("")
 	}
 	return r.CollectMethod
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetCollectVerb() any {
+func (r *RestAuthenticationLoginSecret) GetCollectVerb() any {
 	if r == nil {
 		return nil
 	}
 	return r.CollectVerb
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetCollectRequestParams() any {
+func (r *RestAuthenticationLoginSecret) GetCollectRequestParams() any {
 	if r == nil {
 		return nil
 	}
 	return r.CollectRequestParams
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetCollectBody() any {
+func (r *RestAuthenticationLoginSecret) GetCollectBody() any {
 	if r == nil {
 		return nil
 	}
 	return r.CollectBody
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecret) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
 	if r == nil {
 		return nil
 	}
 	return r.CollectRequestHeaders
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetPagination() *RestAuthenticationLoginGetAuthTokenFromHeaderTruePagination {
+func (r *RestAuthenticationLoginSecret) GetPagination() *RestAuthenticationLoginSecretPagination {
 	if r == nil {
 		return nil
 	}
 	return r.Pagination
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetTimeout() *float64 {
+func (r *RestAuthenticationLoginSecret) GetTimeout() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.Timeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetUseRoundRobinDNS() *bool {
+func (r *RestAuthenticationLoginSecret) GetUseRoundRobinDNS() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.UseRoundRobinDNS
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetDisableTimeFilter() *bool {
+func (r *RestAuthenticationLoginSecret) GetDisableTimeFilter() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.DisableTimeFilter
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetDecodeURL() *bool {
+func (r *RestAuthenticationLoginSecret) GetDecodeURL() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.DecodeURL
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetRejectUnauthorized() *bool {
+func (r *RestAuthenticationLoginSecret) GetRejectUnauthorized() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.RejectUnauthorized
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetCaptureHeaders() *bool {
+func (r *RestAuthenticationLoginSecret) GetCaptureHeaders() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.CaptureHeaders
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetStopOnEmptyResults() *bool {
+func (r *RestAuthenticationLoginSecret) GetStopOnEmptyResults() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.StopOnEmptyResults
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetSafeHeaders() []string {
+func (r *RestAuthenticationLoginSecret) GetSafeHeaders() []string {
 	if r == nil {
 		return nil
 	}
 	return r.SafeHeaders
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetRetryRules() *RestAuthenticationLoginGetAuthTokenFromHeaderTrueRetryRules {
+func (r *RestAuthenticationLoginSecret) GetRetryRules() *RestAuthenticationLoginSecretRetryRules {
 	if r == nil {
 		return nil
 	}
 	return r.RetryRules
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderTrue) GetScheduling() *RestAuthenticationLoginGetAuthTokenFromHeaderTrueScheduling {
+func (r *RestAuthenticationLoginSecret) GetScheduling() *RestAuthenticationLoginSecretScheduling {
 	if r == nil {
 		return nil
 	}
 	return r.Scheduling
 }
 
-// RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication string
+// RestAuthenticationLoginAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+type RestAuthenticationLoginAuthentication string
 
 const (
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationNone              RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "none"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationBasic             RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "basic"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationBasicSecret       RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "basicSecret"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationLogin             RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "login"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationLoginSecret       RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "loginSecret"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationOauth             RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "oauth"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationOauthSecret       RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "oauthSecret"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationGoogleOauth       RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "google_oauth"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationGoogleOauthSecret RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "google_oauthSecret"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthenticationHmac              RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication = "hmac"
+	RestAuthenticationLoginAuthenticationNone              RestAuthenticationLoginAuthentication = "none"
+	RestAuthenticationLoginAuthenticationBasic             RestAuthenticationLoginAuthentication = "basic"
+	RestAuthenticationLoginAuthenticationBasicSecret       RestAuthenticationLoginAuthentication = "basicSecret"
+	RestAuthenticationLoginAuthenticationLogin             RestAuthenticationLoginAuthentication = "login"
+	RestAuthenticationLoginAuthenticationLoginSecret       RestAuthenticationLoginAuthentication = "loginSecret"
+	RestAuthenticationLoginAuthenticationOauth             RestAuthenticationLoginAuthentication = "oauth"
+	RestAuthenticationLoginAuthenticationOauthSecret       RestAuthenticationLoginAuthentication = "oauthSecret"
+	RestAuthenticationLoginAuthenticationGoogleOauth       RestAuthenticationLoginAuthentication = "google_oauth"
+	RestAuthenticationLoginAuthenticationGoogleOauthSecret RestAuthenticationLoginAuthentication = "google_oauthSecret"
+	RestAuthenticationLoginAuthenticationHmac              RestAuthenticationLoginAuthentication = "hmac"
 )
 
-func (e RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication) ToPointer() *RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication {
+func (e RestAuthenticationLoginAuthentication) ToPointer() *RestAuthenticationLoginAuthentication {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication) IsExact() bool {
+func (e *RestAuthenticationLoginAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "basic", "basicSecret", "login", "loginSecret", "oauth", "oauthSecret", "google_oauth", "google_oauthSecret", "hmac":
@@ -4262,22 +3121,22 @@ func (e *RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication) IsExa
 	return false
 }
 
-// RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType string
+// RestAuthenticationLoginDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type RestAuthenticationLoginDiscoverType string
 
 const (
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverTypeHTTP RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType = "http"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverTypeJSON RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType = "json"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverTypeList RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType = "list"
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverTypeNone RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType = "none"
+	RestAuthenticationLoginDiscoverTypeHTTP RestAuthenticationLoginDiscoverType = "http"
+	RestAuthenticationLoginDiscoverTypeJSON RestAuthenticationLoginDiscoverType = "json"
+	RestAuthenticationLoginDiscoverTypeList RestAuthenticationLoginDiscoverType = "list"
+	RestAuthenticationLoginDiscoverTypeNone RestAuthenticationLoginDiscoverType = "none"
 )
 
-func (e RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType) ToPointer() *RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType {
+func (e RestAuthenticationLoginDiscoverType) ToPointer() *RestAuthenticationLoginDiscoverType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType) IsExact() bool {
+func (e *RestAuthenticationLoginDiscoverType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "http", "json", "list", "none":
@@ -4287,48 +3146,48 @@ func (e *RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType) IsExact
 	return false
 }
 
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery struct {
+type RestAuthenticationLoginDiscovery struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType `json:"discoverType"`
+	DiscoverType RestAuthenticationLoginDiscoverType `json:"discoverType"`
 }
 
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginDiscovery) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginDiscovery) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery) GetDiscoverType() RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType {
+func (r *RestAuthenticationLoginDiscovery) GetDiscoverType() RestAuthenticationLoginDiscoverType {
 	if r == nil {
-		return RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscoverType("")
+		return RestAuthenticationLoginDiscoverType("")
 	}
 	return r.DiscoverType
 }
 
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod string
+type RestAuthenticationLoginCollectMethod string
 
 const (
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethodGet GET
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethodGet RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod = "get"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethodPost POST
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethodPost RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod = "post"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethodPostWithBody POST with Body
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethodPostWithBody RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod = "post_with_body"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethodOther Other
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethodOther RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod = "other"
+	// RestAuthenticationLoginCollectMethodGet GET
+	RestAuthenticationLoginCollectMethodGet RestAuthenticationLoginCollectMethod = "get"
+	// RestAuthenticationLoginCollectMethodPost POST
+	RestAuthenticationLoginCollectMethodPost RestAuthenticationLoginCollectMethod = "post"
+	// RestAuthenticationLoginCollectMethodPostWithBody POST with Body
+	RestAuthenticationLoginCollectMethodPostWithBody RestAuthenticationLoginCollectMethod = "post_with_body"
+	// RestAuthenticationLoginCollectMethodOther Other
+	RestAuthenticationLoginCollectMethodOther RestAuthenticationLoginCollectMethod = "other"
 )
 
-func (e RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod) ToPointer() *RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod {
+func (e RestAuthenticationLoginCollectMethod) ToPointer() *RestAuthenticationLoginCollectMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod) IsExact() bool {
+func (e *RestAuthenticationLoginCollectMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "get", "post", "post_with_body", "other":
@@ -4338,29 +3197,29 @@ func (e *RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod) IsExac
 	return false
 }
 
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum string
+type RestAuthenticationLoginPaginationEnum string
 
 const (
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumNone None
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumNone RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum = "none"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumResponseBody Response Body Attribute
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumResponseBody RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum = "response_body"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumResponseHeader Response Header Attribute
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumResponseHeader RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum = "response_header"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumResponseHeaderLink RFC 5988 - Web Linking
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumResponseHeaderLink RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum = "response_header_link"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumRequestOffset Offset/Limit
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumRequestOffset RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum = "request_offset"
-	// RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumRequestPage Page/Size
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnumRequestPage RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum = "request_page"
+	// RestAuthenticationLoginPaginationEnumNone None
+	RestAuthenticationLoginPaginationEnumNone RestAuthenticationLoginPaginationEnum = "none"
+	// RestAuthenticationLoginPaginationEnumResponseBody Response Body Attribute
+	RestAuthenticationLoginPaginationEnumResponseBody RestAuthenticationLoginPaginationEnum = "response_body"
+	// RestAuthenticationLoginPaginationEnumResponseHeader Response Header Attribute
+	RestAuthenticationLoginPaginationEnumResponseHeader RestAuthenticationLoginPaginationEnum = "response_header"
+	// RestAuthenticationLoginPaginationEnumResponseHeaderLink RFC 5988 - Web Linking
+	RestAuthenticationLoginPaginationEnumResponseHeaderLink RestAuthenticationLoginPaginationEnum = "response_header_link"
+	// RestAuthenticationLoginPaginationEnumRequestOffset Offset/Limit
+	RestAuthenticationLoginPaginationEnumRequestOffset RestAuthenticationLoginPaginationEnum = "request_offset"
+	// RestAuthenticationLoginPaginationEnumRequestPage Page/Size
+	RestAuthenticationLoginPaginationEnumRequestPage RestAuthenticationLoginPaginationEnum = "request_page"
 )
 
-func (e RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum) ToPointer() *RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum {
+func (e RestAuthenticationLoginPaginationEnum) ToPointer() *RestAuthenticationLoginPaginationEnum {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum) IsExact() bool {
+func (e *RestAuthenticationLoginPaginationEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "response_body", "response_header", "response_header_link", "request_offset", "request_page":
@@ -4370,29 +3229,29 @@ func (e *RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum) IsExa
 	return false
 }
 
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination struct {
-	Type RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum `json:"type"`
+type RestAuthenticationLoginPagination struct {
+	Type RestAuthenticationLoginPaginationEnum `json:"type"`
 }
 
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginPagination) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginPagination) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination) GetType() RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum {
+func (r *RestAuthenticationLoginPagination) GetType() RestAuthenticationLoginPaginationEnum {
 	if r == nil {
-		return RestAuthenticationLoginGetAuthTokenFromHeaderFalsePaginationEnum("")
+		return RestAuthenticationLoginPaginationEnum("")
 	}
 	return r.Type
 }
 
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules struct {
+type RestAuthenticationLoginRetryRules struct {
 	// The algorithm to use when performing HTTP retries
 	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	Interval            any                                                `json:"interval,omitempty"`
@@ -4405,440 +3264,368 @@ type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules struct {
 	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (r *RestAuthenticationLoginRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if r == nil {
 		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetInterval() any {
+func (r *RestAuthenticationLoginRetryRules) GetInterval() any {
 	if r == nil {
 		return nil
 	}
 	return r.Interval
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetLimit() any {
+func (r *RestAuthenticationLoginRetryRules) GetLimit() any {
 	if r == nil {
 		return nil
 	}
 	return r.Limit
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetMultiplier() any {
+func (r *RestAuthenticationLoginRetryRules) GetMultiplier() any {
 	if r == nil {
 		return nil
 	}
 	return r.Multiplier
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetMaxIntervalMs() any {
+func (r *RestAuthenticationLoginRetryRules) GetMaxIntervalMs() any {
 	if r == nil {
 		return nil
 	}
 	return r.MaxIntervalMs
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetCodes() any {
+func (r *RestAuthenticationLoginRetryRules) GetCodes() any {
 	if r == nil {
 		return nil
 	}
 	return r.Codes
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetEnableHeader() any {
+func (r *RestAuthenticationLoginRetryRules) GetEnableHeader() any {
 	if r == nil {
 		return nil
 	}
 	return r.EnableHeader
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetRetryConnectTimeout() any {
+func (r *RestAuthenticationLoginRetryRules) GetRetryConnectTimeout() any {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectTimeout
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules) GetRetryConnectReset() any {
+func (r *RestAuthenticationLoginRetryRules) GetRetryConnectReset() any {
 	if r == nil {
 		return nil
 	}
 	return r.RetryConnectReset
 }
 
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking struct {
+type RestAuthenticationLoginStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitempty"`
 }
 
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginStateTracking) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginStateTracking) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking) GetEnabled() *bool {
+func (r *RestAuthenticationLoginStateTracking) GetEnabled() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.Enabled
 }
 
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling struct {
-	StateTracking *RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking `json:"stateTracking,omitempty"`
+type RestAuthenticationLoginScheduling struct {
+	StateTracking *RestAuthenticationLoginStateTracking `json:"stateTracking,omitempty"`
 }
 
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling) MarshalJSON() ([]byte, error) {
+func (r RestAuthenticationLoginScheduling) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLoginScheduling) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling) GetStateTracking() *RestAuthenticationLoginGetAuthTokenFromHeaderFalseStateTracking {
+func (r *RestAuthenticationLoginScheduling) GetStateTracking() *RestAuthenticationLoginStateTracking {
 	if r == nil {
 		return nil
 	}
 	return r.StateTracking
 }
-
-type RestAuthenticationLoginGetAuthTokenFromHeaderFalse struct {
-	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
-	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitempty"`
-	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
-	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
-	Authentication RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication `json:"authentication"`
-	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL string `json:"loginUrl"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody string `json:"loginBody"`
-	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
-	AuthHeaderKey *string `json:"authHeaderKey,omitempty"`
-	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     string                                                       `json:"authHeaderExpr"`
-	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams          `json:"authRequestHeaders,omitempty"`
-	Discovery          *RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery `json:"discovery,omitempty"`
-	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                                          `json:"collectUrl"`
-	CollectMethod         RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod `json:"collectMethod"`
-	CollectVerb           any                                                             `json:"collectVerb,omitempty"`
-	CollectRequestParams  any                                                             `json:"collectRequestParams,omitempty"`
-	CollectBody           any                                                             `json:"collectBody,omitempty"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams             `json:"collectRequestHeaders,omitempty"`
-	Pagination            *RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination   `json:"pagination,omitempty"`
-	// HTTP request inactivity timeout. Use 0 to disable.
-	Timeout *float64 `json:"timeout,omitempty"`
-	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
-	// Disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
-	// Decode the URL before sending requests (including pagination requests)
-	DecodeURL *bool `json:"decodeUrl,omitempty"`
-	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
-	// Enable to add response headers to the resHeaders field under the __collectible object
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// Stop pagination when the Event Breaker produces no events
-	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitempty"`
-	// List of headers that are safe to log in plain text
-	SafeHeaders []string                                                      `json:"safeHeaders,omitempty"`
-	RetryRules  *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules `json:"retryRules,omitempty"`
-	Scheduling  *RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling `json:"__scheduling,omitempty"`
-}
-
-func (r RestAuthenticationLoginGetAuthTokenFromHeaderFalse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "username", "password", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetGetAuthTokenFromHeader() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.GetAuthTokenFromHeader
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetTokenRespAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TokenRespAttribute
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetAuthentication() RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication {
-	if r == nil {
-		return RestAuthenticationLoginGetAuthTokenFromHeaderFalseAuthentication("")
-	}
-	return r.Authentication
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetLoginURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.LoginURL
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetUsername() string {
-	if r == nil {
-		return ""
-	}
-	return r.Username
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetPassword() string {
-	if r == nil {
-		return ""
-	}
-	return r.Password
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetLoginBody() string {
-	if r == nil {
-		return ""
-	}
-	return r.LoginBody
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetAuthHeaderKey() *string {
-	if r == nil {
-		return nil
-	}
-	return r.AuthHeaderKey
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetAuthHeaderExpr() string {
-	if r == nil {
-		return ""
-	}
-	return r.AuthHeaderExpr
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.AuthRequestHeaders
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetDiscovery() *RestAuthenticationLoginGetAuthTokenFromHeaderFalseDiscovery {
-	if r == nil {
-		return nil
-	}
-	return r.Discovery
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetCollectURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.CollectURL
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetCollectMethod() RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod {
-	if r == nil {
-		return RestAuthenticationLoginGetAuthTokenFromHeaderFalseCollectMethod("")
-	}
-	return r.CollectMethod
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetCollectVerb() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectVerb
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetCollectRequestParams() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectRequestParams
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetCollectBody() any {
-	if r == nil {
-		return nil
-	}
-	return r.CollectBody
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.CollectRequestHeaders
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetPagination() *RestAuthenticationLoginGetAuthTokenFromHeaderFalsePagination {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetTimeout() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Timeout
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetUseRoundRobinDNS() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.UseRoundRobinDNS
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetDisableTimeFilter() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.DisableTimeFilter
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetDecodeURL() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.DecodeURL
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetRejectUnauthorized() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RejectUnauthorized
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetCaptureHeaders() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.CaptureHeaders
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetStopOnEmptyResults() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.StopOnEmptyResults
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetSafeHeaders() []string {
-	if r == nil {
-		return nil
-	}
-	return r.SafeHeaders
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetRetryRules() *RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules {
-	if r == nil {
-		return nil
-	}
-	return r.RetryRules
-}
-
-func (r *RestAuthenticationLoginGetAuthTokenFromHeaderFalse) GetScheduling() *RestAuthenticationLoginGetAuthTokenFromHeaderFalseScheduling {
-	if r == nil {
-		return nil
-	}
-	return r.Scheduling
-}
-
-type RestAuthenticationLoginType string
-
-const (
-	RestAuthenticationLoginTypeRestAuthenticationLoginGetAuthTokenFromHeaderFalse RestAuthenticationLoginType = "RestAuthenticationLoginGetAuthTokenFromHeaderFalse"
-	RestAuthenticationLoginTypeRestAuthenticationLoginGetAuthTokenFromHeaderTrue  RestAuthenticationLoginType = "RestAuthenticationLoginGetAuthTokenFromHeaderTrue"
-)
 
 type RestAuthenticationLogin struct {
-	RestAuthenticationLoginGetAuthTokenFromHeaderFalse *RestAuthenticationLoginGetAuthTokenFromHeaderFalse `queryParam:"inline" union:"member"`
-	RestAuthenticationLoginGetAuthTokenFromHeaderTrue  *RestAuthenticationLoginGetAuthTokenFromHeaderTrue  `queryParam:"inline" union:"member"`
-
-	Type RestAuthenticationLoginType
+	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+	Authentication RestAuthenticationLoginAuthentication `json:"authentication"`
+	// URL to use for login API call. This call is expected to be a POST.
+	LoginURL string `json:"loginUrl"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody string `json:"loginBody"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitempty"`
+	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+	AuthHeaderKey *string `json:"authHeaderKey,omitempty"`
+	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     string                                              `json:"authHeaderExpr"`
+	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"authRequestHeaders,omitempty"`
+	Discovery          *RestAuthenticationLoginDiscovery                   `json:"discovery,omitempty"`
+	// URL (constant or JavaScript expression) to use for the Collect operation
+	CollectURL            string                                              `json:"collectUrl"`
+	CollectMethod         RestAuthenticationLoginCollectMethod                `json:"collectMethod"`
+	CollectVerb           any                                                 `json:"collectVerb,omitempty"`
+	CollectRequestParams  any                                                 `json:"collectRequestParams,omitempty"`
+	CollectBody           any                                                 `json:"collectBody,omitempty"`
+	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitempty"`
+	Pagination            *RestAuthenticationLoginPagination                  `json:"pagination,omitempty"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	Timeout *float64 `json:"timeout,omitempty"`
+	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
+	// Disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
+	// Decode the URL before sending requests (including pagination requests)
+	DecodeURL *bool `json:"decodeUrl,omitempty"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
+	// Enable to add response headers to the resHeaders field under the __collectible object
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
+	// Stop pagination when the Event Breaker produces no events
+	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitempty"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string                           `json:"safeHeaders,omitempty"`
+	RetryRules  *RestAuthenticationLoginRetryRules `json:"retryRules,omitempty"`
+	Scheduling  *RestAuthenticationLoginScheduling `json:"__scheduling,omitempty"`
 }
 
-func CreateRestAuthenticationLoginRestAuthenticationLoginGetAuthTokenFromHeaderFalse(restAuthenticationLoginGetAuthTokenFromHeaderFalse RestAuthenticationLoginGetAuthTokenFromHeaderFalse) RestAuthenticationLogin {
-	typ := RestAuthenticationLoginTypeRestAuthenticationLoginGetAuthTokenFromHeaderFalse
+func (r RestAuthenticationLogin) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
 
-	return RestAuthenticationLogin{
-		RestAuthenticationLoginGetAuthTokenFromHeaderFalse: &restAuthenticationLoginGetAuthTokenFromHeaderFalse,
-		Type: typ,
+func (r *RestAuthenticationLogin) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"authentication", "loginUrl", "username", "password", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
+		return err
 	}
+	return nil
 }
 
-func CreateRestAuthenticationLoginRestAuthenticationLoginGetAuthTokenFromHeaderTrue(restAuthenticationLoginGetAuthTokenFromHeaderTrue RestAuthenticationLoginGetAuthTokenFromHeaderTrue) RestAuthenticationLogin {
-	typ := RestAuthenticationLoginTypeRestAuthenticationLoginGetAuthTokenFromHeaderTrue
-
-	return RestAuthenticationLogin{
-		RestAuthenticationLoginGetAuthTokenFromHeaderTrue: &restAuthenticationLoginGetAuthTokenFromHeaderTrue,
-		Type: typ,
+func (r *RestAuthenticationLogin) GetAuthentication() RestAuthenticationLoginAuthentication {
+	if r == nil {
+		return RestAuthenticationLoginAuthentication("")
 	}
+	return r.Authentication
 }
 
-func (u *RestAuthenticationLogin) UnmarshalJSON(data []byte) error {
+func (r *RestAuthenticationLogin) GetLoginURL() string {
+	if r == nil {
+		return ""
+	}
+	return r.LoginURL
+}
 
-	var restAuthenticationLoginGetAuthTokenFromHeaderFalse RestAuthenticationLoginGetAuthTokenFromHeaderFalse = RestAuthenticationLoginGetAuthTokenFromHeaderFalse{}
-	if err := utils.UnmarshalJSON(data, &restAuthenticationLoginGetAuthTokenFromHeaderFalse, "", true, nil); err == nil {
-		u.RestAuthenticationLoginGetAuthTokenFromHeaderFalse = &restAuthenticationLoginGetAuthTokenFromHeaderFalse
-		u.Type = RestAuthenticationLoginTypeRestAuthenticationLoginGetAuthTokenFromHeaderFalse
+func (r *RestAuthenticationLogin) GetUsername() string {
+	if r == nil {
+		return ""
+	}
+	return r.Username
+}
+
+func (r *RestAuthenticationLogin) GetPassword() string {
+	if r == nil {
+		return ""
+	}
+	return r.Password
+}
+
+func (r *RestAuthenticationLogin) GetLoginBody() string {
+	if r == nil {
+		return ""
+	}
+	return r.LoginBody
+}
+
+func (r *RestAuthenticationLogin) GetGetAuthTokenFromHeader() *bool {
+	if r == nil {
 		return nil
 	}
-
-	var restAuthenticationLoginGetAuthTokenFromHeaderTrue RestAuthenticationLoginGetAuthTokenFromHeaderTrue = RestAuthenticationLoginGetAuthTokenFromHeaderTrue{}
-	if err := utils.UnmarshalJSON(data, &restAuthenticationLoginGetAuthTokenFromHeaderTrue, "", true, nil); err == nil {
-		u.RestAuthenticationLoginGetAuthTokenFromHeaderTrue = &restAuthenticationLoginGetAuthTokenFromHeaderTrue
-		u.Type = RestAuthenticationLoginTypeRestAuthenticationLoginGetAuthTokenFromHeaderTrue
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationLogin", string(data))
+	return r.GetAuthTokenFromHeader
 }
 
-func (u RestAuthenticationLogin) MarshalJSON() ([]byte, error) {
-	if u.RestAuthenticationLoginGetAuthTokenFromHeaderFalse != nil {
-		return utils.MarshalJSON(u.RestAuthenticationLoginGetAuthTokenFromHeaderFalse, "", true)
+func (r *RestAuthenticationLogin) GetAuthHeaderKey() *string {
+	if r == nil {
+		return nil
 	}
+	return r.AuthHeaderKey
+}
 
-	if u.RestAuthenticationLoginGetAuthTokenFromHeaderTrue != nil {
-		return utils.MarshalJSON(u.RestAuthenticationLoginGetAuthTokenFromHeaderTrue, "", true)
+func (r *RestAuthenticationLogin) GetAuthHeaderExpr() string {
+	if r == nil {
+		return ""
 	}
+	return r.AuthHeaderExpr
+}
 
-	return nil, errors.New("could not marshal union type RestAuthenticationLogin: all fields are null")
+func (r *RestAuthenticationLogin) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.AuthRequestHeaders
+}
+
+func (r *RestAuthenticationLogin) GetDiscovery() *RestAuthenticationLoginDiscovery {
+	if r == nil {
+		return nil
+	}
+	return r.Discovery
+}
+
+func (r *RestAuthenticationLogin) GetCollectURL() string {
+	if r == nil {
+		return ""
+	}
+	return r.CollectURL
+}
+
+func (r *RestAuthenticationLogin) GetCollectMethod() RestAuthenticationLoginCollectMethod {
+	if r == nil {
+		return RestAuthenticationLoginCollectMethod("")
+	}
+	return r.CollectMethod
+}
+
+func (r *RestAuthenticationLogin) GetCollectVerb() any {
+	if r == nil {
+		return nil
+	}
+	return r.CollectVerb
+}
+
+func (r *RestAuthenticationLogin) GetCollectRequestParams() any {
+	if r == nil {
+		return nil
+	}
+	return r.CollectRequestParams
+}
+
+func (r *RestAuthenticationLogin) GetCollectBody() any {
+	if r == nil {
+		return nil
+	}
+	return r.CollectBody
+}
+
+func (r *RestAuthenticationLogin) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.CollectRequestHeaders
+}
+
+func (r *RestAuthenticationLogin) GetPagination() *RestAuthenticationLoginPagination {
+	if r == nil {
+		return nil
+	}
+	return r.Pagination
+}
+
+func (r *RestAuthenticationLogin) GetTimeout() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.Timeout
+}
+
+func (r *RestAuthenticationLogin) GetUseRoundRobinDNS() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.UseRoundRobinDNS
+}
+
+func (r *RestAuthenticationLogin) GetDisableTimeFilter() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.DisableTimeFilter
+}
+
+func (r *RestAuthenticationLogin) GetDecodeURL() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.DecodeURL
+}
+
+func (r *RestAuthenticationLogin) GetRejectUnauthorized() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.RejectUnauthorized
+}
+
+func (r *RestAuthenticationLogin) GetCaptureHeaders() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.CaptureHeaders
+}
+
+func (r *RestAuthenticationLogin) GetStopOnEmptyResults() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.StopOnEmptyResults
+}
+
+func (r *RestAuthenticationLogin) GetSafeHeaders() []string {
+	if r == nil {
+		return nil
+	}
+	return r.SafeHeaders
+}
+
+func (r *RestAuthenticationLogin) GetRetryRules() *RestAuthenticationLoginRetryRules {
+	if r == nil {
+		return nil
+	}
+	return r.RetryRules
+}
+
+func (r *RestAuthenticationLogin) GetScheduling() *RestAuthenticationLoginScheduling {
+	if r == nil {
+		return nil
+	}
+	return r.Scheduling
 }
 
 // RestAuthenticationBasicSecretAuthentication - Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -8222,6 +7009,9 @@ func CreateRestCollectorConfBasicSecret(basicSecret RestAuthenticationBasicSecre
 func CreateRestCollectorConfLogin(login RestAuthenticationLogin) RestCollectorConf {
 	typ := RestCollectorConfTypeLogin
 
+	typStr := RestAuthenticationLoginAuthentication(typ)
+	login.Authentication = typStr
+
 	return RestCollectorConf{
 		RestAuthenticationLogin: &login,
 		Type:                    typ,
@@ -8230,6 +7020,9 @@ func CreateRestCollectorConfLogin(login RestAuthenticationLogin) RestCollectorCo
 
 func CreateRestCollectorConfLoginSecret(loginSecret RestAuthenticationLoginSecret) RestCollectorConf {
 	typ := RestCollectorConfTypeLoginSecret
+
+	typStr := RestAuthenticationLoginSecretAuthentication(typ)
+	loginSecret.Authentication = typStr
 
 	return RestCollectorConf{
 		RestAuthenticationLoginSecret: &loginSecret,

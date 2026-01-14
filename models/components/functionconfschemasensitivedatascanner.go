@@ -46,30 +46,30 @@ func (f *FunctionConfSchemaSensitiveDataScannerRule) GetDisabled() *bool {
 	return f.Disabled
 }
 
-type FunctionConfSchemaSensitiveDataScannerFlag struct {
+type Flag struct {
 	Name  *string `json:"name,omitempty"`
 	Value string  `json:"value"`
 }
 
-func (f FunctionConfSchemaSensitiveDataScannerFlag) MarshalJSON() ([]byte, error) {
+func (f Flag) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FunctionConfSchemaSensitiveDataScannerFlag) UnmarshalJSON(data []byte) error {
+func (f *Flag) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaSensitiveDataScannerFlag) GetName() *string {
+func (f *Flag) GetName() *string {
 	if f == nil {
 		return nil
 	}
 	return f.Name
 }
 
-func (f *FunctionConfSchemaSensitiveDataScannerFlag) GetValue() string {
+func (f *Flag) GetValue() string {
 	if f == nil {
 		return ""
 	}
@@ -83,7 +83,7 @@ type FunctionConfSchemaSensitiveDataScanner struct {
 	// Fields that the mitigation expression will not be applied to. Supports wildcards (*).
 	ExcludeFields []string `json:"excludeFields,omitempty"`
 	// Fields to add when mitigation is applied to an event
-	Flags []FunctionConfSchemaSensitiveDataScannerFlag `json:"flags,omitempty"`
+	Flags []Flag `json:"flags,omitempty"`
 	// Add matching ruleset IDs to a field called "__detected"
 	IncludeDetectedRules *bool `json:"includeDetectedRules,omitempty"`
 	BackgroundDetection  *bool `json:"backgroundDetection,omitempty"`
@@ -121,7 +121,7 @@ func (f *FunctionConfSchemaSensitiveDataScanner) GetExcludeFields() []string {
 	return f.ExcludeFields
 }
 
-func (f *FunctionConfSchemaSensitiveDataScanner) GetFlags() []FunctionConfSchemaSensitiveDataScannerFlag {
+func (f *FunctionConfSchemaSensitiveDataScanner) GetFlags() []Flag {
 	if f == nil {
 		return nil
 	}

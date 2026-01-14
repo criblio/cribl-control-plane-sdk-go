@@ -32,29 +32,6 @@ func (e *PipelineFunctionChainID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionChainConf struct {
-	// The data processor (Pack/Pipeline) to send events through
-	Processor string `json:"processor"`
-}
-
-func (p PipelineFunctionChainConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionChainConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"processor"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionChainConf) GetProcessor() string {
-	if p == nil {
-		return ""
-	}
-	return p.Processor
-}
-
 type PipelineFunctionChain struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -65,8 +42,8 @@ type PipelineFunctionChain struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitempty"`
-	Conf  PipelineFunctionChainConf `json:"conf"`
+	Final *bool                   `json:"final,omitempty"`
+	Conf  FunctionConfSchemaChain `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -117,9 +94,9 @@ func (p *PipelineFunctionChain) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionChain) GetConf() PipelineFunctionChainConf {
+func (p *PipelineFunctionChain) GetConf() FunctionConfSchemaChain {
 	if p == nil {
-		return PipelineFunctionChainConf{}
+		return FunctionConfSchemaChain{}
 	}
 	return p.Conf
 }

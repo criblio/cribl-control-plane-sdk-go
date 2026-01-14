@@ -32,56 +32,6 @@ func (e *PipelineFunctionEventstatsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type EventstatsConfiguration struct {
-	// Aggregate function(s) to perform on events. E.g., sum(bytes).where(action=='REJECT').as(TotalBytes)
-	Aggregations []string `json:"aggregations"`
-	// Fields to group aggregates by, supports wildcard expressions.
-	GroupBys []string `json:"groupBys,omitempty"`
-	// Specifies how many events are at max kept in memory to be enriched with aggregations
-	MaxEvents *float64 `json:"maxEvents,omitempty"`
-	// Determines if aggregations should flush when an input stream is closed. If disabled, time window settings will control flush behavior.
-	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
-}
-
-func (e EventstatsConfiguration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
-}
-
-func (e *EventstatsConfiguration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"aggregations"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (e *EventstatsConfiguration) GetAggregations() []string {
-	if e == nil {
-		return []string{}
-	}
-	return e.Aggregations
-}
-
-func (e *EventstatsConfiguration) GetGroupBys() []string {
-	if e == nil {
-		return nil
-	}
-	return e.GroupBys
-}
-
-func (e *EventstatsConfiguration) GetMaxEvents() *float64 {
-	if e == nil {
-		return nil
-	}
-	return e.MaxEvents
-}
-
-func (e *EventstatsConfiguration) GetFlushOnInputClose() *bool {
-	if e == nil {
-		return nil
-	}
-	return e.FlushOnInputClose
-}
-
 type PipelineFunctionEventstats struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -92,8 +42,8 @@ type PipelineFunctionEventstats struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                   `json:"final,omitempty"`
-	Conf  EventstatsConfiguration `json:"conf"`
+	Final *bool                        `json:"final,omitempty"`
+	Conf  FunctionConfSchemaEventstats `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -144,9 +94,9 @@ func (p *PipelineFunctionEventstats) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionEventstats) GetConf() EventstatsConfiguration {
+func (p *PipelineFunctionEventstats) GetConf() FunctionConfSchemaEventstats {
 	if p == nil {
-		return EventstatsConfiguration{}
+		return FunctionConfSchemaEventstats{}
 	}
 	return p.Conf
 }

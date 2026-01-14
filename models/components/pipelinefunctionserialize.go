@@ -32,121 +32,6 @@ func (e *PipelineFunctionSerializeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineFunctionSerializeType - Data output format
-type PipelineFunctionSerializeType string
-
-const (
-	// PipelineFunctionSerializeTypeCsv CSV
-	PipelineFunctionSerializeTypeCsv PipelineFunctionSerializeType = "csv"
-	// PipelineFunctionSerializeTypeElff Extended Log File Format
-	PipelineFunctionSerializeTypeElff PipelineFunctionSerializeType = "elff"
-	// PipelineFunctionSerializeTypeClf Common Log Format
-	PipelineFunctionSerializeTypeClf PipelineFunctionSerializeType = "clf"
-	// PipelineFunctionSerializeTypeKvp Key=Value Pairs
-	PipelineFunctionSerializeTypeKvp PipelineFunctionSerializeType = "kvp"
-	// PipelineFunctionSerializeTypeJSON JSON Object
-	PipelineFunctionSerializeTypeJSON PipelineFunctionSerializeType = "json"
-	// PipelineFunctionSerializeTypeDelim Delimited values
-	PipelineFunctionSerializeTypeDelim PipelineFunctionSerializeType = "delim"
-)
-
-func (e PipelineFunctionSerializeType) ToPointer() *PipelineFunctionSerializeType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionSerializeType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "elff", "clf", "kvp", "json", "delim":
-			return true
-		}
-	}
-	return false
-}
-
-type PipelineFunctionSerializeConf struct {
-	// Data output format
-	Type       PipelineFunctionSerializeType `json:"type"`
-	DelimChar  any                           `json:"delimChar,omitempty"`
-	QuoteChar  any                           `json:"quoteChar,omitempty"`
-	EscapeChar any                           `json:"escapeChar,omitempty"`
-	NullValue  any                           `json:"nullValue,omitempty"`
-	// Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-	Fields []string `json:"fields,omitempty"`
-	// Field containing object to serialize. Leave blank to serialize top-level event fields.
-	SrcField *string `json:"srcField,omitempty"`
-	// Field to serialize data to
-	DstField *string `json:"dstField,omitempty"`
-}
-
-func (p PipelineFunctionSerializeConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionSerializeConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionSerializeConf) GetType() PipelineFunctionSerializeType {
-	if p == nil {
-		return PipelineFunctionSerializeType("")
-	}
-	return p.Type
-}
-
-func (p *PipelineFunctionSerializeConf) GetDelimChar() any {
-	if p == nil {
-		return nil
-	}
-	return p.DelimChar
-}
-
-func (p *PipelineFunctionSerializeConf) GetQuoteChar() any {
-	if p == nil {
-		return nil
-	}
-	return p.QuoteChar
-}
-
-func (p *PipelineFunctionSerializeConf) GetEscapeChar() any {
-	if p == nil {
-		return nil
-	}
-	return p.EscapeChar
-}
-
-func (p *PipelineFunctionSerializeConf) GetNullValue() any {
-	if p == nil {
-		return nil
-	}
-	return p.NullValue
-}
-
-func (p *PipelineFunctionSerializeConf) GetFields() []string {
-	if p == nil {
-		return nil
-	}
-	return p.Fields
-}
-
-func (p *PipelineFunctionSerializeConf) GetSrcField() *string {
-	if p == nil {
-		return nil
-	}
-	return p.SrcField
-}
-
-func (p *PipelineFunctionSerializeConf) GetDstField() *string {
-	if p == nil {
-		return nil
-	}
-	return p.DstField
-}
-
 type PipelineFunctionSerialize struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -157,8 +42,8 @@ type PipelineFunctionSerialize struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                         `json:"final,omitempty"`
-	Conf  PipelineFunctionSerializeConf `json:"conf"`
+	Final *bool                       `json:"final,omitempty"`
+	Conf  FunctionConfSchemaSerialize `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -209,9 +94,9 @@ func (p *PipelineFunctionSerialize) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionSerialize) GetConf() PipelineFunctionSerializeConf {
+func (p *PipelineFunctionSerialize) GetConf() FunctionConfSchemaSerialize {
 	if p == nil {
-		return PipelineFunctionSerializeConf{}
+		return FunctionConfSchemaSerialize{}
 	}
 	return p.Conf
 }

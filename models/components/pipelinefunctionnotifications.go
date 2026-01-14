@@ -32,47 +32,6 @@ func (e *PipelineFunctionNotificationsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionNotificationsConf struct {
-	// Notification ID
-	ID string `json:"id"`
-	// Notification event state field name
-	Field string `json:"field"`
-	// Toggle deduplication.
-	Deduplicate bool `json:"deduplicate"`
-}
-
-func (p PipelineFunctionNotificationsConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionNotificationsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "field", "deduplicate"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionNotificationsConf) GetID() string {
-	if p == nil {
-		return ""
-	}
-	return p.ID
-}
-
-func (p *PipelineFunctionNotificationsConf) GetField() string {
-	if p == nil {
-		return ""
-	}
-	return p.Field
-}
-
-func (p *PipelineFunctionNotificationsConf) GetDeduplicate() bool {
-	if p == nil {
-		return false
-	}
-	return p.Deduplicate
-}
-
 type PipelineFunctionNotifications struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -83,8 +42,8 @@ type PipelineFunctionNotifications struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                             `json:"final,omitempty"`
-	Conf  PipelineFunctionNotificationsConf `json:"conf"`
+	Final *bool                           `json:"final,omitempty"`
+	Conf  FunctionConfSchemaNotifications `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -135,9 +94,9 @@ func (p *PipelineFunctionNotifications) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionNotifications) GetConf() PipelineFunctionNotificationsConf {
+func (p *PipelineFunctionNotifications) GetConf() FunctionConfSchemaNotifications {
 	if p == nil {
-		return PipelineFunctionNotificationsConf{}
+		return FunctionConfSchemaNotifications{}
 	}
 	return p.Conf
 }

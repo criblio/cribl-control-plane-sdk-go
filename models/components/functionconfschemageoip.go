@@ -6,48 +6,48 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type FunctionConfSchemaGeoipAdditionalField struct {
+type AdditionalField struct {
 	// Field name in which to find an IP to look up. Can be nested.
 	ExtraInField string `json:"extraInField"`
 	// Field name in which to store the GeoIP lookup results
 	ExtraOutField string `json:"extraOutField"`
 }
 
-func (f FunctionConfSchemaGeoipAdditionalField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (a AdditionalField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
 }
 
-func (f *FunctionConfSchemaGeoipAdditionalField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"extraInField", "extraOutField"}); err != nil {
+func (a *AdditionalField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"extraInField", "extraOutField"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaGeoipAdditionalField) GetExtraInField() string {
-	if f == nil {
+func (a *AdditionalField) GetExtraInField() string {
+	if a == nil {
 		return ""
 	}
-	return f.ExtraInField
+	return a.ExtraInField
 }
 
-func (f *FunctionConfSchemaGeoipAdditionalField) GetExtraOutField() string {
-	if f == nil {
+func (a *AdditionalField) GetExtraOutField() string {
+	if a == nil {
 		return ""
 	}
-	return f.ExtraOutField
+	return a.ExtraOutField
 }
 
-// FunctionConfSchemaGeoipOutputFieldMappings - Search-specific mappings for granular control over event enrichment
-type FunctionConfSchemaGeoipOutputFieldMappings struct {
+// OutputFieldMappings - Search-specific mappings for granular control over event enrichment
+type OutputFieldMappings struct {
 }
 
-func (f FunctionConfSchemaGeoipOutputFieldMappings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (o OutputFieldMappings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (f *FunctionConfSchemaGeoipOutputFieldMappings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+func (o *OutputFieldMappings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -59,10 +59,10 @@ type FunctionConfSchemaGeoip struct {
 	// Field name in which to find an IP to look up. Can be nested.
 	InField *string `json:"inField,omitempty"`
 	// Field name in which to store the GeoIP lookup results
-	OutField         *string                                  `json:"outField,omitempty"`
-	AdditionalFields []FunctionConfSchemaGeoipAdditionalField `json:"additionalFields,omitempty"`
+	OutField         *string           `json:"outField,omitempty"`
+	AdditionalFields []AdditionalField `json:"additionalFields,omitempty"`
 	// Search-specific mappings for granular control over event enrichment
-	OutFieldMappings *FunctionConfSchemaGeoipOutputFieldMappings `json:"outFieldMappings,omitempty"`
+	OutFieldMappings *OutputFieldMappings `json:"outFieldMappings,omitempty"`
 }
 
 func (f FunctionConfSchemaGeoip) MarshalJSON() ([]byte, error) {
@@ -97,14 +97,14 @@ func (f *FunctionConfSchemaGeoip) GetOutField() *string {
 	return f.OutField
 }
 
-func (f *FunctionConfSchemaGeoip) GetAdditionalFields() []FunctionConfSchemaGeoipAdditionalField {
+func (f *FunctionConfSchemaGeoip) GetAdditionalFields() []AdditionalField {
 	if f == nil {
 		return nil
 	}
 	return f.AdditionalFields
 }
 
-func (f *FunctionConfSchemaGeoip) GetOutFieldMappings() *FunctionConfSchemaGeoipOutputFieldMappings {
+func (f *FunctionConfSchemaGeoip) GetOutFieldMappings() *OutputFieldMappings {
 	if f == nil {
 		return nil
 	}

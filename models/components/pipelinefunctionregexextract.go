@@ -32,96 +32,6 @@ func (e *PipelineFunctionRegexExtractID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionRegexExtractRegexList struct {
-	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex string `json:"regex"`
-}
-
-func (p PipelineFunctionRegexExtractRegexList) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionRegexExtractRegexList) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"regex"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionRegexExtractRegexList) GetRegex() string {
-	if p == nil {
-		return ""
-	}
-	return p.Regex
-}
-
-type PipelineFunctionRegexExtractConf struct {
-	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     string                                  `json:"regex"`
-	RegexList []PipelineFunctionRegexExtractRegexList `json:"regexList,omitempty"`
-	// Field on which to perform regex field extraction
-	Source *string `json:"source,omitempty"`
-	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
-	Iterations *float64 `json:"iterations,omitempty"`
-	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
-	FieldNameExpression *string `json:"fieldNameExpression,omitempty"`
-	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
-	Overwrite *bool `json:"overwrite,omitempty"`
-}
-
-func (p PipelineFunctionRegexExtractConf) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PipelineFunctionRegexExtractConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"regex"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PipelineFunctionRegexExtractConf) GetRegex() string {
-	if p == nil {
-		return ""
-	}
-	return p.Regex
-}
-
-func (p *PipelineFunctionRegexExtractConf) GetRegexList() []PipelineFunctionRegexExtractRegexList {
-	if p == nil {
-		return nil
-	}
-	return p.RegexList
-}
-
-func (p *PipelineFunctionRegexExtractConf) GetSource() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Source
-}
-
-func (p *PipelineFunctionRegexExtractConf) GetIterations() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.Iterations
-}
-
-func (p *PipelineFunctionRegexExtractConf) GetFieldNameExpression() *string {
-	if p == nil {
-		return nil
-	}
-	return p.FieldNameExpression
-}
-
-func (p *PipelineFunctionRegexExtractConf) GetOverwrite() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.Overwrite
-}
-
 type PipelineFunctionRegexExtract struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitempty"`
@@ -132,8 +42,8 @@ type PipelineFunctionRegexExtract struct {
 	// If true, data will not be pushed through this function
 	Disabled *bool `json:"disabled,omitempty"`
 	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                            `json:"final,omitempty"`
-	Conf  PipelineFunctionRegexExtractConf `json:"conf"`
+	Final *bool                          `json:"final,omitempty"`
+	Conf  FunctionConfSchemaRegexExtract `json:"conf"`
 	// Group ID
 	GroupID *string `json:"groupId,omitempty"`
 }
@@ -184,9 +94,9 @@ func (p *PipelineFunctionRegexExtract) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *PipelineFunctionRegexExtract) GetConf() PipelineFunctionRegexExtractConf {
+func (p *PipelineFunctionRegexExtract) GetConf() FunctionConfSchemaRegexExtract {
 	if p == nil {
-		return PipelineFunctionRegexExtractConf{}
+		return FunctionConfSchemaRegexExtract{}
 	}
 	return p.Conf
 }
