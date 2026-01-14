@@ -11,16 +11,16 @@ import (
 
 type InputSplunkHecPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputSplunkHecType `json:"type"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	Disabled *bool              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,57 +28,57 @@ type InputSplunkHecPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitempty"`
 	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
 	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
-	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
+	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Enable Splunk HEC acknowledgements
-	SplunkHecAcks *bool `default:"false" json:"splunkHecAcks"`
+	SplunkHecAcks *bool `json:"splunkHecAcks,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `default:"true" json:"useFwdTimezone"`
+	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `default:"true" json:"dropControlFields"`
+	DropControlFields *bool `json:"dropControlFields,omitempty"`
 	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
 	Description      *string `json:"description,omitempty"`
 }
 
@@ -87,15 +87,15 @@ func (i InputSplunkHecPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, erro
 }
 
 func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port", "splunkHecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -163,9 +163,9 @@ func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTy
 	return i.Connections
 }
 
-func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -268,9 +268,9 @@ func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *stri
 	return i.IPDenylistRegex
 }
 
-func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetSplunkHecAPI() *string {
+func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetSplunkHecAPI() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.SplunkHecAPI
 }
@@ -361,15 +361,15 @@ func (i *InputSplunkHecPqEnabledTrueWithPqConstraint) GetDescription() *string {
 
 type InputSplunkHecPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputSplunkHecType `json:"type"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	Disabled *bool              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -378,57 +378,57 @@ type InputSplunkHecPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitempty"`
 	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
 	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
-	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
+	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Enable Splunk HEC acknowledgements
-	SplunkHecAcks *bool `default:"false" json:"splunkHecAcks"`
+	SplunkHecAcks *bool `json:"splunkHecAcks,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `default:"true" json:"useFwdTimezone"`
+	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `default:"true" json:"dropControlFields"`
+	DropControlFields *bool `json:"dropControlFields,omitempty"`
 	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
 	Description      *string `json:"description,omitempty"`
 }
 
@@ -437,15 +437,15 @@ func (i InputSplunkHecPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSplunkHecPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port", "splunkHecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkHecPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -513,9 +513,9 @@ func (i *InputSplunkHecPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSplunkHecPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -618,9 +618,9 @@ func (i *InputSplunkHecPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
 	return i.IPDenylistRegex
 }
 
-func (i *InputSplunkHecPqEnabledFalseConstraint) GetSplunkHecAPI() *string {
+func (i *InputSplunkHecPqEnabledFalseConstraint) GetSplunkHecAPI() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.SplunkHecAPI
 }
@@ -711,74 +711,74 @@ func (i *InputSplunkHecPqEnabledFalseConstraint) GetDescription() *string {
 
 type InputSplunkHecSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputSplunkHecType `json:"type"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	Disabled *bool              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitempty"`
 	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
 	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
-	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
+	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Enable Splunk HEC acknowledgements
-	SplunkHecAcks *bool `default:"false" json:"splunkHecAcks"`
+	SplunkHecAcks *bool `json:"splunkHecAcks,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `default:"true" json:"useFwdTimezone"`
+	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `default:"true" json:"dropControlFields"`
+	DropControlFields *bool `json:"dropControlFields,omitempty"`
 	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
 	Description      *string `json:"description,omitempty"`
 }
 
@@ -787,15 +787,15 @@ func (i InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() 
 }
 
 func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port", "splunkHecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -863,9 +863,9 @@ func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqTy
 	return i.Pq
 }
 
-func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -968,9 +968,9 @@ func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetIPDenylist
 	return i.IPDenylistRegex
 }
 
-func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetSplunkHecAPI() *string {
+func (i *InputSplunkHecSendToRoutesFalseWithConnectionsConstraint) GetSplunkHecAPI() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.SplunkHecAPI
 }
@@ -1084,12 +1084,12 @@ func (e *InputSplunkHecType) UnmarshalJSON(data []byte) error {
 
 type InputSplunkHecAuthToken struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// Shared secret to be provided by any client (Authorization: <token>)
 	Token   string `json:"token"`
-	Enabled *bool  `default:"true" json:"enabled"`
+	Enabled *bool  `json:"enabled,omitempty"`
 	// Optional token description
 	Description *string `json:"description,omitempty"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -1160,74 +1160,74 @@ func (i *InputSplunkHecAuthToken) GetMetadata() []ItemsTypeNotificationMetadata 
 
 type InputSplunkHecSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string            `json:"id,omitempty"`
 	Type     InputSplunkHecType `json:"type"`
-	Disabled *bool              `default:"false" json:"disabled"`
+	Disabled *bool              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitempty"`
 	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `default:"100" json:"activityLogSampleRate"`
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
 	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout  *float64 `default:"5" json:"keepAliveTimeout"`
+	KeepAliveTimeout  *float64 `json:"keepAliveTimeout,omitempty"`
 	EnableHealthCheck any      `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
-	SplunkHecAPI *string `default:"/services/collector" json:"splunkHecAPI"`
+	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitempty"`
 	// Enable Splunk HEC acknowledgements
-	SplunkHecAcks *bool `default:"false" json:"splunkHecAcks"`
+	SplunkHecAcks *bool `json:"splunkHecAcks,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `default:"true" json:"useFwdTimezone"`
+	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `default:"true" json:"dropControlFields"`
+	DropControlFields *bool `json:"dropControlFields,omitempty"`
 	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `default:"false" json:"extractMetrics"`
+	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitempty"`
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitempty"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `default:"false" json:"emitTokenMetrics"`
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
 	Description      *string `json:"description,omitempty"`
 }
 
@@ -1236,15 +1236,15 @@ func (i InputSplunkHecSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) 
 }
 
 func (i *InputSplunkHecSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port", "splunkHecAPI"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkHecSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1312,9 +1312,9 @@ func (i *InputSplunkHecSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSplunkHecSendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -1417,9 +1417,9 @@ func (i *InputSplunkHecSendToRoutesTrueConstraint) GetIPDenylistRegex() *string 
 	return i.IPDenylistRegex
 }
 
-func (i *InputSplunkHecSendToRoutesTrueConstraint) GetSplunkHecAPI() *string {
+func (i *InputSplunkHecSendToRoutesTrueConstraint) GetSplunkHecAPI() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.SplunkHecAPI
 }

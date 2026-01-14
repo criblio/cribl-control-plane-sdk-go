@@ -140,10 +140,10 @@ func (e *PipelineFunctionRedisAuthenticationMethod) IsExact() bool {
 type PipelineFunctionRedisConf struct {
 	Commands []PipelineFunctionRedisCommand `json:"commands"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *PipelineFunctionRedisDeploymentType       `default:"standalone" json:"deploymentType"`
-	AuthType       *PipelineFunctionRedisAuthenticationMethod `default:"none" json:"authType"`
+	DeploymentType *PipelineFunctionRedisDeploymentType       `json:"deploymentType,omitempty"`
+	AuthType       *PipelineFunctionRedisAuthenticationMethod `json:"authType,omitempty"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `default:"60" json:"maxBlockSecs"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
 }
@@ -196,7 +196,7 @@ func (p *PipelineFunctionRedisConf) GetEnableClientSideCaching() *bool {
 
 type PipelineFunctionRedis struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionRedisID `json:"id"`
 	// Simple description of this step

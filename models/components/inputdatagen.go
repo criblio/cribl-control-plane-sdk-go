@@ -11,16 +11,16 @@ import (
 
 type InputDatagenPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputDatagenType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -38,15 +38,15 @@ func (i InputDatagenPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputDatagenPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "samples"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatagenPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputDatagenPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -137,15 +137,15 @@ func (i *InputDatagenPqEnabledTrueWithPqConstraint) GetDescription() *string {
 
 type InputDatagenPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputDatagenType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -164,15 +164,15 @@ func (i InputDatagenPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputDatagenPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "samples"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatagenPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputDatagenPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -263,19 +263,19 @@ func (i *InputDatagenPqEnabledFalseConstraint) GetDescription() *string {
 
 type InputDatagenSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputDatagenType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
@@ -290,15 +290,15 @@ func (i InputDatagenSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([
 }
 
 func (i *InputDatagenSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "samples"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatagenSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputDatagenSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -413,7 +413,7 @@ func (e *InputDatagenType) UnmarshalJSON(data []byte) error {
 type Sample struct {
 	Sample string `json:"sample"`
 	// Maximum number of events to generate per second per Worker Node. Defaults to 10.
-	EventsPerSec *float64 `default:"10" json:"eventsPerSec"`
+	EventsPerSec float64 `json:"eventsPerSec"`
 }
 
 func (s Sample) MarshalJSON() ([]byte, error) {
@@ -421,7 +421,7 @@ func (s Sample) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Sample) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"sample"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"sample", "eventsPerSec"}); err != nil {
 		return err
 	}
 	return nil
@@ -434,26 +434,26 @@ func (s *Sample) GetSample() string {
 	return s.Sample
 }
 
-func (s *Sample) GetEventsPerSec() *float64 {
+func (s *Sample) GetEventsPerSec() float64 {
 	if s == nil {
-		return nil
+		return 0.0
 	}
 	return s.EventsPerSec
 }
 
 type InputDatagenSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputDatagenType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -470,15 +470,15 @@ func (i InputDatagenSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputDatagenSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "samples"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "samples"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputDatagenSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputDatagenSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }

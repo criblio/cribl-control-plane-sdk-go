@@ -59,15 +59,15 @@ func (e *PipelineFunctionDynamicSamplingSampleMode) IsExact() bool {
 
 type PipelineFunctionDynamicSamplingConf struct {
 	// Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-	Mode *PipelineFunctionDynamicSamplingSampleMode `default:"log" json:"mode"`
+	Mode PipelineFunctionDynamicSamplingSampleMode `json:"mode"`
 	// Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
-	KeyExpr *string "default:\"`${host}`\" json:\"keyExpr\""
+	KeyExpr string `json:"keyExpr"`
 	// How often (in seconds) sample rates will be adjusted
-	SamplePeriod *float64 `default:"30" json:"samplePeriod"`
+	SamplePeriod *float64 `json:"samplePeriod,omitempty"`
 	// Minimum number of events that must be received in previous sample period for sampling mode to be applied to current period. If the number of events received for a sample group is less than this minimum, a sample rate of 1:1 is used.
-	MinEvents *float64 `default:"30" json:"minEvents"`
+	MinEvents *float64 `json:"minEvents,omitempty"`
 	// Maximum sampling rate. If computed sampling rate is above this value, it will be limited to this value.
-	MaxSampleRate *float64 `default:"100" json:"maxSampleRate"`
+	MaxSampleRate *float64 `json:"maxSampleRate,omitempty"`
 }
 
 func (p PipelineFunctionDynamicSamplingConf) MarshalJSON() ([]byte, error) {
@@ -75,22 +75,22 @@ func (p PipelineFunctionDynamicSamplingConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDynamicSamplingConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"mode", "keyExpr"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionDynamicSamplingConf) GetMode() *PipelineFunctionDynamicSamplingSampleMode {
+func (p *PipelineFunctionDynamicSamplingConf) GetMode() PipelineFunctionDynamicSamplingSampleMode {
 	if p == nil {
-		return nil
+		return PipelineFunctionDynamicSamplingSampleMode("")
 	}
 	return p.Mode
 }
 
-func (p *PipelineFunctionDynamicSamplingConf) GetKeyExpr() *string {
+func (p *PipelineFunctionDynamicSamplingConf) GetKeyExpr() string {
 	if p == nil {
-		return nil
+		return ""
 	}
 	return p.KeyExpr
 }
@@ -118,7 +118,7 @@ func (p *PipelineFunctionDynamicSamplingConf) GetMaxSampleRate() *float64 {
 
 type PipelineFunctionDynamicSampling struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionDynamicSamplingID `json:"id"`
 	// Simple description of this step

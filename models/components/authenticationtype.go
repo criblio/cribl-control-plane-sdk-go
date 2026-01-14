@@ -8,14 +8,14 @@ import (
 
 // AuthenticationType - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type AuthenticationType struct {
-	Disabled *bool   `default:"true" json:"disabled"`
+	Disabled bool    `json:"disabled"`
 	Username *string `json:"username,omitempty"`
 	Password *string `json:"password,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType *AuthenticationMethodOptionsSasl `default:"manual" json:"authType"`
+	AuthType *AuthenticationMethodOptionsSasl `json:"authType,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string                   `json:"credentialsSecret,omitempty"`
-	Mechanism         *SaslMechanismOptionsSasl `default:"plain" json:"mechanism"`
+	Mechanism         *SaslMechanismOptionsSasl `json:"mechanism,omitempty"`
 	// Location of keytab file for authentication principal
 	KeytabLocation *string `json:"keytabLocation,omitempty"`
 	// Authentication principal, such as `kafka_user@example.com`
@@ -23,12 +23,12 @@ type AuthenticationType struct {
 	// Kerberos service class for Kafka brokers, such as `kafka`
 	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
 	// Enable OAuth authentication
-	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
+	OauthEnabled *bool `json:"oauthEnabled,omitempty"`
 	// URL of the token endpoint to use for OAuth authentication
 	TokenURL *string `json:"tokenUrl,omitempty"`
 	// Client ID to use for OAuth authentication
 	ClientID        *string `json:"clientId,omitempty"`
-	OauthSecretType *string `default:"secret" json:"oauthSecretType"`
+	OauthSecretType *string `json:"oauthSecretType,omitempty"`
 	// Select or create a stored text secret
 	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
 	// Additional fields to send to the token endpoint, such as scope or audience
@@ -42,15 +42,15 @@ func (a AuthenticationType) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthenticationType) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"disabled"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AuthenticationType) GetDisabled() *bool {
+func (a *AuthenticationType) GetDisabled() bool {
 	if a == nil {
-		return nil
+		return false
 	}
 	return a.Disabled
 }

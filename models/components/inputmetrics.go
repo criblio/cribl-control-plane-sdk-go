@@ -11,16 +11,16 @@ import (
 
 type InputMetricsPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputMetricsType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,17 +28,17 @@ type InputMetricsPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort *float64 `json:"udpPort,omitempty"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort *float64 `json:"tcpPort,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool                      `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
@@ -52,15 +52,15 @@ func (i InputMetricsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputMetricsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -128,9 +128,9 @@ func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsType
 	return i.Connections
 }
 
-func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -200,15 +200,15 @@ func (i *InputMetricsPqEnabledTrueWithPqConstraint) GetDescription() *string {
 
 type InputMetricsPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputMetricsType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -217,17 +217,17 @@ type InputMetricsPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort *float64 `json:"udpPort,omitempty"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort *float64 `json:"tcpPort,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool                      `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
@@ -241,15 +241,15 @@ func (i InputMetricsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputMetricsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMetricsPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputMetricsPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -317,9 +317,9 @@ func (i *InputMetricsPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputMetricsPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputMetricsPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -389,34 +389,34 @@ func (i *InputMetricsPqEnabledFalseConstraint) GetDescription() *string {
 
 type InputMetricsSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputMetricsType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort *float64 `json:"udpPort,omitempty"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort *float64 `json:"tcpPort,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool                      `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
@@ -430,15 +430,15 @@ func (i InputMetricsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([
 }
 
 func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -506,9 +506,9 @@ func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType
 	return i.Pq
 }
 
-func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputMetricsSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -601,34 +601,34 @@ func (e *InputMetricsType) UnmarshalJSON(data []byte) error {
 
 type InputMetricsSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputMetricsType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort *float64 `json:"udpPort,omitempty"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort *float64 `json:"tcpPort,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool                      `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitempty"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
@@ -642,15 +642,15 @@ func (i InputMetricsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputMetricsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputMetricsSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputMetricsSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -718,9 +718,9 @@ func (i *InputMetricsSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputMetricsSendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputMetricsSendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }

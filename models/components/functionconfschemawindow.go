@@ -12,9 +12,9 @@ type FunctionConfSchemaWindow struct {
 	// All window functions, tracked by this event window
 	RegisteredFunctions []string `json:"registeredFunctions,omitempty"`
 	// Number of events to keep before the current event in the window
-	TailEventCount *float64 `default:"0" json:"tailEventCount"`
+	TailEventCount *float64 `json:"tailEventCount,omitempty"`
 	// Number of events to keep after the current event in the window
-	HeadEventCount *float64 `default:"0" json:"headEventCount"`
+	HeadEventCount *float64 `json:"headEventCount,omitempty"`
 }
 
 func (f FunctionConfSchemaWindow) MarshalJSON() ([]byte, error) {

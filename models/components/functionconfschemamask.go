@@ -10,9 +10,9 @@ type FunctionConfSchemaMaskRule struct {
 	// Pattern to replace. Use /g to replace all matches.
 	MatchRegex string `json:"matchRegex"`
 	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
-	ReplaceExpr *string `default:"''" json:"replaceExpr"`
+	ReplaceExpr string `json:"replaceExpr"`
 	// Set to No to disable the evaluation of an individual rule
-	Disabled *bool `default:"false" json:"disabled"`
+	Disabled *bool `json:"disabled,omitempty"`
 }
 
 func (f FunctionConfSchemaMaskRule) MarshalJSON() ([]byte, error) {
@@ -20,7 +20,7 @@ func (f FunctionConfSchemaMaskRule) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionConfSchemaMaskRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"matchRegex"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"matchRegex", "replaceExpr"}); err != nil {
 		return err
 	}
 	return nil
@@ -33,9 +33,9 @@ func (f *FunctionConfSchemaMaskRule) GetMatchRegex() string {
 	return f.MatchRegex
 }
 
-func (f *FunctionConfSchemaMaskRule) GetReplaceExpr() *string {
+func (f *FunctionConfSchemaMaskRule) GetReplaceExpr() string {
 	if f == nil {
-		return nil
+		return ""
 	}
 	return f.ReplaceExpr
 }
@@ -52,7 +52,7 @@ type FunctionConfSchemaMask struct {
 	// Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
 	Fields []string `json:"fields,omitempty"`
 	// Depth to which the Mask Function will search for fields to mask
-	Depth *int64 `default:"5" json:"depth"`
+	Depth *int64 `json:"depth,omitempty"`
 	// Fields to evaluate if one or more masking rules are matched
 	Flags []ItemsTypeAdd `json:"flags,omitempty"`
 }

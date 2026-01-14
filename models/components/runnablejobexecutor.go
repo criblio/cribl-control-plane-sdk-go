@@ -8,13 +8,13 @@ import (
 
 type RunnableJobExecutorRun struct {
 	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
 	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Level at which to set task logging
-	LogLevel *LogLevelOptionsSavedJobCollectionScheduleRun `default:"info" json:"logLevel"`
+	LogLevel *LogLevelOptionsSavedJobCollectionScheduleRun `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 }
 
 func (r RunnableJobExecutorRun) MarshalJSON() ([]byte, error) {
@@ -62,13 +62,13 @@ type RunnableJobExecutor struct {
 	Description *string                           `json:"description,omitempty"`
 	Type        *JobTypeOptionsSavedJobCollection `json:"type,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
 	RemoveFields []string `json:"removeFields,omitempty"`
 	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution
-	ResumeOnBoot *bool `default:"false" json:"resumeOnBoot"`
+	ResumeOnBoot *bool `json:"resumeOnBoot,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Configuration for a scheduled job

@@ -38,9 +38,9 @@ type PipelineFunctionWindowConf struct {
 	// All window functions, tracked by this event window
 	RegisteredFunctions []string `json:"registeredFunctions"`
 	// Number of events to keep before the current event in the window
-	TailEventCount *float64 `default:"0" json:"tailEventCount"`
+	TailEventCount *float64 `json:"tailEventCount,omitempty"`
 	// Number of events to keep after the current event in the window
-	HeadEventCount *float64 `default:"0" json:"headEventCount"`
+	HeadEventCount *float64 `json:"headEventCount,omitempty"`
 }
 
 func (p PipelineFunctionWindowConf) MarshalJSON() ([]byte, error) {
@@ -84,7 +84,7 @@ func (p *PipelineFunctionWindowConf) GetHeadEventCount() *float64 {
 
 type PipelineFunctionWindow struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionWindowID `json:"id"`
 	// Simple description of this step

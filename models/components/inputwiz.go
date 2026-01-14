@@ -11,16 +11,16 @@ import (
 
 type InputWizPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWizType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,7 +28,7 @@ type InputWizPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
-	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// The authentication URL to generate an OAuth token
 	AuthURL string `json:"authUrl"`
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
@@ -37,20 +37,20 @@ type InputWizPqEnabledTrueWithPqConstraint struct {
 	ClientID      string                  `json:"clientId"`
 	ContentConfig []InputWizContentConfig `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
-	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitempty"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -63,15 +63,15 @@ func (i InputWizPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "endpoint", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -139,9 +139,9 @@ func (i *InputWizPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConn
 	return i.Connections
 }
 
-func (i *InputWizPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetEndpoint() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Endpoint
 }
@@ -223,7 +223,7 @@ func (i *InputWizPqEnabledTrueWithPqConstraint) GetRetryRules() *RetryRulesType 
 	return i.RetryRules
 }
 
-func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions2 {
+func (i *InputWizPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -253,15 +253,15 @@ func (i *InputWizPqEnabledTrueWithPqConstraint) GetTextSecret() *string {
 
 type InputWizPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWizType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -270,7 +270,7 @@ type InputWizPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
-	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// The authentication URL to generate an OAuth token
 	AuthURL string `json:"authUrl"`
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
@@ -279,20 +279,20 @@ type InputWizPqEnabledFalseConstraint struct {
 	ClientID      string                  `json:"clientId"`
 	ContentConfig []InputWizContentConfig `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
-	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitempty"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -305,15 +305,15 @@ func (i InputWizPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "endpoint", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputWizPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -381,9 +381,9 @@ func (i *InputWizPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputWizPqEnabledFalseConstraint) GetEndpoint() *string {
+func (i *InputWizPqEnabledFalseConstraint) GetEndpoint() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Endpoint
 }
@@ -465,7 +465,7 @@ func (i *InputWizPqEnabledFalseConstraint) GetRetryRules() *RetryRulesType {
 	return i.RetryRules
 }
 
-func (i *InputWizPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions2 {
+func (i *InputWizPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -495,24 +495,24 @@ func (i *InputWizPqEnabledFalseConstraint) GetTextSecret() *string {
 
 type InputWizSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWizType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
-	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// The authentication URL to generate an OAuth token
 	AuthURL string `json:"authUrl"`
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
@@ -521,20 +521,20 @@ type InputWizSendToRoutesFalseWithConnectionsConstraint struct {
 	ClientID      string                  `json:"clientId"`
 	ContentConfig []InputWizContentConfig `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
-	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitempty"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -547,15 +547,15 @@ func (i InputWizSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byt
 }
 
 func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "endpoint", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -623,9 +623,9 @@ func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Endpoint
 }
@@ -707,7 +707,7 @@ func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetRetryRules() *Re
 	return i.RetryRules
 }
 
-func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions2 {
+func (i *InputWizSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}
@@ -802,28 +802,28 @@ type InputWizContentConfig struct {
 	// The name of the Wiz query
 	ContentType        string  `json:"contentType"`
 	ContentDescription *string `json:"contentDescription,omitempty"`
-	Enabled            *bool   `default:"false" json:"enabled"`
+	Enabled            *bool   `json:"enabled,omitempty"`
 	// Track collection progress between consecutive scheduled executions
-	StateTracking *bool `default:"false" json:"stateTracking"`
+	StateTracking *bool `json:"stateTracking,omitempty"`
 	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
-	StateUpdateExpression *string `default:"__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}" json:"stateUpdateExpression"`
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitempty"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string      `default:"prevState.latestTime > newState.latestTime ? prevState : newState" json:"stateMergeExpression"`
+	StateMergeExpression *string      `json:"stateMergeExpression,omitempty"`
 	ManageState          *ManageState `json:"manageState,omitempty"`
 	// Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
 	ContentQuery string `json:"contentQuery"`
 	// A cron schedule on which to run this job
-	CronSchedule *string `default:"0 */12 * * *" json:"cronSchedule"`
+	CronSchedule string `json:"cronSchedule"`
 	// Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
-	Earliest *string `default:"-12h@h" json:"earliest"`
+	Earliest string `json:"earliest"`
 	// Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
-	Latest *string `default:"now" json:"latest"`
+	Latest string `json:"latest"`
 	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Units default to seconds if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// Collector runtime log level
-	LogLevel *InputWizLogLevel `default:"info" json:"logLevel"`
+	LogLevel *InputWizLogLevel `json:"logLevel,omitempty"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
-	MaxPages *float64 `default:"0" json:"maxPages"`
+	MaxPages *float64 `json:"maxPages,omitempty"`
 }
 
 func (i InputWizContentConfig) MarshalJSON() ([]byte, error) {
@@ -831,7 +831,7 @@ func (i InputWizContentConfig) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizContentConfig) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"contentType", "contentQuery"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"contentType", "contentQuery", "cronSchedule", "earliest", "latest"}); err != nil {
 		return err
 	}
 	return nil
@@ -893,23 +893,23 @@ func (i *InputWizContentConfig) GetContentQuery() string {
 	return i.ContentQuery
 }
 
-func (i *InputWizContentConfig) GetCronSchedule() *string {
+func (i *InputWizContentConfig) GetCronSchedule() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.CronSchedule
 }
 
-func (i *InputWizContentConfig) GetEarliest() *string {
+func (i *InputWizContentConfig) GetEarliest() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Earliest
 }
 
-func (i *InputWizContentConfig) GetLatest() *string {
+func (i *InputWizContentConfig) GetLatest() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Latest
 }
@@ -937,24 +937,24 @@ func (i *InputWizContentConfig) GetMaxPages() *float64 {
 
 type InputWizSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWizType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
-	Endpoint *string `default:"https://api.<region>.app.wiz.io/graphql" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// The authentication URL to generate an OAuth token
 	AuthURL string `json:"authUrl"`
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
@@ -963,20 +963,20 @@ type InputWizSendToRoutesTrueConstraint struct {
 	ClientID      string                  `json:"clientId"`
 	ContentConfig []InputWizContentConfig `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
-	RequestTimeout *float64 `default:"300" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptions2 `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptions1 `json:"authType,omitempty"`
 	Description *string                       `json:"description,omitempty"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitempty"`
@@ -989,15 +989,15 @@ func (i InputWizSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWizSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "authUrl", "clientId", "contentConfig"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "endpoint", "authUrl", "clientId", "contentConfig"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWizSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputWizSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1065,9 +1065,9 @@ func (i *InputWizSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputWizSendToRoutesTrueConstraint) GetEndpoint() *string {
+func (i *InputWizSendToRoutesTrueConstraint) GetEndpoint() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Endpoint
 }
@@ -1149,7 +1149,7 @@ func (i *InputWizSendToRoutesTrueConstraint) GetRetryRules() *RetryRulesType {
 	return i.RetryRules
 }
 
-func (i *InputWizSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions2 {
+func (i *InputWizSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptions1 {
 	if i == nil {
 		return nil
 	}

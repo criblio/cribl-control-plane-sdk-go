@@ -7,10 +7,10 @@ import (
 )
 
 type TLSSettingsClientSideTypeKafkaSchemaRegistry struct {
-	Disabled *bool `default:"true" json:"disabled"`
+	Disabled *bool `json:"disabled,omitempty"`
 	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
 	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
 	Servername *string `json:"servername,omitempty"`
 	// The name of the predefined certificate

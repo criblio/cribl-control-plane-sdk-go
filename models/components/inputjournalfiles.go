@@ -66,16 +66,16 @@ func (p *PqEnabledTrueWithPqConstraintRule) GetDescription() *string {
 
 type InputJournalFilesPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                                            `json:"id,omitempty"`
 	Type     InputJournalFilesPqEnabledTrueWithPqConstraintType `json:"type"`
-	Disabled *bool                                              `default:"false" json:"disabled"`
+	Disabled *bool                                              `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -85,13 +85,13 @@ type InputJournalFilesPqEnabledTrueWithPqConstraint struct {
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
 	Rules []PqEnabledTrueWithPqConstraintRule `json:"rules,omitempty"`
 	// Skip log messages that are not part of the current boot session.
-	CurrentBoot *bool `default:"false" json:"currentBoot"`
+	CurrentBoot *bool `json:"currentBoot,omitempty"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Fields to add to events from this input
@@ -104,15 +104,15 @@ func (i InputJournalFilesPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, e
 }
 
 func (i *InputJournalFilesPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "path", "journals"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputJournalFilesPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputJournalFilesPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -293,15 +293,15 @@ func (p *PqEnabledFalseConstraintRule) GetDescription() *string {
 
 type InputJournalFilesPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                                       `json:"id,omitempty"`
 	Type     InputJournalFilesPqEnabledFalseConstraintType `json:"type"`
-	Disabled *bool                                         `default:"false" json:"disabled"`
+	Disabled *bool                                         `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -312,13 +312,13 @@ type InputJournalFilesPqEnabledFalseConstraint struct {
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
 	Rules []PqEnabledFalseConstraintRule `json:"rules,omitempty"`
 	// Skip log messages that are not part of the current boot session.
-	CurrentBoot *bool `default:"false" json:"currentBoot"`
+	CurrentBoot *bool `json:"currentBoot,omitempty"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Fields to add to events from this input
@@ -331,15 +331,15 @@ func (i InputJournalFilesPqEnabledFalseConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputJournalFilesPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "path", "journals"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputJournalFilesPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputJournalFilesPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -520,32 +520,32 @@ func (s *SendToRoutesFalseWithConnectionsConstraintRule) GetDescription() *strin
 
 type InputJournalFilesSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                                                         `json:"id,omitempty"`
 	Type     InputJournalFilesSendToRoutesFalseWithConnectionsConstraintType `json:"type"`
-	Disabled *bool                                                           `default:"false" json:"disabled"`
+	Disabled *bool                                                           `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
 	Rules []SendToRoutesFalseWithConnectionsConstraintRule `json:"rules,omitempty"`
 	// Skip log messages that are not part of the current boot session.
-	CurrentBoot *bool `default:"false" json:"currentBoot"`
+	CurrentBoot *bool `json:"currentBoot,omitempty"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Fields to add to events from this input
@@ -558,15 +558,15 @@ func (i InputJournalFilesSendToRoutesFalseWithConnectionsConstraint) MarshalJSON
 }
 
 func (i *InputJournalFilesSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "path", "journals"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputJournalFilesSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputJournalFilesSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -747,17 +747,17 @@ func (s *SendToRoutesTrueConstraintRule) GetDescription() *string {
 
 type InputJournalFilesSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                                         `json:"id,omitempty"`
 	Type     InputJournalFilesSendToRoutesTrueConstraintType `json:"type"`
-	Disabled *bool                                           `default:"false" json:"disabled"`
+	Disabled *bool                                           `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -766,13 +766,13 @@ type InputJournalFilesSendToRoutesTrueConstraint struct {
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
 	Rules []SendToRoutesTrueConstraintRule `json:"rules,omitempty"`
 	// Skip log messages that are not part of the current boot session.
-	CurrentBoot *bool `default:"false" json:"currentBoot"`
+	CurrentBoot *bool `json:"currentBoot,omitempty"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Fields to add to events from this input
@@ -785,15 +785,15 @@ func (i InputJournalFilesSendToRoutesTrueConstraint) MarshalJSON() ([]byte, erro
 }
 
 func (i *InputJournalFilesSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "path", "journals"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "path", "journals"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputJournalFilesSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputJournalFilesSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }

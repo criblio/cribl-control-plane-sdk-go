@@ -9,7 +9,7 @@ import (
 type ItemsTypeProcessSets struct {
 	Name            string `json:"name"`
 	Filter          string `json:"filter"`
-	IncludeChildren *bool  `default:"false" json:"includeChildren"`
+	IncludeChildren *bool  `json:"includeChildren,omitempty"`
 }
 
 func (i ItemsTypeProcessSets) MarshalJSON() ([]byte, error) {

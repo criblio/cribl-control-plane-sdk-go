@@ -8,7 +8,7 @@ import (
 
 type FunctionConfSchemaLimit struct {
 	// Number of qualifying events to pass through
-	Limit *int64 `default:"100" json:"limit"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (f FunctionConfSchemaLimit) MarshalJSON() ([]byte, error) {

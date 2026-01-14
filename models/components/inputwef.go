@@ -11,16 +11,16 @@ import (
 
 type InputWefPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWefType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,30 +28,30 @@ type InputWefPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64 `default:"5986" json:"port"`
+	Port float64 `json:"port"`
 	// How to authenticate incoming client connections
-	AuthMethod *InputWefAuthenticationMethod `default:"clientCert" json:"authMethod"`
+	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitempty"`
 	TLS        *MTLSSettings                 `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
 	CaFingerprint *string `json:"caFingerprint,omitempty"`
 	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
@@ -59,14 +59,14 @@ type InputWefPqEnabledTrueWithPqConstraint struct {
 	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
 	Principal *string `json:"principal,omitempty"`
 	// Allow events to be ingested even if their MachineID does not match the client certificate CN
-	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitempty"`
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []Subscription `json:"subscriptions"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
-	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
 }
 
 func (i InputWefPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
@@ -74,15 +74,15 @@ func (i InputWefPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWefPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputWefPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -150,16 +150,16 @@ func (i *InputWefPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConn
 	return i.Connections
 }
 
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputWefPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetPort() *float64 {
+func (i *InputWefPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -299,15 +299,15 @@ func (i *InputWefPqEnabledTrueWithPqConstraint) GetLogFingerprintMismatch() *boo
 
 type InputWefPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWefType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -316,30 +316,30 @@ type InputWefPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64 `default:"5986" json:"port"`
+	Port float64 `json:"port"`
 	// How to authenticate incoming client connections
-	AuthMethod *InputWefAuthenticationMethod `default:"clientCert" json:"authMethod"`
+	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitempty"`
 	TLS        *MTLSSettings                 `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
 	CaFingerprint *string `json:"caFingerprint,omitempty"`
 	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
@@ -347,14 +347,14 @@ type InputWefPqEnabledFalseConstraint struct {
 	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
 	Principal *string `json:"principal,omitempty"`
 	// Allow events to be ingested even if their MachineID does not match the client certificate CN
-	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitempty"`
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []Subscription `json:"subscriptions"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
-	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
 }
 
 func (i InputWefPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
@@ -362,15 +362,15 @@ func (i InputWefPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWefPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWefPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputWefPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -438,16 +438,16 @@ func (i *InputWefPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputWefPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputWefPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputWefPqEnabledFalseConstraint) GetPort() *float64 {
+func (i *InputWefPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -587,47 +587,47 @@ func (i *InputWefPqEnabledFalseConstraint) GetLogFingerprintMismatch() *bool {
 
 type InputWefSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWefType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64 `default:"5986" json:"port"`
+	Port float64 `json:"port"`
 	// How to authenticate incoming client connections
-	AuthMethod *InputWefAuthenticationMethod `default:"clientCert" json:"authMethod"`
+	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitempty"`
 	TLS        *MTLSSettings                 `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
 	CaFingerprint *string `json:"caFingerprint,omitempty"`
 	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
@@ -635,14 +635,14 @@ type InputWefSendToRoutesFalseWithConnectionsConstraint struct {
 	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
 	Principal *string `json:"principal,omitempty"`
 	// Allow events to be ingested even if their MachineID does not match the client certificate CN
-	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitempty"`
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []Subscription `json:"subscriptions"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
-	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
 }
 
 func (i InputWefSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
@@ -650,15 +650,15 @@ func (i InputWefSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byt
 }
 
 func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -726,16 +726,16 @@ func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetPort() *float64 {
+func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -923,11 +923,11 @@ func (e *InputWefAuthenticationMethod) IsExact() bool {
 
 type MTLSSettings struct {
 	// Enable TLS
-	Disabled *bool `default:"false" json:"disabled"`
+	Disabled *bool `json:"disabled,omitempty"`
 	// Required for WEF certificate authentication
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Required for WEF certificate authentication
-	RequestCert *bool `default:"true" json:"requestCert"`
+	RequestCert *bool `json:"requestCert,omitempty"`
 	// Name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
@@ -939,15 +939,15 @@ type MTLSSettings struct {
 	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
 	CaPath string `json:"caPath"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string                                         `default:"/.*/" json:"commonNameRegex"`
+	CommonNameRegex *string                                         `json:"commonNameRegex,omitempty"`
 	MinVersion      *MinimumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"minVersion,omitempty"`
 	MaxVersion      *MaximumTLSVersionOptionsKafkaSchemaRegistryTLS `json:"maxVersion,omitempty"`
 	// Enable OCSP check of certificate
-	OcspCheck *bool `default:"false" json:"ocspCheck"`
+	OcspCheck *bool `json:"ocspCheck,omitempty"`
 	Keytab    any   `json:"keytab,omitempty"`
 	Principal any   `json:"principal,omitempty"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
-	OcspCheckFailClose *bool `default:"false" json:"ocspCheckFailClose"`
+	OcspCheckFailClose *bool `json:"ocspCheckFailClose,omitempty"`
 }
 
 func (m MTLSSettings) MarshalJSON() ([]byte, error) {
@@ -1148,22 +1148,22 @@ type Subscription struct {
 	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
 	Version *string `json:"version,omitempty"`
 	// Content format in which the endpoint should deliver events
-	ContentFormat *InputWefFormat `default:"Raw" json:"contentFormat"`
+	ContentFormat InputWefFormat `json:"contentFormat"`
 	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
-	HeartbeatInterval *float64 `default:"60" json:"heartbeatInterval"`
+	HeartbeatInterval float64 `json:"heartbeatInterval"`
 	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
-	BatchTimeout *float64 `default:"60" json:"batchTimeout"`
+	BatchTimeout float64 `json:"batchTimeout"`
 	// Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
-	ReadExistingEvents *bool `default:"false" json:"readExistingEvents"`
+	ReadExistingEvents *bool `json:"readExistingEvents,omitempty"`
 	// Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
-	SendBookmarks *bool `default:"true" json:"sendBookmarks"`
+	SendBookmarks *bool `json:"sendBookmarks,omitempty"`
 	// Receive compressed events from the source
-	Compress *bool `default:"true" json:"compress"`
+	Compress *bool `json:"compress,omitempty"`
 	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
 	Targets []string `json:"targets"`
 	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
-	Locale        *string           `default:"en-US" json:"locale"`
-	QuerySelector *QueryBuilderMode `default:"simple" json:"querySelector"`
+	Locale        *string           `json:"locale,omitempty"`
+	QuerySelector *QueryBuilderMode `json:"querySelector,omitempty"`
 	// Fields to add to events ingested under this subscription
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Queries  []Query                         `json:"queries,omitempty"`
@@ -1176,7 +1176,7 @@ func (s Subscription) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Subscription) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "targets"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"subscriptionName", "contentFormat", "heartbeatInterval", "batchTimeout", "targets"}); err != nil {
 		return err
 	}
 	return nil
@@ -1196,23 +1196,23 @@ func (s *Subscription) GetVersion() *string {
 	return s.Version
 }
 
-func (s *Subscription) GetContentFormat() *InputWefFormat {
+func (s *Subscription) GetContentFormat() InputWefFormat {
 	if s == nil {
-		return nil
+		return InputWefFormat("")
 	}
 	return s.ContentFormat
 }
 
-func (s *Subscription) GetHeartbeatInterval() *float64 {
+func (s *Subscription) GetHeartbeatInterval() float64 {
 	if s == nil {
-		return nil
+		return 0.0
 	}
 	return s.HeartbeatInterval
 }
 
-func (s *Subscription) GetBatchTimeout() *float64 {
+func (s *Subscription) GetBatchTimeout() float64 {
 	if s == nil {
-		return nil
+		return 0.0
 	}
 	return s.BatchTimeout
 }
@@ -1282,47 +1282,47 @@ func (s *Subscription) GetXMLQuery() *string {
 
 type InputWefSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWefType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64 `default:"5986" json:"port"`
+	Port float64 `json:"port"`
 	// How to authenticate incoming client connections
-	AuthMethod *InputWefAuthenticationMethod `default:"clientCert" json:"authMethod"`
+	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitempty"`
 	TLS        *MTLSSettings                 `json:"tls,omitempty"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `default:"256" json:"maxActiveReq"`
+	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `default:"0" json:"maxRequestsPerSocket"`
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
 	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Add request headers to events in the __headers field
-	CaptureHeaders *bool `default:"false" json:"captureHeaders"`
+	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
 	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `default:"90" json:"keepAliveTimeout"`
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
 	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `default:"false" json:"enableHealthCheck"`
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `default:"0" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
 	CaFingerprint *string `json:"caFingerprint,omitempty"`
 	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
@@ -1330,14 +1330,14 @@ type InputWefSendToRoutesTrueConstraint struct {
 	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
 	Principal *string `json:"principal,omitempty"`
 	// Allow events to be ingested even if their MachineID does not match the client certificate CN
-	AllowMachineIDMismatch *bool `default:"false" json:"allowMachineIdMismatch"`
+	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitempty"`
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []Subscription `json:"subscriptions"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
-	LogFingerprintMismatch *bool `default:"false" json:"logFingerprintMismatch"`
+	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
 }
 
 func (i InputWefSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
@@ -1345,15 +1345,15 @@ func (i InputWefSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputWefSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputWefSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1421,16 +1421,16 @@ func (i *InputWefSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputWefSendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetPort() *float64 {
+func (i *InputWefSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }

@@ -7,13 +7,13 @@ import (
 )
 
 type TLSSettingsServerSideType struct {
-	Disabled *bool `default:"true" json:"disabled"`
+	Disabled *bool `json:"disabled,omitempty"`
 	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
+	RequestCert *bool `json:"requestCert,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
+	CommonNameRegex *string `json:"commonNameRegex,omitempty"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.

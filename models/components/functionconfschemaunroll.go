@@ -8,9 +8,9 @@ import (
 
 type FunctionConfSchemaUnroll struct {
 	// Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
-	SrcExpr *string `default:"_raw" json:"srcExpr"`
+	SrcExpr *string `json:"srcExpr,omitempty"`
 	// Field in destination event in which to place the unrolled value
-	DstField *string `default:"_raw" json:"dstField"`
+	DstField *string `json:"dstField,omitempty"`
 }
 
 func (f FunctionConfSchemaUnroll) MarshalJSON() ([]byte, error) {

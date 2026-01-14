@@ -11,16 +11,16 @@ import (
 
 type InputGooglePubsubPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputGooglePubsubType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,34 +28,34 @@ type InputGooglePubsubPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
-	TopicName *string `default:"cribl" json:"topicName"`
+	TopicName string `json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
 	SubscriptionName string `json:"subscriptionName"`
 	// Use when the subscription is not created by this Source and topic is not known
-	MonitorSubscription *bool `default:"false" json:"monitorSubscription"`
+	MonitorSubscription *bool `json:"monitorSubscription,omitempty"`
 	// Create topic if it does not exist
-	CreateTopic *bool `default:"false" json:"createTopic"`
+	CreateTopic *bool `json:"createTopic,omitempty"`
 	// Create subscription if it does not exist
-	CreateSubscription *bool `default:"true" json:"createSubscription"`
+	CreateSubscription *bool `json:"createSubscription,omitempty"`
 	// Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
 	Region *string `json:"region,omitempty"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *GoogleAuthenticationMethodOptions `default:"manual" json:"googleAuthMethod"`
+	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
 	Secret *string `json:"secret,omitempty"`
 	// If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
-	MaxBacklog *float64 `default:"1000" json:"maxBacklog"`
+	MaxBacklog *float64 `json:"maxBacklog,omitempty"`
 	// How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Pull request timeout, in milliseconds
-	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
-	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
 }
 
 func (i InputGooglePubsubPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
@@ -63,15 +63,15 @@ func (i InputGooglePubsubPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, e
 }
 
 func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptionName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "topicName", "subscriptionName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -139,9 +139,9 @@ func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetConnections() []Item
 	return i.Connections
 }
 
-func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetTopicName() *string {
+func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetTopicName() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.TopicName
 }
@@ -246,15 +246,15 @@ func (i *InputGooglePubsubPqEnabledTrueWithPqConstraint) GetOrderedDelivery() *b
 
 type InputGooglePubsubPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputGooglePubsubType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -263,34 +263,34 @@ type InputGooglePubsubPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
-	TopicName *string `default:"cribl" json:"topicName"`
+	TopicName string `json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
 	SubscriptionName string `json:"subscriptionName"`
 	// Use when the subscription is not created by this Source and topic is not known
-	MonitorSubscription *bool `default:"false" json:"monitorSubscription"`
+	MonitorSubscription *bool `json:"monitorSubscription,omitempty"`
 	// Create topic if it does not exist
-	CreateTopic *bool `default:"false" json:"createTopic"`
+	CreateTopic *bool `json:"createTopic,omitempty"`
 	// Create subscription if it does not exist
-	CreateSubscription *bool `default:"true" json:"createSubscription"`
+	CreateSubscription *bool `json:"createSubscription,omitempty"`
 	// Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
 	Region *string `json:"region,omitempty"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *GoogleAuthenticationMethodOptions `default:"manual" json:"googleAuthMethod"`
+	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
 	Secret *string `json:"secret,omitempty"`
 	// If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
-	MaxBacklog *float64 `default:"1000" json:"maxBacklog"`
+	MaxBacklog *float64 `json:"maxBacklog,omitempty"`
 	// How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Pull request timeout, in milliseconds
-	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
-	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
 }
 
 func (i InputGooglePubsubPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
@@ -298,15 +298,15 @@ func (i InputGooglePubsubPqEnabledFalseConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputGooglePubsubPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptionName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "topicName", "subscriptionName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsubPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputGooglePubsubPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -374,9 +374,9 @@ func (i *InputGooglePubsubPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputGooglePubsubPqEnabledFalseConstraint) GetTopicName() *string {
+func (i *InputGooglePubsubPqEnabledFalseConstraint) GetTopicName() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.TopicName
 }
@@ -481,51 +481,51 @@ func (i *InputGooglePubsubPqEnabledFalseConstraint) GetOrderedDelivery() *bool {
 
 type InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputGooglePubsubType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
-	TopicName *string `default:"cribl" json:"topicName"`
+	TopicName string `json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
 	SubscriptionName string `json:"subscriptionName"`
 	// Use when the subscription is not created by this Source and topic is not known
-	MonitorSubscription *bool `default:"false" json:"monitorSubscription"`
+	MonitorSubscription *bool `json:"monitorSubscription,omitempty"`
 	// Create topic if it does not exist
-	CreateTopic *bool `default:"false" json:"createTopic"`
+	CreateTopic *bool `json:"createTopic,omitempty"`
 	// Create subscription if it does not exist
-	CreateSubscription *bool `default:"true" json:"createSubscription"`
+	CreateSubscription *bool `json:"createSubscription,omitempty"`
 	// Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
 	Region *string `json:"region,omitempty"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *GoogleAuthenticationMethodOptions `default:"manual" json:"googleAuthMethod"`
+	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
 	Secret *string `json:"secret,omitempty"`
 	// If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
-	MaxBacklog *float64 `default:"1000" json:"maxBacklog"`
+	MaxBacklog *float64 `json:"maxBacklog,omitempty"`
 	// How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Pull request timeout, in milliseconds
-	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
-	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
 }
 
 func (i InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
@@ -533,15 +533,15 @@ func (i InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) MarshalJSON
 }
 
 func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptionName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "topicName", "subscriptionName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -609,9 +609,9 @@ func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetPq() *P
 	return i.Pq
 }
 
-func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetTopicName() *string {
+func (i *InputGooglePubsubSendToRoutesFalseWithConnectionsConstraint) GetTopicName() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.TopicName
 }
@@ -739,51 +739,51 @@ func (e *InputGooglePubsubType) UnmarshalJSON(data []byte) error {
 
 type InputGooglePubsubSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputGooglePubsubType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
-	TopicName *string `default:"cribl" json:"topicName"`
+	TopicName string `json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
 	SubscriptionName string `json:"subscriptionName"`
 	// Use when the subscription is not created by this Source and topic is not known
-	MonitorSubscription *bool `default:"false" json:"monitorSubscription"`
+	MonitorSubscription *bool `json:"monitorSubscription,omitempty"`
 	// Create topic if it does not exist
-	CreateTopic *bool `default:"false" json:"createTopic"`
+	CreateTopic *bool `json:"createTopic,omitempty"`
 	// Create subscription if it does not exist
-	CreateSubscription *bool `default:"true" json:"createSubscription"`
+	CreateSubscription *bool `json:"createSubscription,omitempty"`
 	// Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
 	Region *string `json:"region,omitempty"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *GoogleAuthenticationMethodOptions `default:"manual" json:"googleAuthMethod"`
+	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
 	Secret *string `json:"secret,omitempty"`
 	// If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
-	MaxBacklog *float64 `default:"1000" json:"maxBacklog"`
+	MaxBacklog *float64 `json:"maxBacklog,omitempty"`
 	// How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Pull request timeout, in milliseconds
-	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
-	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
 }
 
 func (i InputGooglePubsubSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
@@ -791,15 +791,15 @@ func (i InputGooglePubsubSendToRoutesTrueConstraint) MarshalJSON() ([]byte, erro
 }
 
 func (i *InputGooglePubsubSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "subscriptionName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "topicName", "subscriptionName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputGooglePubsubSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputGooglePubsubSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -867,9 +867,9 @@ func (i *InputGooglePubsubSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputGooglePubsubSendToRoutesTrueConstraint) GetTopicName() *string {
+func (i *InputGooglePubsubSendToRoutesTrueConstraint) GetTopicName() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.TopicName
 }

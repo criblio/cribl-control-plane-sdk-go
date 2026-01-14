@@ -14,7 +14,7 @@ type FunctionConfSchemaHandlebarsTemplateDefinition struct {
 	// Optional description of what this template is used for
 	Description *string `json:"description,omitempty"`
 	// Type categorization for the template (e.g., Universal, Email, Slack)
-	Type *string `default:"Universal" json:"type"`
+	Type string `json:"type"`
 }
 
 func (f FunctionConfSchemaHandlebarsTemplateDefinition) MarshalJSON() ([]byte, error) {
@@ -22,7 +22,7 @@ func (f FunctionConfSchemaHandlebarsTemplateDefinition) MarshalJSON() ([]byte, e
 }
 
 func (f *FunctionConfSchemaHandlebarsTemplateDefinition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"id", "content"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"id", "content", "type"}); err != nil {
 		return err
 	}
 	return nil
@@ -49,9 +49,9 @@ func (f *FunctionConfSchemaHandlebarsTemplateDefinition) GetDescription() *strin
 	return f.Description
 }
 
-func (f *FunctionConfSchemaHandlebarsTemplateDefinition) GetType() *string {
+func (f *FunctionConfSchemaHandlebarsTemplateDefinition) GetType() string {
 	if f == nil {
-		return nil
+		return ""
 	}
 	return f.Type
 }
@@ -60,11 +60,11 @@ type FunctionConfSchemaHandlebars struct {
 	// Array of template definitions. Uses event.__template_id to select template at runtime.
 	Templates []FunctionConfSchemaHandlebarsTemplateDefinition `json:"templates,omitempty"`
 	// Field name to store the rendered template result. Defaults to _raw.
-	TargetField *string `default:"_raw" json:"targetField"`
+	TargetField *string `json:"targetField,omitempty"`
 	// Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
-	ParseJSON *bool `default:"false" json:"parseJson"`
+	ParseJSON *bool `json:"parseJson,omitempty"`
 	// Remove the target field if the rendered result is empty or null.
-	RemoveOnNull *bool `default:"true" json:"removeOnNull"`
+	RemoveOnNull *bool `json:"removeOnNull,omitempty"`
 }
 
 func (f FunctionConfSchemaHandlebars) MarshalJSON() ([]byte, error) {

@@ -11,16 +11,16 @@ import (
 
 type InputSplunkSearchPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputSplunkSearchType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,19 +28,19 @@ type InputSplunkSearchPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `default:"-16m@m" json:"earliest"`
+	Earliest *string `json:"earliest,omitempty"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `default:"-1m@m" json:"latest"`
+	Latest *string `json:"latest,omitempty"`
 	// A cron schedule on which to run this job
-	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	CronSchedule string `json:"cronSchedule"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional request parameters to send to the endpoint
 	EndpointParams []EndpointParam `json:"endpointParams,omitempty"`
 	// Optional request headers to send to the endpoint
@@ -48,32 +48,32 @@ type InputSplunkSearchPqEnabledTrueWithPqConstraint struct {
 	// Collector runtime log level (verbosity)
 	LogLevel *InputSplunkSearchLogLevel `json:"logLevel,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
 	Encoding *string `json:"encoding,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Splunk Search authentication type
-	AuthType    *InputSplunkSearchAuthenticationType `default:"basic" json:"authType"`
+	AuthType    *InputSplunkSearchAuthenticationType `json:"authType,omitempty"`
 	Description *string                              `json:"description,omitempty"`
 	Username    *string                              `json:"username,omitempty"`
 	Password    *string                              `json:"password,omitempty"`
@@ -92,9 +92,9 @@ type InputSplunkSearchPqEnabledTrueWithPqConstraint struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -106,15 +106,15 @@ func (i InputSplunkSearchPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, e
 }
 
 func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "searchHead", "search", "cronSchedule", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -182,9 +182,9 @@ func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetConnections() []Item
 	return i.Connections
 }
 
-func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetSearchHead() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetSearchHead() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.SearchHead
 }
@@ -210,23 +210,23 @@ func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetLatest() *string {
 	return i.Latest
 }
 
-func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetCronSchedule() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetCronSchedule() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.CronSchedule
 }
 
-func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetEndpoint() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if i == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return i.OutputMode
 }
@@ -450,15 +450,15 @@ func (i *InputSplunkSearchPqEnabledTrueWithPqConstraint) GetOauthHeaders() []Ite
 
 type InputSplunkSearchPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputSplunkSearchType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -467,19 +467,19 @@ type InputSplunkSearchPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `default:"-16m@m" json:"earliest"`
+	Earliest *string `json:"earliest,omitempty"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `default:"-1m@m" json:"latest"`
+	Latest *string `json:"latest,omitempty"`
 	// A cron schedule on which to run this job
-	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	CronSchedule string `json:"cronSchedule"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional request parameters to send to the endpoint
 	EndpointParams []EndpointParam `json:"endpointParams,omitempty"`
 	// Optional request headers to send to the endpoint
@@ -487,32 +487,32 @@ type InputSplunkSearchPqEnabledFalseConstraint struct {
 	// Collector runtime log level (verbosity)
 	LogLevel *InputSplunkSearchLogLevel `json:"logLevel,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
 	Encoding *string `json:"encoding,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Splunk Search authentication type
-	AuthType    *InputSplunkSearchAuthenticationType `default:"basic" json:"authType"`
+	AuthType    *InputSplunkSearchAuthenticationType `json:"authType,omitempty"`
 	Description *string                              `json:"description,omitempty"`
 	Username    *string                              `json:"username,omitempty"`
 	Password    *string                              `json:"password,omitempty"`
@@ -531,9 +531,9 @@ type InputSplunkSearchPqEnabledFalseConstraint struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -545,15 +545,15 @@ func (i InputSplunkSearchPqEnabledFalseConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputSplunkSearchPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "searchHead", "search", "cronSchedule", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearchPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputSplunkSearchPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -621,9 +621,9 @@ func (i *InputSplunkSearchPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSplunkSearchPqEnabledFalseConstraint) GetSearchHead() *string {
+func (i *InputSplunkSearchPqEnabledFalseConstraint) GetSearchHead() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.SearchHead
 }
@@ -649,23 +649,23 @@ func (i *InputSplunkSearchPqEnabledFalseConstraint) GetLatest() *string {
 	return i.Latest
 }
 
-func (i *InputSplunkSearchPqEnabledFalseConstraint) GetCronSchedule() *string {
+func (i *InputSplunkSearchPqEnabledFalseConstraint) GetCronSchedule() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.CronSchedule
 }
 
-func (i *InputSplunkSearchPqEnabledFalseConstraint) GetEndpoint() *string {
+func (i *InputSplunkSearchPqEnabledFalseConstraint) GetEndpoint() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearchPqEnabledFalseConstraint) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (i *InputSplunkSearchPqEnabledFalseConstraint) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if i == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return i.OutputMode
 }
@@ -889,36 +889,36 @@ func (i *InputSplunkSearchPqEnabledFalseConstraint) GetOauthHeaders() []ItemsTyp
 
 type InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputSplunkSearchType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `default:"-16m@m" json:"earliest"`
+	Earliest *string `json:"earliest,omitempty"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `default:"-1m@m" json:"latest"`
+	Latest *string `json:"latest,omitempty"`
 	// A cron schedule on which to run this job
-	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	CronSchedule string `json:"cronSchedule"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional request parameters to send to the endpoint
 	EndpointParams []EndpointParam `json:"endpointParams,omitempty"`
 	// Optional request headers to send to the endpoint
@@ -926,32 +926,32 @@ type InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint struct {
 	// Collector runtime log level (verbosity)
 	LogLevel *InputSplunkSearchLogLevel `json:"logLevel,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
 	Encoding *string `json:"encoding,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Splunk Search authentication type
-	AuthType    *InputSplunkSearchAuthenticationType `default:"basic" json:"authType"`
+	AuthType    *InputSplunkSearchAuthenticationType `json:"authType,omitempty"`
 	Description *string                              `json:"description,omitempty"`
 	Username    *string                              `json:"username,omitempty"`
 	Password    *string                              `json:"password,omitempty"`
@@ -970,9 +970,9 @@ type InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -984,15 +984,15 @@ func (i InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) MarshalJSON
 }
 
 func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "searchHead", "search", "cronSchedule", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1060,9 +1060,9 @@ func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetPq() *P
 	return i.Pq
 }
 
-func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSearchHead() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetSearchHead() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.SearchHead
 }
@@ -1088,23 +1088,23 @@ func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetLatest(
 	return i.Latest
 }
 
-func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetCronSchedule() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetCronSchedule() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.CronSchedule
 }
 
-func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (i *InputSplunkSearchSendToRoutesFalseWithConnectionsConstraint) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if i == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return i.OutputMode
 }
@@ -1465,36 +1465,36 @@ func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
 
 type InputSplunkSearchSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string               `json:"id,omitempty"`
 	Type     InputSplunkSearchType `json:"type"`
-	Disabled *bool                 `default:"false" json:"disabled"`
+	Disabled *bool                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
-	Earliest *string `default:"-16m@m" json:"earliest"`
+	Earliest *string `json:"earliest,omitempty"`
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
-	Latest *string `default:"-1m@m" json:"latest"`
+	Latest *string `json:"latest,omitempty"`
 	// A cron schedule on which to run this job
-	CronSchedule *string `default:"*/15 * * * *" json:"cronSchedule"`
+	CronSchedule string `json:"cronSchedule"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional request parameters to send to the endpoint
 	EndpointParams []EndpointParam `json:"endpointParams,omitempty"`
 	// Optional request headers to send to the endpoint
@@ -1502,32 +1502,32 @@ type InputSplunkSearchSendToRoutesTrueConstraint struct {
 	// Collector runtime log level (verbosity)
 	LogLevel *InputSplunkSearchLogLevel `json:"logLevel,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	RequestTimeout *float64 `default:"0" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
 	Encoding *string `json:"encoding,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata   []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules *RetryRulesType                 `json:"retryRules,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Splunk Search authentication type
-	AuthType    *InputSplunkSearchAuthenticationType `default:"basic" json:"authType"`
+	AuthType    *InputSplunkSearchAuthenticationType `json:"authType,omitempty"`
 	Description *string                              `json:"description,omitempty"`
 	Username    *string                              `json:"username,omitempty"`
 	Password    *string                              `json:"password,omitempty"`
@@ -1546,9 +1546,9 @@ type InputSplunkSearchSendToRoutesTrueConstraint struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
@@ -1560,15 +1560,15 @@ func (i InputSplunkSearchSendToRoutesTrueConstraint) MarshalJSON() ([]byte, erro
 }
 
 func (i *InputSplunkSearchSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "searchHead", "search", "cronSchedule", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1636,9 +1636,9 @@ func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetSearchHead() *string {
+func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetSearchHead() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.SearchHead
 }
@@ -1664,23 +1664,23 @@ func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetLatest() *string {
 	return i.Latest
 }
 
-func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetCronSchedule() *string {
+func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetCronSchedule() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.CronSchedule
 }
 
-func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetEndpoint() *string {
+func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetEndpoint() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Endpoint
 }
 
-func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (i *InputSplunkSearchSendToRoutesTrueConstraint) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if i == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return i.OutputMode
 }

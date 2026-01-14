@@ -12,7 +12,6 @@ import (
 type OutputType string
 
 const (
-	OutputTypeDefault                OutputType = "default"
 	OutputTypeWebhook                OutputType = "webhook"
 	OutputTypeSentinel               OutputType = "sentinel"
 	OutputTypeDevnull                OutputType = "devnull"
@@ -157,18 +156,6 @@ type Output struct {
 	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
 
 	Type OutputType
-}
-
-func CreateOutputDefault(defaultT OutputDefault) Output {
-	typ := OutputTypeDefault
-
-	typStr := OutputDefaultType(typ)
-	defaultT.Type = typStr
-
-	return Output{
-		OutputDefault: &defaultT,
-		Type:          typ,
-	}
 }
 
 func CreateOutputWebhook(webhook OutputWebhook) Output {
@@ -1008,15 +995,6 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.Type {
-	case "default":
-		outputDefault := new(OutputDefault)
-		if err := utils.UnmarshalJSON(data, &outputDefault, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == default) type OutputDefault within Output: %w", string(data), err)
-		}
-
-		u.OutputDefault = outputDefault
-		u.Type = OutputTypeDefault
-		return nil
 	case "webhook":
 		outputWebhook := new(OutputWebhook)
 		if err := utils.UnmarshalJSON(data, &outputWebhook, "", true, nil); err != nil {

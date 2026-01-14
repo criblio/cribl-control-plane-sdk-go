@@ -8,17 +8,17 @@ import (
 
 // AuthenticationType1 - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type AuthenticationType1 struct {
-	Disabled *bool `default:"false" json:"disabled"`
+	Disabled bool `json:"disabled"`
 	// Enter password directly, or select a stored secret
-	AuthType *AuthenticationMethodOptionsSasl1 `default:"manual" json:"authType"`
+	AuthType *AuthenticationMethodOptionsSasl1 `json:"authType,omitempty"`
 	// Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
 	Password *string `json:"password,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string                    `json:"textSecret,omitempty"`
-	Mechanism  *SaslMechanismOptionsSasl1 `default:"plain" json:"mechanism"`
+	Mechanism  *SaslMechanismOptionsSasl1 `json:"mechanism,omitempty"`
 	// The username for authentication. For Event Hubs, this should always be $ConnectionString.
-	Username             *string                           `default:"$ConnectionString" json:"username"`
-	ClientSecretAuthType *AuthenticationMethodOptionsSasl2 `default:"manual" json:"clientSecretAuthType"`
+	Username             *string                           `json:"username,omitempty"`
+	ClientSecretAuthType *AuthenticationMethodOptionsSasl2 `json:"clientSecretAuthType,omitempty"`
 	// client_secret to pass in the OAuth request parameter
 	ClientSecret *string `json:"clientSecret,omitempty"`
 	// Select or create a stored text secret
@@ -29,7 +29,7 @@ type AuthenticationType1 struct {
 	PrivKeyPath     *string `json:"privKeyPath,omitempty"`
 	Passphrase      *string `json:"passphrase,omitempty"`
 	// Endpoint used to acquire authentication tokens from Azure
-	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `default:"https://login.microsoftonline.com" json:"oauthEndpoint"`
+	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitempty"`
 	// client_id to pass in the OAuth request parameter
 	ClientID *string `json:"clientId,omitempty"`
 	// Directory ID (tenant identifier) in Azure Active Directory
@@ -43,15 +43,15 @@ func (a AuthenticationType1) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthenticationType1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"disabled"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AuthenticationType1) GetDisabled() *bool {
+func (a *AuthenticationType1) GetDisabled() bool {
 	if a == nil {
-		return nil
+		return false
 	}
 	return a.Disabled
 }

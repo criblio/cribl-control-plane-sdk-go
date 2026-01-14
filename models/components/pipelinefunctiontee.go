@@ -37,7 +37,7 @@ type PipelineFunctionTeeConf struct {
 	Command string   `json:"command"`
 	Args    []string `json:"args,omitempty"`
 	// Restart the process if it exits and/or we fail to write to it
-	RestartOnExit *bool `default:"true" json:"restartOnExit"`
+	RestartOnExit *bool `json:"restartOnExit,omitempty"`
 	// Environment variables to overwrite or set
 	Env map[string]string `json:"env,omitempty"`
 }
@@ -83,7 +83,7 @@ func (p *PipelineFunctionTeeConf) GetEnv() map[string]string {
 
 type PipelineFunctionTee struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionTeeID `json:"id"`
 	// Simple description of this step

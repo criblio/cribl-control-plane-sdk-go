@@ -57,9 +57,9 @@ func (e *PipelineFunctionEventBreakerExistingOrNew) IsExact() bool {
 }
 
 type PipelineFunctionEventBreakerConf struct {
-	ExistingOrNew *PipelineFunctionEventBreakerExistingOrNew `default:"existing" json:"existingOrNew"`
+	ExistingOrNew PipelineFunctionEventBreakerExistingOrNew `json:"existingOrNew"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `default:"true" json:"shouldMarkCriblBreaker"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
 }
 
 func (p PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
@@ -67,15 +67,15 @@ func (p PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionEventBreakerConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"existingOrNew"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionEventBreakerConf) GetExistingOrNew() *PipelineFunctionEventBreakerExistingOrNew {
+func (p *PipelineFunctionEventBreakerConf) GetExistingOrNew() PipelineFunctionEventBreakerExistingOrNew {
 	if p == nil {
-		return nil
+		return PipelineFunctionEventBreakerExistingOrNew("")
 	}
 	return p.ExistingOrNew
 }
@@ -89,7 +89,7 @@ func (p *PipelineFunctionEventBreakerConf) GetShouldMarkCriblBreaker() *bool {
 
 type PipelineFunctionEventBreaker struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionEventBreakerID `json:"id"`
 	// Simple description of this step

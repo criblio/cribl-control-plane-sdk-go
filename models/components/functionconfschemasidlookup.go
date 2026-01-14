@@ -11,7 +11,7 @@ type FunctionConfSchemaSidlookupField struct {
 	// JavaScript expression to compute the value (can be constant)
 	Expr string `json:"expr"`
 	// Set to No to disable the evaluation of an individual expression
-	Disabled *bool `default:"false" json:"disabled"`
+	Disabled *bool `json:"disabled,omitempty"`
 }
 
 func (f FunctionConfSchemaSidlookupField) MarshalJSON() ([]byte, error) {

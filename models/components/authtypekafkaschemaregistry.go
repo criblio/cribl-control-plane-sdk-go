@@ -8,7 +8,7 @@ import (
 
 // AuthTypeKafkaSchemaRegistry - Credentials to use when authenticating with the schema registry using basic HTTP authentication
 type AuthTypeKafkaSchemaRegistry struct {
-	Disabled *bool `default:"true" json:"disabled"`
+	Disabled bool `json:"disabled"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 }
@@ -18,15 +18,15 @@ func (a AuthTypeKafkaSchemaRegistry) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AuthTypeKafkaSchemaRegistry) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"disabled"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AuthTypeKafkaSchemaRegistry) GetDisabled() *bool {
+func (a *AuthTypeKafkaSchemaRegistry) GetDisabled() bool {
 	if a == nil {
-		return nil
+		return false
 	}
 	return a.Disabled
 }

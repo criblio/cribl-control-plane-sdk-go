@@ -8,11 +8,11 @@ import (
 
 type FunctionConfSchemaDropDimensions struct {
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"10s" json:"timeWindow"`
+	TimeWindow *string `json:"timeWindow,omitempty"`
 	// One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
 	DropDimensions []string `json:"dropDimensions,omitempty"`
 	// Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
-	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
 }
 
 func (f FunctionConfSchemaDropDimensions) MarshalJSON() ([]byte, error) {

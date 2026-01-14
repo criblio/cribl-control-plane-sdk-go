@@ -11,16 +11,16 @@ import (
 
 type InputS3InventoryPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputS3InventoryType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -30,64 +30,64 @@ type InputS3InventoryPqEnabledTrueWithPqConstraint struct {
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	FileFilter *string `json:"fileFilter,omitempty"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	MaxMessages *float64 `json:"maxMessages,omitempty"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	NumReceivers *float64 `json:"numReceivers,omitempty"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
-	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `default:"false" json:"skipOnError"`
+	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Attach SQS notification metadata to a __sqsMetadata field on each event
-	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitempty"`
 	// Use Assume Role credentials to access Amazon S3
-	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                  `default:"false" json:"enableSQSAssumeRole"`
+	EnableSQSAssumeRole *bool                                  `json:"enableSQSAssumeRole,omitempty"`
 	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64           `json:"parquetChunkDownloadTimeout,omitempty"`
 	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	PollTimeout *float64 `json:"pollTimeout,omitempty"`
 	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
-	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	ChecksumSuffix *string `json:"checksumSuffix,omitempty"`
 	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
-	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitempty"`
 	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
-	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitempty"`
 	Description            *string `json:"description,omitempty"`
 	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
@@ -104,15 +104,15 @@ func (i InputS3InventoryPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, er
 }
 
 func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -201,7 +201,7 @@ func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAccountID() *strin
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -448,15 +448,15 @@ func (i *InputS3InventoryPqEnabledTrueWithPqConstraint) GetProcessedTagValue() *
 
 type InputS3InventoryPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputS3InventoryType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -467,64 +467,64 @@ type InputS3InventoryPqEnabledFalseConstraint struct {
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	FileFilter *string `json:"fileFilter,omitempty"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	MaxMessages *float64 `json:"maxMessages,omitempty"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	NumReceivers *float64 `json:"numReceivers,omitempty"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
-	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `default:"false" json:"skipOnError"`
+	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Attach SQS notification metadata to a __sqsMetadata field on each event
-	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitempty"`
 	// Use Assume Role credentials to access Amazon S3
-	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                  `default:"false" json:"enableSQSAssumeRole"`
+	EnableSQSAssumeRole *bool                                  `json:"enableSQSAssumeRole,omitempty"`
 	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64           `json:"parquetChunkDownloadTimeout,omitempty"`
 	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	PollTimeout *float64 `json:"pollTimeout,omitempty"`
 	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
-	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	ChecksumSuffix *string `json:"checksumSuffix,omitempty"`
 	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
-	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitempty"`
 	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
-	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitempty"`
 	Description            *string `json:"description,omitempty"`
 	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
@@ -541,15 +541,15 @@ func (i InputS3InventoryPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) 
 }
 
 func (i *InputS3InventoryPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3InventoryPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputS3InventoryPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -638,7 +638,7 @@ func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputS3InventoryPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -885,83 +885,83 @@ func (i *InputS3InventoryPqEnabledFalseConstraint) GetProcessedTagValue() *strin
 
 type InputS3InventorySendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputS3InventoryType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	FileFilter *string `json:"fileFilter,omitempty"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	MaxMessages *float64 `json:"maxMessages,omitempty"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	NumReceivers *float64 `json:"numReceivers,omitempty"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
-	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `default:"false" json:"skipOnError"`
+	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Attach SQS notification metadata to a __sqsMetadata field on each event
-	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitempty"`
 	// Use Assume Role credentials to access Amazon S3
-	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                  `default:"false" json:"enableSQSAssumeRole"`
+	EnableSQSAssumeRole *bool                                  `json:"enableSQSAssumeRole,omitempty"`
 	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64           `json:"parquetChunkDownloadTimeout,omitempty"`
 	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	PollTimeout *float64 `json:"pollTimeout,omitempty"`
 	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
-	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	ChecksumSuffix *string `json:"checksumSuffix,omitempty"`
 	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
-	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitempty"`
 	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
-	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitempty"`
 	Description            *string `json:"description,omitempty"`
 	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
@@ -978,15 +978,15 @@ func (i InputS3InventorySendToRoutesFalseWithConnectionsConstraint) MarshalJSON(
 }
 
 func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1075,7 +1075,7 @@ func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAccou
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputS3InventorySendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -1345,17 +1345,17 @@ func (e *InputS3InventoryType) UnmarshalJSON(data []byte) error {
 
 type InputS3InventorySendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string              `json:"id,omitempty"`
 	Type     InputS3InventoryType `json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	Disabled *bool                `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -1364,64 +1364,64 @@ type InputS3InventorySendToRoutesTrueConstraint struct {
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
-	FileFilter *string `default:"/.*/" json:"fileFilter"`
+	FileFilter *string `json:"fileFilter,omitempty"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitempty"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `default:"1" json:"maxMessages"`
+	MaxMessages *float64 `json:"maxMessages,omitempty"`
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `default:"600" json:"visibilityTimeout"`
+	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `default:"1" json:"numReceivers"`
+	NumReceivers *float64 `json:"numReceivers,omitempty"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
-	SocketTimeout *float64 `default:"300" json:"socketTimeout"`
+	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
-	SkipOnError *bool `default:"false" json:"skipOnError"`
+	SkipOnError *bool `json:"skipOnError,omitempty"`
 	// Attach SQS notification metadata to a __sqsMetadata field on each event
-	IncludeSqsMetadata *bool `default:"false" json:"includeSqsMetadata"`
+	IncludeSqsMetadata *bool `json:"includeSqsMetadata,omitempty"`
 	// Use Assume Role credentials to access Amazon S3
-	EnableAssumeRole *bool `default:"true" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool                                  `default:"false" json:"enableSQSAssumeRole"`
+	EnableSQSAssumeRole *bool                                  `json:"enableSQSAssumeRole,omitempty"`
 	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64           `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64           `json:"parquetChunkDownloadTimeout,omitempty"`
 	Checkpointing               *CheckpointingType `json:"checkpointing,omitempty"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `default:"10" json:"pollTimeout"`
+	PollTimeout *float64 `json:"pollTimeout,omitempty"`
 	// Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
-	ChecksumSuffix *string `default:"checksum" json:"checksumSuffix"`
+	ChecksumSuffix *string `json:"checksumSuffix,omitempty"`
 	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
-	MaxManifestSizeKB *int64 `default:"4096" json:"maxManifestSizeKB"`
+	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitempty"`
 	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
-	ValidateInventoryFiles *bool   `default:"false" json:"validateInventoryFiles"`
+	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitempty"`
 	Description            *string `json:"description,omitempty"`
 	AwsAPIKey              *string `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
@@ -1438,15 +1438,15 @@ func (i InputS3InventorySendToRoutesTrueConstraint) MarshalJSON() ([]byte, error
 }
 
 func (i *InputS3InventorySendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "queueName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputS3InventorySendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputS3InventorySendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1535,7 +1535,7 @@ func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAccountID() *string {
 	return i.AwsAccountID
 }
 
-func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputS3InventorySendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}

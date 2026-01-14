@@ -11,16 +11,16 @@ import (
 
 type InputCollectionPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     *InputCollectionType `default:"collection" json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	ID       *string             `json:"id,omitempty"`
+	Type     InputCollectionType `json:"type"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -30,10 +30,10 @@ type InputCollectionPqEnabledTrueWithPqConstraint struct {
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                               `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64                               `json:"staleChannelFlushMs,omitempty"`
 	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Destination to send results to
@@ -45,15 +45,15 @@ func (i InputCollectionPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, err
 }
 
 func (i *InputCollectionPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCollectionPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputCollectionPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -72,9 +72,9 @@ func (i *InputCollectionPqEnabledTrueWithPqConstraint) GetID() *string {
 	return i.ID
 }
 
-func (i *InputCollectionPqEnabledTrueWithPqConstraint) GetType() *InputCollectionType {
+func (i *InputCollectionPqEnabledTrueWithPqConstraint) GetType() InputCollectionType {
 	if i == nil {
-		return nil
+		return InputCollectionType("")
 	}
 	return i.Type
 }
@@ -165,15 +165,15 @@ func (i *InputCollectionPqEnabledTrueWithPqConstraint) GetOutput() *string {
 
 type InputCollectionPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     *InputCollectionType `default:"collection" json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	ID       *string             `json:"id,omitempty"`
+	Type     InputCollectionType `json:"type"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -184,10 +184,10 @@ type InputCollectionPqEnabledFalseConstraint struct {
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                               `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64                               `json:"staleChannelFlushMs,omitempty"`
 	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Destination to send results to
@@ -199,15 +199,15 @@ func (i InputCollectionPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCollectionPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCollectionPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputCollectionPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -219,9 +219,9 @@ func (i *InputCollectionPqEnabledFalseConstraint) GetID() *string {
 	return i.ID
 }
 
-func (i *InputCollectionPqEnabledFalseConstraint) GetType() *InputCollectionType {
+func (i *InputCollectionPqEnabledFalseConstraint) GetType() InputCollectionType {
 	if i == nil {
-		return nil
+		return InputCollectionType("")
 	}
 	return i.Type
 }
@@ -319,29 +319,29 @@ func (i *InputCollectionPqEnabledFalseConstraint) GetOutput() *string {
 
 type InputCollectionSendToRoutesFalseWithConnectionsConstraint struct {
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     *InputCollectionType `default:"collection" json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	ID       *string             `json:"id,omitempty"`
+	Type     InputCollectionType `json:"type"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                               `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64                               `json:"staleChannelFlushMs,omitempty"`
 	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Destination to send results to
@@ -353,15 +353,15 @@ func (i InputCollectionSendToRoutesFalseWithConnectionsConstraint) MarshalJSON()
 }
 
 func (i *InputCollectionSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCollectionSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputCollectionSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -380,9 +380,9 @@ func (i *InputCollectionSendToRoutesFalseWithConnectionsConstraint) GetID() *str
 	return i.ID
 }
 
-func (i *InputCollectionSendToRoutesFalseWithConnectionsConstraint) GetType() *InputCollectionType {
+func (i *InputCollectionSendToRoutesFalseWithConnectionsConstraint) GetType() InputCollectionType {
 	if i == nil {
-		return nil
+		return InputCollectionType("")
 	}
 	return i.Type
 }
@@ -496,17 +496,17 @@ func (e *InputCollectionType) UnmarshalJSON(data []byte) error {
 
 type InputCollectionSendToRoutesTrueConstraint struct {
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
-	ID       *string              `json:"id,omitempty"`
-	Type     *InputCollectionType `default:"collection" json:"type"`
-	Disabled *bool                `default:"false" json:"disabled"`
+	ID       *string             `json:"id,omitempty"`
+	Type     InputCollectionType `json:"type"`
+	Disabled *bool               `json:"disabled,omitempty"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -515,10 +515,10 @@ type InputCollectionSendToRoutesTrueConstraint struct {
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64                               `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64                               `json:"staleChannelFlushMs,omitempty"`
 	Preprocess          *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Destination to send results to
@@ -530,15 +530,15 @@ func (i InputCollectionSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputCollectionSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCollectionSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputCollectionSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -550,9 +550,9 @@ func (i *InputCollectionSendToRoutesTrueConstraint) GetID() *string {
 	return i.ID
 }
 
-func (i *InputCollectionSendToRoutesTrueConstraint) GetType() *InputCollectionType {
+func (i *InputCollectionSendToRoutesTrueConstraint) GetType() InputCollectionType {
 	if i == nil {
-		return nil
+		return InputCollectionType("")
 	}
 	return i.Type
 }

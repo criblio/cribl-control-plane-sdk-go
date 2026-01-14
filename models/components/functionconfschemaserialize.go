@@ -41,7 +41,7 @@ func (e *FunctionConfSchemaSerializeType) IsExact() bool {
 
 type FunctionConfSchemaSerialize struct {
 	// Data output format
-	Type       *FunctionConfSchemaSerializeType `default:"csv" json:"type"`
+	Type       *FunctionConfSchemaSerializeType `json:"type,omitempty"`
 	DelimChar  any                              `json:"delimChar,omitempty"`
 	QuoteChar  any                              `json:"quoteChar,omitempty"`
 	EscapeChar any                              `json:"escapeChar,omitempty"`
@@ -51,7 +51,7 @@ type FunctionConfSchemaSerialize struct {
 	// Field containing object to serialize. Leave blank to serialize top-level event fields.
 	SrcField *string `json:"srcField,omitempty"`
 	// Field to serialize data to
-	DstField *string `default:"_raw" json:"dstField"`
+	DstField *string `json:"dstField,omitempty"`
 }
 
 func (f FunctionConfSchemaSerialize) MarshalJSON() ([]byte, error) {

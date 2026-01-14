@@ -11,16 +11,16 @@ import (
 
 type InputOffice365MsgTracePqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                    `json:"id,omitempty"`
 	Type     InputOffice365MsgTraceType `json:"type"`
-	Disabled *bool                      `default:"false" json:"disabled"`
+	Disabled *bool                      `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,35 +28,35 @@ type InputOffice365MsgTracePqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// URL to use when retrieving report data.
-	URL *string `default:"https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace" json:"url"`
+	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
-	Interval *float64 `default:"60" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
 	StartDate *string `json:"startDate,omitempty"`
 	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
 	EndDate *string `json:"endDate,omitempty"`
 	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
-	Timeout *float64 `default:"300" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Disables time filtering of events when a date range is specified.
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Select authentication method.
-	AuthType *InputOffice365MsgTraceAuthenticationMethod `default:"oauth" json:"authType"`
+	AuthType *InputOffice365MsgTraceAuthenticationMethod `json:"authType,omitempty"`
 	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
 	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel *InputOffice365MsgTraceLogLevel `default:"info" json:"logLevel"`
+	LogLevel *InputOffice365MsgTraceLogLevel `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules  *RetryRulesType1                `json:"retryRules,omitempty"`
@@ -74,9 +74,9 @@ type InputOffice365MsgTracePqEnabledTrueWithPqConstraint struct {
 	// client_id to pass in the OAuth request parameter.
 	ClientID *string `json:"clientId,omitempty"`
 	// Resource to pass in the OAuth request parameter.
-	Resource *string `default:"https://outlook.office365.com" json:"resource"`
+	Resource *string `json:"resource,omitempty"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *SubscriptionPlanOptions `default:"enterprise_gcc" json:"planType"`
+	PlanType *SubscriptionPlanOptions `json:"planType,omitempty"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string      `json:"textSecret,omitempty"`
 	CertOptions *CertOptions `json:"certOptions,omitempty"`
@@ -87,15 +87,15 @@ func (i InputOffice365MsgTracePqEnabledTrueWithPqConstraint) MarshalJSON() ([]by
 }
 
 func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "url", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -163,16 +163,16 @@ func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetConnections() [
 	return i.Connections
 }
 
-func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetURL() *string {
+func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetURL() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.URL
 }
 
-func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetInterval() *float64 {
+func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
@@ -361,15 +361,15 @@ func (i *InputOffice365MsgTracePqEnabledTrueWithPqConstraint) GetCertOptions() *
 
 type InputOffice365MsgTracePqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                    `json:"id,omitempty"`
 	Type     InputOffice365MsgTraceType `json:"type"`
-	Disabled *bool                      `default:"false" json:"disabled"`
+	Disabled *bool                      `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -378,35 +378,35 @@ type InputOffice365MsgTracePqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// URL to use when retrieving report data.
-	URL *string `default:"https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace" json:"url"`
+	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
-	Interval *float64 `default:"60" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
 	StartDate *string `json:"startDate,omitempty"`
 	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
 	EndDate *string `json:"endDate,omitempty"`
 	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
-	Timeout *float64 `default:"300" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Disables time filtering of events when a date range is specified.
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Select authentication method.
-	AuthType *InputOffice365MsgTraceAuthenticationMethod `default:"oauth" json:"authType"`
+	AuthType *InputOffice365MsgTraceAuthenticationMethod `json:"authType,omitempty"`
 	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
 	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel *InputOffice365MsgTraceLogLevel `default:"info" json:"logLevel"`
+	LogLevel *InputOffice365MsgTraceLogLevel `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules  *RetryRulesType1                `json:"retryRules,omitempty"`
@@ -424,9 +424,9 @@ type InputOffice365MsgTracePqEnabledFalseConstraint struct {
 	// client_id to pass in the OAuth request parameter.
 	ClientID *string `json:"clientId,omitempty"`
 	// Resource to pass in the OAuth request parameter.
-	Resource *string `default:"https://outlook.office365.com" json:"resource"`
+	Resource *string `json:"resource,omitempty"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *SubscriptionPlanOptions `default:"enterprise_gcc" json:"planType"`
+	PlanType *SubscriptionPlanOptions `json:"planType,omitempty"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string      `json:"textSecret,omitempty"`
 	CertOptions *CertOptions `json:"certOptions,omitempty"`
@@ -437,15 +437,15 @@ func (i InputOffice365MsgTracePqEnabledFalseConstraint) MarshalJSON() ([]byte, e
 }
 
 func (i *InputOffice365MsgTracePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "url", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -513,16 +513,16 @@ func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetURL() *string {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetURL() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.URL
 }
 
-func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetInterval() *float64 {
+func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
@@ -711,52 +711,52 @@ func (i *InputOffice365MsgTracePqEnabledFalseConstraint) GetCertOptions() *CertO
 
 type InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                    `json:"id,omitempty"`
 	Type     InputOffice365MsgTraceType `json:"type"`
-	Disabled *bool                      `default:"false" json:"disabled"`
+	Disabled *bool                      `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// URL to use when retrieving report data.
-	URL *string `default:"https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace" json:"url"`
+	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
-	Interval *float64 `default:"60" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
 	StartDate *string `json:"startDate,omitempty"`
 	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
 	EndDate *string `json:"endDate,omitempty"`
 	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
-	Timeout *float64 `default:"300" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Disables time filtering of events when a date range is specified.
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Select authentication method.
-	AuthType *InputOffice365MsgTraceAuthenticationMethod `default:"oauth" json:"authType"`
+	AuthType *InputOffice365MsgTraceAuthenticationMethod `json:"authType,omitempty"`
 	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
 	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel *InputOffice365MsgTraceLogLevel `default:"info" json:"logLevel"`
+	LogLevel *InputOffice365MsgTraceLogLevel `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules  *RetryRulesType1                `json:"retryRules,omitempty"`
@@ -774,9 +774,9 @@ type InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint struct {
 	// client_id to pass in the OAuth request parameter.
 	ClientID *string `json:"clientId,omitempty"`
 	// Resource to pass in the OAuth request parameter.
-	Resource *string `default:"https://outlook.office365.com" json:"resource"`
+	Resource *string `json:"resource,omitempty"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *SubscriptionPlanOptions `default:"enterprise_gcc" json:"planType"`
+	PlanType *SubscriptionPlanOptions `json:"planType,omitempty"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string      `json:"textSecret,omitempty"`
 	CertOptions *CertOptions `json:"certOptions,omitempty"`
@@ -787,15 +787,15 @@ func (i InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) Marsha
 }
 
 func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "url", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -863,16 +863,16 @@ func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetPq
 	return i.Pq
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetURL() *string {
+func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetURL() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.URL
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputOffice365MsgTraceSendToRoutesFalseWithConnectionsConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
@@ -1186,52 +1186,52 @@ func (c *CertOptions) GetCertPath() string {
 
 type InputOffice365MsgTraceSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                    `json:"id,omitempty"`
 	Type     InputOffice365MsgTraceType `json:"type"`
-	Disabled *bool                      `default:"false" json:"disabled"`
+	Disabled *bool                      `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// URL to use when retrieving report data.
-	URL *string `default:"https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace" json:"url"`
+	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
-	Interval *float64 `default:"60" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
 	StartDate *string `json:"startDate,omitempty"`
 	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
 	EndDate *string `json:"endDate,omitempty"`
 	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
-	Timeout *float64 `default:"300" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Disables time filtering of events when a date range is specified.
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Select authentication method.
-	AuthType *InputOffice365MsgTraceAuthenticationMethod `default:"oauth" json:"authType"`
+	AuthType *InputOffice365MsgTraceAuthenticationMethod `json:"authType,omitempty"`
 	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
 	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel *InputOffice365MsgTraceLogLevel `default:"info" json:"logLevel"`
+	LogLevel *InputOffice365MsgTraceLogLevel `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// How often workers should check in with the scheduler to keep job subscription alive
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
-	MaxMissedKeepAlives *float64 `default:"3" json:"maxMissedKeepAlives"`
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitempty"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	RetryRules  *RetryRulesType1                `json:"retryRules,omitempty"`
@@ -1249,9 +1249,9 @@ type InputOffice365MsgTraceSendToRoutesTrueConstraint struct {
 	// client_id to pass in the OAuth request parameter.
 	ClientID *string `json:"clientId,omitempty"`
 	// Resource to pass in the OAuth request parameter.
-	Resource *string `default:"https://outlook.office365.com" json:"resource"`
+	Resource *string `json:"resource,omitempty"`
 	// Office 365 subscription plan for your organization, typically Office 365 Enterprise
-	PlanType *SubscriptionPlanOptions `default:"enterprise_gcc" json:"planType"`
+	PlanType *SubscriptionPlanOptions `json:"planType,omitempty"`
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string      `json:"textSecret,omitempty"`
 	CertOptions *CertOptions `json:"certOptions,omitempty"`
@@ -1262,15 +1262,15 @@ func (i InputOffice365MsgTraceSendToRoutesTrueConstraint) MarshalJSON() ([]byte,
 }
 
 func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "url", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1338,16 +1338,16 @@ func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetURL() *string {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetURL() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.URL
 }
 
-func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetInterval() *float64 {
+func (i *InputOffice365MsgTraceSendToRoutesTrueConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }

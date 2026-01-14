@@ -7,10 +7,7 @@ import (
 )
 
 type TLSSettingsClientSideType1 struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	Disabled *bool `json:"disabled,omitempty"`
 	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
 	Servername *string `json:"servername,omitempty"`
 	// The name of the predefined certificate
@@ -43,13 +40,6 @@ func (t *TLSSettingsClientSideType1) GetDisabled() *bool {
 		return nil
 	}
 	return t.Disabled
-}
-
-func (t *TLSSettingsClientSideType1) GetRejectUnauthorized() *bool {
-	if t == nil {
-		return nil
-	}
-	return t.RejectUnauthorized
 }
 
 func (t *TLSSettingsClientSideType1) GetServername() *string {

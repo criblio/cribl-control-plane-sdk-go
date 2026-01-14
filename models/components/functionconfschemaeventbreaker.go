@@ -31,9 +31,9 @@ func (e *FunctionConfSchemaEventBreakerExistingOrNew) IsExact() bool {
 }
 
 type FunctionConfSchemaEventBreaker struct {
-	ExistingOrNew *FunctionConfSchemaEventBreakerExistingOrNew `default:"existing" json:"existingOrNew"`
+	ExistingOrNew *FunctionConfSchemaEventBreakerExistingOrNew `json:"existingOrNew,omitempty"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool `default:"true" json:"shouldMarkCriblBreaker"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitempty"`
 }
 
 func (f FunctionConfSchemaEventBreaker) MarshalJSON() ([]byte, error) {

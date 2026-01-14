@@ -11,16 +11,16 @@ import (
 
 type InputNetflowPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputNetflowType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,25 +28,25 @@ type InputNetflowPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64 `default:"2055" json:"port"`
+	Port float64 `json:"port"`
 	// Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
-	EnablePassThrough *bool `default:"false" json:"enablePassThrough"`
+	EnablePassThrough *bool `json:"enablePassThrough,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
-	TemplateCacheMinutes *float64 `default:"30" json:"templateCacheMinutes"`
+	TemplateCacheMinutes *float64 `json:"templateCacheMinutes,omitempty"`
 	// Accept messages in Netflow V5 format.
-	V5Enabled *bool `default:"true" json:"v5Enabled"`
+	V5Enabled *bool `json:"v5Enabled,omitempty"`
 	// Accept messages in Netflow V9 format.
-	V9Enabled *bool `default:"true" json:"v9Enabled"`
+	V9Enabled *bool `json:"v9Enabled,omitempty"`
 	// Accept messages in IPFIX format.
-	IpfixEnabled *bool `default:"false" json:"ipfixEnabled"`
+	IpfixEnabled *bool `json:"ipfixEnabled,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -57,15 +57,15 @@ func (i InputNetflowPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputNetflowPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -133,16 +133,16 @@ func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetConnections() []ItemsType
 	return i.Connections
 }
 
-func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetPort() *float64 {
+func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -219,15 +219,15 @@ func (i *InputNetflowPqEnabledTrueWithPqConstraint) GetDescription() *string {
 
 type InputNetflowPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputNetflowType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -236,25 +236,25 @@ type InputNetflowPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64 `default:"2055" json:"port"`
+	Port float64 `json:"port"`
 	// Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
-	EnablePassThrough *bool `default:"false" json:"enablePassThrough"`
+	EnablePassThrough *bool `json:"enablePassThrough,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
-	TemplateCacheMinutes *float64 `default:"30" json:"templateCacheMinutes"`
+	TemplateCacheMinutes *float64 `json:"templateCacheMinutes,omitempty"`
 	// Accept messages in Netflow V5 format.
-	V5Enabled *bool `default:"true" json:"v5Enabled"`
+	V5Enabled *bool `json:"v5Enabled,omitempty"`
 	// Accept messages in Netflow V9 format.
-	V9Enabled *bool `default:"true" json:"v9Enabled"`
+	V9Enabled *bool `json:"v9Enabled,omitempty"`
 	// Accept messages in IPFIX format.
-	IpfixEnabled *bool `default:"false" json:"ipfixEnabled"`
+	IpfixEnabled *bool `json:"ipfixEnabled,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -265,15 +265,15 @@ func (i InputNetflowPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputNetflowPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflowPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputNetflowPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -341,16 +341,16 @@ func (i *InputNetflowPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputNetflowPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputNetflowPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputNetflowPqEnabledFalseConstraint) GetPort() *float64 {
+func (i *InputNetflowPqEnabledFalseConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -427,42 +427,42 @@ func (i *InputNetflowPqEnabledFalseConstraint) GetDescription() *string {
 
 type InputNetflowSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputNetflowType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64 `default:"2055" json:"port"`
+	Port float64 `json:"port"`
 	// Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
-	EnablePassThrough *bool `default:"false" json:"enablePassThrough"`
+	EnablePassThrough *bool `json:"enablePassThrough,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
-	TemplateCacheMinutes *float64 `default:"30" json:"templateCacheMinutes"`
+	TemplateCacheMinutes *float64 `json:"templateCacheMinutes,omitempty"`
 	// Accept messages in Netflow V5 format.
-	V5Enabled *bool `default:"true" json:"v5Enabled"`
+	V5Enabled *bool `json:"v5Enabled,omitempty"`
 	// Accept messages in Netflow V9 format.
-	V9Enabled *bool `default:"true" json:"v9Enabled"`
+	V9Enabled *bool `json:"v9Enabled,omitempty"`
 	// Accept messages in IPFIX format.
-	IpfixEnabled *bool `default:"false" json:"ipfixEnabled"`
+	IpfixEnabled *bool `json:"ipfixEnabled,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -473,15 +473,15 @@ func (i InputNetflowSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([
 }
 
 func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -549,16 +549,16 @@ func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType
 	return i.Pq
 }
 
-func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetPort() *float64 {
+func (i *InputNetflowSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }
@@ -658,42 +658,42 @@ func (e *InputNetflowType) UnmarshalJSON(data []byte) error {
 
 type InputNetflowSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputNetflowType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
-	Port *float64 `default:"2055" json:"port"`
+	Port float64 `json:"port"`
 	// Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
-	EnablePassThrough *bool `default:"false" json:"enablePassThrough"`
+	EnablePassThrough *bool `json:"enablePassThrough,omitempty"`
 	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
-	IPAllowlistRegex *string `default:"/.*/" json:"ipAllowlistRegex"`
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `default:"/^$/" json:"ipDenylistRegex"`
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
-	TemplateCacheMinutes *float64 `default:"30" json:"templateCacheMinutes"`
+	TemplateCacheMinutes *float64 `json:"templateCacheMinutes,omitempty"`
 	// Accept messages in Netflow V5 format.
-	V5Enabled *bool `default:"true" json:"v5Enabled"`
+	V5Enabled *bool `json:"v5Enabled,omitempty"`
 	// Accept messages in Netflow V9 format.
-	V9Enabled *bool `default:"true" json:"v9Enabled"`
+	V9Enabled *bool `json:"v9Enabled,omitempty"`
 	// Accept messages in IPFIX format.
-	IpfixEnabled *bool `default:"false" json:"ipfixEnabled"`
+	IpfixEnabled *bool `json:"ipfixEnabled,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -704,15 +704,15 @@ func (i InputNetflowSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputNetflowSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputNetflowSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputNetflowSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -780,16 +780,16 @@ func (i *InputNetflowSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputNetflowSendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputNetflowSendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputNetflowSendToRoutesTrueConstraint) GetPort() *float64 {
+func (i *InputNetflowSendToRoutesTrueConstraint) GetPort() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Port
 }

@@ -40,9 +40,9 @@ type PipelineFunctionMvPullConf struct {
 	// Extract the K-V pair's value from this field, relative to the data object.
 	RelativeValuePath string `json:"relativeValuePath"`
 	// Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
-	TargetBagPath *string `default:"null" json:"targetBagPath"`
+	TargetBagPath *string `json:"targetBagPath,omitempty"`
 	// Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
-	DeleteOriginal *bool `default:"false" json:"deleteOriginal"`
+	DeleteOriginal *bool `json:"deleteOriginal,omitempty"`
 }
 
 func (p PipelineFunctionMvPullConf) MarshalJSON() ([]byte, error) {
@@ -93,7 +93,7 @@ func (p *PipelineFunctionMvPullConf) GetDeleteOriginal() *bool {
 
 type PipelineFunctionMvPull struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionMvPullID `json:"id"`
 	// Simple description of this step

@@ -59,16 +59,16 @@ func (e *PqEnabledTrueWithPqConstraintMode) IsExact() bool {
 
 type InputFilePqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                                    `json:"id,omitempty"`
 	Type     InputFilePqEnabledTrueWithPqConstraintType `json:"type"`
-	Disabled *bool                                      `default:"false" json:"disabled"`
+	Disabled *bool                                      `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -76,43 +76,43 @@ type InputFilePqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *PqEnabledTrueWithPqConstraintMode `default:"manual" json:"mode"`
+	Mode *PqEnabledTrueWithPqConstraintMode `json:"mode,omitempty"`
 	// Time, in seconds, between scanning for files
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The full path of discovered files are matched against this wildcard list
 	Filenames []string `json:"filenames,omitempty"`
 	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
+	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `default:"true" json:"tailOnly"`
+	TailOnly *bool `json:"tailOnly,omitempty"`
 	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
+	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
 	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
 	MinAgeDur *string `json:"minAgeDur,omitempty"`
 	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
+	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
 	// Forces files containing binary data to be streamed as text
-	ForceText *bool `default:"false" json:"forceText"`
+	ForceText *bool `json:"forceText,omitempty"`
 	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `default:"256" json:"hashLen"`
+	HashLen *float64 `json:"hashLen,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	Description         *string  `json:"description,omitempty"`
 	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
 	Path *string `json:"path,omitempty"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
 	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `default:"false" json:"suppressMissingPathErrors"`
+	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
 	// Delete files after they have been collected
-	DeleteFiles *bool `default:"false" json:"deleteFiles"`
+	DeleteFiles *bool `json:"deleteFiles,omitempty"`
 	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
+	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
 }
 
 func (i InputFilePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
@@ -120,15 +120,15 @@ func (i InputFilePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputFilePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputFilePqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -386,15 +386,15 @@ func (e *PqEnabledFalseConstraintMode) IsExact() bool {
 
 type InputFilePqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                               `json:"id,omitempty"`
 	Type     InputFilePqEnabledFalseConstraintType `json:"type"`
-	Disabled *bool                                 `default:"false" json:"disabled"`
+	Disabled *bool                                 `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -403,43 +403,43 @@ type InputFilePqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *PqEnabledFalseConstraintMode `default:"manual" json:"mode"`
+	Mode *PqEnabledFalseConstraintMode `json:"mode,omitempty"`
 	// Time, in seconds, between scanning for files
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The full path of discovered files are matched against this wildcard list
 	Filenames []string `json:"filenames,omitempty"`
 	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
+	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `default:"true" json:"tailOnly"`
+	TailOnly *bool `json:"tailOnly,omitempty"`
 	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
+	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
 	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
 	MinAgeDur *string `json:"minAgeDur,omitempty"`
 	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
+	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
 	// Forces files containing binary data to be streamed as text
-	ForceText *bool `default:"false" json:"forceText"`
+	ForceText *bool `json:"forceText,omitempty"`
 	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `default:"256" json:"hashLen"`
+	HashLen *float64 `json:"hashLen,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	Description         *string  `json:"description,omitempty"`
 	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
 	Path *string `json:"path,omitempty"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
 	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `default:"false" json:"suppressMissingPathErrors"`
+	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
 	// Delete files after they have been collected
-	DeleteFiles *bool `default:"false" json:"deleteFiles"`
+	DeleteFiles *bool `json:"deleteFiles,omitempty"`
 	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
+	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
 }
 
 func (i InputFilePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
@@ -447,15 +447,15 @@ func (i InputFilePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputFilePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFilePqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputFilePqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -713,60 +713,60 @@ func (e *SendToRoutesFalseWithConnectionsConstraintMode) IsExact() bool {
 
 type InputFileSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                                                 `json:"id,omitempty"`
 	Type     InputFileSendToRoutesFalseWithConnectionsConstraintType `json:"type"`
-	Disabled *bool                                                   `default:"false" json:"disabled"`
+	Disabled *bool                                                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *SendToRoutesFalseWithConnectionsConstraintMode `default:"manual" json:"mode"`
+	Mode *SendToRoutesFalseWithConnectionsConstraintMode `json:"mode,omitempty"`
 	// Time, in seconds, between scanning for files
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The full path of discovered files are matched against this wildcard list
 	Filenames []string `json:"filenames,omitempty"`
 	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
+	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `default:"true" json:"tailOnly"`
+	TailOnly *bool `json:"tailOnly,omitempty"`
 	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
+	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
 	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
 	MinAgeDur *string `json:"minAgeDur,omitempty"`
 	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
+	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
 	// Forces files containing binary data to be streamed as text
-	ForceText *bool `default:"false" json:"forceText"`
+	ForceText *bool `json:"forceText,omitempty"`
 	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `default:"256" json:"hashLen"`
+	HashLen *float64 `json:"hashLen,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	Description         *string  `json:"description,omitempty"`
 	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
 	Path *string `json:"path,omitempty"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
 	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `default:"false" json:"suppressMissingPathErrors"`
+	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
 	// Delete files after they have been collected
-	DeleteFiles *bool `default:"false" json:"deleteFiles"`
+	DeleteFiles *bool `json:"deleteFiles,omitempty"`
 	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
+	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
 }
 
 func (i InputFileSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
@@ -774,15 +774,15 @@ func (i InputFileSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]by
 }
 
 func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1040,60 +1040,60 @@ func (e *SendToRoutesTrueConstraintMode) IsExact() bool {
 
 type InputFileSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                                 `json:"id,omitempty"`
 	Type     InputFileSendToRoutesTrueConstraintType `json:"type"`
-	Disabled *bool                                   `default:"false" json:"disabled"`
+	Disabled *bool                                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Choose how to discover files to monitor
-	Mode *SendToRoutesTrueConstraintMode `default:"manual" json:"mode"`
+	Mode *SendToRoutesTrueConstraintMode `json:"mode,omitempty"`
 	// Time, in seconds, between scanning for files
-	Interval *float64 `default:"10" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The full path of discovered files are matched against this wildcard list
 	Filenames []string `json:"filenames,omitempty"`
 	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `default:"false" json:"filterArchivedFiles"`
+	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
 	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `default:"true" json:"tailOnly"`
+	TailOnly *bool `json:"tailOnly,omitempty"`
 	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `default:"300" json:"idleTimeout"`
+	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
 	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
 	MinAgeDur *string `json:"minAgeDur,omitempty"`
 	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
 	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
 	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `default:"false" json:"checkFileModTime"`
+	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
 	// Forces files containing binary data to be streamed as text
-	ForceText *bool `default:"false" json:"forceText"`
+	ForceText *bool `json:"forceText,omitempty"`
 	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `default:"256" json:"hashLen"`
+	HashLen *float64 `json:"hashLen,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	Description         *string  `json:"description,omitempty"`
 	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
 	Path *string `json:"path,omitempty"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
 	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `default:"false" json:"suppressMissingPathErrors"`
+	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
 	// Delete files after they have been collected
-	DeleteFiles *bool `default:"false" json:"deleteFiles"`
+	DeleteFiles *bool `json:"deleteFiles,omitempty"`
 	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `default:"false" json:"includeUnidentifiableBinary"`
+	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
 }
 
 func (i InputFileSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
@@ -1101,15 +1101,15 @@ func (i InputFileSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputFileSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFileSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputFileSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }

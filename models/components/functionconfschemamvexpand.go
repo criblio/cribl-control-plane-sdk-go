@@ -37,11 +37,11 @@ type FunctionConfSchemaMvExpand struct {
 	// stores the value as new target field name
 	TargetNames []string `json:"targetNames,omitempty"`
 	// max. number of rows generated out of every source events
-	RowLimit *float64 `default:"9007199254740991" json:"rowLimit"`
+	RowLimit *float64 `json:"rowLimit,omitempty"`
 	// name of an optional index property generated into the output
 	ItemIndexName *string `json:"itemIndexName,omitempty"`
 	// decides if bag-values are expanded to bags or arrays
-	BagExpansionMode *FunctionConfSchemaMvExpandBagExpansionMode `default:"bag" json:"bagExpansionMode"`
+	BagExpansionMode *FunctionConfSchemaMvExpandBagExpansionMode `json:"bagExpansionMode,omitempty"`
 }
 
 func (f FunctionConfSchemaMvExpand) MarshalJSON() ([]byte, error) {

@@ -109,7 +109,7 @@ type PipelineFunctionLookupConf struct {
 	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
 	File string `json:"file"`
 	// Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-	DbLookup        *bool `default:"false" json:"dbLookup"`
+	DbLookup        *bool `json:"dbLookup,omitempty"`
 	MatchMode       any   `json:"matchMode,omitempty"`
 	MatchType       any   `json:"matchType,omitempty"`
 	ReloadPeriodSec any   `json:"reloadPeriodSec,omitempty"`
@@ -118,7 +118,7 @@ type PipelineFunctionLookupConf struct {
 	// Fields to add to events after matching lookup. Defaults to all if not specified.
 	OutFields []PipelineFunctionLookupOutField `json:"outFields,omitempty"`
 	// Add the looked-up values to _raw, as key=value pairs
-	AddToEvent *bool `default:"false" json:"addToEvent"`
+	AddToEvent *bool `json:"addToEvent,omitempty"`
 	IgnoreCase any   `json:"ignoreCase,omitempty"`
 }
 
@@ -198,7 +198,7 @@ func (p *PipelineFunctionLookupConf) GetIgnoreCase() any {
 
 type PipelineFunctionLookup struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionLookupID `json:"id"`
 	// Simple description of this step

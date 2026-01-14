@@ -11,16 +11,16 @@ import (
 
 type InputCriblTCPPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputCriblTCPType `json:"type"`
-	Disabled *bool             `default:"false" json:"disabled"`
+	Disabled *bool             `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -28,24 +28,24 @@ type InputCriblTCPPqEnabledTrueWithPqConstraint struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
 	AuthTokens  []ItemsTypeAuthTokens `json:"authTokens,omitempty"`
 	Description *string               `json:"description,omitempty"`
@@ -56,15 +56,15 @@ func (i InputCriblTCPPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error
 }
 
 func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -132,9 +132,9 @@ func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTyp
 	return i.Connections
 }
 
-func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetHost() *string {
+func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -218,15 +218,15 @@ func (i *InputCriblTCPPqEnabledTrueWithPqConstraint) GetDescription() *string {
 
 type InputCriblTCPPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputCriblTCPType `json:"type"`
-	Disabled *bool             `default:"false" json:"disabled"`
+	Disabled *bool             `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -235,24 +235,24 @@ type InputCriblTCPPqEnabledFalseConstraint struct {
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
 	AuthTokens  []ItemsTypeAuthTokens `json:"authTokens,omitempty"`
 	Description *string               `json:"description,omitempty"`
@@ -263,15 +263,15 @@ func (i InputCriblTCPPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblTCPPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblTCPPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -339,9 +339,9 @@ func (i *InputCriblTCPPqEnabledFalseConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputCriblTCPPqEnabledFalseConstraint) GetHost() *string {
+func (i *InputCriblTCPPqEnabledFalseConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -425,41 +425,41 @@ func (i *InputCriblTCPPqEnabledFalseConstraint) GetDescription() *string {
 
 type InputCriblTCPSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputCriblTCPType `json:"type"`
-	Disabled *bool             `default:"false" json:"disabled"`
+	Disabled *bool             `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
 	AuthTokens  []ItemsTypeAuthTokens `json:"authTokens,omitempty"`
 	Description *string               `json:"description,omitempty"`
@@ -470,15 +470,15 @@ func (i InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() (
 }
 
 func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -546,9 +546,9 @@ func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqTyp
 	return i.Pq
 }
 
-func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
+func (i *InputCriblTCPSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -655,41 +655,41 @@ func (e *InputCriblTCPType) UnmarshalJSON(data []byte) error {
 
 type InputCriblTCPSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputCriblTCPType `json:"type"`
-	Disabled *bool             `default:"false" json:"disabled"`
+	Disabled *bool             `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool `default:"false" json:"enableLoadBalancing"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitempty"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
 	AuthTokens  []ItemsTypeAuthTokens `json:"authTokens,omitempty"`
 	Description *string               `json:"description,omitempty"`
@@ -700,15 +700,15 @@ func (i InputCriblTCPSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputCriblTCPSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputCriblTCPSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -776,9 +776,9 @@ func (i *InputCriblTCPSendToRoutesTrueConstraint) GetPq() *PqType {
 	return i.Pq
 }
 
-func (i *InputCriblTCPSendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputCriblTCPSendToRoutesTrueConstraint) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }

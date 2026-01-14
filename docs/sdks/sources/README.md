@@ -100,10 +100,13 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAppscope(
         operations.CreateInputAppscopeInputAppscopeSendToRoutesTrueConstraint(
             operations.InputAppscopeSendToRoutesTrueConstraint{
+                SendToRoutes: true,
                 ID: "appscope-source",
                 Type: operations.InputAppscopeTypeAppscope,
+                Disabled: criblcontrolplanesdkgo.Pointer(false),
                 Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                 Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+                PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Streamtags: []string{
                     "<value 1>",
                     "<value 2>",
@@ -116,8 +119,21 @@ func main() {
                     },
                 },
                 Pq: &components.PqType{
+                    Mode: components.ModeOptionsPqAlways.ToPointer(),
+                    MaxBufferSize: criblcontrolplanesdkgo.Pointer[float64](1000),
+                    CommitFrequency: criblcontrolplanesdkgo.Pointer[float64](42),
+                    MaxFileSize: criblcontrolplanesdkgo.Pointer("1 MB"),
+                    MaxSize: criblcontrolplanesdkgo.Pointer("5GB"),
+                    Path: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/queues"),
+                    Compress: components.CompressionOptionsPqNone.ToPointer(),
                     PqControls: &components.PqTypePqControls{},
                 },
+                IPWhitelistRegex: criblcontrolplanesdkgo.Pointer("/.*/"),
+                MaxActiveCxn: criblcontrolplanesdkgo.Pointer[float64](1000),
+                SocketIdleTimeout: criblcontrolplanesdkgo.Pointer[float64](0),
+                SocketEndingMaxWait: criblcontrolplanesdkgo.Pointer[float64](30),
+                SocketMaxLifespan: criblcontrolplanesdkgo.Pointer[float64](0),
+                EnableProxyHeader: criblcontrolplanesdkgo.Pointer(false),
                 Metadata: []components.ItemsTypeNotificationMetadata{
                     components.ItemsTypeNotificationMetadata{
                         Name: "<value>",
@@ -127,6 +143,8 @@ func main() {
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
+                StaleChannelFlushMs: criblcontrolplanesdkgo.Pointer[float64](10000),
+                EnableUnixPath: criblcontrolplanesdkgo.Pointer(false),
                 Filter: &operations.InputAppscopeFilter{
                     Allow: []operations.Allow{
                         operations.Allow{
@@ -137,11 +155,23 @@ func main() {
                     },
                     TransportURL: criblcontrolplanesdkgo.Pointer("https://drab-scrap.info/"),
                 },
-                Persistence: &operations.InputAppscopePersistence{},
+                Persistence: &operations.InputAppscopePersistence{
+                    Enable: criblcontrolplanesdkgo.Pointer(false),
+                    TimeWindow: criblcontrolplanesdkgo.Pointer("10m"),
+                    MaxDataSize: criblcontrolplanesdkgo.Pointer("1GB"),
+                    MaxDataTime: criblcontrolplanesdkgo.Pointer("24h"),
+                    Compress: components.DataCompressionFormatOptionsPersistenceGzip.ToPointer(),
+                    DestPath: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/appscope"),
+                },
+                AuthType: components.AuthenticationMethodOptionsAuthTokensItemsManual.ToPointer(),
                 Description: criblcontrolplanesdkgo.Pointer("if deserted boohoo red chops excepting know stay bah"),
                 Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
                 Port: criblcontrolplanesdkgo.Pointer[float64](9109),
                 TLS: &components.TLSSettingsServerSideType{
+                    Disabled: criblcontrolplanesdkgo.Pointer(true),
+                    RequestCert: criblcontrolplanesdkgo.Pointer(false),
+                    RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
+                    CommonNameRegex: criblcontrolplanesdkgo.Pointer("/.*/"),
                     CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                     PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                     Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -150,7 +180,9 @@ func main() {
                     MinVersion: components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv11.ToPointer(),
                     MaxVersion: components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv1.ToPointer(),
                 },
+                UnixSocketPath: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/appscope.sock"),
                 UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
+                AuthToken: criblcontrolplanesdkgo.Pointer(""),
                 TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
             },
         ),
@@ -271,10 +303,13 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAppscope(
         components.CreateInputAppscopeInputAppscopeSendToRoutesTrueConstraint(
             components.InputAppscopeSendToRoutesTrueConstraint{
+                SendToRoutes: true,
                 ID: criblcontrolplanesdkgo.Pointer("appscope-source"),
                 Type: components.InputAppscopeTypeAppscope,
+                Disabled: criblcontrolplanesdkgo.Pointer(false),
                 Pipeline: criblcontrolplanesdkgo.Pointer("<value>"),
                 Environment: criblcontrolplanesdkgo.Pointer("<value>"),
+                PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Streamtags: []string{
                     "<value 1>",
                     "<value 2>",
@@ -286,8 +321,21 @@ func main() {
                     },
                 },
                 Pq: &components.PqType{
+                    Mode: components.ModeOptionsPqAlways.ToPointer(),
+                    MaxBufferSize: criblcontrolplanesdkgo.Pointer[float64](1000),
+                    CommitFrequency: criblcontrolplanesdkgo.Pointer[float64](42),
+                    MaxFileSize: criblcontrolplanesdkgo.Pointer("1 MB"),
+                    MaxSize: criblcontrolplanesdkgo.Pointer("5GB"),
+                    Path: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/queues"),
+                    Compress: components.CompressionOptionsPqNone.ToPointer(),
                     PqControls: &components.PqTypePqControls{},
                 },
+                IPWhitelistRegex: criblcontrolplanesdkgo.Pointer("/.*/"),
+                MaxActiveCxn: criblcontrolplanesdkgo.Pointer[float64](1000),
+                SocketIdleTimeout: criblcontrolplanesdkgo.Pointer[float64](0),
+                SocketEndingMaxWait: criblcontrolplanesdkgo.Pointer[float64](30),
+                SocketMaxLifespan: criblcontrolplanesdkgo.Pointer[float64](0),
+                EnableProxyHeader: criblcontrolplanesdkgo.Pointer(false),
                 Metadata: []components.ItemsTypeNotificationMetadata{
                     components.ItemsTypeNotificationMetadata{
                         Name: "<value>",
@@ -297,6 +345,8 @@ func main() {
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
+                StaleChannelFlushMs: criblcontrolplanesdkgo.Pointer[float64](10000),
+                EnableUnixPath: criblcontrolplanesdkgo.Pointer(false),
                 Filter: &components.InputAppscopeFilter{
                     Allow: []components.Allow{
                         components.Allow{
@@ -307,11 +357,23 @@ func main() {
                     },
                     TransportURL: criblcontrolplanesdkgo.Pointer("https://youthful-hammock.net/"),
                 },
-                Persistence: &components.InputAppscopePersistence{},
+                Persistence: &components.InputAppscopePersistence{
+                    Enable: criblcontrolplanesdkgo.Pointer(false),
+                    TimeWindow: criblcontrolplanesdkgo.Pointer("10m"),
+                    MaxDataSize: criblcontrolplanesdkgo.Pointer("1GB"),
+                    MaxDataTime: criblcontrolplanesdkgo.Pointer("24h"),
+                    Compress: components.DataCompressionFormatOptionsPersistenceGzip.ToPointer(),
+                    DestPath: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/appscope"),
+                },
+                AuthType: components.AuthenticationMethodOptionsAuthTokensItemsManual.ToPointer(),
                 Description: criblcontrolplanesdkgo.Pointer("beyond hidden supposing ghost fictionalize disarm geez"),
                 Host: criblcontrolplanesdkgo.Pointer("0.0.0.0"),
                 Port: criblcontrolplanesdkgo.Pointer[float64](9109),
                 TLS: &components.TLSSettingsServerSideType{
+                    Disabled: criblcontrolplanesdkgo.Pointer(true),
+                    RequestCert: criblcontrolplanesdkgo.Pointer(false),
+                    RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
+                    CommonNameRegex: criblcontrolplanesdkgo.Pointer("/.*/"),
                     CertificateName: criblcontrolplanesdkgo.Pointer("<value>"),
                     PrivKeyPath: criblcontrolplanesdkgo.Pointer("<value>"),
                     Passphrase: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -320,7 +382,9 @@ func main() {
                     MinVersion: components.MinimumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv11.ToPointer(),
                     MaxVersion: components.MaximumTLSVersionOptionsKafkaSchemaRegistryTLSTlSv12.ToPointer(),
                 },
+                UnixSocketPath: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/appscope.sock"),
                 UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
+                AuthToken: criblcontrolplanesdkgo.Pointer(""),
                 TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
             },
         ),

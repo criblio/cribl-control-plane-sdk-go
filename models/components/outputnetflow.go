@@ -35,7 +35,7 @@ type OutputNetflowHost struct {
 	// Destination host
 	Host string `json:"host"`
 	// Destination port, default is 2055
-	Port *float64 `default:"2055" json:"port"`
+	Port float64 `json:"port"`
 }
 
 func (o OutputNetflowHost) MarshalJSON() ([]byte, error) {
@@ -43,7 +43,7 @@ func (o OutputNetflowHost) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputNetflowHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host", "port"}); err != nil {
 		return err
 	}
 	return nil
@@ -56,9 +56,9 @@ func (o *OutputNetflowHost) GetHost() string {
 	return o.Host
 }
 
-func (o *OutputNetflowHost) GetPort() *float64 {
+func (o *OutputNetflowHost) GetPort() float64 {
 	if o == nil {
-		return nil
+		return 0.0
 	}
 	return o.Port
 }
@@ -78,12 +78,12 @@ type OutputNetflow struct {
 	// One or more NetFlow Destinations to forward events to
 	Hosts []OutputNetflowHost `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
-	DNSResolvePeriodSec *float64 `default:"0" json:"dnsResolvePeriodSec"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
 	// Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
-	EnableIPSpoofing *bool   `default:"false" json:"enableIpSpoofing"`
+	EnableIPSpoofing *bool   `json:"enableIpSpoofing,omitempty"`
 	Description      *string `json:"description,omitempty"`
 	// MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
-	MaxRecordSize *float64 `default:"1500" json:"maxRecordSize"`
+	MaxRecordSize *float64 `json:"maxRecordSize,omitempty"`
 }
 
 func (o OutputNetflow) MarshalJSON() ([]byte, error) {

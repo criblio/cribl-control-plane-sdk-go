@@ -6,42 +6,42 @@
 ### SplunkAuthenticationNone
 
 ```go
-splunkCollectorConf := components.CreateSplunkCollectorConfNone(components.SplunkAuthenticationNone{/* values here */})
+splunkCollectorConf := components.CreateSplunkCollectorConfSplunkAuthenticationNone(components.SplunkAuthenticationNone{/* values here */})
 ```
 
 ### SplunkAuthenticationBasic
 
 ```go
-splunkCollectorConf := components.CreateSplunkCollectorConfBasic(components.SplunkAuthenticationBasic{/* values here */})
+splunkCollectorConf := components.CreateSplunkCollectorConfSplunkAuthenticationBasic(components.SplunkAuthenticationBasic{/* values here */})
 ```
 
 ### SplunkAuthenticationBasicSecret
 
 ```go
-splunkCollectorConf := components.CreateSplunkCollectorConfBasicSecret(components.SplunkAuthenticationBasicSecret{/* values here */})
+splunkCollectorConf := components.CreateSplunkCollectorConfSplunkAuthenticationBasicSecret(components.SplunkAuthenticationBasicSecret{/* values here */})
 ```
 
 ### SplunkAuthenticationToken
 
 ```go
-splunkCollectorConf := components.CreateSplunkCollectorConfToken(components.SplunkAuthenticationToken{/* values here */})
+splunkCollectorConf := components.CreateSplunkCollectorConfSplunkAuthenticationToken(components.SplunkAuthenticationToken{/* values here */})
 ```
 
 ### SplunkAuthenticationTokenSecret
 
 ```go
-splunkCollectorConf := components.CreateSplunkCollectorConfTokenSecret(components.SplunkAuthenticationTokenSecret{/* values here */})
+splunkCollectorConf := components.CreateSplunkCollectorConfSplunkAuthenticationTokenSecret(components.SplunkAuthenticationTokenSecret{/* values here */})
 ```
 
 ### SplunkAuthenticationLogin
 
 ```go
-splunkCollectorConf := components.CreateSplunkCollectorConfLogin(components.SplunkAuthenticationLogin{/* values here */})
+splunkCollectorConf := components.CreateSplunkCollectorConfSplunkAuthenticationLogin(components.SplunkAuthenticationLogin{/* values here */})
 ```
 
 ### SplunkAuthenticationLoginSecret
 
 ```go
-splunkCollectorConf := components.CreateSplunkCollectorConfLoginSecret(components.SplunkAuthenticationLoginSecret{/* values here */})
+splunkCollectorConf := components.CreateSplunkCollectorConfSplunkAuthenticationLoginSecret(components.SplunkAuthenticationLoginSecret{/* values here */})
 ```
 

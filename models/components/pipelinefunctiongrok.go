@@ -60,7 +60,7 @@ type PipelineFunctionGrokConf struct {
 	Pattern     string                            `json:"pattern"`
 	PatternList []PipelineFunctionGrokPatternList `json:"patternList,omitempty"`
 	// Field on which to perform Grok extractions
-	Source *string `default:"_raw" json:"source"`
+	Source *string `json:"source,omitempty"`
 }
 
 func (p PipelineFunctionGrokConf) MarshalJSON() ([]byte, error) {
@@ -97,7 +97,7 @@ func (p *PipelineFunctionGrokConf) GetSource() *string {
 
 type PipelineFunctionGrok struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionGrokID `json:"id"`
 	// Simple description of this step

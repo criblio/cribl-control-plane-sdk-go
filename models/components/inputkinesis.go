@@ -11,16 +11,16 @@ import (
 
 type InputKinesisPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -30,44 +30,44 @@ type InputKinesisPqEnabledTrueWithPqConstraint struct {
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
-	ServiceInterval *float64 `default:"1" json:"serviceInterval"`
+	ServiceInterval *float64 `json:"serviceInterval,omitempty"`
 	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
-	ShardExpr *string `default:"true" json:"shardExpr"`
+	ShardExpr *string `json:"shardExpr,omitempty"`
 	// Location at which to start reading a shard for the first time
-	ShardIteratorType *ShardIteratorStart `default:"TRIM_HORIZON" json:"shardIteratorType"`
+	ShardIteratorType *ShardIteratorStart `json:"shardIteratorType,omitempty"`
 	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-	PayloadFormat *RecordDataFormat `default:"cribl" json:"payloadFormat"`
+	PayloadFormat *RecordDataFormat `json:"payloadFormat,omitempty"`
 	// Maximum number of records per getRecords call
-	GetRecordsLimit *float64 `default:"5000" json:"getRecordsLimit"`
+	GetRecordsLimit *float64 `json:"getRecordsLimit,omitempty"`
 	// Maximum number of records, across all shards, to pull down at once per Worker Process
-	GetRecordsLimitTotal *float64 `default:"20000" json:"getRecordsLimitTotal"`
+	GetRecordsLimitTotal *float64 `json:"getRecordsLimitTotal,omitempty"`
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
+	LoadBalancingAlgorithm *ShardLoadBalancing `json:"loadBalancingAlgorithm,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptions2 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access Kinesis stream
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Verify Kinesis Producer Library (KPL) event checksums
-	VerifyKPLCheckSums *bool `default:"false" json:"verifyKPLCheckSums"`
+	VerifyKPLCheckSums *bool `json:"verifyKPLCheckSums,omitempty"`
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
-	AvoidDuplicates *bool `default:"false" json:"avoidDuplicates"`
+	AvoidDuplicates *bool `json:"avoidDuplicates,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -81,15 +81,15 @@ func (i InputKinesisPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error)
 }
 
 func (i *InputKinesisPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -213,7 +213,7 @@ func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetLoadBalancingAlgorithm() 
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -334,15 +334,15 @@ func (i *InputKinesisPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
 
 type InputKinesisPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -353,44 +353,44 @@ type InputKinesisPqEnabledFalseConstraint struct {
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
-	ServiceInterval *float64 `default:"1" json:"serviceInterval"`
+	ServiceInterval *float64 `json:"serviceInterval,omitempty"`
 	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
-	ShardExpr *string `default:"true" json:"shardExpr"`
+	ShardExpr *string `json:"shardExpr,omitempty"`
 	// Location at which to start reading a shard for the first time
-	ShardIteratorType *ShardIteratorStart `default:"TRIM_HORIZON" json:"shardIteratorType"`
+	ShardIteratorType *ShardIteratorStart `json:"shardIteratorType,omitempty"`
 	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-	PayloadFormat *RecordDataFormat `default:"cribl" json:"payloadFormat"`
+	PayloadFormat *RecordDataFormat `json:"payloadFormat,omitempty"`
 	// Maximum number of records per getRecords call
-	GetRecordsLimit *float64 `default:"5000" json:"getRecordsLimit"`
+	GetRecordsLimit *float64 `json:"getRecordsLimit,omitempty"`
 	// Maximum number of records, across all shards, to pull down at once per Worker Process
-	GetRecordsLimitTotal *float64 `default:"20000" json:"getRecordsLimitTotal"`
+	GetRecordsLimitTotal *float64 `json:"getRecordsLimitTotal,omitempty"`
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
+	LoadBalancingAlgorithm *ShardLoadBalancing `json:"loadBalancingAlgorithm,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptions2 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access Kinesis stream
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Verify Kinesis Producer Library (KPL) event checksums
-	VerifyKPLCheckSums *bool `default:"false" json:"verifyKPLCheckSums"`
+	VerifyKPLCheckSums *bool `json:"verifyKPLCheckSums,omitempty"`
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
-	AvoidDuplicates *bool `default:"false" json:"avoidDuplicates"`
+	AvoidDuplicates *bool `json:"avoidDuplicates,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -404,15 +404,15 @@ func (i InputKinesisPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKinesisPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputKinesisPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -536,7 +536,7 @@ func (i *InputKinesisPqEnabledFalseConstraint) GetLoadBalancingAlgorithm() *Shar
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputKinesisPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -657,63 +657,63 @@ func (i *InputKinesisPqEnabledFalseConstraint) GetAwsSecret() *string {
 
 type InputKinesisSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
-	ServiceInterval *float64 `default:"1" json:"serviceInterval"`
+	ServiceInterval *float64 `json:"serviceInterval,omitempty"`
 	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
-	ShardExpr *string `default:"true" json:"shardExpr"`
+	ShardExpr *string `json:"shardExpr,omitempty"`
 	// Location at which to start reading a shard for the first time
-	ShardIteratorType *ShardIteratorStart `default:"TRIM_HORIZON" json:"shardIteratorType"`
+	ShardIteratorType *ShardIteratorStart `json:"shardIteratorType,omitempty"`
 	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-	PayloadFormat *RecordDataFormat `default:"cribl" json:"payloadFormat"`
+	PayloadFormat *RecordDataFormat `json:"payloadFormat,omitempty"`
 	// Maximum number of records per getRecords call
-	GetRecordsLimit *float64 `default:"5000" json:"getRecordsLimit"`
+	GetRecordsLimit *float64 `json:"getRecordsLimit,omitempty"`
 	// Maximum number of records, across all shards, to pull down at once per Worker Process
-	GetRecordsLimitTotal *float64 `default:"20000" json:"getRecordsLimitTotal"`
+	GetRecordsLimitTotal *float64 `json:"getRecordsLimitTotal,omitempty"`
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
+	LoadBalancingAlgorithm *ShardLoadBalancing `json:"loadBalancingAlgorithm,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptions2 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access Kinesis stream
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Verify Kinesis Producer Library (KPL) event checksums
-	VerifyKPLCheckSums *bool `default:"false" json:"verifyKPLCheckSums"`
+	VerifyKPLCheckSums *bool `json:"verifyKPLCheckSums,omitempty"`
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
-	AvoidDuplicates *bool `default:"false" json:"avoidDuplicates"`
+	AvoidDuplicates *bool `json:"avoidDuplicates,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -727,15 +727,15 @@ func (i InputKinesisSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([
 }
 
 func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -859,7 +859,7 @@ func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetLoadBalancin
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputKinesisSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -1082,17 +1082,17 @@ func (e *ShardLoadBalancing) IsExact() bool {
 
 type InputKinesisSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputKinesisType `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -1101,44 +1101,44 @@ type InputKinesisSendToRoutesTrueConstraint struct {
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
-	ServiceInterval *float64 `default:"1" json:"serviceInterval"`
+	ServiceInterval *float64 `json:"serviceInterval,omitempty"`
 	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
-	ShardExpr *string `default:"true" json:"shardExpr"`
+	ShardExpr *string `json:"shardExpr,omitempty"`
 	// Location at which to start reading a shard for the first time
-	ShardIteratorType *ShardIteratorStart `default:"TRIM_HORIZON" json:"shardIteratorType"`
+	ShardIteratorType *ShardIteratorStart `json:"shardIteratorType,omitempty"`
 	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-	PayloadFormat *RecordDataFormat `default:"cribl" json:"payloadFormat"`
+	PayloadFormat *RecordDataFormat `json:"payloadFormat,omitempty"`
 	// Maximum number of records per getRecords call
-	GetRecordsLimit *float64 `default:"5000" json:"getRecordsLimit"`
+	GetRecordsLimit *float64 `json:"getRecordsLimit,omitempty"`
 	// Maximum number of records, across all shards, to pull down at once per Worker Process
-	GetRecordsLimitTotal *float64 `default:"20000" json:"getRecordsLimitTotal"`
+	GetRecordsLimitTotal *float64 `json:"getRecordsLimitTotal,omitempty"`
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-	LoadBalancingAlgorithm *ShardLoadBalancing `default:"ConsistentHashing" json:"loadBalancingAlgorithm"`
+	LoadBalancingAlgorithm *ShardLoadBalancing `json:"loadBalancingAlgorithm,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                      `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *SignatureVersionOptions2 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions2 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access Kinesis stream
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Verify Kinesis Producer Library (KPL) event checksums
-	VerifyKPLCheckSums *bool `default:"false" json:"verifyKPLCheckSums"`
+	VerifyKPLCheckSums *bool `json:"verifyKPLCheckSums,omitempty"`
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
-	AvoidDuplicates *bool `default:"false" json:"avoidDuplicates"`
+	AvoidDuplicates *bool `json:"avoidDuplicates,omitempty"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
@@ -1152,15 +1152,15 @@ func (i InputKinesisSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputKinesisSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "streamName", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "streamName", "region"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputKinesisSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1284,7 +1284,7 @@ func (i *InputKinesisSendToRoutesTrueConstraint) GetLoadBalancingAlgorithm() *Sh
 	return i.LoadBalancingAlgorithm
 }
 
-func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputKinesisSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}

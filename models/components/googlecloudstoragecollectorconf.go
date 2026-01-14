@@ -67,7 +67,7 @@ func (g *GoogleCloudStorageAuthTypeSecretExtractor) GetExpression() string {
 
 type GoogleCloudStorageAuthTypeSecret struct {
 	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
-	AuthType *GoogleCloudStorageAuthTypeSecretAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *GoogleCloudStorageAuthTypeSecretAuthenticationMethod `json:"authType,omitempty"`
 	// Select or create a stored text secret that references your credentials
 	TextSecret string `json:"textSecret"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
@@ -81,15 +81,15 @@ type GoogleCloudStorageAuthTypeSecret struct {
 	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Used to disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
+	Recurse *bool `json:"recurse,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
 }
 
 func (g GoogleCloudStorageAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -245,7 +245,7 @@ func (g *GoogleCloudStorageAuthTypeManualExtractor) GetExpression() string {
 
 type GoogleCloudStorageAuthTypeManual struct {
 	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
-	AuthType *GoogleCloudStorageAuthTypeManualAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *GoogleCloudStorageAuthTypeManualAuthenticationMethod `json:"authType,omitempty"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials string `json:"serviceAccountCredentials"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
@@ -259,15 +259,15 @@ type GoogleCloudStorageAuthTypeManual struct {
 	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Used to disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
+	Recurse *bool `json:"recurse,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
 }
 
 func (g GoogleCloudStorageAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -423,7 +423,7 @@ func (g *GoogleCloudStorageAuthTypeAutoExtractor) GetExpression() string {
 
 type GoogleCloudStorageAuthTypeAuto struct {
 	// Enter account credentials manually, select a secret that references your credentials, or use Google Application Default Credentials
-	AuthType *GoogleCloudStorageAuthTypeAutoAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType *GoogleCloudStorageAuthTypeAutoAuthenticationMethod `json:"authType,omitempty"`
 	// Name of the predefined Destination that will be used to auto-populate Collector settings
 	OutputName *string `json:"outputName,omitempty"`
 	// Name of the bucket to collect from. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
@@ -435,15 +435,15 @@ type GoogleCloudStorageAuthTypeAuto struct {
 	// Google Cloud Storage service endpoint. If empty, the endpoint will default to https://storage.googleapis.com.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Used to disable Collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"false" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
+	Recurse *bool `json:"recurse,omitempty"`
 	// Maximum number of metadata objects to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
 	// Maximum file size for each Parquet chunk
-	ParquetChunkSizeMB *float64 `default:"5" json:"parquetChunkSizeMB"`
+	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitempty"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64 `default:"600" json:"parquetChunkDownloadTimeout"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitempty"`
 }
 
 func (g GoogleCloudStorageAuthTypeAuto) MarshalJSON() ([]byte, error) {

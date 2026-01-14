@@ -67,24 +67,24 @@ func (t *Timestamp) GetStrptime() string {
 
 type FunctionConfSchemaAutoTimestamp struct {
 	// Field to search for a timestamp
-	SrcField *string `default:"_raw" json:"srcField"`
+	SrcField *string `json:"srcField,omitempty"`
 	// Field to place timestamp in
-	DstField *string `default:"_time" json:"dstField"`
+	DstField *string `json:"dstField,omitempty"`
 	// Timezone to assign to timestamps without timezone info
-	DefaultTimezone *string `default:"local" json:"defaultTimezone"`
+	DefaultTimezone *string `json:"defaultTimezone,omitempty"`
 	// Expression to use to format time. Current time, as a JavaScript Date object, is in global `time`. You can access other fields' values via __e.<fieldName>.
-	TimeExpression *string `default:"time.getTime() / 1000" json:"timeExpression"`
+	TimeExpression *string `json:"timeExpression,omitempty"`
 	// The offset into the string from which to look for a timestamp
-	Offset *float64 `default:"0" json:"offset"`
+	Offset *float64 `json:"offset,omitempty"`
 	// Maximum string length at which to look for a timestamp
-	MaxLen *float64 `default:"150" json:"maxLen"`
+	MaxLen *float64 `json:"maxLen,omitempty"`
 	// How to set the time field if no timestamp is found
-	DefaultTime *DefaultTime `default:"now" json:"defaultTime"`
+	DefaultTime *DefaultTime `json:"defaultTime,omitempty"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to the Default time.
-	LatestDateAllowed *string `default:"+1week" json:"latestDateAllowed"`
+	LatestDateAllowed *string `json:"latestDateAllowed,omitempty"`
 	Spacer            *string `json:"spacer,omitempty"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to the Default time.
-	EarliestDateAllowed *string `default:"-420weeks" json:"earliestDateAllowed"`
+	EarliestDateAllowed *string `json:"earliestDateAllowed,omitempty"`
 	// Add regex/strptime pairs to extract additional timestamp formats
 	Timestamps []Timestamp `json:"timestamps,omitempty"`
 }

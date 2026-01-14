@@ -93,7 +93,7 @@ func (s *SortConfiguration) GetSuppressPreviews() *bool {
 
 type PipelineFunctionSort struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionSortID `json:"id"`
 	// Simple description of this step

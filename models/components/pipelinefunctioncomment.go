@@ -34,7 +34,7 @@ func (e *PipelineFunctionCommentID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionComment struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionCommentID `json:"id"`
 	// Simple description of this step

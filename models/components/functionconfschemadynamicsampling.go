@@ -33,15 +33,15 @@ func (e *FunctionConfSchemaDynamicSamplingSampleMode) IsExact() bool {
 
 type FunctionConfSchemaDynamicSampling struct {
 	// Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-	Mode *FunctionConfSchemaDynamicSamplingSampleMode `default:"log" json:"mode"`
+	Mode *FunctionConfSchemaDynamicSamplingSampleMode `json:"mode,omitempty"`
 	// Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
-	KeyExpr *string "default:\"`${host}`\" json:\"keyExpr\""
+	KeyExpr *string `json:"keyExpr,omitempty"`
 	// How often (in seconds) sample rates will be adjusted
-	SamplePeriod *float64 `default:"30" json:"samplePeriod"`
+	SamplePeriod *float64 `json:"samplePeriod,omitempty"`
 	// Minimum number of events that must be received in previous sample period for sampling mode to be applied to current period. If the number of events received for a sample group is less than this minimum, a sample rate of 1:1 is used.
-	MinEvents *float64 `default:"30" json:"minEvents"`
+	MinEvents *float64 `json:"minEvents,omitempty"`
 	// Maximum sampling rate. If computed sampling rate is above this value, it will be limited to this value.
-	MaxSampleRate *float64 `default:"100" json:"maxSampleRate"`
+	MaxSampleRate *float64 `json:"maxSampleRate,omitempty"`
 }
 
 func (f FunctionConfSchemaDynamicSampling) MarshalJSON() ([]byte, error) {

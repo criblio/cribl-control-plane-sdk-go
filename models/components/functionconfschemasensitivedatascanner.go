@@ -10,8 +10,8 @@ type FunctionConfSchemaSensitiveDataScannerRule struct {
 	// The ID of the ruleset to use for the scan
 	RulesetID string `json:"rulesetId"`
 	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
-	ReplaceExpr *string `default:"'REDACTED'" json:"replaceExpr"`
-	Disabled    *bool   `default:"false" json:"disabled"`
+	ReplaceExpr string `json:"replaceExpr"`
+	Disabled    *bool  `json:"disabled,omitempty"`
 }
 
 func (f FunctionConfSchemaSensitiveDataScannerRule) MarshalJSON() ([]byte, error) {
@@ -19,7 +19,7 @@ func (f FunctionConfSchemaSensitiveDataScannerRule) MarshalJSON() ([]byte, error
 }
 
 func (f *FunctionConfSchemaSensitiveDataScannerRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"rulesetId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"rulesetId", "replaceExpr"}); err != nil {
 		return err
 	}
 	return nil
@@ -32,9 +32,9 @@ func (f *FunctionConfSchemaSensitiveDataScannerRule) GetRulesetID() string {
 	return f.RulesetID
 }
 
-func (f *FunctionConfSchemaSensitiveDataScannerRule) GetReplaceExpr() *string {
+func (f *FunctionConfSchemaSensitiveDataScannerRule) GetReplaceExpr() string {
 	if f == nil {
-		return nil
+		return ""
 	}
 	return f.ReplaceExpr
 }
@@ -85,8 +85,8 @@ type FunctionConfSchemaSensitiveDataScanner struct {
 	// Fields to add when mitigation is applied to an event
 	Flags []FunctionConfSchemaSensitiveDataScannerFlag `json:"flags,omitempty"`
 	// Add matching ruleset IDs to a field called "__detected"
-	IncludeDetectedRules *bool `default:"true" json:"includeDetectedRules"`
-	BackgroundDetection  *bool `default:"false" json:"backgroundDetection"`
+	IncludeDetectedRules *bool `json:"includeDetectedRules,omitempty"`
+	BackgroundDetection  *bool `json:"backgroundDetection,omitempty"`
 }
 
 func (f FunctionConfSchemaSensitiveDataScanner) MarshalJSON() ([]byte, error) {

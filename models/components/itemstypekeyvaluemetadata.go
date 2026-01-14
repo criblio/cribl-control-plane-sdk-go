@@ -7,8 +7,8 @@ import (
 )
 
 type ItemsTypeKeyValueMetadata struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
 
 func (i ItemsTypeKeyValueMetadata) MarshalJSON() ([]byte, error) {
@@ -16,15 +16,15 @@ func (i ItemsTypeKeyValueMetadata) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeKeyValueMetadata) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"key", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *ItemsTypeKeyValueMetadata) GetKey() *string {
+func (i *ItemsTypeKeyValueMetadata) GetKey() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Key
 }

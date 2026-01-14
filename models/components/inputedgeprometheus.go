@@ -11,16 +11,16 @@ import (
 
 type InputEdgePrometheusPqEnabledTrueWithPqConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
+	PqEnabled bool    `json:"pqEnabled"`
 	Pq        *PqType `json:"pq,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
+	Disabled *bool                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -30,35 +30,35 @@ type InputEdgePrometheusPqEnabledTrueWithPqConstraint struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputEdgePrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType InputEdgePrometheusDiscoveryType `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `default:"5000" json:"timeout"`
+	Timeout     *float64          `json:"timeout,omitempty"`
 	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitempty"`
 	Description *string                                  `json:"description,omitempty"`
 	Targets     []Target                                 `json:"targets,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -67,25 +67,25 @@ type InputEdgePrometheusPqEnabledTrueWithPqConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `default:"metadata.annotations['prometheus.io/scheme'] || 'http'" json:"scrapeProtocolExpr"`
+	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `default:"metadata.annotations['prometheus.io/port'] || 9090" json:"scrapePortExpr"`
+	ScrapePortExpr *string `json:"scrapePortExpr,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `default:"metadata.annotations['prometheus.io/path'] || '/metrics'" json:"scrapePathExpr"`
+	ScrapePathExpr *string `json:"scrapePathExpr,omitempty"`
 	//   Add rules to decide which pods to discover for metrics.
 	//   Pods are searched if no rules are given or of all the rules'
 	//   expressions evaluate to true.
@@ -104,15 +104,15 @@ func (i InputEdgePrometheusPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte,
 }
 
 func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "discoveryType", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -187,16 +187,16 @@ func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDimensionList() []
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDiscoveryType() InputEdgePrometheusDiscoveryType {
 	if i == nil {
-		return nil
+		return InputEdgePrometheusDiscoveryType("")
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
@@ -278,7 +278,7 @@ func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePath() *stri
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -434,15 +434,15 @@ func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetCredentialsSecret(
 
 type InputEdgePrometheusPqEnabledFalseConstraint struct {
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled bool `json:"pqEnabled"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
+	Disabled *bool                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
@@ -453,35 +453,35 @@ type InputEdgePrometheusPqEnabledFalseConstraint struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputEdgePrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType InputEdgePrometheusDiscoveryType `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `default:"5000" json:"timeout"`
+	Timeout     *float64          `json:"timeout,omitempty"`
 	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitempty"`
 	Description *string                                  `json:"description,omitempty"`
 	Targets     []Target                                 `json:"targets,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -490,25 +490,25 @@ type InputEdgePrometheusPqEnabledFalseConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `default:"metadata.annotations['prometheus.io/scheme'] || 'http'" json:"scrapeProtocolExpr"`
+	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `default:"metadata.annotations['prometheus.io/port'] || 9090" json:"scrapePortExpr"`
+	ScrapePortExpr *string `json:"scrapePortExpr,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `default:"metadata.annotations['prometheus.io/path'] || '/metrics'" json:"scrapePathExpr"`
+	ScrapePathExpr *string `json:"scrapePathExpr,omitempty"`
 	//   Add rules to decide which pods to discover for metrics.
 	//   Pods are searched if no rules are given or of all the rules'
 	//   expressions evaluate to true.
@@ -527,15 +527,15 @@ func (i InputEdgePrometheusPqEnabledFalseConstraint) MarshalJSON() ([]byte, erro
 }
 
 func (i *InputEdgePrometheusPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "discoveryType", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetPqEnabled() *bool {
+func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetPqEnabled() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.PqEnabled
 }
@@ -610,16 +610,16 @@ func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetDimensionList() []strin
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetDiscoveryType() InputEdgePrometheusDiscoveryType {
 	if i == nil {
-		return nil
+		return InputEdgePrometheusDiscoveryType("")
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetInterval() *float64 {
+func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
@@ -701,7 +701,7 @@ func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapePath() *string {
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -857,54 +857,54 @@ func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetCredentialsSecret() *st
 
 type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
+	Disabled *bool                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	Pq         *PqType  `json:"pq,omitempty"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputEdgePrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType InputEdgePrometheusDiscoveryType `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `default:"5000" json:"timeout"`
+	Timeout     *float64          `json:"timeout,omitempty"`
 	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitempty"`
 	Description *string                                  `json:"description,omitempty"`
 	Targets     []Target                                 `json:"targets,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -913,25 +913,25 @@ type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `default:"metadata.annotations['prometheus.io/scheme'] || 'http'" json:"scrapeProtocolExpr"`
+	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `default:"metadata.annotations['prometheus.io/port'] || 9090" json:"scrapePortExpr"`
+	ScrapePortExpr *string `json:"scrapePortExpr,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `default:"metadata.annotations['prometheus.io/path'] || '/metrics'" json:"scrapePathExpr"`
+	ScrapePathExpr *string `json:"scrapePathExpr,omitempty"`
 	//   Add rules to decide which pods to discover for metrics.
 	//   Pods are searched if no rules are given or of all the rules'
 	//   expressions evaluate to true.
@@ -950,15 +950,15 @@ func (i InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) MarshalJS
 }
 
 func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "discoveryType", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1033,16 +1033,16 @@ func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDimen
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDiscoveryType() InputEdgePrometheusDiscoveryType {
 	if i == nil {
-		return nil
+		return InputEdgePrometheusDiscoveryType("")
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
@@ -1124,7 +1124,7 @@ func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrap
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
@@ -1358,13 +1358,13 @@ func (e *InputEdgePrometheusAuthenticationMethod) IsExact() bool {
 
 type Target struct {
 	// Protocol to use when collecting metrics
-	Protocol *ProtocolOptionsTargetsItems `default:"http" json:"protocol"`
+	Protocol *ProtocolOptionsTargetsItems `json:"protocol,omitempty"`
 	// Name of host from which to pull metrics.
 	Host string `json:"host"`
 	// The port number in the metrics URL for discovered targets.
-	Port *float64 `default:"9090" json:"port"`
+	Port *float64 `json:"port,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	Path *string `default:"/metrics" json:"path"`
+	Path *string `json:"path,omitempty"`
 }
 
 func (t Target) MarshalJSON() ([]byte, error) {
@@ -1440,17 +1440,17 @@ func (p *PodFilter) GetDescription() *string {
 
 type InputEdgePrometheusSendToRoutesTrueConstraint struct {
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes bool `json:"sendToRoutes"`
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
+	Disabled *bool                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -1459,35 +1459,35 @@ type InputEdgePrometheusSendToRoutesTrueConstraint struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputEdgePrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType InputEdgePrometheusDiscoveryType `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `default:"5000" json:"timeout"`
+	Timeout     *float64          `json:"timeout,omitempty"`
 	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitempty"`
 	Description *string                                  `json:"description,omitempty"`
 	Targets     []Target                                 `json:"targets,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptions `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                      `json:"awsApiKey,omitempty"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
+	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -1496,25 +1496,25 @@ type InputEdgePrometheusSendToRoutesTrueConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `default:"metadata.annotations['prometheus.io/scheme'] || 'http'" json:"scrapeProtocolExpr"`
+	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `default:"metadata.annotations['prometheus.io/port'] || 9090" json:"scrapePortExpr"`
+	ScrapePortExpr *string `json:"scrapePortExpr,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `default:"metadata.annotations['prometheus.io/path'] || '/metrics'" json:"scrapePathExpr"`
+	ScrapePathExpr *string `json:"scrapePathExpr,omitempty"`
 	//   Add rules to decide which pods to discover for metrics.
 	//   Pods are searched if no rules are given or of all the rules'
 	//   expressions evaluate to true.
@@ -1533,15 +1533,15 @@ func (i InputEdgePrometheusSendToRoutesTrueConstraint) MarshalJSON() ([]byte, er
 }
 
 func (i *InputEdgePrometheusSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "discoveryType", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
+func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetSendToRoutes() bool {
 	if i == nil {
-		return nil
+		return false
 	}
 	return i.SendToRoutes
 }
@@ -1616,16 +1616,16 @@ func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetDimensionList() []str
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetDiscoveryType() InputEdgePrometheusDiscoveryType {
 	if i == nil {
-		return nil
+		return InputEdgePrometheusDiscoveryType("")
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetInterval() *float64 {
+func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
@@ -1707,7 +1707,7 @@ func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapePath() *string 
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptions {
+func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}

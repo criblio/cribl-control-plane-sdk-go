@@ -11,7 +11,7 @@ type FunctionConfSchemaEvalAdd struct {
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
 	// Set to No to disable the evaluation of an individual expression
-	Disabled *bool `default:"false" json:"disabled"`
+	Disabled *bool `json:"disabled,omitempty"`
 }
 
 func (f FunctionConfSchemaEvalAdd) MarshalJSON() ([]byte, error) {

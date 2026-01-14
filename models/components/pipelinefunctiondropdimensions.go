@@ -34,11 +34,11 @@ func (e *PipelineFunctionDropDimensionsID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionDropDimensionsConf struct {
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"10s" json:"timeWindow"`
+	TimeWindow string `json:"timeWindow"`
 	// One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
 	DropDimensions []string `json:"dropDimensions"`
 	// Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
-	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
 }
 
 func (p PipelineFunctionDropDimensionsConf) MarshalJSON() ([]byte, error) {
@@ -46,15 +46,15 @@ func (p PipelineFunctionDropDimensionsConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionDropDimensionsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"dropDimensions"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "dropDimensions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionDropDimensionsConf) GetTimeWindow() *string {
+func (p *PipelineFunctionDropDimensionsConf) GetTimeWindow() string {
 	if p == nil {
-		return nil
+		return ""
 	}
 	return p.TimeWindow
 }
@@ -75,7 +75,7 @@ func (p *PipelineFunctionDropDimensionsConf) GetFlushOnInputClose() *bool {
 
 type PipelineFunctionDropDimensions struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionDropDimensionsID `json:"id"`
 	// Simple description of this step

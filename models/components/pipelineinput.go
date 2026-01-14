@@ -2,32 +2,17 @@
 
 package components
 
-import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-)
-
 type ConfInput struct {
 	// Time (in ms) to wait for an async function to complete processing of a data item
 	AsyncFuncTimeout *int64 `json:"asyncFuncTimeout,omitempty"`
 	// The output destination for events processed by this Pipeline
-	Output      *string `default:"default" json:"output"`
+	Output      *string `json:"output,omitempty"`
 	Description *string `json:"description,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// List of Functions to pass data through
 	Functions []PipelineFunctionConfInput                           `json:"functions,omitempty"`
 	Groups    map[string]AdditionalPropertiesTypePipelineConfGroups `json:"groups,omitempty"`
-}
-
-func (c ConfInput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ConfInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (c *ConfInput) GetAsyncFuncTimeout() *int64 {

@@ -83,9 +83,9 @@ type PipelineFunctionGeoipConf struct {
 	// Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
 	File string `json:"file"`
 	// Field name in which to find an IP to look up. Can be nested.
-	InField *string `default:"ip" json:"inField"`
+	InField *string `json:"inField,omitempty"`
 	// Field name in which to store the GeoIP lookup results
-	OutField         *string                                `default:"geoip" json:"outField"`
+	OutField         *string                                `json:"outField,omitempty"`
 	AdditionalFields []PipelineFunctionGeoipAdditionalField `json:"additionalFields,omitempty"`
 	// Search-specific mappings for granular control over event enrichment
 	OutFieldMappings *PipelineFunctionGeoipOutputFieldMappings `json:"outFieldMappings,omitempty"`
@@ -139,7 +139,7 @@ func (p *PipelineFunctionGeoipConf) GetOutFieldMappings() *PipelineFunctionGeoip
 
 type PipelineFunctionGeoip struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionGeoipID `json:"id"`
 	// Simple description of this step
