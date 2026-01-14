@@ -1,4 +1,4 @@
-# RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseStateTracking
+# RestAuthenticationLoginStateTracking
 
 
 ## Fields

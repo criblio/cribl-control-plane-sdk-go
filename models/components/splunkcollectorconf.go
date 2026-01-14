@@ -3,6 +3,7 @@
 package components
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
@@ -12,16 +13,13 @@ import (
 type SplunkAuthenticationLoginSecretAuthentication string
 
 const (
-	// SplunkAuthenticationLoginSecretAuthenticationNone None
-	SplunkAuthenticationLoginSecretAuthenticationNone SplunkAuthenticationLoginSecretAuthentication = "none"
-	// SplunkAuthenticationLoginSecretAuthenticationBasic Basic
-	SplunkAuthenticationLoginSecretAuthenticationBasic SplunkAuthenticationLoginSecretAuthentication = "basic"
-	// SplunkAuthenticationLoginSecretAuthenticationBasicSecret Basic (credentials secret)
+	SplunkAuthenticationLoginSecretAuthenticationNone        SplunkAuthenticationLoginSecretAuthentication = "none"
+	SplunkAuthenticationLoginSecretAuthenticationBasic       SplunkAuthenticationLoginSecretAuthentication = "basic"
 	SplunkAuthenticationLoginSecretAuthenticationBasicSecret SplunkAuthenticationLoginSecretAuthentication = "basicSecret"
-	// SplunkAuthenticationLoginSecretAuthenticationToken Bearer Token
-	SplunkAuthenticationLoginSecretAuthenticationToken SplunkAuthenticationLoginSecretAuthentication = "token"
-	// SplunkAuthenticationLoginSecretAuthenticationTokenSecret Bearer Token (text secret)
+	SplunkAuthenticationLoginSecretAuthenticationToken       SplunkAuthenticationLoginSecretAuthentication = "token"
 	SplunkAuthenticationLoginSecretAuthenticationTokenSecret SplunkAuthenticationLoginSecretAuthentication = "tokenSecret"
+	SplunkAuthenticationLoginSecretAuthenticationLogin       SplunkAuthenticationLoginSecretAuthentication = "login"
+	SplunkAuthenticationLoginSecretAuthenticationLoginSecret SplunkAuthenticationLoginSecretAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationLoginSecretAuthentication) ToPointer() *SplunkAuthenticationLoginSecretAuthentication {
@@ -32,7 +30,7 @@ func (e SplunkAuthenticationLoginSecretAuthentication) ToPointer() *SplunkAuthen
 func (e *SplunkAuthenticationLoginSecretAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
 			return true
 		}
 	}
@@ -377,16 +375,13 @@ func (s *SplunkAuthenticationLoginSecret) GetRetryRules() *SplunkAuthenticationL
 type SplunkAuthenticationLoginAuthentication string
 
 const (
-	// SplunkAuthenticationLoginAuthenticationNone None
-	SplunkAuthenticationLoginAuthenticationNone SplunkAuthenticationLoginAuthentication = "none"
-	// SplunkAuthenticationLoginAuthenticationBasic Basic
-	SplunkAuthenticationLoginAuthenticationBasic SplunkAuthenticationLoginAuthentication = "basic"
-	// SplunkAuthenticationLoginAuthenticationBasicSecret Basic (credentials secret)
+	SplunkAuthenticationLoginAuthenticationNone        SplunkAuthenticationLoginAuthentication = "none"
+	SplunkAuthenticationLoginAuthenticationBasic       SplunkAuthenticationLoginAuthentication = "basic"
 	SplunkAuthenticationLoginAuthenticationBasicSecret SplunkAuthenticationLoginAuthentication = "basicSecret"
-	// SplunkAuthenticationLoginAuthenticationToken Bearer Token
-	SplunkAuthenticationLoginAuthenticationToken SplunkAuthenticationLoginAuthentication = "token"
-	// SplunkAuthenticationLoginAuthenticationTokenSecret Bearer Token (text secret)
+	SplunkAuthenticationLoginAuthenticationToken       SplunkAuthenticationLoginAuthentication = "token"
 	SplunkAuthenticationLoginAuthenticationTokenSecret SplunkAuthenticationLoginAuthentication = "tokenSecret"
+	SplunkAuthenticationLoginAuthenticationLogin       SplunkAuthenticationLoginAuthentication = "login"
+	SplunkAuthenticationLoginAuthenticationLoginSecret SplunkAuthenticationLoginAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationLoginAuthentication) ToPointer() *SplunkAuthenticationLoginAuthentication {
@@ -397,7 +392,7 @@ func (e SplunkAuthenticationLoginAuthentication) ToPointer() *SplunkAuthenticati
 func (e *SplunkAuthenticationLoginAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
 			return true
 		}
 	}
@@ -749,16 +744,13 @@ func (s *SplunkAuthenticationLogin) GetRetryRules() *SplunkAuthenticationLoginRe
 type SplunkAuthenticationTokenSecretAuthentication string
 
 const (
-	// SplunkAuthenticationTokenSecretAuthenticationNone None
-	SplunkAuthenticationTokenSecretAuthenticationNone SplunkAuthenticationTokenSecretAuthentication = "none"
-	// SplunkAuthenticationTokenSecretAuthenticationBasic Basic
-	SplunkAuthenticationTokenSecretAuthenticationBasic SplunkAuthenticationTokenSecretAuthentication = "basic"
-	// SplunkAuthenticationTokenSecretAuthenticationBasicSecret Basic (credentials secret)
+	SplunkAuthenticationTokenSecretAuthenticationNone        SplunkAuthenticationTokenSecretAuthentication = "none"
+	SplunkAuthenticationTokenSecretAuthenticationBasic       SplunkAuthenticationTokenSecretAuthentication = "basic"
 	SplunkAuthenticationTokenSecretAuthenticationBasicSecret SplunkAuthenticationTokenSecretAuthentication = "basicSecret"
-	// SplunkAuthenticationTokenSecretAuthenticationToken Bearer Token
-	SplunkAuthenticationTokenSecretAuthenticationToken SplunkAuthenticationTokenSecretAuthentication = "token"
-	// SplunkAuthenticationTokenSecretAuthenticationTokenSecret Bearer Token (text secret)
+	SplunkAuthenticationTokenSecretAuthenticationToken       SplunkAuthenticationTokenSecretAuthentication = "token"
 	SplunkAuthenticationTokenSecretAuthenticationTokenSecret SplunkAuthenticationTokenSecretAuthentication = "tokenSecret"
+	SplunkAuthenticationTokenSecretAuthenticationLogin       SplunkAuthenticationTokenSecretAuthentication = "login"
+	SplunkAuthenticationTokenSecretAuthenticationLoginSecret SplunkAuthenticationTokenSecretAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationTokenSecretAuthentication) ToPointer() *SplunkAuthenticationTokenSecretAuthentication {
@@ -769,7 +761,7 @@ func (e SplunkAuthenticationTokenSecretAuthentication) ToPointer() *SplunkAuthen
 func (e *SplunkAuthenticationTokenSecretAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
 			return true
 		}
 	}
@@ -1078,16 +1070,13 @@ func (s *SplunkAuthenticationTokenSecret) GetRetryRules() *SplunkAuthenticationT
 type SplunkAuthenticationTokenAuthentication string
 
 const (
-	// SplunkAuthenticationTokenAuthenticationNone None
-	SplunkAuthenticationTokenAuthenticationNone SplunkAuthenticationTokenAuthentication = "none"
-	// SplunkAuthenticationTokenAuthenticationBasic Basic
-	SplunkAuthenticationTokenAuthenticationBasic SplunkAuthenticationTokenAuthentication = "basic"
-	// SplunkAuthenticationTokenAuthenticationBasicSecret Basic (credentials secret)
+	SplunkAuthenticationTokenAuthenticationNone        SplunkAuthenticationTokenAuthentication = "none"
+	SplunkAuthenticationTokenAuthenticationBasic       SplunkAuthenticationTokenAuthentication = "basic"
 	SplunkAuthenticationTokenAuthenticationBasicSecret SplunkAuthenticationTokenAuthentication = "basicSecret"
-	// SplunkAuthenticationTokenAuthenticationToken Bearer Token
-	SplunkAuthenticationTokenAuthenticationToken SplunkAuthenticationTokenAuthentication = "token"
-	// SplunkAuthenticationTokenAuthenticationTokenSecret Bearer Token (text secret)
+	SplunkAuthenticationTokenAuthenticationToken       SplunkAuthenticationTokenAuthentication = "token"
 	SplunkAuthenticationTokenAuthenticationTokenSecret SplunkAuthenticationTokenAuthentication = "tokenSecret"
+	SplunkAuthenticationTokenAuthenticationLogin       SplunkAuthenticationTokenAuthentication = "login"
+	SplunkAuthenticationTokenAuthenticationLoginSecret SplunkAuthenticationTokenAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationTokenAuthentication) ToPointer() *SplunkAuthenticationTokenAuthentication {
@@ -1098,7 +1087,7 @@ func (e SplunkAuthenticationTokenAuthentication) ToPointer() *SplunkAuthenticati
 func (e *SplunkAuthenticationTokenAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
 			return true
 		}
 	}
@@ -1406,16 +1395,13 @@ func (s *SplunkAuthenticationToken) GetRetryRules() *SplunkAuthenticationTokenRe
 type SplunkAuthenticationBasicSecretAuthentication string
 
 const (
-	// SplunkAuthenticationBasicSecretAuthenticationNone None
-	SplunkAuthenticationBasicSecretAuthenticationNone SplunkAuthenticationBasicSecretAuthentication = "none"
-	// SplunkAuthenticationBasicSecretAuthenticationBasic Basic
-	SplunkAuthenticationBasicSecretAuthenticationBasic SplunkAuthenticationBasicSecretAuthentication = "basic"
-	// SplunkAuthenticationBasicSecretAuthenticationBasicSecret Basic (credentials secret)
+	SplunkAuthenticationBasicSecretAuthenticationNone        SplunkAuthenticationBasicSecretAuthentication = "none"
+	SplunkAuthenticationBasicSecretAuthenticationBasic       SplunkAuthenticationBasicSecretAuthentication = "basic"
 	SplunkAuthenticationBasicSecretAuthenticationBasicSecret SplunkAuthenticationBasicSecretAuthentication = "basicSecret"
-	// SplunkAuthenticationBasicSecretAuthenticationToken Bearer Token
-	SplunkAuthenticationBasicSecretAuthenticationToken SplunkAuthenticationBasicSecretAuthentication = "token"
-	// SplunkAuthenticationBasicSecretAuthenticationTokenSecret Bearer Token (text secret)
+	SplunkAuthenticationBasicSecretAuthenticationToken       SplunkAuthenticationBasicSecretAuthentication = "token"
 	SplunkAuthenticationBasicSecretAuthenticationTokenSecret SplunkAuthenticationBasicSecretAuthentication = "tokenSecret"
+	SplunkAuthenticationBasicSecretAuthenticationLogin       SplunkAuthenticationBasicSecretAuthentication = "login"
+	SplunkAuthenticationBasicSecretAuthenticationLoginSecret SplunkAuthenticationBasicSecretAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationBasicSecretAuthentication) ToPointer() *SplunkAuthenticationBasicSecretAuthentication {
@@ -1426,7 +1412,7 @@ func (e SplunkAuthenticationBasicSecretAuthentication) ToPointer() *SplunkAuthen
 func (e *SplunkAuthenticationBasicSecretAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
 			return true
 		}
 	}
@@ -1735,16 +1721,13 @@ func (s *SplunkAuthenticationBasicSecret) GetRetryRules() *SplunkAuthenticationB
 type SplunkAuthenticationBasicAuthentication string
 
 const (
-	// SplunkAuthenticationBasicAuthenticationNone None
-	SplunkAuthenticationBasicAuthenticationNone SplunkAuthenticationBasicAuthentication = "none"
-	// SplunkAuthenticationBasicAuthenticationBasic Basic
-	SplunkAuthenticationBasicAuthenticationBasic SplunkAuthenticationBasicAuthentication = "basic"
-	// SplunkAuthenticationBasicAuthenticationBasicSecret Basic (credentials secret)
+	SplunkAuthenticationBasicAuthenticationNone        SplunkAuthenticationBasicAuthentication = "none"
+	SplunkAuthenticationBasicAuthenticationBasic       SplunkAuthenticationBasicAuthentication = "basic"
 	SplunkAuthenticationBasicAuthenticationBasicSecret SplunkAuthenticationBasicAuthentication = "basicSecret"
-	// SplunkAuthenticationBasicAuthenticationToken Bearer Token
-	SplunkAuthenticationBasicAuthenticationToken SplunkAuthenticationBasicAuthentication = "token"
-	// SplunkAuthenticationBasicAuthenticationTokenSecret Bearer Token (text secret)
+	SplunkAuthenticationBasicAuthenticationToken       SplunkAuthenticationBasicAuthentication = "token"
 	SplunkAuthenticationBasicAuthenticationTokenSecret SplunkAuthenticationBasicAuthentication = "tokenSecret"
+	SplunkAuthenticationBasicAuthenticationLogin       SplunkAuthenticationBasicAuthentication = "login"
+	SplunkAuthenticationBasicAuthenticationLoginSecret SplunkAuthenticationBasicAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationBasicAuthentication) ToPointer() *SplunkAuthenticationBasicAuthentication {
@@ -1755,7 +1738,7 @@ func (e SplunkAuthenticationBasicAuthentication) ToPointer() *SplunkAuthenticati
 func (e *SplunkAuthenticationBasicAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
 			return true
 		}
 	}
@@ -2073,16 +2056,13 @@ func (s *SplunkAuthenticationBasic) GetRetryRules() *SplunkAuthenticationBasicRe
 type SplunkAuthenticationNoneAuthentication string
 
 const (
-	// SplunkAuthenticationNoneAuthenticationNone None
-	SplunkAuthenticationNoneAuthenticationNone SplunkAuthenticationNoneAuthentication = "none"
-	// SplunkAuthenticationNoneAuthenticationBasic Basic
-	SplunkAuthenticationNoneAuthenticationBasic SplunkAuthenticationNoneAuthentication = "basic"
-	// SplunkAuthenticationNoneAuthenticationBasicSecret Basic (credentials secret)
+	SplunkAuthenticationNoneAuthenticationNone        SplunkAuthenticationNoneAuthentication = "none"
+	SplunkAuthenticationNoneAuthenticationBasic       SplunkAuthenticationNoneAuthentication = "basic"
 	SplunkAuthenticationNoneAuthenticationBasicSecret SplunkAuthenticationNoneAuthentication = "basicSecret"
-	// SplunkAuthenticationNoneAuthenticationToken Bearer Token
-	SplunkAuthenticationNoneAuthenticationToken SplunkAuthenticationNoneAuthentication = "token"
-	// SplunkAuthenticationNoneAuthenticationTokenSecret Bearer Token (text secret)
+	SplunkAuthenticationNoneAuthenticationToken       SplunkAuthenticationNoneAuthentication = "token"
 	SplunkAuthenticationNoneAuthenticationTokenSecret SplunkAuthenticationNoneAuthentication = "tokenSecret"
+	SplunkAuthenticationNoneAuthenticationLogin       SplunkAuthenticationNoneAuthentication = "login"
+	SplunkAuthenticationNoneAuthenticationLoginSecret SplunkAuthenticationNoneAuthentication = "loginSecret"
 )
 
 func (e SplunkAuthenticationNoneAuthentication) ToPointer() *SplunkAuthenticationNoneAuthentication {
@@ -2093,7 +2073,7 @@ func (e SplunkAuthenticationNoneAuthentication) ToPointer() *SplunkAuthenticatio
 func (e *SplunkAuthenticationNoneAuthentication) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "basicSecret", "token", "tokenSecret":
+		case "none", "basic", "basicSecret", "token", "tokenSecret", "login", "loginSecret":
 			return true
 		}
 	}
@@ -2392,13 +2372,13 @@ func (s *SplunkAuthenticationNone) GetRetryRules() *SplunkAuthenticationNoneRetr
 type SplunkCollectorConfType string
 
 const (
-	SplunkCollectorConfTypeSplunkAuthenticationNone        SplunkCollectorConfType = "SplunkAuthenticationNone"
-	SplunkCollectorConfTypeSplunkAuthenticationBasic       SplunkCollectorConfType = "SplunkAuthenticationBasic"
-	SplunkCollectorConfTypeSplunkAuthenticationBasicSecret SplunkCollectorConfType = "SplunkAuthenticationBasicSecret"
-	SplunkCollectorConfTypeSplunkAuthenticationToken       SplunkCollectorConfType = "SplunkAuthenticationToken"
-	SplunkCollectorConfTypeSplunkAuthenticationTokenSecret SplunkCollectorConfType = "SplunkAuthenticationTokenSecret"
-	SplunkCollectorConfTypeSplunkAuthenticationLogin       SplunkCollectorConfType = "SplunkAuthenticationLogin"
-	SplunkCollectorConfTypeSplunkAuthenticationLoginSecret SplunkCollectorConfType = "SplunkAuthenticationLoginSecret"
+	SplunkCollectorConfTypeNone        SplunkCollectorConfType = "none"
+	SplunkCollectorConfTypeBasic       SplunkCollectorConfType = "basic"
+	SplunkCollectorConfTypeBasicSecret SplunkCollectorConfType = "basicSecret"
+	SplunkCollectorConfTypeToken       SplunkCollectorConfType = "token"
+	SplunkCollectorConfTypeTokenSecret SplunkCollectorConfType = "tokenSecret"
+	SplunkCollectorConfTypeLogin       SplunkCollectorConfType = "login"
+	SplunkCollectorConfTypeLoginSecret SplunkCollectorConfType = "loginSecret"
 )
 
 type SplunkCollectorConf struct {
@@ -2413,117 +2393,164 @@ type SplunkCollectorConf struct {
 	Type SplunkCollectorConfType
 }
 
-func CreateSplunkCollectorConfSplunkAuthenticationNone(splunkAuthenticationNone SplunkAuthenticationNone) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeSplunkAuthenticationNone
+func CreateSplunkCollectorConfNone(none SplunkAuthenticationNone) SplunkCollectorConf {
+	typ := SplunkCollectorConfTypeNone
+
+	typStr := SplunkAuthenticationNoneAuthentication(typ)
+	none.Authentication = &typStr
 
 	return SplunkCollectorConf{
-		SplunkAuthenticationNone: &splunkAuthenticationNone,
+		SplunkAuthenticationNone: &none,
 		Type:                     typ,
 	}
 }
 
-func CreateSplunkCollectorConfSplunkAuthenticationBasic(splunkAuthenticationBasic SplunkAuthenticationBasic) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeSplunkAuthenticationBasic
+func CreateSplunkCollectorConfBasic(basic SplunkAuthenticationBasic) SplunkCollectorConf {
+	typ := SplunkCollectorConfTypeBasic
+
+	typStr := SplunkAuthenticationBasicAuthentication(typ)
+	basic.Authentication = &typStr
 
 	return SplunkCollectorConf{
-		SplunkAuthenticationBasic: &splunkAuthenticationBasic,
+		SplunkAuthenticationBasic: &basic,
 		Type:                      typ,
 	}
 }
 
-func CreateSplunkCollectorConfSplunkAuthenticationBasicSecret(splunkAuthenticationBasicSecret SplunkAuthenticationBasicSecret) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeSplunkAuthenticationBasicSecret
+func CreateSplunkCollectorConfBasicSecret(basicSecret SplunkAuthenticationBasicSecret) SplunkCollectorConf {
+	typ := SplunkCollectorConfTypeBasicSecret
+
+	typStr := SplunkAuthenticationBasicSecretAuthentication(typ)
+	basicSecret.Authentication = &typStr
 
 	return SplunkCollectorConf{
-		SplunkAuthenticationBasicSecret: &splunkAuthenticationBasicSecret,
+		SplunkAuthenticationBasicSecret: &basicSecret,
 		Type:                            typ,
 	}
 }
 
-func CreateSplunkCollectorConfSplunkAuthenticationToken(splunkAuthenticationToken SplunkAuthenticationToken) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeSplunkAuthenticationToken
+func CreateSplunkCollectorConfToken(token SplunkAuthenticationToken) SplunkCollectorConf {
+	typ := SplunkCollectorConfTypeToken
+
+	typStr := SplunkAuthenticationTokenAuthentication(typ)
+	token.Authentication = &typStr
 
 	return SplunkCollectorConf{
-		SplunkAuthenticationToken: &splunkAuthenticationToken,
+		SplunkAuthenticationToken: &token,
 		Type:                      typ,
 	}
 }
 
-func CreateSplunkCollectorConfSplunkAuthenticationTokenSecret(splunkAuthenticationTokenSecret SplunkAuthenticationTokenSecret) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeSplunkAuthenticationTokenSecret
+func CreateSplunkCollectorConfTokenSecret(tokenSecret SplunkAuthenticationTokenSecret) SplunkCollectorConf {
+	typ := SplunkCollectorConfTypeTokenSecret
+
+	typStr := SplunkAuthenticationTokenSecretAuthentication(typ)
+	tokenSecret.Authentication = &typStr
 
 	return SplunkCollectorConf{
-		SplunkAuthenticationTokenSecret: &splunkAuthenticationTokenSecret,
+		SplunkAuthenticationTokenSecret: &tokenSecret,
 		Type:                            typ,
 	}
 }
 
-func CreateSplunkCollectorConfSplunkAuthenticationLogin(splunkAuthenticationLogin SplunkAuthenticationLogin) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeSplunkAuthenticationLogin
+func CreateSplunkCollectorConfLogin(login SplunkAuthenticationLogin) SplunkCollectorConf {
+	typ := SplunkCollectorConfTypeLogin
+
+	typStr := SplunkAuthenticationLoginAuthentication(typ)
+	login.Authentication = &typStr
 
 	return SplunkCollectorConf{
-		SplunkAuthenticationLogin: &splunkAuthenticationLogin,
+		SplunkAuthenticationLogin: &login,
 		Type:                      typ,
 	}
 }
 
-func CreateSplunkCollectorConfSplunkAuthenticationLoginSecret(splunkAuthenticationLoginSecret SplunkAuthenticationLoginSecret) SplunkCollectorConf {
-	typ := SplunkCollectorConfTypeSplunkAuthenticationLoginSecret
+func CreateSplunkCollectorConfLoginSecret(loginSecret SplunkAuthenticationLoginSecret) SplunkCollectorConf {
+	typ := SplunkCollectorConfTypeLoginSecret
+
+	typStr := SplunkAuthenticationLoginSecretAuthentication(typ)
+	loginSecret.Authentication = &typStr
 
 	return SplunkCollectorConf{
-		SplunkAuthenticationLoginSecret: &splunkAuthenticationLoginSecret,
+		SplunkAuthenticationLoginSecret: &loginSecret,
 		Type:                            typ,
 	}
 }
 
 func (u *SplunkCollectorConf) UnmarshalJSON(data []byte) error {
 
-	var splunkAuthenticationBasic SplunkAuthenticationBasic = SplunkAuthenticationBasic{}
-	if err := utils.UnmarshalJSON(data, &splunkAuthenticationBasic, "", true, nil); err == nil {
-		u.SplunkAuthenticationBasic = &splunkAuthenticationBasic
-		u.Type = SplunkCollectorConfTypeSplunkAuthenticationBasic
-		return nil
+	type discriminator struct {
+		Authentication string `json:"authentication"`
 	}
 
-	var splunkAuthenticationLogin SplunkAuthenticationLogin = SplunkAuthenticationLogin{}
-	if err := utils.UnmarshalJSON(data, &splunkAuthenticationLogin, "", true, nil); err == nil {
-		u.SplunkAuthenticationLogin = &splunkAuthenticationLogin
-		u.Type = SplunkCollectorConfTypeSplunkAuthenticationLogin
-		return nil
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
 	}
 
-	var splunkAuthenticationBasicSecret SplunkAuthenticationBasicSecret = SplunkAuthenticationBasicSecret{}
-	if err := utils.UnmarshalJSON(data, &splunkAuthenticationBasicSecret, "", true, nil); err == nil {
-		u.SplunkAuthenticationBasicSecret = &splunkAuthenticationBasicSecret
-		u.Type = SplunkCollectorConfTypeSplunkAuthenticationBasicSecret
-		return nil
-	}
+	switch dis.Authentication {
+	case "none":
+		splunkAuthenticationNone := new(SplunkAuthenticationNone)
+		if err := utils.UnmarshalJSON(data, &splunkAuthenticationNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == none) type SplunkAuthenticationNone within SplunkCollectorConf: %w", string(data), err)
+		}
 
-	var splunkAuthenticationToken SplunkAuthenticationToken = SplunkAuthenticationToken{}
-	if err := utils.UnmarshalJSON(data, &splunkAuthenticationToken, "", true, nil); err == nil {
-		u.SplunkAuthenticationToken = &splunkAuthenticationToken
-		u.Type = SplunkCollectorConfTypeSplunkAuthenticationToken
+		u.SplunkAuthenticationNone = splunkAuthenticationNone
+		u.Type = SplunkCollectorConfTypeNone
 		return nil
-	}
+	case "basic":
+		splunkAuthenticationBasic := new(SplunkAuthenticationBasic)
+		if err := utils.UnmarshalJSON(data, &splunkAuthenticationBasic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == basic) type SplunkAuthenticationBasic within SplunkCollectorConf: %w", string(data), err)
+		}
 
-	var splunkAuthenticationTokenSecret SplunkAuthenticationTokenSecret = SplunkAuthenticationTokenSecret{}
-	if err := utils.UnmarshalJSON(data, &splunkAuthenticationTokenSecret, "", true, nil); err == nil {
-		u.SplunkAuthenticationTokenSecret = &splunkAuthenticationTokenSecret
-		u.Type = SplunkCollectorConfTypeSplunkAuthenticationTokenSecret
+		u.SplunkAuthenticationBasic = splunkAuthenticationBasic
+		u.Type = SplunkCollectorConfTypeBasic
 		return nil
-	}
+	case "basicSecret":
+		splunkAuthenticationBasicSecret := new(SplunkAuthenticationBasicSecret)
+		if err := utils.UnmarshalJSON(data, &splunkAuthenticationBasicSecret, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == basicSecret) type SplunkAuthenticationBasicSecret within SplunkCollectorConf: %w", string(data), err)
+		}
 
-	var splunkAuthenticationLoginSecret SplunkAuthenticationLoginSecret = SplunkAuthenticationLoginSecret{}
-	if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSecret, "", true, nil); err == nil {
-		u.SplunkAuthenticationLoginSecret = &splunkAuthenticationLoginSecret
-		u.Type = SplunkCollectorConfTypeSplunkAuthenticationLoginSecret
+		u.SplunkAuthenticationBasicSecret = splunkAuthenticationBasicSecret
+		u.Type = SplunkCollectorConfTypeBasicSecret
 		return nil
-	}
+	case "token":
+		splunkAuthenticationToken := new(SplunkAuthenticationToken)
+		if err := utils.UnmarshalJSON(data, &splunkAuthenticationToken, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == token) type SplunkAuthenticationToken within SplunkCollectorConf: %w", string(data), err)
+		}
 
-	var splunkAuthenticationNone SplunkAuthenticationNone = SplunkAuthenticationNone{}
-	if err := utils.UnmarshalJSON(data, &splunkAuthenticationNone, "", true, nil); err == nil {
-		u.SplunkAuthenticationNone = &splunkAuthenticationNone
-		u.Type = SplunkCollectorConfTypeSplunkAuthenticationNone
+		u.SplunkAuthenticationToken = splunkAuthenticationToken
+		u.Type = SplunkCollectorConfTypeToken
+		return nil
+	case "tokenSecret":
+		splunkAuthenticationTokenSecret := new(SplunkAuthenticationTokenSecret)
+		if err := utils.UnmarshalJSON(data, &splunkAuthenticationTokenSecret, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == tokenSecret) type SplunkAuthenticationTokenSecret within SplunkCollectorConf: %w", string(data), err)
+		}
+
+		u.SplunkAuthenticationTokenSecret = splunkAuthenticationTokenSecret
+		u.Type = SplunkCollectorConfTypeTokenSecret
+		return nil
+	case "login":
+		splunkAuthenticationLogin := new(SplunkAuthenticationLogin)
+		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLogin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == login) type SplunkAuthenticationLogin within SplunkCollectorConf: %w", string(data), err)
+		}
+
+		u.SplunkAuthenticationLogin = splunkAuthenticationLogin
+		u.Type = SplunkCollectorConfTypeLogin
+		return nil
+	case "loginSecret":
+		splunkAuthenticationLoginSecret := new(SplunkAuthenticationLoginSecret)
+		if err := utils.UnmarshalJSON(data, &splunkAuthenticationLoginSecret, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Authentication == loginSecret) type SplunkAuthenticationLoginSecret within SplunkCollectorConf: %w", string(data), err)
+		}
+
+		u.SplunkAuthenticationLoginSecret = splunkAuthenticationLoginSecret
+		u.Type = SplunkCollectorConfTypeLoginSecret
 		return nil
 	}
 

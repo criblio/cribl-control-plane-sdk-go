@@ -1,4 +1,4 @@
-# RestAuthenticationLoginGetAuthTokenFromHeaderFalseRetryRules
+# RestAuthenticationLoginRetryRules
 
 
 ## Fields
