@@ -5,6 +5,12 @@ Output object
 
 ## Supported Types
 
+### OutputDefault
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestDefault(operations.OutputDefault{/* values here */})
+```
+
 ### OutputWebhook
 
 ```go

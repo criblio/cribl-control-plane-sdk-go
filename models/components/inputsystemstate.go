@@ -489,8 +489,10 @@ type InputSystemState struct {
 	Collectors  *Collectors                     `json:"collectors,omitempty"`
 	Persistence *InputSystemStatePersistence    `json:"persistence,omitempty"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitempty"`
-	Description         *string `json:"description,omitempty"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitempty"`
+	// Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitempty"`
+	Description                *string `json:"description,omitempty"`
 }
 
 func (i InputSystemState) MarshalJSON() ([]byte, error) {
@@ -607,6 +609,13 @@ func (i *InputSystemState) GetDisableNativeModule() *bool {
 		return nil
 	}
 	return i.DisableNativeModule
+}
+
+func (i *InputSystemState) GetDisableNativeLastLogModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeLastLogModule
 }
 
 func (i *InputSystemState) GetDescription() *string {
