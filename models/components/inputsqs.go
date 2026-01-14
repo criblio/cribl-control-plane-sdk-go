@@ -4,925 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputSqsPqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputSqsType `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
-	QueueName string `json:"queueName"`
-	// The queue type used (or created)
-	QueueType InputSqsQueueType `json:"queueType"`
-	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
-	AwsAccountID *string `json:"awsAccountId,omitempty"`
-	// Create queue if it does not exist
-	CreateQueue *bool `json:"createQueue,omitempty"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
-	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
-	Region *string `json:"region,omitempty"`
-	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing SQS requests
-	SignatureVersion *SignatureVersionOptions3 `json:"signatureVersion,omitempty"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
-	// Use Assume Role credentials to access SQS
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
-	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
-	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
-	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
-	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
-	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `json:"pollTimeout,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
-	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
-	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
-}
-
-func (i InputSqsPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "queueName", "queueType"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetType() InputSqsType {
-	if i == nil {
-		return InputSqsType("")
-	}
-	return i.Type
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetQueueName() string {
-	if i == nil {
-		return ""
-	}
-	return i.QueueName
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetQueueType() InputSqsQueueType {
-	if i == nil {
-		return InputSqsQueueType("")
-	}
-	return i.QueueType
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsAccountID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAccountID
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetCreateQueue() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CreateQueue
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAuthenticationMethod
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecretKey
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Region
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Endpoint
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions3 {
-	if i == nil {
-		return nil
-	}
-	return i.SignatureVersion
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ReuseConnections
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableAssumeRole
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleArn
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleExternalID
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.DurationSeconds
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetMaxMessages() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxMessages
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetVisibilityTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.VisibilityTimeout
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetPollTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.PollTimeout
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAPIKey
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecret
-}
-
-func (i *InputSqsPqEnabledTrueWithPqConstraint) GetNumReceivers() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.NumReceivers
-}
-
-type InputSqsPqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputSqsType `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
-	QueueName string `json:"queueName"`
-	// The queue type used (or created)
-	QueueType InputSqsQueueType `json:"queueType"`
-	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
-	AwsAccountID *string `json:"awsAccountId,omitempty"`
-	// Create queue if it does not exist
-	CreateQueue *bool `json:"createQueue,omitempty"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
-	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
-	Region *string `json:"region,omitempty"`
-	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing SQS requests
-	SignatureVersion *SignatureVersionOptions3 `json:"signatureVersion,omitempty"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
-	// Use Assume Role credentials to access SQS
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
-	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
-	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
-	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
-	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
-	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `json:"pollTimeout,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
-	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
-	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
-}
-
-func (i InputSqsPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "queueName", "queueType"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetType() InputSqsType {
-	if i == nil {
-		return InputSqsType("")
-	}
-	return i.Type
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetQueueName() string {
-	if i == nil {
-		return ""
-	}
-	return i.QueueName
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetQueueType() InputSqsQueueType {
-	if i == nil {
-		return InputSqsQueueType("")
-	}
-	return i.QueueType
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetAwsAccountID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAccountID
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetCreateQueue() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CreateQueue
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAuthenticationMethod
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecretKey
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Region
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Endpoint
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetSignatureVersion() *SignatureVersionOptions3 {
-	if i == nil {
-		return nil
-	}
-	return i.SignatureVersion
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetReuseConnections() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ReuseConnections
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetEnableAssumeRole() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableAssumeRole
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleArn
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleExternalID
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetDurationSeconds() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.DurationSeconds
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetMaxMessages() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxMessages
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetVisibilityTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.VisibilityTimeout
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetPollTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.PollTimeout
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAPIKey
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetAwsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecret
-}
-
-func (i *InputSqsPqEnabledFalseConstraint) GetNumReceivers() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.NumReceivers
-}
-
-type InputSqsSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputSqsType `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
-	QueueName string `json:"queueName"`
-	// The queue type used (or created)
-	QueueType InputSqsQueueType `json:"queueType"`
-	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
-	AwsAccountID *string `json:"awsAccountId,omitempty"`
-	// Create queue if it does not exist
-	CreateQueue *bool `json:"createQueue,omitempty"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
-	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
-	Region *string `json:"region,omitempty"`
-	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing SQS requests
-	SignatureVersion *SignatureVersionOptions3 `json:"signatureVersion,omitempty"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitempty"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
-	// Use Assume Role credentials to access SQS
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
-	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
-	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
-	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
-	// The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
-	MaxMessages *float64 `json:"maxMessages,omitempty"`
-	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
-	VisibilityTimeout *float64 `json:"visibilityTimeout,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
-	PollTimeout *float64 `json:"pollTimeout,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	AwsAPIKey   *string  `json:"awsApiKey,omitempty"`
-	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
-	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
-	NumReceivers *float64 `json:"numReceivers,omitempty"`
-}
-
-func (i InputSqsSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "queueName", "queueType"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetType() InputSqsType {
-	if i == nil {
-		return InputSqsType("")
-	}
-	return i.Type
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetQueueName() string {
-	if i == nil {
-		return ""
-	}
-	return i.QueueName
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetQueueType() InputSqsQueueType {
-	if i == nil {
-		return InputSqsQueueType("")
-	}
-	return i.QueueType
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsAccountID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAccountID
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetCreateQueue() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CreateQueue
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAuthenticationMethod
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecretKey
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Region
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Endpoint
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions3 {
-	if i == nil {
-		return nil
-	}
-	return i.SignatureVersion
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ReuseConnections
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableAssumeRole
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleArn
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleExternalID
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.DurationSeconds
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetMaxMessages() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxMessages
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetVisibilityTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.VisibilityTimeout
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetPollTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.PollTimeout
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAPIKey
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecret
-}
-
-func (i *InputSqsSendToRoutesFalseWithConnectionsConstraint) GetNumReceivers() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.NumReceivers
-}
 
 type InputSqsType string
 
@@ -972,15 +56,15 @@ func (e *InputSqsQueueType) IsExact() bool {
 	return false
 }
 
-type InputSqsSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
+type InputSqs struct {
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputSqsType `json:"type"`
 	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -1035,351 +119,244 @@ type InputSqsSendToRoutesTrueConstraint struct {
 	NumReceivers *float64 `json:"numReceivers,omitempty"`
 }
 
-func (i InputSqsSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSqs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "queueName", "queueType"}); err != nil {
+func (i *InputSqs) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "queueName", "queueType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSqsSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputSqs) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetType() InputSqsType {
+func (i *InputSqs) GetType() InputSqsType {
 	if i == nil {
 		return InputSqsType("")
 	}
 	return i.Type
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputSqs) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputSqs) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputSqs) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSqs) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputSqs) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputSqs) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputSqs) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputSqs) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetQueueName() string {
+func (i *InputSqs) GetQueueName() string {
 	if i == nil {
 		return ""
 	}
 	return i.QueueName
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetQueueType() InputSqsQueueType {
+func (i *InputSqs) GetQueueType() InputSqsQueueType {
 	if i == nil {
 		return InputSqsQueueType("")
 	}
 	return i.QueueType
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetAwsAccountID() *string {
+func (i *InputSqs) GetAwsAccountID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAccountID
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetCreateQueue() *bool {
+func (i *InputSqs) GetCreateQueue() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CreateQueue
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputSqs) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetAwsSecretKey() *string {
+func (i *InputSqs) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetRegion() *string {
+func (i *InputSqs) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetEndpoint() *string {
+func (i *InputSqs) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetSignatureVersion() *SignatureVersionOptions3 {
+func (i *InputSqs) GetSignatureVersion() *SignatureVersionOptions3 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetReuseConnections() *bool {
+func (i *InputSqs) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetRejectUnauthorized() *bool {
+func (i *InputSqs) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetEnableAssumeRole() *bool {
+func (i *InputSqs) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetAssumeRoleArn() *string {
+func (i *InputSqs) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputSqs) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetDurationSeconds() *float64 {
+func (i *InputSqs) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetMaxMessages() *float64 {
+func (i *InputSqs) GetMaxMessages() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxMessages
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetVisibilityTimeout() *float64 {
+func (i *InputSqs) GetVisibilityTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.VisibilityTimeout
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSqs) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetPollTimeout() *float64 {
+func (i *InputSqs) GetPollTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.PollTimeout
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputSqs) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetAwsAPIKey() *string {
+func (i *InputSqs) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetAwsSecret() *string {
+func (i *InputSqs) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputSqsSendToRoutesTrueConstraint) GetNumReceivers() *float64 {
+func (i *InputSqs) GetNumReceivers() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.NumReceivers
-}
-
-type InputSqsUnionType string
-
-const (
-	InputSqsUnionTypeInputSqsSendToRoutesTrueConstraint                 InputSqsUnionType = "InputSqs_SendToRoutesTrueConstraint"
-	InputSqsUnionTypeInputSqsSendToRoutesFalseWithConnectionsConstraint InputSqsUnionType = "InputSqs_SendToRoutesFalseWithConnectionsConstraint"
-	InputSqsUnionTypeInputSqsPqEnabledFalseConstraint                   InputSqsUnionType = "InputSqs_PqEnabledFalseConstraint"
-	InputSqsUnionTypeInputSqsPqEnabledTrueWithPqConstraint              InputSqsUnionType = "InputSqs_PqEnabledTrueWithPqConstraint"
-)
-
-type InputSqs struct {
-	InputSqsSendToRoutesTrueConstraint                 *InputSqsSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputSqsSendToRoutesFalseWithConnectionsConstraint *InputSqsSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputSqsPqEnabledFalseConstraint                   *InputSqsPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputSqsPqEnabledTrueWithPqConstraint              *InputSqsPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputSqsUnionType
-}
-
-func CreateInputSqsInputSqsSendToRoutesTrueConstraint(inputSqsSendToRoutesTrueConstraint InputSqsSendToRoutesTrueConstraint) InputSqs {
-	typ := InputSqsUnionTypeInputSqsSendToRoutesTrueConstraint
-
-	return InputSqs{
-		InputSqsSendToRoutesTrueConstraint: &inputSqsSendToRoutesTrueConstraint,
-		Type:                               typ,
-	}
-}
-
-func CreateInputSqsInputSqsSendToRoutesFalseWithConnectionsConstraint(inputSqsSendToRoutesFalseWithConnectionsConstraint InputSqsSendToRoutesFalseWithConnectionsConstraint) InputSqs {
-	typ := InputSqsUnionTypeInputSqsSendToRoutesFalseWithConnectionsConstraint
-
-	return InputSqs{
-		InputSqsSendToRoutesFalseWithConnectionsConstraint: &inputSqsSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputSqsInputSqsPqEnabledFalseConstraint(inputSqsPqEnabledFalseConstraint InputSqsPqEnabledFalseConstraint) InputSqs {
-	typ := InputSqsUnionTypeInputSqsPqEnabledFalseConstraint
-
-	return InputSqs{
-		InputSqsPqEnabledFalseConstraint: &inputSqsPqEnabledFalseConstraint,
-		Type:                             typ,
-	}
-}
-
-func CreateInputSqsInputSqsPqEnabledTrueWithPqConstraint(inputSqsPqEnabledTrueWithPqConstraint InputSqsPqEnabledTrueWithPqConstraint) InputSqs {
-	typ := InputSqsUnionTypeInputSqsPqEnabledTrueWithPqConstraint
-
-	return InputSqs{
-		InputSqsPqEnabledTrueWithPqConstraint: &inputSqsPqEnabledTrueWithPqConstraint,
-		Type:                                  typ,
-	}
-}
-
-func (u *InputSqs) UnmarshalJSON(data []byte) error {
-
-	var inputSqsSendToRoutesTrueConstraint InputSqsSendToRoutesTrueConstraint = InputSqsSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSqsSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputSqsSendToRoutesTrueConstraint = &inputSqsSendToRoutesTrueConstraint
-		u.Type = InputSqsUnionTypeInputSqsSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputSqsSendToRoutesFalseWithConnectionsConstraint InputSqsSendToRoutesFalseWithConnectionsConstraint = InputSqsSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSqsSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputSqsSendToRoutesFalseWithConnectionsConstraint = &inputSqsSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputSqsUnionTypeInputSqsSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputSqsPqEnabledFalseConstraint InputSqsPqEnabledFalseConstraint = InputSqsPqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSqsPqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputSqsPqEnabledFalseConstraint = &inputSqsPqEnabledFalseConstraint
-		u.Type = InputSqsUnionTypeInputSqsPqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputSqsPqEnabledTrueWithPqConstraint InputSqsPqEnabledTrueWithPqConstraint = InputSqsPqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSqsPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputSqsPqEnabledTrueWithPqConstraint = &inputSqsPqEnabledTrueWithPqConstraint
-		u.Type = InputSqsUnionTypeInputSqsPqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSqs", string(data))
-}
-
-func (u InputSqs) MarshalJSON() ([]byte, error) {
-	if u.InputSqsSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputSqsSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputSqsSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputSqsSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputSqsPqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputSqsPqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputSqsPqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputSqsPqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputSqs: all fields are null")
 }

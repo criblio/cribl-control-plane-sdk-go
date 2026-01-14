@@ -4,1422 +4,333 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputFilePqEnabledTrueWithPqConstraintType string
-
-const (
-	InputFilePqEnabledTrueWithPqConstraintTypeFile InputFilePqEnabledTrueWithPqConstraintType = "file"
-)
-
-func (e InputFilePqEnabledTrueWithPqConstraintType) ToPointer() *InputFilePqEnabledTrueWithPqConstraintType {
-	return &e
-}
-func (e *InputFilePqEnabledTrueWithPqConstraintType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file":
-		*e = InputFilePqEnabledTrueWithPqConstraintType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFilePqEnabledTrueWithPqConstraintType: %v", v)
-	}
-}
-
-// PqEnabledTrueWithPqConstraintMode - Choose how to discover files to monitor
-type PqEnabledTrueWithPqConstraintMode string
-
-const (
-	// PqEnabledTrueWithPqConstraintModeManual Manual
-	PqEnabledTrueWithPqConstraintModeManual PqEnabledTrueWithPqConstraintMode = "manual"
-	// PqEnabledTrueWithPqConstraintModeAuto Auto
-	PqEnabledTrueWithPqConstraintModeAuto PqEnabledTrueWithPqConstraintMode = "auto"
-)
-
-func (e PqEnabledTrueWithPqConstraintMode) ToPointer() *PqEnabledTrueWithPqConstraintMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PqEnabledTrueWithPqConstraintMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "auto":
-			return true
-		}
-	}
-	return false
-}
-
-type InputFilePqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string                                    `json:"id,omitempty"`
-	Type     InputFilePqEnabledTrueWithPqConstraintType `json:"type"`
-	Disabled *bool                                      `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Choose how to discover files to monitor
-	Mode *PqEnabledTrueWithPqConstraintMode `json:"mode,omitempty"`
-	// Time, in seconds, between scanning for files
-	Interval *float64 `json:"interval,omitempty"`
-	// The full path of discovered files are matched against this wildcard list
-	Filenames []string `json:"filenames,omitempty"`
-	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
-	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `json:"tailOnly,omitempty"`
-	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
-	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
-	MinAgeDur *string `json:"minAgeDur,omitempty"`
-	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
-	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
-	// Forces files containing binary data to be streamed as text
-	ForceText *bool `json:"forceText,omitempty"`
-	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `json:"hashLen,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	Description         *string  `json:"description,omitempty"`
-	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
-	Path *string `json:"path,omitempty"`
-	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
-	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
-	// Delete files after they have been collected
-	DeleteFiles *bool `json:"deleteFiles,omitempty"`
-	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
-}
-
-func (i InputFilePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetType() InputFilePqEnabledTrueWithPqConstraintType {
-	if i == nil {
-		return InputFilePqEnabledTrueWithPqConstraintType("")
-	}
-	return i.Type
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetMode() *PqEnabledTrueWithPqConstraintMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetFilenames() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Filenames
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetFilterArchivedFiles() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.FilterArchivedFiles
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetTailOnly() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.TailOnly
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.IdleTimeout
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetMinAgeDur() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MinAgeDur
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetMaxAgeDur() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxAgeDur
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetCheckFileModTime() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CheckFileModTime
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetForceText() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ForceText
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetHashLen() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.HashLen
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetDepth() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Depth
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetSuppressMissingPathErrors() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SuppressMissingPathErrors
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetDeleteFiles() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DeleteFiles
-}
-
-func (i *InputFilePqEnabledTrueWithPqConstraint) GetIncludeUnidentifiableBinary() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IncludeUnidentifiableBinary
-}
-
-type InputFilePqEnabledFalseConstraintType string
-
-const (
-	InputFilePqEnabledFalseConstraintTypeFile InputFilePqEnabledFalseConstraintType = "file"
-)
-
-func (e InputFilePqEnabledFalseConstraintType) ToPointer() *InputFilePqEnabledFalseConstraintType {
-	return &e
-}
-func (e *InputFilePqEnabledFalseConstraintType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file":
-		*e = InputFilePqEnabledFalseConstraintType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFilePqEnabledFalseConstraintType: %v", v)
-	}
-}
-
-// PqEnabledFalseConstraintMode - Choose how to discover files to monitor
-type PqEnabledFalseConstraintMode string
-
-const (
-	// PqEnabledFalseConstraintModeManual Manual
-	PqEnabledFalseConstraintModeManual PqEnabledFalseConstraintMode = "manual"
-	// PqEnabledFalseConstraintModeAuto Auto
-	PqEnabledFalseConstraintModeAuto PqEnabledFalseConstraintMode = "auto"
-)
-
-func (e PqEnabledFalseConstraintMode) ToPointer() *PqEnabledFalseConstraintMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PqEnabledFalseConstraintMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "auto":
-			return true
-		}
-	}
-	return false
-}
-
-type InputFilePqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string                               `json:"id,omitempty"`
-	Type     InputFilePqEnabledFalseConstraintType `json:"type"`
-	Disabled *bool                                 `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Choose how to discover files to monitor
-	Mode *PqEnabledFalseConstraintMode `json:"mode,omitempty"`
-	// Time, in seconds, between scanning for files
-	Interval *float64 `json:"interval,omitempty"`
-	// The full path of discovered files are matched against this wildcard list
-	Filenames []string `json:"filenames,omitempty"`
-	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
-	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `json:"tailOnly,omitempty"`
-	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
-	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
-	MinAgeDur *string `json:"minAgeDur,omitempty"`
-	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
-	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
-	// Forces files containing binary data to be streamed as text
-	ForceText *bool `json:"forceText,omitempty"`
-	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `json:"hashLen,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	Description         *string  `json:"description,omitempty"`
-	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
-	Path *string `json:"path,omitempty"`
-	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
-	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
-	// Delete files after they have been collected
-	DeleteFiles *bool `json:"deleteFiles,omitempty"`
-	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
-}
-
-func (i InputFilePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFilePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetType() InputFilePqEnabledFalseConstraintType {
-	if i == nil {
-		return InputFilePqEnabledFalseConstraintType("")
-	}
-	return i.Type
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetMode() *PqEnabledFalseConstraintMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetFilenames() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Filenames
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetFilterArchivedFiles() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.FilterArchivedFiles
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetTailOnly() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.TailOnly
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.IdleTimeout
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetMinAgeDur() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MinAgeDur
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetMaxAgeDur() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxAgeDur
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetCheckFileModTime() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CheckFileModTime
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetForceText() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ForceText
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetHashLen() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.HashLen
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetDepth() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Depth
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetSuppressMissingPathErrors() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SuppressMissingPathErrors
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetDeleteFiles() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DeleteFiles
-}
-
-func (i *InputFilePqEnabledFalseConstraint) GetIncludeUnidentifiableBinary() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IncludeUnidentifiableBinary
-}
-
-type InputFileSendToRoutesFalseWithConnectionsConstraintType string
-
-const (
-	InputFileSendToRoutesFalseWithConnectionsConstraintTypeFile InputFileSendToRoutesFalseWithConnectionsConstraintType = "file"
-)
-
-func (e InputFileSendToRoutesFalseWithConnectionsConstraintType) ToPointer() *InputFileSendToRoutesFalseWithConnectionsConstraintType {
-	return &e
-}
-func (e *InputFileSendToRoutesFalseWithConnectionsConstraintType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file":
-		*e = InputFileSendToRoutesFalseWithConnectionsConstraintType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFileSendToRoutesFalseWithConnectionsConstraintType: %v", v)
-	}
-}
-
-// SendToRoutesFalseWithConnectionsConstraintMode - Choose how to discover files to monitor
-type SendToRoutesFalseWithConnectionsConstraintMode string
-
-const (
-	// SendToRoutesFalseWithConnectionsConstraintModeManual Manual
-	SendToRoutesFalseWithConnectionsConstraintModeManual SendToRoutesFalseWithConnectionsConstraintMode = "manual"
-	// SendToRoutesFalseWithConnectionsConstraintModeAuto Auto
-	SendToRoutesFalseWithConnectionsConstraintModeAuto SendToRoutesFalseWithConnectionsConstraintMode = "auto"
-)
-
-func (e SendToRoutesFalseWithConnectionsConstraintMode) ToPointer() *SendToRoutesFalseWithConnectionsConstraintMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SendToRoutesFalseWithConnectionsConstraintMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "auto":
-			return true
-		}
-	}
-	return false
-}
-
-type InputFileSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string                                                 `json:"id,omitempty"`
-	Type     InputFileSendToRoutesFalseWithConnectionsConstraintType `json:"type"`
-	Disabled *bool                                                   `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Choose how to discover files to monitor
-	Mode *SendToRoutesFalseWithConnectionsConstraintMode `json:"mode,omitempty"`
-	// Time, in seconds, between scanning for files
-	Interval *float64 `json:"interval,omitempty"`
-	// The full path of discovered files are matched against this wildcard list
-	Filenames []string `json:"filenames,omitempty"`
-	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
-	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `json:"tailOnly,omitempty"`
-	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
-	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
-	MinAgeDur *string `json:"minAgeDur,omitempty"`
-	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
-	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
-	// Forces files containing binary data to be streamed as text
-	ForceText *bool `json:"forceText,omitempty"`
-	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `json:"hashLen,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	Description         *string  `json:"description,omitempty"`
-	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
-	Path *string `json:"path,omitempty"`
-	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
-	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
-	// Delete files after they have been collected
-	DeleteFiles *bool `json:"deleteFiles,omitempty"`
-	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
-}
-
-func (i InputFileSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetType() InputFileSendToRoutesFalseWithConnectionsConstraintType {
-	if i == nil {
-		return InputFileSendToRoutesFalseWithConnectionsConstraintType("")
-	}
-	return i.Type
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetMode() *SendToRoutesFalseWithConnectionsConstraintMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetFilenames() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Filenames
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetFilterArchivedFiles() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.FilterArchivedFiles
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetTailOnly() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.TailOnly
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.IdleTimeout
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetMinAgeDur() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MinAgeDur
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetMaxAgeDur() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxAgeDur
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetCheckFileModTime() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CheckFileModTime
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetForceText() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ForceText
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetHashLen() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.HashLen
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetDepth() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Depth
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetSuppressMissingPathErrors() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SuppressMissingPathErrors
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetDeleteFiles() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DeleteFiles
-}
-
-func (i *InputFileSendToRoutesFalseWithConnectionsConstraint) GetIncludeUnidentifiableBinary() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IncludeUnidentifiableBinary
-}
-
-type InputFileSendToRoutesTrueConstraintType string
-
-const (
-	InputFileSendToRoutesTrueConstraintTypeFile InputFileSendToRoutesTrueConstraintType = "file"
-)
-
-func (e InputFileSendToRoutesTrueConstraintType) ToPointer() *InputFileSendToRoutesTrueConstraintType {
-	return &e
-}
-func (e *InputFileSendToRoutesTrueConstraintType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file":
-		*e = InputFileSendToRoutesTrueConstraintType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputFileSendToRoutesTrueConstraintType: %v", v)
-	}
-}
-
-// SendToRoutesTrueConstraintMode - Choose how to discover files to monitor
-type SendToRoutesTrueConstraintMode string
-
-const (
-	// SendToRoutesTrueConstraintModeManual Manual
-	SendToRoutesTrueConstraintModeManual SendToRoutesTrueConstraintMode = "manual"
-	// SendToRoutesTrueConstraintModeAuto Auto
-	SendToRoutesTrueConstraintModeAuto SendToRoutesTrueConstraintMode = "auto"
-)
-
-func (e SendToRoutesTrueConstraintMode) ToPointer() *SendToRoutesTrueConstraintMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SendToRoutesTrueConstraintMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "auto":
-			return true
-		}
-	}
-	return false
-}
-
-type InputFileSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Unique ID for this input
-	ID       *string                                 `json:"id,omitempty"`
-	Type     InputFileSendToRoutesTrueConstraintType `json:"type"`
-	Disabled *bool                                   `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Choose how to discover files to monitor
-	Mode *SendToRoutesTrueConstraintMode `json:"mode,omitempty"`
-	// Time, in seconds, between scanning for files
-	Interval *float64 `json:"interval,omitempty"`
-	// The full path of discovered files are matched against this wildcard list
-	Filenames []string `json:"filenames,omitempty"`
-	// Apply filename allowlist to file entries in archive file types, like tar or zip.
-	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
-	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
-	TailOnly *bool `json:"tailOnly,omitempty"`
-	// Time, in seconds, before an idle file is closed
-	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
-	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
-	MinAgeDur *string `json:"minAgeDur,omitempty"`
-	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
-	// Skip files with modification times earlier than the maximum age duration
-	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
-	// Forces files containing binary data to be streamed as text
-	ForceText *bool `json:"forceText,omitempty"`
-	// Length of file header bytes to use in hash for unique file identification
-	HashLen *float64 `json:"hashLen,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	Description         *string  `json:"description,omitempty"`
-	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
-	Path *string `json:"path,omitempty"`
-	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
-	Depth                     *float64 `json:"depth,omitempty"`
-	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
-	// Delete files after they have been collected
-	DeleteFiles *bool `json:"deleteFiles,omitempty"`
-	// Stream binary files as Base64-encoded chunks.
-	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
-}
-
-func (i InputFileSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetType() InputFileSendToRoutesTrueConstraintType {
-	if i == nil {
-		return InputFileSendToRoutesTrueConstraintType("")
-	}
-	return i.Type
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetMode() *SendToRoutesTrueConstraintMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetFilenames() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Filenames
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetFilterArchivedFiles() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.FilterArchivedFiles
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetTailOnly() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.TailOnly
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.IdleTimeout
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetMinAgeDur() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MinAgeDur
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetMaxAgeDur() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxAgeDur
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetCheckFileModTime() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CheckFileModTime
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetForceText() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ForceText
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetHashLen() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.HashLen
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetDepth() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Depth
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetSuppressMissingPathErrors() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SuppressMissingPathErrors
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetDeleteFiles() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DeleteFiles
-}
-
-func (i *InputFileSendToRoutesTrueConstraint) GetIncludeUnidentifiableBinary() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IncludeUnidentifiableBinary
-}
-
 type InputFileType string
 
 const (
-	InputFileTypeInputFileSendToRoutesTrueConstraint                 InputFileType = "InputFile_SendToRoutesTrueConstraint"
-	InputFileTypeInputFileSendToRoutesFalseWithConnectionsConstraint InputFileType = "InputFile_SendToRoutesFalseWithConnectionsConstraint"
-	InputFileTypeInputFilePqEnabledFalseConstraint                   InputFileType = "InputFile_PqEnabledFalseConstraint"
-	InputFileTypeInputFilePqEnabledTrueWithPqConstraint              InputFileType = "InputFile_PqEnabledTrueWithPqConstraint"
+	InputFileTypeFile InputFileType = "file"
 )
 
+func (e InputFileType) ToPointer() *InputFileType {
+	return &e
+}
+func (e *InputFileType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "file":
+		*e = InputFileType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputFileType: %v", v)
+	}
+}
+
+// InputFileMode - Choose how to discover files to monitor
+type InputFileMode string
+
+const (
+	// InputFileModeManual Manual
+	InputFileModeManual InputFileMode = "manual"
+	// InputFileModeAuto Auto
+	InputFileModeAuto InputFileMode = "auto"
+)
+
+func (e InputFileMode) ToPointer() *InputFileMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputFileMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "manual", "auto":
+			return true
+		}
+	}
+	return false
+}
+
 type InputFile struct {
-	InputFileSendToRoutesTrueConstraint                 *InputFileSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputFileSendToRoutesFalseWithConnectionsConstraint *InputFileSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputFilePqEnabledFalseConstraint                   *InputFilePqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputFilePqEnabledTrueWithPqConstraint              *InputFilePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputFileType
+	// Unique ID for this input
+	ID       *string       `json:"id,omitempty"`
+	Type     InputFileType `json:"type"`
+	Disabled *bool         `json:"disabled,omitempty"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitempty"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitempty"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
+	// Choose how to discover files to monitor
+	Mode *InputFileMode `json:"mode,omitempty"`
+	// Time, in seconds, between scanning for files
+	Interval *float64 `json:"interval,omitempty"`
+	// The full path of discovered files are matched against this wildcard list
+	Filenames []string `json:"filenames,omitempty"`
+	// Apply filename allowlist to file entries in archive file types, like tar or zip.
+	FilterArchivedFiles *bool `json:"filterArchivedFiles,omitempty"`
+	// Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
+	TailOnly *bool `json:"tailOnly,omitempty"`
+	// Time, in seconds, before an idle file is closed
+	IdleTimeout *float64 `json:"idleTimeout,omitempty"`
+	// The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+	MinAgeDur *string `json:"minAgeDur,omitempty"`
+	// The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
+	MaxAgeDur *string `json:"maxAgeDur,omitempty"`
+	// Skip files with modification times earlier than the maximum age duration
+	CheckFileModTime *bool `json:"checkFileModTime,omitempty"`
+	// Forces files containing binary data to be streamed as text
+	ForceText *bool `json:"forceText,omitempty"`
+	// Length of file header bytes to use in hash for unique file identification
+	HashLen *float64 `json:"hashLen,omitempty"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
+	Description         *string  `json:"description,omitempty"`
+	// Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
+	Path *string `json:"path,omitempty"`
+	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
+	Depth                     *float64 `json:"depth,omitempty"`
+	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
+	// Delete files after they have been collected
+	DeleteFiles *bool `json:"deleteFiles,omitempty"`
+	// Stream binary files as Base64-encoded chunks.
+	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
 }
 
-func CreateInputFileInputFileSendToRoutesTrueConstraint(inputFileSendToRoutesTrueConstraint InputFileSendToRoutesTrueConstraint) InputFile {
-	typ := InputFileTypeInputFileSendToRoutesTrueConstraint
+func (i InputFile) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
 
-	return InputFile{
-		InputFileSendToRoutesTrueConstraint: &inputFileSendToRoutesTrueConstraint,
-		Type:                                typ,
+func (i *InputFile) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+		return err
 	}
+	return nil
 }
 
-func CreateInputFileInputFileSendToRoutesFalseWithConnectionsConstraint(inputFileSendToRoutesFalseWithConnectionsConstraint InputFileSendToRoutesFalseWithConnectionsConstraint) InputFile {
-	typ := InputFileTypeInputFileSendToRoutesFalseWithConnectionsConstraint
-
-	return InputFile{
-		InputFileSendToRoutesFalseWithConnectionsConstraint: &inputFileSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputFileInputFilePqEnabledFalseConstraint(inputFilePqEnabledFalseConstraint InputFilePqEnabledFalseConstraint) InputFile {
-	typ := InputFileTypeInputFilePqEnabledFalseConstraint
-
-	return InputFile{
-		InputFilePqEnabledFalseConstraint: &inputFilePqEnabledFalseConstraint,
-		Type:                              typ,
-	}
-}
-
-func CreateInputFileInputFilePqEnabledTrueWithPqConstraint(inputFilePqEnabledTrueWithPqConstraint InputFilePqEnabledTrueWithPqConstraint) InputFile {
-	typ := InputFileTypeInputFilePqEnabledTrueWithPqConstraint
-
-	return InputFile{
-		InputFilePqEnabledTrueWithPqConstraint: &inputFilePqEnabledTrueWithPqConstraint,
-		Type:                                   typ,
-	}
-}
-
-func (u *InputFile) UnmarshalJSON(data []byte) error {
-
-	var inputFileSendToRoutesTrueConstraint InputFileSendToRoutesTrueConstraint = InputFileSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFileSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputFileSendToRoutesTrueConstraint = &inputFileSendToRoutesTrueConstraint
-		u.Type = InputFileTypeInputFileSendToRoutesTrueConstraint
+func (i *InputFile) GetID() *string {
+	if i == nil {
 		return nil
 	}
-
-	var inputFileSendToRoutesFalseWithConnectionsConstraint InputFileSendToRoutesFalseWithConnectionsConstraint = InputFileSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFileSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputFileSendToRoutesFalseWithConnectionsConstraint = &inputFileSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputFileTypeInputFileSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputFilePqEnabledFalseConstraint InputFilePqEnabledFalseConstraint = InputFilePqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFilePqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputFilePqEnabledFalseConstraint = &inputFilePqEnabledFalseConstraint
-		u.Type = InputFileTypeInputFilePqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputFilePqEnabledTrueWithPqConstraint InputFilePqEnabledTrueWithPqConstraint = InputFilePqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFilePqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputFilePqEnabledTrueWithPqConstraint = &inputFilePqEnabledTrueWithPqConstraint
-		u.Type = InputFileTypeInputFilePqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputFile", string(data))
+	return i.ID
 }
 
-func (u InputFile) MarshalJSON() ([]byte, error) {
-	if u.InputFileSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputFileSendToRoutesTrueConstraint, "", true)
+func (i *InputFile) GetType() InputFileType {
+	if i == nil {
+		return InputFileType("")
 	}
+	return i.Type
+}
 
-	if u.InputFileSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputFileSendToRoutesFalseWithConnectionsConstraint, "", true)
+func (i *InputFile) GetDisabled() *bool {
+	if i == nil {
+		return nil
 	}
+	return i.Disabled
+}
 
-	if u.InputFilePqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputFilePqEnabledFalseConstraint, "", true)
+func (i *InputFile) GetPipeline() *string {
+	if i == nil {
+		return nil
 	}
+	return i.Pipeline
+}
 
-	if u.InputFilePqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputFilePqEnabledTrueWithPqConstraint, "", true)
+func (i *InputFile) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
 	}
+	return i.SendToRoutes
+}
 
-	return nil, errors.New("could not marshal union type InputFile: all fields are null")
+func (i *InputFile) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputFile) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputFile) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputFile) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputFile) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputFile) GetMode() *InputFileMode {
+	if i == nil {
+		return nil
+	}
+	return i.Mode
+}
+
+func (i *InputFile) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputFile) GetFilenames() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Filenames
+}
+
+func (i *InputFile) GetFilterArchivedFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FilterArchivedFiles
+}
+
+func (i *InputFile) GetTailOnly() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.TailOnly
+}
+
+func (i *InputFile) GetIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.IdleTimeout
+}
+
+func (i *InputFile) GetMinAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MinAgeDur
+}
+
+func (i *InputFile) GetMaxAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxAgeDur
+}
+
+func (i *InputFile) GetCheckFileModTime() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CheckFileModTime
+}
+
+func (i *InputFile) GetForceText() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ForceText
+}
+
+func (i *InputFile) GetHashLen() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.HashLen
+}
+
+func (i *InputFile) GetMetadata() []ItemsTypeNotificationMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputFile) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputFile) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputFile) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputFile) GetPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Path
+}
+
+func (i *InputFile) GetDepth() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Depth
+}
+
+func (i *InputFile) GetSuppressMissingPathErrors() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SuppressMissingPathErrors
+}
+
+func (i *InputFile) GetDeleteFiles() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DeleteFiles
+}
+
+func (i *InputFile) GetIncludeUnidentifiableBinary() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IncludeUnidentifiableBinary
 }

@@ -4,820 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputSplunkPqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string         `json:"id,omitempty"`
-	Type     InputSplunkType `json:"type"`
-	Disabled *bool           `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
-	AuthTokens []InputSplunkAuthToken `json:"authTokens,omitempty"`
-	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *MaxS2SVersion `json:"maxS2Sversion,omitempty"`
-	Description   *string        `json:"description,omitempty"`
-	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
-	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `json:"dropControlFields,omitempty"`
-	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
-	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
-	Compress *InputSplunkCompression `json:"compress,omitempty"`
-}
-
-func (i InputSplunkPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetType() InputSplunkType {
-	if i == nil {
-		return InputSplunkType("")
-	}
-	return i.Type
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetAuthTokens() []InputSplunkAuthToken {
-	if i == nil {
-		return nil
-	}
-	return i.AuthTokens
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetMaxS2Sversion() *MaxS2SVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxS2Sversion
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetUseFwdTimezone() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.UseFwdTimezone
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetDropControlFields() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DropControlFields
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetExtractMetrics() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ExtractMetrics
-}
-
-func (i *InputSplunkPqEnabledTrueWithPqConstraint) GetCompress() *InputSplunkCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-type InputSplunkPqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string         `json:"id,omitempty"`
-	Type     InputSplunkType `json:"type"`
-	Disabled *bool           `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
-	AuthTokens []InputSplunkAuthToken `json:"authTokens,omitempty"`
-	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *MaxS2SVersion `json:"maxS2Sversion,omitempty"`
-	Description   *string        `json:"description,omitempty"`
-	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
-	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `json:"dropControlFields,omitempty"`
-	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
-	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
-	Compress *InputSplunkCompression `json:"compress,omitempty"`
-}
-
-func (i InputSplunkPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetType() InputSplunkType {
-	if i == nil {
-		return InputSplunkType("")
-	}
-	return i.Type
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetAuthTokens() []InputSplunkAuthToken {
-	if i == nil {
-		return nil
-	}
-	return i.AuthTokens
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetMaxS2Sversion() *MaxS2SVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxS2Sversion
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetUseFwdTimezone() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.UseFwdTimezone
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetDropControlFields() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DropControlFields
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetExtractMetrics() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ExtractMetrics
-}
-
-func (i *InputSplunkPqEnabledFalseConstraint) GetCompress() *InputSplunkCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-type InputSplunkSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string         `json:"id,omitempty"`
-	Type     InputSplunkType `json:"type"`
-	Disabled *bool           `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
-	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
-	AuthTokens []InputSplunkAuthToken `json:"authTokens,omitempty"`
-	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *MaxS2SVersion `json:"maxS2Sversion,omitempty"`
-	Description   *string        `json:"description,omitempty"`
-	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
-	UseFwdTimezone *bool `json:"useFwdTimezone,omitempty"`
-	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
-	DropControlFields *bool `json:"dropControlFields,omitempty"`
-	// Extract and process Splunk-generated metrics as Cribl metrics
-	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
-	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
-	Compress *InputSplunkCompression `json:"compress,omitempty"`
-}
-
-func (i InputSplunkSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetType() InputSplunkType {
-	if i == nil {
-		return InputSplunkType("")
-	}
-	return i.Type
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetAuthTokens() []InputSplunkAuthToken {
-	if i == nil {
-		return nil
-	}
-	return i.AuthTokens
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetMaxS2Sversion() *MaxS2SVersion {
-	if i == nil {
-		return nil
-	}
-	return i.MaxS2Sversion
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetUseFwdTimezone() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.UseFwdTimezone
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetDropControlFields() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.DropControlFields
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetExtractMetrics() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ExtractMetrics
-}
-
-func (i *InputSplunkSendToRoutesFalseWithConnectionsConstraint) GetCompress() *InputSplunkCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
 
 type InputSplunkType string
 
@@ -925,15 +114,15 @@ func (e *InputSplunkCompression) IsExact() bool {
 	return false
 }
 
-type InputSplunkSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
+type InputSplunk struct {
 	// Unique ID for this input
 	ID       *string         `json:"id,omitempty"`
 	Type     InputSplunkType `json:"type"`
 	Disabled *bool           `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -981,323 +170,216 @@ type InputSplunkSendToRoutesTrueConstraint struct {
 	Compress *InputSplunkCompression `json:"compress,omitempty"`
 }
 
-func (i InputSplunkSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputSplunk) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
+func (i *InputSplunk) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputSplunkSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputSplunk) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetType() InputSplunkType {
+func (i *InputSplunk) GetType() InputSplunkType {
 	if i == nil {
 		return InputSplunkType("")
 	}
 	return i.Type
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputSplunk) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputSplunk) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputSplunk) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunk) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputSplunk) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputSplunk) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputSplunk) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputSplunk) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetHost() string {
+func (i *InputSplunk) GetHost() string {
 	if i == nil {
 		return ""
 	}
 	return i.Host
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetPort() float64 {
+func (i *InputSplunk) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputSplunk) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetIPWhitelistRegex() *string {
+func (i *InputSplunk) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetMaxActiveCxn() *float64 {
+func (i *InputSplunk) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetSocketIdleTimeout() *float64 {
+func (i *InputSplunk) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetSocketEndingMaxWait() *float64 {
+func (i *InputSplunk) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetSocketMaxLifespan() *float64 {
+func (i *InputSplunk) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
+func (i *InputSplunk) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputSplunk) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
+func (i *InputSplunk) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputSplunk) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetAuthTokens() []InputSplunkAuthToken {
+func (i *InputSplunk) GetAuthTokens() []InputSplunkAuthToken {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetMaxS2Sversion() *MaxS2SVersion {
+func (i *InputSplunk) GetMaxS2Sversion() *MaxS2SVersion {
 	if i == nil {
 		return nil
 	}
 	return i.MaxS2Sversion
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputSplunk) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetUseFwdTimezone() *bool {
+func (i *InputSplunk) GetUseFwdTimezone() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UseFwdTimezone
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetDropControlFields() *bool {
+func (i *InputSplunk) GetDropControlFields() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.DropControlFields
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetExtractMetrics() *bool {
+func (i *InputSplunk) GetExtractMetrics() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ExtractMetrics
 }
 
-func (i *InputSplunkSendToRoutesTrueConstraint) GetCompress() *InputSplunkCompression {
+func (i *InputSplunk) GetCompress() *InputSplunkCompression {
 	if i == nil {
 		return nil
 	}
 	return i.Compress
-}
-
-type InputSplunkUnionType string
-
-const (
-	InputSplunkUnionTypeInputSplunkSendToRoutesTrueConstraint                 InputSplunkUnionType = "InputSplunk_SendToRoutesTrueConstraint"
-	InputSplunkUnionTypeInputSplunkSendToRoutesFalseWithConnectionsConstraint InputSplunkUnionType = "InputSplunk_SendToRoutesFalseWithConnectionsConstraint"
-	InputSplunkUnionTypeInputSplunkPqEnabledFalseConstraint                   InputSplunkUnionType = "InputSplunk_PqEnabledFalseConstraint"
-	InputSplunkUnionTypeInputSplunkPqEnabledTrueWithPqConstraint              InputSplunkUnionType = "InputSplunk_PqEnabledTrueWithPqConstraint"
-)
-
-type InputSplunk struct {
-	InputSplunkSendToRoutesTrueConstraint                 *InputSplunkSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputSplunkSendToRoutesFalseWithConnectionsConstraint *InputSplunkSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputSplunkPqEnabledFalseConstraint                   *InputSplunkPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputSplunkPqEnabledTrueWithPqConstraint              *InputSplunkPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputSplunkUnionType
-}
-
-func CreateInputSplunkInputSplunkSendToRoutesTrueConstraint(inputSplunkSendToRoutesTrueConstraint InputSplunkSendToRoutesTrueConstraint) InputSplunk {
-	typ := InputSplunkUnionTypeInputSplunkSendToRoutesTrueConstraint
-
-	return InputSplunk{
-		InputSplunkSendToRoutesTrueConstraint: &inputSplunkSendToRoutesTrueConstraint,
-		Type:                                  typ,
-	}
-}
-
-func CreateInputSplunkInputSplunkSendToRoutesFalseWithConnectionsConstraint(inputSplunkSendToRoutesFalseWithConnectionsConstraint InputSplunkSendToRoutesFalseWithConnectionsConstraint) InputSplunk {
-	typ := InputSplunkUnionTypeInputSplunkSendToRoutesFalseWithConnectionsConstraint
-
-	return InputSplunk{
-		InputSplunkSendToRoutesFalseWithConnectionsConstraint: &inputSplunkSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputSplunkInputSplunkPqEnabledFalseConstraint(inputSplunkPqEnabledFalseConstraint InputSplunkPqEnabledFalseConstraint) InputSplunk {
-	typ := InputSplunkUnionTypeInputSplunkPqEnabledFalseConstraint
-
-	return InputSplunk{
-		InputSplunkPqEnabledFalseConstraint: &inputSplunkPqEnabledFalseConstraint,
-		Type:                                typ,
-	}
-}
-
-func CreateInputSplunkInputSplunkPqEnabledTrueWithPqConstraint(inputSplunkPqEnabledTrueWithPqConstraint InputSplunkPqEnabledTrueWithPqConstraint) InputSplunk {
-	typ := InputSplunkUnionTypeInputSplunkPqEnabledTrueWithPqConstraint
-
-	return InputSplunk{
-		InputSplunkPqEnabledTrueWithPqConstraint: &inputSplunkPqEnabledTrueWithPqConstraint,
-		Type:                                     typ,
-	}
-}
-
-func (u *InputSplunk) UnmarshalJSON(data []byte) error {
-
-	var inputSplunkSendToRoutesTrueConstraint InputSplunkSendToRoutesTrueConstraint = InputSplunkSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputSplunkSendToRoutesTrueConstraint = &inputSplunkSendToRoutesTrueConstraint
-		u.Type = InputSplunkUnionTypeInputSplunkSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputSplunkSendToRoutesFalseWithConnectionsConstraint InputSplunkSendToRoutesFalseWithConnectionsConstraint = InputSplunkSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputSplunkSendToRoutesFalseWithConnectionsConstraint = &inputSplunkSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputSplunkUnionTypeInputSplunkSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputSplunkPqEnabledFalseConstraint InputSplunkPqEnabledFalseConstraint = InputSplunkPqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkPqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputSplunkPqEnabledFalseConstraint = &inputSplunkPqEnabledFalseConstraint
-		u.Type = InputSplunkUnionTypeInputSplunkPqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputSplunkPqEnabledTrueWithPqConstraint InputSplunkPqEnabledTrueWithPqConstraint = InputSplunkPqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputSplunkPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputSplunkPqEnabledTrueWithPqConstraint = &inputSplunkPqEnabledTrueWithPqConstraint
-		u.Type = InputSplunkUnionTypeInputSplunkPqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSplunk", string(data))
-}
-
-func (u InputSplunk) MarshalJSON() ([]byte, error) {
-	if u.InputSplunkSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputSplunkSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputSplunkSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputSplunkSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputSplunkPqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputSplunkPqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputSplunkPqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputSplunkPqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputSplunk: all fields are null")
 }

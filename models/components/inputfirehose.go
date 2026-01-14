@@ -4,766 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputFirehosePqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
-	Type     InputFirehoseType `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64 `json:"port"`
-	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                   `json:"authTokens,omitempty"`
-	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
-	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
-	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
-	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
-	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
-	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
-	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
-	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-}
-
-func (i InputFirehosePqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetType() InputFirehoseType {
-	if i == nil {
-		return InputFirehoseType("")
-	}
-	return i.Type
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetAuthTokens() []string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthTokens
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveReq
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxRequestsPerSocket
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetCaptureHeaders() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CaptureHeaders
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetActivityLogSampleRate() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ActivityLogSampleRate
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetRequestTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.RequestTimeout
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketTimeout
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.KeepAliveTimeout
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetEnableHealthCheck() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPAllowlistRegex
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPDenylistRegex
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputFirehosePqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-type InputFirehosePqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
-	Type     InputFirehoseType `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64 `json:"port"`
-	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                   `json:"authTokens,omitempty"`
-	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
-	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
-	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
-	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
-	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
-	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
-	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
-	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-}
-
-func (i InputFirehosePqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetType() InputFirehoseType {
-	if i == nil {
-		return InputFirehoseType("")
-	}
-	return i.Type
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetAuthTokens() []string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthTokens
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveReq
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxRequestsPerSocket
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetCaptureHeaders() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CaptureHeaders
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetActivityLogSampleRate() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ActivityLogSampleRate
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetRequestTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.RequestTimeout
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetSocketTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketTimeout
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.KeepAliveTimeout
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPAllowlistRegex
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetIPDenylistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPDenylistRegex
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputFirehosePqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-type InputFirehoseSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string           `json:"id,omitempty"`
-	Type     InputFirehoseType `json:"type"`
-	Disabled *bool             `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64 `json:"port"`
-	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                   `json:"authTokens,omitempty"`
-	TLS        *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
-	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
-	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Add request headers to events, in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
-	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitempty"`
-	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
-	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
-	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
-	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
-	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
-	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-}
-
-func (i InputFirehoseSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetType() InputFirehoseType {
-	if i == nil {
-		return InputFirehoseType("")
-	}
-	return i.Type
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetAuthTokens() []string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthTokens
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveReq
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxRequestsPerSocket
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CaptureHeaders
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetActivityLogSampleRate() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ActivityLogSampleRate
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetRequestTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.RequestTimeout
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketTimeout
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.KeepAliveTimeout
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPAllowlistRegex
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPDenylistRegex
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputFirehoseSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
 
 type InputFirehoseType string
 
@@ -788,15 +31,15 @@ func (e *InputFirehoseType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputFirehoseSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
+type InputFirehose struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
 	Type     InputFirehoseType `json:"type"`
 	Disabled *bool             `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -840,309 +83,202 @@ type InputFirehoseSendToRoutesTrueConstraint struct {
 	Description *string                         `json:"description,omitempty"`
 }
 
-func (i InputFirehoseSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputFirehose) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port"}); err != nil {
+func (i *InputFirehose) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputFirehose) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetType() InputFirehoseType {
+func (i *InputFirehose) GetType() InputFirehoseType {
 	if i == nil {
 		return InputFirehoseType("")
 	}
 	return i.Type
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputFirehose) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputFirehose) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputFirehose) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputFirehose) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputFirehose) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputFirehose) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputFirehose) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputFirehose) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetHost() string {
+func (i *InputFirehose) GetHost() string {
 	if i == nil {
 		return ""
 	}
 	return i.Host
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetPort() float64 {
+func (i *InputFirehose) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetAuthTokens() []string {
+func (i *InputFirehose) GetAuthTokens() []string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthTokens
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputFirehose) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
+func (i *InputFirehose) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputFirehose) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
+func (i *InputFirehose) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
+func (i *InputFirehose) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetActivityLogSampleRate() *float64 {
+func (i *InputFirehose) GetActivityLogSampleRate() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ActivityLogSampleRate
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetRequestTimeout() *float64 {
+func (i *InputFirehose) GetRequestTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.RequestTimeout
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
+func (i *InputFirehose) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputFirehose) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
+func (i *InputFirehose) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
+func (i *InputFirehose) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
+func (i *InputFirehose) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputFirehose) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputFirehoseSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputFirehose) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
-}
-
-type InputFirehoseUnionType string
-
-const (
-	InputFirehoseUnionTypeInputFirehoseSendToRoutesTrueConstraint                 InputFirehoseUnionType = "InputFirehose_SendToRoutesTrueConstraint"
-	InputFirehoseUnionTypeInputFirehoseSendToRoutesFalseWithConnectionsConstraint InputFirehoseUnionType = "InputFirehose_SendToRoutesFalseWithConnectionsConstraint"
-	InputFirehoseUnionTypeInputFirehosePqEnabledFalseConstraint                   InputFirehoseUnionType = "InputFirehose_PqEnabledFalseConstraint"
-	InputFirehoseUnionTypeInputFirehosePqEnabledTrueWithPqConstraint              InputFirehoseUnionType = "InputFirehose_PqEnabledTrueWithPqConstraint"
-)
-
-type InputFirehose struct {
-	InputFirehoseSendToRoutesTrueConstraint                 *InputFirehoseSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputFirehoseSendToRoutesFalseWithConnectionsConstraint *InputFirehoseSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputFirehosePqEnabledFalseConstraint                   *InputFirehosePqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputFirehosePqEnabledTrueWithPqConstraint              *InputFirehosePqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputFirehoseUnionType
-}
-
-func CreateInputFirehoseInputFirehoseSendToRoutesTrueConstraint(inputFirehoseSendToRoutesTrueConstraint InputFirehoseSendToRoutesTrueConstraint) InputFirehose {
-	typ := InputFirehoseUnionTypeInputFirehoseSendToRoutesTrueConstraint
-
-	return InputFirehose{
-		InputFirehoseSendToRoutesTrueConstraint: &inputFirehoseSendToRoutesTrueConstraint,
-		Type:                                    typ,
-	}
-}
-
-func CreateInputFirehoseInputFirehoseSendToRoutesFalseWithConnectionsConstraint(inputFirehoseSendToRoutesFalseWithConnectionsConstraint InputFirehoseSendToRoutesFalseWithConnectionsConstraint) InputFirehose {
-	typ := InputFirehoseUnionTypeInputFirehoseSendToRoutesFalseWithConnectionsConstraint
-
-	return InputFirehose{
-		InputFirehoseSendToRoutesFalseWithConnectionsConstraint: &inputFirehoseSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputFirehoseInputFirehosePqEnabledFalseConstraint(inputFirehosePqEnabledFalseConstraint InputFirehosePqEnabledFalseConstraint) InputFirehose {
-	typ := InputFirehoseUnionTypeInputFirehosePqEnabledFalseConstraint
-
-	return InputFirehose{
-		InputFirehosePqEnabledFalseConstraint: &inputFirehosePqEnabledFalseConstraint,
-		Type:                                  typ,
-	}
-}
-
-func CreateInputFirehoseInputFirehosePqEnabledTrueWithPqConstraint(inputFirehosePqEnabledTrueWithPqConstraint InputFirehosePqEnabledTrueWithPqConstraint) InputFirehose {
-	typ := InputFirehoseUnionTypeInputFirehosePqEnabledTrueWithPqConstraint
-
-	return InputFirehose{
-		InputFirehosePqEnabledTrueWithPqConstraint: &inputFirehosePqEnabledTrueWithPqConstraint,
-		Type: typ,
-	}
-}
-
-func (u *InputFirehose) UnmarshalJSON(data []byte) error {
-
-	var inputFirehoseSendToRoutesTrueConstraint InputFirehoseSendToRoutesTrueConstraint = InputFirehoseSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFirehoseSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputFirehoseSendToRoutesTrueConstraint = &inputFirehoseSendToRoutesTrueConstraint
-		u.Type = InputFirehoseUnionTypeInputFirehoseSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputFirehoseSendToRoutesFalseWithConnectionsConstraint InputFirehoseSendToRoutesFalseWithConnectionsConstraint = InputFirehoseSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFirehoseSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputFirehoseSendToRoutesFalseWithConnectionsConstraint = &inputFirehoseSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputFirehoseUnionTypeInputFirehoseSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputFirehosePqEnabledFalseConstraint InputFirehosePqEnabledFalseConstraint = InputFirehosePqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFirehosePqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputFirehosePqEnabledFalseConstraint = &inputFirehosePqEnabledFalseConstraint
-		u.Type = InputFirehoseUnionTypeInputFirehosePqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputFirehosePqEnabledTrueWithPqConstraint InputFirehosePqEnabledTrueWithPqConstraint = InputFirehosePqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputFirehosePqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputFirehosePqEnabledTrueWithPqConstraint = &inputFirehosePqEnabledTrueWithPqConstraint
-		u.Type = InputFirehoseUnionTypeInputFirehosePqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputFirehose", string(data))
-}
-
-func (u InputFirehose) MarshalJSON() ([]byte, error) {
-	if u.InputFirehoseSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputFirehoseSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputFirehoseSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputFirehoseSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputFirehosePqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputFirehosePqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputFirehosePqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputFirehosePqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputFirehose: all fields are null")
 }

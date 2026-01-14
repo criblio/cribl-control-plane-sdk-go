@@ -4,874 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputWefPqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool    `json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputWefType `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64 `json:"port"`
-	// How to authenticate incoming client connections
-	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitempty"`
-	TLS        *MTLSSettings                 `json:"tls,omitempty"`
-	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
-	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
-	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Add request headers to events in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
-	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
-	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
-	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
-	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
-	CaFingerprint *string `json:"caFingerprint,omitempty"`
-	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
-	Keytab *string `json:"keytab,omitempty"`
-	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
-	Principal *string `json:"principal,omitempty"`
-	// Allow events to be ingested even if their MachineID does not match the client certificate CN
-	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitempty"`
-	// Subscriptions to events on forwarding endpoints
-	Subscriptions []Subscription `json:"subscriptions"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
-	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
-}
-
-func (i InputWefPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port", "subscriptions"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetType() InputWefType {
-	if i == nil {
-		return InputWefType("")
-	}
-	return i.Type
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetAuthMethod() *InputWefAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthMethod
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetTLS() *MTLSSettings {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetMaxActiveReq() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveReq
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxRequestsPerSocket
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetCaptureHeaders() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CaptureHeaders
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetKeepAliveTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.KeepAliveTimeout
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetEnableHealthCheck() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetIPAllowlistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPAllowlistRegex
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetIPDenylistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPDenylistRegex
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetSocketTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketTimeout
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetCaFingerprint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaFingerprint
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetKeytab() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Keytab
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetPrincipal() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Principal
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetAllowMachineIDMismatch() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.AllowMachineIDMismatch
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetSubscriptions() []Subscription {
-	if i == nil {
-		return []Subscription{}
-	}
-	return i.Subscriptions
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputWefPqEnabledTrueWithPqConstraint) GetLogFingerprintMismatch() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.LogFingerprintMismatch
-}
-
-type InputWefPqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled bool `json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputWefType `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64 `json:"port"`
-	// How to authenticate incoming client connections
-	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitempty"`
-	TLS        *MTLSSettings                 `json:"tls,omitempty"`
-	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
-	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
-	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Add request headers to events in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
-	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
-	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
-	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
-	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
-	CaFingerprint *string `json:"caFingerprint,omitempty"`
-	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
-	Keytab *string `json:"keytab,omitempty"`
-	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
-	Principal *string `json:"principal,omitempty"`
-	// Allow events to be ingested even if their MachineID does not match the client certificate CN
-	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitempty"`
-	// Subscriptions to events on forwarding endpoints
-	Subscriptions []Subscription `json:"subscriptions"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
-	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
-}
-
-func (i InputWefPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"pqEnabled", "type", "host", "port", "subscriptions"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetPqEnabled() bool {
-	if i == nil {
-		return false
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetType() InputWefType {
-	if i == nil {
-		return InputWefType("")
-	}
-	return i.Type
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetAuthMethod() *InputWefAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthMethod
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetTLS() *MTLSSettings {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetMaxActiveReq() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveReq
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxRequestsPerSocket
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetCaptureHeaders() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CaptureHeaders
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetKeepAliveTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.KeepAliveTimeout
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetEnableHealthCheck() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetIPAllowlistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPAllowlistRegex
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetIPDenylistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPDenylistRegex
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetSocketTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketTimeout
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetCaFingerprint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaFingerprint
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetKeytab() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Keytab
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetPrincipal() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Principal
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetAllowMachineIDMismatch() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.AllowMachineIDMismatch
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetSubscriptions() []Subscription {
-	if i == nil {
-		return []Subscription{}
-	}
-	return i.Subscriptions
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputWefPqEnabledFalseConstraint) GetLogFingerprintMismatch() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.LogFingerprintMismatch
-}
-
-type InputWefSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputWefType `json:"type"`
-	Disabled *bool        `json:"disabled,omitempty"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `json:"pqEnabled,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host string `json:"host"`
-	// Port to listen on
-	Port float64 `json:"port"`
-	// How to authenticate incoming client connections
-	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitempty"`
-	TLS        *MTLSSettings                 `json:"tls,omitempty"`
-	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
-	MaxActiveReq *float64 `json:"maxActiveReq,omitempty"`
-	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
-	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitempty"`
-	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
-	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
-	// Add request headers to events in the __headers field
-	CaptureHeaders *bool `json:"captureHeaders,omitempty"`
-	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
-	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitempty"`
-	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
-	// Messages from matched IP addresses will be processed, unless also matched by the denylist
-	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitempty"`
-	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
-	IPDenylistRegex *string `json:"ipDenylistRegex,omitempty"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
-	SocketTimeout *float64 `json:"socketTimeout,omitempty"`
-	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
-	CaFingerprint *string `json:"caFingerprint,omitempty"`
-	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
-	Keytab *string `json:"keytab,omitempty"`
-	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
-	Principal *string `json:"principal,omitempty"`
-	// Allow events to be ingested even if their MachineID does not match the client certificate CN
-	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitempty"`
-	// Subscriptions to events on forwarding endpoints
-	Subscriptions []Subscription `json:"subscriptions"`
-	// Fields to add to events from this input
-	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	Description *string                         `json:"description,omitempty"`
-	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
-	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
-}
-
-func (i InputWefSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port", "subscriptions"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetType() InputWefType {
-	if i == nil {
-		return InputWefType("")
-	}
-	return i.Type
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetHost() string {
-	if i == nil {
-		return ""
-	}
-	return i.Host
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetAuthMethod() *InputWefAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthMethod
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetTLS() *MTLSSettings {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveReq() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveReq
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetMaxRequestsPerSocket() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxRequestsPerSocket
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetCaptureHeaders() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.CaptureHeaders
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetKeepAliveTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.KeepAliveTimeout
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetEnableHealthCheck() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHealthCheck
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetIPAllowlistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPAllowlistRegex
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetIPDenylistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPDenylistRegex
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetSocketTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketTimeout
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetCaFingerprint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaFingerprint
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetKeytab() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Keytab
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetPrincipal() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Principal
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetAllowMachineIDMismatch() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.AllowMachineIDMismatch
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetSubscriptions() []Subscription {
-	if i == nil {
-		return []Subscription{}
-	}
-	return i.Subscriptions
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputWefSendToRoutesFalseWithConnectionsConstraint) GetLogFingerprintMismatch() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.LogFingerprintMismatch
-}
 
 type InputWefType string
 
@@ -1280,15 +415,15 @@ func (s *Subscription) GetXMLQuery() *string {
 	return s.XMLQuery
 }
 
-type InputWefSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes bool `json:"sendToRoutes"`
+type InputWef struct {
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputWefType `json:"type"`
 	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
@@ -1340,337 +475,230 @@ type InputWefSendToRoutesTrueConstraint struct {
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
 }
 
-func (i InputWefSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputWef) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"sendToRoutes", "type", "host", "port", "subscriptions"}); err != nil {
+func (i *InputWef) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port", "subscriptions"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetSendToRoutes() bool {
-	if i == nil {
-		return false
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputWefSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputWef) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetType() InputWefType {
+func (i *InputWef) GetType() InputWefType {
 	if i == nil {
 		return InputWefType("")
 	}
 	return i.Type
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputWef) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputWef) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputWef) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWef) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputWef) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputWef) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputWef) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputWef) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetHost() string {
+func (i *InputWef) GetHost() string {
 	if i == nil {
 		return ""
 	}
 	return i.Host
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetPort() float64 {
+func (i *InputWef) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetAuthMethod() *InputWefAuthenticationMethod {
+func (i *InputWef) GetAuthMethod() *InputWefAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthMethod
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetTLS() *MTLSSettings {
+func (i *InputWef) GetTLS() *MTLSSettings {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetMaxActiveReq() *float64 {
+func (i *InputWef) GetMaxActiveReq() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveReq
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetMaxRequestsPerSocket() *int64 {
+func (i *InputWef) GetMaxRequestsPerSocket() *int64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxRequestsPerSocket
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
+func (i *InputWef) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetCaptureHeaders() *bool {
+func (i *InputWef) GetCaptureHeaders() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.CaptureHeaders
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetKeepAliveTimeout() *float64 {
+func (i *InputWef) GetKeepAliveTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.KeepAliveTimeout
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetEnableHealthCheck() *bool {
+func (i *InputWef) GetEnableHealthCheck() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHealthCheck
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetIPAllowlistRegex() *string {
+func (i *InputWef) GetIPAllowlistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPAllowlistRegex
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetIPDenylistRegex() *string {
+func (i *InputWef) GetIPDenylistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPDenylistRegex
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetSocketTimeout() *float64 {
+func (i *InputWef) GetSocketTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketTimeout
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetCaFingerprint() *string {
+func (i *InputWef) GetCaFingerprint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CaFingerprint
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetKeytab() *string {
+func (i *InputWef) GetKeytab() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Keytab
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetPrincipal() *string {
+func (i *InputWef) GetPrincipal() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Principal
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetAllowMachineIDMismatch() *bool {
+func (i *InputWef) GetAllowMachineIDMismatch() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.AllowMachineIDMismatch
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetSubscriptions() []Subscription {
+func (i *InputWef) GetSubscriptions() []Subscription {
 	if i == nil {
 		return []Subscription{}
 	}
 	return i.Subscriptions
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputWef) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputWef) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputWefSendToRoutesTrueConstraint) GetLogFingerprintMismatch() *bool {
+func (i *InputWef) GetLogFingerprintMismatch() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.LogFingerprintMismatch
-}
-
-type InputWefUnionType string
-
-const (
-	InputWefUnionTypeInputWefSendToRoutesTrueConstraint                 InputWefUnionType = "InputWef_SendToRoutesTrueConstraint"
-	InputWefUnionTypeInputWefSendToRoutesFalseWithConnectionsConstraint InputWefUnionType = "InputWef_SendToRoutesFalseWithConnectionsConstraint"
-	InputWefUnionTypeInputWefPqEnabledFalseConstraint                   InputWefUnionType = "InputWef_PqEnabledFalseConstraint"
-	InputWefUnionTypeInputWefPqEnabledTrueWithPqConstraint              InputWefUnionType = "InputWef_PqEnabledTrueWithPqConstraint"
-)
-
-type InputWef struct {
-	InputWefSendToRoutesTrueConstraint                 *InputWefSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputWefSendToRoutesFalseWithConnectionsConstraint *InputWefSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputWefPqEnabledFalseConstraint                   *InputWefPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputWefPqEnabledTrueWithPqConstraint              *InputWefPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputWefUnionType
-}
-
-func CreateInputWefInputWefSendToRoutesTrueConstraint(inputWefSendToRoutesTrueConstraint InputWefSendToRoutesTrueConstraint) InputWef {
-	typ := InputWefUnionTypeInputWefSendToRoutesTrueConstraint
-
-	return InputWef{
-		InputWefSendToRoutesTrueConstraint: &inputWefSendToRoutesTrueConstraint,
-		Type:                               typ,
-	}
-}
-
-func CreateInputWefInputWefSendToRoutesFalseWithConnectionsConstraint(inputWefSendToRoutesFalseWithConnectionsConstraint InputWefSendToRoutesFalseWithConnectionsConstraint) InputWef {
-	typ := InputWefUnionTypeInputWefSendToRoutesFalseWithConnectionsConstraint
-
-	return InputWef{
-		InputWefSendToRoutesFalseWithConnectionsConstraint: &inputWefSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputWefInputWefPqEnabledFalseConstraint(inputWefPqEnabledFalseConstraint InputWefPqEnabledFalseConstraint) InputWef {
-	typ := InputWefUnionTypeInputWefPqEnabledFalseConstraint
-
-	return InputWef{
-		InputWefPqEnabledFalseConstraint: &inputWefPqEnabledFalseConstraint,
-		Type:                             typ,
-	}
-}
-
-func CreateInputWefInputWefPqEnabledTrueWithPqConstraint(inputWefPqEnabledTrueWithPqConstraint InputWefPqEnabledTrueWithPqConstraint) InputWef {
-	typ := InputWefUnionTypeInputWefPqEnabledTrueWithPqConstraint
-
-	return InputWef{
-		InputWefPqEnabledTrueWithPqConstraint: &inputWefPqEnabledTrueWithPqConstraint,
-		Type:                                  typ,
-	}
-}
-
-func (u *InputWef) UnmarshalJSON(data []byte) error {
-
-	var inputWefSendToRoutesTrueConstraint InputWefSendToRoutesTrueConstraint = InputWefSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWefSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputWefSendToRoutesTrueConstraint = &inputWefSendToRoutesTrueConstraint
-		u.Type = InputWefUnionTypeInputWefSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputWefSendToRoutesFalseWithConnectionsConstraint InputWefSendToRoutesFalseWithConnectionsConstraint = InputWefSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWefSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputWefSendToRoutesFalseWithConnectionsConstraint = &inputWefSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputWefUnionTypeInputWefSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputWefPqEnabledFalseConstraint InputWefPqEnabledFalseConstraint = InputWefPqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWefPqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputWefPqEnabledFalseConstraint = &inputWefPqEnabledFalseConstraint
-		u.Type = InputWefUnionTypeInputWefPqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputWefPqEnabledTrueWithPqConstraint InputWefPqEnabledTrueWithPqConstraint = InputWefPqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputWefPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputWefPqEnabledTrueWithPqConstraint = &inputWefPqEnabledTrueWithPqConstraint
-		u.Type = InputWefUnionTypeInputWefPqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputWef", string(data))
-}
-
-func (u InputWef) MarshalJSON() ([]byte, error) {
-	if u.InputWefSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputWefSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputWefSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputWefSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputWefPqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputWefPqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputWefPqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputWefPqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputWef: all fields are null")
 }
