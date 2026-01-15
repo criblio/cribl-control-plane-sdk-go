@@ -3,7 +3,6 @@
 package components
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
@@ -12,70 +11,70 @@ import (
 type FunctionResponseType string
 
 const (
-	FunctionResponseTypeAggregateMetrics          FunctionResponseType = "aggregate_metrics"
-	FunctionResponseTypeAggregation               FunctionResponseType = "aggregation"
-	FunctionResponseTypeAutoTimestamp             FunctionResponseType = "auto_timestamp"
-	FunctionResponseTypeCef                       FunctionResponseType = "cef"
-	FunctionResponseTypeChain                     FunctionResponseType = "chain"
-	FunctionResponseTypeClone                     FunctionResponseType = "clone"
-	FunctionResponseTypeCode                      FunctionResponseType = "code"
-	FunctionResponseTypeComment                   FunctionResponseType = "comment"
-	FunctionResponseTypeDistinct                  FunctionResponseType = "distinct"
-	FunctionResponseTypeDNSLookup                 FunctionResponseType = "dns_lookup"
-	FunctionResponseTypeDrop                      FunctionResponseType = "drop"
-	FunctionResponseTypeDropDimensions            FunctionResponseType = "drop_dimensions"
-	FunctionResponseTypeDynamicSampling           FunctionResponseType = "dynamic_sampling"
-	FunctionResponseTypeEval                      FunctionResponseType = "eval"
-	FunctionResponseTypeEventBreaker              FunctionResponseType = "event_breaker"
-	FunctionResponseTypeEventstats                FunctionResponseType = "eventstats"
-	FunctionResponseTypeExternaldata              FunctionResponseType = "externaldata"
-	FunctionResponseTypeFlatten                   FunctionResponseType = "flatten"
-	FunctionResponseTypeFoldkeys                  FunctionResponseType = "foldkeys"
-	FunctionResponseTypeGenStats                  FunctionResponseType = "gen_stats"
-	FunctionResponseTypeGeoip                     FunctionResponseType = "geoip"
-	FunctionResponseTypeGrok                      FunctionResponseType = "grok"
-	FunctionResponseTypeHandlebars                FunctionResponseType = "handlebars"
-	FunctionResponseTypeJoin                      FunctionResponseType = "join"
-	FunctionResponseTypeJSONUnroll                FunctionResponseType = "json_unroll"
-	FunctionResponseTypeLakeExport                FunctionResponseType = "lake_export"
-	FunctionResponseTypeLimit                     FunctionResponseType = "limit"
-	FunctionResponseTypeLocalSearchDatatypeParser FunctionResponseType = "local_search_datatype_parser"
-	FunctionResponseTypeLocalSearchRulesetRunner  FunctionResponseType = "local_search_ruleset_runner"
-	FunctionResponseTypeLookup                    FunctionResponseType = "lookup"
-	FunctionResponseTypeMask                      FunctionResponseType = "mask"
-	FunctionResponseTypeMvExpand                  FunctionResponseType = "mv_expand"
-	FunctionResponseTypeMvPull                    FunctionResponseType = "mv_pull"
-	FunctionResponseTypeNotificationPolicies      FunctionResponseType = "notification_policies"
-	FunctionResponseTypeNotifications             FunctionResponseType = "notifications"
-	FunctionResponseTypeNotify                    FunctionResponseType = "notify"
-	FunctionResponseTypeNumerify                  FunctionResponseType = "numerify"
-	FunctionResponseTypeOtlpLogs                  FunctionResponseType = "otlp_logs"
-	FunctionResponseTypeOtlpMetrics               FunctionResponseType = "otlp_metrics"
-	FunctionResponseTypeOtlpTraces                FunctionResponseType = "otlp_traces"
-	FunctionResponseTypePack                      FunctionResponseType = "pack"
-	FunctionResponseTypePivot                     FunctionResponseType = "pivot"
-	FunctionResponseTypePublishMetrics            FunctionResponseType = "publish_metrics"
-	FunctionResponseTypeRedis                     FunctionResponseType = "redis"
-	FunctionResponseTypeRegexExtract              FunctionResponseType = "regex_extract"
-	FunctionResponseTypeRegexFilter               FunctionResponseType = "regex_filter"
-	FunctionResponseTypeRename                    FunctionResponseType = "rename"
-	FunctionResponseTypeRollupMetrics             FunctionResponseType = "rollup_metrics"
-	FunctionResponseTypeSampling                  FunctionResponseType = "sampling"
-	FunctionResponseTypeSend                      FunctionResponseType = "send"
-	FunctionResponseTypeSensitiveDataScanner      FunctionResponseType = "sensitive_data_scanner"
-	FunctionResponseTypeSerde                     FunctionResponseType = "serde"
-	FunctionResponseTypeSerialize                 FunctionResponseType = "serialize"
-	FunctionResponseTypeSidlookup                 FunctionResponseType = "sidlookup"
-	FunctionResponseTypeSnmpTrapSerialize         FunctionResponseType = "snmp_trap_serialize"
-	FunctionResponseTypeSort                      FunctionResponseType = "sort"
-	FunctionResponseTypeStore                     FunctionResponseType = "store"
-	FunctionResponseTypeSuppress                  FunctionResponseType = "suppress"
-	FunctionResponseTypeTee                       FunctionResponseType = "tee"
-	FunctionResponseTypeTrimTimestamp             FunctionResponseType = "trim_timestamp"
-	FunctionResponseTypeUnion                     FunctionResponseType = "union"
-	FunctionResponseTypeUnroll                    FunctionResponseType = "unroll"
-	FunctionResponseTypeWindow                    FunctionResponseType = "window"
-	FunctionResponseTypeXMLUnroll                 FunctionResponseType = "xml_unroll"
+	FunctionResponseTypeFunctionAggregateMetrics          FunctionResponseType = "FunctionAggregateMetrics"
+	FunctionResponseTypeFunctionAggregation               FunctionResponseType = "FunctionAggregation"
+	FunctionResponseTypeFunctionAutoTimestamp             FunctionResponseType = "FunctionAutoTimestamp"
+	FunctionResponseTypeFunctionCef                       FunctionResponseType = "FunctionCef"
+	FunctionResponseTypeFunctionChain                     FunctionResponseType = "FunctionChain"
+	FunctionResponseTypeFunctionClone                     FunctionResponseType = "FunctionClone"
+	FunctionResponseTypeFunctionCode                      FunctionResponseType = "FunctionCode"
+	FunctionResponseTypeFunctionComment                   FunctionResponseType = "FunctionComment"
+	FunctionResponseTypeFunctionDistinct                  FunctionResponseType = "FunctionDistinct"
+	FunctionResponseTypeFunctionDNSLookup                 FunctionResponseType = "FunctionDnsLookup"
+	FunctionResponseTypeFunctionDrop                      FunctionResponseType = "FunctionDrop"
+	FunctionResponseTypeFunctionDropDimensions            FunctionResponseType = "FunctionDropDimensions"
+	FunctionResponseTypeFunctionDynamicSampling           FunctionResponseType = "FunctionDynamicSampling"
+	FunctionResponseTypeFunctionEval                      FunctionResponseType = "FunctionEval"
+	FunctionResponseTypeFunctionEventBreaker              FunctionResponseType = "FunctionEventBreaker"
+	FunctionResponseTypeFunctionEventstats                FunctionResponseType = "FunctionEventstats"
+	FunctionResponseTypeFunctionExternaldata              FunctionResponseType = "FunctionExternaldata"
+	FunctionResponseTypeFunctionFlatten                   FunctionResponseType = "FunctionFlatten"
+	FunctionResponseTypeFunctionFoldkeys                  FunctionResponseType = "FunctionFoldkeys"
+	FunctionResponseTypeFunctionGenStats                  FunctionResponseType = "FunctionGenStats"
+	FunctionResponseTypeFunctionGeoip                     FunctionResponseType = "FunctionGeoip"
+	FunctionResponseTypeFunctionGrok                      FunctionResponseType = "FunctionGrok"
+	FunctionResponseTypeFunctionHandlebars                FunctionResponseType = "FunctionHandlebars"
+	FunctionResponseTypeFunctionJoin                      FunctionResponseType = "FunctionJoin"
+	FunctionResponseTypeFunctionJSONUnroll                FunctionResponseType = "FunctionJsonUnroll"
+	FunctionResponseTypeFunctionLakeExport                FunctionResponseType = "FunctionLakeExport"
+	FunctionResponseTypeFunctionLimit                     FunctionResponseType = "FunctionLimit"
+	FunctionResponseTypeFunctionLocalSearchDatatypeParser FunctionResponseType = "FunctionLocalSearchDatatypeParser"
+	FunctionResponseTypeFunctionLocalSearchRulesetRunner  FunctionResponseType = "FunctionLocalSearchRulesetRunner"
+	FunctionResponseTypeFunctionLookup                    FunctionResponseType = "FunctionLookup"
+	FunctionResponseTypeFunctionMask                      FunctionResponseType = "FunctionMask"
+	FunctionResponseTypeFunctionMvExpand                  FunctionResponseType = "FunctionMvExpand"
+	FunctionResponseTypeFunctionMvPull                    FunctionResponseType = "FunctionMvPull"
+	FunctionResponseTypeFunctionNotificationPolicies      FunctionResponseType = "FunctionNotificationPolicies"
+	FunctionResponseTypeFunctionNotifications             FunctionResponseType = "FunctionNotifications"
+	FunctionResponseTypeFunctionNotify                    FunctionResponseType = "FunctionNotify"
+	FunctionResponseTypeFunctionNumerify                  FunctionResponseType = "FunctionNumerify"
+	FunctionResponseTypeFunctionOtlpLogs                  FunctionResponseType = "FunctionOtlpLogs"
+	FunctionResponseTypeFunctionOtlpMetrics               FunctionResponseType = "FunctionOtlpMetrics"
+	FunctionResponseTypeFunctionOtlpTraces                FunctionResponseType = "FunctionOtlpTraces"
+	FunctionResponseTypeFunctionPack                      FunctionResponseType = "FunctionPack"
+	FunctionResponseTypeFunctionPivot                     FunctionResponseType = "FunctionPivot"
+	FunctionResponseTypeFunctionPublishMetrics            FunctionResponseType = "FunctionPublishMetrics"
+	FunctionResponseTypeFunctionRedis                     FunctionResponseType = "FunctionRedis"
+	FunctionResponseTypeFunctionRegexExtract              FunctionResponseType = "FunctionRegexExtract"
+	FunctionResponseTypeFunctionRegexFilter               FunctionResponseType = "FunctionRegexFilter"
+	FunctionResponseTypeFunctionRename                    FunctionResponseType = "FunctionRename"
+	FunctionResponseTypeFunctionRollupMetrics             FunctionResponseType = "FunctionRollupMetrics"
+	FunctionResponseTypeFunctionSampling                  FunctionResponseType = "FunctionSampling"
+	FunctionResponseTypeFunctionSend                      FunctionResponseType = "FunctionSend"
+	FunctionResponseTypeFunctionSensitiveDataScanner      FunctionResponseType = "FunctionSensitiveDataScanner"
+	FunctionResponseTypeFunctionSerde                     FunctionResponseType = "FunctionSerde"
+	FunctionResponseTypeFunctionSerialize                 FunctionResponseType = "FunctionSerialize"
+	FunctionResponseTypeFunctionSidlookup                 FunctionResponseType = "FunctionSidlookup"
+	FunctionResponseTypeFunctionSnmpTrapSerialize         FunctionResponseType = "FunctionSnmpTrapSerialize"
+	FunctionResponseTypeFunctionSort                      FunctionResponseType = "FunctionSort"
+	FunctionResponseTypeFunctionStore                     FunctionResponseType = "FunctionStore"
+	FunctionResponseTypeFunctionSuppress                  FunctionResponseType = "FunctionSuppress"
+	FunctionResponseTypeFunctionTee                       FunctionResponseType = "FunctionTee"
+	FunctionResponseTypeFunctionTrimTimestamp             FunctionResponseType = "FunctionTrimTimestamp"
+	FunctionResponseTypeFunctionUnion                     FunctionResponseType = "FunctionUnion"
+	FunctionResponseTypeFunctionUnroll                    FunctionResponseType = "FunctionUnroll"
+	FunctionResponseTypeFunctionWindow                    FunctionResponseType = "FunctionWindow"
+	FunctionResponseTypeFunctionXMLUnroll                 FunctionResponseType = "FunctionXmlUnroll"
 )
 
 type FunctionResponse struct {
@@ -147,1361 +146,1029 @@ type FunctionResponse struct {
 	Type FunctionResponseType
 }
 
-func CreateFunctionResponseAggregateMetrics(aggregateMetrics FunctionAggregateMetrics) FunctionResponse {
-	typ := FunctionResponseTypeAggregateMetrics
-
-	typStr := FunctionAggregateMetricsID(typ)
-	aggregateMetrics.ID = typStr
+func CreateFunctionResponseFunctionAggregateMetrics(functionAggregateMetrics FunctionAggregateMetrics) FunctionResponse {
+	typ := FunctionResponseTypeFunctionAggregateMetrics
 
 	return FunctionResponse{
-		FunctionAggregateMetrics: &aggregateMetrics,
+		FunctionAggregateMetrics: &functionAggregateMetrics,
 		Type:                     typ,
 	}
 }
 
-func CreateFunctionResponseAggregation(aggregation FunctionAggregation) FunctionResponse {
-	typ := FunctionResponseTypeAggregation
-
-	typStr := FunctionAggregationID(typ)
-	aggregation.ID = typStr
+func CreateFunctionResponseFunctionAggregation(functionAggregation FunctionAggregation) FunctionResponse {
+	typ := FunctionResponseTypeFunctionAggregation
 
 	return FunctionResponse{
-		FunctionAggregation: &aggregation,
+		FunctionAggregation: &functionAggregation,
 		Type:                typ,
 	}
 }
 
-func CreateFunctionResponseAutoTimestamp(autoTimestamp FunctionAutoTimestamp) FunctionResponse {
-	typ := FunctionResponseTypeAutoTimestamp
-
-	typStr := FunctionAutoTimestampID(typ)
-	autoTimestamp.ID = typStr
+func CreateFunctionResponseFunctionAutoTimestamp(functionAutoTimestamp FunctionAutoTimestamp) FunctionResponse {
+	typ := FunctionResponseTypeFunctionAutoTimestamp
 
 	return FunctionResponse{
-		FunctionAutoTimestamp: &autoTimestamp,
+		FunctionAutoTimestamp: &functionAutoTimestamp,
 		Type:                  typ,
 	}
 }
 
-func CreateFunctionResponseCef(cef FunctionCef) FunctionResponse {
-	typ := FunctionResponseTypeCef
-
-	typStr := FunctionCefID(typ)
-	cef.ID = typStr
+func CreateFunctionResponseFunctionCef(functionCef FunctionCef) FunctionResponse {
+	typ := FunctionResponseTypeFunctionCef
 
 	return FunctionResponse{
-		FunctionCef: &cef,
+		FunctionCef: &functionCef,
 		Type:        typ,
 	}
 }
 
-func CreateFunctionResponseChain(chain FunctionChain) FunctionResponse {
-	typ := FunctionResponseTypeChain
-
-	typStr := FunctionChainID(typ)
-	chain.ID = typStr
+func CreateFunctionResponseFunctionChain(functionChain FunctionChain) FunctionResponse {
+	typ := FunctionResponseTypeFunctionChain
 
 	return FunctionResponse{
-		FunctionChain: &chain,
+		FunctionChain: &functionChain,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponseClone(clone FunctionClone) FunctionResponse {
-	typ := FunctionResponseTypeClone
-
-	typStr := FunctionCloneID(typ)
-	clone.ID = typStr
+func CreateFunctionResponseFunctionClone(functionClone FunctionClone) FunctionResponse {
+	typ := FunctionResponseTypeFunctionClone
 
 	return FunctionResponse{
-		FunctionClone: &clone,
+		FunctionClone: &functionClone,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponseCode(code FunctionCode) FunctionResponse {
-	typ := FunctionResponseTypeCode
-
-	typStr := FunctionCodeID(typ)
-	code.ID = typStr
+func CreateFunctionResponseFunctionCode(functionCode FunctionCode) FunctionResponse {
+	typ := FunctionResponseTypeFunctionCode
 
 	return FunctionResponse{
-		FunctionCode: &code,
+		FunctionCode: &functionCode,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponseComment(comment FunctionComment) FunctionResponse {
-	typ := FunctionResponseTypeComment
-
-	typStr := FunctionCommentID(typ)
-	comment.ID = typStr
+func CreateFunctionResponseFunctionComment(functionComment FunctionComment) FunctionResponse {
+	typ := FunctionResponseTypeFunctionComment
 
 	return FunctionResponse{
-		FunctionComment: &comment,
+		FunctionComment: &functionComment,
 		Type:            typ,
 	}
 }
 
-func CreateFunctionResponseDistinct(distinct FunctionDistinct) FunctionResponse {
-	typ := FunctionResponseTypeDistinct
-
-	typStr := FunctionDistinctID(typ)
-	distinct.ID = typStr
+func CreateFunctionResponseFunctionDistinct(functionDistinct FunctionDistinct) FunctionResponse {
+	typ := FunctionResponseTypeFunctionDistinct
 
 	return FunctionResponse{
-		FunctionDistinct: &distinct,
+		FunctionDistinct: &functionDistinct,
 		Type:             typ,
 	}
 }
 
-func CreateFunctionResponseDNSLookup(dnsLookup FunctionDNSLookup) FunctionResponse {
-	typ := FunctionResponseTypeDNSLookup
-
-	typStr := FunctionDNSLookupID(typ)
-	dnsLookup.ID = typStr
+func CreateFunctionResponseFunctionDNSLookup(functionDNSLookup FunctionDNSLookup) FunctionResponse {
+	typ := FunctionResponseTypeFunctionDNSLookup
 
 	return FunctionResponse{
-		FunctionDNSLookup: &dnsLookup,
+		FunctionDNSLookup: &functionDNSLookup,
 		Type:              typ,
 	}
 }
 
-func CreateFunctionResponseDrop(drop FunctionDrop) FunctionResponse {
-	typ := FunctionResponseTypeDrop
-
-	typStr := FunctionDropID(typ)
-	drop.ID = typStr
+func CreateFunctionResponseFunctionDrop(functionDrop FunctionDrop) FunctionResponse {
+	typ := FunctionResponseTypeFunctionDrop
 
 	return FunctionResponse{
-		FunctionDrop: &drop,
+		FunctionDrop: &functionDrop,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponseDropDimensions(dropDimensions FunctionDropDimensions) FunctionResponse {
-	typ := FunctionResponseTypeDropDimensions
-
-	typStr := FunctionDropDimensionsID(typ)
-	dropDimensions.ID = typStr
+func CreateFunctionResponseFunctionDropDimensions(functionDropDimensions FunctionDropDimensions) FunctionResponse {
+	typ := FunctionResponseTypeFunctionDropDimensions
 
 	return FunctionResponse{
-		FunctionDropDimensions: &dropDimensions,
+		FunctionDropDimensions: &functionDropDimensions,
 		Type:                   typ,
 	}
 }
 
-func CreateFunctionResponseDynamicSampling(dynamicSampling FunctionDynamicSampling) FunctionResponse {
-	typ := FunctionResponseTypeDynamicSampling
-
-	typStr := FunctionDynamicSamplingID(typ)
-	dynamicSampling.ID = typStr
+func CreateFunctionResponseFunctionDynamicSampling(functionDynamicSampling FunctionDynamicSampling) FunctionResponse {
+	typ := FunctionResponseTypeFunctionDynamicSampling
 
 	return FunctionResponse{
-		FunctionDynamicSampling: &dynamicSampling,
+		FunctionDynamicSampling: &functionDynamicSampling,
 		Type:                    typ,
 	}
 }
 
-func CreateFunctionResponseEval(eval FunctionEval) FunctionResponse {
-	typ := FunctionResponseTypeEval
-
-	typStr := FunctionEvalID(typ)
-	eval.ID = typStr
+func CreateFunctionResponseFunctionEval(functionEval FunctionEval) FunctionResponse {
+	typ := FunctionResponseTypeFunctionEval
 
 	return FunctionResponse{
-		FunctionEval: &eval,
+		FunctionEval: &functionEval,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponseEventBreaker(eventBreaker FunctionEventBreaker) FunctionResponse {
-	typ := FunctionResponseTypeEventBreaker
-
-	typStr := FunctionEventBreakerID(typ)
-	eventBreaker.ID = typStr
+func CreateFunctionResponseFunctionEventBreaker(functionEventBreaker FunctionEventBreaker) FunctionResponse {
+	typ := FunctionResponseTypeFunctionEventBreaker
 
 	return FunctionResponse{
-		FunctionEventBreaker: &eventBreaker,
+		FunctionEventBreaker: &functionEventBreaker,
 		Type:                 typ,
 	}
 }
 
-func CreateFunctionResponseEventstats(eventstats FunctionEventstats) FunctionResponse {
-	typ := FunctionResponseTypeEventstats
-
-	typStr := FunctionEventstatsID(typ)
-	eventstats.ID = typStr
+func CreateFunctionResponseFunctionEventstats(functionEventstats FunctionEventstats) FunctionResponse {
+	typ := FunctionResponseTypeFunctionEventstats
 
 	return FunctionResponse{
-		FunctionEventstats: &eventstats,
+		FunctionEventstats: &functionEventstats,
 		Type:               typ,
 	}
 }
 
-func CreateFunctionResponseExternaldata(externaldata FunctionExternaldata) FunctionResponse {
-	typ := FunctionResponseTypeExternaldata
-
-	typStr := FunctionExternaldataID(typ)
-	externaldata.ID = typStr
+func CreateFunctionResponseFunctionExternaldata(functionExternaldata FunctionExternaldata) FunctionResponse {
+	typ := FunctionResponseTypeFunctionExternaldata
 
 	return FunctionResponse{
-		FunctionExternaldata: &externaldata,
+		FunctionExternaldata: &functionExternaldata,
 		Type:                 typ,
 	}
 }
 
-func CreateFunctionResponseFlatten(flatten FunctionFlatten) FunctionResponse {
-	typ := FunctionResponseTypeFlatten
-
-	typStr := FunctionFlattenID(typ)
-	flatten.ID = typStr
+func CreateFunctionResponseFunctionFlatten(functionFlatten FunctionFlatten) FunctionResponse {
+	typ := FunctionResponseTypeFunctionFlatten
 
 	return FunctionResponse{
-		FunctionFlatten: &flatten,
+		FunctionFlatten: &functionFlatten,
 		Type:            typ,
 	}
 }
 
-func CreateFunctionResponseFoldkeys(foldkeys FunctionFoldkeys) FunctionResponse {
-	typ := FunctionResponseTypeFoldkeys
-
-	typStr := FunctionFoldkeysID(typ)
-	foldkeys.ID = typStr
+func CreateFunctionResponseFunctionFoldkeys(functionFoldkeys FunctionFoldkeys) FunctionResponse {
+	typ := FunctionResponseTypeFunctionFoldkeys
 
 	return FunctionResponse{
-		FunctionFoldkeys: &foldkeys,
+		FunctionFoldkeys: &functionFoldkeys,
 		Type:             typ,
 	}
 }
 
-func CreateFunctionResponseGenStats(genStats FunctionGenStats) FunctionResponse {
-	typ := FunctionResponseTypeGenStats
-
-	typStr := FunctionGenStatsID(typ)
-	genStats.ID = typStr
+func CreateFunctionResponseFunctionGenStats(functionGenStats FunctionGenStats) FunctionResponse {
+	typ := FunctionResponseTypeFunctionGenStats
 
 	return FunctionResponse{
-		FunctionGenStats: &genStats,
+		FunctionGenStats: &functionGenStats,
 		Type:             typ,
 	}
 }
 
-func CreateFunctionResponseGeoip(geoip FunctionGeoip) FunctionResponse {
-	typ := FunctionResponseTypeGeoip
-
-	typStr := FunctionGeoipID(typ)
-	geoip.ID = typStr
+func CreateFunctionResponseFunctionGeoip(functionGeoip FunctionGeoip) FunctionResponse {
+	typ := FunctionResponseTypeFunctionGeoip
 
 	return FunctionResponse{
-		FunctionGeoip: &geoip,
+		FunctionGeoip: &functionGeoip,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponseGrok(grok FunctionGrok) FunctionResponse {
-	typ := FunctionResponseTypeGrok
-
-	typStr := FunctionGrokID(typ)
-	grok.ID = typStr
+func CreateFunctionResponseFunctionGrok(functionGrok FunctionGrok) FunctionResponse {
+	typ := FunctionResponseTypeFunctionGrok
 
 	return FunctionResponse{
-		FunctionGrok: &grok,
+		FunctionGrok: &functionGrok,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponseHandlebars(handlebars FunctionHandlebars) FunctionResponse {
-	typ := FunctionResponseTypeHandlebars
-
-	typStr := FunctionHandlebarsID(typ)
-	handlebars.ID = typStr
+func CreateFunctionResponseFunctionHandlebars(functionHandlebars FunctionHandlebars) FunctionResponse {
+	typ := FunctionResponseTypeFunctionHandlebars
 
 	return FunctionResponse{
-		FunctionHandlebars: &handlebars,
+		FunctionHandlebars: &functionHandlebars,
 		Type:               typ,
 	}
 }
 
-func CreateFunctionResponseJoin(join FunctionJoin) FunctionResponse {
-	typ := FunctionResponseTypeJoin
-
-	typStr := FunctionJoinID(typ)
-	join.ID = typStr
+func CreateFunctionResponseFunctionJoin(functionJoin FunctionJoin) FunctionResponse {
+	typ := FunctionResponseTypeFunctionJoin
 
 	return FunctionResponse{
-		FunctionJoin: &join,
+		FunctionJoin: &functionJoin,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponseJSONUnroll(jsonUnroll FunctionJSONUnroll) FunctionResponse {
-	typ := FunctionResponseTypeJSONUnroll
-
-	typStr := FunctionJSONUnrollID(typ)
-	jsonUnroll.ID = typStr
+func CreateFunctionResponseFunctionJSONUnroll(functionJSONUnroll FunctionJSONUnroll) FunctionResponse {
+	typ := FunctionResponseTypeFunctionJSONUnroll
 
 	return FunctionResponse{
-		FunctionJSONUnroll: &jsonUnroll,
+		FunctionJSONUnroll: &functionJSONUnroll,
 		Type:               typ,
 	}
 }
 
-func CreateFunctionResponseLakeExport(lakeExport FunctionLakeExport) FunctionResponse {
-	typ := FunctionResponseTypeLakeExport
-
-	typStr := FunctionLakeExportID(typ)
-	lakeExport.ID = typStr
+func CreateFunctionResponseFunctionLakeExport(functionLakeExport FunctionLakeExport) FunctionResponse {
+	typ := FunctionResponseTypeFunctionLakeExport
 
 	return FunctionResponse{
-		FunctionLakeExport: &lakeExport,
+		FunctionLakeExport: &functionLakeExport,
 		Type:               typ,
 	}
 }
 
-func CreateFunctionResponseLimit(limit FunctionLimit) FunctionResponse {
-	typ := FunctionResponseTypeLimit
-
-	typStr := FunctionLimitID(typ)
-	limit.ID = typStr
+func CreateFunctionResponseFunctionLimit(functionLimit FunctionLimit) FunctionResponse {
+	typ := FunctionResponseTypeFunctionLimit
 
 	return FunctionResponse{
-		FunctionLimit: &limit,
+		FunctionLimit: &functionLimit,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponseLocalSearchDatatypeParser(localSearchDatatypeParser FunctionLocalSearchDatatypeParser) FunctionResponse {
-	typ := FunctionResponseTypeLocalSearchDatatypeParser
-
-	typStr := FunctionLocalSearchDatatypeParserID(typ)
-	localSearchDatatypeParser.ID = typStr
+func CreateFunctionResponseFunctionLocalSearchDatatypeParser(functionLocalSearchDatatypeParser FunctionLocalSearchDatatypeParser) FunctionResponse {
+	typ := FunctionResponseTypeFunctionLocalSearchDatatypeParser
 
 	return FunctionResponse{
-		FunctionLocalSearchDatatypeParser: &localSearchDatatypeParser,
+		FunctionLocalSearchDatatypeParser: &functionLocalSearchDatatypeParser,
 		Type:                              typ,
 	}
 }
 
-func CreateFunctionResponseLocalSearchRulesetRunner(localSearchRulesetRunner FunctionLocalSearchRulesetRunner) FunctionResponse {
-	typ := FunctionResponseTypeLocalSearchRulesetRunner
-
-	typStr := FunctionLocalSearchRulesetRunnerID(typ)
-	localSearchRulesetRunner.ID = typStr
+func CreateFunctionResponseFunctionLocalSearchRulesetRunner(functionLocalSearchRulesetRunner FunctionLocalSearchRulesetRunner) FunctionResponse {
+	typ := FunctionResponseTypeFunctionLocalSearchRulesetRunner
 
 	return FunctionResponse{
-		FunctionLocalSearchRulesetRunner: &localSearchRulesetRunner,
+		FunctionLocalSearchRulesetRunner: &functionLocalSearchRulesetRunner,
 		Type:                             typ,
 	}
 }
 
-func CreateFunctionResponseLookup(lookup FunctionLookup) FunctionResponse {
-	typ := FunctionResponseTypeLookup
-
-	typStr := FunctionLookupID(typ)
-	lookup.ID = typStr
+func CreateFunctionResponseFunctionLookup(functionLookup FunctionLookup) FunctionResponse {
+	typ := FunctionResponseTypeFunctionLookup
 
 	return FunctionResponse{
-		FunctionLookup: &lookup,
+		FunctionLookup: &functionLookup,
 		Type:           typ,
 	}
 }
 
-func CreateFunctionResponseMask(mask FunctionMask) FunctionResponse {
-	typ := FunctionResponseTypeMask
-
-	typStr := FunctionMaskID(typ)
-	mask.ID = typStr
+func CreateFunctionResponseFunctionMask(functionMask FunctionMask) FunctionResponse {
+	typ := FunctionResponseTypeFunctionMask
 
 	return FunctionResponse{
-		FunctionMask: &mask,
+		FunctionMask: &functionMask,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponseMvExpand(mvExpand FunctionMvExpand) FunctionResponse {
-	typ := FunctionResponseTypeMvExpand
-
-	typStr := FunctionMvExpandID(typ)
-	mvExpand.ID = typStr
+func CreateFunctionResponseFunctionMvExpand(functionMvExpand FunctionMvExpand) FunctionResponse {
+	typ := FunctionResponseTypeFunctionMvExpand
 
 	return FunctionResponse{
-		FunctionMvExpand: &mvExpand,
+		FunctionMvExpand: &functionMvExpand,
 		Type:             typ,
 	}
 }
 
-func CreateFunctionResponseMvPull(mvPull FunctionMvPull) FunctionResponse {
-	typ := FunctionResponseTypeMvPull
-
-	typStr := FunctionMvPullID(typ)
-	mvPull.ID = typStr
+func CreateFunctionResponseFunctionMvPull(functionMvPull FunctionMvPull) FunctionResponse {
+	typ := FunctionResponseTypeFunctionMvPull
 
 	return FunctionResponse{
-		FunctionMvPull: &mvPull,
+		FunctionMvPull: &functionMvPull,
 		Type:           typ,
 	}
 }
 
-func CreateFunctionResponseNotificationPolicies(notificationPolicies FunctionNotificationPolicies) FunctionResponse {
-	typ := FunctionResponseTypeNotificationPolicies
-
-	typStr := FunctionNotificationPoliciesID(typ)
-	notificationPolicies.ID = typStr
+func CreateFunctionResponseFunctionNotificationPolicies(functionNotificationPolicies FunctionNotificationPolicies) FunctionResponse {
+	typ := FunctionResponseTypeFunctionNotificationPolicies
 
 	return FunctionResponse{
-		FunctionNotificationPolicies: &notificationPolicies,
+		FunctionNotificationPolicies: &functionNotificationPolicies,
 		Type:                         typ,
 	}
 }
 
-func CreateFunctionResponseNotifications(notifications FunctionNotifications) FunctionResponse {
-	typ := FunctionResponseTypeNotifications
-
-	typStr := FunctionNotificationsID(typ)
-	notifications.ID = typStr
+func CreateFunctionResponseFunctionNotifications(functionNotifications FunctionNotifications) FunctionResponse {
+	typ := FunctionResponseTypeFunctionNotifications
 
 	return FunctionResponse{
-		FunctionNotifications: &notifications,
+		FunctionNotifications: &functionNotifications,
 		Type:                  typ,
 	}
 }
 
-func CreateFunctionResponseNotify(notify FunctionNotify) FunctionResponse {
-	typ := FunctionResponseTypeNotify
-
-	typStr := FunctionNotifyID(typ)
-	notify.ID = typStr
+func CreateFunctionResponseFunctionNotify(functionNotify FunctionNotify) FunctionResponse {
+	typ := FunctionResponseTypeFunctionNotify
 
 	return FunctionResponse{
-		FunctionNotify: &notify,
+		FunctionNotify: &functionNotify,
 		Type:           typ,
 	}
 }
 
-func CreateFunctionResponseNumerify(numerify FunctionNumerify) FunctionResponse {
-	typ := FunctionResponseTypeNumerify
-
-	typStr := FunctionNumerifyID(typ)
-	numerify.ID = typStr
+func CreateFunctionResponseFunctionNumerify(functionNumerify FunctionNumerify) FunctionResponse {
+	typ := FunctionResponseTypeFunctionNumerify
 
 	return FunctionResponse{
-		FunctionNumerify: &numerify,
+		FunctionNumerify: &functionNumerify,
 		Type:             typ,
 	}
 }
 
-func CreateFunctionResponseOtlpLogs(otlpLogs FunctionOtlpLogs) FunctionResponse {
-	typ := FunctionResponseTypeOtlpLogs
-
-	typStr := FunctionOtlpLogsID(typ)
-	otlpLogs.ID = typStr
+func CreateFunctionResponseFunctionOtlpLogs(functionOtlpLogs FunctionOtlpLogs) FunctionResponse {
+	typ := FunctionResponseTypeFunctionOtlpLogs
 
 	return FunctionResponse{
-		FunctionOtlpLogs: &otlpLogs,
+		FunctionOtlpLogs: &functionOtlpLogs,
 		Type:             typ,
 	}
 }
 
-func CreateFunctionResponseOtlpMetrics(otlpMetrics FunctionOtlpMetrics) FunctionResponse {
-	typ := FunctionResponseTypeOtlpMetrics
-
-	typStr := FunctionOtlpMetricsID(typ)
-	otlpMetrics.ID = typStr
+func CreateFunctionResponseFunctionOtlpMetrics(functionOtlpMetrics FunctionOtlpMetrics) FunctionResponse {
+	typ := FunctionResponseTypeFunctionOtlpMetrics
 
 	return FunctionResponse{
-		FunctionOtlpMetrics: &otlpMetrics,
+		FunctionOtlpMetrics: &functionOtlpMetrics,
 		Type:                typ,
 	}
 }
 
-func CreateFunctionResponseOtlpTraces(otlpTraces FunctionOtlpTraces) FunctionResponse {
-	typ := FunctionResponseTypeOtlpTraces
-
-	typStr := FunctionOtlpTracesID(typ)
-	otlpTraces.ID = typStr
+func CreateFunctionResponseFunctionOtlpTraces(functionOtlpTraces FunctionOtlpTraces) FunctionResponse {
+	typ := FunctionResponseTypeFunctionOtlpTraces
 
 	return FunctionResponse{
-		FunctionOtlpTraces: &otlpTraces,
+		FunctionOtlpTraces: &functionOtlpTraces,
 		Type:               typ,
 	}
 }
 
-func CreateFunctionResponsePack(pack FunctionPack) FunctionResponse {
-	typ := FunctionResponseTypePack
-
-	typStr := FunctionPackID(typ)
-	pack.ID = typStr
+func CreateFunctionResponseFunctionPack(functionPack FunctionPack) FunctionResponse {
+	typ := FunctionResponseTypeFunctionPack
 
 	return FunctionResponse{
-		FunctionPack: &pack,
+		FunctionPack: &functionPack,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponsePivot(pivot FunctionPivot) FunctionResponse {
-	typ := FunctionResponseTypePivot
-
-	typStr := FunctionPivotID(typ)
-	pivot.ID = typStr
+func CreateFunctionResponseFunctionPivot(functionPivot FunctionPivot) FunctionResponse {
+	typ := FunctionResponseTypeFunctionPivot
 
 	return FunctionResponse{
-		FunctionPivot: &pivot,
+		FunctionPivot: &functionPivot,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponsePublishMetrics(publishMetrics FunctionPublishMetrics) FunctionResponse {
-	typ := FunctionResponseTypePublishMetrics
-
-	typStr := FunctionPublishMetricsID(typ)
-	publishMetrics.ID = typStr
+func CreateFunctionResponseFunctionPublishMetrics(functionPublishMetrics FunctionPublishMetrics) FunctionResponse {
+	typ := FunctionResponseTypeFunctionPublishMetrics
 
 	return FunctionResponse{
-		FunctionPublishMetrics: &publishMetrics,
+		FunctionPublishMetrics: &functionPublishMetrics,
 		Type:                   typ,
 	}
 }
 
-func CreateFunctionResponseRedis(redis FunctionRedis) FunctionResponse {
-	typ := FunctionResponseTypeRedis
-
-	typStr := FunctionRedisID(typ)
-	redis.ID = typStr
+func CreateFunctionResponseFunctionRedis(functionRedis FunctionRedis) FunctionResponse {
+	typ := FunctionResponseTypeFunctionRedis
 
 	return FunctionResponse{
-		FunctionRedis: &redis,
+		FunctionRedis: &functionRedis,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponseRegexExtract(regexExtract FunctionRegexExtract) FunctionResponse {
-	typ := FunctionResponseTypeRegexExtract
-
-	typStr := FunctionRegexExtractID(typ)
-	regexExtract.ID = typStr
+func CreateFunctionResponseFunctionRegexExtract(functionRegexExtract FunctionRegexExtract) FunctionResponse {
+	typ := FunctionResponseTypeFunctionRegexExtract
 
 	return FunctionResponse{
-		FunctionRegexExtract: &regexExtract,
+		FunctionRegexExtract: &functionRegexExtract,
 		Type:                 typ,
 	}
 }
 
-func CreateFunctionResponseRegexFilter(regexFilter FunctionRegexFilter) FunctionResponse {
-	typ := FunctionResponseTypeRegexFilter
-
-	typStr := FunctionRegexFilterID(typ)
-	regexFilter.ID = typStr
+func CreateFunctionResponseFunctionRegexFilter(functionRegexFilter FunctionRegexFilter) FunctionResponse {
+	typ := FunctionResponseTypeFunctionRegexFilter
 
 	return FunctionResponse{
-		FunctionRegexFilter: &regexFilter,
+		FunctionRegexFilter: &functionRegexFilter,
 		Type:                typ,
 	}
 }
 
-func CreateFunctionResponseRename(rename FunctionRename) FunctionResponse {
-	typ := FunctionResponseTypeRename
-
-	typStr := FunctionRenameID(typ)
-	rename.ID = typStr
+func CreateFunctionResponseFunctionRename(functionRename FunctionRename) FunctionResponse {
+	typ := FunctionResponseTypeFunctionRename
 
 	return FunctionResponse{
-		FunctionRename: &rename,
+		FunctionRename: &functionRename,
 		Type:           typ,
 	}
 }
 
-func CreateFunctionResponseRollupMetrics(rollupMetrics FunctionRollupMetrics) FunctionResponse {
-	typ := FunctionResponseTypeRollupMetrics
-
-	typStr := FunctionRollupMetricsID(typ)
-	rollupMetrics.ID = typStr
+func CreateFunctionResponseFunctionRollupMetrics(functionRollupMetrics FunctionRollupMetrics) FunctionResponse {
+	typ := FunctionResponseTypeFunctionRollupMetrics
 
 	return FunctionResponse{
-		FunctionRollupMetrics: &rollupMetrics,
+		FunctionRollupMetrics: &functionRollupMetrics,
 		Type:                  typ,
 	}
 }
 
-func CreateFunctionResponseSampling(sampling FunctionSampling) FunctionResponse {
-	typ := FunctionResponseTypeSampling
-
-	typStr := FunctionSamplingID(typ)
-	sampling.ID = typStr
+func CreateFunctionResponseFunctionSampling(functionSampling FunctionSampling) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSampling
 
 	return FunctionResponse{
-		FunctionSampling: &sampling,
+		FunctionSampling: &functionSampling,
 		Type:             typ,
 	}
 }
 
-func CreateFunctionResponseSend(send FunctionSend) FunctionResponse {
-	typ := FunctionResponseTypeSend
-
-	typStr := FunctionSendID(typ)
-	send.ID = typStr
+func CreateFunctionResponseFunctionSend(functionSend FunctionSend) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSend
 
 	return FunctionResponse{
-		FunctionSend: &send,
+		FunctionSend: &functionSend,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponseSensitiveDataScanner(sensitiveDataScanner FunctionSensitiveDataScanner) FunctionResponse {
-	typ := FunctionResponseTypeSensitiveDataScanner
-
-	typStr := FunctionSensitiveDataScannerID(typ)
-	sensitiveDataScanner.ID = typStr
+func CreateFunctionResponseFunctionSensitiveDataScanner(functionSensitiveDataScanner FunctionSensitiveDataScanner) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSensitiveDataScanner
 
 	return FunctionResponse{
-		FunctionSensitiveDataScanner: &sensitiveDataScanner,
+		FunctionSensitiveDataScanner: &functionSensitiveDataScanner,
 		Type:                         typ,
 	}
 }
 
-func CreateFunctionResponseSerde(serde FunctionSerde) FunctionResponse {
-	typ := FunctionResponseTypeSerde
-
-	typStr := FunctionSerdeID(typ)
-	serde.ID = typStr
+func CreateFunctionResponseFunctionSerde(functionSerde FunctionSerde) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSerde
 
 	return FunctionResponse{
-		FunctionSerde: &serde,
+		FunctionSerde: &functionSerde,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponseSerialize(serialize FunctionSerialize) FunctionResponse {
-	typ := FunctionResponseTypeSerialize
-
-	typStr := FunctionSerializeID(typ)
-	serialize.ID = typStr
+func CreateFunctionResponseFunctionSerialize(functionSerialize FunctionSerialize) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSerialize
 
 	return FunctionResponse{
-		FunctionSerialize: &serialize,
+		FunctionSerialize: &functionSerialize,
 		Type:              typ,
 	}
 }
 
-func CreateFunctionResponseSidlookup(sidlookup FunctionSidlookup) FunctionResponse {
-	typ := FunctionResponseTypeSidlookup
-
-	typStr := FunctionSidlookupID(typ)
-	sidlookup.ID = typStr
+func CreateFunctionResponseFunctionSidlookup(functionSidlookup FunctionSidlookup) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSidlookup
 
 	return FunctionResponse{
-		FunctionSidlookup: &sidlookup,
+		FunctionSidlookup: &functionSidlookup,
 		Type:              typ,
 	}
 }
 
-func CreateFunctionResponseSnmpTrapSerialize(snmpTrapSerialize FunctionSnmpTrapSerialize) FunctionResponse {
-	typ := FunctionResponseTypeSnmpTrapSerialize
-
-	typStr := FunctionSnmpTrapSerializeID(typ)
-	snmpTrapSerialize.ID = typStr
+func CreateFunctionResponseFunctionSnmpTrapSerialize(functionSnmpTrapSerialize FunctionSnmpTrapSerialize) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSnmpTrapSerialize
 
 	return FunctionResponse{
-		FunctionSnmpTrapSerialize: &snmpTrapSerialize,
+		FunctionSnmpTrapSerialize: &functionSnmpTrapSerialize,
 		Type:                      typ,
 	}
 }
 
-func CreateFunctionResponseSort(sort FunctionSort) FunctionResponse {
-	typ := FunctionResponseTypeSort
-
-	typStr := FunctionSortID(typ)
-	sort.ID = typStr
+func CreateFunctionResponseFunctionSort(functionSort FunctionSort) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSort
 
 	return FunctionResponse{
-		FunctionSort: &sort,
+		FunctionSort: &functionSort,
 		Type:         typ,
 	}
 }
 
-func CreateFunctionResponseStore(store FunctionStore) FunctionResponse {
-	typ := FunctionResponseTypeStore
-
-	typStr := FunctionStoreID(typ)
-	store.ID = typStr
+func CreateFunctionResponseFunctionStore(functionStore FunctionStore) FunctionResponse {
+	typ := FunctionResponseTypeFunctionStore
 
 	return FunctionResponse{
-		FunctionStore: &store,
+		FunctionStore: &functionStore,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponseSuppress(suppress FunctionSuppress) FunctionResponse {
-	typ := FunctionResponseTypeSuppress
-
-	typStr := FunctionSuppressID(typ)
-	suppress.ID = typStr
+func CreateFunctionResponseFunctionSuppress(functionSuppress FunctionSuppress) FunctionResponse {
+	typ := FunctionResponseTypeFunctionSuppress
 
 	return FunctionResponse{
-		FunctionSuppress: &suppress,
+		FunctionSuppress: &functionSuppress,
 		Type:             typ,
 	}
 }
 
-func CreateFunctionResponseTee(tee FunctionTee) FunctionResponse {
-	typ := FunctionResponseTypeTee
-
-	typStr := FunctionTeeID(typ)
-	tee.ID = typStr
+func CreateFunctionResponseFunctionTee(functionTee FunctionTee) FunctionResponse {
+	typ := FunctionResponseTypeFunctionTee
 
 	return FunctionResponse{
-		FunctionTee: &tee,
+		FunctionTee: &functionTee,
 		Type:        typ,
 	}
 }
 
-func CreateFunctionResponseTrimTimestamp(trimTimestamp FunctionTrimTimestamp) FunctionResponse {
-	typ := FunctionResponseTypeTrimTimestamp
-
-	typStr := FunctionTrimTimestampID(typ)
-	trimTimestamp.ID = typStr
+func CreateFunctionResponseFunctionTrimTimestamp(functionTrimTimestamp FunctionTrimTimestamp) FunctionResponse {
+	typ := FunctionResponseTypeFunctionTrimTimestamp
 
 	return FunctionResponse{
-		FunctionTrimTimestamp: &trimTimestamp,
+		FunctionTrimTimestamp: &functionTrimTimestamp,
 		Type:                  typ,
 	}
 }
 
-func CreateFunctionResponseUnion(union FunctionUnion) FunctionResponse {
-	typ := FunctionResponseTypeUnion
-
-	typStr := FunctionUnionID(typ)
-	union.ID = typStr
+func CreateFunctionResponseFunctionUnion(functionUnion FunctionUnion) FunctionResponse {
+	typ := FunctionResponseTypeFunctionUnion
 
 	return FunctionResponse{
-		FunctionUnion: &union,
+		FunctionUnion: &functionUnion,
 		Type:          typ,
 	}
 }
 
-func CreateFunctionResponseUnroll(unroll FunctionUnroll) FunctionResponse {
-	typ := FunctionResponseTypeUnroll
-
-	typStr := FunctionUnrollID(typ)
-	unroll.ID = typStr
+func CreateFunctionResponseFunctionUnroll(functionUnroll FunctionUnroll) FunctionResponse {
+	typ := FunctionResponseTypeFunctionUnroll
 
 	return FunctionResponse{
-		FunctionUnroll: &unroll,
+		FunctionUnroll: &functionUnroll,
 		Type:           typ,
 	}
 }
 
-func CreateFunctionResponseWindow(window FunctionWindow) FunctionResponse {
-	typ := FunctionResponseTypeWindow
-
-	typStr := FunctionWindowID(typ)
-	window.ID = typStr
+func CreateFunctionResponseFunctionWindow(functionWindow FunctionWindow) FunctionResponse {
+	typ := FunctionResponseTypeFunctionWindow
 
 	return FunctionResponse{
-		FunctionWindow: &window,
+		FunctionWindow: &functionWindow,
 		Type:           typ,
 	}
 }
 
-func CreateFunctionResponseXMLUnroll(xmlUnroll FunctionXMLUnroll) FunctionResponse {
-	typ := FunctionResponseTypeXMLUnroll
-
-	typStr := FunctionXMLUnrollID(typ)
-	xmlUnroll.ID = typStr
+func CreateFunctionResponseFunctionXMLUnroll(functionXMLUnroll FunctionXMLUnroll) FunctionResponse {
+	typ := FunctionResponseTypeFunctionXMLUnroll
 
 	return FunctionResponse{
-		FunctionXMLUnroll: &xmlUnroll,
+		FunctionXMLUnroll: &functionXMLUnroll,
 		Type:              typ,
 	}
 }
 
 func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 
-	type discriminator struct {
-		ID string `json:"id"`
+	var functionAggregateMetrics FunctionAggregateMetrics = FunctionAggregateMetrics{}
+	if err := utils.UnmarshalJSON(data, &functionAggregateMetrics, "", true, nil); err == nil {
+		u.FunctionAggregateMetrics = &functionAggregateMetrics
+		u.Type = FunctionResponseTypeFunctionAggregateMetrics
+		return nil
 	}
 
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	var functionAggregation FunctionAggregation = FunctionAggregation{}
+	if err := utils.UnmarshalJSON(data, &functionAggregation, "", true, nil); err == nil {
+		u.FunctionAggregation = &functionAggregation
+		u.Type = FunctionResponseTypeFunctionAggregation
+		return nil
 	}
 
-	switch dis.ID {
-	case "aggregate_metrics":
-		functionAggregateMetrics := new(FunctionAggregateMetrics)
-		if err := utils.UnmarshalJSON(data, &functionAggregateMetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == aggregate_metrics) type FunctionAggregateMetrics within FunctionResponse: %w", string(data), err)
-		}
-
-		u.FunctionAggregateMetrics = functionAggregateMetrics
-		u.Type = FunctionResponseTypeAggregateMetrics
+	var functionAutoTimestamp FunctionAutoTimestamp = FunctionAutoTimestamp{}
+	if err := utils.UnmarshalJSON(data, &functionAutoTimestamp, "", true, nil); err == nil {
+		u.FunctionAutoTimestamp = &functionAutoTimestamp
+		u.Type = FunctionResponseTypeFunctionAutoTimestamp
 		return nil
-	case "aggregation":
-		functionAggregation := new(FunctionAggregation)
-		if err := utils.UnmarshalJSON(data, &functionAggregation, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == aggregation) type FunctionAggregation within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionAggregation = functionAggregation
-		u.Type = FunctionResponseTypeAggregation
+	var functionCef FunctionCef = FunctionCef{}
+	if err := utils.UnmarshalJSON(data, &functionCef, "", true, nil); err == nil {
+		u.FunctionCef = &functionCef
+		u.Type = FunctionResponseTypeFunctionCef
 		return nil
-	case "auto_timestamp":
-		functionAutoTimestamp := new(FunctionAutoTimestamp)
-		if err := utils.UnmarshalJSON(data, &functionAutoTimestamp, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto_timestamp) type FunctionAutoTimestamp within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionAutoTimestamp = functionAutoTimestamp
-		u.Type = FunctionResponseTypeAutoTimestamp
+	var functionChain FunctionChain = FunctionChain{}
+	if err := utils.UnmarshalJSON(data, &functionChain, "", true, nil); err == nil {
+		u.FunctionChain = &functionChain
+		u.Type = FunctionResponseTypeFunctionChain
 		return nil
-	case "cef":
-		functionCef := new(FunctionCef)
-		if err := utils.UnmarshalJSON(data, &functionCef, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == cef) type FunctionCef within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionCef = functionCef
-		u.Type = FunctionResponseTypeCef
+	var functionClone FunctionClone = FunctionClone{}
+	if err := utils.UnmarshalJSON(data, &functionClone, "", true, nil); err == nil {
+		u.FunctionClone = &functionClone
+		u.Type = FunctionResponseTypeFunctionClone
 		return nil
-	case "chain":
-		functionChain := new(FunctionChain)
-		if err := utils.UnmarshalJSON(data, &functionChain, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == chain) type FunctionChain within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionChain = functionChain
-		u.Type = FunctionResponseTypeChain
+	var functionCode FunctionCode = FunctionCode{}
+	if err := utils.UnmarshalJSON(data, &functionCode, "", true, nil); err == nil {
+		u.FunctionCode = &functionCode
+		u.Type = FunctionResponseTypeFunctionCode
 		return nil
-	case "clone":
-		functionClone := new(FunctionClone)
-		if err := utils.UnmarshalJSON(data, &functionClone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == clone) type FunctionClone within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionClone = functionClone
-		u.Type = FunctionResponseTypeClone
+	var functionComment FunctionComment = FunctionComment{}
+	if err := utils.UnmarshalJSON(data, &functionComment, "", true, nil); err == nil {
+		u.FunctionComment = &functionComment
+		u.Type = FunctionResponseTypeFunctionComment
 		return nil
-	case "code":
-		functionCode := new(FunctionCode)
-		if err := utils.UnmarshalJSON(data, &functionCode, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == code) type FunctionCode within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionCode = functionCode
-		u.Type = FunctionResponseTypeCode
+	var functionDistinct FunctionDistinct = FunctionDistinct{}
+	if err := utils.UnmarshalJSON(data, &functionDistinct, "", true, nil); err == nil {
+		u.FunctionDistinct = &functionDistinct
+		u.Type = FunctionResponseTypeFunctionDistinct
 		return nil
-	case "comment":
-		functionComment := new(FunctionComment)
-		if err := utils.UnmarshalJSON(data, &functionComment, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == comment) type FunctionComment within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionComment = functionComment
-		u.Type = FunctionResponseTypeComment
+	var functionDNSLookup FunctionDNSLookup = FunctionDNSLookup{}
+	if err := utils.UnmarshalJSON(data, &functionDNSLookup, "", true, nil); err == nil {
+		u.FunctionDNSLookup = &functionDNSLookup
+		u.Type = FunctionResponseTypeFunctionDNSLookup
 		return nil
-	case "distinct":
-		functionDistinct := new(FunctionDistinct)
-		if err := utils.UnmarshalJSON(data, &functionDistinct, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == distinct) type FunctionDistinct within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionDistinct = functionDistinct
-		u.Type = FunctionResponseTypeDistinct
+	var functionDrop FunctionDrop = FunctionDrop{}
+	if err := utils.UnmarshalJSON(data, &functionDrop, "", true, nil); err == nil {
+		u.FunctionDrop = &functionDrop
+		u.Type = FunctionResponseTypeFunctionDrop
 		return nil
-	case "dns_lookup":
-		functionDNSLookup := new(FunctionDNSLookup)
-		if err := utils.UnmarshalJSON(data, &functionDNSLookup, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == dns_lookup) type FunctionDNSLookup within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionDNSLookup = functionDNSLookup
-		u.Type = FunctionResponseTypeDNSLookup
+	var functionDropDimensions FunctionDropDimensions = FunctionDropDimensions{}
+	if err := utils.UnmarshalJSON(data, &functionDropDimensions, "", true, nil); err == nil {
+		u.FunctionDropDimensions = &functionDropDimensions
+		u.Type = FunctionResponseTypeFunctionDropDimensions
 		return nil
-	case "drop":
-		functionDrop := new(FunctionDrop)
-		if err := utils.UnmarshalJSON(data, &functionDrop, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == drop) type FunctionDrop within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionDrop = functionDrop
-		u.Type = FunctionResponseTypeDrop
+	var functionDynamicSampling FunctionDynamicSampling = FunctionDynamicSampling{}
+	if err := utils.UnmarshalJSON(data, &functionDynamicSampling, "", true, nil); err == nil {
+		u.FunctionDynamicSampling = &functionDynamicSampling
+		u.Type = FunctionResponseTypeFunctionDynamicSampling
 		return nil
-	case "drop_dimensions":
-		functionDropDimensions := new(FunctionDropDimensions)
-		if err := utils.UnmarshalJSON(data, &functionDropDimensions, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == drop_dimensions) type FunctionDropDimensions within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionDropDimensions = functionDropDimensions
-		u.Type = FunctionResponseTypeDropDimensions
+	var functionEval FunctionEval = FunctionEval{}
+	if err := utils.UnmarshalJSON(data, &functionEval, "", true, nil); err == nil {
+		u.FunctionEval = &functionEval
+		u.Type = FunctionResponseTypeFunctionEval
 		return nil
-	case "dynamic_sampling":
-		functionDynamicSampling := new(FunctionDynamicSampling)
-		if err := utils.UnmarshalJSON(data, &functionDynamicSampling, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == dynamic_sampling) type FunctionDynamicSampling within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionDynamicSampling = functionDynamicSampling
-		u.Type = FunctionResponseTypeDynamicSampling
+	var functionEventBreaker FunctionEventBreaker = FunctionEventBreaker{}
+	if err := utils.UnmarshalJSON(data, &functionEventBreaker, "", true, nil); err == nil {
+		u.FunctionEventBreaker = &functionEventBreaker
+		u.Type = FunctionResponseTypeFunctionEventBreaker
 		return nil
-	case "eval":
-		functionEval := new(FunctionEval)
-		if err := utils.UnmarshalJSON(data, &functionEval, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == eval) type FunctionEval within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionEval = functionEval
-		u.Type = FunctionResponseTypeEval
+	var functionEventstats FunctionEventstats = FunctionEventstats{}
+	if err := utils.UnmarshalJSON(data, &functionEventstats, "", true, nil); err == nil {
+		u.FunctionEventstats = &functionEventstats
+		u.Type = FunctionResponseTypeFunctionEventstats
 		return nil
-	case "event_breaker":
-		functionEventBreaker := new(FunctionEventBreaker)
-		if err := utils.UnmarshalJSON(data, &functionEventBreaker, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == event_breaker) type FunctionEventBreaker within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionEventBreaker = functionEventBreaker
-		u.Type = FunctionResponseTypeEventBreaker
+	var functionExternaldata FunctionExternaldata = FunctionExternaldata{}
+	if err := utils.UnmarshalJSON(data, &functionExternaldata, "", true, nil); err == nil {
+		u.FunctionExternaldata = &functionExternaldata
+		u.Type = FunctionResponseTypeFunctionExternaldata
 		return nil
-	case "eventstats":
-		functionEventstats := new(FunctionEventstats)
-		if err := utils.UnmarshalJSON(data, &functionEventstats, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == eventstats) type FunctionEventstats within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionEventstats = functionEventstats
-		u.Type = FunctionResponseTypeEventstats
+	var functionFlatten FunctionFlatten = FunctionFlatten{}
+	if err := utils.UnmarshalJSON(data, &functionFlatten, "", true, nil); err == nil {
+		u.FunctionFlatten = &functionFlatten
+		u.Type = FunctionResponseTypeFunctionFlatten
 		return nil
-	case "externaldata":
-		functionExternaldata := new(FunctionExternaldata)
-		if err := utils.UnmarshalJSON(data, &functionExternaldata, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == externaldata) type FunctionExternaldata within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionExternaldata = functionExternaldata
-		u.Type = FunctionResponseTypeExternaldata
+	var functionFoldkeys FunctionFoldkeys = FunctionFoldkeys{}
+	if err := utils.UnmarshalJSON(data, &functionFoldkeys, "", true, nil); err == nil {
+		u.FunctionFoldkeys = &functionFoldkeys
+		u.Type = FunctionResponseTypeFunctionFoldkeys
 		return nil
-	case "flatten":
-		functionFlatten := new(FunctionFlatten)
-		if err := utils.UnmarshalJSON(data, &functionFlatten, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == flatten) type FunctionFlatten within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionFlatten = functionFlatten
-		u.Type = FunctionResponseTypeFlatten
+	var functionGenStats FunctionGenStats = FunctionGenStats{}
+	if err := utils.UnmarshalJSON(data, &functionGenStats, "", true, nil); err == nil {
+		u.FunctionGenStats = &functionGenStats
+		u.Type = FunctionResponseTypeFunctionGenStats
 		return nil
-	case "foldkeys":
-		functionFoldkeys := new(FunctionFoldkeys)
-		if err := utils.UnmarshalJSON(data, &functionFoldkeys, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == foldkeys) type FunctionFoldkeys within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionFoldkeys = functionFoldkeys
-		u.Type = FunctionResponseTypeFoldkeys
+	var functionGeoip FunctionGeoip = FunctionGeoip{}
+	if err := utils.UnmarshalJSON(data, &functionGeoip, "", true, nil); err == nil {
+		u.FunctionGeoip = &functionGeoip
+		u.Type = FunctionResponseTypeFunctionGeoip
 		return nil
-	case "gen_stats":
-		functionGenStats := new(FunctionGenStats)
-		if err := utils.UnmarshalJSON(data, &functionGenStats, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == gen_stats) type FunctionGenStats within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionGenStats = functionGenStats
-		u.Type = FunctionResponseTypeGenStats
+	var functionGrok FunctionGrok = FunctionGrok{}
+	if err := utils.UnmarshalJSON(data, &functionGrok, "", true, nil); err == nil {
+		u.FunctionGrok = &functionGrok
+		u.Type = FunctionResponseTypeFunctionGrok
 		return nil
-	case "geoip":
-		functionGeoip := new(FunctionGeoip)
-		if err := utils.UnmarshalJSON(data, &functionGeoip, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == geoip) type FunctionGeoip within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionGeoip = functionGeoip
-		u.Type = FunctionResponseTypeGeoip
+	var functionHandlebars FunctionHandlebars = FunctionHandlebars{}
+	if err := utils.UnmarshalJSON(data, &functionHandlebars, "", true, nil); err == nil {
+		u.FunctionHandlebars = &functionHandlebars
+		u.Type = FunctionResponseTypeFunctionHandlebars
 		return nil
-	case "grok":
-		functionGrok := new(FunctionGrok)
-		if err := utils.UnmarshalJSON(data, &functionGrok, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == grok) type FunctionGrok within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionGrok = functionGrok
-		u.Type = FunctionResponseTypeGrok
+	var functionJoin FunctionJoin = FunctionJoin{}
+	if err := utils.UnmarshalJSON(data, &functionJoin, "", true, nil); err == nil {
+		u.FunctionJoin = &functionJoin
+		u.Type = FunctionResponseTypeFunctionJoin
 		return nil
-	case "handlebars":
-		functionHandlebars := new(FunctionHandlebars)
-		if err := utils.UnmarshalJSON(data, &functionHandlebars, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == handlebars) type FunctionHandlebars within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionHandlebars = functionHandlebars
-		u.Type = FunctionResponseTypeHandlebars
+	var functionJSONUnroll FunctionJSONUnroll = FunctionJSONUnroll{}
+	if err := utils.UnmarshalJSON(data, &functionJSONUnroll, "", true, nil); err == nil {
+		u.FunctionJSONUnroll = &functionJSONUnroll
+		u.Type = FunctionResponseTypeFunctionJSONUnroll
 		return nil
-	case "join":
-		functionJoin := new(FunctionJoin)
-		if err := utils.UnmarshalJSON(data, &functionJoin, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == join) type FunctionJoin within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionJoin = functionJoin
-		u.Type = FunctionResponseTypeJoin
+	var functionLakeExport FunctionLakeExport = FunctionLakeExport{}
+	if err := utils.UnmarshalJSON(data, &functionLakeExport, "", true, nil); err == nil {
+		u.FunctionLakeExport = &functionLakeExport
+		u.Type = FunctionResponseTypeFunctionLakeExport
 		return nil
-	case "json_unroll":
-		functionJSONUnroll := new(FunctionJSONUnroll)
-		if err := utils.UnmarshalJSON(data, &functionJSONUnroll, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == json_unroll) type FunctionJSONUnroll within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionJSONUnroll = functionJSONUnroll
-		u.Type = FunctionResponseTypeJSONUnroll
+	var functionLimit FunctionLimit = FunctionLimit{}
+	if err := utils.UnmarshalJSON(data, &functionLimit, "", true, nil); err == nil {
+		u.FunctionLimit = &functionLimit
+		u.Type = FunctionResponseTypeFunctionLimit
 		return nil
-	case "lake_export":
-		functionLakeExport := new(FunctionLakeExport)
-		if err := utils.UnmarshalJSON(data, &functionLakeExport, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == lake_export) type FunctionLakeExport within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionLakeExport = functionLakeExport
-		u.Type = FunctionResponseTypeLakeExport
+	var functionLocalSearchDatatypeParser FunctionLocalSearchDatatypeParser = FunctionLocalSearchDatatypeParser{}
+	if err := utils.UnmarshalJSON(data, &functionLocalSearchDatatypeParser, "", true, nil); err == nil {
+		u.FunctionLocalSearchDatatypeParser = &functionLocalSearchDatatypeParser
+		u.Type = FunctionResponseTypeFunctionLocalSearchDatatypeParser
 		return nil
-	case "limit":
-		functionLimit := new(FunctionLimit)
-		if err := utils.UnmarshalJSON(data, &functionLimit, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == limit) type FunctionLimit within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionLimit = functionLimit
-		u.Type = FunctionResponseTypeLimit
+	var functionLocalSearchRulesetRunner FunctionLocalSearchRulesetRunner = FunctionLocalSearchRulesetRunner{}
+	if err := utils.UnmarshalJSON(data, &functionLocalSearchRulesetRunner, "", true, nil); err == nil {
+		u.FunctionLocalSearchRulesetRunner = &functionLocalSearchRulesetRunner
+		u.Type = FunctionResponseTypeFunctionLocalSearchRulesetRunner
 		return nil
-	case "local_search_datatype_parser":
-		functionLocalSearchDatatypeParser := new(FunctionLocalSearchDatatypeParser)
-		if err := utils.UnmarshalJSON(data, &functionLocalSearchDatatypeParser, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_datatype_parser) type FunctionLocalSearchDatatypeParser within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionLocalSearchDatatypeParser = functionLocalSearchDatatypeParser
-		u.Type = FunctionResponseTypeLocalSearchDatatypeParser
+	var functionLookup FunctionLookup = FunctionLookup{}
+	if err := utils.UnmarshalJSON(data, &functionLookup, "", true, nil); err == nil {
+		u.FunctionLookup = &functionLookup
+		u.Type = FunctionResponseTypeFunctionLookup
 		return nil
-	case "local_search_ruleset_runner":
-		functionLocalSearchRulesetRunner := new(FunctionLocalSearchRulesetRunner)
-		if err := utils.UnmarshalJSON(data, &functionLocalSearchRulesetRunner, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_ruleset_runner) type FunctionLocalSearchRulesetRunner within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionLocalSearchRulesetRunner = functionLocalSearchRulesetRunner
-		u.Type = FunctionResponseTypeLocalSearchRulesetRunner
+	var functionMask FunctionMask = FunctionMask{}
+	if err := utils.UnmarshalJSON(data, &functionMask, "", true, nil); err == nil {
+		u.FunctionMask = &functionMask
+		u.Type = FunctionResponseTypeFunctionMask
 		return nil
-	case "lookup":
-		functionLookup := new(FunctionLookup)
-		if err := utils.UnmarshalJSON(data, &functionLookup, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == lookup) type FunctionLookup within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionLookup = functionLookup
-		u.Type = FunctionResponseTypeLookup
+	var functionMvExpand FunctionMvExpand = FunctionMvExpand{}
+	if err := utils.UnmarshalJSON(data, &functionMvExpand, "", true, nil); err == nil {
+		u.FunctionMvExpand = &functionMvExpand
+		u.Type = FunctionResponseTypeFunctionMvExpand
 		return nil
-	case "mask":
-		functionMask := new(FunctionMask)
-		if err := utils.UnmarshalJSON(data, &functionMask, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == mask) type FunctionMask within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionMask = functionMask
-		u.Type = FunctionResponseTypeMask
+	var functionMvPull FunctionMvPull = FunctionMvPull{}
+	if err := utils.UnmarshalJSON(data, &functionMvPull, "", true, nil); err == nil {
+		u.FunctionMvPull = &functionMvPull
+		u.Type = FunctionResponseTypeFunctionMvPull
 		return nil
-	case "mv_expand":
-		functionMvExpand := new(FunctionMvExpand)
-		if err := utils.UnmarshalJSON(data, &functionMvExpand, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == mv_expand) type FunctionMvExpand within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionMvExpand = functionMvExpand
-		u.Type = FunctionResponseTypeMvExpand
+	var functionNotificationPolicies FunctionNotificationPolicies = FunctionNotificationPolicies{}
+	if err := utils.UnmarshalJSON(data, &functionNotificationPolicies, "", true, nil); err == nil {
+		u.FunctionNotificationPolicies = &functionNotificationPolicies
+		u.Type = FunctionResponseTypeFunctionNotificationPolicies
 		return nil
-	case "mv_pull":
-		functionMvPull := new(FunctionMvPull)
-		if err := utils.UnmarshalJSON(data, &functionMvPull, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == mv_pull) type FunctionMvPull within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionMvPull = functionMvPull
-		u.Type = FunctionResponseTypeMvPull
+	var functionNotifications FunctionNotifications = FunctionNotifications{}
+	if err := utils.UnmarshalJSON(data, &functionNotifications, "", true, nil); err == nil {
+		u.FunctionNotifications = &functionNotifications
+		u.Type = FunctionResponseTypeFunctionNotifications
 		return nil
-	case "notification_policies":
-		functionNotificationPolicies := new(FunctionNotificationPolicies)
-		if err := utils.UnmarshalJSON(data, &functionNotificationPolicies, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == notification_policies) type FunctionNotificationPolicies within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionNotificationPolicies = functionNotificationPolicies
-		u.Type = FunctionResponseTypeNotificationPolicies
+	var functionNotify FunctionNotify = FunctionNotify{}
+	if err := utils.UnmarshalJSON(data, &functionNotify, "", true, nil); err == nil {
+		u.FunctionNotify = &functionNotify
+		u.Type = FunctionResponseTypeFunctionNotify
 		return nil
-	case "notifications":
-		functionNotifications := new(FunctionNotifications)
-		if err := utils.UnmarshalJSON(data, &functionNotifications, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == notifications) type FunctionNotifications within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionNotifications = functionNotifications
-		u.Type = FunctionResponseTypeNotifications
+	var functionNumerify FunctionNumerify = FunctionNumerify{}
+	if err := utils.UnmarshalJSON(data, &functionNumerify, "", true, nil); err == nil {
+		u.FunctionNumerify = &functionNumerify
+		u.Type = FunctionResponseTypeFunctionNumerify
 		return nil
-	case "notify":
-		functionNotify := new(FunctionNotify)
-		if err := utils.UnmarshalJSON(data, &functionNotify, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == notify) type FunctionNotify within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionNotify = functionNotify
-		u.Type = FunctionResponseTypeNotify
+	var functionOtlpLogs FunctionOtlpLogs = FunctionOtlpLogs{}
+	if err := utils.UnmarshalJSON(data, &functionOtlpLogs, "", true, nil); err == nil {
+		u.FunctionOtlpLogs = &functionOtlpLogs
+		u.Type = FunctionResponseTypeFunctionOtlpLogs
 		return nil
-	case "numerify":
-		functionNumerify := new(FunctionNumerify)
-		if err := utils.UnmarshalJSON(data, &functionNumerify, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == numerify) type FunctionNumerify within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionNumerify = functionNumerify
-		u.Type = FunctionResponseTypeNumerify
+	var functionOtlpMetrics FunctionOtlpMetrics = FunctionOtlpMetrics{}
+	if err := utils.UnmarshalJSON(data, &functionOtlpMetrics, "", true, nil); err == nil {
+		u.FunctionOtlpMetrics = &functionOtlpMetrics
+		u.Type = FunctionResponseTypeFunctionOtlpMetrics
 		return nil
-	case "otlp_logs":
-		functionOtlpLogs := new(FunctionOtlpLogs)
-		if err := utils.UnmarshalJSON(data, &functionOtlpLogs, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == otlp_logs) type FunctionOtlpLogs within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionOtlpLogs = functionOtlpLogs
-		u.Type = FunctionResponseTypeOtlpLogs
+	var functionOtlpTraces FunctionOtlpTraces = FunctionOtlpTraces{}
+	if err := utils.UnmarshalJSON(data, &functionOtlpTraces, "", true, nil); err == nil {
+		u.FunctionOtlpTraces = &functionOtlpTraces
+		u.Type = FunctionResponseTypeFunctionOtlpTraces
 		return nil
-	case "otlp_metrics":
-		functionOtlpMetrics := new(FunctionOtlpMetrics)
-		if err := utils.UnmarshalJSON(data, &functionOtlpMetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == otlp_metrics) type FunctionOtlpMetrics within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionOtlpMetrics = functionOtlpMetrics
-		u.Type = FunctionResponseTypeOtlpMetrics
+	var functionPack FunctionPack = FunctionPack{}
+	if err := utils.UnmarshalJSON(data, &functionPack, "", true, nil); err == nil {
+		u.FunctionPack = &functionPack
+		u.Type = FunctionResponseTypeFunctionPack
 		return nil
-	case "otlp_traces":
-		functionOtlpTraces := new(FunctionOtlpTraces)
-		if err := utils.UnmarshalJSON(data, &functionOtlpTraces, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == otlp_traces) type FunctionOtlpTraces within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionOtlpTraces = functionOtlpTraces
-		u.Type = FunctionResponseTypeOtlpTraces
+	var functionPivot FunctionPivot = FunctionPivot{}
+	if err := utils.UnmarshalJSON(data, &functionPivot, "", true, nil); err == nil {
+		u.FunctionPivot = &functionPivot
+		u.Type = FunctionResponseTypeFunctionPivot
 		return nil
-	case "pack":
-		functionPack := new(FunctionPack)
-		if err := utils.UnmarshalJSON(data, &functionPack, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == pack) type FunctionPack within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionPack = functionPack
-		u.Type = FunctionResponseTypePack
+	var functionPublishMetrics FunctionPublishMetrics = FunctionPublishMetrics{}
+	if err := utils.UnmarshalJSON(data, &functionPublishMetrics, "", true, nil); err == nil {
+		u.FunctionPublishMetrics = &functionPublishMetrics
+		u.Type = FunctionResponseTypeFunctionPublishMetrics
 		return nil
-	case "pivot":
-		functionPivot := new(FunctionPivot)
-		if err := utils.UnmarshalJSON(data, &functionPivot, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == pivot) type FunctionPivot within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionPivot = functionPivot
-		u.Type = FunctionResponseTypePivot
+	var functionRedis FunctionRedis = FunctionRedis{}
+	if err := utils.UnmarshalJSON(data, &functionRedis, "", true, nil); err == nil {
+		u.FunctionRedis = &functionRedis
+		u.Type = FunctionResponseTypeFunctionRedis
 		return nil
-	case "publish_metrics":
-		functionPublishMetrics := new(FunctionPublishMetrics)
-		if err := utils.UnmarshalJSON(data, &functionPublishMetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == publish_metrics) type FunctionPublishMetrics within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionPublishMetrics = functionPublishMetrics
-		u.Type = FunctionResponseTypePublishMetrics
+	var functionRegexExtract FunctionRegexExtract = FunctionRegexExtract{}
+	if err := utils.UnmarshalJSON(data, &functionRegexExtract, "", true, nil); err == nil {
+		u.FunctionRegexExtract = &functionRegexExtract
+		u.Type = FunctionResponseTypeFunctionRegexExtract
 		return nil
-	case "redis":
-		functionRedis := new(FunctionRedis)
-		if err := utils.UnmarshalJSON(data, &functionRedis, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == redis) type FunctionRedis within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionRedis = functionRedis
-		u.Type = FunctionResponseTypeRedis
+	var functionRegexFilter FunctionRegexFilter = FunctionRegexFilter{}
+	if err := utils.UnmarshalJSON(data, &functionRegexFilter, "", true, nil); err == nil {
+		u.FunctionRegexFilter = &functionRegexFilter
+		u.Type = FunctionResponseTypeFunctionRegexFilter
 		return nil
-	case "regex_extract":
-		functionRegexExtract := new(FunctionRegexExtract)
-		if err := utils.UnmarshalJSON(data, &functionRegexExtract, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == regex_extract) type FunctionRegexExtract within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionRegexExtract = functionRegexExtract
-		u.Type = FunctionResponseTypeRegexExtract
+	var functionRename FunctionRename = FunctionRename{}
+	if err := utils.UnmarshalJSON(data, &functionRename, "", true, nil); err == nil {
+		u.FunctionRename = &functionRename
+		u.Type = FunctionResponseTypeFunctionRename
 		return nil
-	case "regex_filter":
-		functionRegexFilter := new(FunctionRegexFilter)
-		if err := utils.UnmarshalJSON(data, &functionRegexFilter, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == regex_filter) type FunctionRegexFilter within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionRegexFilter = functionRegexFilter
-		u.Type = FunctionResponseTypeRegexFilter
+	var functionRollupMetrics FunctionRollupMetrics = FunctionRollupMetrics{}
+	if err := utils.UnmarshalJSON(data, &functionRollupMetrics, "", true, nil); err == nil {
+		u.FunctionRollupMetrics = &functionRollupMetrics
+		u.Type = FunctionResponseTypeFunctionRollupMetrics
 		return nil
-	case "rename":
-		functionRename := new(FunctionRename)
-		if err := utils.UnmarshalJSON(data, &functionRename, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == rename) type FunctionRename within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionRename = functionRename
-		u.Type = FunctionResponseTypeRename
+	var functionSampling FunctionSampling = FunctionSampling{}
+	if err := utils.UnmarshalJSON(data, &functionSampling, "", true, nil); err == nil {
+		u.FunctionSampling = &functionSampling
+		u.Type = FunctionResponseTypeFunctionSampling
 		return nil
-	case "rollup_metrics":
-		functionRollupMetrics := new(FunctionRollupMetrics)
-		if err := utils.UnmarshalJSON(data, &functionRollupMetrics, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == rollup_metrics) type FunctionRollupMetrics within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionRollupMetrics = functionRollupMetrics
-		u.Type = FunctionResponseTypeRollupMetrics
+	var functionSend FunctionSend = FunctionSend{}
+	if err := utils.UnmarshalJSON(data, &functionSend, "", true, nil); err == nil {
+		u.FunctionSend = &functionSend
+		u.Type = FunctionResponseTypeFunctionSend
 		return nil
-	case "sampling":
-		functionSampling := new(FunctionSampling)
-		if err := utils.UnmarshalJSON(data, &functionSampling, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == sampling) type FunctionSampling within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSampling = functionSampling
-		u.Type = FunctionResponseTypeSampling
+	var functionSensitiveDataScanner FunctionSensitiveDataScanner = FunctionSensitiveDataScanner{}
+	if err := utils.UnmarshalJSON(data, &functionSensitiveDataScanner, "", true, nil); err == nil {
+		u.FunctionSensitiveDataScanner = &functionSensitiveDataScanner
+		u.Type = FunctionResponseTypeFunctionSensitiveDataScanner
 		return nil
-	case "send":
-		functionSend := new(FunctionSend)
-		if err := utils.UnmarshalJSON(data, &functionSend, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == send) type FunctionSend within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSend = functionSend
-		u.Type = FunctionResponseTypeSend
+	var functionSerde FunctionSerde = FunctionSerde{}
+	if err := utils.UnmarshalJSON(data, &functionSerde, "", true, nil); err == nil {
+		u.FunctionSerde = &functionSerde
+		u.Type = FunctionResponseTypeFunctionSerde
 		return nil
-	case "sensitive_data_scanner":
-		functionSensitiveDataScanner := new(FunctionSensitiveDataScanner)
-		if err := utils.UnmarshalJSON(data, &functionSensitiveDataScanner, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == sensitive_data_scanner) type FunctionSensitiveDataScanner within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSensitiveDataScanner = functionSensitiveDataScanner
-		u.Type = FunctionResponseTypeSensitiveDataScanner
+	var functionSerialize FunctionSerialize = FunctionSerialize{}
+	if err := utils.UnmarshalJSON(data, &functionSerialize, "", true, nil); err == nil {
+		u.FunctionSerialize = &functionSerialize
+		u.Type = FunctionResponseTypeFunctionSerialize
 		return nil
-	case "serde":
-		functionSerde := new(FunctionSerde)
-		if err := utils.UnmarshalJSON(data, &functionSerde, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == serde) type FunctionSerde within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSerde = functionSerde
-		u.Type = FunctionResponseTypeSerde
+	var functionSidlookup FunctionSidlookup = FunctionSidlookup{}
+	if err := utils.UnmarshalJSON(data, &functionSidlookup, "", true, nil); err == nil {
+		u.FunctionSidlookup = &functionSidlookup
+		u.Type = FunctionResponseTypeFunctionSidlookup
 		return nil
-	case "serialize":
-		functionSerialize := new(FunctionSerialize)
-		if err := utils.UnmarshalJSON(data, &functionSerialize, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == serialize) type FunctionSerialize within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSerialize = functionSerialize
-		u.Type = FunctionResponseTypeSerialize
+	var functionSnmpTrapSerialize FunctionSnmpTrapSerialize = FunctionSnmpTrapSerialize{}
+	if err := utils.UnmarshalJSON(data, &functionSnmpTrapSerialize, "", true, nil); err == nil {
+		u.FunctionSnmpTrapSerialize = &functionSnmpTrapSerialize
+		u.Type = FunctionResponseTypeFunctionSnmpTrapSerialize
 		return nil
-	case "sidlookup":
-		functionSidlookup := new(FunctionSidlookup)
-		if err := utils.UnmarshalJSON(data, &functionSidlookup, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == sidlookup) type FunctionSidlookup within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSidlookup = functionSidlookup
-		u.Type = FunctionResponseTypeSidlookup
+	var functionSort FunctionSort = FunctionSort{}
+	if err := utils.UnmarshalJSON(data, &functionSort, "", true, nil); err == nil {
+		u.FunctionSort = &functionSort
+		u.Type = FunctionResponseTypeFunctionSort
 		return nil
-	case "snmp_trap_serialize":
-		functionSnmpTrapSerialize := new(FunctionSnmpTrapSerialize)
-		if err := utils.UnmarshalJSON(data, &functionSnmpTrapSerialize, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == snmp_trap_serialize) type FunctionSnmpTrapSerialize within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSnmpTrapSerialize = functionSnmpTrapSerialize
-		u.Type = FunctionResponseTypeSnmpTrapSerialize
+	var functionStore FunctionStore = FunctionStore{}
+	if err := utils.UnmarshalJSON(data, &functionStore, "", true, nil); err == nil {
+		u.FunctionStore = &functionStore
+		u.Type = FunctionResponseTypeFunctionStore
 		return nil
-	case "sort":
-		functionSort := new(FunctionSort)
-		if err := utils.UnmarshalJSON(data, &functionSort, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == sort) type FunctionSort within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSort = functionSort
-		u.Type = FunctionResponseTypeSort
+	var functionSuppress FunctionSuppress = FunctionSuppress{}
+	if err := utils.UnmarshalJSON(data, &functionSuppress, "", true, nil); err == nil {
+		u.FunctionSuppress = &functionSuppress
+		u.Type = FunctionResponseTypeFunctionSuppress
 		return nil
-	case "store":
-		functionStore := new(FunctionStore)
-		if err := utils.UnmarshalJSON(data, &functionStore, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == store) type FunctionStore within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionStore = functionStore
-		u.Type = FunctionResponseTypeStore
+	var functionTee FunctionTee = FunctionTee{}
+	if err := utils.UnmarshalJSON(data, &functionTee, "", true, nil); err == nil {
+		u.FunctionTee = &functionTee
+		u.Type = FunctionResponseTypeFunctionTee
 		return nil
-	case "suppress":
-		functionSuppress := new(FunctionSuppress)
-		if err := utils.UnmarshalJSON(data, &functionSuppress, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == suppress) type FunctionSuppress within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionSuppress = functionSuppress
-		u.Type = FunctionResponseTypeSuppress
+	var functionTrimTimestamp FunctionTrimTimestamp = FunctionTrimTimestamp{}
+	if err := utils.UnmarshalJSON(data, &functionTrimTimestamp, "", true, nil); err == nil {
+		u.FunctionTrimTimestamp = &functionTrimTimestamp
+		u.Type = FunctionResponseTypeFunctionTrimTimestamp
 		return nil
-	case "tee":
-		functionTee := new(FunctionTee)
-		if err := utils.UnmarshalJSON(data, &functionTee, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == tee) type FunctionTee within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionTee = functionTee
-		u.Type = FunctionResponseTypeTee
+	var functionUnion FunctionUnion = FunctionUnion{}
+	if err := utils.UnmarshalJSON(data, &functionUnion, "", true, nil); err == nil {
+		u.FunctionUnion = &functionUnion
+		u.Type = FunctionResponseTypeFunctionUnion
 		return nil
-	case "trim_timestamp":
-		functionTrimTimestamp := new(FunctionTrimTimestamp)
-		if err := utils.UnmarshalJSON(data, &functionTrimTimestamp, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == trim_timestamp) type FunctionTrimTimestamp within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionTrimTimestamp = functionTrimTimestamp
-		u.Type = FunctionResponseTypeTrimTimestamp
+	var functionUnroll FunctionUnroll = FunctionUnroll{}
+	if err := utils.UnmarshalJSON(data, &functionUnroll, "", true, nil); err == nil {
+		u.FunctionUnroll = &functionUnroll
+		u.Type = FunctionResponseTypeFunctionUnroll
 		return nil
-	case "union":
-		functionUnion := new(FunctionUnion)
-		if err := utils.UnmarshalJSON(data, &functionUnion, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == union) type FunctionUnion within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionUnion = functionUnion
-		u.Type = FunctionResponseTypeUnion
+	var functionWindow FunctionWindow = FunctionWindow{}
+	if err := utils.UnmarshalJSON(data, &functionWindow, "", true, nil); err == nil {
+		u.FunctionWindow = &functionWindow
+		u.Type = FunctionResponseTypeFunctionWindow
 		return nil
-	case "unroll":
-		functionUnroll := new(FunctionUnroll)
-		if err := utils.UnmarshalJSON(data, &functionUnroll, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == unroll) type FunctionUnroll within FunctionResponse: %w", string(data), err)
-		}
+	}
 
-		u.FunctionUnroll = functionUnroll
-		u.Type = FunctionResponseTypeUnroll
-		return nil
-	case "window":
-		functionWindow := new(FunctionWindow)
-		if err := utils.UnmarshalJSON(data, &functionWindow, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == window) type FunctionWindow within FunctionResponse: %w", string(data), err)
-		}
-
-		u.FunctionWindow = functionWindow
-		u.Type = FunctionResponseTypeWindow
-		return nil
-	case "xml_unroll":
-		functionXMLUnroll := new(FunctionXMLUnroll)
-		if err := utils.UnmarshalJSON(data, &functionXMLUnroll, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == xml_unroll) type FunctionXMLUnroll within FunctionResponse: %w", string(data), err)
-		}
-
-		u.FunctionXMLUnroll = functionXMLUnroll
-		u.Type = FunctionResponseTypeXMLUnroll
+	var functionXMLUnroll FunctionXMLUnroll = FunctionXMLUnroll{}
+	if err := utils.UnmarshalJSON(data, &functionXMLUnroll, "", true, nil); err == nil {
+		u.FunctionXMLUnroll = &functionXMLUnroll
+		u.Type = FunctionResponseTypeFunctionXMLUnroll
 		return nil
 	}
 
