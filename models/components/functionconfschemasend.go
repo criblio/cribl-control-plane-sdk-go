@@ -41,7 +41,7 @@ type FunctionConfSchemaSend struct {
 	// Id of the search this function is running on.
 	SearchID *string `json:"searchId,omitempty"`
 	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *string `json:"tee,omitempty"`
+	Tee *bool `json:"tee,omitempty"`
 	// How often are stats flushed in ms
 	FlushMs *float64 `json:"flushMs,omitempty"`
 	// Disables generation of intermediate stats. When true stats will be emitted only on end
@@ -96,7 +96,7 @@ func (f *FunctionConfSchemaSend) GetSearchID() *string {
 	return f.SearchID
 }
 
-func (f *FunctionConfSchemaSend) GetTee() *string {
+func (f *FunctionConfSchemaSend) GetTee() *bool {
 	if f == nil {
 		return nil
 	}
