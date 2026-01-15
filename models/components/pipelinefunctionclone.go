@@ -34,7 +34,7 @@ func (e *PipelineFunctionCloneID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionClone struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionCloneID `json:"id"`
 	// Simple description of this step

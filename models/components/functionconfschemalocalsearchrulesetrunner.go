@@ -47,7 +47,7 @@ type FunctionConfSchemaLocalSearchRulesetRunner struct {
 	RulesetID   *string                                                              `json:"rulesetId,omitempty"`
 	Ruleset     *FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets `json:"ruleset,omitempty"`
 	// Only for use with live data capture. Mark events that were dropped by dataset rules and still include them for capture
-	MarkAndIncludeDroppedEvents *bool `default:"false" json:"markAndIncludeDroppedEvents"`
+	MarkAndIncludeDroppedEvents *bool `json:"markAndIncludeDroppedEvents,omitempty"`
 }
 
 func (f FunctionConfSchemaLocalSearchRulesetRunner) MarshalJSON() ([]byte, error) {

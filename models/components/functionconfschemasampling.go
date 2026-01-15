@@ -8,9 +8,9 @@ import (
 
 type FunctionConfSchemaSamplingRule struct {
 	// JavaScript filter expression matching events to be sampled. Use true to match all.
-	Filter *string `default:"true" json:"filter"`
+	Filter string `json:"filter"`
 	// Sampling rate; picks one out of N matching events
-	Rate *int64 `default:"1" json:"rate"`
+	Rate int64 `json:"rate"`
 }
 
 func (f FunctionConfSchemaSamplingRule) MarshalJSON() ([]byte, error) {
@@ -18,22 +18,22 @@ func (f FunctionConfSchemaSamplingRule) MarshalJSON() ([]byte, error) {
 }
 
 func (f *FunctionConfSchemaSamplingRule) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"filter", "rate"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FunctionConfSchemaSamplingRule) GetFilter() *string {
+func (f *FunctionConfSchemaSamplingRule) GetFilter() string {
 	if f == nil {
-		return nil
+		return ""
 	}
 	return f.Filter
 }
 
-func (f *FunctionConfSchemaSamplingRule) GetRate() *int64 {
+func (f *FunctionConfSchemaSamplingRule) GetRate() int64 {
 	if f == nil {
-		return nil
+		return 0
 	}
 	return f.Rate
 }

@@ -36,7 +36,7 @@ type PipelineFunctionPackConf struct {
 	// List of fields to keep, everything else will be packed
 	UnpackedFields []string `json:"unpackedFields"`
 	// Name of the (packed) target field
-	Target *string `default:"_pack" json:"target"`
+	Target *string `json:"target,omitempty"`
 }
 
 func (p PipelineFunctionPackConf) MarshalJSON() ([]byte, error) {
@@ -66,7 +66,7 @@ func (p *PipelineFunctionPackConf) GetTarget() *string {
 
 type PipelineFunctionPack struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionPackID `json:"id"`
 	// Simple description of this step

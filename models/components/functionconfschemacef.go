@@ -70,7 +70,7 @@ func (e *Extension) GetValue() string {
 
 type FunctionConfSchemaCef struct {
 	// The field to which the CEF formatted event will be output
-	OutputField *string `default:"_raw" json:"outputField"`
+	OutputField *string `json:"outputField,omitempty"`
 	// Set of header key/value pairs
 	Header []Header `json:"header,omitempty"`
 	// Set of extension key-value pairs
@@ -134,7 +134,7 @@ func (h *HeaderInput) GetValue() string {
 
 type FunctionConfSchemaCefInput struct {
 	// The field to which the CEF formatted event will be output
-	OutputField *string `default:"_raw" json:"outputField"`
+	OutputField *string `json:"outputField,omitempty"`
 	// Set of header key/value pairs
 	Header []HeaderInput `json:"header,omitempty"`
 	// Set of extension key-value pairs

@@ -22,19 +22,19 @@ func (p *PqTypePqControls) UnmarshalJSON(data []byte) error {
 
 type PqType struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *ModeOptionsPq `default:"always" json:"mode"`
+	Mode *ModeOptionsPq `json:"mode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
+	CommitFrequency *float64 `json:"commitFrequency,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
+	MaxFileSize *string `json:"maxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
+	MaxSize *string `json:"maxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
+	Path *string `json:"path,omitempty"`
 	// Codec to use to compress the persisted data
-	Compress   *CompressionOptionsPq `default:"none" json:"compress"`
+	Compress   *CompressionOptionsPq `json:"compress,omitempty"`
 	PqControls *PqTypePqControls     `json:"pqControls,omitempty"`
 }
 

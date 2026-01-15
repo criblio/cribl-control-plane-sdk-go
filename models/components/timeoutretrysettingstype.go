@@ -7,13 +7,13 @@ import (
 )
 
 type TimeoutRetrySettingsType struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
+	TimeoutRetry bool `json:"timeoutRetry"`
 	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
+	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
 	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	BackoffRate *float64 `json:"backoffRate,omitempty"`
 	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
+	MaxBackoff *float64 `json:"maxBackoff,omitempty"`
 }
 
 func (t TimeoutRetrySettingsType) MarshalJSON() ([]byte, error) {
@@ -21,15 +21,15 @@ func (t TimeoutRetrySettingsType) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TimeoutRetrySettingsType) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"timeoutRetry"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (t *TimeoutRetrySettingsType) GetTimeoutRetry() *bool {
+func (t *TimeoutRetrySettingsType) GetTimeoutRetry() bool {
 	if t == nil {
-		return nil
+		return false
 	}
 	return t.TimeoutRetry
 }

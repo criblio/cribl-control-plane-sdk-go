@@ -34,7 +34,7 @@ func (e *PipelineFunctionSidlookupID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionSidlookup struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionSidlookupID `json:"id"`
 	// Simple description of this step

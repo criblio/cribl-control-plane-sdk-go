@@ -46,7 +46,7 @@ type FunctionConfSchemaRename struct {
 	// Optional JavaScript expression whose returned value will be used to rename fields. Use the 'name' and 'value' global variables to access field names/values. Example: `name.startsWith('data') ? name.toUpperCase() : name`. You can access other field values via __e.<fieldName>.
 	RenameExpr *string `json:"renameExpr,omitempty"`
 	// For wildcards specified in Parent fields, sets the maximum depth within events to match and rename fields. Enter `0` to match only top-level fields. Defaults to `5` levels down.
-	WildcardDepth *int64 `default:"5" json:"wildcardDepth"`
+	WildcardDepth *int64 `json:"wildcardDepth,omitempty"`
 }
 
 func (f FunctionConfSchemaRename) MarshalJSON() ([]byte, error) {

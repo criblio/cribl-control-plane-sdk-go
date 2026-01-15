@@ -101,14 +101,14 @@ func (s *SplunkAuthenticationLoginSecretCollectRequestHeader) GetValue() string 
 
 type SplunkAuthenticationLoginSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval            any                                                 `json:"interval,omitempty"`
-	Limit               any                                                 `json:"limit,omitempty"`
-	Multiplier          any                                                 `json:"multiplier,omitempty"`
-	Codes               any                                                 `json:"codes,omitempty"`
-	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
+	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval            any                                                `json:"interval,omitempty"`
+	Limit               any                                                `json:"limit,omitempty"`
+	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Codes               any                                                `json:"codes,omitempty"`
+	EnableHeader        any                                                `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -116,15 +116,15 @@ func (s SplunkAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error)
 }
 
 func (s *SplunkAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationLoginSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (s *SplunkAuthenticationLoginSecretRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
 }
@@ -180,19 +180,19 @@ func (s *SplunkAuthenticationLoginSecretRetryRules) GetRetryConnectReset() any {
 
 type SplunkAuthenticationLoginSecret struct {
 	// Authentication method for Discover and Collect REST calls
-	Authentication *SplunkAuthenticationLoginSecretAuthentication `default:"basic" json:"authentication"`
+	Authentication SplunkAuthenticationLoginSecretAuthentication `json:"authentication"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL string `json:"loginUrl"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
+	LoginBody string `json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
+	TokenRespAttribute string `json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
@@ -200,23 +200,23 @@ type SplunkAuthenticationLoginSecret struct {
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
 	Latest *string `json:"latest,omitempty"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationLoginSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []SplunkAuthenticationLoginSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                      `default:"false" json:"handleEscapedChars"`
+	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitempty"`
 	RetryRules         *SplunkAuthenticationLoginSecretRetryRules `json:"retryRules,omitempty"`
 }
 
@@ -225,22 +225,22 @@ func (s SplunkAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationLoginSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"credentialsSecret", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "loginUrl", "credentialsSecret", "loginBody", "tokenRespAttribute", "authHeaderExpr", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetAuthentication() *SplunkAuthenticationLoginSecretAuthentication {
+func (s *SplunkAuthenticationLoginSecret) GetAuthentication() SplunkAuthenticationLoginSecretAuthentication {
 	if s == nil {
-		return nil
+		return SplunkAuthenticationLoginSecretAuthentication("")
 	}
 	return s.Authentication
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetLoginURL() *string {
+func (s *SplunkAuthenticationLoginSecret) GetLoginURL() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.LoginURL
 }
@@ -252,30 +252,30 @@ func (s *SplunkAuthenticationLoginSecret) GetCredentialsSecret() string {
 	return s.CredentialsSecret
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetLoginBody() *string {
+func (s *SplunkAuthenticationLoginSecret) GetLoginBody() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.LoginBody
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetTokenRespAttribute() *string {
+func (s *SplunkAuthenticationLoginSecret) GetTokenRespAttribute() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.TokenRespAttribute
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetAuthHeaderExpr() *string {
+func (s *SplunkAuthenticationLoginSecret) GetAuthHeaderExpr() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.AuthHeaderExpr
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetSearchHead() *string {
+func (s *SplunkAuthenticationLoginSecret) GetSearchHead() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.SearchHead
 }
@@ -301,16 +301,16 @@ func (s *SplunkAuthenticationLoginSecret) GetLatest() *string {
 	return s.Latest
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetEndpoint() *string {
+func (s *SplunkAuthenticationLoginSecret) GetEndpoint() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationLoginSecret) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (s *SplunkAuthenticationLoginSecret) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return s.OutputMode
 }
@@ -463,14 +463,14 @@ func (s *SplunkAuthenticationLoginCollectRequestHeader) GetValue() string {
 
 type SplunkAuthenticationLoginRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval            any                                                 `json:"interval,omitempty"`
-	Limit               any                                                 `json:"limit,omitempty"`
-	Multiplier          any                                                 `json:"multiplier,omitempty"`
-	Codes               any                                                 `json:"codes,omitempty"`
-	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
+	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval            any                                                `json:"interval,omitempty"`
+	Limit               any                                                `json:"limit,omitempty"`
+	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Codes               any                                                `json:"codes,omitempty"`
+	EnableHeader        any                                                `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
@@ -478,15 +478,15 @@ func (s SplunkAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationLoginRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (s *SplunkAuthenticationLoginRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
 }
@@ -542,19 +542,19 @@ func (s *SplunkAuthenticationLoginRetryRules) GetRetryConnectReset() any {
 
 type SplunkAuthenticationLogin struct {
 	// Authentication method for Discover and Collect REST calls
-	Authentication *SplunkAuthenticationLoginAuthentication `default:"basic" json:"authentication"`
+	Authentication SplunkAuthenticationLoginAuthentication `json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
-	Username string  `json:"username"`
-	Password string  `json:"password"`
+	LoginURL string `json:"loginUrl"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
-	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
+	LoginBody string `json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are allowed.
-	TokenRespAttribute *string `default:"token" json:"tokenRespAttribute"`
+	TokenRespAttribute string `json:"tokenRespAttribute"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
@@ -562,23 +562,23 @@ type SplunkAuthenticationLogin struct {
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
 	Latest *string `json:"latest,omitempty"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationLoginCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []SplunkAuthenticationLoginCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                `default:"false" json:"handleEscapedChars"`
+	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitempty"`
 	RetryRules         *SplunkAuthenticationLoginRetryRules `json:"retryRules,omitempty"`
 }
 
@@ -587,22 +587,22 @@ func (s SplunkAuthenticationLogin) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationLogin) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"username", "password", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "loginUrl", "username", "password", "loginBody", "tokenRespAttribute", "authHeaderExpr", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationLogin) GetAuthentication() *SplunkAuthenticationLoginAuthentication {
+func (s *SplunkAuthenticationLogin) GetAuthentication() SplunkAuthenticationLoginAuthentication {
 	if s == nil {
-		return nil
+		return SplunkAuthenticationLoginAuthentication("")
 	}
 	return s.Authentication
 }
 
-func (s *SplunkAuthenticationLogin) GetLoginURL() *string {
+func (s *SplunkAuthenticationLogin) GetLoginURL() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.LoginURL
 }
@@ -621,30 +621,30 @@ func (s *SplunkAuthenticationLogin) GetPassword() string {
 	return s.Password
 }
 
-func (s *SplunkAuthenticationLogin) GetLoginBody() *string {
+func (s *SplunkAuthenticationLogin) GetLoginBody() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.LoginBody
 }
 
-func (s *SplunkAuthenticationLogin) GetTokenRespAttribute() *string {
+func (s *SplunkAuthenticationLogin) GetTokenRespAttribute() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.TokenRespAttribute
 }
 
-func (s *SplunkAuthenticationLogin) GetAuthHeaderExpr() *string {
+func (s *SplunkAuthenticationLogin) GetAuthHeaderExpr() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.AuthHeaderExpr
 }
 
-func (s *SplunkAuthenticationLogin) GetSearchHead() *string {
+func (s *SplunkAuthenticationLogin) GetSearchHead() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.SearchHead
 }
@@ -670,16 +670,16 @@ func (s *SplunkAuthenticationLogin) GetLatest() *string {
 	return s.Latest
 }
 
-func (s *SplunkAuthenticationLogin) GetEndpoint() *string {
+func (s *SplunkAuthenticationLogin) GetEndpoint() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationLogin) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (s *SplunkAuthenticationLogin) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return s.OutputMode
 }
@@ -832,14 +832,14 @@ func (s *SplunkAuthenticationTokenSecretCollectRequestHeader) GetValue() string 
 
 type SplunkAuthenticationTokenSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval            any                                                 `json:"interval,omitempty"`
-	Limit               any                                                 `json:"limit,omitempty"`
-	Multiplier          any                                                 `json:"multiplier,omitempty"`
-	Codes               any                                                 `json:"codes,omitempty"`
-	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
+	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval            any                                                `json:"interval,omitempty"`
+	Limit               any                                                `json:"limit,omitempty"`
+	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Codes               any                                                `json:"codes,omitempty"`
+	EnableHeader        any                                                `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationTokenSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -847,15 +847,15 @@ func (s SplunkAuthenticationTokenSecretRetryRules) MarshalJSON() ([]byte, error)
 }
 
 func (s *SplunkAuthenticationTokenSecretRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationTokenSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (s *SplunkAuthenticationTokenSecretRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
 }
@@ -911,11 +911,11 @@ func (s *SplunkAuthenticationTokenSecretRetryRules) GetRetryConnectReset() any {
 
 type SplunkAuthenticationTokenSecret struct {
 	// Authentication method for Discover and Collect REST calls
-	Authentication *SplunkAuthenticationTokenSecretAuthentication `default:"basic" json:"authentication"`
+	Authentication SplunkAuthenticationTokenSecretAuthentication `json:"authentication"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret string `json:"tokenSecret"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
@@ -923,23 +923,23 @@ type SplunkAuthenticationTokenSecret struct {
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
 	Latest *string `json:"latest,omitempty"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationTokenSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []SplunkAuthenticationTokenSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                      `default:"false" json:"handleEscapedChars"`
+	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitempty"`
 	RetryRules         *SplunkAuthenticationTokenSecretRetryRules `json:"retryRules,omitempty"`
 }
 
@@ -948,15 +948,15 @@ func (s SplunkAuthenticationTokenSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationTokenSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"tokenSecret", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "tokenSecret", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationTokenSecret) GetAuthentication() *SplunkAuthenticationTokenSecretAuthentication {
+func (s *SplunkAuthenticationTokenSecret) GetAuthentication() SplunkAuthenticationTokenSecretAuthentication {
 	if s == nil {
-		return nil
+		return SplunkAuthenticationTokenSecretAuthentication("")
 	}
 	return s.Authentication
 }
@@ -968,9 +968,9 @@ func (s *SplunkAuthenticationTokenSecret) GetTokenSecret() string {
 	return s.TokenSecret
 }
 
-func (s *SplunkAuthenticationTokenSecret) GetSearchHead() *string {
+func (s *SplunkAuthenticationTokenSecret) GetSearchHead() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.SearchHead
 }
@@ -996,16 +996,16 @@ func (s *SplunkAuthenticationTokenSecret) GetLatest() *string {
 	return s.Latest
 }
 
-func (s *SplunkAuthenticationTokenSecret) GetEndpoint() *string {
+func (s *SplunkAuthenticationTokenSecret) GetEndpoint() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationTokenSecret) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (s *SplunkAuthenticationTokenSecret) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return s.OutputMode
 }
@@ -1158,14 +1158,14 @@ func (s *SplunkAuthenticationTokenCollectRequestHeader) GetValue() string {
 
 type SplunkAuthenticationTokenRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval            any                                                 `json:"interval,omitempty"`
-	Limit               any                                                 `json:"limit,omitempty"`
-	Multiplier          any                                                 `json:"multiplier,omitempty"`
-	Codes               any                                                 `json:"codes,omitempty"`
-	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
+	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval            any                                                `json:"interval,omitempty"`
+	Limit               any                                                `json:"limit,omitempty"`
+	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Codes               any                                                `json:"codes,omitempty"`
+	EnableHeader        any                                                `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationTokenRetryRules) MarshalJSON() ([]byte, error) {
@@ -1173,15 +1173,15 @@ func (s SplunkAuthenticationTokenRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationTokenRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationTokenRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (s *SplunkAuthenticationTokenRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
 }
@@ -1237,10 +1237,10 @@ func (s *SplunkAuthenticationTokenRetryRules) GetRetryConnectReset() any {
 
 type SplunkAuthenticationToken struct {
 	// Authentication method for Discover and Collect REST calls
-	Authentication *SplunkAuthenticationTokenAuthentication `default:"basic" json:"authentication"`
-	Token          string                                   `json:"token"`
+	Authentication SplunkAuthenticationTokenAuthentication `json:"authentication"`
+	Token          string                                  `json:"token"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
@@ -1248,23 +1248,23 @@ type SplunkAuthenticationToken struct {
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
 	Latest *string `json:"latest,omitempty"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationTokenCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []SplunkAuthenticationTokenCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                `default:"false" json:"handleEscapedChars"`
+	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitempty"`
 	RetryRules         *SplunkAuthenticationTokenRetryRules `json:"retryRules,omitempty"`
 }
 
@@ -1273,15 +1273,15 @@ func (s SplunkAuthenticationToken) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationToken) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"token", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "token", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationToken) GetAuthentication() *SplunkAuthenticationTokenAuthentication {
+func (s *SplunkAuthenticationToken) GetAuthentication() SplunkAuthenticationTokenAuthentication {
 	if s == nil {
-		return nil
+		return SplunkAuthenticationTokenAuthentication("")
 	}
 	return s.Authentication
 }
@@ -1293,9 +1293,9 @@ func (s *SplunkAuthenticationToken) GetToken() string {
 	return s.Token
 }
 
-func (s *SplunkAuthenticationToken) GetSearchHead() *string {
+func (s *SplunkAuthenticationToken) GetSearchHead() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.SearchHead
 }
@@ -1321,16 +1321,16 @@ func (s *SplunkAuthenticationToken) GetLatest() *string {
 	return s.Latest
 }
 
-func (s *SplunkAuthenticationToken) GetEndpoint() *string {
+func (s *SplunkAuthenticationToken) GetEndpoint() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationToken) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (s *SplunkAuthenticationToken) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return s.OutputMode
 }
@@ -1483,14 +1483,14 @@ func (s *SplunkAuthenticationBasicSecretCollectRequestHeader) GetValue() string 
 
 type SplunkAuthenticationBasicSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval            any                                                 `json:"interval,omitempty"`
-	Limit               any                                                 `json:"limit,omitempty"`
-	Multiplier          any                                                 `json:"multiplier,omitempty"`
-	Codes               any                                                 `json:"codes,omitempty"`
-	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
+	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval            any                                                `json:"interval,omitempty"`
+	Limit               any                                                `json:"limit,omitempty"`
+	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Codes               any                                                `json:"codes,omitempty"`
+	EnableHeader        any                                                `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -1498,15 +1498,15 @@ func (s SplunkAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error)
 }
 
 func (s *SplunkAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationBasicSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (s *SplunkAuthenticationBasicSecretRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
 }
@@ -1562,11 +1562,11 @@ func (s *SplunkAuthenticationBasicSecretRetryRules) GetRetryConnectReset() any {
 
 type SplunkAuthenticationBasicSecret struct {
 	// Authentication method for Discover and Collect REST calls
-	Authentication *SplunkAuthenticationBasicSecretAuthentication `default:"basic" json:"authentication"`
+	Authentication SplunkAuthenticationBasicSecretAuthentication `json:"authentication"`
 	// Select or create a stored secret that references your credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
@@ -1574,23 +1574,23 @@ type SplunkAuthenticationBasicSecret struct {
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
 	Latest *string `json:"latest,omitempty"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationBasicSecretCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []SplunkAuthenticationBasicSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                      `default:"false" json:"handleEscapedChars"`
+	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitempty"`
 	RetryRules         *SplunkAuthenticationBasicSecretRetryRules `json:"retryRules,omitempty"`
 }
 
@@ -1599,15 +1599,15 @@ func (s SplunkAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationBasicSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"credentialsSecret", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "credentialsSecret", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationBasicSecret) GetAuthentication() *SplunkAuthenticationBasicSecretAuthentication {
+func (s *SplunkAuthenticationBasicSecret) GetAuthentication() SplunkAuthenticationBasicSecretAuthentication {
 	if s == nil {
-		return nil
+		return SplunkAuthenticationBasicSecretAuthentication("")
 	}
 	return s.Authentication
 }
@@ -1619,9 +1619,9 @@ func (s *SplunkAuthenticationBasicSecret) GetCredentialsSecret() string {
 	return s.CredentialsSecret
 }
 
-func (s *SplunkAuthenticationBasicSecret) GetSearchHead() *string {
+func (s *SplunkAuthenticationBasicSecret) GetSearchHead() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.SearchHead
 }
@@ -1647,16 +1647,16 @@ func (s *SplunkAuthenticationBasicSecret) GetLatest() *string {
 	return s.Latest
 }
 
-func (s *SplunkAuthenticationBasicSecret) GetEndpoint() *string {
+func (s *SplunkAuthenticationBasicSecret) GetEndpoint() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationBasicSecret) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (s *SplunkAuthenticationBasicSecret) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return s.OutputMode
 }
@@ -1809,14 +1809,14 @@ func (s *SplunkAuthenticationBasicCollectRequestHeader) GetValue() string {
 
 type SplunkAuthenticationBasicRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval            any                                                 `json:"interval,omitempty"`
-	Limit               any                                                 `json:"limit,omitempty"`
-	Multiplier          any                                                 `json:"multiplier,omitempty"`
-	Codes               any                                                 `json:"codes,omitempty"`
-	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
+	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval            any                                                `json:"interval,omitempty"`
+	Limit               any                                                `json:"limit,omitempty"`
+	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Codes               any                                                `json:"codes,omitempty"`
+	EnableHeader        any                                                `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
@@ -1824,15 +1824,15 @@ func (s SplunkAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationBasicRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (s *SplunkAuthenticationBasicRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
 }
@@ -1888,13 +1888,13 @@ func (s *SplunkAuthenticationBasicRetryRules) GetRetryConnectReset() any {
 
 type SplunkAuthenticationBasic struct {
 	// Authentication method for Discover and Collect REST calls
-	Authentication *SplunkAuthenticationBasicAuthentication `default:"basic" json:"authentication"`
+	Authentication SplunkAuthenticationBasicAuthentication `json:"authentication"`
 	// Basic authentication username
 	Username string `json:"username"`
 	// Basic authentication password
 	Password string `json:"password"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
@@ -1902,23 +1902,23 @@ type SplunkAuthenticationBasic struct {
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
 	Latest *string `json:"latest,omitempty"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationBasicCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []SplunkAuthenticationBasicCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                                `default:"false" json:"handleEscapedChars"`
+	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitempty"`
 	RetryRules         *SplunkAuthenticationBasicRetryRules `json:"retryRules,omitempty"`
 }
 
@@ -1927,15 +1927,15 @@ func (s SplunkAuthenticationBasic) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationBasic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"username", "password", "search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "username", "password", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationBasic) GetAuthentication() *SplunkAuthenticationBasicAuthentication {
+func (s *SplunkAuthenticationBasic) GetAuthentication() SplunkAuthenticationBasicAuthentication {
 	if s == nil {
-		return nil
+		return SplunkAuthenticationBasicAuthentication("")
 	}
 	return s.Authentication
 }
@@ -1954,9 +1954,9 @@ func (s *SplunkAuthenticationBasic) GetPassword() string {
 	return s.Password
 }
 
-func (s *SplunkAuthenticationBasic) GetSearchHead() *string {
+func (s *SplunkAuthenticationBasic) GetSearchHead() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.SearchHead
 }
@@ -1982,16 +1982,16 @@ func (s *SplunkAuthenticationBasic) GetLatest() *string {
 	return s.Latest
 }
 
-func (s *SplunkAuthenticationBasic) GetEndpoint() *string {
+func (s *SplunkAuthenticationBasic) GetEndpoint() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationBasic) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (s *SplunkAuthenticationBasic) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return s.OutputMode
 }
@@ -2144,14 +2144,14 @@ func (s *SplunkAuthenticationNoneCollectRequestHeader) GetValue() string {
 
 type SplunkAuthenticationNoneRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type                *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval            any                                                 `json:"interval,omitempty"`
-	Limit               any                                                 `json:"limit,omitempty"`
-	Multiplier          any                                                 `json:"multiplier,omitempty"`
-	Codes               any                                                 `json:"codes,omitempty"`
-	EnableHeader        any                                                 `json:"enableHeader,omitempty"`
-	RetryConnectTimeout any                                                 `json:"retryConnectTimeout,omitempty"`
-	RetryConnectReset   any                                                 `json:"retryConnectReset,omitempty"`
+	Type                RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval            any                                                `json:"interval,omitempty"`
+	Limit               any                                                `json:"limit,omitempty"`
+	Multiplier          any                                                `json:"multiplier,omitempty"`
+	Codes               any                                                `json:"codes,omitempty"`
+	EnableHeader        any                                                `json:"enableHeader,omitempty"`
+	RetryConnectTimeout any                                                `json:"retryConnectTimeout,omitempty"`
+	RetryConnectReset   any                                                `json:"retryConnectReset,omitempty"`
 }
 
 func (s SplunkAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
@@ -2159,15 +2159,15 @@ func (s SplunkAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationNoneRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (s *SplunkAuthenticationNoneRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if s == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return s.Type
 }
@@ -2223,9 +2223,9 @@ func (s *SplunkAuthenticationNoneRetryRules) GetRetryConnectReset() any {
 
 type SplunkAuthenticationNone struct {
 	// Authentication method for Discover and Collect REST calls
-	Authentication *SplunkAuthenticationNoneAuthentication `default:"basic" json:"authentication"`
+	Authentication SplunkAuthenticationNoneAuthentication `json:"authentication"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
-	SearchHead *string `default:"https://localhost:8089" json:"searchHead"`
+	SearchHead string `json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
 	Search string `json:"search"`
 	// The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
@@ -2233,23 +2233,23 @@ type SplunkAuthenticationNone struct {
 	// The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
 	Latest *string `json:"latest,omitempty"`
 	// REST API used to create a search
-	Endpoint *string `default:"/services/search/v2/jobs/export" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Format of the returned output
-	OutputMode *OutputModeOptionsSplunkCollectorConf `default:"json" json:"outputMode"`
+	OutputMode OutputModeOptionsSplunkCollectorConf `json:"outputMode"`
 	// Optional collect request parameters
 	CollectRequestParams []SplunkAuthenticationNoneCollectRequestParam `json:"collectRequestParams,omitempty"`
 	// Optional collect request headers
 	CollectRequestHeaders []SplunkAuthenticationNoneCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// HTTP request inactivity timeout. Use 0 for no timeout.
-	Timeout *float64 `default:"0" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Disable collector event time filtering when a date range is specified
-	DisableTimeFilter *bool `default:"true" json:"disableTimeFilter"`
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
-	RejectUnauthorized *bool `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Escape characters (\") in search queries will be passed directly to Splunk
-	HandleEscapedChars *bool                               `default:"false" json:"handleEscapedChars"`
+	HandleEscapedChars *bool                               `json:"handleEscapedChars,omitempty"`
 	RetryRules         *SplunkAuthenticationNoneRetryRules `json:"retryRules,omitempty"`
 }
 
@@ -2258,22 +2258,22 @@ func (s SplunkAuthenticationNone) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SplunkAuthenticationNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"search"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"authentication", "searchHead", "search", "endpoint", "outputMode"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SplunkAuthenticationNone) GetAuthentication() *SplunkAuthenticationNoneAuthentication {
+func (s *SplunkAuthenticationNone) GetAuthentication() SplunkAuthenticationNoneAuthentication {
 	if s == nil {
-		return nil
+		return SplunkAuthenticationNoneAuthentication("")
 	}
 	return s.Authentication
 }
 
-func (s *SplunkAuthenticationNone) GetSearchHead() *string {
+func (s *SplunkAuthenticationNone) GetSearchHead() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.SearchHead
 }
@@ -2299,16 +2299,16 @@ func (s *SplunkAuthenticationNone) GetLatest() *string {
 	return s.Latest
 }
 
-func (s *SplunkAuthenticationNone) GetEndpoint() *string {
+func (s *SplunkAuthenticationNone) GetEndpoint() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.Endpoint
 }
 
-func (s *SplunkAuthenticationNone) GetOutputMode() *OutputModeOptionsSplunkCollectorConf {
+func (s *SplunkAuthenticationNone) GetOutputMode() OutputModeOptionsSplunkCollectorConf {
 	if s == nil {
-		return nil
+		return OutputModeOptionsSplunkCollectorConf("")
 	}
 	return s.OutputMode
 }
@@ -2397,7 +2397,7 @@ func CreateSplunkCollectorConfNone(none SplunkAuthenticationNone) SplunkCollecto
 	typ := SplunkCollectorConfTypeNone
 
 	typStr := SplunkAuthenticationNoneAuthentication(typ)
-	none.Authentication = &typStr
+	none.Authentication = typStr
 
 	return SplunkCollectorConf{
 		SplunkAuthenticationNone: &none,
@@ -2409,7 +2409,7 @@ func CreateSplunkCollectorConfBasic(basic SplunkAuthenticationBasic) SplunkColle
 	typ := SplunkCollectorConfTypeBasic
 
 	typStr := SplunkAuthenticationBasicAuthentication(typ)
-	basic.Authentication = &typStr
+	basic.Authentication = typStr
 
 	return SplunkCollectorConf{
 		SplunkAuthenticationBasic: &basic,
@@ -2421,7 +2421,7 @@ func CreateSplunkCollectorConfBasicSecret(basicSecret SplunkAuthenticationBasicS
 	typ := SplunkCollectorConfTypeBasicSecret
 
 	typStr := SplunkAuthenticationBasicSecretAuthentication(typ)
-	basicSecret.Authentication = &typStr
+	basicSecret.Authentication = typStr
 
 	return SplunkCollectorConf{
 		SplunkAuthenticationBasicSecret: &basicSecret,
@@ -2433,7 +2433,7 @@ func CreateSplunkCollectorConfToken(token SplunkAuthenticationToken) SplunkColle
 	typ := SplunkCollectorConfTypeToken
 
 	typStr := SplunkAuthenticationTokenAuthentication(typ)
-	token.Authentication = &typStr
+	token.Authentication = typStr
 
 	return SplunkCollectorConf{
 		SplunkAuthenticationToken: &token,
@@ -2445,7 +2445,7 @@ func CreateSplunkCollectorConfTokenSecret(tokenSecret SplunkAuthenticationTokenS
 	typ := SplunkCollectorConfTypeTokenSecret
 
 	typStr := SplunkAuthenticationTokenSecretAuthentication(typ)
-	tokenSecret.Authentication = &typStr
+	tokenSecret.Authentication = typStr
 
 	return SplunkCollectorConf{
 		SplunkAuthenticationTokenSecret: &tokenSecret,
@@ -2457,7 +2457,7 @@ func CreateSplunkCollectorConfLogin(login SplunkAuthenticationLogin) SplunkColle
 	typ := SplunkCollectorConfTypeLogin
 
 	typStr := SplunkAuthenticationLoginAuthentication(typ)
-	login.Authentication = &typStr
+	login.Authentication = typStr
 
 	return SplunkCollectorConf{
 		SplunkAuthenticationLogin: &login,
@@ -2469,7 +2469,7 @@ func CreateSplunkCollectorConfLoginSecret(loginSecret SplunkAuthenticationLoginS
 	typ := SplunkCollectorConfTypeLoginSecret
 
 	typStr := SplunkAuthenticationLoginSecretAuthentication(typ)
-	loginSecret.Authentication = &typStr
+	loginSecret.Authentication = typStr
 
 	return SplunkCollectorConf{
 		SplunkAuthenticationLoginSecret: &loginSecret,

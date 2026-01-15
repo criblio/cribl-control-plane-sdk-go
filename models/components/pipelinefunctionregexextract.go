@@ -60,13 +60,13 @@ type PipelineFunctionRegexExtractConf struct {
 	Regex     string                                  `json:"regex"`
 	RegexList []PipelineFunctionRegexExtractRegexList `json:"regexList,omitempty"`
 	// Field on which to perform regex field extraction
-	Source *string `default:"_raw" json:"source"`
+	Source *string `json:"source,omitempty"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
-	Iterations *float64 `default:"100" json:"iterations"`
+	Iterations *float64 `json:"iterations,omitempty"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
 	FieldNameExpression *string `json:"fieldNameExpression,omitempty"`
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
-	Overwrite *bool `default:"false" json:"overwrite"`
+	Overwrite *bool `json:"overwrite,omitempty"`
 }
 
 func (p PipelineFunctionRegexExtractConf) MarshalJSON() ([]byte, error) {
@@ -124,7 +124,7 @@ func (p *PipelineFunctionRegexExtractConf) GetOverwrite() *bool {
 
 type PipelineFunctionRegexExtract struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionRegexExtractID `json:"id"`
 	// Simple description of this step

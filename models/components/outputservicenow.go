@@ -58,20 +58,20 @@ type OutputServiceNow struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// The endpoint where ServiceNow events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
-	Endpoint *string `default:"ingest.lightstep.com:443" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Select or create a stored text secret
 	TokenSecret   string  `json:"tokenSecret"`
-	AuthTokenName *string `default:"lightstep-access-token" json:"authTokenName"`
+	AuthTokenName *string `json:"authTokenName,omitempty"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *OtlpVersionOptions1 `default:"1.3.1" json:"otlpVersion"`
+	OtlpVersion OtlpVersionOptions1 `json:"otlpVersion"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `default:"2048" json:"maxPayloadSizeKB"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
 	// Select a transport option for OpenTelemetry
-	Protocol *ProtocolOptions `default:"grpc" json:"protocol"`
+	Protocol ProtocolOptions `json:"protocol"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *CompressionOptions4 `default:"gzip" json:"compress"`
+	Compress *CompressionOptions4 `json:"compress,omitempty"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptions5 `default:"gzip" json:"httpCompress"`
+	HTTPCompress *CompressionOptions5 `json:"httpCompress,omitempty"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -81,28 +81,28 @@ type OutputServiceNow struct {
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
 	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitempty"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
 	// How often the sender should ping the peer to keep the connection open
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `default:"true" json:"keepAlive"`
+	KeepAlive *bool `json:"keepAlive,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
 	Description    *string                      `json:"description,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Headers to add to all events
 	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// List of headers that are safe to log in plain text
@@ -111,28 +111,28 @@ type OutputServiceNow struct {
 	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                       `default:"true" json:"responseHonorRetryAfterHeader"`
-	TLS                           *TLSSettingsClientSideType3 `json:"tls,omitempty"`
+	ResponseHonorRetryAfterHeader *bool                       `json:"responseHonorRetryAfterHeader,omitempty"`
+	TLS                           *TLSSettingsClientSideType2 `json:"tls,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions   `default:"block" json:"pqOnBackpressure"`
+	PqOnBackpressure *QueueFullBehaviorOptions   `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputServiceNowPqControls `json:"pqControls,omitempty"`
 }
 
@@ -141,7 +141,7 @@ func (o OutputServiceNow) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputServiceNow) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "tokenSecret"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "endpoint", "tokenSecret", "otlpVersion", "protocol"}); err != nil {
 		return err
 	}
 	return nil
@@ -189,9 +189,9 @@ func (o *OutputServiceNow) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputServiceNow) GetEndpoint() *string {
+func (o *OutputServiceNow) GetEndpoint() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Endpoint
 }
@@ -210,9 +210,9 @@ func (o *OutputServiceNow) GetAuthTokenName() *string {
 	return o.AuthTokenName
 }
 
-func (o *OutputServiceNow) GetOtlpVersion() *OtlpVersionOptions1 {
+func (o *OutputServiceNow) GetOtlpVersion() OtlpVersionOptions1 {
 	if o == nil {
-		return nil
+		return OtlpVersionOptions1("")
 	}
 	return o.OtlpVersion
 }
@@ -224,9 +224,9 @@ func (o *OutputServiceNow) GetMaxPayloadSizeKB() *float64 {
 	return o.MaxPayloadSizeKB
 }
 
-func (o *OutputServiceNow) GetProtocol() *ProtocolOptions {
+func (o *OutputServiceNow) GetProtocol() ProtocolOptions {
 	if o == nil {
-		return nil
+		return ProtocolOptions("")
 	}
 	return o.Protocol
 }
@@ -385,7 +385,7 @@ func (o *OutputServiceNow) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputServiceNow) GetTLS() *TLSSettingsClientSideType3 {
+func (o *OutputServiceNow) GetTLS() *TLSSettingsClientSideType2 {
 	if o == nil {
 		return nil
 	}

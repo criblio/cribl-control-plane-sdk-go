@@ -46,9 +46,9 @@ type FilesystemCollectorConf struct {
 	// Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
 	Extractors []FilesystemCollectorConfExtractor `json:"extractors,omitempty"`
 	// Recurse through subdirectories
-	Recurse *bool `default:"true" json:"recurse"`
+	Recurse *bool `json:"recurse,omitempty"`
 	// Maximum number of metadata files to batch before recording as results
-	MaxBatchSize *float64 `default:"10" json:"maxBatchSize"`
+	MaxBatchSize *float64 `json:"maxBatchSize,omitempty"`
 }
 
 func (f FilesystemCollectorConf) MarshalJSON() ([]byte, error) {

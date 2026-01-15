@@ -38,11 +38,11 @@ type LakeExportConfiguration struct {
 	// Name of the dataset
 	Dataset string `json:"dataset"`
 	// Name of the lake
-	Lake *string `default:"default" json:"lake"`
+	Lake *string `json:"lake,omitempty"`
 	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *string `default:"false" json:"tee"`
+	Tee *string `json:"tee,omitempty"`
 	// How often are stats flushed in ms
-	FlushMs *float64 `default:"1000" json:"flushMs"`
+	FlushMs *float64 `json:"flushMs,omitempty"`
 	// Disables generation of intermediate stats. When true stats will be emitted only on end
 	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
 }
@@ -102,7 +102,7 @@ func (l *LakeExportConfiguration) GetSuppressPreviews() *bool {
 
 type PipelineFunctionLakeExport struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionLakeExportID `json:"id"`
 	// Simple description of this step

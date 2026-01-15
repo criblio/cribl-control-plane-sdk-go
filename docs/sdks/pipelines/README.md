@@ -100,6 +100,7 @@ func main() {
         ID: "empty-pipeline",
         Conf: components.ConfInput{
             AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](1000),
+            Output: criblcontrolplanesdkgo.Pointer("default"),
             Description: criblcontrolplanesdkgo.Pointer(""),
             Streamtags: []string{},
             Functions: []components.PipelineFunctionConfInput{},
@@ -225,6 +226,7 @@ func main() {
         ID: "empty-pipeline",
         Conf: components.ConfInput{
             AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](1000),
+            Output: criblcontrolplanesdkgo.Pointer("default"),
             Description: criblcontrolplanesdkgo.Pointer(""),
             Streamtags: []string{},
             Functions: []components.PipelineFunctionConfInput{},

@@ -60,56 +60,56 @@ type OutputSplunk struct {
 	// The hostname of the receiver
 	Host string `json:"host"`
 	// The port to connect to on the provided host
-	Port *float64 `default:"9997" json:"port"`
+	Port float64 `json:"port"`
 	// How to serialize nested fields into index-time fields
-	NestedFields *NestedFieldSerializationOptions `default:"none" json:"nestedFields"`
+	NestedFields *NestedFieldSerializationOptions `json:"nestedFields,omitempty"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `default:"0" json:"throttleRatePerSec"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitempty"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                      `default:"60000" json:"writeTimeout"`
+	WriteTimeout *float64                                      `json:"writeTimeout,omitempty"`
 	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
-	EnableMultiMetrics *bool `default:"false" json:"enableMultiMetrics"`
+	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitempty"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
-	EnableACK *bool `default:"true" json:"enableACK"`
+	EnableACK *bool `json:"enableACK,omitempty"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool `default:"false" json:"logFailedRequests"`
+	LogFailedRequests *bool `json:"logFailedRequests,omitempty"`
 	// The highest S2S protocol version to advertise during handshake
-	MaxS2Sversion *MaxS2SVersionOptions `default:"v3" json:"maxS2Sversion"`
+	MaxS2Sversion *MaxS2SVersionOptions `json:"maxS2Sversion,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	Description *string                                     `json:"description,omitempty"`
 	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
-	MaxFailedHealthChecks *float64 `default:"1" json:"maxFailedHealthChecks"`
+	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitempty"`
 	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
-	Compress *CompressionOptions `default:"disabled" json:"compress"`
+	Compress *CompressionOptions `json:"compress,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputSplunkPqControls   `json:"pqControls,omitempty"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
-	AuthToken *string `default:"" json:"authToken"`
+	AuthToken *string `json:"authToken,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
 }
@@ -119,7 +119,7 @@ func (o OutputSplunk) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSplunk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
@@ -174,9 +174,9 @@ func (o *OutputSplunk) GetHost() string {
 	return o.Host
 }
 
-func (o *OutputSplunk) GetPort() *float64 {
+func (o *OutputSplunk) GetPort() float64 {
 	if o == nil {
-		return nil
+		return 0.0
 	}
 	return o.Port
 }

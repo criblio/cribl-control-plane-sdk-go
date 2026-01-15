@@ -62,58 +62,58 @@ type OutputMsk struct {
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *AcknowledgmentsOptions1 `default:"1" json:"ack"`
+	Ack *AcknowledgmentsOptions1 `json:"ack,omitempty"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *RecordDataFormatOptions1 `default:"json" json:"format"`
+	Format *RecordDataFormatOptions1 `json:"format,omitempty"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *CompressionOptions3 `default:"gzip" json:"compression"`
+	Compression *CompressionOptions3 `json:"compression,omitempty"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
-	MaxRecordSizeKB *float64 `default:"768" json:"maxRecordSizeKB"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
-	FlushEventCount *float64 `default:"1000" json:"flushEventCount"`
+	FlushEventCount *float64 `json:"flushEventCount,omitempty"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                `default:"1" json:"flushPeriodSec"`
+	FlushPeriodSec      *float64                                `json:"flushPeriodSec,omitempty"`
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitempty"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	MaxRetries *float64 `json:"maxRetries,omitempty"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	BackoffRate *float64 `json:"backoffRate,omitempty"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitempty"`
+	AwsAuthenticationMethod AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod"`
+	AwsSecretKey            *string                                    `json:"awsSecretKey,omitempty"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *SignatureVersionOptions `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access MSK
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                    `default:"3600" json:"durationSeconds"`
-	TLS             *TLSSettingsClientSideType1 `json:"tls,omitempty"`
+	DurationSeconds *float64                                      `json:"durationSeconds,omitempty"`
+	TLS             *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
 	Description    *string                      `json:"description,omitempty"`
 	AwsAPIKey      *string                      `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
@@ -123,25 +123,25 @@ type OutputMsk struct {
 	// Select the type of object you want the Protobuf definitions to use for event encoding
 	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *ModeOptions `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *CompressionOptionsPq `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions `default:"block" json:"pqOnBackpressure"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputMskPqControls      `json:"pqControls,omitempty"`
 }
 
@@ -150,7 +150,7 @@ func (o OutputMsk) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputMsk) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "brokers", "topic", "region"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "brokers", "topic", "awsAuthenticationMethod", "region"}); err != nil {
 		return err
 	}
 	return nil
@@ -317,9 +317,9 @@ func (o *OutputMsk) GetReauthenticationThreshold() *float64 {
 	return o.ReauthenticationThreshold
 }
 
-func (o *OutputMsk) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (o *OutputMsk) GetAwsAuthenticationMethod() AuthenticationMethodOptionsS3CollectorConf {
 	if o == nil {
-		return nil
+		return AuthenticationMethodOptionsS3CollectorConf("")
 	}
 	return o.AwsAuthenticationMethod
 }
@@ -394,7 +394,7 @@ func (o *OutputMsk) GetDurationSeconds() *float64 {
 	return o.DurationSeconds
 }
 
-func (o *OutputMsk) GetTLS() *TLSSettingsClientSideType1 {
+func (o *OutputMsk) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}

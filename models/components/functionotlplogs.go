@@ -32,20 +32,20 @@ func (e *FunctionOtlpLogsID) UnmarshalJSON(data []byte) error {
 }
 
 type FunctionOtlpLogs struct {
-	Filename      string                      `json:"__filename"`
-	AsyncTimeout  *float64                    `json:"asyncTimeout,omitempty"`
-	CriblVersion  *string                     `json:"cribl_version,omitempty"`
-	Disabled      *bool                       `json:"disabled,omitempty"`
-	Group         string                      `json:"group"`
-	HandleSignals *bool                       `json:"handleSignals,omitempty"`
-	ID            FunctionOtlpLogsID          `json:"id"`
-	LoadTime      float64                     `json:"loadTime"`
-	ModTime       float64                     `json:"modTime"`
-	Name          string                      `json:"name"`
-	Sync          *bool                       `json:"sync,omitempty"`
-	Uischema      map[string]any              `json:"uischema"`
-	Version       string                      `json:"version"`
-	Schema        *FunctionConfSchemaOtlpLogs `json:"schema,omitempty"`
+	Filename      string             `json:"__filename"`
+	AsyncTimeout  *float64           `json:"asyncTimeout,omitempty"`
+	CriblVersion  *string            `json:"cribl_version,omitempty"`
+	Disabled      *bool              `json:"disabled,omitempty"`
+	Group         string             `json:"group"`
+	HandleSignals *bool              `json:"handleSignals,omitempty"`
+	ID            FunctionOtlpLogsID `json:"id"`
+	LoadTime      float64            `json:"loadTime"`
+	ModTime       float64            `json:"modTime"`
+	Name          string             `json:"name"`
+	Sync          *bool              `json:"sync,omitempty"`
+	Uischema      map[string]any     `json:"uischema"`
+	Version       string             `json:"version"`
+	Schema        map[string]any     `json:"schema,omitempty"`
 }
 
 func (f FunctionOtlpLogs) MarshalJSON() ([]byte, error) {
@@ -150,7 +150,7 @@ func (f *FunctionOtlpLogs) GetVersion() string {
 	return f.Version
 }
 
-func (f *FunctionOtlpLogs) GetSchema() *FunctionConfSchemaOtlpLogs {
+func (f *FunctionOtlpLogs) GetSchema() map[string]any {
 	if f == nil {
 		return nil
 	}

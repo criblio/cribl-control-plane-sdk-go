@@ -52,7 +52,7 @@ func (e *ResourceRecordType) IsExact() bool {
 type DNSLookupField struct {
 	InFieldName *string `json:"inFieldName,omitempty"`
 	// The DNS record type (RR) to return. Defaults to 'A'.
-	ResourceRecordType *ResourceRecordType `default:"A" json:"resourceRecordType"`
+	ResourceRecordType *ResourceRecordType `json:"resourceRecordType,omitempty"`
 	// Name of field to add lookup results to. Leave blank to overwrite the lookup field.
 	OutFieldName *string `json:"outFieldName,omitempty"`
 }
@@ -159,16 +159,16 @@ type FunctionConfSchemaDNSLookup struct {
 	// IPs, in RFC 5952 format, of the DNS servers to use for resolution. Examples: IPv4 1.1.1.1, 4.2.2.2:53, or IPv6 [2001:4860:4860::8888], [2001:4860:4860::8888]:1053. If not specified, system's DNS will be used.
 	DNSServers []string `json:"dnsServers,omitempty"`
 	// How frequently to expire and refetch DNS cache. Use 0 to disable.
-	CacheTTL *float64 `default:"30" json:"cacheTTL"`
+	CacheTTL *float64 `json:"cacheTTL,omitempty"`
 	// The maximum number of DNS resolutions to be cached locally. Leave at default unless you understand the implications of changing.
-	MaxCacheSize *float64 `default:"5000" json:"maxCacheSize"`
+	MaxCacheSize *float64 `json:"maxCacheSize,omitempty"`
 	// Attempt to resolve DNS short names using the search or domain directive from /etc/resolv.conf
-	UseResolvConf *bool `default:"false" json:"useResolvConf"`
+	UseResolvConf *bool `json:"useResolvConf,omitempty"`
 	// If unable to resolve a DNS short name, make a DNS.lookup() call to resolve it. Caution: This might degrade performance in unrelated areas of @{product}.
-	LookupFallback *bool `default:"false" json:"lookupFallback"`
+	LookupFallback *bool `json:"lookupFallback,omitempty"`
 	// Specify fallback values for the DNS resolver to use when it cannot resolve a DNS short name
 	DomainOverrides      []string                  `json:"domainOverrides,omitempty"`
-	LookupFailLogLevel   *LogLevelForFailedLookups `default:"error" json:"lookupFailLogLevel"`
+	LookupFailLogLevel   *LogLevelForFailedLookups `json:"lookupFailLogLevel,omitempty"`
 	AdditionalProperties map[string]any            `additionalProperties:"true" json:"-"`
 }
 

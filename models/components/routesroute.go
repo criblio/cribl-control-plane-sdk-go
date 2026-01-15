@@ -12,16 +12,16 @@ type RoutesRoute struct {
 	// Disable this routing rule
 	Disabled *bool `json:"disabled,omitempty"`
 	// JavaScript expression to select data to route
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Pipeline to send the matching data to
 	Pipeline string `json:"pipeline"`
 	// Enable to use a JavaScript expression that evaluates to the name of the Description below
-	EnableOutputExpression *bool   `default:"false" json:"enableOutputExpression"`
+	EnableOutputExpression *bool   `json:"enableOutputExpression,omitempty"`
 	Output                 any     `json:"output,omitempty"`
 	OutputExpression       any     `json:"outputExpression,omitempty"`
 	Description            *string `json:"description,omitempty"`
 	// Flag to control whether the event gets consumed by this Route (Final), or cloned into it
-	Final                *bool          `default:"true" json:"final"`
+	Final                *bool          `json:"final,omitempty"`
 	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 

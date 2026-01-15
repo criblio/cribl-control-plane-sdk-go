@@ -35,7 +35,7 @@ type OutputSnmpHost struct {
 	// Destination host
 	Host string `json:"host"`
 	// Destination port, default is 162
-	Port *float64 `default:"162" json:"port"`
+	Port float64 `json:"port"`
 }
 
 func (o OutputSnmpHost) MarshalJSON() ([]byte, error) {
@@ -43,7 +43,7 @@ func (o OutputSnmpHost) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputSnmpHost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"host", "port"}); err != nil {
 		return err
 	}
 	return nil
@@ -56,9 +56,9 @@ func (o *OutputSnmpHost) GetHost() string {
 	return o.Host
 }
 
-func (o *OutputSnmpHost) GetPort() *float64 {
+func (o *OutputSnmpHost) GetPort() float64 {
 	if o == nil {
-		return nil
+		return 0.0
 	}
 	return o.Port
 }
@@ -78,7 +78,7 @@ type OutputSnmp struct {
 	// One or more SNMP destinations to forward traps to
 	Hosts []OutputSnmpHost `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
-	DNSResolvePeriodSec *float64 `default:"0" json:"dnsResolvePeriodSec"`
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
 	Description         *string  `json:"description,omitempty"`
 }
 
