@@ -14,7 +14,7 @@ type FunctionConfSchemaLakeExport struct {
 	// Name of the lake
 	Lake *string `json:"lake,omitempty"`
 	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *string `json:"tee,omitempty"`
+	Tee *bool `json:"tee,omitempty"`
 	// How often are stats flushed in ms
 	FlushMs *float64 `json:"flushMs,omitempty"`
 	// Disables generation of intermediate stats. When true stats will be emitted only on end
@@ -53,7 +53,7 @@ func (f *FunctionConfSchemaLakeExport) GetLake() *string {
 	return f.Lake
 }
 
-func (f *FunctionConfSchemaLakeExport) GetTee() *string {
+func (f *FunctionConfSchemaLakeExport) GetTee() *bool {
 	if f == nil {
 		return nil
 	}
