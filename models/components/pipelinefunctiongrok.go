@@ -32,23 +32,23 @@ func (e *PipelineFunctionGrokID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionGrokPatternList struct {
+type PatternList struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
 	Pattern string `json:"pattern"`
 }
 
-func (p PipelineFunctionGrokPatternList) MarshalJSON() ([]byte, error) {
+func (p PatternList) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PipelineFunctionGrokPatternList) UnmarshalJSON(data []byte) error {
+func (p *PatternList) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"pattern"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionGrokPatternList) GetPattern() string {
+func (p *PatternList) GetPattern() string {
 	if p == nil {
 		return ""
 	}
@@ -57,8 +57,8 @@ func (p *PipelineFunctionGrokPatternList) GetPattern() string {
 
 type PipelineFunctionGrokConf struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     string                            `json:"pattern"`
-	PatternList []PipelineFunctionGrokPatternList `json:"patternList,omitempty"`
+	Pattern     string        `json:"pattern"`
+	PatternList []PatternList `json:"patternList,omitempty"`
 	// Field on which to perform Grok extractions
 	Source *string `json:"source,omitempty"`
 }
@@ -81,7 +81,7 @@ func (p *PipelineFunctionGrokConf) GetPattern() string {
 	return p.Pattern
 }
 
-func (p *PipelineFunctionGrokConf) GetPatternList() []PipelineFunctionGrokPatternList {
+func (p *PipelineFunctionGrokConf) GetPatternList() []PatternList {
 	if p == nil {
 		return nil
 	}

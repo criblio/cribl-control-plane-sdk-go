@@ -32,22 +32,22 @@ func (e *PipelineFunctionNotifyID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineFunctionNotifyTriggerType - Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
-type PipelineFunctionNotifyTriggerType string
+// TriggerType - Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
+type TriggerType string
 
 const (
-	// PipelineFunctionNotifyTriggerTypeCustom Where
-	PipelineFunctionNotifyTriggerTypeCustom PipelineFunctionNotifyTriggerType = "custom"
-	// PipelineFunctionNotifyTriggerTypeResultsCount Count of Results
-	PipelineFunctionNotifyTriggerTypeResultsCount PipelineFunctionNotifyTriggerType = "resultsCount"
+	// TriggerTypeCustom Where
+	TriggerTypeCustom TriggerType = "custom"
+	// TriggerTypeResultsCount Count of Results
+	TriggerTypeResultsCount TriggerType = "resultsCount"
 )
 
-func (e PipelineFunctionNotifyTriggerType) ToPointer() *PipelineFunctionNotifyTriggerType {
+func (e TriggerType) ToPointer() *TriggerType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionNotifyTriggerType) IsExact() bool {
+func (e *TriggerType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "custom", "resultsCount":
@@ -57,30 +57,30 @@ func (e *PipelineFunctionNotifyTriggerType) IsExact() bool {
 	return false
 }
 
-// PipelineFunctionNotifyCountComparator - Operation to be applied over the results count
-type PipelineFunctionNotifyCountComparator string
+// CountComparator - Operation to be applied over the results count
+type CountComparator string
 
 const (
-	// PipelineFunctionNotifyCountComparatorGreaterThan greater than
-	PipelineFunctionNotifyCountComparatorGreaterThan PipelineFunctionNotifyCountComparator = ">"
-	// PipelineFunctionNotifyCountComparatorLessThan less than
-	PipelineFunctionNotifyCountComparatorLessThan PipelineFunctionNotifyCountComparator = "<"
-	// PipelineFunctionNotifyCountComparatorEqualEqualEqual equals
-	PipelineFunctionNotifyCountComparatorEqualEqualEqual PipelineFunctionNotifyCountComparator = "==="
-	// PipelineFunctionNotifyCountComparatorNotEqualEqual not equal to
-	PipelineFunctionNotifyCountComparatorNotEqualEqual PipelineFunctionNotifyCountComparator = "!=="
-	// PipelineFunctionNotifyCountComparatorGreaterThanEqual greater than or equal to
-	PipelineFunctionNotifyCountComparatorGreaterThanEqual PipelineFunctionNotifyCountComparator = ">="
-	// PipelineFunctionNotifyCountComparatorLessThanEqual less than or equal to
-	PipelineFunctionNotifyCountComparatorLessThanEqual PipelineFunctionNotifyCountComparator = "<="
+	// CountComparatorGreaterThan greater than
+	CountComparatorGreaterThan CountComparator = ">"
+	// CountComparatorLessThan less than
+	CountComparatorLessThan CountComparator = "<"
+	// CountComparatorEqualEqualEqual equals
+	CountComparatorEqualEqualEqual CountComparator = "==="
+	// CountComparatorNotEqualEqual not equal to
+	CountComparatorNotEqualEqual CountComparator = "!=="
+	// CountComparatorGreaterThanEqual greater than or equal to
+	CountComparatorGreaterThanEqual CountComparator = ">="
+	// CountComparatorLessThanEqual less than or equal to
+	CountComparatorLessThanEqual CountComparator = "<="
 )
 
-func (e PipelineFunctionNotifyCountComparator) ToPointer() *PipelineFunctionNotifyCountComparator {
+func (e CountComparator) ToPointer() *CountComparator {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionNotifyCountComparator) IsExact() bool {
+func (e *CountComparator) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case ">", "<", "===", "!==", ">=", "<=":
@@ -102,9 +102,9 @@ type NotifyConfiguration struct {
 	// Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
 	Trigger *string `json:"trigger,omitempty"`
 	// Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
-	TriggerType *PipelineFunctionNotifyTriggerType `json:"triggerType,omitempty"`
+	TriggerType *TriggerType `json:"triggerType,omitempty"`
 	// Operation to be applied over the results count
-	TriggerComparator *PipelineFunctionNotifyCountComparator `json:"triggerComparator,omitempty"`
+	TriggerComparator *CountComparator `json:"triggerComparator,omitempty"`
 	// How many results that match trigger the condition
 	TriggerCount *float64 `json:"triggerCount,omitempty"`
 	// Number of results to include in the notification event
@@ -167,14 +167,14 @@ func (n *NotifyConfiguration) GetTrigger() *string {
 	return n.Trigger
 }
 
-func (n *NotifyConfiguration) GetTriggerType() *PipelineFunctionNotifyTriggerType {
+func (n *NotifyConfiguration) GetTriggerType() *TriggerType {
 	if n == nil {
 		return nil
 	}
 	return n.TriggerType
 }
 
-func (n *NotifyConfiguration) GetTriggerComparator() *PipelineFunctionNotifyCountComparator {
+func (n *NotifyConfiguration) GetTriggerComparator() *CountComparator {
 	if n == nil {
 		return nil
 	}

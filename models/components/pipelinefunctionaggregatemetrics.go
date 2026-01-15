@@ -60,36 +60,36 @@ func (e *PipelineFunctionAggregateMetricsMetricType) IsExact() bool {
 	return false
 }
 
-type PipelineFunctionAggregateMetricsAggregation struct {
+type Aggregation struct {
 	// The output metric type
 	MetricType PipelineFunctionAggregateMetricsMetricType `json:"metricType"`
 	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
 	Agg string `json:"agg"`
 }
 
-func (p PipelineFunctionAggregateMetricsAggregation) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (a Aggregation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
 }
 
-func (p *PipelineFunctionAggregateMetricsAggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"metricType", "agg"}); err != nil {
+func (a *Aggregation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"metricType", "agg"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionAggregateMetricsAggregation) GetMetricType() PipelineFunctionAggregateMetricsMetricType {
-	if p == nil {
+func (a *Aggregation) GetMetricType() PipelineFunctionAggregateMetricsMetricType {
+	if a == nil {
 		return PipelineFunctionAggregateMetricsMetricType("")
 	}
-	return p.MetricType
+	return a.MetricType
 }
 
-func (p *PipelineFunctionAggregateMetricsAggregation) GetAgg() string {
-	if p == nil {
+func (a *Aggregation) GetAgg() string {
+	if a == nil {
 		return ""
 	}
-	return p.Agg
+	return a.Agg
 }
 
 type PipelineFunctionAggregateMetricsAdd struct {
@@ -135,7 +135,7 @@ type PipelineFunctionAggregateMetricsConf struct {
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
 	TimeWindow string `json:"timeWindow"`
 	// Combination of Aggregation function and output metric type
-	Aggregations []PipelineFunctionAggregateMetricsAggregation `json:"aggregations"`
+	Aggregations []Aggregation `json:"aggregations"`
 	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
 	Groupbys []string `json:"groupbys,omitempty"`
 	// The maximum number of events to include in any given aggregation event
@@ -198,9 +198,9 @@ func (p *PipelineFunctionAggregateMetricsConf) GetTimeWindow() string {
 	return p.TimeWindow
 }
 
-func (p *PipelineFunctionAggregateMetricsConf) GetAggregations() []PipelineFunctionAggregateMetricsAggregation {
+func (p *PipelineFunctionAggregateMetricsConf) GetAggregations() []Aggregation {
 	if p == nil {
-		return []PipelineFunctionAggregateMetricsAggregation{}
+		return []Aggregation{}
 	}
 	return p.Aggregations
 }

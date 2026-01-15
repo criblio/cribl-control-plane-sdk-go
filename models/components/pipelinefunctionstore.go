@@ -32,16 +32,16 @@ func (e *PipelineFunctionStoreID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineFunctionStoreMappingOfFieldNames - Mapping event property names to output field names
-type PipelineFunctionStoreMappingOfFieldNames struct {
+// MappingOfFieldNames - Mapping event property names to output field names
+type MappingOfFieldNames struct {
 }
 
-func (p PipelineFunctionStoreMappingOfFieldNames) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (m MappingOfFieldNames) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
 }
 
-func (p *PipelineFunctionStoreMappingOfFieldNames) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (m *MappingOfFieldNames) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -55,7 +55,7 @@ type StoreFunctionConfiguration struct {
 	// The knowledge object's description
 	Description *string `json:"description,omitempty"`
 	// Mapping event property names to output field names
-	FieldMapping *PipelineFunctionStoreMappingOfFieldNames `json:"fieldMapping,omitempty"`
+	FieldMapping *MappingOfFieldNames `json:"fieldMapping,omitempty"`
 	// Character to be used as value delimiter in output
 	Separator *string `json:"separator,omitempty"`
 	// For existing files, an error is thrown if overwrite is false or the file is replaced if overwrite is true
@@ -102,7 +102,7 @@ func (s *StoreFunctionConfiguration) GetDescription() *string {
 	return s.Description
 }
 
-func (s *StoreFunctionConfiguration) GetFieldMapping() *PipelineFunctionStoreMappingOfFieldNames {
+func (s *StoreFunctionConfiguration) GetFieldMapping() *MappingOfFieldNames {
 	if s == nil {
 		return nil
 	}

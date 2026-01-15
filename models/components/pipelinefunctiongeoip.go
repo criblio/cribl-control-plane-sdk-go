@@ -32,48 +32,48 @@ func (e *PipelineFunctionGeoipID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionGeoipAdditionalField struct {
+type AdditionalField struct {
 	// Field name in which to find an IP to look up. Can be nested.
 	ExtraInField string `json:"extraInField"`
 	// Field name in which to store the GeoIP lookup results
 	ExtraOutField string `json:"extraOutField"`
 }
 
-func (p PipelineFunctionGeoipAdditionalField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (a AdditionalField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
 }
 
-func (p *PipelineFunctionGeoipAdditionalField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"extraInField", "extraOutField"}); err != nil {
+func (a *AdditionalField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"extraInField", "extraOutField"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionGeoipAdditionalField) GetExtraInField() string {
-	if p == nil {
+func (a *AdditionalField) GetExtraInField() string {
+	if a == nil {
 		return ""
 	}
-	return p.ExtraInField
+	return a.ExtraInField
 }
 
-func (p *PipelineFunctionGeoipAdditionalField) GetExtraOutField() string {
-	if p == nil {
+func (a *AdditionalField) GetExtraOutField() string {
+	if a == nil {
 		return ""
 	}
-	return p.ExtraOutField
+	return a.ExtraOutField
 }
 
-// PipelineFunctionGeoipOutputFieldMappings - Search-specific mappings for granular control over event enrichment
-type PipelineFunctionGeoipOutputFieldMappings struct {
+// OutputFieldMappings - Search-specific mappings for granular control over event enrichment
+type OutputFieldMappings struct {
 }
 
-func (p PipelineFunctionGeoipOutputFieldMappings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (o OutputFieldMappings) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (p *PipelineFunctionGeoipOutputFieldMappings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+func (o *OutputFieldMappings) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -85,10 +85,10 @@ type PipelineFunctionGeoipConf struct {
 	// Field name in which to find an IP to look up. Can be nested.
 	InField *string `json:"inField,omitempty"`
 	// Field name in which to store the GeoIP lookup results
-	OutField         *string                                `json:"outField,omitempty"`
-	AdditionalFields []PipelineFunctionGeoipAdditionalField `json:"additionalFields,omitempty"`
+	OutField         *string           `json:"outField,omitempty"`
+	AdditionalFields []AdditionalField `json:"additionalFields,omitempty"`
 	// Search-specific mappings for granular control over event enrichment
-	OutFieldMappings *PipelineFunctionGeoipOutputFieldMappings `json:"outFieldMappings,omitempty"`
+	OutFieldMappings *OutputFieldMappings `json:"outFieldMappings,omitempty"`
 }
 
 func (p PipelineFunctionGeoipConf) MarshalJSON() ([]byte, error) {
@@ -123,14 +123,14 @@ func (p *PipelineFunctionGeoipConf) GetOutField() *string {
 	return p.OutField
 }
 
-func (p *PipelineFunctionGeoipConf) GetAdditionalFields() []PipelineFunctionGeoipAdditionalField {
+func (p *PipelineFunctionGeoipConf) GetAdditionalFields() []AdditionalField {
 	if p == nil {
 		return nil
 	}
 	return p.AdditionalFields
 }
 
-func (p *PipelineFunctionGeoipConf) GetOutFieldMappings() *PipelineFunctionGeoipOutputFieldMappings {
+func (p *PipelineFunctionGeoipConf) GetOutFieldMappings() *OutputFieldMappings {
 	if p == nil {
 		return nil
 	}
