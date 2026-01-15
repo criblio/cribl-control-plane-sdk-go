@@ -66,7 +66,7 @@ func (p *PipelineFunctionJSONUnrollConf) GetName() *string {
 
 type PipelineFunctionJSONUnroll struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionJSONUnrollID `json:"id"`
 	// Simple description of this step

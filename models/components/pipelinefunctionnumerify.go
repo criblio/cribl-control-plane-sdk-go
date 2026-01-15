@@ -34,7 +34,7 @@ func (e *PipelineFunctionNumerifyID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionNumerify struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionNumerifyID `json:"id"`
 	// Simple description of this step

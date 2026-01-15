@@ -4,790 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputTCPPqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputTCPType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
-	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool                                  `default:"false" json:"enableHeader"`
-	Preprocess   *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
-	Description  *string                                `json:"description,omitempty"`
-	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `default:"" json:"authToken"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
-}
-
-func (i InputTCPPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetType() InputTCPType {
-	if i == nil {
-		return InputTCPType("")
-	}
-	return i.Type
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Host
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetEnableHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHeader
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
-	if i == nil {
-		return nil
-	}
-	return i.Preprocess
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetAuthToken() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthToken
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputTCPPqEnabledTrueWithPqConstraint) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
-
-type InputTCPPqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputTCPType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
-	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool                                  `default:"false" json:"enableHeader"`
-	Preprocess   *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
-	Description  *string                                `json:"description,omitempty"`
-	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `default:"" json:"authToken"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
-}
-
-func (i InputTCPPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetType() InputTCPType {
-	if i == nil {
-		return InputTCPType("")
-	}
-	return i.Type
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Host
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetEnableHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHeader
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
-	if i == nil {
-		return nil
-	}
-	return i.Preprocess
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetAuthToken() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthToken
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputTCPPqEnabledFalseConstraint) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
-
-type InputTCPSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string      `json:"id,omitempty"`
-	Type     InputTCPType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
-	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
-	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
-	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
-	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
-	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
-	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
-	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
-	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool                                  `default:"false" json:"enableHeader"`
-	Preprocess   *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
-	Description  *string                                `json:"description,omitempty"`
-	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `default:"" json:"authToken"`
-	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitempty"`
-}
-
-func (i InputTCPSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetType() InputTCPType {
-	if i == nil {
-		return InputTCPType("")
-	}
-	return i.Type
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Host
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetPort() float64 {
-	if i == nil {
-		return 0.0
-	}
-	return i.Port
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetTLS() *TLSSettingsServerSideType {
-	if i == nil {
-		return nil
-	}
-	return i.TLS
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetIPWhitelistRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.IPWhitelistRegex
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetMaxActiveCxn() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxActiveCxn
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetSocketIdleTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketIdleTimeout
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetSocketEndingMaxWait() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketEndingMaxWait
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetSocketMaxLifespan() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.SocketMaxLifespan
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetEnableProxyHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableProxyHeader
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetEnableHeader() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableHeader
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
-	if i == nil {
-		return nil
-	}
-	return i.Preprocess
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetAuthToken() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AuthToken
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputTCPSendToRoutesFalseWithConnectionsConstraint) GetTextSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TextSecret
-}
 
 type InputTCPType string
 
@@ -812,369 +31,262 @@ func (e *InputTCPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputTCPSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+type InputTCP struct {
 	// Unique ID for this input
 	ID       *string      `json:"id,omitempty"`
 	Type     InputTCPType `json:"type"`
-	Disabled *bool        `default:"false" json:"disabled"`
+	Disabled *bool        `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
 	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Regex matching IP addresses that are allowed to establish a connection
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64 `default:"0" json:"socketMaxLifespan"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitempty"`
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitempty"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `default:"10000" json:"staleChannelFlushMs"`
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitempty"`
 	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
-	EnableHeader *bool                                  `default:"false" json:"enableHeader"`
+	EnableHeader *bool                                  `json:"enableHeader,omitempty"`
 	Preprocess   *PreprocessTypeSavedJobCollectionInput `json:"preprocess,omitempty"`
 	Description  *string                                `json:"description,omitempty"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-	AuthToken *string `default:"" json:"authToken"`
+	AuthToken *string `json:"authToken,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodOptionsAuthTokensItems `default:"manual" json:"authType"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
 }
 
-func (i InputTCPSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputTCP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "port"}); err != nil {
+func (i *InputTCP) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "port"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputTCPSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputTCP) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetType() InputTCPType {
+func (i *InputTCP) GetType() InputTCPType {
 	if i == nil {
 		return InputTCPType("")
 	}
 	return i.Type
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputTCP) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputTCP) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputTCP) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputTCP) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputTCP) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputTCP) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputTCP) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputTCP) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetHost() *string {
+func (i *InputTCP) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetPort() float64 {
+func (i *InputTCP) GetPort() float64 {
 	if i == nil {
 		return 0.0
 	}
 	return i.Port
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetTLS() *TLSSettingsServerSideType {
+func (i *InputTCP) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetIPWhitelistRegex() *string {
+func (i *InputTCP) GetIPWhitelistRegex() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IPWhitelistRegex
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetMaxActiveCxn() *float64 {
+func (i *InputTCP) GetMaxActiveCxn() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.MaxActiveCxn
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetSocketIdleTimeout() *float64 {
+func (i *InputTCP) GetSocketIdleTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketIdleTimeout
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetSocketEndingMaxWait() *float64 {
+func (i *InputTCP) GetSocketEndingMaxWait() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketEndingMaxWait
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetSocketMaxLifespan() *float64 {
+func (i *InputTCP) GetSocketMaxLifespan() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.SocketMaxLifespan
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetEnableProxyHeader() *bool {
+func (i *InputTCP) GetEnableProxyHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableProxyHeader
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputTCP) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetBreakerRulesets() []string {
+func (i *InputTCP) GetBreakerRulesets() []string {
 	if i == nil {
 		return nil
 	}
 	return i.BreakerRulesets
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetStaleChannelFlushMs() *float64 {
+func (i *InputTCP) GetStaleChannelFlushMs() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetEnableHeader() *bool {
+func (i *InputTCP) GetEnableHeader() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableHeader
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
+func (i *InputTCP) GetPreprocess() *PreprocessTypeSavedJobCollectionInput {
 	if i == nil {
 		return nil
 	}
 	return i.Preprocess
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputTCP) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetAuthToken() *string {
+func (i *InputTCP) GetAuthToken() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AuthToken
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+func (i *InputTCP) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputTCPSendToRoutesTrueConstraint) GetTextSecret() *string {
+func (i *InputTCP) GetTextSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.TextSecret
-}
-
-type InputTCPUnionType string
-
-const (
-	InputTCPUnionTypeInputTCPSendToRoutesTrueConstraint                 InputTCPUnionType = "InputTcp_SendToRoutesTrueConstraint"
-	InputTCPUnionTypeInputTCPSendToRoutesFalseWithConnectionsConstraint InputTCPUnionType = "InputTcp_SendToRoutesFalseWithConnectionsConstraint"
-	InputTCPUnionTypeInputTCPPqEnabledFalseConstraint                   InputTCPUnionType = "InputTcp_PqEnabledFalseConstraint"
-	InputTCPUnionTypeInputTCPPqEnabledTrueWithPqConstraint              InputTCPUnionType = "InputTcp_PqEnabledTrueWithPqConstraint"
-)
-
-type InputTCP struct {
-	InputTCPSendToRoutesTrueConstraint                 *InputTCPSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputTCPSendToRoutesFalseWithConnectionsConstraint *InputTCPSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputTCPPqEnabledFalseConstraint                   *InputTCPPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputTCPPqEnabledTrueWithPqConstraint              *InputTCPPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputTCPUnionType
-}
-
-func CreateInputTCPInputTCPSendToRoutesTrueConstraint(inputTCPSendToRoutesTrueConstraint InputTCPSendToRoutesTrueConstraint) InputTCP {
-	typ := InputTCPUnionTypeInputTCPSendToRoutesTrueConstraint
-
-	return InputTCP{
-		InputTCPSendToRoutesTrueConstraint: &inputTCPSendToRoutesTrueConstraint,
-		Type:                               typ,
-	}
-}
-
-func CreateInputTCPInputTCPSendToRoutesFalseWithConnectionsConstraint(inputTCPSendToRoutesFalseWithConnectionsConstraint InputTCPSendToRoutesFalseWithConnectionsConstraint) InputTCP {
-	typ := InputTCPUnionTypeInputTCPSendToRoutesFalseWithConnectionsConstraint
-
-	return InputTCP{
-		InputTCPSendToRoutesFalseWithConnectionsConstraint: &inputTCPSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputTCPInputTCPPqEnabledFalseConstraint(inputTCPPqEnabledFalseConstraint InputTCPPqEnabledFalseConstraint) InputTCP {
-	typ := InputTCPUnionTypeInputTCPPqEnabledFalseConstraint
-
-	return InputTCP{
-		InputTCPPqEnabledFalseConstraint: &inputTCPPqEnabledFalseConstraint,
-		Type:                             typ,
-	}
-}
-
-func CreateInputTCPInputTCPPqEnabledTrueWithPqConstraint(inputTCPPqEnabledTrueWithPqConstraint InputTCPPqEnabledTrueWithPqConstraint) InputTCP {
-	typ := InputTCPUnionTypeInputTCPPqEnabledTrueWithPqConstraint
-
-	return InputTCP{
-		InputTCPPqEnabledTrueWithPqConstraint: &inputTCPPqEnabledTrueWithPqConstraint,
-		Type:                                  typ,
-	}
-}
-
-func (u *InputTCP) UnmarshalJSON(data []byte) error {
-
-	var inputTCPSendToRoutesTrueConstraint InputTCPSendToRoutesTrueConstraint = InputTCPSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputTCPSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputTCPSendToRoutesTrueConstraint = &inputTCPSendToRoutesTrueConstraint
-		u.Type = InputTCPUnionTypeInputTCPSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputTCPSendToRoutesFalseWithConnectionsConstraint InputTCPSendToRoutesFalseWithConnectionsConstraint = InputTCPSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputTCPSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputTCPSendToRoutesFalseWithConnectionsConstraint = &inputTCPSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputTCPUnionTypeInputTCPSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputTCPPqEnabledFalseConstraint InputTCPPqEnabledFalseConstraint = InputTCPPqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputTCPPqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputTCPPqEnabledFalseConstraint = &inputTCPPqEnabledFalseConstraint
-		u.Type = InputTCPUnionTypeInputTCPPqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputTCPPqEnabledTrueWithPqConstraint InputTCPPqEnabledTrueWithPqConstraint = InputTCPPqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputTCPPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputTCPPqEnabledTrueWithPqConstraint = &inputTCPPqEnabledTrueWithPqConstraint
-		u.Type = InputTCPUnionTypeInputTCPPqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputTCP", string(data))
-}
-
-func (u InputTCP) MarshalJSON() ([]byte, error) {
-	if u.InputTCPSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputTCPSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputTCPSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputTCPSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputTCPPqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputTCPPqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputTCPPqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputTCPPqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputTCP: all fields are null")
 }

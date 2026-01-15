@@ -12,13 +12,13 @@ type SavedJobCollection struct {
 	Description *string                          `json:"description,omitempty"`
 	Type        JobTypeOptionsSavedJobCollection `json:"type"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
-	TTL *string `default:"4h" json:"ttl"`
+	TTL *string `json:"ttl,omitempty"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
-	IgnoreGroupJobsLimit *bool `default:"false" json:"ignoreGroupJobsLimit"`
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitempty"`
 	// List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
 	RemoveFields []string `json:"removeFields,omitempty"`
 	// Resume the ad hoc job if a failure condition causes Stream to restart during job execution
-	ResumeOnBoot *bool `default:"false" json:"resumeOnBoot"`
+	ResumeOnBoot *bool `json:"resumeOnBoot,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Configuration for a scheduled job
@@ -26,10 +26,10 @@ type SavedJobCollection struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// If enabled, tasks are created and run by the same Worker Node
-	WorkerAffinity *bool `default:"false" json:"workerAffinity"`
+	WorkerAffinity *bool `json:"workerAffinity,omitempty"`
 	// Collector configuration
-	Collector Collector                    `json:"collector"`
-	Input     *InputTypeSavedJobCollection `json:"input,omitempty"`
+	Collector Collector                                    `json:"collector"`
+	Input     *TypeCollectionWithBreakerRulesetsConstraint `json:"input,omitempty"`
 }
 
 func (s SavedJobCollection) MarshalJSON() ([]byte, error) {
@@ -167,7 +167,7 @@ func (s *SavedJobCollection) GetCollectorSplunk() *CollectorSplunk {
 	return s.GetCollector().CollectorSplunk
 }
 
-func (s *SavedJobCollection) GetInput() *InputTypeSavedJobCollection {
+func (s *SavedJobCollection) GetInput() *TypeCollectionWithBreakerRulesetsConstraint {
 	if s == nil {
 		return nil
 	}

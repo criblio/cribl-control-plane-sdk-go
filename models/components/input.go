@@ -142,6 +142,9 @@ type Input struct {
 func CreateInputCollection(collection InputCollection) Input {
 	typ := InputTypeCollection
 
+	typStr := InputCollectionType(typ)
+	collection.Type = typStr
+
 	return Input{
 		InputCollection: &collection,
 		Type:            typ,
@@ -150,6 +153,9 @@ func CreateInputCollection(collection InputCollection) Input {
 
 func CreateInputKafka(kafka InputKafka) Input {
 	typ := InputTypeKafka
+
+	typStr := InputKafkaType(typ)
+	kafka.Type = typStr
 
 	return Input{
 		InputKafka: &kafka,
@@ -160,6 +166,9 @@ func CreateInputKafka(kafka InputKafka) Input {
 func CreateInputMsk(msk InputMsk) Input {
 	typ := InputTypeMsk
 
+	typStr := InputMskType(typ)
+	msk.Type = typStr
+
 	return Input{
 		InputMsk: &msk,
 		Type:     typ,
@@ -168,6 +177,9 @@ func CreateInputMsk(msk InputMsk) Input {
 
 func CreateInputHTTP(http InputHTTP) Input {
 	typ := InputTypeHTTP
+
+	typStr := InputHTTPType(typ)
+	http.Type = typStr
 
 	return Input{
 		InputHTTP: &http,
@@ -178,6 +190,9 @@ func CreateInputHTTP(http InputHTTP) Input {
 func CreateInputSplunk(splunk InputSplunk) Input {
 	typ := InputTypeSplunk
 
+	typStr := InputSplunkType(typ)
+	splunk.Type = typStr
+
 	return Input{
 		InputSplunk: &splunk,
 		Type:        typ,
@@ -186,6 +201,9 @@ func CreateInputSplunk(splunk InputSplunk) Input {
 
 func CreateInputSplunkSearch(splunkSearch InputSplunkSearch) Input {
 	typ := InputTypeSplunkSearch
+
+	typStr := InputSplunkSearchType(typ)
+	splunkSearch.Type = typStr
 
 	return Input{
 		InputSplunkSearch: &splunkSearch,
@@ -196,6 +214,9 @@ func CreateInputSplunkSearch(splunkSearch InputSplunkSearch) Input {
 func CreateInputSplunkHec(splunkHec InputSplunkHec) Input {
 	typ := InputTypeSplunkHec
 
+	typStr := InputSplunkHecType(typ)
+	splunkHec.Type = typStr
+
 	return Input{
 		InputSplunkHec: &splunkHec,
 		Type:           typ,
@@ -204,6 +225,9 @@ func CreateInputSplunkHec(splunkHec InputSplunkHec) Input {
 
 func CreateInputAzureBlob(azureBlob InputAzureBlob) Input {
 	typ := InputTypeAzureBlob
+
+	typStr := InputAzureBlobType(typ)
+	azureBlob.Type = typStr
 
 	return Input{
 		InputAzureBlob: &azureBlob,
@@ -214,6 +238,9 @@ func CreateInputAzureBlob(azureBlob InputAzureBlob) Input {
 func CreateInputElastic(elastic InputElastic) Input {
 	typ := InputTypeElastic
 
+	typStr := InputElasticType(typ)
+	elastic.Type = typStr
+
 	return Input{
 		InputElastic: &elastic,
 		Type:         typ,
@@ -222,6 +249,9 @@ func CreateInputElastic(elastic InputElastic) Input {
 
 func CreateInputConfluentCloud(confluentCloud InputConfluentCloud) Input {
 	typ := InputTypeConfluentCloud
+
+	typStr := InputConfluentCloudType(typ)
+	confluentCloud.Type = typStr
 
 	return Input{
 		InputConfluentCloud: &confluentCloud,
@@ -241,6 +271,9 @@ func CreateInputGrafana(grafana InputGrafana) Input {
 func CreateInputLoki(loki InputLoki) Input {
 	typ := InputTypeLoki
 
+	typStr := InputLokiType(typ)
+	loki.Type = typStr
+
 	return Input{
 		InputLoki: &loki,
 		Type:      typ,
@@ -249,6 +282,9 @@ func CreateInputLoki(loki InputLoki) Input {
 
 func CreateInputPrometheusRw(prometheusRw InputPrometheusRw) Input {
 	typ := InputTypePrometheusRw
+
+	typStr := InputPrometheusRwType(typ)
+	prometheusRw.Type = typStr
 
 	return Input{
 		InputPrometheusRw: &prometheusRw,
@@ -259,6 +295,9 @@ func CreateInputPrometheusRw(prometheusRw InputPrometheusRw) Input {
 func CreateInputPrometheus(prometheus InputPrometheus) Input {
 	typ := InputTypePrometheus
 
+	typStr := InputPrometheusType(typ)
+	prometheus.Type = typStr
+
 	return Input{
 		InputPrometheus: &prometheus,
 		Type:            typ,
@@ -267,6 +306,9 @@ func CreateInputPrometheus(prometheus InputPrometheus) Input {
 
 func CreateInputEdgePrometheus(edgePrometheus InputEdgePrometheus) Input {
 	typ := InputTypeEdgePrometheus
+
+	typStr := InputEdgePrometheusType(typ)
+	edgePrometheus.Type = typStr
 
 	return Input{
 		InputEdgePrometheus: &edgePrometheus,
@@ -277,6 +319,9 @@ func CreateInputEdgePrometheus(edgePrometheus InputEdgePrometheus) Input {
 func CreateInputOffice365Mgmt(office365Mgmt InputOffice365Mgmt) Input {
 	typ := InputTypeOffice365Mgmt
 
+	typStr := InputOffice365MgmtType(typ)
+	office365Mgmt.Type = typStr
+
 	return Input{
 		InputOffice365Mgmt: &office365Mgmt,
 		Type:               typ,
@@ -285,6 +330,9 @@ func CreateInputOffice365Mgmt(office365Mgmt InputOffice365Mgmt) Input {
 
 func CreateInputOffice365Service(office365Service InputOffice365Service) Input {
 	typ := InputTypeOffice365Service
+
+	typStr := InputOffice365ServiceType(typ)
+	office365Service.Type = typStr
 
 	return Input{
 		InputOffice365Service: &office365Service,
@@ -295,6 +343,9 @@ func CreateInputOffice365Service(office365Service InputOffice365Service) Input {
 func CreateInputOffice365MsgTrace(office365MsgTrace InputOffice365MsgTrace) Input {
 	typ := InputTypeOffice365MsgTrace
 
+	typStr := InputOffice365MsgTraceType(typ)
+	office365MsgTrace.Type = typStr
+
 	return Input{
 		InputOffice365MsgTrace: &office365MsgTrace,
 		Type:                   typ,
@@ -303,6 +354,9 @@ func CreateInputOffice365MsgTrace(office365MsgTrace InputOffice365MsgTrace) Inpu
 
 func CreateInputEventhub(eventhub InputEventhub) Input {
 	typ := InputTypeEventhub
+
+	typStr := InputEventhubType(typ)
+	eventhub.Type = typStr
 
 	return Input{
 		InputEventhub: &eventhub,
@@ -313,6 +367,9 @@ func CreateInputEventhub(eventhub InputEventhub) Input {
 func CreateInputExec(exec InputExec) Input {
 	typ := InputTypeExec
 
+	typStr := InputExecType(typ)
+	exec.Type = typStr
+
 	return Input{
 		InputExec: &exec,
 		Type:      typ,
@@ -321,6 +378,9 @@ func CreateInputExec(exec InputExec) Input {
 
 func CreateInputFirehose(firehose InputFirehose) Input {
 	typ := InputTypeFirehose
+
+	typStr := InputFirehoseType(typ)
+	firehose.Type = typStr
 
 	return Input{
 		InputFirehose: &firehose,
@@ -331,6 +391,9 @@ func CreateInputFirehose(firehose InputFirehose) Input {
 func CreateInputGooglePubsub(googlePubsub InputGooglePubsub) Input {
 	typ := InputTypeGooglePubsub
 
+	typStr := InputGooglePubsubType(typ)
+	googlePubsub.Type = typStr
+
 	return Input{
 		InputGooglePubsub: &googlePubsub,
 		Type:              typ,
@@ -339,6 +402,9 @@ func CreateInputGooglePubsub(googlePubsub InputGooglePubsub) Input {
 
 func CreateInputCribl(cribl InputCribl) Input {
 	typ := InputTypeCribl
+
+	typStr := InputCriblType(typ)
+	cribl.Type = typStr
 
 	return Input{
 		InputCribl: &cribl,
@@ -349,6 +415,9 @@ func CreateInputCribl(cribl InputCribl) Input {
 func CreateInputCriblTCP(criblTCP InputCriblTCP) Input {
 	typ := InputTypeCriblTCP
 
+	typStr := InputCriblTCPType(typ)
+	criblTCP.Type = typStr
+
 	return Input{
 		InputCriblTCP: &criblTCP,
 		Type:          typ,
@@ -357,6 +426,9 @@ func CreateInputCriblTCP(criblTCP InputCriblTCP) Input {
 
 func CreateInputCriblHTTP(criblHTTP InputCriblHTTP) Input {
 	typ := InputTypeCriblHTTP
+
+	typStr := InputCriblHTTPType(typ)
+	criblHTTP.Type = typStr
 
 	return Input{
 		InputCriblHTTP: &criblHTTP,
@@ -367,6 +439,9 @@ func CreateInputCriblHTTP(criblHTTP InputCriblHTTP) Input {
 func CreateInputCriblLakeHTTP(criblLakeHTTP InputCriblLakeHTTP) Input {
 	typ := InputTypeCriblLakeHTTP
 
+	typStr := InputCriblLakeHTTPType(typ)
+	criblLakeHTTP.Type = typStr
+
 	return Input{
 		InputCriblLakeHTTP: &criblLakeHTTP,
 		Type:               typ,
@@ -375,6 +450,9 @@ func CreateInputCriblLakeHTTP(criblLakeHTTP InputCriblLakeHTTP) Input {
 
 func CreateInputTcpjson(tcpjson InputTcpjson) Input {
 	typ := InputTypeTcpjson
+
+	typStr := InputTcpjsonType(typ)
+	tcpjson.Type = typStr
 
 	return Input{
 		InputTcpjson: &tcpjson,
@@ -385,6 +463,9 @@ func CreateInputTcpjson(tcpjson InputTcpjson) Input {
 func CreateInputSystemMetrics(systemMetrics InputSystemMetrics) Input {
 	typ := InputTypeSystemMetrics
 
+	typStr := InputSystemMetricsType(typ)
+	systemMetrics.Type = typStr
+
 	return Input{
 		InputSystemMetrics: &systemMetrics,
 		Type:               typ,
@@ -393,6 +474,9 @@ func CreateInputSystemMetrics(systemMetrics InputSystemMetrics) Input {
 
 func CreateInputSystemState(systemState InputSystemState) Input {
 	typ := InputTypeSystemState
+
+	typStr := InputSystemStateType(typ)
+	systemState.Type = typStr
 
 	return Input{
 		InputSystemState: &systemState,
@@ -403,6 +487,9 @@ func CreateInputSystemState(systemState InputSystemState) Input {
 func CreateInputKubeMetrics(kubeMetrics InputKubeMetrics) Input {
 	typ := InputTypeKubeMetrics
 
+	typStr := InputKubeMetricsType(typ)
+	kubeMetrics.Type = typStr
+
 	return Input{
 		InputKubeMetrics: &kubeMetrics,
 		Type:             typ,
@@ -411,6 +498,9 @@ func CreateInputKubeMetrics(kubeMetrics InputKubeMetrics) Input {
 
 func CreateInputKubeLogs(kubeLogs InputKubeLogs) Input {
 	typ := InputTypeKubeLogs
+
+	typStr := InputKubeLogsType(typ)
+	kubeLogs.Type = typStr
 
 	return Input{
 		InputKubeLogs: &kubeLogs,
@@ -421,6 +511,9 @@ func CreateInputKubeLogs(kubeLogs InputKubeLogs) Input {
 func CreateInputKubeEvents(kubeEvents InputKubeEvents) Input {
 	typ := InputTypeKubeEvents
 
+	typStr := InputKubeEventsType(typ)
+	kubeEvents.Type = typStr
+
 	return Input{
 		InputKubeEvents: &kubeEvents,
 		Type:            typ,
@@ -429,6 +522,9 @@ func CreateInputKubeEvents(kubeEvents InputKubeEvents) Input {
 
 func CreateInputWindowsMetrics(windowsMetrics InputWindowsMetrics) Input {
 	typ := InputTypeWindowsMetrics
+
+	typStr := InputWindowsMetricsType(typ)
+	windowsMetrics.Type = typStr
 
 	return Input{
 		InputWindowsMetrics: &windowsMetrics,
@@ -439,6 +535,9 @@ func CreateInputWindowsMetrics(windowsMetrics InputWindowsMetrics) Input {
 func CreateInputCrowdstrike(crowdstrike InputCrowdstrike) Input {
 	typ := InputTypeCrowdstrike
 
+	typStr := InputCrowdstrikeType(typ)
+	crowdstrike.Type = typStr
+
 	return Input{
 		InputCrowdstrike: &crowdstrike,
 		Type:             typ,
@@ -447,6 +546,9 @@ func CreateInputCrowdstrike(crowdstrike InputCrowdstrike) Input {
 
 func CreateInputDatadogAgent(datadogAgent InputDatadogAgent) Input {
 	typ := InputTypeDatadogAgent
+
+	typStr := InputDatadogAgentType(typ)
+	datadogAgent.Type = typStr
 
 	return Input{
 		InputDatadogAgent: &datadogAgent,
@@ -457,6 +559,9 @@ func CreateInputDatadogAgent(datadogAgent InputDatadogAgent) Input {
 func CreateInputDatagen(datagen InputDatagen) Input {
 	typ := InputTypeDatagen
 
+	typStr := InputDatagenType(typ)
+	datagen.Type = typStr
+
 	return Input{
 		InputDatagen: &datagen,
 		Type:         typ,
@@ -465,6 +570,9 @@ func CreateInputDatagen(datagen InputDatagen) Input {
 
 func CreateInputHTTPRaw(httpRaw InputHTTPRaw) Input {
 	typ := InputTypeHTTPRaw
+
+	typStr := InputHTTPRawType(typ)
+	httpRaw.Type = typStr
 
 	return Input{
 		InputHTTPRaw: &httpRaw,
@@ -475,6 +583,9 @@ func CreateInputHTTPRaw(httpRaw InputHTTPRaw) Input {
 func CreateInputKinesis(kinesis InputKinesis) Input {
 	typ := InputTypeKinesis
 
+	typStr := InputKinesisType(typ)
+	kinesis.Type = typStr
+
 	return Input{
 		InputKinesis: &kinesis,
 		Type:         typ,
@@ -483,6 +594,9 @@ func CreateInputKinesis(kinesis InputKinesis) Input {
 
 func CreateInputCriblmetrics(criblmetrics InputCriblmetrics) Input {
 	typ := InputTypeCriblmetrics
+
+	typStr := InputCriblmetricsType(typ)
+	criblmetrics.Type = typStr
 
 	return Input{
 		InputCriblmetrics: &criblmetrics,
@@ -493,6 +607,9 @@ func CreateInputCriblmetrics(criblmetrics InputCriblmetrics) Input {
 func CreateInputMetrics(metrics InputMetrics) Input {
 	typ := InputTypeMetrics
 
+	typStr := InputMetricsType(typ)
+	metrics.Type = typStr
+
 	return Input{
 		InputMetrics: &metrics,
 		Type:         typ,
@@ -501,6 +618,9 @@ func CreateInputMetrics(metrics InputMetrics) Input {
 
 func CreateInputS3(s3 InputS3) Input {
 	typ := InputTypeS3
+
+	typStr := InputS3Type(typ)
+	s3.Type = typStr
 
 	return Input{
 		InputS3: &s3,
@@ -511,6 +631,9 @@ func CreateInputS3(s3 InputS3) Input {
 func CreateInputS3Inventory(s3Inventory InputS3Inventory) Input {
 	typ := InputTypeS3Inventory
 
+	typStr := InputS3InventoryType(typ)
+	s3Inventory.Type = typStr
+
 	return Input{
 		InputS3Inventory: &s3Inventory,
 		Type:             typ,
@@ -519,6 +642,9 @@ func CreateInputS3Inventory(s3Inventory InputS3Inventory) Input {
 
 func CreateInputSnmp(snmp InputSnmp) Input {
 	typ := InputTypeSnmp
+
+	typStr := InputSnmpType(typ)
+	snmp.Type = typStr
 
 	return Input{
 		InputSnmp: &snmp,
@@ -529,6 +655,9 @@ func CreateInputSnmp(snmp InputSnmp) Input {
 func CreateInputOpenTelemetry(openTelemetry InputOpenTelemetry) Input {
 	typ := InputTypeOpenTelemetry
 
+	typStr := InputOpenTelemetryType(typ)
+	openTelemetry.Type = typStr
+
 	return Input{
 		InputOpenTelemetry: &openTelemetry,
 		Type:               typ,
@@ -538,6 +667,9 @@ func CreateInputOpenTelemetry(openTelemetry InputOpenTelemetry) Input {
 func CreateInputModelDrivenTelemetry(modelDrivenTelemetry InputModelDrivenTelemetry) Input {
 	typ := InputTypeModelDrivenTelemetry
 
+	typStr := InputModelDrivenTelemetryType(typ)
+	modelDrivenTelemetry.Type = typStr
+
 	return Input{
 		InputModelDrivenTelemetry: &modelDrivenTelemetry,
 		Type:                      typ,
@@ -546,6 +678,9 @@ func CreateInputModelDrivenTelemetry(modelDrivenTelemetry InputModelDrivenTeleme
 
 func CreateInputSqs(sqs InputSqs) Input {
 	typ := InputTypeSqs
+
+	typStr := InputSqsType(typ)
+	sqs.Type = typStr
 
 	return Input{
 		InputSqs: &sqs,
@@ -565,6 +700,9 @@ func CreateInputSyslog(syslog InputSyslog) Input {
 func CreateInputFile(file InputFile) Input {
 	typ := InputTypeFile
 
+	typStr := InputFileType(typ)
+	file.Type = typStr
+
 	return Input{
 		InputFile: &file,
 		Type:      typ,
@@ -573,6 +711,9 @@ func CreateInputFile(file InputFile) Input {
 
 func CreateInputTCP(tcp InputTCP) Input {
 	typ := InputTypeTCP
+
+	typStr := InputTCPType(typ)
+	tcp.Type = typStr
 
 	return Input{
 		InputTCP: &tcp,
@@ -583,6 +724,9 @@ func CreateInputTCP(tcp InputTCP) Input {
 func CreateInputAppscope(appscope InputAppscope) Input {
 	typ := InputTypeAppscope
 
+	typStr := InputAppscopeType(typ)
+	appscope.Type = typStr
+
 	return Input{
 		InputAppscope: &appscope,
 		Type:          typ,
@@ -591,6 +735,9 @@ func CreateInputAppscope(appscope InputAppscope) Input {
 
 func CreateInputWef(wef InputWef) Input {
 	typ := InputTypeWef
+
+	typStr := InputWefType(typ)
+	wef.Type = typStr
 
 	return Input{
 		InputWef: &wef,
@@ -601,6 +748,9 @@ func CreateInputWef(wef InputWef) Input {
 func CreateInputWinEventLogs(winEventLogs InputWinEventLogs) Input {
 	typ := InputTypeWinEventLogs
 
+	typStr := InputWinEventLogsType(typ)
+	winEventLogs.Type = typStr
+
 	return Input{
 		InputWinEventLogs: &winEventLogs,
 		Type:              typ,
@@ -609,6 +759,9 @@ func CreateInputWinEventLogs(winEventLogs InputWinEventLogs) Input {
 
 func CreateInputRawUDP(rawUDP InputRawUDP) Input {
 	typ := InputTypeRawUDP
+
+	typStr := InputRawUDPType(typ)
+	rawUDP.Type = typStr
 
 	return Input{
 		InputRawUDP: &rawUDP,
@@ -619,6 +772,9 @@ func CreateInputRawUDP(rawUDP InputRawUDP) Input {
 func CreateInputJournalFiles(journalFiles InputJournalFiles) Input {
 	typ := InputTypeJournalFiles
 
+	typStr := InputJournalFilesType(typ)
+	journalFiles.Type = typStr
+
 	return Input{
 		InputJournalFiles: &journalFiles,
 		Type:              typ,
@@ -627,6 +783,9 @@ func CreateInputJournalFiles(journalFiles InputJournalFiles) Input {
 
 func CreateInputWiz(wiz InputWiz) Input {
 	typ := InputTypeWiz
+
+	typStr := InputWizType(typ)
+	wiz.Type = typStr
 
 	return Input{
 		InputWiz: &wiz,
@@ -637,6 +796,9 @@ func CreateInputWiz(wiz InputWiz) Input {
 func CreateInputWizWebhook(wizWebhook InputWizWebhook) Input {
 	typ := InputTypeWizWebhook
 
+	typStr := InputWizWebhookType(typ)
+	wizWebhook.Type = typStr
+
 	return Input{
 		InputWizWebhook: &wizWebhook,
 		Type:            typ,
@@ -645,6 +807,9 @@ func CreateInputWizWebhook(wizWebhook InputWizWebhook) Input {
 
 func CreateInputNetflow(netflow InputNetflow) Input {
 	typ := InputTypeNetflow
+
+	typStr := InputNetflowType(typ)
+	netflow.Type = typStr
 
 	return Input{
 		InputNetflow: &netflow,
@@ -655,6 +820,9 @@ func CreateInputNetflow(netflow InputNetflow) Input {
 func CreateInputSecurityLake(securityLake InputSecurityLake) Input {
 	typ := InputTypeSecurityLake
 
+	typStr := InputSecurityLakeType(typ)
+	securityLake.Type = typStr
+
 	return Input{
 		InputSecurityLake: &securityLake,
 		Type:              typ,
@@ -664,6 +832,9 @@ func CreateInputSecurityLake(securityLake InputSecurityLake) Input {
 func CreateInputZscalerHec(zscalerHec InputZscalerHec) Input {
 	typ := InputTypeZscalerHec
 
+	typStr := InputZscalerHecType(typ)
+	zscalerHec.Type = typStr
+
 	return Input{
 		InputZscalerHec: &zscalerHec,
 		Type:            typ,
@@ -672,6 +843,9 @@ func CreateInputZscalerHec(zscalerHec InputZscalerHec) Input {
 
 func CreateInputCloudflareHec(cloudflareHec InputCloudflareHec) Input {
 	typ := InputTypeCloudflareHec
+
+	typStr := InputCloudflareHecType(typ)
+	cloudflareHec.Type = typStr
 
 	return Input{
 		InputCloudflareHec: &cloudflareHec,

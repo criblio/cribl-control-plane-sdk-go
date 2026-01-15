@@ -32,7 +32,7 @@ func (e *PipelineFunctionRedisID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionRedisCommand struct {
+type Command struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
 	OutField *string `json:"outField,omitempty"`
 	// Redis command to perform. For a complete list visit: https://redis.io/commands
@@ -43,63 +43,63 @@ type PipelineFunctionRedisCommand struct {
 	ArgsExpr *string `json:"argsExpr,omitempty"`
 }
 
-func (p PipelineFunctionRedisCommand) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (c Command) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
 }
 
-func (p *PipelineFunctionRedisCommand) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"command", "keyExpr"}); err != nil {
+func (c *Command) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"command", "keyExpr"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionRedisCommand) GetOutField() *string {
-	if p == nil {
+func (c *Command) GetOutField() *string {
+	if c == nil {
 		return nil
 	}
-	return p.OutField
+	return c.OutField
 }
 
-func (p *PipelineFunctionRedisCommand) GetCommand() string {
-	if p == nil {
+func (c *Command) GetCommand() string {
+	if c == nil {
 		return ""
 	}
-	return p.Command
+	return c.Command
 }
 
-func (p *PipelineFunctionRedisCommand) GetKeyExpr() string {
-	if p == nil {
+func (c *Command) GetKeyExpr() string {
+	if c == nil {
 		return ""
 	}
-	return p.KeyExpr
+	return c.KeyExpr
 }
 
-func (p *PipelineFunctionRedisCommand) GetArgsExpr() *string {
-	if p == nil {
+func (c *Command) GetArgsExpr() *string {
+	if c == nil {
 		return nil
 	}
-	return p.ArgsExpr
+	return c.ArgsExpr
 }
 
-// PipelineFunctionRedisDeploymentType - How the Redis server is configured. Defaults to Standalone
-type PipelineFunctionRedisDeploymentType string
+// DeploymentType - How the Redis server is configured. Defaults to Standalone
+type DeploymentType string
 
 const (
-	// PipelineFunctionRedisDeploymentTypeStandalone Standalone
-	PipelineFunctionRedisDeploymentTypeStandalone PipelineFunctionRedisDeploymentType = "standalone"
-	// PipelineFunctionRedisDeploymentTypeCluster Cluster
-	PipelineFunctionRedisDeploymentTypeCluster PipelineFunctionRedisDeploymentType = "cluster"
-	// PipelineFunctionRedisDeploymentTypeSentinel Sentinel
-	PipelineFunctionRedisDeploymentTypeSentinel PipelineFunctionRedisDeploymentType = "sentinel"
+	// DeploymentTypeStandalone Standalone
+	DeploymentTypeStandalone DeploymentType = "standalone"
+	// DeploymentTypeCluster Cluster
+	DeploymentTypeCluster DeploymentType = "cluster"
+	// DeploymentTypeSentinel Sentinel
+	DeploymentTypeSentinel DeploymentType = "sentinel"
 )
 
-func (e PipelineFunctionRedisDeploymentType) ToPointer() *PipelineFunctionRedisDeploymentType {
+func (e DeploymentType) ToPointer() *DeploymentType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionRedisDeploymentType) IsExact() bool {
+func (e *DeploymentType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standalone", "cluster", "sentinel":
@@ -138,12 +138,12 @@ func (e *PipelineFunctionRedisAuthenticationMethod) IsExact() bool {
 }
 
 type PipelineFunctionRedisConf struct {
-	Commands []PipelineFunctionRedisCommand `json:"commands"`
+	Commands []Command `json:"commands"`
 	// How the Redis server is configured. Defaults to Standalone
-	DeploymentType *PipelineFunctionRedisDeploymentType       `default:"standalone" json:"deploymentType"`
-	AuthType       *PipelineFunctionRedisAuthenticationMethod `default:"none" json:"authType"`
+	DeploymentType *DeploymentType                            `json:"deploymentType,omitempty"`
+	AuthType       *PipelineFunctionRedisAuthenticationMethod `json:"authType,omitempty"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
-	MaxBlockSecs *float64 `default:"60" json:"maxBlockSecs"`
+	MaxBlockSecs *float64 `json:"maxBlockSecs,omitempty"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitempty"`
 }
@@ -159,14 +159,14 @@ func (p *PipelineFunctionRedisConf) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PipelineFunctionRedisConf) GetCommands() []PipelineFunctionRedisCommand {
+func (p *PipelineFunctionRedisConf) GetCommands() []Command {
 	if p == nil {
-		return []PipelineFunctionRedisCommand{}
+		return []Command{}
 	}
 	return p.Commands
 }
 
-func (p *PipelineFunctionRedisConf) GetDeploymentType() *PipelineFunctionRedisDeploymentType {
+func (p *PipelineFunctionRedisConf) GetDeploymentType() *DeploymentType {
 	if p == nil {
 		return nil
 	}
@@ -196,7 +196,7 @@ func (p *PipelineFunctionRedisConf) GetEnableClientSideCaching() *bool {
 
 type PipelineFunctionRedis struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionRedisID `json:"id"`
 	// Simple description of this step

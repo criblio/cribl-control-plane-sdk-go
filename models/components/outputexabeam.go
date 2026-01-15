@@ -48,37 +48,37 @@ type OutputExabeam struct {
 	// Region where the bucket is located
 	Region string `json:"region"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
-	StagePath *string `default:"$CRIBL_HOME/state/outputs/staging" json:"stagePath"`
+	StagePath string `json:"stagePath"`
 	// Google Cloud Storage service endpoint
-	Endpoint *string `default:"https://storage.googleapis.com" json:"endpoint"`
+	Endpoint string `json:"endpoint"`
 	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion *SignatureVersionOptions4 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions4 `json:"signatureVersion,omitempty"`
 	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions1 `default:"private" json:"objectACL"`
+	ObjectACL *ObjectACLOptions1 `json:"objectACL,omitempty"`
 	// Storage class to select for uploaded objects
 	StorageClass *StorageClassOptions1 `json:"storageClass,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `default:"true" json:"addIdToStagePath"`
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
 	// Remove empty staging directories after moving files
-	RemoveEmptyDirs *bool `default:"true" json:"removeEmptyDirs"`
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `default:"300" json:"maxFileOpenTimeSec"`
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `default:"30" json:"maxFileIdleTimeSec"`
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitempty"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
-	MaxOpenFiles *float64 `default:"100" json:"maxOpenFiles"`
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `default:"block" json:"onBackpressure"`
+	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitempty"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-	DeadletterEnabled *bool `default:"false" json:"deadletterEnabled"`
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
-	OnDiskFullBackpressure *DiskSpaceProtectionOptions `default:"block" json:"onDiskFullBackpressure"`
+	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
-	MaxFileSizeMB *float64 `default:"10" json:"maxFileSizeMB"`
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
 	// Enter an encoded string containing Exabeam configurations
 	EncodedConfiguration *string `json:"encodedConfiguration,omitempty"`
 	// ID of the Exabeam Collector where data should be sent. Example: 11112222-3333-4444-5555-666677778888
@@ -95,13 +95,13 @@ type OutputExabeam struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	Description  *string `json:"description,omitempty"`
 	// How frequently, in seconds, to clean up empty directories
-	EmptyDirCleanupSec *float64 `default:"300" json:"emptyDirCleanupSec"`
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitempty"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
-	DirectoryBatchSize *float64 `default:"1000" json:"directoryBatchSize"`
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitempty"`
 	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
-	DeadletterPath *string `default:"$CRIBL_HOME/state/outputs/dead-letter" json:"deadletterPath"`
+	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-	MaxRetryNum *float64 `default:"20" json:"maxRetryNum"`
+	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
 }
 
 func (o OutputExabeam) MarshalJSON() ([]byte, error) {
@@ -109,7 +109,7 @@ func (o OutputExabeam) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputExabeam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "collectorInstanceId"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "bucket", "region", "stagePath", "endpoint", "collectorInstanceId"}); err != nil {
 		return err
 	}
 	return nil
@@ -171,16 +171,16 @@ func (o *OutputExabeam) GetRegion() string {
 	return o.Region
 }
 
-func (o *OutputExabeam) GetStagePath() *string {
+func (o *OutputExabeam) GetStagePath() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.StagePath
 }
 
-func (o *OutputExabeam) GetEndpoint() *string {
+func (o *OutputExabeam) GetEndpoint() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Endpoint
 }

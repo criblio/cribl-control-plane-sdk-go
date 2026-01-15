@@ -12,11 +12,11 @@ type ItemsTypeHosts struct {
 	// The port to connect to on the provided host
 	Port float64 `json:"port"`
 	// Whether to inherit TLS configs from group setting or disable TLS
-	TLS *TLSOptionsHostsItems `default:"inherit" json:"tls"`
+	TLS *TLSOptionsHostsItems `json:"tls,omitempty"`
 	// Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
 	Servername *string `json:"servername,omitempty"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
+	Weight *float64 `json:"weight,omitempty"`
 }
 
 func (i ItemsTypeHosts) MarshalJSON() ([]byte, error) {

@@ -36,17 +36,17 @@ type PipelineFunctionSuppressConf struct {
 	// Suppression key expression used to uniquely identify events to suppress. For example, `${ip}:${port}` will use fields ip and port from each event to generate the key.
 	KeyExpr string `json:"keyExpr"`
 	// The number of events to allow per time period
-	Allow *float64 `default:"1" json:"allow"`
+	Allow float64 `json:"allow"`
 	// The number of seconds to suppress events after 'Number to allow' events are received
-	SuppressPeriodSec *float64 `default:"30" json:"suppressPeriodSec"`
+	SuppressPeriodSec float64 `json:"suppressPeriodSec"`
 	// If disabled, suppressed events will be tagged with suppress=1 but not dropped
-	DropEventsMode *bool `default:"true" json:"dropEventsMode"`
+	DropEventsMode *bool `json:"dropEventsMode,omitempty"`
 	// The maximum number of keys that can be cached before idle entries are removed. Leave at default unless you understand the implications of changing.
-	MaxCacheSize *float64 `default:"50000" json:"maxCacheSize"`
+	MaxCacheSize *float64 `json:"maxCacheSize,omitempty"`
 	// The number of suppression periods 'Suppression Period' of inactivity before a cache entry is considered idle. Leave at default unless you understand the implications of changing.
-	CacheIdleTimeoutPeriods *float64 `default:"2" json:"cacheIdleTimeoutPeriods"`
+	CacheIdleTimeoutPeriods *float64 `json:"cacheIdleTimeoutPeriods,omitempty"`
 	// Check cache for idle sessions every N events when cache size is > 'Maximum Cache Size'. Leave at default unless you understand the implications of changing.
-	NumEventsIdleTimeoutTrigger *float64 `default:"10000" json:"numEventsIdleTimeoutTrigger"`
+	NumEventsIdleTimeoutTrigger *float64 `json:"numEventsIdleTimeoutTrigger,omitempty"`
 }
 
 func (p PipelineFunctionSuppressConf) MarshalJSON() ([]byte, error) {
@@ -54,7 +54,7 @@ func (p PipelineFunctionSuppressConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionSuppressConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"keyExpr"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"keyExpr", "allow", "suppressPeriodSec"}); err != nil {
 		return err
 	}
 	return nil
@@ -67,16 +67,16 @@ func (p *PipelineFunctionSuppressConf) GetKeyExpr() string {
 	return p.KeyExpr
 }
 
-func (p *PipelineFunctionSuppressConf) GetAllow() *float64 {
+func (p *PipelineFunctionSuppressConf) GetAllow() float64 {
 	if p == nil {
-		return nil
+		return 0.0
 	}
 	return p.Allow
 }
 
-func (p *PipelineFunctionSuppressConf) GetSuppressPeriodSec() *float64 {
+func (p *PipelineFunctionSuppressConf) GetSuppressPeriodSec() float64 {
 	if p == nil {
-		return nil
+		return 0.0
 	}
 	return p.SuppressPeriodSec
 }
@@ -111,7 +111,7 @@ func (p *PipelineFunctionSuppressConf) GetNumEventsIdleTimeoutTrigger() *float64
 
 type PipelineFunctionSuppress struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionSuppressID `json:"id"`
 	// Simple description of this step

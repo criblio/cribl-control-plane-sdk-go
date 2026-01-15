@@ -4,1279 +4,9 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputEdgePrometheusPqEnabledTrueWithPqConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool   `default:"false" json:"pqEnabled"`
-	Pq        *PqType `json:"pq,omitempty"`
-	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
-	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Other dimensions to include in events
-	DimensionList []string `json:"dimensionList,omitempty"`
-	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputEdgePrometheusDiscoveryType `default:"static" json:"discoveryType"`
-	// How often in seconds to scrape targets for metrics.
-	Interval *float64 `default:"15" json:"interval"`
-	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `default:"5000" json:"timeout"`
-	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                                  `json:"description,omitempty"`
-	Targets     []Target                                 `json:"targets,omitempty"`
-	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
-	// List of DNS names to resolve
-	NameList []string `json:"nameList,omitempty"`
-	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `default:"http" json:"scrapeProtocol"`
-	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
-	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
-	// Filter to apply when searching for EC2 instances
-	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
-	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
-	// Region where the EC2 is located
-	Region *string `json:"region,omitempty"`
-	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
-	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
-	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
-	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
-	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `default:"metadata.annotations['prometheus.io/scheme'] || 'http'" json:"scrapeProtocolExpr"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `default:"metadata.annotations['prometheus.io/port'] || 9090" json:"scrapePortExpr"`
-	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `default:"metadata.annotations['prometheus.io/path'] || '/metrics'" json:"scrapePathExpr"`
-	//   Add rules to decide which pods to discover for metrics.
-	//   Pods are searched if no rules are given or of all the rules'
-	//   expressions evaluate to true.
-	//
-	PodFilter []PodFilter `json:"podFilter,omitempty"`
-	// Username for Prometheus Basic authentication
-	Username *string `json:"username,omitempty"`
-	// Password for Prometheus Basic authentication
-	Password *string `json:"password,omitempty"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-}
-
-func (i InputEdgePrometheusPqEnabledTrueWithPqConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetType() InputEdgePrometheusType {
-	if i == nil {
-		return InputEdgePrometheusType("")
-	}
-	return i.Type
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDimensionList() []string {
-	if i == nil {
-		return nil
-	}
-	return i.DimensionList
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
-	if i == nil {
-		return nil
-	}
-	return i.DiscoveryType
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Timeout
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPersistence() *DiskSpoolingType {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetTargets() []Target {
-	if i == nil {
-		return nil
-	}
-	return i.Targets
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetRecordType() *RecordTypeOptions {
-	if i == nil {
-		return nil
-	}
-	return i.RecordType
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePort() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePort
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetNameList() []string {
-	if i == nil {
-		return nil
-	}
-	return i.NameList
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapeProtocol
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePath
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAuthenticationMethod
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAPIKey
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecret
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetUsePublicIP() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.UsePublicIP
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
-	if i == nil {
-		return nil
-	}
-	return i.SearchFilter
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecretKey
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Region
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Endpoint
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
-	if i == nil {
-		return nil
-	}
-	return i.SignatureVersion
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetReuseConnections() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ReuseConnections
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetEnableAssumeRole() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableAssumeRole
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleArn
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleExternalID
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetDurationSeconds() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.DurationSeconds
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapeProtocolExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapeProtocolExpr
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePortExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePortExpr
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetScrapePathExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePathExpr
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPodFilter() []PodFilter {
-	if i == nil {
-		return nil
-	}
-	return i.PodFilter
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetUsername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Username
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetPassword() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Password
-}
-
-func (i *InputEdgePrometheusPqEnabledTrueWithPqConstraint) GetCredentialsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CredentialsSecret
-}
-
-type InputEdgePrometheusPqEnabledFalseConstraint struct {
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
-	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
-	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	Pq          *PqType                        `json:"pq,omitempty"`
-	// Other dimensions to include in events
-	DimensionList []string `json:"dimensionList,omitempty"`
-	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputEdgePrometheusDiscoveryType `default:"static" json:"discoveryType"`
-	// How often in seconds to scrape targets for metrics.
-	Interval *float64 `default:"15" json:"interval"`
-	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `default:"5000" json:"timeout"`
-	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                                  `json:"description,omitempty"`
-	Targets     []Target                                 `json:"targets,omitempty"`
-	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
-	// List of DNS names to resolve
-	NameList []string `json:"nameList,omitempty"`
-	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `default:"http" json:"scrapeProtocol"`
-	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
-	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
-	// Filter to apply when searching for EC2 instances
-	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
-	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
-	// Region where the EC2 is located
-	Region *string `json:"region,omitempty"`
-	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
-	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
-	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
-	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
-	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `default:"metadata.annotations['prometheus.io/scheme'] || 'http'" json:"scrapeProtocolExpr"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `default:"metadata.annotations['prometheus.io/port'] || 9090" json:"scrapePortExpr"`
-	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `default:"metadata.annotations['prometheus.io/path'] || '/metrics'" json:"scrapePathExpr"`
-	//   Add rules to decide which pods to discover for metrics.
-	//   Pods are searched if no rules are given or of all the rules'
-	//   expressions evaluate to true.
-	//
-	PodFilter []PodFilter `json:"podFilter,omitempty"`
-	// Username for Prometheus Basic authentication
-	Username *string `json:"username,omitempty"`
-	// Password for Prometheus Basic authentication
-	Password *string `json:"password,omitempty"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-}
-
-func (i InputEdgePrometheusPqEnabledFalseConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetType() InputEdgePrometheusType {
-	if i == nil {
-		return InputEdgePrometheusType("")
-	}
-	return i.Type
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetDimensionList() []string {
-	if i == nil {
-		return nil
-	}
-	return i.DimensionList
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
-	if i == nil {
-		return nil
-	}
-	return i.DiscoveryType
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Timeout
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetPersistence() *DiskSpoolingType {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetTargets() []Target {
-	if i == nil {
-		return nil
-	}
-	return i.Targets
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetRecordType() *RecordTypeOptions {
-	if i == nil {
-		return nil
-	}
-	return i.RecordType
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapePort() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePort
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetNameList() []string {
-	if i == nil {
-		return nil
-	}
-	return i.NameList
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapeProtocol
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapePath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePath
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAuthenticationMethod
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAPIKey
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecret
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetUsePublicIP() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.UsePublicIP
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
-	if i == nil {
-		return nil
-	}
-	return i.SearchFilter
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecretKey
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Region
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Endpoint
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
-	if i == nil {
-		return nil
-	}
-	return i.SignatureVersion
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetReuseConnections() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ReuseConnections
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetEnableAssumeRole() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableAssumeRole
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleArn
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleExternalID
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetDurationSeconds() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.DurationSeconds
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapeProtocolExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapeProtocolExpr
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapePortExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePortExpr
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetScrapePathExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePathExpr
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetPodFilter() []PodFilter {
-	if i == nil {
-		return nil
-	}
-	return i.PodFilter
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetUsername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Username
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetPassword() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Password
-}
-
-func (i *InputEdgePrometheusPqEnabledFalseConstraint) GetCredentialsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CredentialsSecret
-}
-
-type InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
-	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
-	// Unique ID for this input
-	ID       *string                 `json:"id,omitempty"`
-	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
-	// Pipeline to process data from this Source before sending it through the Routes
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitempty"`
-	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	Pq         *PqType  `json:"pq,omitempty"`
-	// Other dimensions to include in events
-	DimensionList []string `json:"dimensionList,omitempty"`
-	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputEdgePrometheusDiscoveryType `default:"static" json:"discoveryType"`
-	// How often in seconds to scrape targets for metrics.
-	Interval *float64 `default:"15" json:"interval"`
-	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `default:"5000" json:"timeout"`
-	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
-	// Fields to add to events from this input
-	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
-	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `default:"manual" json:"authType"`
-	Description *string                                  `json:"description,omitempty"`
-	Targets     []Target                                 `json:"targets,omitempty"`
-	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
-	// List of DNS names to resolve
-	NameList []string `json:"nameList,omitempty"`
-	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `default:"http" json:"scrapeProtocol"`
-	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
-	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
-	// Select or create a stored secret that references your access key and secret key
-	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
-	// Filter to apply when searching for EC2 instances
-	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
-	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
-	// Region where the EC2 is located
-	Region *string `json:"region,omitempty"`
-	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
-	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
-	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
-	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
-	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
-	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `default:"metadata.annotations['prometheus.io/scheme'] || 'http'" json:"scrapeProtocolExpr"`
-	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `default:"metadata.annotations['prometheus.io/port'] || 9090" json:"scrapePortExpr"`
-	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `default:"metadata.annotations['prometheus.io/path'] || '/metrics'" json:"scrapePathExpr"`
-	//   Add rules to decide which pods to discover for metrics.
-	//   Pods are searched if no rules are given or of all the rules'
-	//   expressions evaluate to true.
-	//
-	PodFilter []PodFilter `json:"podFilter,omitempty"`
-	// Username for Prometheus Basic authentication
-	Username *string `json:"username,omitempty"`
-	// Password for Prometheus Basic authentication
-	Password *string `json:"password,omitempty"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-}
-
-func (i InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetConnections() []ItemsTypeConnectionsOptional {
-	if i == nil {
-		return nil
-	}
-	return i.Connections
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ID
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetType() InputEdgePrometheusType {
-	if i == nil {
-		return InputEdgePrometheusType("")
-	}
-	return i.Type
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetEnvironment() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Environment
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPqEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.PqEnabled
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetStreamtags() []string {
-	if i == nil {
-		return nil
-	}
-	return i.Streamtags
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPq() *PqType {
-	if i == nil {
-		return nil
-	}
-	return i.Pq
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDimensionList() []string {
-	if i == nil {
-		return nil
-	}
-	return i.DimensionList
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
-	if i == nil {
-		return nil
-	}
-	return i.DiscoveryType
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetInterval() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Interval
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetTimeout() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.Timeout
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPersistence() *DiskSpoolingType {
-	if i == nil {
-		return nil
-	}
-	return i.Persistence
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetTargets() []Target {
-	if i == nil {
-		return nil
-	}
-	return i.Targets
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetRecordType() *RecordTypeOptions {
-	if i == nil {
-		return nil
-	}
-	return i.RecordType
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePort() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePort
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetNameList() []string {
-	if i == nil {
-		return nil
-	}
-	return i.NameList
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapeProtocol
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePath
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAuthenticationMethod
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsAPIKey
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecret
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetUsePublicIP() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.UsePublicIP
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
-	if i == nil {
-		return nil
-	}
-	return i.SearchFilter
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AwsSecretKey
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Region
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Endpoint
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
-	if i == nil {
-		return nil
-	}
-	return i.SignatureVersion
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetReuseConnections() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.ReuseConnections
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetEnableAssumeRole() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.EnableAssumeRole
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleArn
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.AssumeRoleExternalID
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetDurationSeconds() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.DurationSeconds
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapeProtocolExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapeProtocolExpr
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePortExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePortExpr
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetScrapePathExpr() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ScrapePathExpr
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPodFilter() []PodFilter {
-	if i == nil {
-		return nil
-	}
-	return i.PodFilter
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetUsername() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Username
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetPassword() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Password
-}
-
-func (i *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) GetCredentialsSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CredentialsSecret
-}
 
 type InputEdgePrometheusType string
 
@@ -1358,13 +88,13 @@ func (e *InputEdgePrometheusAuthenticationMethod) IsExact() bool {
 
 type Target struct {
 	// Protocol to use when collecting metrics
-	Protocol *ProtocolOptionsTargetsItems `default:"http" json:"protocol"`
+	Protocol *ProtocolOptionsTargetsItems `json:"protocol,omitempty"`
 	// Name of host from which to pull metrics.
 	Host string `json:"host"`
 	// The port number in the metrics URL for discovered targets.
-	Port *float64 `default:"9090" json:"port"`
+	Port *float64 `json:"port,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	Path *string `default:"/metrics" json:"path"`
+	Path *string `json:"path,omitempty"`
 }
 
 func (t Target) MarshalJSON() ([]byte, error) {
@@ -1438,19 +168,19 @@ func (p *PodFilter) GetDescription() *string {
 	return p.Description
 }
 
-type InputEdgePrometheusSendToRoutesTrueConstraint struct {
-	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+type InputEdgePrometheus struct {
 	// Unique ID for this input
 	ID       *string                 `json:"id,omitempty"`
 	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `default:"false" json:"disabled"`
+	Disabled *bool                   `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
@@ -1459,35 +189,35 @@ type InputEdgePrometheusSendToRoutesTrueConstraint struct {
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitempty"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
-	DiscoveryType *InputEdgePrometheusDiscoveryType `default:"static" json:"discoveryType"`
+	DiscoveryType InputEdgePrometheusDiscoveryType `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
-	Interval *float64 `default:"15" json:"interval"`
+	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `default:"5000" json:"timeout"`
+	Timeout     *float64          `json:"timeout,omitempty"`
 	Persistence *DiskSpoolingType `json:"persistence,omitempty"`
 	// Fields to add to events from this input
 	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `default:"manual" json:"authType"`
+	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitempty"`
 	Description *string                                  `json:"description,omitempty"`
 	Targets     []Target                                 `json:"targets,omitempty"`
 	// DNS record type to resolve
-	RecordType *RecordTypeOptions `default:"SRV" json:"recordType"`
+	RecordType *RecordTypeOptions `json:"recordType,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePort *float64 `default:"9090" json:"scrapePort"`
+	ScrapePort *float64 `json:"scrapePort,omitempty"`
 	// List of DNS names to resolve
 	NameList []string `json:"nameList,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocol *ProtocolOptionsTargetsItems `default:"http" json:"scrapeProtocol"`
+	ScrapeProtocol *ProtocolOptionsTargetsItems `json:"scrapeProtocol,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePath *string `default:"/metrics" json:"scrapePath"`
+	ScrapePath *string `json:"scrapePath,omitempty"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `default:"auto" json:"awsAuthenticationMethod"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitempty"`
 	AwsAPIKey               *string                                     `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
-	UsePublicIP *bool `default:"true" json:"usePublicIp"`
+	UsePublicIP *bool `json:"usePublicIp,omitempty"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitempty"`
 	AwsSecretKey *string                 `json:"awsSecretKey,omitempty"`
@@ -1496,25 +226,25 @@ type InputEdgePrometheusSendToRoutesTrueConstraint struct {
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Signature version to use for signing EC2 requests
-	SignatureVersion *SignatureVersionOptions1 `default:"v4" json:"signatureVersion"`
+	SignatureVersion *SignatureVersionOptions1 `json:"signatureVersion,omitempty"`
 	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `default:"true" json:"reuseConnections"`
+	ReuseConnections *bool `json:"reuseConnections,omitempty"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Use Assume Role credentials to access EC2
-	EnableAssumeRole *bool `default:"false" json:"enableAssumeRole"`
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitempty"`
 	// Amazon Resource Name (ARN) of the role to assume
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty"`
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitempty"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `default:"3600" json:"durationSeconds"`
+	DurationSeconds *float64 `json:"durationSeconds,omitempty"`
 	// Protocol to use when collecting metrics
-	ScrapeProtocolExpr *string `default:"metadata.annotations['prometheus.io/scheme'] || 'http'" json:"scrapeProtocolExpr"`
+	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitempty"`
 	// The port number in the metrics URL for discovered targets.
-	ScrapePortExpr *string `default:"metadata.annotations['prometheus.io/port'] || 9090" json:"scrapePortExpr"`
+	ScrapePortExpr *string `json:"scrapePortExpr,omitempty"`
 	// Path to use when collecting metrics from discovered targets
-	ScrapePathExpr *string `default:"metadata.annotations['prometheus.io/path'] || '/metrics'" json:"scrapePathExpr"`
+	ScrapePathExpr *string `json:"scrapePathExpr,omitempty"`
 	//   Add rules to decide which pods to discover for metrics.
 	//   Pods are searched if no rules are given or of all the rules'
 	//   expressions evaluate to true.
@@ -1528,442 +258,335 @@ type InputEdgePrometheusSendToRoutesTrueConstraint struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
 }
 
-func (i InputEdgePrometheusSendToRoutesTrueConstraint) MarshalJSON() ([]byte, error) {
+func (i InputEdgePrometheus) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type"}); err != nil {
+func (i *InputEdgePrometheus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "discoveryType", "interval"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetSendToRoutes() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.SendToRoutes
-}
-
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetID() *string {
+func (i *InputEdgePrometheus) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetType() InputEdgePrometheusType {
+func (i *InputEdgePrometheus) GetType() InputEdgePrometheusType {
 	if i == nil {
 		return InputEdgePrometheusType("")
 	}
 	return i.Type
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetDisabled() *bool {
+func (i *InputEdgePrometheus) GetDisabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Disabled
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetPipeline() *string {
+func (i *InputEdgePrometheus) GetPipeline() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Pipeline
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetEnvironment() *string {
+func (i *InputEdgePrometheus) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputEdgePrometheus) GetEnvironment() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Environment
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetPqEnabled() *bool {
+func (i *InputEdgePrometheus) GetPqEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.PqEnabled
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetStreamtags() []string {
+func (i *InputEdgePrometheus) GetStreamtags() []string {
 	if i == nil {
 		return nil
 	}
 	return i.Streamtags
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputEdgePrometheus) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetPq() *PqType {
+func (i *InputEdgePrometheus) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetDimensionList() []string {
+func (i *InputEdgePrometheus) GetDimensionList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.DimensionList
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetDiscoveryType() *InputEdgePrometheusDiscoveryType {
+func (i *InputEdgePrometheus) GetDiscoveryType() InputEdgePrometheusDiscoveryType {
 	if i == nil {
-		return nil
+		return InputEdgePrometheusDiscoveryType("")
 	}
 	return i.DiscoveryType
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetInterval() *float64 {
+func (i *InputEdgePrometheus) GetInterval() float64 {
 	if i == nil {
-		return nil
+		return 0.0
 	}
 	return i.Interval
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetTimeout() *float64 {
+func (i *InputEdgePrometheus) GetTimeout() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.Timeout
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetPersistence() *DiskSpoolingType {
+func (i *InputEdgePrometheus) GetPersistence() *DiskSpoolingType {
 	if i == nil {
 		return nil
 	}
 	return i.Persistence
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetMetadata() []ItemsTypeNotificationMetadata {
+func (i *InputEdgePrometheus) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
+func (i *InputEdgePrometheus) GetAuthType() *InputEdgePrometheusAuthenticationMethod {
 	if i == nil {
 		return nil
 	}
 	return i.AuthType
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetDescription() *string {
+func (i *InputEdgePrometheus) GetDescription() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Description
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetTargets() []Target {
+func (i *InputEdgePrometheus) GetTargets() []Target {
 	if i == nil {
 		return nil
 	}
 	return i.Targets
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetRecordType() *RecordTypeOptions {
+func (i *InputEdgePrometheus) GetRecordType() *RecordTypeOptions {
 	if i == nil {
 		return nil
 	}
 	return i.RecordType
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapePort() *float64 {
+func (i *InputEdgePrometheus) GetScrapePort() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePort
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetNameList() []string {
+func (i *InputEdgePrometheus) GetNameList() []string {
 	if i == nil {
 		return nil
 	}
 	return i.NameList
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
+func (i *InputEdgePrometheus) GetScrapeProtocol() *ProtocolOptionsTargetsItems {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocol
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapePath() *string {
+func (i *InputEdgePrometheus) GetScrapePath() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePath
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
+func (i *InputEdgePrometheus) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAuthenticationMethod
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsAPIKey() *string {
+func (i *InputEdgePrometheus) GetAwsAPIKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsAPIKey
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsSecret() *string {
+func (i *InputEdgePrometheus) GetAwsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecret
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetUsePublicIP() *bool {
+func (i *InputEdgePrometheus) GetUsePublicIP() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.UsePublicIP
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputEdgePrometheus) GetSearchFilter() []ItemsTypeSearchFilter {
 	if i == nil {
 		return nil
 	}
 	return i.SearchFilter
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAwsSecretKey() *string {
+func (i *InputEdgePrometheus) GetAwsSecretKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AwsSecretKey
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetRegion() *string {
+func (i *InputEdgePrometheus) GetRegion() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Region
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetEndpoint() *string {
+func (i *InputEdgePrometheus) GetEndpoint() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Endpoint
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetSignatureVersion() *SignatureVersionOptions1 {
+func (i *InputEdgePrometheus) GetSignatureVersion() *SignatureVersionOptions1 {
 	if i == nil {
 		return nil
 	}
 	return i.SignatureVersion
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetReuseConnections() *bool {
+func (i *InputEdgePrometheus) GetReuseConnections() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.ReuseConnections
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetRejectUnauthorized() *bool {
+func (i *InputEdgePrometheus) GetRejectUnauthorized() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.RejectUnauthorized
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetEnableAssumeRole() *bool {
+func (i *InputEdgePrometheus) GetEnableAssumeRole() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.EnableAssumeRole
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAssumeRoleArn() *string {
+func (i *InputEdgePrometheus) GetAssumeRoleArn() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleArn
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetAssumeRoleExternalID() *string {
+func (i *InputEdgePrometheus) GetAssumeRoleExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.AssumeRoleExternalID
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetDurationSeconds() *float64 {
+func (i *InputEdgePrometheus) GetDurationSeconds() *float64 {
 	if i == nil {
 		return nil
 	}
 	return i.DurationSeconds
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapeProtocolExpr() *string {
+func (i *InputEdgePrometheus) GetScrapeProtocolExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapeProtocolExpr
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapePortExpr() *string {
+func (i *InputEdgePrometheus) GetScrapePortExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePortExpr
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetScrapePathExpr() *string {
+func (i *InputEdgePrometheus) GetScrapePathExpr() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ScrapePathExpr
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetPodFilter() []PodFilter {
+func (i *InputEdgePrometheus) GetPodFilter() []PodFilter {
 	if i == nil {
 		return nil
 	}
 	return i.PodFilter
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetUsername() *string {
+func (i *InputEdgePrometheus) GetUsername() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Username
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetPassword() *string {
+func (i *InputEdgePrometheus) GetPassword() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Password
 }
 
-func (i *InputEdgePrometheusSendToRoutesTrueConstraint) GetCredentialsSecret() *string {
+func (i *InputEdgePrometheus) GetCredentialsSecret() *string {
 	if i == nil {
 		return nil
 	}
 	return i.CredentialsSecret
-}
-
-type InputEdgePrometheusUnionType string
-
-const (
-	InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesTrueConstraint                 InputEdgePrometheusUnionType = "InputEdgePrometheus_SendToRoutesTrueConstraint"
-	InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint InputEdgePrometheusUnionType = "InputEdgePrometheus_SendToRoutesFalseWithConnectionsConstraint"
-	InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledFalseConstraint                   InputEdgePrometheusUnionType = "InputEdgePrometheus_PqEnabledFalseConstraint"
-	InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledTrueWithPqConstraint              InputEdgePrometheusUnionType = "InputEdgePrometheus_PqEnabledTrueWithPqConstraint"
-)
-
-type InputEdgePrometheus struct {
-	InputEdgePrometheusSendToRoutesTrueConstraint                 *InputEdgePrometheusSendToRoutesTrueConstraint                 `queryParam:"inline" union:"member"`
-	InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint *InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint `queryParam:"inline" union:"member"`
-	InputEdgePrometheusPqEnabledFalseConstraint                   *InputEdgePrometheusPqEnabledFalseConstraint                   `queryParam:"inline" union:"member"`
-	InputEdgePrometheusPqEnabledTrueWithPqConstraint              *InputEdgePrometheusPqEnabledTrueWithPqConstraint              `queryParam:"inline" union:"member"`
-
-	Type InputEdgePrometheusUnionType
-}
-
-func CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesTrueConstraint(inputEdgePrometheusSendToRoutesTrueConstraint InputEdgePrometheusSendToRoutesTrueConstraint) InputEdgePrometheus {
-	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesTrueConstraint
-
-	return InputEdgePrometheus{
-		InputEdgePrometheusSendToRoutesTrueConstraint: &inputEdgePrometheusSendToRoutesTrueConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputEdgePrometheusInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint(inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint) InputEdgePrometheus {
-	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
-
-	return InputEdgePrometheus{
-		InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint: &inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputEdgePrometheusInputEdgePrometheusPqEnabledFalseConstraint(inputEdgePrometheusPqEnabledFalseConstraint InputEdgePrometheusPqEnabledFalseConstraint) InputEdgePrometheus {
-	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledFalseConstraint
-
-	return InputEdgePrometheus{
-		InputEdgePrometheusPqEnabledFalseConstraint: &inputEdgePrometheusPqEnabledFalseConstraint,
-		Type: typ,
-	}
-}
-
-func CreateInputEdgePrometheusInputEdgePrometheusPqEnabledTrueWithPqConstraint(inputEdgePrometheusPqEnabledTrueWithPqConstraint InputEdgePrometheusPqEnabledTrueWithPqConstraint) InputEdgePrometheus {
-	typ := InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledTrueWithPqConstraint
-
-	return InputEdgePrometheus{
-		InputEdgePrometheusPqEnabledTrueWithPqConstraint: &inputEdgePrometheusPqEnabledTrueWithPqConstraint,
-		Type: typ,
-	}
-}
-
-func (u *InputEdgePrometheus) UnmarshalJSON(data []byte) error {
-
-	var inputEdgePrometheusSendToRoutesTrueConstraint InputEdgePrometheusSendToRoutesTrueConstraint = InputEdgePrometheusSendToRoutesTrueConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusSendToRoutesTrueConstraint, "", true, nil); err == nil {
-		u.InputEdgePrometheusSendToRoutesTrueConstraint = &inputEdgePrometheusSendToRoutesTrueConstraint
-		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesTrueConstraint
-		return nil
-	}
-
-	var inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint, "", true, nil); err == nil {
-		u.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint = &inputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
-		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint
-		return nil
-	}
-
-	var inputEdgePrometheusPqEnabledFalseConstraint InputEdgePrometheusPqEnabledFalseConstraint = InputEdgePrometheusPqEnabledFalseConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusPqEnabledFalseConstraint, "", true, nil); err == nil {
-		u.InputEdgePrometheusPqEnabledFalseConstraint = &inputEdgePrometheusPqEnabledFalseConstraint
-		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledFalseConstraint
-		return nil
-	}
-
-	var inputEdgePrometheusPqEnabledTrueWithPqConstraint InputEdgePrometheusPqEnabledTrueWithPqConstraint = InputEdgePrometheusPqEnabledTrueWithPqConstraint{}
-	if err := utils.UnmarshalJSON(data, &inputEdgePrometheusPqEnabledTrueWithPqConstraint, "", true, nil); err == nil {
-		u.InputEdgePrometheusPqEnabledTrueWithPqConstraint = &inputEdgePrometheusPqEnabledTrueWithPqConstraint
-		u.Type = InputEdgePrometheusUnionTypeInputEdgePrometheusPqEnabledTrueWithPqConstraint
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputEdgePrometheus", string(data))
-}
-
-func (u InputEdgePrometheus) MarshalJSON() ([]byte, error) {
-	if u.InputEdgePrometheusSendToRoutesTrueConstraint != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheusSendToRoutesTrueConstraint, "", true)
-	}
-
-	if u.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheusSendToRoutesFalseWithConnectionsConstraint, "", true)
-	}
-
-	if u.InputEdgePrometheusPqEnabledFalseConstraint != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheusPqEnabledFalseConstraint, "", true)
-	}
-
-	if u.InputEdgePrometheusPqEnabledTrueWithPqConstraint != nil {
-		return utils.MarshalJSON(u.InputEdgePrometheusPqEnabledTrueWithPqConstraint, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputEdgePrometheus: all fields are null")
 }

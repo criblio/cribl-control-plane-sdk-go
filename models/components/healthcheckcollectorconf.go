@@ -68,7 +68,7 @@ func (e *HealthCheckAuthenticationOauthSecretDiscoverType) IsExact() bool {
 
 type HealthCheckAuthenticationOauthSecretDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckAuthenticationOauthSecretDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckAuthenticationOauthSecretDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckAuthenticationOauthSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -76,15 +76,15 @@ func (h HealthCheckAuthenticationOauthSecretDiscovery) MarshalJSON() ([]byte, er
 }
 
 func (h *HealthCheckAuthenticationOauthSecretDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationOauthSecretDiscovery) GetDiscoverType() *HealthCheckAuthenticationOauthSecretDiscoverType {
+func (h *HealthCheckAuthenticationOauthSecretDiscovery) GetDiscoverType() HealthCheckAuthenticationOauthSecretDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationOauthSecretDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -150,12 +150,12 @@ func (h *HealthCheckAuthenticationOauthSecretCollectRequestHeader) GetValue() st
 
 type HealthCheckAuthenticationOauthSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationOauthSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -163,15 +163,15 @@ func (h HealthCheckAuthenticationOauthSecretRetryRules) MarshalJSON() ([]byte, e
 }
 
 func (h *HealthCheckAuthenticationOauthSecretRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationOauthSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckAuthenticationOauthSecretRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -213,15 +213,15 @@ func (h *HealthCheckAuthenticationOauthSecretRetryRules) GetEnableHeader() any {
 
 type HealthCheckAuthenticationOauthSecret struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckAuthenticationOauthSecretAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckAuthenticationOauthSecretAuthentication `json:"authentication"`
 	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
+	LoginURL string `json:"loginUrl"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	ClientSecretParamName string `json:"clientSecretParamName"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret string `json:"textSecret"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
@@ -232,17 +232,17 @@ type HealthCheckAuthenticationOauthSecret struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckAuthenticationOauthSecretHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                                    `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                                    `json:"collectBody,omitempty"`
+	CollectMethod        HealthCheckAuthenticationOauthSecretHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                                   `json:"collectRequestParams,omitempty"`
+	CollectBody          any                                                   `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationOauthSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitempty"`
@@ -254,22 +254,22 @@ func (h HealthCheckAuthenticationOauthSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationOauthSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"textSecret", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "loginUrl", "authHeaderExpr", "clientSecretParamName", "textSecret", "collectUrl", "collectMethod"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationOauthSecret) GetAuthentication() *HealthCheckAuthenticationOauthSecretAuthentication {
+func (h *HealthCheckAuthenticationOauthSecret) GetAuthentication() HealthCheckAuthenticationOauthSecretAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationOauthSecretAuthentication("")
 	}
 	return h.Authentication
 }
 
-func (h *HealthCheckAuthenticationOauthSecret) GetLoginURL() *string {
+func (h *HealthCheckAuthenticationOauthSecret) GetLoginURL() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.LoginURL
 }
@@ -281,16 +281,16 @@ func (h *HealthCheckAuthenticationOauthSecret) GetTokenRespAttribute() *string {
 	return h.TokenRespAttribute
 }
 
-func (h *HealthCheckAuthenticationOauthSecret) GetAuthHeaderExpr() *string {
+func (h *HealthCheckAuthenticationOauthSecret) GetAuthHeaderExpr() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.AuthHeaderExpr
 }
 
-func (h *HealthCheckAuthenticationOauthSecret) GetClientSecretParamName() *string {
+func (h *HealthCheckAuthenticationOauthSecret) GetClientSecretParamName() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.ClientSecretParamName
 }
@@ -330,9 +330,9 @@ func (h *HealthCheckAuthenticationOauthSecret) GetCollectURL() string {
 	return h.CollectURL
 }
 
-func (h *HealthCheckAuthenticationOauthSecret) GetCollectMethod() *HealthCheckAuthenticationOauthSecretHealthCheckMethod {
+func (h *HealthCheckAuthenticationOauthSecret) GetCollectMethod() HealthCheckAuthenticationOauthSecretHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationOauthSecretHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -459,7 +459,7 @@ func (e *HealthCheckAuthenticationOauthDiscoverType) IsExact() bool {
 
 type HealthCheckAuthenticationOauthDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckAuthenticationOauthDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckAuthenticationOauthDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckAuthenticationOauthDiscovery) MarshalJSON() ([]byte, error) {
@@ -467,15 +467,15 @@ func (h HealthCheckAuthenticationOauthDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationOauthDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationOauthDiscovery) GetDiscoverType() *HealthCheckAuthenticationOauthDiscoverType {
+func (h *HealthCheckAuthenticationOauthDiscovery) GetDiscoverType() HealthCheckAuthenticationOauthDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationOauthDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -541,12 +541,12 @@ func (h *HealthCheckAuthenticationOauthCollectRequestHeader) GetValue() string {
 
 type HealthCheckAuthenticationOauthRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationOauthRetryRules) MarshalJSON() ([]byte, error) {
@@ -554,15 +554,15 @@ func (h HealthCheckAuthenticationOauthRetryRules) MarshalJSON() ([]byte, error) 
 }
 
 func (h *HealthCheckAuthenticationOauthRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationOauthRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckAuthenticationOauthRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -604,15 +604,15 @@ func (h *HealthCheckAuthenticationOauthRetryRules) GetEnableHeader() any {
 
 type HealthCheckAuthenticationOauth struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckAuthenticationOauthAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckAuthenticationOauthAuthentication `json:"authentication"`
 	// URL to use for the OAuth API call. This call is expected to be a POST.
-	LoginURL *string `default:"" json:"loginUrl"`
+	LoginURL string `json:"loginUrl"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-	ClientSecretParamName *string `default:"client_secret" json:"clientSecretParamName"`
+	ClientSecretParamName string `json:"clientSecretParamName"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
 	ClientSecretParamValue string `json:"clientSecretParamValue"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
@@ -623,17 +623,17 @@ type HealthCheckAuthenticationOauth struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckAuthenticationOauthHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                              `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                              `json:"collectBody,omitempty"`
+	CollectMethod        HealthCheckAuthenticationOauthHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                             `json:"collectRequestParams,omitempty"`
+	CollectBody          any                                             `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationOauthCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitempty"`
@@ -645,22 +645,22 @@ func (h HealthCheckAuthenticationOauth) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationOauth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"clientSecretParamValue", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "loginUrl", "authHeaderExpr", "clientSecretParamName", "clientSecretParamValue", "collectUrl", "collectMethod"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationOauth) GetAuthentication() *HealthCheckAuthenticationOauthAuthentication {
+func (h *HealthCheckAuthenticationOauth) GetAuthentication() HealthCheckAuthenticationOauthAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationOauthAuthentication("")
 	}
 	return h.Authentication
 }
 
-func (h *HealthCheckAuthenticationOauth) GetLoginURL() *string {
+func (h *HealthCheckAuthenticationOauth) GetLoginURL() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.LoginURL
 }
@@ -672,16 +672,16 @@ func (h *HealthCheckAuthenticationOauth) GetTokenRespAttribute() *string {
 	return h.TokenRespAttribute
 }
 
-func (h *HealthCheckAuthenticationOauth) GetAuthHeaderExpr() *string {
+func (h *HealthCheckAuthenticationOauth) GetAuthHeaderExpr() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.AuthHeaderExpr
 }
 
-func (h *HealthCheckAuthenticationOauth) GetClientSecretParamName() *string {
+func (h *HealthCheckAuthenticationOauth) GetClientSecretParamName() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.ClientSecretParamName
 }
@@ -721,9 +721,9 @@ func (h *HealthCheckAuthenticationOauth) GetCollectURL() string {
 	return h.CollectURL
 }
 
-func (h *HealthCheckAuthenticationOauth) GetCollectMethod() *HealthCheckAuthenticationOauthHealthCheckMethod {
+func (h *HealthCheckAuthenticationOauth) GetCollectMethod() HealthCheckAuthenticationOauthHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationOauthHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -850,7 +850,7 @@ func (e *HealthCheckAuthenticationLoginSecretDiscoverType) IsExact() bool {
 
 type HealthCheckAuthenticationLoginSecretDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckAuthenticationLoginSecretDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckAuthenticationLoginSecretDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckAuthenticationLoginSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -858,15 +858,15 @@ func (h HealthCheckAuthenticationLoginSecretDiscovery) MarshalJSON() ([]byte, er
 }
 
 func (h *HealthCheckAuthenticationLoginSecretDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationLoginSecretDiscovery) GetDiscoverType() *HealthCheckAuthenticationLoginSecretDiscoverType {
+func (h *HealthCheckAuthenticationLoginSecretDiscovery) GetDiscoverType() HealthCheckAuthenticationLoginSecretDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationLoginSecretDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -932,12 +932,12 @@ func (h *HealthCheckAuthenticationLoginSecretCollectRequestHeader) GetValue() st
 
 type HealthCheckAuthenticationLoginSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -945,15 +945,15 @@ func (h HealthCheckAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, e
 }
 
 func (h *HealthCheckAuthenticationLoginSecretRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationLoginSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckAuthenticationLoginSecretRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -995,34 +995,34 @@ func (h *HealthCheckAuthenticationLoginSecretRetryRules) GetEnableHeader() any {
 
 type HealthCheckAuthenticationLoginSecret struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckAuthenticationLoginSecretAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckAuthenticationLoginSecretAuthentication `json:"authentication"`
 	// URL to use for login API call, this call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL string `json:"loginUrl"`
 	// Select or create a stored secret that references your login credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
+	LoginBody string `json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. If left blank, the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
 	Discovery          *HealthCheckAuthenticationLoginSecretDiscovery              `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckAuthenticationLoginSecretHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                                    `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                                    `json:"collectBody,omitempty"`
+	CollectMethod        HealthCheckAuthenticationLoginSecretHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                                   `json:"collectRequestParams,omitempty"`
+	CollectBody          any                                                   `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationLoginSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitempty"`
@@ -1034,22 +1034,22 @@ func (h HealthCheckAuthenticationLoginSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationLoginSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"credentialsSecret", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "loginUrl", "credentialsSecret", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationLoginSecret) GetAuthentication() *HealthCheckAuthenticationLoginSecretAuthentication {
+func (h *HealthCheckAuthenticationLoginSecret) GetAuthentication() HealthCheckAuthenticationLoginSecretAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationLoginSecretAuthentication("")
 	}
 	return h.Authentication
 }
 
-func (h *HealthCheckAuthenticationLoginSecret) GetLoginURL() *string {
+func (h *HealthCheckAuthenticationLoginSecret) GetLoginURL() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.LoginURL
 }
@@ -1061,9 +1061,9 @@ func (h *HealthCheckAuthenticationLoginSecret) GetCredentialsSecret() string {
 	return h.CredentialsSecret
 }
 
-func (h *HealthCheckAuthenticationLoginSecret) GetLoginBody() *string {
+func (h *HealthCheckAuthenticationLoginSecret) GetLoginBody() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.LoginBody
 }
@@ -1075,9 +1075,9 @@ func (h *HealthCheckAuthenticationLoginSecret) GetTokenRespAttribute() *string {
 	return h.TokenRespAttribute
 }
 
-func (h *HealthCheckAuthenticationLoginSecret) GetAuthHeaderExpr() *string {
+func (h *HealthCheckAuthenticationLoginSecret) GetAuthHeaderExpr() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.AuthHeaderExpr
 }
@@ -1103,9 +1103,9 @@ func (h *HealthCheckAuthenticationLoginSecret) GetCollectURL() string {
 	return h.CollectURL
 }
 
-func (h *HealthCheckAuthenticationLoginSecret) GetCollectMethod() *HealthCheckAuthenticationLoginSecretHealthCheckMethod {
+func (h *HealthCheckAuthenticationLoginSecret) GetCollectMethod() HealthCheckAuthenticationLoginSecretHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationLoginSecretHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -1232,7 +1232,7 @@ func (e *HealthCheckAuthenticationLoginDiscoverType) IsExact() bool {
 
 type HealthCheckAuthenticationLoginDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckAuthenticationLoginDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckAuthenticationLoginDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckAuthenticationLoginDiscovery) MarshalJSON() ([]byte, error) {
@@ -1240,15 +1240,15 @@ func (h HealthCheckAuthenticationLoginDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationLoginDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationLoginDiscovery) GetDiscoverType() *HealthCheckAuthenticationLoginDiscoverType {
+func (h *HealthCheckAuthenticationLoginDiscovery) GetDiscoverType() HealthCheckAuthenticationLoginDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationLoginDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -1314,12 +1314,12 @@ func (h *HealthCheckAuthenticationLoginCollectRequestHeader) GetValue() string {
 
 type HealthCheckAuthenticationLoginRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
@@ -1327,15 +1327,15 @@ func (h HealthCheckAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) 
 }
 
 func (h *HealthCheckAuthenticationLoginRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationLoginRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckAuthenticationLoginRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -1377,36 +1377,36 @@ func (h *HealthCheckAuthenticationLoginRetryRules) GetEnableHeader() any {
 
 type HealthCheckAuthenticationLogin struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckAuthenticationLoginAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckAuthenticationLoginAuthentication `json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
-	LoginURL *string "default:\"`https://localhost:9000/api/v1/auth/login`\" json:\"loginUrl\""
+	LoginURL string `json:"loginUrl"`
 	// Login username
 	Username string `json:"username"`
 	// Login password
 	Password string `json:"password"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-	LoginBody *string "default:\"`{ \\\"username\\\": \\\"${username}\\\", \\\"password\\\": \\\"${password}\\\" }`\" json:\"loginBody\""
+	LoginBody string `json:"loginBody"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitempty"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr *string "default:\"`Bearer ${token}`\" json:\"authHeaderExpr\""
+	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"authRequestHeaders,omitempty"`
 	Discovery          *HealthCheckAuthenticationLoginDiscovery                    `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckAuthenticationLoginHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                              `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                              `json:"collectBody,omitempty"`
+	CollectMethod        HealthCheckAuthenticationLoginHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                             `json:"collectRequestParams,omitempty"`
+	CollectBody          any                                             `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationLoginCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitempty"`
@@ -1418,22 +1418,22 @@ func (h HealthCheckAuthenticationLogin) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationLogin) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"username", "password", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "loginUrl", "username", "password", "loginBody", "authHeaderExpr", "collectUrl", "collectMethod"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationLogin) GetAuthentication() *HealthCheckAuthenticationLoginAuthentication {
+func (h *HealthCheckAuthenticationLogin) GetAuthentication() HealthCheckAuthenticationLoginAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationLoginAuthentication("")
 	}
 	return h.Authentication
 }
 
-func (h *HealthCheckAuthenticationLogin) GetLoginURL() *string {
+func (h *HealthCheckAuthenticationLogin) GetLoginURL() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.LoginURL
 }
@@ -1452,9 +1452,9 @@ func (h *HealthCheckAuthenticationLogin) GetPassword() string {
 	return h.Password
 }
 
-func (h *HealthCheckAuthenticationLogin) GetLoginBody() *string {
+func (h *HealthCheckAuthenticationLogin) GetLoginBody() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.LoginBody
 }
@@ -1466,9 +1466,9 @@ func (h *HealthCheckAuthenticationLogin) GetTokenRespAttribute() *string {
 	return h.TokenRespAttribute
 }
 
-func (h *HealthCheckAuthenticationLogin) GetAuthHeaderExpr() *string {
+func (h *HealthCheckAuthenticationLogin) GetAuthHeaderExpr() string {
 	if h == nil {
-		return nil
+		return ""
 	}
 	return h.AuthHeaderExpr
 }
@@ -1494,9 +1494,9 @@ func (h *HealthCheckAuthenticationLogin) GetCollectURL() string {
 	return h.CollectURL
 }
 
-func (h *HealthCheckAuthenticationLogin) GetCollectMethod() *HealthCheckAuthenticationLoginHealthCheckMethod {
+func (h *HealthCheckAuthenticationLogin) GetCollectMethod() HealthCheckAuthenticationLoginHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationLoginHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -1623,7 +1623,7 @@ func (e *HealthCheckAuthenticationBasicSecretDiscoverType) IsExact() bool {
 
 type HealthCheckAuthenticationBasicSecretDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckAuthenticationBasicSecretDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckAuthenticationBasicSecretDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckAuthenticationBasicSecretDiscovery) MarshalJSON() ([]byte, error) {
@@ -1631,15 +1631,15 @@ func (h HealthCheckAuthenticationBasicSecretDiscovery) MarshalJSON() ([]byte, er
 }
 
 func (h *HealthCheckAuthenticationBasicSecretDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationBasicSecretDiscovery) GetDiscoverType() *HealthCheckAuthenticationBasicSecretDiscoverType {
+func (h *HealthCheckAuthenticationBasicSecretDiscovery) GetDiscoverType() HealthCheckAuthenticationBasicSecretDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationBasicSecretDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -1705,12 +1705,12 @@ func (h *HealthCheckAuthenticationBasicSecretCollectRequestHeader) GetValue() st
 
 type HealthCheckAuthenticationBasicSecretRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
@@ -1718,15 +1718,15 @@ func (h HealthCheckAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, e
 }
 
 func (h *HealthCheckAuthenticationBasicSecretRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationBasicSecretRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckAuthenticationBasicSecretRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -1768,24 +1768,24 @@ func (h *HealthCheckAuthenticationBasicSecretRetryRules) GetEnableHeader() any {
 
 type HealthCheckAuthenticationBasicSecret struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckAuthenticationBasicSecretAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckAuthenticationBasicSecretAuthentication `json:"authentication"`
 	// Select or create a stored secret that references your credentials
 	CredentialsSecret string                                         `json:"credentialsSecret"`
 	Discovery         *HealthCheckAuthenticationBasicSecretDiscovery `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckAuthenticationBasicSecretHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                                    `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                                    `json:"collectBody,omitempty"`
+	CollectMethod        HealthCheckAuthenticationBasicSecretHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                                   `json:"collectRequestParams,omitempty"`
+	CollectBody          any                                                   `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationBasicSecretCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitempty"`
@@ -1797,15 +1797,15 @@ func (h HealthCheckAuthenticationBasicSecret) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationBasicSecret) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"credentialsSecret", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "credentialsSecret", "collectUrl", "collectMethod"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationBasicSecret) GetAuthentication() *HealthCheckAuthenticationBasicSecretAuthentication {
+func (h *HealthCheckAuthenticationBasicSecret) GetAuthentication() HealthCheckAuthenticationBasicSecretAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationBasicSecretAuthentication("")
 	}
 	return h.Authentication
 }
@@ -1831,9 +1831,9 @@ func (h *HealthCheckAuthenticationBasicSecret) GetCollectURL() string {
 	return h.CollectURL
 }
 
-func (h *HealthCheckAuthenticationBasicSecret) GetCollectMethod() *HealthCheckAuthenticationBasicSecretHealthCheckMethod {
+func (h *HealthCheckAuthenticationBasicSecret) GetCollectMethod() HealthCheckAuthenticationBasicSecretHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationBasicSecretHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -1960,7 +1960,7 @@ func (e *HealthCheckAuthenticationBasicDiscoverType) IsExact() bool {
 
 type HealthCheckAuthenticationBasicDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckAuthenticationBasicDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckAuthenticationBasicDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckAuthenticationBasicDiscovery) MarshalJSON() ([]byte, error) {
@@ -1968,15 +1968,15 @@ func (h HealthCheckAuthenticationBasicDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationBasicDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationBasicDiscovery) GetDiscoverType() *HealthCheckAuthenticationBasicDiscoverType {
+func (h *HealthCheckAuthenticationBasicDiscovery) GetDiscoverType() HealthCheckAuthenticationBasicDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationBasicDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -2042,12 +2042,12 @@ func (h *HealthCheckAuthenticationBasicCollectRequestHeader) GetValue() string {
 
 type HealthCheckAuthenticationBasicRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) {
@@ -2055,15 +2055,15 @@ func (h HealthCheckAuthenticationBasicRetryRules) MarshalJSON() ([]byte, error) 
 }
 
 func (h *HealthCheckAuthenticationBasicRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationBasicRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckAuthenticationBasicRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -2105,7 +2105,7 @@ func (h *HealthCheckAuthenticationBasicRetryRules) GetEnableHeader() any {
 
 type HealthCheckAuthenticationBasic struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckAuthenticationBasicAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckAuthenticationBasicAuthentication `json:"authentication"`
 	// Basic authentication username
 	Username string `json:"username"`
 	// Basic authentication password
@@ -2114,17 +2114,17 @@ type HealthCheckAuthenticationBasic struct {
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckAuthenticationBasicHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                              `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                              `json:"collectBody,omitempty"`
+	CollectMethod        HealthCheckAuthenticationBasicHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                             `json:"collectRequestParams,omitempty"`
+	CollectBody          any                                             `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationBasicCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                  `json:"safeHeaders,omitempty"`
@@ -2136,15 +2136,15 @@ func (h HealthCheckAuthenticationBasic) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationBasic) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"username", "password", "collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "username", "password", "collectUrl", "collectMethod"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationBasic) GetAuthentication() *HealthCheckAuthenticationBasicAuthentication {
+func (h *HealthCheckAuthenticationBasic) GetAuthentication() HealthCheckAuthenticationBasicAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationBasicAuthentication("")
 	}
 	return h.Authentication
 }
@@ -2177,9 +2177,9 @@ func (h *HealthCheckAuthenticationBasic) GetCollectURL() string {
 	return h.CollectURL
 }
 
-func (h *HealthCheckAuthenticationBasic) GetCollectMethod() *HealthCheckAuthenticationBasicHealthCheckMethod {
+func (h *HealthCheckAuthenticationBasic) GetCollectMethod() HealthCheckAuthenticationBasicHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationBasicHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -2306,7 +2306,7 @@ func (e *HealthCheckAuthenticationNoneDiscoverType) IsExact() bool {
 
 type HealthCheckAuthenticationNoneDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckAuthenticationNoneDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckAuthenticationNoneDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckAuthenticationNoneDiscovery) MarshalJSON() ([]byte, error) {
@@ -2314,15 +2314,15 @@ func (h HealthCheckAuthenticationNoneDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationNoneDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationNoneDiscovery) GetDiscoverType() *HealthCheckAuthenticationNoneDiscoverType {
+func (h *HealthCheckAuthenticationNoneDiscovery) GetDiscoverType() HealthCheckAuthenticationNoneDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationNoneDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -2388,12 +2388,12 @@ func (h *HealthCheckAuthenticationNoneCollectRequestHeader) GetValue() string {
 
 type HealthCheckAuthenticationNoneRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
@@ -2401,15 +2401,15 @@ func (h HealthCheckAuthenticationNoneRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationNoneRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationNoneRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckAuthenticationNoneRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -2451,22 +2451,22 @@ func (h *HealthCheckAuthenticationNoneRetryRules) GetEnableHeader() any {
 
 type HealthCheckAuthenticationNone struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckAuthenticationNoneAuthentication `default:"none" json:"authentication"`
-	Discovery      *HealthCheckAuthenticationNoneDiscovery      `json:"discovery,omitempty"`
+	Authentication HealthCheckAuthenticationNoneAuthentication `json:"authentication"`
+	Discovery      *HealthCheckAuthenticationNoneDiscovery     `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckAuthenticationNoneHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                             `json:"collectRequestParams,omitempty"`
-	CollectBody          any                                             `json:"collectBody,omitempty"`
+	CollectMethod        HealthCheckAuthenticationNoneHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                            `json:"collectRequestParams,omitempty"`
+	CollectBody          any                                            `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckAuthenticationNoneCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                 `json:"safeHeaders,omitempty"`
@@ -2478,15 +2478,15 @@ func (h HealthCheckAuthenticationNone) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckAuthenticationNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"authentication", "collectUrl", "collectMethod"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckAuthenticationNone) GetAuthentication() *HealthCheckAuthenticationNoneAuthentication {
+func (h *HealthCheckAuthenticationNone) GetAuthentication() HealthCheckAuthenticationNoneAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationNoneAuthentication("")
 	}
 	return h.Authentication
 }
@@ -2505,9 +2505,9 @@ func (h *HealthCheckAuthenticationNone) GetCollectURL() string {
 	return h.CollectURL
 }
 
-func (h *HealthCheckAuthenticationNone) GetCollectMethod() *HealthCheckAuthenticationNoneHealthCheckMethod {
+func (h *HealthCheckAuthenticationNone) GetCollectMethod() HealthCheckAuthenticationNoneHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckAuthenticationNoneHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -2633,7 +2633,7 @@ func (e *HealthCheckCollectMethodPostWithBodyDiscoverType) IsExact() bool {
 
 type HealthCheckCollectMethodPostWithBodyDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckCollectMethodPostWithBodyDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckCollectMethodPostWithBodyDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckCollectMethodPostWithBodyDiscovery) MarshalJSON() ([]byte, error) {
@@ -2641,15 +2641,15 @@ func (h HealthCheckCollectMethodPostWithBodyDiscovery) MarshalJSON() ([]byte, er
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyDiscovery) GetDiscoverType() *HealthCheckCollectMethodPostWithBodyDiscoverType {
+func (h *HealthCheckCollectMethodPostWithBodyDiscovery) GetDiscoverType() HealthCheckCollectMethodPostWithBodyDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodPostWithBodyDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -2716,12 +2716,12 @@ func (e *HealthCheckCollectMethodPostWithBodyAuthentication) IsExact() bool {
 
 type HealthCheckCollectMethodPostWithBodyRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, error) {
@@ -2729,15 +2729,15 @@ func (h HealthCheckCollectMethodPostWithBodyRetryRules) MarshalJSON() ([]byte, e
 }
 
 func (h *HealthCheckCollectMethodPostWithBodyRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckCollectMethodPostWithBodyRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -2779,22 +2779,22 @@ func (h *HealthCheckCollectMethodPostWithBodyRetryRules) GetEnableHeader() any {
 
 type HealthCheckCollectMethodPostWithBody struct {
 	// Health check HTTP method.
-	CollectMethod *HealthCheckCollectMethodPostWithBodyHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectBody   any                                                    `json:"collectBody,omitempty"`
-	Discovery     *HealthCheckCollectMethodPostWithBodyDiscovery         `json:"discovery,omitempty"`
+	CollectMethod HealthCheckCollectMethodPostWithBodyHealthCheckMethod `json:"collectMethod"`
+	CollectBody   any                                                   `json:"collectBody,omitempty"`
+	Discovery     *HealthCheckCollectMethodPostWithBodyDiscovery        `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL           string `json:"collectUrl"`
 	CollectRequestParams any    `json:"collectRequestParams,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodPostWithBodyCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckCollectMethodPostWithBodyAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckCollectMethodPostWithBodyAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitempty"`
@@ -2806,15 +2806,15 @@ func (h HealthCheckCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectMethod", "collectUrl", "authentication"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodPostWithBody) GetCollectMethod() *HealthCheckCollectMethodPostWithBodyHealthCheckMethod {
+func (h *HealthCheckCollectMethodPostWithBody) GetCollectMethod() HealthCheckCollectMethodPostWithBodyHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodPostWithBodyHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -2861,9 +2861,9 @@ func (h *HealthCheckCollectMethodPostWithBody) GetAuthenticateCollect() *bool {
 	return h.AuthenticateCollect
 }
 
-func (h *HealthCheckCollectMethodPostWithBody) GetAuthentication() *HealthCheckCollectMethodPostWithBodyAuthentication {
+func (h *HealthCheckCollectMethodPostWithBody) GetAuthentication() HealthCheckCollectMethodPostWithBodyAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodPostWithBodyAuthentication("")
 	}
 	return h.Authentication
 }
@@ -2961,7 +2961,7 @@ func (e *HealthCheckCollectMethodPostDiscoverType) IsExact() bool {
 
 type HealthCheckCollectMethodPostDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckCollectMethodPostDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckCollectMethodPostDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckCollectMethodPostDiscovery) MarshalJSON() ([]byte, error) {
@@ -2969,15 +2969,15 @@ func (h HealthCheckCollectMethodPostDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodPostDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodPostDiscovery) GetDiscoverType() *HealthCheckCollectMethodPostDiscoverType {
+func (h *HealthCheckCollectMethodPostDiscovery) GetDiscoverType() HealthCheckCollectMethodPostDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodPostDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -3044,12 +3044,12 @@ func (e *HealthCheckCollectMethodPostAuthentication) IsExact() bool {
 
 type HealthCheckCollectMethodPostRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
@@ -3057,15 +3057,15 @@ func (h HealthCheckCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodPostRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodPostRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckCollectMethodPostRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -3107,22 +3107,22 @@ func (h *HealthCheckCollectMethodPostRetryRules) GetEnableHeader() any {
 
 type HealthCheckCollectMethodPost struct {
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckCollectMethodPostHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                            `json:"collectRequestParams,omitempty"`
-	Discovery            *HealthCheckCollectMethodPostDiscovery         `json:"discovery,omitempty"`
+	CollectMethod        HealthCheckCollectMethodPostHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                           `json:"collectRequestParams,omitempty"`
+	Discovery            *HealthCheckCollectMethodPostDiscovery        `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL  string `json:"collectUrl"`
 	CollectBody any    `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodPostCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckCollectMethodPostAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckCollectMethodPostAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                `json:"safeHeaders,omitempty"`
@@ -3134,15 +3134,15 @@ func (h HealthCheckCollectMethodPost) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectMethod", "collectUrl", "authentication"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodPost) GetCollectMethod() *HealthCheckCollectMethodPostHealthCheckMethod {
+func (h *HealthCheckCollectMethodPost) GetCollectMethod() HealthCheckCollectMethodPostHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodPostHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -3189,9 +3189,9 @@ func (h *HealthCheckCollectMethodPost) GetAuthenticateCollect() *bool {
 	return h.AuthenticateCollect
 }
 
-func (h *HealthCheckCollectMethodPost) GetAuthentication() *HealthCheckCollectMethodPostAuthentication {
+func (h *HealthCheckCollectMethodPost) GetAuthentication() HealthCheckCollectMethodPostAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodPostAuthentication("")
 	}
 	return h.Authentication
 }
@@ -3289,7 +3289,7 @@ func (e *HealthCheckCollectMethodGetDiscoverType) IsExact() bool {
 
 type HealthCheckCollectMethodGetDiscovery struct {
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-	DiscoverType *HealthCheckCollectMethodGetDiscoverType `default:"none" json:"discoverType"`
+	DiscoverType HealthCheckCollectMethodGetDiscoverType `json:"discoverType"`
 }
 
 func (h HealthCheckCollectMethodGetDiscovery) MarshalJSON() ([]byte, error) {
@@ -3297,15 +3297,15 @@ func (h HealthCheckCollectMethodGetDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodGetDiscovery) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"discoverType"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodGetDiscovery) GetDiscoverType() *HealthCheckCollectMethodGetDiscoverType {
+func (h *HealthCheckCollectMethodGetDiscovery) GetDiscoverType() HealthCheckCollectMethodGetDiscoverType {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodGetDiscoverType("")
 	}
 	return h.DiscoverType
 }
@@ -3372,12 +3372,12 @@ func (e *HealthCheckCollectMethodGetAuthentication) IsExact() bool {
 
 type HealthCheckCollectMethodGetRetryRules struct {
 	// The algorithm to use when performing HTTP retries
-	Type         *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
-	Interval     any                                                 `json:"interval,omitempty"`
-	Limit        any                                                 `json:"limit,omitempty"`
-	Multiplier   any                                                 `json:"multiplier,omitempty"`
-	Codes        any                                                 `json:"codes,omitempty"`
-	EnableHeader any                                                 `json:"enableHeader,omitempty"`
+	Type         RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
+	Interval     any                                                `json:"interval,omitempty"`
+	Limit        any                                                `json:"limit,omitempty"`
+	Multiplier   any                                                `json:"multiplier,omitempty"`
+	Codes        any                                                `json:"codes,omitempty"`
+	EnableHeader any                                                `json:"enableHeader,omitempty"`
 }
 
 func (h HealthCheckCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
@@ -3385,15 +3385,15 @@ func (h HealthCheckCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodGetRetryRules) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodGetRetryRules) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (h *HealthCheckCollectMethodGetRetryRules) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if h == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return h.Type
 }
@@ -3435,22 +3435,22 @@ func (h *HealthCheckCollectMethodGetRetryRules) GetEnableHeader() any {
 
 type HealthCheckCollectMethodGet struct {
 	// Health check HTTP method.
-	CollectMethod        *HealthCheckCollectMethodGetHealthCheckMethod `default:"get" json:"collectMethod"`
-	CollectRequestParams any                                           `json:"collectRequestParams,omitempty"`
-	Discovery            *HealthCheckCollectMethodGetDiscovery         `json:"discovery,omitempty"`
+	CollectMethod        HealthCheckCollectMethodGetHealthCheckMethod `json:"collectMethod"`
+	CollectRequestParams any                                          `json:"collectRequestParams,omitempty"`
+	Discovery            *HealthCheckCollectMethodGetDiscovery        `json:"discovery,omitempty"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL  string `json:"collectUrl"`
 	CollectBody any    `json:"collectBody,omitempty"`
 	// Optional health check request headers.
 	CollectRequestHeaders []HealthCheckCollectMethodGetCollectRequestHeader `json:"collectRequestHeaders,omitempty"`
 	// Enable to make auth health check call.
-	AuthenticateCollect *bool `default:"false" json:"authenticateCollect"`
+	AuthenticateCollect *bool `json:"authenticateCollect,omitempty"`
 	// Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-	Authentication *HealthCheckCollectMethodGetAuthentication `default:"none" json:"authentication"`
+	Authentication HealthCheckCollectMethodGetAuthentication `json:"authentication"`
 	// HTTP request inactivity timeout, use 0 to disable
-	Timeout *float64 `default:"30" json:"timeout"`
+	Timeout *float64 `json:"timeout,omitempty"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `default:"false" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitempty"`
 	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitempty"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                               `json:"safeHeaders,omitempty"`
@@ -3462,15 +3462,15 @@ func (h HealthCheckCollectMethodGet) MarshalJSON() ([]byte, error) {
 }
 
 func (h *HealthCheckCollectMethodGet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectUrl"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &h, "", false, []string{"collectMethod", "collectUrl", "authentication"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (h *HealthCheckCollectMethodGet) GetCollectMethod() *HealthCheckCollectMethodGetHealthCheckMethod {
+func (h *HealthCheckCollectMethodGet) GetCollectMethod() HealthCheckCollectMethodGetHealthCheckMethod {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodGetHealthCheckMethod("")
 	}
 	return h.CollectMethod
 }
@@ -3517,9 +3517,9 @@ func (h *HealthCheckCollectMethodGet) GetAuthenticateCollect() *bool {
 	return h.AuthenticateCollect
 }
 
-func (h *HealthCheckCollectMethodGet) GetAuthentication() *HealthCheckCollectMethodGetAuthentication {
+func (h *HealthCheckCollectMethodGet) GetAuthentication() HealthCheckCollectMethodGetAuthentication {
 	if h == nil {
-		return nil
+		return HealthCheckCollectMethodGetAuthentication("")
 	}
 	return h.Authentication
 }
@@ -3590,7 +3590,7 @@ func CreateHealthCheckCollectorConfNone(none HealthCheckAuthenticationNone) Heal
 	typ := HealthCheckCollectorConfTypeNone
 
 	typStr := HealthCheckAuthenticationNoneAuthentication(typ)
-	none.Authentication = &typStr
+	none.Authentication = typStr
 
 	return HealthCheckCollectorConf{
 		HealthCheckAuthenticationNone: &none,
@@ -3602,7 +3602,7 @@ func CreateHealthCheckCollectorConfBasic(basic HealthCheckAuthenticationBasic) H
 	typ := HealthCheckCollectorConfTypeBasic
 
 	typStr := HealthCheckAuthenticationBasicAuthentication(typ)
-	basic.Authentication = &typStr
+	basic.Authentication = typStr
 
 	return HealthCheckCollectorConf{
 		HealthCheckAuthenticationBasic: &basic,
@@ -3614,7 +3614,7 @@ func CreateHealthCheckCollectorConfBasicSecret(basicSecret HealthCheckAuthentica
 	typ := HealthCheckCollectorConfTypeBasicSecret
 
 	typStr := HealthCheckAuthenticationBasicSecretAuthentication(typ)
-	basicSecret.Authentication = &typStr
+	basicSecret.Authentication = typStr
 
 	return HealthCheckCollectorConf{
 		HealthCheckAuthenticationBasicSecret: &basicSecret,
@@ -3626,7 +3626,7 @@ func CreateHealthCheckCollectorConfLogin(login HealthCheckAuthenticationLogin) H
 	typ := HealthCheckCollectorConfTypeLogin
 
 	typStr := HealthCheckAuthenticationLoginAuthentication(typ)
-	login.Authentication = &typStr
+	login.Authentication = typStr
 
 	return HealthCheckCollectorConf{
 		HealthCheckAuthenticationLogin: &login,
@@ -3638,7 +3638,7 @@ func CreateHealthCheckCollectorConfLoginSecret(loginSecret HealthCheckAuthentica
 	typ := HealthCheckCollectorConfTypeLoginSecret
 
 	typStr := HealthCheckAuthenticationLoginSecretAuthentication(typ)
-	loginSecret.Authentication = &typStr
+	loginSecret.Authentication = typStr
 
 	return HealthCheckCollectorConf{
 		HealthCheckAuthenticationLoginSecret: &loginSecret,
@@ -3650,7 +3650,7 @@ func CreateHealthCheckCollectorConfOauth(oauth HealthCheckAuthenticationOauth) H
 	typ := HealthCheckCollectorConfTypeOauth
 
 	typStr := HealthCheckAuthenticationOauthAuthentication(typ)
-	oauth.Authentication = &typStr
+	oauth.Authentication = typStr
 
 	return HealthCheckCollectorConf{
 		HealthCheckAuthenticationOauth: &oauth,
@@ -3662,7 +3662,7 @@ func CreateHealthCheckCollectorConfOauthSecret(oauthSecret HealthCheckAuthentica
 	typ := HealthCheckCollectorConfTypeOauthSecret
 
 	typStr := HealthCheckAuthenticationOauthSecretAuthentication(typ)
-	oauthSecret.Authentication = &typStr
+	oauthSecret.Authentication = typStr
 
 	return HealthCheckCollectorConf{
 		HealthCheckAuthenticationOauthSecret: &oauthSecret,

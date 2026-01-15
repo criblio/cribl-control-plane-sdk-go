@@ -36,11 +36,11 @@ type DistinctConfiguration struct {
 	// Defines the properties that are concatenated to produce distinct key
 	GroupBy []string `json:"groupBy"`
 	// maximum number of tracked combinations
-	MaxCombinations *float64 `default:"10000" json:"maxCombinations"`
+	MaxCombinations *float64 `json:"maxCombinations,omitempty"`
 	// maximum number of groupBy properties
-	MaxDepth *float64 `default:"15" json:"maxDepth"`
+	MaxDepth *float64 `json:"maxDepth,omitempty"`
 	// indicator that the operator runs on a federated executor
-	IsFederated *bool `default:"false" json:"isFederated"`
+	IsFederated *bool `json:"isFederated,omitempty"`
 	// Toggle this on to suppress generating previews of intermediate results
 	SuppressPreviews *bool `json:"suppressPreviews,omitempty"`
 }
@@ -93,7 +93,7 @@ func (d *DistinctConfiguration) GetSuppressPreviews() *bool {
 
 type PipelineFunctionDistinct struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionDistinctID `json:"id"`
 	// Simple description of this step

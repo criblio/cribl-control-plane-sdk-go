@@ -7,8 +7,8 @@ import (
 )
 
 type ItemsTypeLabels struct {
-	Name  *string `default:"" json:"name"`
-	Value string  `json:"value"`
+	Name  string `json:"name"`
+	Value string `json:"value"`
 }
 
 func (i ItemsTypeLabels) MarshalJSON() ([]byte, error) {
@@ -16,15 +16,15 @@ func (i ItemsTypeLabels) MarshalJSON() ([]byte, error) {
 }
 
 func (i *ItemsTypeLabels) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"value"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *ItemsTypeLabels) GetName() *string {
+func (i *ItemsTypeLabels) GetName() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Name
 }

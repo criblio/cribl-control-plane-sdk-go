@@ -7,9 +7,10 @@ import (
 )
 
 type TLSSettingsClientSideType2 struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
+	Disabled *bool `json:"disabled,omitempty"`
+	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// The name of the predefined certificate
 	CertificateName *string `json:"certificateName,omitempty"`
 	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
@@ -42,11 +43,11 @@ func (t *TLSSettingsClientSideType2) GetDisabled() *bool {
 	return t.Disabled
 }
 
-func (t *TLSSettingsClientSideType2) GetServername() *string {
+func (t *TLSSettingsClientSideType2) GetRejectUnauthorized() *bool {
 	if t == nil {
 		return nil
 	}
-	return t.Servername
+	return t.RejectUnauthorized
 }
 
 func (t *TLSSettingsClientSideType2) GetCertificateName() *string {

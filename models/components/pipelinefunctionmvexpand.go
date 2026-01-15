@@ -32,22 +32,22 @@ func (e *PipelineFunctionMvExpandID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineFunctionMvExpandBagExpansionMode - decides if bag-values are expanded to bags or arrays
-type PipelineFunctionMvExpandBagExpansionMode string
+// BagExpansionMode - decides if bag-values are expanded to bags or arrays
+type BagExpansionMode string
 
 const (
-	// PipelineFunctionMvExpandBagExpansionModeBag Store as object
-	PipelineFunctionMvExpandBagExpansionModeBag PipelineFunctionMvExpandBagExpansionMode = "bag"
-	// PipelineFunctionMvExpandBagExpansionModeArray Store as array
-	PipelineFunctionMvExpandBagExpansionModeArray PipelineFunctionMvExpandBagExpansionMode = "array"
+	// BagExpansionModeBag Store as object
+	BagExpansionModeBag BagExpansionMode = "bag"
+	// BagExpansionModeArray Store as array
+	BagExpansionModeArray BagExpansionMode = "array"
 )
 
-func (e PipelineFunctionMvExpandBagExpansionMode) ToPointer() *PipelineFunctionMvExpandBagExpansionMode {
+func (e BagExpansionMode) ToPointer() *BagExpansionMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionMvExpandBagExpansionMode) IsExact() bool {
+func (e *BagExpansionMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "bag", "array":
@@ -63,11 +63,11 @@ type PipelineFunctionMvExpandConf struct {
 	// stores the value as new target field name
 	TargetNames []string `json:"targetNames,omitempty"`
 	// max. number of rows generated out of every source events
-	RowLimit *float64 `default:"9007199254740991" json:"rowLimit"`
+	RowLimit *float64 `json:"rowLimit,omitempty"`
 	// name of an optional index property generated into the output
 	ItemIndexName *string `json:"itemIndexName,omitempty"`
 	// decides if bag-values are expanded to bags or arrays
-	BagExpansionMode *PipelineFunctionMvExpandBagExpansionMode `default:"bag" json:"bagExpansionMode"`
+	BagExpansionMode *BagExpansionMode `json:"bagExpansionMode,omitempty"`
 }
 
 func (p PipelineFunctionMvExpandConf) MarshalJSON() ([]byte, error) {
@@ -109,7 +109,7 @@ func (p *PipelineFunctionMvExpandConf) GetItemIndexName() *string {
 	return p.ItemIndexName
 }
 
-func (p *PipelineFunctionMvExpandConf) GetBagExpansionMode() *PipelineFunctionMvExpandBagExpansionMode {
+func (p *PipelineFunctionMvExpandConf) GetBagExpansionMode() *BagExpansionMode {
 	if p == nil {
 		return nil
 	}
@@ -118,7 +118,7 @@ func (p *PipelineFunctionMvExpandConf) GetBagExpansionMode() *PipelineFunctionMv
 
 type PipelineFunctionMvExpand struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionMvExpandID `json:"id"`
 	// Simple description of this step

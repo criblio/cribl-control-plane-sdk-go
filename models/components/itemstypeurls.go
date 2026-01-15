@@ -10,7 +10,7 @@ type ItemsTypeUrls struct {
 	// URL of a Cribl Worker to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `default:"1" json:"weight"`
+	Weight *float64 `json:"weight,omitempty"`
 }
 
 func (i ItemsTypeUrls) MarshalJSON() ([]byte, error) {

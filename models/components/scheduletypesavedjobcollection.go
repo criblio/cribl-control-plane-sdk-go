@@ -70,16 +70,16 @@ func (t *TimeWarning) UnmarshalJSON(data []byte) error {
 type ScheduleTypeSavedJobCollectionRunSettings struct {
 	Type *ScheduleTypeSavedJobCollectionType `json:"type,omitempty"`
 	// Reschedule tasks that failed with non-fatal errors
-	RescheduleDroppedTasks *bool `default:"true" json:"rescheduleDroppedTasks"`
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitempty"`
 	// Maximum number of times a task can be rescheduled
-	MaxTaskReschedule *float64 `default:"1" json:"maxTaskReschedule"`
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitempty"`
 	// Level at which to set task logging
-	LogLevel *ScheduleTypeSavedJobCollectionLogLevel `default:"info" json:"logLevel"`
+	LogLevel *ScheduleTypeSavedJobCollectionLogLevel `json:"logLevel,omitempty"`
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-	JobTimeout *string `default:"0" json:"jobTimeout"`
+	JobTimeout *string `json:"jobTimeout,omitempty"`
 	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-	Mode          *string `default:"list" json:"mode"`
-	TimeRangeType *string `default:"relative" json:"timeRangeType"`
+	Mode          string  `json:"mode"`
+	TimeRangeType *string `json:"timeRangeType,omitempty"`
 	// Earliest time to collect data for the selected timezone
 	Earliest *float64 `json:"earliest,omitempty"`
 	// Latest time to collect data for the selected timezone
@@ -87,17 +87,17 @@ type ScheduleTypeSavedJobCollectionRunSettings struct {
 	TimestampTimezone any          `json:"timestampTimezone,omitempty"`
 	TimeWarning       *TimeWarning `json:"timeWarning,omitempty"`
 	// A filter for tokens in the provided collect path and/or the events being collected
-	Expression *string `default:"true" json:"expression"`
+	Expression *string `json:"expression,omitempty"`
 	// Limits the bundle size for small tasks. For example,
 	//
 	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-	MinTaskSize *string `default:"1MB" json:"minTaskSize"`
+	MinTaskSize *string `json:"minTaskSize,omitempty"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
 	//
 	//
 	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-	MaxTaskSize *string `default:"10MB" json:"maxTaskSize"`
+	MaxTaskSize *string `json:"maxTaskSize,omitempty"`
 }
 
 func (s ScheduleTypeSavedJobCollectionRunSettings) MarshalJSON() ([]byte, error) {
@@ -105,7 +105,7 @@ func (s ScheduleTypeSavedJobCollectionRunSettings) MarshalJSON() ([]byte, error)
 }
 
 func (s *ScheduleTypeSavedJobCollectionRunSettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"mode"}); err != nil {
 		return err
 	}
 	return nil
@@ -146,9 +146,9 @@ func (s *ScheduleTypeSavedJobCollectionRunSettings) GetJobTimeout() *string {
 	return s.JobTimeout
 }
 
-func (s *ScheduleTypeSavedJobCollectionRunSettings) GetMode() *string {
+func (s *ScheduleTypeSavedJobCollectionRunSettings) GetMode() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.Mode
 }
@@ -214,13 +214,13 @@ type ScheduleTypeSavedJobCollection struct {
 	// Enable to configure scheduling for this Collector
 	Enabled *bool `json:"enabled,omitempty"`
 	// Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-	Skippable *bool `default:"true" json:"skippable"`
+	Skippable *bool `json:"skippable,omitempty"`
 	// If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
-	ResumeMissed *bool `default:"false" json:"resumeMissed"`
+	ResumeMissed *bool `json:"resumeMissed,omitempty"`
 	// A cron schedule on which to run this job
-	CronSchedule *string `default:"*/5 * * * *" json:"cronSchedule"`
+	CronSchedule *string `json:"cronSchedule,omitempty"`
 	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64                                   `default:"1" json:"maxConcurrentRuns"`
+	MaxConcurrentRuns *float64                                   `json:"maxConcurrentRuns,omitempty"`
 	Run               *ScheduleTypeSavedJobCollectionRunSettings `json:"run,omitempty"`
 }
 

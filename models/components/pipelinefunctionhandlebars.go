@@ -32,7 +32,7 @@ func (e *PipelineFunctionHandlebarsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionHandlebarsTemplateDefinition struct {
+type TemplateDefinition struct {
 	// Unique identifier for this template
 	ID string `json:"id"`
 	// Handlebars template string
@@ -40,57 +40,57 @@ type PipelineFunctionHandlebarsTemplateDefinition struct {
 	// Optional description of what this template is used for
 	Description *string `json:"description,omitempty"`
 	// Type categorization for the template (e.g., Universal, Email, Slack)
-	Type *string `default:"Universal" json:"type"`
+	Type string `json:"type"`
 }
 
-func (p PipelineFunctionHandlebarsTemplateDefinition) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (t TemplateDefinition) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
 }
 
-func (p *PipelineFunctionHandlebarsTemplateDefinition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"id", "content"}); err != nil {
+func (t *TemplateDefinition) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"id", "content", "type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionHandlebarsTemplateDefinition) GetID() string {
-	if p == nil {
+func (t *TemplateDefinition) GetID() string {
+	if t == nil {
 		return ""
 	}
-	return p.ID
+	return t.ID
 }
 
-func (p *PipelineFunctionHandlebarsTemplateDefinition) GetContent() string {
-	if p == nil {
+func (t *TemplateDefinition) GetContent() string {
+	if t == nil {
 		return ""
 	}
-	return p.Content
+	return t.Content
 }
 
-func (p *PipelineFunctionHandlebarsTemplateDefinition) GetDescription() *string {
-	if p == nil {
+func (t *TemplateDefinition) GetDescription() *string {
+	if t == nil {
 		return nil
 	}
-	return p.Description
+	return t.Description
 }
 
-func (p *PipelineFunctionHandlebarsTemplateDefinition) GetType() *string {
-	if p == nil {
-		return nil
+func (t *TemplateDefinition) GetType() string {
+	if t == nil {
+		return ""
 	}
-	return p.Type
+	return t.Type
 }
 
 type PipelineFunctionHandlebarsConf struct {
 	// Array of template definitions. Uses event.__template_id to select template at runtime.
-	Templates []PipelineFunctionHandlebarsTemplateDefinition `json:"templates"`
+	Templates []TemplateDefinition `json:"templates"`
 	// Field name to store the rendered template result. Defaults to _raw.
-	TargetField *string `default:"_raw" json:"targetField"`
+	TargetField *string `json:"targetField,omitempty"`
 	// Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
-	ParseJSON *bool `default:"false" json:"parseJson"`
+	ParseJSON *bool `json:"parseJson,omitempty"`
 	// Remove the target field if the rendered result is empty or null.
-	RemoveOnNull *bool `default:"true" json:"removeOnNull"`
+	RemoveOnNull *bool `json:"removeOnNull,omitempty"`
 }
 
 func (p PipelineFunctionHandlebarsConf) MarshalJSON() ([]byte, error) {
@@ -104,9 +104,9 @@ func (p *PipelineFunctionHandlebarsConf) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PipelineFunctionHandlebarsConf) GetTemplates() []PipelineFunctionHandlebarsTemplateDefinition {
+func (p *PipelineFunctionHandlebarsConf) GetTemplates() []TemplateDefinition {
 	if p == nil {
-		return []PipelineFunctionHandlebarsTemplateDefinition{}
+		return []TemplateDefinition{}
 	}
 	return p.Templates
 }
@@ -134,7 +134,7 @@ func (p *PipelineFunctionHandlebarsConf) GetRemoveOnNull() *bool {
 
 type PipelineFunctionHandlebars struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionHandlebarsID `json:"id"`
 	// Simple description of this step

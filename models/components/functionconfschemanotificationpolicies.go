@@ -164,7 +164,7 @@ type Policy struct {
 	// Unique identifier for this policy
 	ID string `json:"id"`
 	// If true, this policy will be skipped during evaluation
-	Disabled *bool `default:"false" json:"disabled"`
+	Disabled *bool `json:"disabled,omitempty"`
 	// Time to wait (in minutes) to group similar alerts before sending
 	WaitToGroup *float64 `json:"waitToGroup,omitempty"`
 	// Event fields to use for grouping
@@ -174,7 +174,7 @@ type Policy struct {
 	// List of targets to route to and the templates to use
 	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs"`
 	// If true, stop evaluating further policies after this one matches
-	Final *bool `default:"false" json:"final"`
+	Final *bool `json:"final,omitempty"`
 	// Evaluation order of this policy (lower numbers evaluated first)
 	Order float64 `json:"order"`
 }

@@ -8,21 +8,21 @@ import (
 
 type RetryRulesType1 struct {
 	// The algorithm to use when performing HTTP retries
-	Type *RetryTypeOptionsHealthCheckCollectorConfRetryRules `default:"backoff" json:"type"`
+	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
 	// Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
-	Interval *float64 `default:"1000" json:"interval"`
+	Interval *float64 `json:"interval,omitempty"`
 	// The maximum number of times to retry a failed HTTP request
-	Limit *float64 `default:"5" json:"limit"`
+	Limit *float64 `json:"limit,omitempty"`
 	// Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-	Multiplier *float64 `default:"2" json:"multiplier"`
+	Multiplier *float64 `json:"multiplier,omitempty"`
 	// List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
 	Codes []float64 `json:"codes,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `default:"true" json:"enableHeader"`
+	EnableHeader *bool `json:"enableHeader,omitempty"`
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `default:"false" json:"retryConnectTimeout"`
+	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitempty"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool `default:"false" json:"retryConnectReset"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitempty"`
 }
 
 func (r RetryRulesType1) MarshalJSON() ([]byte, error) {
@@ -30,15 +30,15 @@ func (r RetryRulesType1) MarshalJSON() ([]byte, error) {
 }
 
 func (r *RetryRulesType1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RetryRulesType1) GetType() *RetryTypeOptionsHealthCheckCollectorConfRetryRules {
+func (r *RetryRulesType1) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
 	if r == nil {
-		return nil
+		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
 	}
 	return r.Type
 }

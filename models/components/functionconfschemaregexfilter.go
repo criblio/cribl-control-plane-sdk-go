@@ -34,7 +34,7 @@ type FunctionConfSchemaRegexFilter struct {
 	Regex     *string                                  `json:"regex,omitempty"`
 	RegexList []FunctionConfSchemaRegexFilterRegexList `json:"regexList,omitempty"`
 	// Name of the field to apply the regex on (defaults to _raw)
-	Field *string `default:"_raw" json:"field"`
+	Field *string `json:"field,omitempty"`
 }
 
 func (f FunctionConfSchemaRegexFilter) MarshalJSON() ([]byte, error) {

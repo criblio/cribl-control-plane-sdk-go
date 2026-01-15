@@ -7,7 +7,7 @@ import (
 )
 
 type PreprocessTypeSavedJobCollectionInput struct {
-	Disabled *bool `default:"true" json:"disabled"`
+	Disabled bool `json:"disabled"`
 	// Command to feed the data through (via stdin) and process its output (stdout)
 	Command *string `json:"command,omitempty"`
 	// Arguments to be added to the custom command
@@ -19,15 +19,15 @@ func (p PreprocessTypeSavedJobCollectionInput) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PreprocessTypeSavedJobCollectionInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"disabled"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PreprocessTypeSavedJobCollectionInput) GetDisabled() *bool {
+func (p *PreprocessTypeSavedJobCollectionInput) GetDisabled() bool {
 	if p == nil {
-		return nil
+		return false
 	}
 	return p.Disabled
 }

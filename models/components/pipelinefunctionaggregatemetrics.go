@@ -60,36 +60,36 @@ func (e *PipelineFunctionAggregateMetricsMetricType) IsExact() bool {
 	return false
 }
 
-type PipelineFunctionAggregateMetricsAggregation struct {
+type Aggregation struct {
 	// The output metric type
-	MetricType *PipelineFunctionAggregateMetricsMetricType `default:"automatic" json:"metricType"`
+	MetricType PipelineFunctionAggregateMetricsMetricType `json:"metricType"`
 	// Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
 	Agg string `json:"agg"`
 }
 
-func (p PipelineFunctionAggregateMetricsAggregation) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (a Aggregation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
 }
 
-func (p *PipelineFunctionAggregateMetricsAggregation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"agg"}); err != nil {
+func (a *Aggregation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"metricType", "agg"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionAggregateMetricsAggregation) GetMetricType() *PipelineFunctionAggregateMetricsMetricType {
-	if p == nil {
-		return nil
+func (a *Aggregation) GetMetricType() PipelineFunctionAggregateMetricsMetricType {
+	if a == nil {
+		return PipelineFunctionAggregateMetricsMetricType("")
 	}
-	return p.MetricType
+	return a.MetricType
 }
 
-func (p *PipelineFunctionAggregateMetricsAggregation) GetAgg() string {
-	if p == nil {
+func (a *Aggregation) GetAgg() string {
+	if a == nil {
 		return ""
 	}
-	return p.Agg
+	return a.Agg
 }
 
 type PipelineFunctionAggregateMetricsAdd struct {
@@ -125,17 +125,17 @@ func (p *PipelineFunctionAggregateMetricsAdd) GetValue() string {
 
 type PipelineFunctionAggregateMetricsConf struct {
 	// Pass through the original events along with the aggregation events
-	Passthrough *bool `default:"false" json:"passthrough"`
+	Passthrough *bool `json:"passthrough,omitempty"`
 	// Preserve the structure of the original aggregation event's groupby fields
-	PreserveGroupBys *bool `default:"false" json:"preserveGroupBys"`
+	PreserveGroupBys *bool `json:"preserveGroupBys,omitempty"`
 	// Output only statistics that are sufficient for the supplied aggregations
-	SufficientStatsOnly *bool `default:"false" json:"sufficientStatsOnly"`
+	SufficientStatsOnly *bool `json:"sufficientStatsOnly,omitempty"`
 	// A prefix that is prepended to all of the fields output by this Aggregations Function
 	Prefix *string `json:"prefix,omitempty"`
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-	TimeWindow *string `default:"10s" json:"timeWindow"`
+	TimeWindow string `json:"timeWindow"`
 	// Combination of Aggregation function and output metric type
-	Aggregations []PipelineFunctionAggregateMetricsAggregation `json:"aggregations"`
+	Aggregations []Aggregation `json:"aggregations"`
 	// Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
 	Groupbys []string `json:"groupbys,omitempty"`
 	// The maximum number of events to include in any given aggregation event
@@ -143,13 +143,13 @@ type PipelineFunctionAggregateMetricsConf struct {
 	// The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
 	FlushMemLimit *string `json:"flushMemLimit,omitempty"`
 	// Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-	Cumulative *bool `default:"false" json:"cumulative"`
+	Cumulative *bool `json:"cumulative,omitempty"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-	ShouldTreatDotsAsLiterals *bool `default:"true" json:"shouldTreatDotsAsLiterals"`
+	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitempty"`
 	// Set of key-value pairs to evaluate and add/set
 	Add []PipelineFunctionAggregateMetricsAdd `json:"add,omitempty"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-	FlushOnInputClose *bool `default:"true" json:"flushOnInputClose"`
+	FlushOnInputClose *bool `json:"flushOnInputClose,omitempty"`
 }
 
 func (p PipelineFunctionAggregateMetricsConf) MarshalJSON() ([]byte, error) {
@@ -157,7 +157,7 @@ func (p PipelineFunctionAggregateMetricsConf) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PipelineFunctionAggregateMetricsConf) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"aggregations"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"timeWindow", "aggregations"}); err != nil {
 		return err
 	}
 	return nil
@@ -191,16 +191,16 @@ func (p *PipelineFunctionAggregateMetricsConf) GetPrefix() *string {
 	return p.Prefix
 }
 
-func (p *PipelineFunctionAggregateMetricsConf) GetTimeWindow() *string {
+func (p *PipelineFunctionAggregateMetricsConf) GetTimeWindow() string {
 	if p == nil {
-		return nil
+		return ""
 	}
 	return p.TimeWindow
 }
 
-func (p *PipelineFunctionAggregateMetricsConf) GetAggregations() []PipelineFunctionAggregateMetricsAggregation {
+func (p *PipelineFunctionAggregateMetricsConf) GetAggregations() []Aggregation {
 	if p == nil {
-		return []PipelineFunctionAggregateMetricsAggregation{}
+		return []Aggregation{}
 	}
 	return p.Aggregations
 }
@@ -256,7 +256,7 @@ func (p *PipelineFunctionAggregateMetricsConf) GetFlushOnInputClose() *bool {
 
 type PipelineFunctionAggregateMetrics struct {
 	// Filter that selects data to be fed through this Function
-	Filter *string `default:"true" json:"filter"`
+	Filter *string `json:"filter,omitempty"`
 	// Function ID
 	ID PipelineFunctionAggregateMetricsID `json:"id"`
 	// Simple description of this step
