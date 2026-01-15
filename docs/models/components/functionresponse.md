@@ -6,384 +6,384 @@
 ### FunctionAggregateMetrics
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionAggregateMetrics(components.FunctionAggregateMetrics{/* values here */})
+functionResponse := components.CreateFunctionResponseAggregateMetrics(components.FunctionAggregateMetrics{/* values here */})
 ```
 
 ### FunctionAggregation
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionAggregation(components.FunctionAggregation{/* values here */})
+functionResponse := components.CreateFunctionResponseAggregation(components.FunctionAggregation{/* values here */})
 ```
 
 ### FunctionAutoTimestamp
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionAutoTimestamp(components.FunctionAutoTimestamp{/* values here */})
+functionResponse := components.CreateFunctionResponseAutoTimestamp(components.FunctionAutoTimestamp{/* values here */})
 ```
 
 ### FunctionCef
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionCef(components.FunctionCef{/* values here */})
+functionResponse := components.CreateFunctionResponseCef(components.FunctionCef{/* values here */})
 ```
 
 ### FunctionChain
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionChain(components.FunctionChain{/* values here */})
+functionResponse := components.CreateFunctionResponseChain(components.FunctionChain{/* values here */})
 ```
 
 ### FunctionClone
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionClone(components.FunctionClone{/* values here */})
+functionResponse := components.CreateFunctionResponseClone(components.FunctionClone{/* values here */})
 ```
 
 ### FunctionCode
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionCode(components.FunctionCode{/* values here */})
+functionResponse := components.CreateFunctionResponseCode(components.FunctionCode{/* values here */})
 ```
 
 ### FunctionComment
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionComment(components.FunctionComment{/* values here */})
+functionResponse := components.CreateFunctionResponseComment(components.FunctionComment{/* values here */})
 ```
 
 ### FunctionDistinct
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionDistinct(components.FunctionDistinct{/* values here */})
+functionResponse := components.CreateFunctionResponseDistinct(components.FunctionDistinct{/* values here */})
 ```
 
 ### FunctionDNSLookup
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionDNSLookup(components.FunctionDNSLookup{/* values here */})
+functionResponse := components.CreateFunctionResponseDNSLookup(components.FunctionDNSLookup{/* values here */})
 ```
 
 ### FunctionDrop
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionDrop(components.FunctionDrop{/* values here */})
+functionResponse := components.CreateFunctionResponseDrop(components.FunctionDrop{/* values here */})
 ```
 
 ### FunctionDropDimensions
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionDropDimensions(components.FunctionDropDimensions{/* values here */})
+functionResponse := components.CreateFunctionResponseDropDimensions(components.FunctionDropDimensions{/* values here */})
 ```
 
 ### FunctionDynamicSampling
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionDynamicSampling(components.FunctionDynamicSampling{/* values here */})
+functionResponse := components.CreateFunctionResponseDynamicSampling(components.FunctionDynamicSampling{/* values here */})
 ```
 
 ### FunctionEval
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionEval(components.FunctionEval{/* values here */})
+functionResponse := components.CreateFunctionResponseEval(components.FunctionEval{/* values here */})
 ```
 
 ### FunctionEventBreaker
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionEventBreaker(components.FunctionEventBreaker{/* values here */})
+functionResponse := components.CreateFunctionResponseEventBreaker(components.FunctionEventBreaker{/* values here */})
 ```
 
 ### FunctionEventstats
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionEventstats(components.FunctionEventstats{/* values here */})
+functionResponse := components.CreateFunctionResponseEventstats(components.FunctionEventstats{/* values here */})
 ```
 
 ### FunctionExternaldata
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionExternaldata(components.FunctionExternaldata{/* values here */})
+functionResponse := components.CreateFunctionResponseExternaldata(components.FunctionExternaldata{/* values here */})
 ```
 
 ### FunctionFlatten
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionFlatten(components.FunctionFlatten{/* values here */})
+functionResponse := components.CreateFunctionResponseFlatten(components.FunctionFlatten{/* values here */})
 ```
 
 ### FunctionFoldkeys
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionFoldkeys(components.FunctionFoldkeys{/* values here */})
+functionResponse := components.CreateFunctionResponseFoldkeys(components.FunctionFoldkeys{/* values here */})
 ```
 
 ### FunctionGenStats
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionGenStats(components.FunctionGenStats{/* values here */})
+functionResponse := components.CreateFunctionResponseGenStats(components.FunctionGenStats{/* values here */})
 ```
 
 ### FunctionGeoip
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionGeoip(components.FunctionGeoip{/* values here */})
+functionResponse := components.CreateFunctionResponseGeoip(components.FunctionGeoip{/* values here */})
 ```
 
 ### FunctionGrok
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionGrok(components.FunctionGrok{/* values here */})
+functionResponse := components.CreateFunctionResponseGrok(components.FunctionGrok{/* values here */})
 ```
 
 ### FunctionHandlebars
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionHandlebars(components.FunctionHandlebars{/* values here */})
+functionResponse := components.CreateFunctionResponseHandlebars(components.FunctionHandlebars{/* values here */})
 ```
 
 ### FunctionJoin
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionJoin(components.FunctionJoin{/* values here */})
+functionResponse := components.CreateFunctionResponseJoin(components.FunctionJoin{/* values here */})
 ```
 
 ### FunctionJSONUnroll
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionJSONUnroll(components.FunctionJSONUnroll{/* values here */})
+functionResponse := components.CreateFunctionResponseJSONUnroll(components.FunctionJSONUnroll{/* values here */})
 ```
 
 ### FunctionLakeExport
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionLakeExport(components.FunctionLakeExport{/* values here */})
+functionResponse := components.CreateFunctionResponseLakeExport(components.FunctionLakeExport{/* values here */})
 ```
 
 ### FunctionLimit
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionLimit(components.FunctionLimit{/* values here */})
+functionResponse := components.CreateFunctionResponseLimit(components.FunctionLimit{/* values here */})
 ```
 
 ### FunctionLocalSearchDatatypeParser
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionLocalSearchDatatypeParser(components.FunctionLocalSearchDatatypeParser{/* values here */})
+functionResponse := components.CreateFunctionResponseLocalSearchDatatypeParser(components.FunctionLocalSearchDatatypeParser{/* values here */})
 ```
 
 ### FunctionLocalSearchRulesetRunner
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionLocalSearchRulesetRunner(components.FunctionLocalSearchRulesetRunner{/* values here */})
+functionResponse := components.CreateFunctionResponseLocalSearchRulesetRunner(components.FunctionLocalSearchRulesetRunner{/* values here */})
 ```
 
 ### FunctionLookup
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionLookup(components.FunctionLookup{/* values here */})
+functionResponse := components.CreateFunctionResponseLookup(components.FunctionLookup{/* values here */})
 ```
 
 ### FunctionMask
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionMask(components.FunctionMask{/* values here */})
+functionResponse := components.CreateFunctionResponseMask(components.FunctionMask{/* values here */})
 ```
 
 ### FunctionMvExpand
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionMvExpand(components.FunctionMvExpand{/* values here */})
+functionResponse := components.CreateFunctionResponseMvExpand(components.FunctionMvExpand{/* values here */})
 ```
 
 ### FunctionMvPull
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionMvPull(components.FunctionMvPull{/* values here */})
+functionResponse := components.CreateFunctionResponseMvPull(components.FunctionMvPull{/* values here */})
 ```
 
 ### FunctionNotificationPolicies
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionNotificationPolicies(components.FunctionNotificationPolicies{/* values here */})
+functionResponse := components.CreateFunctionResponseNotificationPolicies(components.FunctionNotificationPolicies{/* values here */})
 ```
 
 ### FunctionNotifications
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionNotifications(components.FunctionNotifications{/* values here */})
+functionResponse := components.CreateFunctionResponseNotifications(components.FunctionNotifications{/* values here */})
 ```
 
 ### FunctionNotify
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionNotify(components.FunctionNotify{/* values here */})
+functionResponse := components.CreateFunctionResponseNotify(components.FunctionNotify{/* values here */})
 ```
 
 ### FunctionNumerify
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionNumerify(components.FunctionNumerify{/* values here */})
+functionResponse := components.CreateFunctionResponseNumerify(components.FunctionNumerify{/* values here */})
 ```
 
 ### FunctionOtlpLogs
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionOtlpLogs(components.FunctionOtlpLogs{/* values here */})
+functionResponse := components.CreateFunctionResponseOtlpLogs(components.FunctionOtlpLogs{/* values here */})
 ```
 
 ### FunctionOtlpMetrics
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionOtlpMetrics(components.FunctionOtlpMetrics{/* values here */})
+functionResponse := components.CreateFunctionResponseOtlpMetrics(components.FunctionOtlpMetrics{/* values here */})
 ```
 
 ### FunctionOtlpTraces
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionOtlpTraces(components.FunctionOtlpTraces{/* values here */})
+functionResponse := components.CreateFunctionResponseOtlpTraces(components.FunctionOtlpTraces{/* values here */})
 ```
 
 ### FunctionPack
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionPack(components.FunctionPack{/* values here */})
+functionResponse := components.CreateFunctionResponsePack(components.FunctionPack{/* values here */})
 ```
 
 ### FunctionPivot
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionPivot(components.FunctionPivot{/* values here */})
+functionResponse := components.CreateFunctionResponsePivot(components.FunctionPivot{/* values here */})
 ```
 
 ### FunctionPublishMetrics
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionPublishMetrics(components.FunctionPublishMetrics{/* values here */})
+functionResponse := components.CreateFunctionResponsePublishMetrics(components.FunctionPublishMetrics{/* values here */})
 ```
 
 ### FunctionRedis
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionRedis(components.FunctionRedis{/* values here */})
+functionResponse := components.CreateFunctionResponseRedis(components.FunctionRedis{/* values here */})
 ```
 
 ### FunctionRegexExtract
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionRegexExtract(components.FunctionRegexExtract{/* values here */})
+functionResponse := components.CreateFunctionResponseRegexExtract(components.FunctionRegexExtract{/* values here */})
 ```
 
 ### FunctionRegexFilter
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionRegexFilter(components.FunctionRegexFilter{/* values here */})
+functionResponse := components.CreateFunctionResponseRegexFilter(components.FunctionRegexFilter{/* values here */})
 ```
 
 ### FunctionRename
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionRename(components.FunctionRename{/* values here */})
+functionResponse := components.CreateFunctionResponseRename(components.FunctionRename{/* values here */})
 ```
 
 ### FunctionRollupMetrics
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionRollupMetrics(components.FunctionRollupMetrics{/* values here */})
+functionResponse := components.CreateFunctionResponseRollupMetrics(components.FunctionRollupMetrics{/* values here */})
 ```
 
 ### FunctionSampling
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSampling(components.FunctionSampling{/* values here */})
+functionResponse := components.CreateFunctionResponseSampling(components.FunctionSampling{/* values here */})
 ```
 
 ### FunctionSend
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSend(components.FunctionSend{/* values here */})
+functionResponse := components.CreateFunctionResponseSend(components.FunctionSend{/* values here */})
 ```
 
 ### FunctionSensitiveDataScanner
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSensitiveDataScanner(components.FunctionSensitiveDataScanner{/* values here */})
+functionResponse := components.CreateFunctionResponseSensitiveDataScanner(components.FunctionSensitiveDataScanner{/* values here */})
 ```
 
 ### FunctionSerde
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSerde(components.FunctionSerde{/* values here */})
+functionResponse := components.CreateFunctionResponseSerde(components.FunctionSerde{/* values here */})
 ```
 
 ### FunctionSerialize
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSerialize(components.FunctionSerialize{/* values here */})
+functionResponse := components.CreateFunctionResponseSerialize(components.FunctionSerialize{/* values here */})
 ```
 
 ### FunctionSidlookup
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSidlookup(components.FunctionSidlookup{/* values here */})
+functionResponse := components.CreateFunctionResponseSidlookup(components.FunctionSidlookup{/* values here */})
 ```
 
 ### FunctionSnmpTrapSerialize
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSnmpTrapSerialize(components.FunctionSnmpTrapSerialize{/* values here */})
+functionResponse := components.CreateFunctionResponseSnmpTrapSerialize(components.FunctionSnmpTrapSerialize{/* values here */})
 ```
 
 ### FunctionSort
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSort(components.FunctionSort{/* values here */})
+functionResponse := components.CreateFunctionResponseSort(components.FunctionSort{/* values here */})
 ```
 
 ### FunctionStore
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionStore(components.FunctionStore{/* values here */})
+functionResponse := components.CreateFunctionResponseStore(components.FunctionStore{/* values here */})
 ```
 
 ### FunctionSuppress
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionSuppress(components.FunctionSuppress{/* values here */})
+functionResponse := components.CreateFunctionResponseSuppress(components.FunctionSuppress{/* values here */})
 ```
 
 ### FunctionTee
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionTee(components.FunctionTee{/* values here */})
+functionResponse := components.CreateFunctionResponseTee(components.FunctionTee{/* values here */})
 ```
 
 ### FunctionTrimTimestamp
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionTrimTimestamp(components.FunctionTrimTimestamp{/* values here */})
+functionResponse := components.CreateFunctionResponseTrimTimestamp(components.FunctionTrimTimestamp{/* values here */})
 ```
 
 ### FunctionUnion
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionUnion(components.FunctionUnion{/* values here */})
+functionResponse := components.CreateFunctionResponseUnion(components.FunctionUnion{/* values here */})
 ```
 
 ### FunctionUnroll
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionUnroll(components.FunctionUnroll{/* values here */})
+functionResponse := components.CreateFunctionResponseUnroll(components.FunctionUnroll{/* values here */})
 ```
 
 ### FunctionWindow
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionWindow(components.FunctionWindow{/* values here */})
+functionResponse := components.CreateFunctionResponseWindow(components.FunctionWindow{/* values here */})
 ```
 
 ### FunctionXMLUnroll
 
 ```go
-functionResponse := components.CreateFunctionResponseFunctionXMLUnroll(components.FunctionXMLUnroll{/* values here */})
+functionResponse := components.CreateFunctionResponseXMLUnroll(components.FunctionXMLUnroll{/* values here */})
 ```
 

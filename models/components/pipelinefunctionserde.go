@@ -32,22 +32,22 @@ func (e *PipelineFunctionSerdeID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineFunctionSerdeOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-type PipelineFunctionSerdeOperationMode string
+// OperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type OperationMode string
 
 const (
-	// PipelineFunctionSerdeOperationModeExtract Extract
-	PipelineFunctionSerdeOperationModeExtract PipelineFunctionSerdeOperationMode = "extract"
-	// PipelineFunctionSerdeOperationModeReserialize Reserialize
-	PipelineFunctionSerdeOperationModeReserialize PipelineFunctionSerdeOperationMode = "reserialize"
+	// OperationModeExtract Extract
+	OperationModeExtract OperationMode = "extract"
+	// OperationModeReserialize Reserialize
+	OperationModeReserialize OperationMode = "reserialize"
 )
 
-func (e PipelineFunctionSerdeOperationMode) ToPointer() *PipelineFunctionSerdeOperationMode {
+func (e OperationMode) ToPointer() *OperationMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionSerdeOperationMode) IsExact() bool {
+func (e *OperationMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "extract", "reserialize":
@@ -59,7 +59,7 @@ func (e *PipelineFunctionSerdeOperationMode) IsExact() bool {
 
 type PipelineFunctionSerdeConf struct {
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-	Mode PipelineFunctionSerdeOperationMode `json:"mode"`
+	Mode OperationMode `json:"mode"`
 	// Parser or formatter type to use
 	Type       TypeOptions `json:"type"`
 	DelimChar  any         `json:"delimChar,omitempty"`
@@ -84,9 +84,9 @@ func (p *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PipelineFunctionSerdeConf) GetMode() PipelineFunctionSerdeOperationMode {
+func (p *PipelineFunctionSerdeConf) GetMode() OperationMode {
 	if p == nil {
-		return PipelineFunctionSerdeOperationMode("")
+		return OperationMode("")
 	}
 	return p.Mode
 }

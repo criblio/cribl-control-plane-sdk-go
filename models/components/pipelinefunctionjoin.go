@@ -32,36 +32,36 @@ func (e *PipelineFunctionJoinID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionJoinFieldCondition struct {
+type FieldCondition struct {
 	// The field name to join on, on the left side.
 	LeftFieldName string `json:"leftFieldName"`
 	// The field name on the right side of the data, i.e. the stage results, that we are joining with
 	RightFieldName string `json:"rightFieldName"`
 }
 
-func (p PipelineFunctionJoinFieldCondition) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (f FieldCondition) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (p *PipelineFunctionJoinFieldCondition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"leftFieldName", "rightFieldName"}); err != nil {
+func (f *FieldCondition) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"leftFieldName", "rightFieldName"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionJoinFieldCondition) GetLeftFieldName() string {
-	if p == nil {
+func (f *FieldCondition) GetLeftFieldName() string {
+	if f == nil {
 		return ""
 	}
-	return p.LeftFieldName
+	return f.LeftFieldName
 }
 
-func (p *PipelineFunctionJoinFieldCondition) GetRightFieldName() string {
-	if p == nil {
+func (f *FieldCondition) GetRightFieldName() string {
+	if f == nil {
 		return ""
 	}
-	return p.RightFieldName
+	return f.RightFieldName
 }
 
 type JoinConfiguration struct {
@@ -70,7 +70,7 @@ type JoinConfiguration struct {
 	// Hints passed to the join function
 	Hints map[string]string `json:"hints,omitempty"`
 	// Fields to use when joining
-	FieldConditions []PipelineFunctionJoinFieldCondition `json:"fieldConditions"`
+	FieldConditions []FieldCondition `json:"fieldConditions"`
 	// The id for this search job.
 	SearchJobID *string `json:"searchJobId,omitempty"`
 	// The stage we are joining with.
@@ -102,9 +102,9 @@ func (j *JoinConfiguration) GetHints() map[string]string {
 	return j.Hints
 }
 
-func (j *JoinConfiguration) GetFieldConditions() []PipelineFunctionJoinFieldCondition {
+func (j *JoinConfiguration) GetFieldConditions() []FieldCondition {
 	if j == nil {
-		return []PipelineFunctionJoinFieldCondition{}
+		return []FieldCondition{}
 	}
 	return j.FieldConditions
 }

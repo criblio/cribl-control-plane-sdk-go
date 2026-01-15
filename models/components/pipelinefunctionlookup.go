@@ -32,39 +32,39 @@ func (e *PipelineFunctionLookupID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PipelineFunctionLookupInField struct {
+type InField struct {
 	// Field name as it appears in events
 	EventField string `json:"eventField"`
 	// Optional: The field name as it appears in the lookup file. Defaults to event field name
 	LookupField *string `json:"lookupField,omitempty"`
 }
 
-func (p PipelineFunctionLookupInField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (i InField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (p *PipelineFunctionLookupInField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"eventField"}); err != nil {
+func (i *InField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"eventField"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionLookupInField) GetEventField() string {
-	if p == nil {
+func (i *InField) GetEventField() string {
+	if i == nil {
 		return ""
 	}
-	return p.EventField
+	return i.EventField
 }
 
-func (p *PipelineFunctionLookupInField) GetLookupField() *string {
-	if p == nil {
+func (i *InField) GetLookupField() *string {
+	if i == nil {
 		return nil
 	}
-	return p.LookupField
+	return i.LookupField
 }
 
-type PipelineFunctionLookupOutField struct {
+type OutField struct {
 	// The field name as it appears in the lookup file
 	LookupField string `json:"lookupField"`
 	// Optional: Field name to add to event. Defaults to lookup field name.
@@ -73,36 +73,36 @@ type PipelineFunctionLookupOutField struct {
 	DefaultValue *string `json:"defaultValue,omitempty"`
 }
 
-func (p PipelineFunctionLookupOutField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (o OutField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (p *PipelineFunctionLookupOutField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"lookupField"}); err != nil {
+func (o *OutField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"lookupField"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionLookupOutField) GetLookupField() string {
-	if p == nil {
+func (o *OutField) GetLookupField() string {
+	if o == nil {
 		return ""
 	}
-	return p.LookupField
+	return o.LookupField
 }
 
-func (p *PipelineFunctionLookupOutField) GetEventField() *string {
-	if p == nil {
+func (o *OutField) GetEventField() *string {
+	if o == nil {
 		return nil
 	}
-	return p.EventField
+	return o.EventField
 }
 
-func (p *PipelineFunctionLookupOutField) GetDefaultValue() *string {
-	if p == nil {
+func (o *OutField) GetDefaultValue() *string {
+	if o == nil {
 		return nil
 	}
-	return p.DefaultValue
+	return o.DefaultValue
 }
 
 type PipelineFunctionLookupConf struct {
@@ -114,9 +114,9 @@ type PipelineFunctionLookupConf struct {
 	MatchType       any   `json:"matchType,omitempty"`
 	ReloadPeriodSec any   `json:"reloadPeriodSec,omitempty"`
 	// Fields that should be used to key into the lookup table
-	InFields []PipelineFunctionLookupInField `json:"inFields,omitempty"`
+	InFields []InField `json:"inFields,omitempty"`
 	// Fields to add to events after matching lookup. Defaults to all if not specified.
-	OutFields []PipelineFunctionLookupOutField `json:"outFields,omitempty"`
+	OutFields []OutField `json:"outFields,omitempty"`
 	// Add the looked-up values to _raw, as key=value pairs
 	AddToEvent *bool `json:"addToEvent,omitempty"`
 	IgnoreCase any   `json:"ignoreCase,omitempty"`
@@ -168,14 +168,14 @@ func (p *PipelineFunctionLookupConf) GetReloadPeriodSec() any {
 	return p.ReloadPeriodSec
 }
 
-func (p *PipelineFunctionLookupConf) GetInFields() []PipelineFunctionLookupInField {
+func (p *PipelineFunctionLookupConf) GetInFields() []InField {
 	if p == nil {
 		return nil
 	}
 	return p.InFields
 }
 
-func (p *PipelineFunctionLookupConf) GetOutFields() []PipelineFunctionLookupOutField {
+func (p *PipelineFunctionLookupConf) GetOutFields() []OutField {
 	if p == nil {
 		return nil
 	}

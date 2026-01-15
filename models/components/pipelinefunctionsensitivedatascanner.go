@@ -72,34 +72,34 @@ func (p *PipelineFunctionSensitiveDataScannerRule) GetDisabled() *bool {
 	return p.Disabled
 }
 
-type PipelineFunctionSensitiveDataScannerFlag struct {
+type Flag struct {
 	Name  *string `json:"name,omitempty"`
 	Value string  `json:"value"`
 }
 
-func (p PipelineFunctionSensitiveDataScannerFlag) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
+func (f Flag) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (p *PipelineFunctionSensitiveDataScannerFlag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"value"}); err != nil {
+func (f *Flag) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, []string{"value"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PipelineFunctionSensitiveDataScannerFlag) GetName() *string {
-	if p == nil {
+func (f *Flag) GetName() *string {
+	if f == nil {
 		return nil
 	}
-	return p.Name
+	return f.Name
 }
 
-func (p *PipelineFunctionSensitiveDataScannerFlag) GetValue() string {
-	if p == nil {
+func (f *Flag) GetValue() string {
+	if f == nil {
 		return ""
 	}
-	return p.Value
+	return f.Value
 }
 
 type PipelineFunctionSensitiveDataScannerConf struct {
@@ -109,7 +109,7 @@ type PipelineFunctionSensitiveDataScannerConf struct {
 	// Fields that the mitigation expression will not be applied to. Supports wildcards (*).
 	ExcludeFields []string `json:"excludeFields,omitempty"`
 	// Fields to add when mitigation is applied to an event
-	Flags []PipelineFunctionSensitiveDataScannerFlag `json:"flags,omitempty"`
+	Flags []Flag `json:"flags,omitempty"`
 	// Add matching ruleset IDs to a field called "__detected"
 	IncludeDetectedRules *bool `json:"includeDetectedRules,omitempty"`
 	BackgroundDetection  *bool `json:"backgroundDetection,omitempty"`
@@ -147,7 +147,7 @@ func (p *PipelineFunctionSensitiveDataScannerConf) GetExcludeFields() []string {
 	return p.ExcludeFields
 }
 
-func (p *PipelineFunctionSensitiveDataScannerConf) GetFlags() []PipelineFunctionSensitiveDataScannerFlag {
+func (p *PipelineFunctionSensitiveDataScannerConf) GetFlags() []Flag {
 	if p == nil {
 		return nil
 	}

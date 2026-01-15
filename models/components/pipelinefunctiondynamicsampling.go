@@ -32,22 +32,22 @@ func (e *PipelineFunctionDynamicSamplingID) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PipelineFunctionDynamicSamplingSampleMode - Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-type PipelineFunctionDynamicSamplingSampleMode string
+// SampleMode - Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
+type SampleMode string
 
 const (
-	// PipelineFunctionDynamicSamplingSampleModeLog Logarithmic
-	PipelineFunctionDynamicSamplingSampleModeLog PipelineFunctionDynamicSamplingSampleMode = "log"
-	// PipelineFunctionDynamicSamplingSampleModeSqrt Square Root
-	PipelineFunctionDynamicSamplingSampleModeSqrt PipelineFunctionDynamicSamplingSampleMode = "sqrt"
+	// SampleModeLog Logarithmic
+	SampleModeLog SampleMode = "log"
+	// SampleModeSqrt Square Root
+	SampleModeSqrt SampleMode = "sqrt"
 )
 
-func (e PipelineFunctionDynamicSamplingSampleMode) ToPointer() *PipelineFunctionDynamicSamplingSampleMode {
+func (e SampleMode) ToPointer() *SampleMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PipelineFunctionDynamicSamplingSampleMode) IsExact() bool {
+func (e *SampleMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "log", "sqrt":
@@ -59,7 +59,7 @@ func (e *PipelineFunctionDynamicSamplingSampleMode) IsExact() bool {
 
 type PipelineFunctionDynamicSamplingConf struct {
 	// Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-	Mode PipelineFunctionDynamicSamplingSampleMode `json:"mode"`
+	Mode SampleMode `json:"mode"`
 	// Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
 	KeyExpr string `json:"keyExpr"`
 	// How often (in seconds) sample rates will be adjusted
@@ -81,9 +81,9 @@ func (p *PipelineFunctionDynamicSamplingConf) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PipelineFunctionDynamicSamplingConf) GetMode() PipelineFunctionDynamicSamplingSampleMode {
+func (p *PipelineFunctionDynamicSamplingConf) GetMode() SampleMode {
 	if p == nil {
-		return PipelineFunctionDynamicSamplingSampleMode("")
+		return SampleMode("")
 	}
 	return p.Mode
 }
