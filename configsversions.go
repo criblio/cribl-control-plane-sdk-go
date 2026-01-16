@@ -30,8 +30,8 @@ func newConfigsVersions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigur
 	}
 }
 
-// Get the configuration version for a Worker Group or Edge Fleet
-// Get the configuration version for the specified Worker Group or Edge Fleet.
+// Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
+// Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.GetConfigGroupConfigVersionByProductAndIDResponse, error) {
 	request := operations.GetConfigGroupConfigVersionByProductAndIDRequest{
 		Product: product,
@@ -102,6 +102,16 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -111,10 +121,6 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -204,12 +210,12 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 				return nil, err
 			}
 
-			var out operations.GetConfigGroupConfigVersionByProductAndIDResponseBody
+			var out components.CountedString
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedString = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

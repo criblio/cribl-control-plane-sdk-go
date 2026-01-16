@@ -74,7 +74,7 @@ func main() {
 		},
 		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
 		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.CriblLakeDatasetFormatDdss.ToPointer(),
+		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
 		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
 		ID:                "<id>",
 		Metrics: &components.LakeDatasetMetrics{
@@ -108,7 +108,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.Object != nil {
+	if res.CountedCriblLakeDataset != nil {
 		// handle response
 	}
 }
@@ -170,7 +170,7 @@ func main() {
 		},
 		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
 		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.CriblLakeDatasetFormatDdss.ToPointer(),
+		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
 		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
 		ID:                "<id>",
 		Metrics: &components.LakeDatasetMetrics{
@@ -204,7 +204,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.Object != nil {
+	if res.CountedCriblLakeDataset != nil {
 		// handle response
 	}
 }
@@ -221,6 +221,14 @@ func main() {
 ### [Auth.Tokens](docs/sdks/tokens/README.md)
 
 * [Get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
+
+### [Collectors](docs/sdks/collectors/README.md)
+
+* [Create](docs/sdks/collectors/README.md#create) - Create a Collector
+* [List](docs/sdks/collectors/README.md#list) - List all Collectors
+* [Delete](docs/sdks/collectors/README.md#delete) - Delete a Collector
+* [Get](docs/sdks/collectors/README.md#get) - Get a Collector
+* [Update](docs/sdks/collectors/README.md#update) - Update a Collector
 
 ### [Destinations](docs/sdks/destinations/README.md)
 
@@ -240,26 +248,31 @@ func main() {
 * [Get](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 * [Create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 
+### [Functions](docs/sdks/functions/README.md)
+
+* [Get](docs/sdks/functions/README.md#get) - Get a Function
+* [List](docs/sdks/functions/README.md#list) - List all Functions
+
 ### [Groups](docs/sdks/groups/README.md)
 
-* [List](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [Get](docs/sdks/groups/README.md#get) - Get a Worker Group or Edge Fleet
-* [Update](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
-* [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
+* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [Get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
+* [Update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
+* [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
 * [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
 #### [Groups.Acl](docs/sdks/acl/README.md)
 
-* [Get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
+* [Get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
 
 ##### [Groups.Acl.Teams](docs/sdks/teams/README.md)
 
-* [Get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [Get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
 
 #### [Groups.Configs.Versions](docs/sdks/configsversions/README.md)
 
-* [Get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
+* [Get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 
 ### [Health](docs/sdks/health/README.md)
 
@@ -318,6 +331,11 @@ func main() {
 
 * [Create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [Update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
+
+### [System.Settings.Cribl](docs/sdks/cribl/README.md)
+
+* [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+* [Update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
 
 ### [Versions.Branches](docs/sdks/branches/README.md)
 
@@ -399,7 +417,7 @@ func main() {
 		},
 		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
 		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.CriblLakeDatasetFormatDdss.ToPointer(),
+		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
 		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
 		ID:                "<id>",
 		Metrics: &components.LakeDatasetMetrics{
@@ -443,7 +461,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.Object != nil {
+	if res.CountedCriblLakeDataset != nil {
 		// handle response
 	}
 }
@@ -504,7 +522,7 @@ func main() {
 		},
 		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
 		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.CriblLakeDatasetFormatDdss.ToPointer(),
+		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
 		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
 		ID:                "<id>",
 		Metrics: &components.LakeDatasetMetrics{
@@ -538,7 +556,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.Object != nil {
+	if res.CountedCriblLakeDataset != nil {
 		// handle response
 	}
 }
@@ -605,7 +623,7 @@ func main() {
 		},
 		DeletionStartedAt: criblcontrolplanesdkgo.Pointer[float64](8310.58),
 		Description:       criblcontrolplanesdkgo.Pointer("pleased toothbrush long brush smooth swiftly rightfully phooey chapel"),
-		Format:            components.CriblLakeDatasetFormatDdss.ToPointer(),
+		Format:            components.FormatOptionsCriblLakeDatasetDdss.ToPointer(),
 		HTTPDAUsed:        criblcontrolplanesdkgo.Pointer(true),
 		ID:                "<id>",
 		Metrics: &components.LakeDatasetMetrics{

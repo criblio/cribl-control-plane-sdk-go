@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [Get](#get) - Get the configuration version for a Worker Group or Edge Fleet
+* [Get](#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 
 ## Get
 
-Get the configuration version for the specified Worker Group or Edge Fleet.
+Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -38,7 +38,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedString != nil {
         // handle response
     }
 }
@@ -46,12 +46,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                       | [context.Context](https://pkg.go.dev/context#Context)                                       | :heavy_check_mark:                                                                          | The context to use for the request.                                                         |
-| `product`                                                                                   | [components.ProductsCore](../../models/components/productscore.md)                          | :heavy_check_mark:                                                                          | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                      |
-| `id`                                                                                        | *string*                                                                                    | :heavy_check_mark:                                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the configuration version for. |
-| `opts`                                                                                      | [][operations.Option](../../models/operations/option.md)                                    | :heavy_minus_sign:                                                                          | The options for this request.                                                               |
+| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                       | [context.Context](https://pkg.go.dev/context#Context)                                                       | :heavy_check_mark:                                                                                          | The context to use for the request.                                                                         |
+| `product`                                                                                                   | [components.ProductsCore](../../models/components/productscore.md)                                          | :heavy_check_mark:                                                                                          | Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.                     |
+| `id`                                                                                                        | *string*                                                                                                    | :heavy_check_mark:                                                                                          | The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the configuration version for. |
+| `opts`                                                                                                      | [][operations.Option](../../models/operations/option.md)                                                    | :heavy_minus_sign:                                                                                          | The options for this request.                                                                               |
 
 ### Response
 

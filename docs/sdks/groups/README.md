@@ -6,16 +6,16 @@ Actions related to Groups
 
 ### Available Operations
 
-* [List](#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [Create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [Get](#get) - Get a Worker Group or Edge Fleet
-* [Update](#update) - Update a Worker Group or Edge Fleet
-* [Delete](#delete) - Delete a Worker Group or Edge Fleet
+* [List](#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+* [Create](#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [Get](#get) - Get a Worker Group, Outpost Group, or Edge Fleet
+* [Update](#update) - Update a Worker Group, Outpost Group, or Edge Fleet
+* [Delete](#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
 * [Deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
 ## List
 
-Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
+Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
 
 ### Example Usage
 
@@ -45,7 +45,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedConfigGroup != nil {
         // handle response
     }
 }
@@ -56,7 +56,7 @@ func main() {
 | Parameter                                                                                                                                                                        | Type                                                                                                                                                                             | Required                                                                                                                                                                         | Description                                                                                                                                                                      |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                            | :heavy_check_mark:                                                                                                                                                               | The context to use for the request.                                                                                                                                              |
-| `product`                                                                                                                                                                        | [components.ProductsCore](../../models/components/productscore.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                               | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                                                                           |
+| `product`                                                                                                                                                                        | [components.ProductsCore](../../models/components/productscore.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                               | Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.                                                                                          |
 | `fields`                                                                                                                                                                         | **string*                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                               | Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>. |
 | `opts`                                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                               | The options for this request.                                                                                                                                                    |
 
@@ -73,7 +73,7 @@ func main() {
 
 ## Create
 
-Create a new Worker Group or Edge Fleet for the specified Cribl product.
+Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
 
 ### Example Usage
 
@@ -106,8 +106,8 @@ func main() {
         },
         DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](5631.58),
         Description: criblcontrolplanesdkgo.Pointer("ack resort boohoo"),
-        EstimatedIngestRate: components.GroupCreateRequestEstimatedIngestRateRate24MbPerSec.ToPointer(),
-        Git: &components.GroupCreateRequestGit{
+        EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate24MbPerSec.ToPointer(),
+        Git: &components.GitTypeConfigGroup{
             Commit: criblcontrolplanesdkgo.Pointer("<value>"),
             LocalChanges: criblcontrolplanesdkgo.Pointer[float64](2413.01),
             Log: []components.Commit{
@@ -149,7 +149,7 @@ func main() {
             "<value 3>",
         },
         Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.GroupCreateRequestTypeLakeAccess.ToPointer(),
+        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
         UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         WorkerCount: criblcontrolplanesdkgo.Pointer[float64](4980.41),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
@@ -157,7 +157,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedConfigGroup != nil {
         // handle response
     }
 }
@@ -165,12 +165,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
-| `product`                                                                      | [components.ProductsCore](../../models/components/productscore.md)             | :heavy_check_mark:                                                             | required Name of the Cribl product to add the Worker Group or Edge Fleet to.   |
-| `groupCreateRequest`                                                           | [components.GroupCreateRequest](../../models/components/groupcreaterequest.md) | :heavy_check_mark:                                                             | GroupCreateRequest object                                                      |
-| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `ctx`                                                                               | [context.Context](https://pkg.go.dev/context#Context)                               | :heavy_check_mark:                                                                  | The context to use for the request.                                                 |
+| `product`                                                                           | [components.ProductsCore](../../models/components/productscore.md)                  | :heavy_check_mark:                                                                  | Name of the Cribl product to add the Worker Group, Outpost Group, or Edge Fleet to. |
+| `groupCreateRequest`                                                                | [components.GroupCreateRequest](../../models/components/groupcreaterequest.md)      | :heavy_check_mark:                                                                  | GroupCreateRequest object                                                           |
+| `opts`                                                                              | [][operations.Option](../../models/operations/option.md)                            | :heavy_minus_sign:                                                                  | The options for this request.                                                       |
 
 ### Response
 
@@ -185,7 +185,7 @@ func main() {
 
 ## Get
 
-Get the specified Worker Group or Edge Fleet.
+Get the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -215,7 +215,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedConfigGroup != nil {
         // handle response
     }
 }
@@ -226,8 +226,8 @@ func main() {
 | Parameter                                                                                                                                                                        | Type                                                                                                                                                                             | Required                                                                                                                                                                         | Description                                                                                                                                                                      |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                            | :heavy_check_mark:                                                                                                                                                               | The context to use for the request.                                                                                                                                              |
-| `product`                                                                                                                                                                        | [components.ProductsCore](../../models/components/productscore.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                               | Name of the Cribl product to get the Worker Groups or Edge Fleets for.                                                                                                           |
-| `id`                                                                                                                                                                             | *string*                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                               | The <code>id</code> of the Worker Group or Edge Fleet to get.                                                                                                                    |
+| `product`                                                                                                                                                                        | [components.ProductsCore](../../models/components/productscore.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                               | Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.                                                                                          |
+| `id`                                                                                                                                                                             | *string*                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                               | The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get.                                                                                                    |
 | `fields`                                                                                                                                                                         | **string*                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                               | Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>. |
 | `opts`                                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                               | The options for this request.                                                                                                                                                    |
 
@@ -244,7 +244,7 @@ func main() {
 
 ## Update
 
-Update the specified Worker Group or Edge Fleet.
+Update the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -278,8 +278,8 @@ func main() {
         ConfigVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[float64](7786.61),
         Description: criblcontrolplanesdkgo.Pointer("Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity"),
-        EstimatedIngestRate: components.ConfigGroupEstimatedIngestRateRate48MbPerSec.ToPointer(),
-        Git: &components.ConfigGroupGit{
+        EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer(),
+        Git: &components.GitTypeConfigGroup{
             Commit: criblcontrolplanesdkgo.Pointer("<value>"),
             LocalChanges: criblcontrolplanesdkgo.Pointer[float64](776.15),
             Log: []components.Commit{
@@ -314,7 +314,7 @@ func main() {
             "<value 3>",
         },
         Tags: criblcontrolplanesdkgo.Pointer("<value>"),
-        Type: components.ConfigGroupTypeLakeAccess.ToPointer(),
+        Type: components.TypeOptionsConfigGroupLakeAccess.ToPointer(),
         UpgradeVersion: criblcontrolplanesdkgo.Pointer("<value>"),
         WorkerCount: criblcontrolplanesdkgo.Pointer[float64](835.08),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
@@ -322,7 +322,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedConfigGroup != nil {
         // handle response
     }
 }
@@ -330,13 +330,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `ctx`                                                                  | [context.Context](https://pkg.go.dev/context#Context)                  | :heavy_check_mark:                                                     | The context to use for the request.                                    |
-| `product`                                                              | [components.ProductsCore](../../models/components/productscore.md)     | :heavy_check_mark:                                                     | Name of the Cribl product to get the Worker Groups or Edge Fleets for. |
-| `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Worker Group or Edge Fleet to update.       |
-| `configGroup`                                                          | [components.ConfigGroup](../../models/components/configgroup.md)       | :heavy_check_mark:                                                     | ConfigGroup object                                                     |
-| `opts`                                                                 | [][operations.Option](../../models/operations/option.md)               | :heavy_minus_sign:                                                     | The options for this request.                                          |
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `ctx`                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                   | :heavy_check_mark:                                                                      | The context to use for the request.                                                     |
+| `product`                                                                               | [components.ProductsCore](../../models/components/productscore.md)                      | :heavy_check_mark:                                                                      | Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for. |
+| `id`                                                                                    | *string*                                                                                | :heavy_check_mark:                                                                      | The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to update.        |
+| `configGroup`                                                                           | [components.ConfigGroup](../../models/components/configgroup.md)                        | :heavy_check_mark:                                                                      | ConfigGroup object                                                                      |
+| `opts`                                                                                  | [][operations.Option](../../models/operations/option.md)                                | :heavy_minus_sign:                                                                      | The options for this request.                                                           |
 
 ### Response
 
@@ -351,7 +351,7 @@ func main() {
 
 ## Delete
 
-Delete the specified Worker Group or Edge Fleet.
+Delete the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -381,7 +381,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedConfigGroup != nil {
         // handle response
     }
 }
@@ -389,12 +389,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `ctx`                                                                  | [context.Context](https://pkg.go.dev/context#Context)                  | :heavy_check_mark:                                                     | The context to use for the request.                                    |
-| `product`                                                              | [components.ProductsCore](../../models/components/productscore.md)     | :heavy_check_mark:                                                     | Name of the Cribl product to get the Worker Groups or Edge Fleets for. |
-| `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Worker Group or Edge Fleet to delete.       |
-| `opts`                                                                 | [][operations.Option](../../models/operations/option.md)               | :heavy_minus_sign:                                                     | The options for this request.                                          |
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `ctx`                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                   | :heavy_check_mark:                                                                      | The context to use for the request.                                                     |
+| `product`                                                                               | [components.ProductsCore](../../models/components/productscore.md)                      | :heavy_check_mark:                                                                      | Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for. |
+| `id`                                                                                    | *string*                                                                                | :heavy_check_mark:                                                                      | The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to delete.        |
+| `opts`                                                                                  | [][operations.Option](../../models/operations/option.md)                                | :heavy_minus_sign:                                                                      | The options for this request.                                                           |
 
 ### Response
 
@@ -447,7 +447,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedConfigGroup != nil {
         // handle response
     }
 }

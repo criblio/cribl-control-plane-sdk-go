@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.15.1-alpha.1765407756960-5c02a009 and generator version 2.778.0
+// Generated from OpenAPI doc version 4.16.0-alpha.1768553599722-cf7e66a0 and generator version 2.792.3
 
 import (
 	"context"
@@ -45,6 +45,8 @@ func Pointer[T any](v T) *T { return &v }
 type CriblControlPlane struct {
 	SDKVersion   string
 	LakeDatasets *LakeDatasets
+	// Actions related to Collectors
+	Collectors *Collectors
 	// Actions related to Sources
 	Sources *Sources
 	// Actions related to Destinations
@@ -58,8 +60,11 @@ type CriblControlPlane struct {
 	Health *Health
 	// Actions related to Packs
 	Packs    *Packs
+	System   *System
 	Versions *Versions
-	Nodes    *Nodes
+	// Actions related to functions
+	Functions *Functions
+	Nodes     *Nodes
 	// Actions related to Groups
 	Groups *Groups
 
@@ -108,9 +113,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.5.0-alpha.3",
+		SDKVersion: "0.5.0-alpha.4",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.5.0-alpha.3 2.778.0 4.15.1-alpha.1765407756960-5c02a009 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.5.0-alpha.4 2.792.3 4.16.0-alpha.1768553599722-cf7e66a0 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -135,6 +140,7 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
 	sdk.LakeDatasets = newLakeDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Destinations = newDestinations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
@@ -142,7 +148,9 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk.Auth = newAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Health = newHealth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Packs = newPacks(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.System = newSystem(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Versions = newVersions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Functions = newFunctions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Nodes = newNodes(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Groups = newGroups(sdk, sdk.sdkConfiguration, sdk.hooks)
 

@@ -104,6 +104,16 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -113,10 +123,6 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -206,12 +212,12 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 				return nil, err
 			}
 
-			var out operations.ListOutputResponseBody
+			var out components.CountedOutput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedOutput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -272,7 +278,7 @@ func (s *Destinations) List(ctx context.Context, opts ...operations.Option) (*op
 
 // Create a Destination
 // Create a new Destination.
-func (s *Destinations) Create(ctx context.Context, request components.Output, opts ...operations.Option) (*operations.CreateOutputResponse, error) {
+func (s *Destinations) Create(ctx context.Context, request operations.CreateOutputRequest, opts ...operations.Option) (*operations.CreateOutputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -344,6 +350,16 @@ func (s *Destinations) Create(ctx context.Context, request components.Output, op
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -353,10 +369,6 @@ func (s *Destinations) Create(ctx context.Context, request components.Output, op
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -446,12 +458,12 @@ func (s *Destinations) Create(ctx context.Context, request components.Output, op
 				return nil, err
 			}
 
-			var out operations.CreateOutputResponseBody
+			var out components.CountedOutput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedOutput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -581,6 +593,16 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -590,10 +612,6 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -683,12 +701,12 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 				return nil, err
 			}
 
-			var out operations.GetOutputByIDResponseBody
+			var out components.CountedOutput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedOutput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -826,6 +844,16 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -835,10 +863,6 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -928,12 +952,12 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 				return nil, err
 			}
 
-			var out operations.UpdateOutputByIDResponseBody
+			var out components.CountedOutput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedOutput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1063,6 +1087,16 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -1072,10 +1106,6 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -1165,12 +1195,12 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 				return nil, err
 			}
 
-			var out operations.DeleteOutputByIDResponseBody
+			var out components.CountedOutput
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedOutput = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

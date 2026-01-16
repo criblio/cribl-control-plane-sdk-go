@@ -31,31 +31,6 @@ func (e *OutputOpenTelemetryType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputOpenTelemetryProtocol - Select a transport option for OpenTelemetry
-type OutputOpenTelemetryProtocol string
-
-const (
-	// OutputOpenTelemetryProtocolGrpc gRPC
-	OutputOpenTelemetryProtocolGrpc OutputOpenTelemetryProtocol = "grpc"
-	// OutputOpenTelemetryProtocolHTTP HTTP
-	OutputOpenTelemetryProtocolHTTP OutputOpenTelemetryProtocol = "http"
-)
-
-func (e OutputOpenTelemetryProtocol) ToPointer() *OutputOpenTelemetryProtocol {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryProtocol) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "grpc", "http":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputOpenTelemetryOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
 type OutputOpenTelemetryOTLPVersion string
 
@@ -75,580 +50,6 @@ func (e *OutputOpenTelemetryOTLPVersion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "0.10.0", "1.3.1":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputOpenTelemetryCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
-type OutputOpenTelemetryCompressCompression string
-
-const (
-	// OutputOpenTelemetryCompressCompressionNone None
-	OutputOpenTelemetryCompressCompressionNone OutputOpenTelemetryCompressCompression = "none"
-	// OutputOpenTelemetryCompressCompressionDeflate Deflate
-	OutputOpenTelemetryCompressCompressionDeflate OutputOpenTelemetryCompressCompression = "deflate"
-	// OutputOpenTelemetryCompressCompressionGzip Gzip
-	OutputOpenTelemetryCompressCompressionGzip OutputOpenTelemetryCompressCompression = "gzip"
-)
-
-func (e OutputOpenTelemetryCompressCompression) ToPointer() *OutputOpenTelemetryCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "deflate", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputOpenTelemetryHTTPCompressCompression - Type of compression to apply to messages sent to the OpenTelemetry endpoint
-type OutputOpenTelemetryHTTPCompressCompression string
-
-const (
-	// OutputOpenTelemetryHTTPCompressCompressionNone None
-	OutputOpenTelemetryHTTPCompressCompressionNone OutputOpenTelemetryHTTPCompressCompression = "none"
-	// OutputOpenTelemetryHTTPCompressCompressionGzip Gzip
-	OutputOpenTelemetryHTTPCompressCompressionGzip OutputOpenTelemetryHTTPCompressCompression = "gzip"
-)
-
-func (e OutputOpenTelemetryHTTPCompressCompression) ToPointer() *OutputOpenTelemetryHTTPCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryHTTPCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputOpenTelemetryAuthenticationType - OpenTelemetry authentication type
-type OutputOpenTelemetryAuthenticationType string
-
-const (
-	OutputOpenTelemetryAuthenticationTypeNone              OutputOpenTelemetryAuthenticationType = "none"
-	OutputOpenTelemetryAuthenticationTypeBasic             OutputOpenTelemetryAuthenticationType = "basic"
-	OutputOpenTelemetryAuthenticationTypeCredentialsSecret OutputOpenTelemetryAuthenticationType = "credentialsSecret"
-	OutputOpenTelemetryAuthenticationTypeToken             OutputOpenTelemetryAuthenticationType = "token"
-	OutputOpenTelemetryAuthenticationTypeTextSecret        OutputOpenTelemetryAuthenticationType = "textSecret"
-	OutputOpenTelemetryAuthenticationTypeOauth             OutputOpenTelemetryAuthenticationType = "oauth"
-)
-
-func (e OutputOpenTelemetryAuthenticationType) ToPointer() *OutputOpenTelemetryAuthenticationType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryAuthenticationType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauth":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputOpenTelemetryMetadatum struct {
-	Key   *string `default:"" json:"key"`
-	Value string  `json:"value"`
-}
-
-func (o OutputOpenTelemetryMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryMetadatum) GetKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Key
-}
-
-func (o *OutputOpenTelemetryMetadatum) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputOpenTelemetryFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputOpenTelemetryFailedRequestLoggingMode string
-
-const (
-	// OutputOpenTelemetryFailedRequestLoggingModePayload Payload
-	OutputOpenTelemetryFailedRequestLoggingModePayload OutputOpenTelemetryFailedRequestLoggingMode = "payload"
-	// OutputOpenTelemetryFailedRequestLoggingModePayloadAndHeaders Payload + Headers
-	OutputOpenTelemetryFailedRequestLoggingModePayloadAndHeaders OutputOpenTelemetryFailedRequestLoggingMode = "payloadAndHeaders"
-	// OutputOpenTelemetryFailedRequestLoggingModeNone None
-	OutputOpenTelemetryFailedRequestLoggingModeNone OutputOpenTelemetryFailedRequestLoggingMode = "none"
-)
-
-func (e OutputOpenTelemetryFailedRequestLoggingMode) ToPointer() *OutputOpenTelemetryFailedRequestLoggingMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryFailedRequestLoggingMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "payload", "payloadAndHeaders", "none":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputOpenTelemetryBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputOpenTelemetryBackpressureBehavior string
-
-const (
-	// OutputOpenTelemetryBackpressureBehaviorBlock Block
-	OutputOpenTelemetryBackpressureBehaviorBlock OutputOpenTelemetryBackpressureBehavior = "block"
-	// OutputOpenTelemetryBackpressureBehaviorDrop Drop
-	OutputOpenTelemetryBackpressureBehaviorDrop OutputOpenTelemetryBackpressureBehavior = "drop"
-	// OutputOpenTelemetryBackpressureBehaviorQueue Persistent Queue
-	OutputOpenTelemetryBackpressureBehaviorQueue OutputOpenTelemetryBackpressureBehavior = "queue"
-)
-
-func (e OutputOpenTelemetryBackpressureBehavior) ToPointer() *OutputOpenTelemetryBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputOpenTelemetryOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (o OutputOpenTelemetryOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputOpenTelemetryOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputOpenTelemetryOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (o OutputOpenTelemetryOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryOauthHeader) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputOpenTelemetryOauthHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputOpenTelemetryExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputOpenTelemetryExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputOpenTelemetryExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputOpenTelemetryResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputOpenTelemetryResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputOpenTelemetryResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputOpenTelemetryTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputOpenTelemetryTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputOpenTelemetryTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputOpenTelemetryMinimumTLSVersion string
-
-const (
-	OutputOpenTelemetryMinimumTLSVersionTlSv1  OutputOpenTelemetryMinimumTLSVersion = "TLSv1"
-	OutputOpenTelemetryMinimumTLSVersionTlSv11 OutputOpenTelemetryMinimumTLSVersion = "TLSv1.1"
-	OutputOpenTelemetryMinimumTLSVersionTlSv12 OutputOpenTelemetryMinimumTLSVersion = "TLSv1.2"
-	OutputOpenTelemetryMinimumTLSVersionTlSv13 OutputOpenTelemetryMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputOpenTelemetryMinimumTLSVersion) ToPointer() *OutputOpenTelemetryMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputOpenTelemetryMaximumTLSVersion string
-
-const (
-	OutputOpenTelemetryMaximumTLSVersionTlSv1  OutputOpenTelemetryMaximumTLSVersion = "TLSv1"
-	OutputOpenTelemetryMaximumTLSVersionTlSv11 OutputOpenTelemetryMaximumTLSVersion = "TLSv1.1"
-	OutputOpenTelemetryMaximumTLSVersionTlSv12 OutputOpenTelemetryMaximumTLSVersion = "TLSv1.2"
-	OutputOpenTelemetryMaximumTLSVersionTlSv13 OutputOpenTelemetryMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputOpenTelemetryMaximumTLSVersion) ToPointer() *OutputOpenTelemetryMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputOpenTelemetryTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                               `json:"passphrase,omitempty"`
-	MinVersion *OutputOpenTelemetryMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputOpenTelemetryMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputOpenTelemetryTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetMinVersion() *OutputOpenTelemetryMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputOpenTelemetryTLSSettingsClientSide) GetMaxVersion() *OutputOpenTelemetryMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputOpenTelemetryMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputOpenTelemetryMode string
-
-const (
-	// OutputOpenTelemetryModeError Error
-	OutputOpenTelemetryModeError OutputOpenTelemetryMode = "error"
-	// OutputOpenTelemetryModeAlways Backpressure
-	OutputOpenTelemetryModeAlways OutputOpenTelemetryMode = "always"
-	// OutputOpenTelemetryModeBackpressure Always On
-	OutputOpenTelemetryModeBackpressure OutputOpenTelemetryMode = "backpressure"
-)
-
-func (e OutputOpenTelemetryMode) ToPointer() *OutputOpenTelemetryMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputOpenTelemetryPqCompressCompression - Codec to use to compress the persisted data
-type OutputOpenTelemetryPqCompressCompression string
-
-const (
-	// OutputOpenTelemetryPqCompressCompressionNone None
-	OutputOpenTelemetryPqCompressCompressionNone OutputOpenTelemetryPqCompressCompression = "none"
-	// OutputOpenTelemetryPqCompressCompressionGzip Gzip
-	OutputOpenTelemetryPqCompressCompressionGzip OutputOpenTelemetryPqCompressCompression = "gzip"
-)
-
-func (e OutputOpenTelemetryPqCompressCompression) ToPointer() *OutputOpenTelemetryPqCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryPqCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputOpenTelemetryQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputOpenTelemetryQueueFullBehavior string
-
-const (
-	// OutputOpenTelemetryQueueFullBehaviorBlock Block
-	OutputOpenTelemetryQueueFullBehaviorBlock OutputOpenTelemetryQueueFullBehavior = "block"
-	// OutputOpenTelemetryQueueFullBehaviorDrop Drop new data
-	OutputOpenTelemetryQueueFullBehaviorDrop OutputOpenTelemetryQueueFullBehavior = "drop"
-)
-
-func (e OutputOpenTelemetryQueueFullBehavior) ToPointer() *OutputOpenTelemetryQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputOpenTelemetryQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
 			return true
 		}
 	}
@@ -682,17 +83,17 @@ type OutputOpenTelemetry struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Select a transport option for OpenTelemetry
-	Protocol *OutputOpenTelemetryProtocol `default:"grpc" json:"protocol"`
+	Protocol *ProtocolOptions `json:"protocol,omitempty"`
 	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *OutputOpenTelemetryOTLPVersion `default:"0.10.0" json:"otlpVersion"`
+	OtlpVersion *OutputOpenTelemetryOTLPVersion `json:"otlpVersion,omitempty"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *OutputOpenTelemetryCompressCompression `default:"gzip" json:"compress"`
+	Compress *CompressionOptions4 `json:"compress,omitempty"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *OutputOpenTelemetryHTTPCompressCompression `default:"gzip" json:"httpCompress"`
+	HTTPCompress *CompressionOptions5 `json:"httpCompress,omitempty"`
 	// OpenTelemetry authentication type
-	AuthType *OutputOpenTelemetryAuthenticationType `default:"none" json:"authType"`
+	AuthType *AuthenticationTypeOptions `json:"authType,omitempty"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitempty"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -700,28 +101,28 @@ type OutputOpenTelemetry struct {
 	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitempty"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
-	Metadata []OutputOpenTelemetryMetadatum `json:"metadata,omitempty"`
+	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitempty"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputOpenTelemetryFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
 	// How often the sender should ping the peer to keep the connection open
-	KeepAliveTime *float64 `default:"30" json:"keepAliveTime"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitempty"`
 	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `default:"true" json:"keepAlive"`
+	KeepAlive *bool `json:"keepAlive,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputOpenTelemetryBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                                  `json:"description,omitempty"`
-	Username       *string                                  `json:"username,omitempty"`
-	Password       *string                                  `json:"password,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	Description    *string                      `json:"description,omitempty"`
+	Username       *string                      `json:"username,omitempty"`
+	Password       *string                      `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -737,50 +138,50 @@ type OutputOpenTelemetry struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []OutputOpenTelemetryOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []OutputOpenTelemetryOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputOpenTelemetryExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputOpenTelemetryResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputOpenTelemetryTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                                     `default:"true" json:"responseHonorRetryAfterHeader"`
-	TLS                           *OutputOpenTelemetryTLSSettingsClientSide `json:"tls,omitempty"`
+	ResponseHonorRetryAfterHeader *bool                       `json:"responseHonorRetryAfterHeader,omitempty"`
+	TLS                           *TLSSettingsClientSideType2 `json:"tls,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputOpenTelemetryMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputOpenTelemetryPqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputOpenTelemetryQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputOpenTelemetryPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitempty"`
+	PqControls       *OutputOpenTelemetryPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -836,7 +237,7 @@ func (o *OutputOpenTelemetry) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputOpenTelemetry) GetProtocol() *OutputOpenTelemetryProtocol {
+func (o *OutputOpenTelemetry) GetProtocol() *ProtocolOptions {
 	if o == nil {
 		return nil
 	}
@@ -857,21 +258,21 @@ func (o *OutputOpenTelemetry) GetOtlpVersion() *OutputOpenTelemetryOTLPVersion {
 	return o.OtlpVersion
 }
 
-func (o *OutputOpenTelemetry) GetCompress() *OutputOpenTelemetryCompressCompression {
+func (o *OutputOpenTelemetry) GetCompress() *CompressionOptions4 {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputOpenTelemetry) GetHTTPCompress() *OutputOpenTelemetryHTTPCompressCompression {
+func (o *OutputOpenTelemetry) GetHTTPCompress() *CompressionOptions5 {
 	if o == nil {
 		return nil
 	}
 	return o.HTTPCompress
 }
 
-func (o *OutputOpenTelemetry) GetAuthType() *OutputOpenTelemetryAuthenticationType {
+func (o *OutputOpenTelemetry) GetAuthType() *AuthenticationTypeOptions {
 	if o == nil {
 		return nil
 	}
@@ -899,7 +300,7 @@ func (o *OutputOpenTelemetry) GetHTTPLogsEndpointOverride() *string {
 	return o.HTTPLogsEndpointOverride
 }
 
-func (o *OutputOpenTelemetry) GetMetadata() []OutputOpenTelemetryMetadatum {
+func (o *OutputOpenTelemetry) GetMetadata() []ItemsTypeKeyValueMetadata {
 	if o == nil {
 		return nil
 	}
@@ -934,7 +335,7 @@ func (o *OutputOpenTelemetry) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputOpenTelemetry) GetFailedRequestLoggingMode() *OutputOpenTelemetryFailedRequestLoggingMode {
+func (o *OutputOpenTelemetry) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -962,7 +363,7 @@ func (o *OutputOpenTelemetry) GetKeepAlive() *bool {
 	return o.KeepAlive
 }
 
-func (o *OutputOpenTelemetry) GetOnBackpressure() *OutputOpenTelemetryBackpressureBehavior {
+func (o *OutputOpenTelemetry) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -1053,14 +454,14 @@ func (o *OutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputOpenTelemetry) GetOauthParams() []OutputOpenTelemetryOauthParam {
+func (o *OutputOpenTelemetry) GetOauthParams() []ItemsTypeOauthParams {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputOpenTelemetry) GetOauthHeaders() []OutputOpenTelemetryOauthHeader {
+func (o *OutputOpenTelemetry) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if o == nil {
 		return nil
 	}
@@ -1081,7 +482,7 @@ func (o *OutputOpenTelemetry) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputOpenTelemetry) GetExtraHTTPHeaders() []OutputOpenTelemetryExtraHTTPHeader {
+func (o *OutputOpenTelemetry) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if o == nil {
 		return nil
 	}
@@ -1095,14 +496,14 @@ func (o *OutputOpenTelemetry) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputOpenTelemetry) GetResponseRetrySettings() []OutputOpenTelemetryResponseRetrySetting {
+func (o *OutputOpenTelemetry) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputOpenTelemetry) GetTimeoutRetrySettings() *OutputOpenTelemetryTimeoutRetrySettings {
+func (o *OutputOpenTelemetry) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
@@ -1116,7 +517,7 @@ func (o *OutputOpenTelemetry) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputOpenTelemetry) GetTLS() *OutputOpenTelemetryTLSSettingsClientSide {
+func (o *OutputOpenTelemetry) GetTLS() *TLSSettingsClientSideType2 {
 	if o == nil {
 		return nil
 	}
@@ -1137,7 +538,7 @@ func (o *OutputOpenTelemetry) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputOpenTelemetry) GetPqMode() *OutputOpenTelemetryMode {
+func (o *OutputOpenTelemetry) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -1179,14 +580,14 @@ func (o *OutputOpenTelemetry) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputOpenTelemetry) GetPqCompress() *OutputOpenTelemetryPqCompressCompression {
+func (o *OutputOpenTelemetry) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputOpenTelemetry) GetPqOnBackpressure() *OutputOpenTelemetryQueueFullBehavior {
+func (o *OutputOpenTelemetry) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

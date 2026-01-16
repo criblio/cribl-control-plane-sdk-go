@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [Get](#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [Get](#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
 
 ## Get
 
-Get the Access Control List (ACL) for teams that have permissions on a Worker Group or Edge Fleet for the specified Cribl product.
+Get the Access Control List (ACL) for teams that have permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
 
 ### Example Usage
 
@@ -38,7 +38,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedTeamAccessControlList != nil {
         // handle response
     }
 }
@@ -46,13 +46,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `ctx`                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                 | :heavy_check_mark:                                                                    | The context to use for the request.                                                   |
-| `product`                                                                             | [components.ProductsCore](../../models/components/productscore.md)                    | :heavy_check_mark:                                                                    | Name of the Cribl product that contains the Worker Group or Edge Fleet.               |
-| `id`                                                                                  | *string*                                                                              | :heavy_check_mark:                                                                    | The <code>id</code> of the Worker Group or Edge Fleet to get the team ACL for.        |
-| `type_`                                                                               | [*components.RbacResource](../../models/components/rbacresource.md)                   | :heavy_minus_sign:                                                                    | Filter for limiting the response to ACL entries for the specified RBAC resource type. |
-| `opts`                                                                                | [][operations.Option](../../models/operations/option.md)                              | :heavy_minus_sign:                                                                    | The options for this request.                                                         |
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                          | :heavy_check_mark:                                                                             | The context to use for the request.                                                            |
+| `product`                                                                                      | [components.ProductsCore](../../models/components/productscore.md)                             | :heavy_check_mark:                                                                             | Name of the Cribl product that contains the Worker Group, Outpost Group, or Edge Fleet.        |
+| `id`                                                                                           | *string*                                                                                       | :heavy_check_mark:                                                                             | The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the team ACL for. |
+| `type_`                                                                                        | [*components.RbacResource](../../models/components/rbacresource.md)                            | :heavy_minus_sign:                                                                             | Filter for limiting the response to ACL entries for the specified RBAC resource type.          |
+| `opts`                                                                                         | [][operations.Option](../../models/operations/option.md)                                       | :heavy_minus_sign:                                                                             | The options for this request.                                                                  |
 
 ### Response
 

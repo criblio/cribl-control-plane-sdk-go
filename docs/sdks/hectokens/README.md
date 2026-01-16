@@ -39,20 +39,20 @@ func main() {
         AllowedIndexesAtToken: []string{
             "<value 1>",
         },
-        Description: criblcontrolplanesdkgo.Pointer("bah ick stingy"),
-        Enabled: criblcontrolplanesdkgo.Pointer(false),
-        Metadata: []components.AddHecTokenRequestMetadatum{
-            components.AddHecTokenRequestMetadatum{
-                Name: "<value>",
-                Value: "<value>",
+        Description: criblcontrolplanesdkgo.Pointer("toward precedent merry vaguely across ha fooey ingratiate jealously outlying"),
+        Enabled: criblcontrolplanesdkgo.Pointer(true),
+        Metadata: []components.EventBreakerRuleFields{
+            components.EventBreakerRuleFields{
+                Name: "fieldX",
+                Value: "valueX",
             },
         },
-        Token: "<value>",
+        Token: "12345678901",
     })
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInputSplunkHec != nil {
         // handle response
     }
 }
@@ -110,19 +110,19 @@ func main() {
         AllowedIndexesAtToken: []string{
             "<value 1>",
         },
-        Description: criblcontrolplanesdkgo.Pointer("by bleakly fortunately phew barring"),
-        Enabled: criblcontrolplanesdkgo.Pointer(false),
-        Metadata: []components.UpdateHecTokenRequestMetadatum{
-            components.UpdateHecTokenRequestMetadatum{
-                Name: "<value>",
-                Value: "<value>",
+        Description: criblcontrolplanesdkgo.Pointer("once lively fooey who though while dampen please denitrify pish"),
+        Enabled: criblcontrolplanesdkgo.Pointer(true),
+        Metadata: []components.EventBreakerRuleFields{
+            components.EventBreakerRuleFields{
+                Name: "fieldX",
+                Value: "valueX",
             },
         },
     })
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedInputSplunkHec != nil {
         // handle response
     }
 }

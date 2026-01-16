@@ -7,9 +7,9 @@ import (
 )
 
 type GetConfigGroupByProductAndIDRequest struct {
-	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+	// Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// The <code>id</code> of the Worker Group or Edge Fleet to get.
+	// The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
 	Fields *string `queryParam:"style=form,explode=true,name=fields"`
@@ -36,31 +36,10 @@ func (g *GetConfigGroupByProductAndIDRequest) GetFields() *string {
 	return g.Fields
 }
 
-// GetConfigGroupByProductAndIDResponseBody - a list of ConfigGroup objects
-type GetConfigGroupByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                   `json:"count,omitempty"`
-	Items []components.ConfigGroup `json:"items,omitempty"`
-}
-
-func (g *GetConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetConfigGroupByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
-	Object *GetConfigGroupByProductAndIDResponseBody
+	CountedConfigGroup *components.CountedConfigGroup
 }
 
 func (g *GetConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -70,9 +49,9 @@ func (g *GetConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMeta
 	return g.HTTPMeta
 }
 
-func (g *GetConfigGroupByProductAndIDResponse) GetObject() *GetConfigGroupByProductAndIDResponseBody {
+func (g *GetConfigGroupByProductAndIDResponse) GetCountedConfigGroup() *components.CountedConfigGroup {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedConfigGroup
 }

@@ -3,12 +3,12 @@
 package components
 
 type OutputTestRequest struct {
-	Events []CriblEvent `json:"events"`
+	Events []map[string]any `json:"events"`
 }
 
-func (o *OutputTestRequest) GetEvents() []CriblEvent {
+func (o *OutputTestRequest) GetEvents() []map[string]any {
 	if o == nil {
-		return []CriblEvent{}
+		return []map[string]any{}
 	}
 	return o.Events
 }

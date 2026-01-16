@@ -108,391 +108,74 @@ func (e *MappingType) IsExact() bool {
 	return false
 }
 
-type OutputClickHouseMinimumTLSVersion string
-
-const (
-	OutputClickHouseMinimumTLSVersionTlSv1  OutputClickHouseMinimumTLSVersion = "TLSv1"
-	OutputClickHouseMinimumTLSVersionTlSv11 OutputClickHouseMinimumTLSVersion = "TLSv1.1"
-	OutputClickHouseMinimumTLSVersionTlSv12 OutputClickHouseMinimumTLSVersion = "TLSv1.2"
-	OutputClickHouseMinimumTLSVersionTlSv13 OutputClickHouseMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputClickHouseMinimumTLSVersion) ToPointer() *OutputClickHouseMinimumTLSVersion {
-	return &e
+type StatsDestination struct {
+	URL         *string `json:"url,omitempty"`
+	Database    *string `json:"database,omitempty"`
+	TableName   *string `json:"tableName,omitempty"`
+	AuthType    *string `json:"authType,omitempty"`
+	Username    *string `json:"username,omitempty"`
+	SQLUsername *string `json:"sqlUsername,omitempty"`
+	Password    *string `json:"password,omitempty"`
 }
 
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
+func (s StatsDestination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
 }
 
-type OutputClickHouseMaximumTLSVersion string
-
-const (
-	OutputClickHouseMaximumTLSVersionTlSv1  OutputClickHouseMaximumTLSVersion = "TLSv1"
-	OutputClickHouseMaximumTLSVersionTlSv11 OutputClickHouseMaximumTLSVersion = "TLSv1.1"
-	OutputClickHouseMaximumTLSVersionTlSv12 OutputClickHouseMaximumTLSVersion = "TLSv1.2"
-	OutputClickHouseMaximumTLSVersionTlSv13 OutputClickHouseMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputClickHouseMaximumTLSVersion) ToPointer() *OutputClickHouseMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputClickHouseTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                            `json:"passphrase,omitempty"`
-	MinVersion *OutputClickHouseMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputClickHouseMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputClickHouseTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+func (s *StatsDestination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputClickHouseTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
+func (s *StatsDestination) GetURL() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Disabled
+	return s.URL
 }
 
-func (o *OutputClickHouseTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
+func (s *StatsDestination) GetDatabase() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Servername
+	return s.Database
 }
 
-func (o *OutputClickHouseTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
+func (s *StatsDestination) GetTableName() *string {
+	if s == nil {
 		return nil
 	}
-	return o.CertificateName
+	return s.TableName
 }
 
-func (o *OutputClickHouseTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
+func (s *StatsDestination) GetAuthType() *string {
+	if s == nil {
 		return nil
 	}
-	return o.CaPath
+	return s.AuthType
 }
 
-func (o *OutputClickHouseTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
+func (s *StatsDestination) GetUsername() *string {
+	if s == nil {
 		return nil
 	}
-	return o.PrivKeyPath
+	return s.Username
 }
 
-func (o *OutputClickHouseTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
+func (s *StatsDestination) GetSQLUsername() *string {
+	if s == nil {
 		return nil
 	}
-	return o.CertPath
+	return s.SQLUsername
 }
 
-func (o *OutputClickHouseTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
+func (s *StatsDestination) GetPassword() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Passphrase
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetMinVersion() *OutputClickHouseMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputClickHouseTLSSettingsClientSide) GetMaxVersion() *OutputClickHouseMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-type OutputClickHouseExtraHTTPHeader struct {
-	Name  *string `json:"name,omitempty"`
-	Value string  `json:"value"`
-}
-
-func (o OutputClickHouseExtraHTTPHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseExtraHTTPHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseExtraHTTPHeader) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *OutputClickHouseExtraHTTPHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputClickHouseFailedRequestLoggingMode - Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-type OutputClickHouseFailedRequestLoggingMode string
-
-const (
-	// OutputClickHouseFailedRequestLoggingModePayload Payload
-	OutputClickHouseFailedRequestLoggingModePayload OutputClickHouseFailedRequestLoggingMode = "payload"
-	// OutputClickHouseFailedRequestLoggingModePayloadAndHeaders Payload + Headers
-	OutputClickHouseFailedRequestLoggingModePayloadAndHeaders OutputClickHouseFailedRequestLoggingMode = "payloadAndHeaders"
-	// OutputClickHouseFailedRequestLoggingModeNone None
-	OutputClickHouseFailedRequestLoggingModeNone OutputClickHouseFailedRequestLoggingMode = "none"
-)
-
-func (e OutputClickHouseFailedRequestLoggingMode) ToPointer() *OutputClickHouseFailedRequestLoggingMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseFailedRequestLoggingMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "payload", "payloadAndHeaders", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputClickHouseResponseRetrySetting struct {
-	// The HTTP response status code that will trigger retries
-	HTTPStatus float64 `json:"httpStatus"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputClickHouseResponseRetrySetting) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseResponseRetrySetting) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"httpStatus"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseResponseRetrySetting) GetHTTPStatus() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.HTTPStatus
-}
-
-func (o *OutputClickHouseResponseRetrySetting) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputClickHouseResponseRetrySetting) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputClickHouseResponseRetrySetting) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-type OutputClickHouseTimeoutRetrySettings struct {
-	TimeoutRetry *bool `default:"false" json:"timeoutRetry"`
-	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"1000" json:"initialBackoff"`
-	// Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
-	// The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackoff *float64 `default:"10000" json:"maxBackoff"`
-}
-
-func (o OutputClickHouseTimeoutRetrySettings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) GetTimeoutRetry() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.TimeoutRetry
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) GetInitialBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.InitialBackoff
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) GetBackoffRate() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.BackoffRate
-}
-
-func (o *OutputClickHouseTimeoutRetrySettings) GetMaxBackoff() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxBackoff
-}
-
-// OutputClickHouseBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputClickHouseBackpressureBehavior string
-
-const (
-	// OutputClickHouseBackpressureBehaviorBlock Block
-	OutputClickHouseBackpressureBehaviorBlock OutputClickHouseBackpressureBehavior = "block"
-	// OutputClickHouseBackpressureBehaviorDrop Drop
-	OutputClickHouseBackpressureBehaviorDrop OutputClickHouseBackpressureBehavior = "drop"
-	// OutputClickHouseBackpressureBehaviorQueue Persistent Queue
-	OutputClickHouseBackpressureBehaviorQueue OutputClickHouseBackpressureBehavior = "queue"
-)
-
-func (e OutputClickHouseBackpressureBehavior) ToPointer() *OutputClickHouseBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputClickHouseOauthParam struct {
-	// OAuth parameter name
-	Name string `json:"name"`
-	// OAuth parameter value
-	Value string `json:"value"`
-}
-
-func (o OutputClickHouseOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputClickHouseOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputClickHouseOauthHeader struct {
-	// OAuth header name
-	Name string `json:"name"`
-	// OAuth header value
-	Value string `json:"value"`
-}
-
-func (o OutputClickHouseOauthHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseOauthHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseOauthHeader) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputClickHouseOauthHeader) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
+	return s.Password
 }
 
 type ColumnMapping struct {
@@ -536,83 +219,6 @@ func (c *ColumnMapping) GetColumnValueExpression() string {
 	return c.ColumnValueExpression
 }
 
-// OutputClickHouseMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputClickHouseMode string
-
-const (
-	// OutputClickHouseModeError Error
-	OutputClickHouseModeError OutputClickHouseMode = "error"
-	// OutputClickHouseModeAlways Backpressure
-	OutputClickHouseModeAlways OutputClickHouseMode = "always"
-	// OutputClickHouseModeBackpressure Always On
-	OutputClickHouseModeBackpressure OutputClickHouseMode = "backpressure"
-)
-
-func (e OutputClickHouseMode) ToPointer() *OutputClickHouseMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputClickHouseCompression - Codec to use to compress the persisted data
-type OutputClickHouseCompression string
-
-const (
-	// OutputClickHouseCompressionNone None
-	OutputClickHouseCompressionNone OutputClickHouseCompression = "none"
-	// OutputClickHouseCompressionGzip Gzip
-	OutputClickHouseCompressionGzip OutputClickHouseCompression = "gzip"
-)
-
-func (e OutputClickHouseCompression) ToPointer() *OutputClickHouseCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputClickHouseQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputClickHouseQueueFullBehavior string
-
-const (
-	// OutputClickHouseQueueFullBehaviorBlock Block
-	OutputClickHouseQueueFullBehaviorBlock OutputClickHouseQueueFullBehavior = "block"
-	// OutputClickHouseQueueFullBehaviorDrop Drop new data
-	OutputClickHouseQueueFullBehaviorDrop OutputClickHouseQueueFullBehavior = "drop"
-)
-
-func (e OutputClickHouseQueueFullBehavior) ToPointer() *OutputClickHouseQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputClickHousePqControls struct {
 }
 
@@ -641,53 +247,54 @@ type OutputClickHouse struct {
 	Streamtags []string `json:"streamtags,omitempty"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
 	URL      string                              `json:"url"`
-	AuthType *OutputClickHouseAuthenticationType `default:"none" json:"authType"`
+	AuthType *OutputClickHouseAuthenticationType `json:"authType,omitempty"`
 	Database string                              `json:"database"`
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-	Format *OutputClickHouseFormat `default:"json-compact-each-row-with-names" json:"format"`
+	Format *OutputClickHouseFormat `json:"format,omitempty"`
 	// How event fields are mapped to ClickHouse columns.
-	MappingType *MappingType `default:"automatic" json:"mappingType"`
+	MappingType *MappingType `json:"mappingType,omitempty"`
 	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
-	AsyncInserts *bool                                  `default:"false" json:"asyncInserts"`
-	TLS          *OutputClickHouseTLSSettingsClientSide `json:"tls,omitempty"`
+	AsyncInserts *bool                       `json:"asyncInserts,omitempty"`
+	TLS          *TLSSettingsClientSideType1 `json:"tls,omitempty"`
 	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `default:"5" json:"concurrency"`
+	Concurrency *float64 `json:"concurrency,omitempty"`
 	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `default:"4096" json:"maxPayloadSizeKB"`
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitempty"`
 	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `default:"0" json:"maxPayloadEvents"`
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitempty"`
 	// Compress the payload body before sending
-	Compress *bool `default:"true" json:"compress"`
+	Compress *bool `json:"compress,omitempty"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitempty"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `default:"30" json:"timeoutSec"`
+	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `default:"1" json:"flushPeriodSec"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitempty"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []OutputClickHouseExtraHTTPHeader `json:"extraHttpHeaders,omitempty"`
+	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitempty"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `default:"false" json:"useRoundRobinDns"`
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *OutputClickHouseFailedRequestLoggingMode `default:"none" json:"failedRequestLoggingMode"`
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []OutputClickHouseResponseRetrySetting `json:"responseRetrySettings,omitempty"`
-	TimeoutRetrySettings  *OutputClickHouseTimeoutRetrySettings  `json:"timeoutRetrySettings,omitempty"`
+	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitempty"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitempty"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `default:"true" json:"responseHonorRetryAfterHeader"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
 	// Log the most recent event that fails to match the table schema
-	DumpFormatErrorsToDisk *bool `default:"false" json:"dumpFormatErrorsToDisk"`
+	DumpFormatErrorsToDisk *bool             `json:"dumpFormatErrorsToDisk,omitempty"`
+	StatsDestination       *StatsDestination `json:"statsDestination,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputClickHouseBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                               `json:"description,omitempty"`
-	Username       *string                               `json:"username,omitempty"`
-	Password       *string                               `json:"password,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	Description    *string                      `json:"description,omitempty"`
+	Username       *string                      `json:"username,omitempty"`
+	Password       *string                      `json:"password,omitempty"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitempty"`
 	// Select or create a secret that references your credentials
@@ -703,43 +310,43 @@ type OutputClickHouse struct {
 	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
 	TokenAttributeName *string `json:"tokenAttributeName,omitempty"`
 	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `default:"Bearer \\${token}" json:"authHeaderExpr"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitempty"`
 	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `default:"3600" json:"tokenTimeoutSecs"`
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitempty"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []OutputClickHouseOauthParam `json:"oauthParams,omitempty"`
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []OutputClickHouseOauthHeader `json:"oauthHeaders,omitempty"`
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Username for certificate authentication
 	SQLUsername *string `json:"sqlUsername,omitempty"`
 	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
-	WaitForAsyncInserts *bool `default:"true" json:"waitForAsyncInserts"`
+	WaitForAsyncInserts *bool `json:"waitForAsyncInserts,omitempty"`
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitempty"`
 	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
 	DescribeTable  *string         `json:"describeTable,omitempty"`
 	ColumnMappings []ColumnMapping `json:"columnMappings,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputClickHouseMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputClickHouseCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputClickHouseQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputClickHousePqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions   `json:"pqOnBackpressure,omitempty"`
+	PqControls       *OutputClickHousePqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
@@ -844,7 +451,7 @@ func (o *OutputClickHouse) GetAsyncInserts() *bool {
 	return o.AsyncInserts
 }
 
-func (o *OutputClickHouse) GetTLS() *OutputClickHouseTLSSettingsClientSide {
+func (o *OutputClickHouse) GetTLS() *TLSSettingsClientSideType1 {
 	if o == nil {
 		return nil
 	}
@@ -900,7 +507,7 @@ func (o *OutputClickHouse) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputClickHouse) GetExtraHTTPHeaders() []OutputClickHouseExtraHTTPHeader {
+func (o *OutputClickHouse) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	if o == nil {
 		return nil
 	}
@@ -914,7 +521,7 @@ func (o *OutputClickHouse) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputClickHouse) GetFailedRequestLoggingMode() *OutputClickHouseFailedRequestLoggingMode {
+func (o *OutputClickHouse) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -928,14 +535,14 @@ func (o *OutputClickHouse) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputClickHouse) GetResponseRetrySettings() []OutputClickHouseResponseRetrySetting {
+func (o *OutputClickHouse) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputClickHouse) GetTimeoutRetrySettings() *OutputClickHouseTimeoutRetrySettings {
+func (o *OutputClickHouse) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
@@ -956,7 +563,14 @@ func (o *OutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
 	return o.DumpFormatErrorsToDisk
 }
 
-func (o *OutputClickHouse) GetOnBackpressure() *OutputClickHouseBackpressureBehavior {
+func (o *OutputClickHouse) GetStatsDestination() *StatsDestination {
+	if o == nil {
+		return nil
+	}
+	return o.StatsDestination
+}
+
+func (o *OutputClickHouse) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -1047,14 +661,14 @@ func (o *OutputClickHouse) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputClickHouse) GetOauthParams() []OutputClickHouseOauthParam {
+func (o *OutputClickHouse) GetOauthParams() []ItemsTypeOauthParams {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputClickHouse) GetOauthHeaders() []OutputClickHouseOauthHeader {
+func (o *OutputClickHouse) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	if o == nil {
 		return nil
 	}
@@ -1110,7 +724,7 @@ func (o *OutputClickHouse) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputClickHouse) GetPqMode() *OutputClickHouseMode {
+func (o *OutputClickHouse) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -1152,14 +766,14 @@ func (o *OutputClickHouse) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputClickHouse) GetPqCompress() *OutputClickHouseCompression {
+func (o *OutputClickHouse) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputClickHouse) GetPqOnBackpressure() *OutputClickHouseQueueFullBehavior {
+func (o *OutputClickHouse) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}
