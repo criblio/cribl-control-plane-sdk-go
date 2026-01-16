@@ -383,7 +383,8 @@ type OutputAzureDataExplorer struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool              `json:"addIdToStagePath,omitempty"`
+	RetrySettings    *RetrySettingsType `json:"retrySettings,omitempty"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
 	// Bypass the data management service's aggregation mechanism
@@ -831,6 +832,13 @@ func (o *OutputAzureDataExplorer) GetAddIDToStagePath() *bool {
 		return nil
 	}
 	return o.AddIDToStagePath
+}
+
+func (o *OutputAzureDataExplorer) GetRetrySettings() *RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputAzureDataExplorer) GetTimeoutSec() *float64 {

@@ -4515,6 +4515,8 @@ type InputFile struct {
 	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitempty"`
 	// Delete files after they have been collected
 	DeleteFiles *bool `json:"deleteFiles,omitempty"`
+	// Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.
+	SaltHash *bool `json:"saltHash,omitempty"`
 	// Stream binary files as Base64-encoded chunks.
 	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitempty"`
 }
@@ -4731,6 +4733,13 @@ func (i *InputFile) GetDeleteFiles() *bool {
 		return nil
 	}
 	return i.DeleteFiles
+}
+
+func (i *InputFile) GetSaltHash() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SaltHash
 }
 
 func (i *InputFile) GetIncludeUnidentifiableBinary() *bool {

@@ -122,7 +122,8 @@ type OutputCloudflareR2 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `json:"forceCloseOnShutdown,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -417,6 +418,13 @@ func (o *OutputCloudflareR2) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputCloudflareR2) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputCloudflareR2) GetMaxFileOpenTimeSec() *float64 {
@@ -1178,7 +1186,8 @@ type OutputDatabricks struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `json:"forceCloseOnShutdown,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
 	// Databricks workspace ID
 	WorkspaceID string `json:"workspaceId"`
 	// OAuth scope for Unity Catalog authentication
@@ -1409,6 +1418,13 @@ func (o *OutputDatabricks) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputDatabricks) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputDatabricks) GetWorkspaceID() string {
@@ -5410,7 +5426,8 @@ type OutputCriblLake struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `json:"forceCloseOnShutdown,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -5690,6 +5707,13 @@ func (o *OutputCriblLake) GetForceCloseOnShutdown() *bool {
 	return o.ForceCloseOnShutdown
 }
 
+func (o *OutputCriblLake) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
+}
+
 func (o *OutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
@@ -5885,7 +5909,8 @@ type OutputSecurityLake struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `json:"forceCloseOnShutdown,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -6186,6 +6211,13 @@ func (o *OutputSecurityLake) GetForceCloseOnShutdown() *bool {
 	return o.ForceCloseOnShutdown
 }
 
+func (o *OutputSecurityLake) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
+}
+
 func (o *OutputSecurityLake) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
@@ -6456,7 +6488,8 @@ type OutputDlS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `json:"forceCloseOnShutdown,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -6778,6 +6811,13 @@ func (o *OutputDlS3) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputDlS3) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputDlS3) GetMaxFileOpenTimeSec() *float64 {
@@ -15710,7 +15750,8 @@ type OutputMinio struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `json:"forceCloseOnShutdown,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -16005,6 +16046,13 @@ func (o *OutputMinio) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputMinio) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputMinio) GetMaxFileOpenTimeSec() *float64 {
@@ -20374,6 +20422,7 @@ type OutputExabeam struct {
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitempty"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
+	RetrySettings          *components.RetrySettingsType          `json:"retrySettings,omitempty"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitempty"`
 	// Enter an encoded string containing Exabeam configurations
@@ -20571,6 +20620,13 @@ func (o *OutputExabeam) GetOnDiskFullBackpressure() *components.DiskSpaceProtect
 		return nil
 	}
 	return o.OnDiskFullBackpressure
+}
+
+func (o *OutputExabeam) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputExabeam) GetMaxFileSizeMB() *float64 {
@@ -21835,8 +21891,9 @@ type OutputGoogleCloudStorage struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool   `json:"forceCloseOnShutdown,omitempty"`
-	Description          *string `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
+	Description          *string                       `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *components.CompressionOptions2 `json:"compress,omitempty"`
 	// Compression level to apply before moving files to final destination
@@ -22126,6 +22183,13 @@ func (o *OutputGoogleCloudStorage) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputGoogleCloudStorage) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputGoogleCloudStorage) GetDescription() *string {
@@ -24881,7 +24945,8 @@ type OutputAzureDataExplorer struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool                         `json:"addIdToStagePath,omitempty"`
+	RetrySettings    *components.RetrySettingsType `json:"retrySettings,omitempty"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
 	// Bypass the data management service's aggregation mechanism
@@ -25331,6 +25396,13 @@ func (o *OutputAzureDataExplorer) GetAddIDToStagePath() *bool {
 	return o.AddIDToStagePath
 }
 
+func (o *OutputAzureDataExplorer) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
+}
+
 func (o *OutputAzureDataExplorer) GetTimeoutSec() *float64 {
 	if o == nil {
 		return nil
@@ -25641,6 +25713,7 @@ type OutputAzureBlob struct {
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                                   `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType           `json:"retrySettings,omitempty"`
 	AuthType             *components.AuthenticationMethodOptions `json:"authType,omitempty"`
 	StorageClass         *BlobAccessTier                         `json:"storageClass,omitempty"`
 	Description          *string                                 `json:"description,omitempty"`
@@ -25895,6 +25968,13 @@ func (o *OutputAzureBlob) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputAzureBlob) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputAzureBlob) GetAuthType() *components.AuthenticationMethodOptions {
@@ -26197,7 +26277,8 @@ type OutputS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `json:"forceCloseOnShutdown,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
 	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
 	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitempty"`
 	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
@@ -26526,6 +26607,13 @@ func (o *OutputS3) GetForceCloseOnShutdown() *bool {
 	return o.ForceCloseOnShutdown
 }
 
+func (o *OutputS3) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
+}
+
 func (o *OutputS3) GetMaxFileOpenTimeSec() *float64 {
 	if o == nil {
 		return nil
@@ -26771,8 +26859,9 @@ type OutputFilesystem struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool   `json:"forceCloseOnShutdown,omitempty"`
-	Description          *string `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool                         `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *components.RetrySettingsType `json:"retrySettings,omitempty"`
+	Description          *string                       `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *components.CompressionOptions2 `json:"compress,omitempty"`
 	// Compression level to apply before moving files to final destination
@@ -26986,6 +27075,13 @@ func (o *OutputFilesystem) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputFilesystem) GetRetrySettings() *components.RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputFilesystem) GetDescription() *string {

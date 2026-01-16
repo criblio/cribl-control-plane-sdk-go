@@ -115,6 +115,7 @@ type OutputAzureBlob struct {
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
 	ForceCloseOnShutdown *bool                        `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *RetrySettingsType           `json:"retrySettings,omitempty"`
 	AuthType             *AuthenticationMethodOptions `json:"authType,omitempty"`
 	StorageClass         *BlobAccessTier              `json:"storageClass,omitempty"`
 	Description          *string                      `json:"description,omitempty"`
@@ -369,6 +370,13 @@ func (o *OutputAzureBlob) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputAzureBlob) GetRetrySettings() *RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputAzureBlob) GetAuthType() *AuthenticationMethodOptions {
