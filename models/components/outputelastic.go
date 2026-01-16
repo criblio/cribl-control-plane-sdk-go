@@ -88,6 +88,8 @@ type OutputElasticURL struct {
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitempty"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputElasticURL) MarshalJSON() ([]byte, error) {
@@ -113,6 +115,13 @@ func (o *OutputElasticURL) GetWeight() *float64 {
 		return nil
 	}
 	return o.Weight
+}
+
+func (o *OutputElasticURL) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
 }
 
 type OutputElasticPqControls struct {
@@ -221,6 +230,8 @@ type OutputElastic struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputElasticPqControls  `json:"pqControls,omitempty"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputElastic) MarshalJSON() ([]byte, error) {
@@ -568,4 +579,11 @@ func (o *OutputElastic) GetPqControls() *OutputElasticPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputElastic) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
 }

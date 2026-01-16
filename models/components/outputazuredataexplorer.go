@@ -383,7 +383,8 @@ type OutputAzureDataExplorer struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool `json:"addIdToStagePath,omitempty"`
+	AddIDToStagePath *bool              `json:"addIdToStagePath,omitempty"`
+	RetrySettings    *RetrySettingsType `json:"retrySettings,omitempty"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
 	// Bypass the data management service's aggregation mechanism
@@ -442,6 +443,24 @@ type OutputAzureDataExplorer struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions          `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputAzureDataExplorerPqControls `json:"pqControls,omitempty"`
+	// Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
+	TemplateClusterURL *string `json:"__template_clusterUrl,omitempty"`
+	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+	TemplateDatabase *string `json:"__template_database,omitempty"`
+	// Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.
+	TemplateTable *string `json:"__template_table,omitempty"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitempty"`
+	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+	TemplateScope *string `json:"__template_scope,omitempty"`
+	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+	TemplateClientSecret *string `json:"__template_clientSecret,omitempty"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitempty"`
+	// Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
+	TemplateIngestURL *string `json:"__template_ingestUrl,omitempty"`
 }
 
 func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -833,6 +852,13 @@ func (o *OutputAzureDataExplorer) GetAddIDToStagePath() *bool {
 	return o.AddIDToStagePath
 }
 
+func (o *OutputAzureDataExplorer) GetRetrySettings() *RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
+}
+
 func (o *OutputAzureDataExplorer) GetTimeoutSec() *float64 {
 	if o == nil {
 		return nil
@@ -1034,4 +1060,67 @@ func (o *OutputAzureDataExplorer) GetPqControls() *OutputAzureDataExplorerPqCont
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateClusterURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateClusterURL
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDatabase
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTable
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateTenantID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTenantID
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateClientID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateClientID
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateScope
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateClientSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateClientSecret
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateFormat() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFormat
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateIngestURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateIngestURL
 }
