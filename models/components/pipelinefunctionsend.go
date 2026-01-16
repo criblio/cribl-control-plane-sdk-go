@@ -67,7 +67,7 @@ type SendConfiguration struct {
 	// Id of the search this function is running on.
 	SearchID string `json:"searchId"`
 	// Tee results to search. When set to true results will be shipped instead of stats
-	Tee *string `json:"tee,omitempty"`
+	Tee *bool `json:"tee,omitempty"`
 	// How often are stats flushed in ms
 	FlushMs *float64 `json:"flushMs,omitempty"`
 	// Disables generation of intermediate stats. When true stats will be emitted only on end
@@ -122,7 +122,7 @@ func (s *SendConfiguration) GetSearchID() string {
 	return s.SearchID
 }
 
-func (s *SendConfiguration) GetTee() *string {
+func (s *SendConfiguration) GetTee() *bool {
 	if s == nil {
 		return nil
 	}

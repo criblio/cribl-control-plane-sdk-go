@@ -123,8 +123,9 @@ type OutputGoogleCloudStorage struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool   `json:"forceCloseOnShutdown,omitempty"`
-	Description          *string `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitempty"`
+	Description          *string            `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptions2 `json:"compress,omitempty"`
 	// Compression level to apply before moving files to final destination
@@ -165,6 +166,12 @@ type OutputGoogleCloudStorage struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitempty"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitempty"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitempty"`
 }
 
 func (o OutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
@@ -416,6 +423,13 @@ func (o *OutputGoogleCloudStorage) GetForceCloseOnShutdown() *bool {
 	return o.ForceCloseOnShutdown
 }
 
+func (o *OutputGoogleCloudStorage) GetRetrySettings() *RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
+}
+
 func (o *OutputGoogleCloudStorage) GetDescription() *string {
 	if o == nil {
 		return nil
@@ -561,4 +575,25 @@ func (o *OutputGoogleCloudStorage) GetAwsSecret() *string {
 		return nil
 	}
 	return o.AwsSecret
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplateBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBucket
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplateRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRegion
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplateFormat() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFormat
 }

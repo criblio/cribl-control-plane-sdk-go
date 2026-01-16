@@ -125,6 +125,10 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputGrafanaCloudPqControls2 `json:"pqControls,omitempty"`
+	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
+	TemplateLokiURL *string `json:"__template_lokiUrl,omitempty"`
+	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
+	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitempty"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
@@ -425,6 +429,20 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetPqControls() *OutputGrafanaCloudPqC
 	return o.PqControls
 }
 
+func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplateLokiURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLokiURL
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplatePrometheusURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePrometheusURL
+}
+
 type OutputGrafanaCloudType1 string
 
 const (
@@ -541,6 +559,10 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputGrafanaCloudPqControls1 `json:"pqControls,omitempty"`
+	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
+	TemplateLokiURL *string `json:"__template_lokiUrl,omitempty"`
+	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
+	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitempty"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
@@ -839,6 +861,20 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetPqControls() *OutputGrafanaCloudPqC
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplateLokiURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLokiURL
+}
+
+func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplatePrometheusURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePrometheusURL
 }
 
 type OutputGrafanaCloudType string
