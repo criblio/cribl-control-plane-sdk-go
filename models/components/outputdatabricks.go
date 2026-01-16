@@ -78,7 +78,8 @@ type OutputDatabricks struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool `json:"forceCloseOnShutdown,omitempty"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitempty"`
 	// Databricks workspace ID
 	WorkspaceID string `json:"workspaceId"`
 	// OAuth scope for Unity Catalog authentication
@@ -309,6 +310,13 @@ func (o *OutputDatabricks) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputDatabricks) GetRetrySettings() *RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputDatabricks) GetWorkspaceID() string {

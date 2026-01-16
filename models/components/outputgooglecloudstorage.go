@@ -123,8 +123,9 @@ type OutputGoogleCloudStorage struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitempty"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool   `json:"forceCloseOnShutdown,omitempty"`
-	Description          *string `json:"description,omitempty"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitempty"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitempty"`
+	Description          *string            `json:"description,omitempty"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptions2 `json:"compress,omitempty"`
 	// Compression level to apply before moving files to final destination
@@ -414,6 +415,13 @@ func (o *OutputGoogleCloudStorage) GetForceCloseOnShutdown() *bool {
 		return nil
 	}
 	return o.ForceCloseOnShutdown
+}
+
+func (o *OutputGoogleCloudStorage) GetRetrySettings() *RetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.RetrySettings
 }
 
 func (o *OutputGoogleCloudStorage) GetDescription() *string {
