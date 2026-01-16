@@ -31,214 +31,6 @@ func (e *InputSystemMetricsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputSystemMetricsConnection struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSystemMetricsConnection) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsConnection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsConnection) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSystemMetricsConnection) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSystemMetricsPqMode - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSystemMetricsPqMode string
-
-const (
-	// InputSystemMetricsPqModeSmart Smart
-	InputSystemMetricsPqModeSmart InputSystemMetricsPqMode = "smart"
-	// InputSystemMetricsPqModeAlways Always On
-	InputSystemMetricsPqModeAlways InputSystemMetricsPqMode = "always"
-)
-
-func (e InputSystemMetricsPqMode) ToPointer() *InputSystemMetricsPqMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSystemMetricsPqMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputSystemMetricsCompression - Codec to use to compress the persisted data
-type InputSystemMetricsCompression string
-
-const (
-	// InputSystemMetricsCompressionNone None
-	InputSystemMetricsCompressionNone InputSystemMetricsCompression = "none"
-	// InputSystemMetricsCompressionGzip Gzip
-	InputSystemMetricsCompressionGzip InputSystemMetricsCompression = "gzip"
-)
-
-func (e InputSystemMetricsCompression) ToPointer() *InputSystemMetricsCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSystemMetricsCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSystemMetricsPqControls struct {
-}
-
-func (i InputSystemMetricsPqControls) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsPqControls) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSystemMetricsPq struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSystemMetricsPqMode `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSystemMetricsCompression `default:"none" json:"compress"`
-	PqControls *InputSystemMetricsPqControls  `json:"pqControls,omitempty"`
-}
-
-func (i InputSystemMetricsPq) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsPq) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsPq) GetMode() *InputSystemMetricsPqMode {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSystemMetricsPq) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSystemMetricsPq) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSystemMetricsPq) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSystemMetricsPq) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSystemMetricsPq) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSystemMetricsPq) GetCompress() *InputSystemMetricsCompression {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSystemMetricsPq) GetPqControls() *InputSystemMetricsPqControls {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-// InputSystemMetricsHostMode - Select level of detail for host metrics
-type InputSystemMetricsHostMode string
-
-const (
-	// InputSystemMetricsHostModeBasic Basic
-	InputSystemMetricsHostModeBasic InputSystemMetricsHostMode = "basic"
-	// InputSystemMetricsHostModeAll All
-	InputSystemMetricsHostModeAll InputSystemMetricsHostMode = "all"
-	// InputSystemMetricsHostModeCustom Custom
-	InputSystemMetricsHostModeCustom InputSystemMetricsHostMode = "custom"
-	// InputSystemMetricsHostModeDisabled Disabled
-	InputSystemMetricsHostModeDisabled InputSystemMetricsHostMode = "disabled"
-)
-
-func (e InputSystemMetricsHostMode) ToPointer() *InputSystemMetricsHostMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSystemMetricsHostMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "basic", "all", "custom", "disabled":
-			return true
-		}
-	}
-	return false
-}
-
 // InputSystemMetricsSystemMode - Select the level of detail for system metrics
 type InputSystemMetricsSystemMode string
 
@@ -270,9 +62,9 @@ func (e *InputSystemMetricsSystemMode) IsExact() bool {
 
 type InputSystemMetricsSystem struct {
 	// Select the level of detail for system metrics
-	Mode *InputSystemMetricsSystemMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsSystemMode `json:"mode,omitempty"`
 	// Generate metrics for the numbers of processes in various states
-	Processes *bool `default:"false" json:"processes"`
+	Processes *bool `json:"processes,omitempty"`
 }
 
 func (i InputSystemMetricsSystem) MarshalJSON() ([]byte, error) {
@@ -331,13 +123,13 @@ func (e *InputSystemMetricsCPUMode) IsExact() bool {
 
 type InputSystemMetricsCPU struct {
 	// Select the level of detail for CPU metrics
-	Mode *InputSystemMetricsCPUMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsCPUMode `json:"mode,omitempty"`
 	// Generate metrics for each CPU
-	PerCPU *bool `default:"false" json:"perCpu"`
+	PerCPU *bool `json:"perCpu,omitempty"`
 	// Generate metrics for all CPU states
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Generate raw, monotonic CPU time counters
-	Time *bool `default:"false" json:"time"`
+	Time *bool `json:"time,omitempty"`
 }
 
 func (i InputSystemMetricsCPU) MarshalJSON() ([]byte, error) {
@@ -410,9 +202,9 @@ func (e *InputSystemMetricsMemoryMode) IsExact() bool {
 
 type InputSystemMetricsMemory struct {
 	// Select the level of detail for memory metrics
-	Mode *InputSystemMetricsMemoryMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsMemoryMode `json:"mode,omitempty"`
 	// Generate metrics for all memory states
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 }
 
 func (i InputSystemMetricsMemory) MarshalJSON() ([]byte, error) {
@@ -471,15 +263,15 @@ func (e *InputSystemMetricsNetworkMode) IsExact() bool {
 
 type InputSystemMetricsNetwork struct {
 	// Select the level of detail for network metrics
-	Mode *InputSystemMetricsNetworkMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsNetworkMode `json:"mode,omitempty"`
 	// Generate full network metrics
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-	Protocols *bool `default:"false" json:"protocols"`
+	Protocols *bool `json:"protocols,omitempty"`
 	// Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Generate separate metrics for each interface
-	PerInterface *bool `default:"false" json:"perInterface"`
+	PerInterface *bool `json:"perInterface,omitempty"`
 }
 
 func (i InputSystemMetricsNetwork) MarshalJSON() ([]byte, error) {
@@ -559,11 +351,11 @@ func (e *InputSystemMetricsDiskMode) IsExact() bool {
 
 type InputSystemMetricsDisk struct {
 	// Select the level of detail for disk metrics
-	Mode *InputSystemMetricsDiskMode `default:"basic" json:"mode"`
+	Mode *InputSystemMetricsDiskMode `json:"mode,omitempty"`
 	// Generate full disk metrics
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 	// Generate filesystem inode metrics
-	Inodes *bool `default:"false" json:"inodes"`
+	Inodes *bool `json:"inodes,omitempty"`
 	// Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
 	Devices []string `json:"devices,omitempty"`
 	// Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
@@ -571,7 +363,7 @@ type InputSystemMetricsDisk struct {
 	// Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
 	Fstypes []string `json:"fstypes,omitempty"`
 	// Generate separate metrics for each device
-	PerDevice *bool `default:"false" json:"perDevice"`
+	PerDevice *bool `json:"perDevice,omitempty"`
 }
 
 func (i InputSystemMetricsDisk) MarshalJSON() ([]byte, error) {
@@ -690,8 +482,8 @@ func (i *InputSystemMetricsCustom) GetDisk() *InputSystemMetricsDisk {
 
 type InputSystemMetricsHost struct {
 	// Select level of detail for host metrics
-	Mode   *InputSystemMetricsHostMode `default:"basic" json:"mode"`
-	Custom *InputSystemMetricsCustom   `json:"custom,omitempty"`
+	Mode   *ModeOptionsHost          `json:"mode,omitempty"`
+	Custom *InputSystemMetricsCustom `json:"custom,omitempty"`
 }
 
 func (i InputSystemMetricsHost) MarshalJSON() ([]byte, error) {
@@ -705,7 +497,7 @@ func (i *InputSystemMetricsHost) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputSystemMetricsHost) GetMode() *InputSystemMetricsHostMode {
+func (i *InputSystemMetricsHost) GetMode() *ModeOptionsHost {
 	if i == nil {
 		return nil
 	}
@@ -717,67 +509,6 @@ func (i *InputSystemMetricsHost) GetCustom() *InputSystemMetricsCustom {
 		return nil
 	}
 	return i.Custom
-}
-
-type InputSystemMetricsSet struct {
-	Name            string `json:"name"`
-	Filter          string `json:"filter"`
-	IncludeChildren *bool  `default:"false" json:"includeChildren"`
-}
-
-func (i InputSystemMetricsSet) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsSet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "filter"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsSet) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSystemMetricsSet) GetFilter() string {
-	if i == nil {
-		return ""
-	}
-	return i.Filter
-}
-
-func (i *InputSystemMetricsSet) GetIncludeChildren() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.IncludeChildren
-}
-
-type InputSystemMetricsProcess struct {
-	// Configure sets to collect process metrics
-	Sets []InputSystemMetricsSet `json:"sets,omitempty"`
-}
-
-func (i InputSystemMetricsProcess) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsProcess) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsProcess) GetSets() []InputSystemMetricsSet {
-	if i == nil {
-		return nil
-	}
-	return i.Sets
 }
 
 // ContainerMode - Select the level of detail for container metrics
@@ -833,19 +564,19 @@ func (i *InputSystemMetricsFilter) GetExpr() string {
 
 type Container struct {
 	// Select the level of detail for container metrics
-	Mode *ContainerMode `default:"basic" json:"mode"`
+	Mode *ContainerMode `json:"mode,omitempty"`
 	// Full paths for Docker's UNIX-domain socket
 	DockerSocket []string `json:"dockerSocket,omitempty"`
 	// Timeout, in seconds, for the Docker API
-	DockerTimeout *float64 `default:"5" json:"dockerTimeout"`
+	DockerTimeout *float64 `json:"dockerTimeout,omitempty"`
 	// Containers matching any of these will be included. All are included if no filters are added.
 	Filters []InputSystemMetricsFilter `json:"filters,omitempty"`
 	// Include stopped and paused containers
-	AllContainers *bool `default:"false" json:"allContainers"`
+	AllContainers *bool `json:"allContainers,omitempty"`
 	// Generate separate metrics for each device
-	PerDevice *bool `default:"false" json:"perDevice"`
+	PerDevice *bool `json:"perDevice,omitempty"`
 	// Generate full container metrics
-	Detail *bool `default:"false" json:"detail"`
+	Detail *bool `json:"detail,omitempty"`
 }
 
 func (c Container) MarshalJSON() ([]byte, error) {
@@ -908,71 +639,18 @@ func (c *Container) GetDetail() *bool {
 	return c.Detail
 }
 
-type InputSystemMetricsMetadatum struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSystemMetricsMetadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSystemMetricsMetadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSystemMetricsMetadatum) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSystemMetricsMetadatum) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
-type InputSystemMetricsDataCompressionFormat string
-
-const (
-	InputSystemMetricsDataCompressionFormatNone InputSystemMetricsDataCompressionFormat = "none"
-	InputSystemMetricsDataCompressionFormatGzip InputSystemMetricsDataCompressionFormat = "gzip"
-)
-
-func (e InputSystemMetricsDataCompressionFormat) ToPointer() *InputSystemMetricsDataCompressionFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSystemMetricsDataCompressionFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
 type InputSystemMetricsPersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
-	Enable *bool `default:"false" json:"enable"`
+	Enable *bool `json:"enable,omitempty"`
 	// Time span for each file bucket
-	TimeWindow *string `default:"10m" json:"timeWindow"`
+	TimeWindow *string `json:"timeWindow,omitempty"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-	MaxDataSize *string `default:"1GB" json:"maxDataSize"`
+	MaxDataSize *string `json:"maxDataSize,omitempty"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `default:"24h" json:"maxDataTime"`
-	Compress    *InputSystemMetricsDataCompressionFormat `default:"gzip" json:"compress"`
+	MaxDataTime *string                                  `json:"maxDataTime,omitempty"`
+	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitempty"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
-	DestPath *string `default:"$CRIBL_HOME/state/system_metrics" json:"destPath"`
+	DestPath *string `json:"destPath,omitempty"`
 }
 
 func (i InputSystemMetricsPersistence) MarshalJSON() ([]byte, error) {
@@ -1014,7 +692,7 @@ func (i *InputSystemMetricsPersistence) GetMaxDataTime() *string {
 	return i.MaxDataTime
 }
 
-func (i *InputSystemMetricsPersistence) GetCompress() *InputSystemMetricsDataCompressionFormat {
+func (i *InputSystemMetricsPersistence) GetCompress() *DataCompressionFormatOptionsPersistence {
 	if i == nil {
 		return nil
 	}
@@ -1032,29 +710,29 @@ type InputSystemMetrics struct {
 	// Unique ID for this input
 	ID       *string                `json:"id,omitempty"`
 	Type     InputSystemMetricsType `json:"type"`
-	Disabled *bool                  `default:"false" json:"disabled"`
+	Disabled *bool                  `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSystemMetricsConnection `json:"connections,omitempty"`
-	Pq          *InputSystemMetricsPq          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval  *float64                   `default:"10" json:"interval"`
-	Host      *InputSystemMetricsHost    `json:"host,omitempty"`
-	Process   *InputSystemMetricsProcess `json:"process,omitempty"`
-	Container *Container                 `json:"container,omitempty"`
+	Interval  *float64                `json:"interval,omitempty"`
+	Host      *InputSystemMetricsHost `json:"host,omitempty"`
+	Process   *ProcessType            `json:"process,omitempty"`
+	Container *Container              `json:"container,omitempty"`
 	// Fields to add to events from this input
-	Metadata    []InputSystemMetricsMetadatum  `json:"metadata,omitempty"`
-	Persistence *InputSystemMetricsPersistence `json:"persistence,omitempty"`
-	Description *string                        `json:"description,omitempty"`
+	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
+	Persistence *InputSystemMetricsPersistence  `json:"persistence,omitempty"`
+	Description *string                         `json:"description,omitempty"`
 }
 
 func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -1124,14 +802,14 @@ func (i *InputSystemMetrics) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSystemMetrics) GetConnections() []InputSystemMetricsConnection {
+func (i *InputSystemMetrics) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSystemMetrics) GetPq() *InputSystemMetricsPq {
+func (i *InputSystemMetrics) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
@@ -1152,7 +830,7 @@ func (i *InputSystemMetrics) GetHost() *InputSystemMetricsHost {
 	return i.Host
 }
 
-func (i *InputSystemMetrics) GetProcess() *InputSystemMetricsProcess {
+func (i *InputSystemMetrics) GetProcess() *ProcessType {
 	if i == nil {
 		return nil
 	}
@@ -1166,7 +844,7 @@ func (i *InputSystemMetrics) GetContainer() *Container {
 	return i.Container
 }
 
-func (i *InputSystemMetrics) GetMetadata() []InputSystemMetricsMetadatum {
+func (i *InputSystemMetrics) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}

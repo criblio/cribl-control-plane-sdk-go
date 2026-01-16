@@ -27,31 +27,10 @@ func (c *CreateRoutesAppendByIDRequest) GetRequestBody() []components.RouteConf 
 	return c.RequestBody
 }
 
-// CreateRoutesAppendByIDResponseBody - a list of Routes objects
-type CreateRoutesAppendByIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64              `json:"count,omitempty"`
-	Items []components.Routes `json:"items,omitempty"`
-}
-
-func (c *CreateRoutesAppendByIDResponseBody) GetCount() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.Count
-}
-
-func (c *CreateRoutesAppendByIDResponseBody) GetItems() []components.Routes {
-	if c == nil {
-		return nil
-	}
-	return c.Items
-}
-
 type CreateRoutesAppendByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Routes objects
-	Object *CreateRoutesAppendByIDResponseBody
+	CountedRoutes *components.CountedRoutes
 }
 
 func (c *CreateRoutesAppendByIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -61,9 +40,9 @@ func (c *CreateRoutesAppendByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreateRoutesAppendByIDResponse) GetObject() *CreateRoutesAppendByIDResponseBody {
+func (c *CreateRoutesAppendByIDResponse) GetCountedRoutes() *components.CountedRoutes {
 	if c == nil {
 		return nil
 	}
-	return c.Object
+	return c.CountedRoutes
 }

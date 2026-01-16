@@ -32,433 +32,65 @@ func (e *InputSyslogType2) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputSyslogConnection2 struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSyslogConnection2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogConnection2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSyslogConnection2) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSyslogConnection2) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSyslogMode2 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSyslogMode2 string
-
-const (
-	// InputSyslogMode2Smart Smart
-	InputSyslogMode2Smart InputSyslogMode2 = "smart"
-	// InputSyslogMode2Always Always On
-	InputSyslogMode2Always InputSyslogMode2 = "always"
-)
-
-func (e InputSyslogMode2) ToPointer() *InputSyslogMode2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSyslogMode2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputSyslogCompression2 - Codec to use to compress the persisted data
-type InputSyslogCompression2 string
-
-const (
-	// InputSyslogCompression2None None
-	InputSyslogCompression2None InputSyslogCompression2 = "none"
-	// InputSyslogCompression2Gzip Gzip
-	InputSyslogCompression2Gzip InputSyslogCompression2 = "gzip"
-)
-
-func (e InputSyslogCompression2) ToPointer() *InputSyslogCompression2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSyslogCompression2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSyslogPqControls2 struct {
-}
-
-func (i InputSyslogPqControls2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogPqControls2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSyslogPq2 struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSyslogMode2 `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSyslogCompression2 `default:"none" json:"compress"`
-	PqControls *InputSyslogPqControls2  `json:"pqControls,omitempty"`
-}
-
-func (i InputSyslogPq2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogPq2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSyslogPq2) GetMode() *InputSyslogMode2 {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSyslogPq2) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSyslogPq2) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSyslogPq2) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSyslogPq2) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSyslogPq2) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSyslogPq2) GetCompress() *InputSyslogCompression2 {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSyslogPq2) GetPqControls() *InputSyslogPqControls2 {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputSyslogMinimumTLSVersion2 string
-
-const (
-	InputSyslogMinimumTLSVersion2TlSv1  InputSyslogMinimumTLSVersion2 = "TLSv1"
-	InputSyslogMinimumTLSVersion2TlSv11 InputSyslogMinimumTLSVersion2 = "TLSv1.1"
-	InputSyslogMinimumTLSVersion2TlSv12 InputSyslogMinimumTLSVersion2 = "TLSv1.2"
-	InputSyslogMinimumTLSVersion2TlSv13 InputSyslogMinimumTLSVersion2 = "TLSv1.3"
-)
-
-func (e InputSyslogMinimumTLSVersion2) ToPointer() *InputSyslogMinimumTLSVersion2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSyslogMinimumTLSVersion2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSyslogMaximumTLSVersion2 string
-
-const (
-	InputSyslogMaximumTLSVersion2TlSv1  InputSyslogMaximumTLSVersion2 = "TLSv1"
-	InputSyslogMaximumTLSVersion2TlSv11 InputSyslogMaximumTLSVersion2 = "TLSv1.1"
-	InputSyslogMaximumTLSVersion2TlSv12 InputSyslogMaximumTLSVersion2 = "TLSv1.2"
-	InputSyslogMaximumTLSVersion2TlSv13 InputSyslogMaximumTLSVersion2 = "TLSv1.3"
-)
-
-func (e InputSyslogMaximumTLSVersion2) ToPointer() *InputSyslogMaximumTLSVersion2 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSyslogMaximumTLSVersion2) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSyslogTLSSettingsServerSide2 struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                        `json:"caPath,omitempty"`
-	MinVersion *InputSyslogMinimumTLSVersion2 `json:"minVersion,omitempty"`
-	MaxVersion *InputSyslogMaximumTLSVersion2 `json:"maxVersion,omitempty"`
-}
-
-func (i InputSyslogTLSSettingsServerSide2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetMinVersion() *InputSyslogMinimumTLSVersion2 {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputSyslogTLSSettingsServerSide2) GetMaxVersion() *InputSyslogMaximumTLSVersion2 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputSyslogMetadatum2 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSyslogMetadatum2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogMetadatum2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSyslogMetadatum2) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSyslogMetadatum2) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputSyslogSyslog2 struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputSyslogType2 `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSyslogConnection2 `json:"connections,omitempty"`
-	Pq          *InputSyslogPq2          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort *float64 `json:"udpPort,omitempty"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort float64 `json:"tcpPort"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `default:"local" json:"timestampTimezone"`
+	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
 	// Treat UDP packet data received as full syslog message
-	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Wildcard list of fields to keep from source data; * = ALL (default)
 	KeepFieldsList []string `json:"keepFieldsList,omitempty"`
 	// Enable if incoming messages use octet counting per RFC 6587.
-	OctetCounting *bool `default:"false" json:"octetCounting"`
+	OctetCounting *bool `json:"octetCounting,omitempty"`
 	// Enable if we should infer the syslog framing of the incoming messages.
-	InferFraming *bool `default:"true" json:"inferFraming"`
+	InferFraming *bool `json:"inferFraming,omitempty"`
 	// Enable if we should infer octet counting only if the messages comply with RFC 5424.
-	StrictlyInferOctetCounting *bool `default:"true" json:"strictlyInferOctetCounting"`
+	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitempty"`
 	// Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
-	AllowNonStandardAppName *bool `default:"false" json:"allowNonStandardAppName"`
+	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitempty"`
 	// Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64                           `default:"0" json:"socketMaxLifespan"`
-	TLS               *InputSyslogTLSSettingsServerSide2 `json:"tls,omitempty"`
+	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitempty"`
+	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []InputSyslogMetadatum2 `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitempty"`
 	Description         *string `json:"description,omitempty"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
@@ -469,7 +101,7 @@ func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "tcpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "tcpPort"}); err != nil {
 		return err
 	}
 	return nil
@@ -531,23 +163,23 @@ func (i *InputSyslogSyslog2) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSyslogSyslog2) GetConnections() []InputSyslogConnection2 {
+func (i *InputSyslogSyslog2) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSyslogSyslog2) GetPq() *InputSyslogPq2 {
+func (i *InputSyslogSyslog2) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSyslogSyslog2) GetHost() *string {
+func (i *InputSyslogSyslog2) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -664,14 +296,14 @@ func (i *InputSyslogSyslog2) GetSocketMaxLifespan() *float64 {
 	return i.SocketMaxLifespan
 }
 
-func (i *InputSyslogSyslog2) GetTLS() *InputSyslogTLSSettingsServerSide2 {
+func (i *InputSyslogSyslog2) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputSyslogSyslog2) GetMetadata() []InputSyslogMetadatum2 {
+func (i *InputSyslogSyslog2) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
@@ -729,433 +361,65 @@ func (e *InputSyslogType1) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputSyslogConnection1 struct {
-	Pipeline *string `json:"pipeline,omitempty"`
-	Output   string  `json:"output"`
-}
-
-func (i InputSyslogConnection1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogConnection1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"output"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSyslogConnection1) GetPipeline() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Pipeline
-}
-
-func (i *InputSyslogConnection1) GetOutput() string {
-	if i == nil {
-		return ""
-	}
-	return i.Output
-}
-
-// InputSyslogMode1 - With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-type InputSyslogMode1 string
-
-const (
-	// InputSyslogMode1Smart Smart
-	InputSyslogMode1Smart InputSyslogMode1 = "smart"
-	// InputSyslogMode1Always Always On
-	InputSyslogMode1Always InputSyslogMode1 = "always"
-)
-
-func (e InputSyslogMode1) ToPointer() *InputSyslogMode1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSyslogMode1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "smart", "always":
-			return true
-		}
-	}
-	return false
-}
-
-// InputSyslogCompression1 - Codec to use to compress the persisted data
-type InputSyslogCompression1 string
-
-const (
-	// InputSyslogCompression1None None
-	InputSyslogCompression1None InputSyslogCompression1 = "none"
-	// InputSyslogCompression1Gzip Gzip
-	InputSyslogCompression1Gzip InputSyslogCompression1 = "gzip"
-)
-
-func (e InputSyslogCompression1) ToPointer() *InputSyslogCompression1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSyslogCompression1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSyslogPqControls1 struct {
-}
-
-func (i InputSyslogPqControls1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogPqControls1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type InputSyslogPq1 struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-	Mode *InputSyslogMode1 `default:"always" json:"mode"`
-	// The maximum number of events to hold in memory before writing the events to disk
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
-	// The number of events to send downstream before committing that Stream has read them
-	CommitFrequency *float64 `default:"42" json:"commitFrequency"`
-	// The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-	MaxFileSize *string `default:"1 MB" json:"maxFileSize"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	MaxSize *string `default:"5GB" json:"maxSize"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-	Path *string `default:"$CRIBL_HOME/state/queues" json:"path"`
-	// Codec to use to compress the persisted data
-	Compress   *InputSyslogCompression1 `default:"none" json:"compress"`
-	PqControls *InputSyslogPqControls1  `json:"pqControls,omitempty"`
-}
-
-func (i InputSyslogPq1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogPq1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSyslogPq1) GetMode() *InputSyslogMode1 {
-	if i == nil {
-		return nil
-	}
-	return i.Mode
-}
-
-func (i *InputSyslogPq1) GetMaxBufferSize() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxBufferSize
-}
-
-func (i *InputSyslogPq1) GetCommitFrequency() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.CommitFrequency
-}
-
-func (i *InputSyslogPq1) GetMaxFileSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxFileSize
-}
-
-func (i *InputSyslogPq1) GetMaxSize() *string {
-	if i == nil {
-		return nil
-	}
-	return i.MaxSize
-}
-
-func (i *InputSyslogPq1) GetPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Path
-}
-
-func (i *InputSyslogPq1) GetCompress() *InputSyslogCompression1 {
-	if i == nil {
-		return nil
-	}
-	return i.Compress
-}
-
-func (i *InputSyslogPq1) GetPqControls() *InputSyslogPqControls1 {
-	if i == nil {
-		return nil
-	}
-	return i.PqControls
-}
-
-type InputSyslogMinimumTLSVersion1 string
-
-const (
-	InputSyslogMinimumTLSVersion1TlSv1  InputSyslogMinimumTLSVersion1 = "TLSv1"
-	InputSyslogMinimumTLSVersion1TlSv11 InputSyslogMinimumTLSVersion1 = "TLSv1.1"
-	InputSyslogMinimumTLSVersion1TlSv12 InputSyslogMinimumTLSVersion1 = "TLSv1.2"
-	InputSyslogMinimumTLSVersion1TlSv13 InputSyslogMinimumTLSVersion1 = "TLSv1.3"
-)
-
-func (e InputSyslogMinimumTLSVersion1) ToPointer() *InputSyslogMinimumTLSVersion1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSyslogMinimumTLSVersion1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSyslogMaximumTLSVersion1 string
-
-const (
-	InputSyslogMaximumTLSVersion1TlSv1  InputSyslogMaximumTLSVersion1 = "TLSv1"
-	InputSyslogMaximumTLSVersion1TlSv11 InputSyslogMaximumTLSVersion1 = "TLSv1.1"
-	InputSyslogMaximumTLSVersion1TlSv12 InputSyslogMaximumTLSVersion1 = "TLSv1.2"
-	InputSyslogMaximumTLSVersion1TlSv13 InputSyslogMaximumTLSVersion1 = "TLSv1.3"
-)
-
-func (e InputSyslogMaximumTLSVersion1) ToPointer() *InputSyslogMaximumTLSVersion1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputSyslogMaximumTLSVersion1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type InputSyslogTLSSettingsServerSide1 struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
-	RequestCert *bool `default:"false" json:"requestCert"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string `default:"/.*/" json:"commonNameRegex"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string `json:"passphrase,omitempty"`
-	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                        `json:"caPath,omitempty"`
-	MinVersion *InputSyslogMinimumTLSVersion1 `json:"minVersion,omitempty"`
-	MaxVersion *InputSyslogMaximumTLSVersion1 `json:"maxVersion,omitempty"`
-}
-
-func (i InputSyslogTLSSettingsServerSide1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetDisabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Disabled
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetRequestCert() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RequestCert
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetRejectUnauthorized() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.RejectUnauthorized
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetCommonNameRegex() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CommonNameRegex
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetCertificateName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertificateName
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetPrivKeyPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.PrivKeyPath
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetPassphrase() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Passphrase
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetCertPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CertPath
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetCaPath() *string {
-	if i == nil {
-		return nil
-	}
-	return i.CaPath
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetMinVersion() *InputSyslogMinimumTLSVersion1 {
-	if i == nil {
-		return nil
-	}
-	return i.MinVersion
-}
-
-func (i *InputSyslogTLSSettingsServerSide1) GetMaxVersion() *InputSyslogMaximumTLSVersion1 {
-	if i == nil {
-		return nil
-	}
-	return i.MaxVersion
-}
-
-type InputSyslogMetadatum1 struct {
-	Name string `json:"name"`
-	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-	Value string `json:"value"`
-}
-
-func (i InputSyslogMetadatum1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputSyslogMetadatum1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputSyslogMetadatum1) GetName() string {
-	if i == nil {
-		return ""
-	}
-	return i.Name
-}
-
-func (i *InputSyslogMetadatum1) GetValue() string {
-	if i == nil {
-		return ""
-	}
-	return i.Value
-}
-
 type InputSyslogSyslog1 struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
 	Type     InputSyslogType1 `json:"type"`
-	Disabled *bool            `default:"false" json:"disabled"`
+	Disabled *bool            `json:"disabled,omitempty"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitempty"`
 	// Select whether to send data to Routes, or directly to Destinations.
-	SendToRoutes *bool `default:"true" json:"sendToRoutes"`
+	SendToRoutes *bool `json:"sendToRoutes,omitempty"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-	PqEnabled *bool `default:"false" json:"pqEnabled"`
+	PqEnabled *bool `json:"pqEnabled,omitempty"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []InputSyslogConnection1 `json:"connections,omitempty"`
-	Pq          *InputSyslogPq1          `json:"pq,omitempty"`
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitempty"`
+	Pq          *PqType                        `json:"pq,omitempty"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-	Host *string `default:"0.0.0.0" json:"host"`
+	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
 	UDPPort float64 `json:"udpPort"`
 	// Enter TCP port number to listen on. Not required if listening on UDP.
 	TCPPort *float64 `json:"tcpPort,omitempty"`
 	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-	MaxBufferSize *float64 `default:"1000" json:"maxBufferSize"`
+	MaxBufferSize *float64 `json:"maxBufferSize,omitempty"`
 	// Regex matching IP addresses that are allowed to send data
-	IPWhitelistRegex *string `default:"/.*/" json:"ipWhitelistRegex"`
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitempty"`
 	// Timezone to assign to timestamps without timezone info
-	TimestampTimezone *string `default:"local" json:"timestampTimezone"`
+	TimestampTimezone *string `json:"timestampTimezone,omitempty"`
 	// Treat UDP packet data received as full syslog message
-	SingleMsgUDPPackets *bool `default:"false" json:"singleMsgUdpPackets"`
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitempty"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool `default:"false" json:"enableProxyHeader"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitempty"`
 	// Wildcard list of fields to keep from source data; * = ALL (default)
 	KeepFieldsList []string `json:"keepFieldsList,omitempty"`
 	// Enable if incoming messages use octet counting per RFC 6587.
-	OctetCounting *bool `default:"false" json:"octetCounting"`
+	OctetCounting *bool `json:"octetCounting,omitempty"`
 	// Enable if we should infer the syslog framing of the incoming messages.
-	InferFraming *bool `default:"true" json:"inferFraming"`
+	InferFraming *bool `json:"inferFraming,omitempty"`
 	// Enable if we should infer octet counting only if the messages comply with RFC 5424.
-	StrictlyInferOctetCounting *bool `default:"true" json:"strictlyInferOctetCounting"`
+	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitempty"`
 	// Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
-	AllowNonStandardAppName *bool `default:"false" json:"allowNonStandardAppName"`
+	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitempty"`
 	// Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
-	MaxActiveCxn *float64 `default:"1000" json:"maxActiveCxn"`
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitempty"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-	SocketIdleTimeout *float64 `default:"0" json:"socketIdleTimeout"`
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitempty"`
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-	SocketEndingMaxWait *float64 `default:"30" json:"socketEndingMaxWait"`
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitempty"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64                           `default:"0" json:"socketMaxLifespan"`
-	TLS               *InputSyslogTLSSettingsServerSide1 `json:"tls,omitempty"`
+	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitempty"`
+	TLS               *TLSSettingsServerSideType `json:"tls,omitempty"`
 	// Fields to add to events from this input
-	Metadata []InputSyslogMetadatum1 `json:"metadata,omitempty"`
+	Metadata []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `default:"false" json:"enableLoadBalancing"`
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitempty"`
 	Description         *string `json:"description,omitempty"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
@@ -1166,7 +430,7 @@ func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
 }
 
 func (i *InputSyslogSyslog1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "udpPort"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &i, "", false, []string{"type", "host", "udpPort"}); err != nil {
 		return err
 	}
 	return nil
@@ -1228,23 +492,23 @@ func (i *InputSyslogSyslog1) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSyslogSyslog1) GetConnections() []InputSyslogConnection1 {
+func (i *InputSyslogSyslog1) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
 	}
 	return i.Connections
 }
 
-func (i *InputSyslogSyslog1) GetPq() *InputSyslogPq1 {
+func (i *InputSyslogSyslog1) GetPq() *PqType {
 	if i == nil {
 		return nil
 	}
 	return i.Pq
 }
 
-func (i *InputSyslogSyslog1) GetHost() *string {
+func (i *InputSyslogSyslog1) GetHost() string {
 	if i == nil {
-		return nil
+		return ""
 	}
 	return i.Host
 }
@@ -1361,14 +625,14 @@ func (i *InputSyslogSyslog1) GetSocketMaxLifespan() *float64 {
 	return i.SocketMaxLifespan
 }
 
-func (i *InputSyslogSyslog1) GetTLS() *InputSyslogTLSSettingsServerSide1 {
+func (i *InputSyslogSyslog1) GetTLS() *TLSSettingsServerSideType {
 	if i == nil {
 		return nil
 	}
 	return i.TLS
 }
 
-func (i *InputSyslogSyslog1) GetMetadata() []InputSyslogMetadatum1 {
+func (i *InputSyslogSyslog1) GetMetadata() []ItemsTypeNotificationMetadata {
 	if i == nil {
 		return nil
 	}
@@ -1411,8 +675,8 @@ const (
 )
 
 type InputSyslog struct {
-	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline,name=InputSyslog" union:"member"`
-	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline,name=InputSyslog" union:"member"`
+	InputSyslogSyslog1 *InputSyslogSyslog1 `queryParam:"inline" union:"member"`
+	InputSyslogSyslog2 *InputSyslogSyslog2 `queryParam:"inline" union:"member"`
 
 	Type InputSyslogType
 }

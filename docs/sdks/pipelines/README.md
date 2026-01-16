@@ -44,7 +44,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }
@@ -96,37 +96,23 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.Create(ctx, components.Pipeline{
-        ID: "<id>",
-        Conf: components.Conf{
-            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](905091),
-            Description: criblcontrolplanesdkgo.Pointer("next tightly positively"),
-            Streamtags: []string{
-                "<value 1>",
-            },
-            Functions: []components.PipelineFunctionConf{
-                components.PipelineFunctionConf{
-                    ID: "<id>",
-                    Description: criblcontrolplanesdkgo.Pointer("academics woot finally woot queasy bah"),
-                    Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    Final: criblcontrolplanesdkgo.Pointer(false),
-                    Conf: components.FunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                },
-            },
-            Groups: map[string]components.PipelineGroups{
-                "key": components.PipelineGroups{
-                    Name: "<value>",
-                    Description: criblcontrolplanesdkgo.Pointer("yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet"),
-                    Disabled: criblcontrolplanesdkgo.Pointer(true),
-                },
+    res, err := s.Pipelines.Create(ctx, components.PipelineInput{
+        ID: "empty-pipeline",
+        Conf: components.ConfInput{
+            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](1000),
+            Output: criblcontrolplanesdkgo.Pointer("default"),
+            Description: criblcontrolplanesdkgo.Pointer(""),
+            Streamtags: []string{},
+            Functions: []components.PipelineFunctionConfInput{},
+            Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
+
             },
         },
     })
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }
@@ -134,11 +120,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
-| `request`                                                  | [components.Pipeline](../../models/components/pipeline.md) | :heavy_check_mark:                                         | The request object to use for the request.                 |
-| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
+| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
+| `request`                                                            | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | The request object to use for the request.                           |
+| `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
 
 ### Response
 
@@ -183,7 +169,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }
@@ -236,37 +222,23 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.Update(ctx, "<id>", components.Pipeline{
-        ID: "<id>",
-        Conf: components.Conf{
-            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](430119),
-            Description: criblcontrolplanesdkgo.Pointer("reflecting for productive extroverted instead upwardly"),
-            Streamtags: []string{
-                "<value 1>",
-            },
-            Functions: []components.PipelineFunctionConf{
-                components.PipelineFunctionConf{
-                    ID: "<id>",
-                    Description: criblcontrolplanesdkgo.Pointer("mozzarella boohoo possession as grok"),
-                    Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    Final: criblcontrolplanesdkgo.Pointer(false),
-                    Conf: components.FunctionSpecificConfigs{},
-                    GroupID: criblcontrolplanesdkgo.Pointer("<id>"),
-                },
-            },
-            Groups: map[string]components.PipelineGroups{
-                "key": components.PipelineGroups{
-                    Name: "<value>",
-                    Description: criblcontrolplanesdkgo.Pointer("definitive ew but busily freely scaly indeed"),
-                    Disabled: criblcontrolplanesdkgo.Pointer(true),
-                },
+    res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
+        ID: "empty-pipeline",
+        Conf: components.ConfInput{
+            AsyncFuncTimeout: criblcontrolplanesdkgo.Pointer[int64](1000),
+            Output: criblcontrolplanesdkgo.Pointer("default"),
+            Description: criblcontrolplanesdkgo.Pointer(""),
+            Streamtags: []string{},
+            Functions: []components.PipelineFunctionConfInput{},
+            Groups: map[string]components.AdditionalPropertiesTypePipelineConfGroups{
+
             },
         },
     })
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }
@@ -274,12 +246,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
-| `id`                                                       | *string*                                                   | :heavy_check_mark:                                         | The <code>id</code> of the Pipeline to update.             |
-| `pipeline`                                                 | [components.Pipeline](../../models/components/pipeline.md) | :heavy_check_mark:                                         | Pipeline object                                            |
-| `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
+| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
+| `id`                                                                 | *string*                                                             | :heavy_check_mark:                                                   | The <code>id</code> of the Pipeline to update.                       |
+| `pipeline`                                                           | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | Pipeline object                                                      |
+| `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
 
 ### Response
 
@@ -324,7 +296,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedPipeline != nil {
         // handle response
     }
 }

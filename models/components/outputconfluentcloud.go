@@ -31,885 +31,6 @@ func (e *OutputConfluentCloudType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputConfluentCloudMinimumTLSVersion string
-
-const (
-	OutputConfluentCloudMinimumTLSVersionTlSv1  OutputConfluentCloudMinimumTLSVersion = "TLSv1"
-	OutputConfluentCloudMinimumTLSVersionTlSv11 OutputConfluentCloudMinimumTLSVersion = "TLSv1.1"
-	OutputConfluentCloudMinimumTLSVersionTlSv12 OutputConfluentCloudMinimumTLSVersion = "TLSv1.2"
-	OutputConfluentCloudMinimumTLSVersionTlSv13 OutputConfluentCloudMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputConfluentCloudMinimumTLSVersion) ToPointer() *OutputConfluentCloudMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputConfluentCloudMaximumTLSVersion string
-
-const (
-	OutputConfluentCloudMaximumTLSVersionTlSv1  OutputConfluentCloudMaximumTLSVersion = "TLSv1"
-	OutputConfluentCloudMaximumTLSVersionTlSv11 OutputConfluentCloudMaximumTLSVersion = "TLSv1.1"
-	OutputConfluentCloudMaximumTLSVersionTlSv12 OutputConfluentCloudMaximumTLSVersion = "TLSv1.2"
-	OutputConfluentCloudMaximumTLSVersionTlSv13 OutputConfluentCloudMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputConfluentCloudMaximumTLSVersion) ToPointer() *OutputConfluentCloudMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputConfluentCloudTLSSettingsClientSide struct {
-	Disabled *bool `default:"false" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                                `json:"passphrase,omitempty"`
-	MinVersion *OutputConfluentCloudMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputConfluentCloudMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputConfluentCloudTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetMinVersion() *OutputConfluentCloudMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputConfluentCloudTLSSettingsClientSide) GetMaxVersion() *OutputConfluentCloudMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-// OutputConfluentCloudAcknowledgments - Control the number of required acknowledgments.
-type OutputConfluentCloudAcknowledgments int64
-
-const (
-	// OutputConfluentCloudAcknowledgmentsOne Leader
-	OutputConfluentCloudAcknowledgmentsOne OutputConfluentCloudAcknowledgments = 1
-	// OutputConfluentCloudAcknowledgmentsZero None
-	OutputConfluentCloudAcknowledgmentsZero OutputConfluentCloudAcknowledgments = 0
-	// OutputConfluentCloudAcknowledgmentsMinus1 All
-	OutputConfluentCloudAcknowledgmentsMinus1 OutputConfluentCloudAcknowledgments = -1
-)
-
-func (e OutputConfluentCloudAcknowledgments) ToPointer() *OutputConfluentCloudAcknowledgments {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudAcknowledgments) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case 1, 0, -1:
-			return true
-		}
-	}
-	return false
-}
-
-// OutputConfluentCloudRecordDataFormat - Format to use to serialize events before writing to Kafka.
-type OutputConfluentCloudRecordDataFormat string
-
-const (
-	// OutputConfluentCloudRecordDataFormatJSON JSON
-	OutputConfluentCloudRecordDataFormatJSON OutputConfluentCloudRecordDataFormat = "json"
-	// OutputConfluentCloudRecordDataFormatRaw Field _raw
-	OutputConfluentCloudRecordDataFormatRaw OutputConfluentCloudRecordDataFormat = "raw"
-	// OutputConfluentCloudRecordDataFormatProtobuf Protobuf
-	OutputConfluentCloudRecordDataFormatProtobuf OutputConfluentCloudRecordDataFormat = "protobuf"
-)
-
-func (e OutputConfluentCloudRecordDataFormat) ToPointer() *OutputConfluentCloudRecordDataFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudRecordDataFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json", "raw", "protobuf":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputConfluentCloudCompression - Codec to use to compress the data before sending to Kafka
-type OutputConfluentCloudCompression string
-
-const (
-	// OutputConfluentCloudCompressionNone None
-	OutputConfluentCloudCompressionNone OutputConfluentCloudCompression = "none"
-	// OutputConfluentCloudCompressionGzip Gzip
-	OutputConfluentCloudCompressionGzip OutputConfluentCloudCompression = "gzip"
-	// OutputConfluentCloudCompressionSnappy Snappy
-	OutputConfluentCloudCompressionSnappy OutputConfluentCloudCompression = "snappy"
-	// OutputConfluentCloudCompressionLz4 LZ4
-	OutputConfluentCloudCompressionLz4 OutputConfluentCloudCompression = "lz4"
-	// OutputConfluentCloudCompressionZstd ZSTD
-	OutputConfluentCloudCompressionZstd OutputConfluentCloudCompression = "zstd"
-)
-
-func (e OutputConfluentCloudCompression) ToPointer() *OutputConfluentCloudCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip", "snappy", "lz4", "zstd":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputConfluentCloudAuth - Credentials to use when authenticating with the schema registry using basic HTTP authentication
-type OutputConfluentCloudAuth struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-}
-
-func (o OutputConfluentCloudAuth) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudAuth) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudAuth) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputConfluentCloudAuth) GetCredentialsSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CredentialsSecret
-}
-
-type OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion string
-
-const (
-	OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersionTlSv1  OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion = "TLSv1"
-	OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersionTlSv11 OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.1"
-	OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersionTlSv12 OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.2"
-	OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersionTlSv13 OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion) ToPointer() *OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion string
-
-const (
-	OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersionTlSv1  OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = "TLSv1"
-	OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersionTlSv11 OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.1"
-	OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersionTlSv12 OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.2"
-	OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersionTlSv13 OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = "TLSv1.3"
-)
-
-func (e OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion) ToPointer() *OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-	RejectUnauthorized *bool `default:"true" json:"rejectUnauthorized"`
-	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-	Servername *string `json:"servername,omitempty"`
-	// The name of the predefined certificate
-	CertificateName *string `json:"certificateName,omitempty"`
-	// Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-	CaPath *string `json:"caPath,omitempty"`
-	// Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-	PrivKeyPath *string `json:"privKeyPath,omitempty"`
-	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-	CertPath *string `json:"certPath,omitempty"`
-	// Passphrase to use to decrypt private key
-	Passphrase *string                                                   `json:"passphrase,omitempty"`
-	MinVersion *OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion `json:"minVersion,omitempty"`
-	MaxVersion *OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion `json:"maxVersion,omitempty"`
-}
-
-func (o OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetServername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Servername
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetCertificateName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertificateName
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetCaPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CaPath
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetPrivKeyPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.PrivKeyPath
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetCertPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CertPath
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetPassphrase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Passphrase
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetMinVersion() *OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MinVersion
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide) GetMaxVersion() *OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion {
-	if o == nil {
-		return nil
-	}
-	return o.MaxVersion
-}
-
-type OutputConfluentCloudKafkaSchemaRegistryAuthentication struct {
-	Disabled *bool `default:"true" json:"disabled"`
-	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
-	SchemaRegistryURL *string `default:"http://localhost:8081" json:"schemaRegistryURL"`
-	// Maximum time to wait for a Schema Registry connection to complete successfully
-	ConnectionTimeout *float64 `default:"30000" json:"connectionTimeout"`
-	// Maximum time to wait for the Schema Registry to respond to a request
-	RequestTimeout *float64 `default:"30000" json:"requestTimeout"`
-	// Maximum number of times to try fetching schemas from the Schema Registry
-	MaxRetries *float64 `default:"1" json:"maxRetries"`
-	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
-	Auth *OutputConfluentCloudAuth                                     `json:"auth,omitempty"`
-	TLS  *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide `json:"tls,omitempty"`
-	// Used when __keySchemaIdOut is not present, to transform key values, leave blank if key transformation is not required by default.
-	DefaultKeySchemaID *float64 `json:"defaultKeySchemaId,omitempty"`
-	// Used when __valueSchemaIdOut is not present, to transform _raw, leave blank if value transformation is not required by default.
-	DefaultValueSchemaID *float64 `json:"defaultValueSchemaId,omitempty"`
-}
-
-func (o OutputConfluentCloudKafkaSchemaRegistryAuthentication) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetSchemaRegistryURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.SchemaRegistryURL
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetConnectionTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.ConnectionTimeout
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetRequestTimeout() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.RequestTimeout
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetMaxRetries() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxRetries
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetAuth() *OutputConfluentCloudAuth {
-	if o == nil {
-		return nil
-	}
-	return o.Auth
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetTLS() *OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide {
-	if o == nil {
-		return nil
-	}
-	return o.TLS
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetDefaultKeySchemaID() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DefaultKeySchemaID
-}
-
-func (o *OutputConfluentCloudKafkaSchemaRegistryAuthentication) GetDefaultValueSchemaID() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DefaultValueSchemaID
-}
-
-// OutputConfluentCloudAuthenticationMethod - Enter credentials directly, or select a stored secret
-type OutputConfluentCloudAuthenticationMethod string
-
-const (
-	OutputConfluentCloudAuthenticationMethodManual OutputConfluentCloudAuthenticationMethod = "manual"
-	OutputConfluentCloudAuthenticationMethodSecret OutputConfluentCloudAuthenticationMethod = "secret"
-)
-
-func (e OutputConfluentCloudAuthenticationMethod) ToPointer() *OutputConfluentCloudAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputConfluentCloudSASLMechanism string
-
-const (
-	// OutputConfluentCloudSASLMechanismPlain PLAIN
-	OutputConfluentCloudSASLMechanismPlain OutputConfluentCloudSASLMechanism = "plain"
-	// OutputConfluentCloudSASLMechanismScramSha256 SCRAM-SHA-256
-	OutputConfluentCloudSASLMechanismScramSha256 OutputConfluentCloudSASLMechanism = "scram-sha-256"
-	// OutputConfluentCloudSASLMechanismScramSha512 SCRAM-SHA-512
-	OutputConfluentCloudSASLMechanismScramSha512 OutputConfluentCloudSASLMechanism = "scram-sha-512"
-	// OutputConfluentCloudSASLMechanismKerberos GSSAPI/Kerberos
-	OutputConfluentCloudSASLMechanismKerberos OutputConfluentCloudSASLMechanism = "kerberos"
-)
-
-func (e OutputConfluentCloudSASLMechanism) ToPointer() *OutputConfluentCloudSASLMechanism {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudSASLMechanism) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "plain", "scram-sha-256", "scram-sha-512", "kerberos":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputConfluentCloudOauthParam struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (o OutputConfluentCloudOauthParam) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudOauthParam) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudOauthParam) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputConfluentCloudOauthParam) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-type OutputConfluentCloudSaslExtension struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
-}
-
-func (o OutputConfluentCloudSaslExtension) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudSaslExtension) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"name", "value"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudSaslExtension) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OutputConfluentCloudSaslExtension) GetValue() string {
-	if o == nil {
-		return ""
-	}
-	return o.Value
-}
-
-// OutputConfluentCloudAuthentication - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-type OutputConfluentCloudAuthentication struct {
-	Disabled *bool   `default:"true" json:"disabled"`
-	Username *string `json:"username,omitempty"`
-	Password *string `json:"password,omitempty"`
-	// Enter credentials directly, or select a stored secret
-	AuthType *OutputConfluentCloudAuthenticationMethod `default:"manual" json:"authType"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string                            `json:"credentialsSecret,omitempty"`
-	Mechanism         *OutputConfluentCloudSASLMechanism `default:"plain" json:"mechanism"`
-	// Location of keytab file for authentication principal
-	KeytabLocation *string `json:"keytabLocation,omitempty"`
-	// Authentication principal, such as `kafka_user@example.com`
-	Principal *string `json:"principal,omitempty"`
-	// Kerberos service class for Kafka brokers, such as `kafka`
-	BrokerServiceClass *string `json:"brokerServiceClass,omitempty"`
-	// Enable OAuth authentication
-	OauthEnabled *bool `default:"false" json:"oauthEnabled"`
-	// URL of the token endpoint to use for OAuth authentication
-	TokenURL *string `json:"tokenUrl,omitempty"`
-	// Client ID to use for OAuth authentication
-	ClientID        *string `json:"clientId,omitempty"`
-	OauthSecretType *string `default:"secret" json:"oauthSecretType"`
-	// Select or create a stored text secret
-	ClientTextSecret *string `json:"clientTextSecret,omitempty"`
-	// Additional fields to send to the token endpoint, such as scope or audience
-	OauthParams []OutputConfluentCloudOauthParam `json:"oauthParams,omitempty"`
-	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
-	SaslExtensions []OutputConfluentCloudSaslExtension `json:"saslExtensions,omitempty"`
-}
-
-func (o OutputConfluentCloudAuthentication) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputConfluentCloudAuthentication) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputConfluentCloudAuthentication) GetDisabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Disabled
-}
-
-func (o *OutputConfluentCloudAuthentication) GetUsername() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Username
-}
-
-func (o *OutputConfluentCloudAuthentication) GetPassword() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Password
-}
-
-func (o *OutputConfluentCloudAuthentication) GetAuthType() *OutputConfluentCloudAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AuthType
-}
-
-func (o *OutputConfluentCloudAuthentication) GetCredentialsSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CredentialsSecret
-}
-
-func (o *OutputConfluentCloudAuthentication) GetMechanism() *OutputConfluentCloudSASLMechanism {
-	if o == nil {
-		return nil
-	}
-	return o.Mechanism
-}
-
-func (o *OutputConfluentCloudAuthentication) GetKeytabLocation() *string {
-	if o == nil {
-		return nil
-	}
-	return o.KeytabLocation
-}
-
-func (o *OutputConfluentCloudAuthentication) GetPrincipal() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Principal
-}
-
-func (o *OutputConfluentCloudAuthentication) GetBrokerServiceClass() *string {
-	if o == nil {
-		return nil
-	}
-	return o.BrokerServiceClass
-}
-
-func (o *OutputConfluentCloudAuthentication) GetOauthEnabled() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.OauthEnabled
-}
-
-func (o *OutputConfluentCloudAuthentication) GetTokenURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TokenURL
-}
-
-func (o *OutputConfluentCloudAuthentication) GetClientID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientID
-}
-
-func (o *OutputConfluentCloudAuthentication) GetOauthSecretType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.OauthSecretType
-}
-
-func (o *OutputConfluentCloudAuthentication) GetClientTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ClientTextSecret
-}
-
-func (o *OutputConfluentCloudAuthentication) GetOauthParams() []OutputConfluentCloudOauthParam {
-	if o == nil {
-		return nil
-	}
-	return o.OauthParams
-}
-
-func (o *OutputConfluentCloudAuthentication) GetSaslExtensions() []OutputConfluentCloudSaslExtension {
-	if o == nil {
-		return nil
-	}
-	return o.SaslExtensions
-}
-
-// OutputConfluentCloudBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputConfluentCloudBackpressureBehavior string
-
-const (
-	// OutputConfluentCloudBackpressureBehaviorBlock Block
-	OutputConfluentCloudBackpressureBehaviorBlock OutputConfluentCloudBackpressureBehavior = "block"
-	// OutputConfluentCloudBackpressureBehaviorDrop Drop
-	OutputConfluentCloudBackpressureBehaviorDrop OutputConfluentCloudBackpressureBehavior = "drop"
-	// OutputConfluentCloudBackpressureBehaviorQueue Persistent Queue
-	OutputConfluentCloudBackpressureBehaviorQueue OutputConfluentCloudBackpressureBehavior = "queue"
-)
-
-func (e OutputConfluentCloudBackpressureBehavior) ToPointer() *OutputConfluentCloudBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputConfluentCloudMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputConfluentCloudMode string
-
-const (
-	// OutputConfluentCloudModeError Error
-	OutputConfluentCloudModeError OutputConfluentCloudMode = "error"
-	// OutputConfluentCloudModeAlways Backpressure
-	OutputConfluentCloudModeAlways OutputConfluentCloudMode = "always"
-	// OutputConfluentCloudModeBackpressure Always On
-	OutputConfluentCloudModeBackpressure OutputConfluentCloudMode = "backpressure"
-)
-
-func (e OutputConfluentCloudMode) ToPointer() *OutputConfluentCloudMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputConfluentCloudPqCompressCompression - Codec to use to compress the persisted data
-type OutputConfluentCloudPqCompressCompression string
-
-const (
-	// OutputConfluentCloudPqCompressCompressionNone None
-	OutputConfluentCloudPqCompressCompressionNone OutputConfluentCloudPqCompressCompression = "none"
-	// OutputConfluentCloudPqCompressCompressionGzip Gzip
-	OutputConfluentCloudPqCompressCompressionGzip OutputConfluentCloudPqCompressCompression = "gzip"
-)
-
-func (e OutputConfluentCloudPqCompressCompression) ToPointer() *OutputConfluentCloudPqCompressCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudPqCompressCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputConfluentCloudQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputConfluentCloudQueueFullBehavior string
-
-const (
-	// OutputConfluentCloudQueueFullBehaviorBlock Block
-	OutputConfluentCloudQueueFullBehaviorBlock OutputConfluentCloudQueueFullBehavior = "block"
-	// OutputConfluentCloudQueueFullBehaviorDrop Drop new data
-	OutputConfluentCloudQueueFullBehaviorDrop OutputConfluentCloudQueueFullBehavior = "drop"
-)
-
-func (e OutputConfluentCloudQueueFullBehavior) ToPointer() *OutputConfluentCloudQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputConfluentCloudQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputConfluentCloudPqControls struct {
 }
 
@@ -937,69 +58,69 @@ type OutputConfluentCloud struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitempty"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
-	Brokers []string                                   `json:"brokers"`
-	TLS     *OutputConfluentCloudTLSSettingsClientSide `json:"tls,omitempty"`
+	Brokers []string                                      `json:"brokers"`
+	TLS     *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitempty"`
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
-	Ack *OutputConfluentCloudAcknowledgments `default:"1" json:"ack"`
+	Ack *AcknowledgmentsOptions1 `json:"ack,omitempty"`
 	// Format to use to serialize events before writing to Kafka.
-	Format *OutputConfluentCloudRecordDataFormat `default:"json" json:"format"`
+	Format *RecordDataFormatOptions1 `json:"format,omitempty"`
 	// Codec to use to compress the data before sending to Kafka
-	Compression *OutputConfluentCloudCompression `default:"gzip" json:"compression"`
+	Compression *CompressionOptions3 `json:"compression,omitempty"`
 	// Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
-	MaxRecordSizeKB *float64 `default:"768" json:"maxRecordSizeKB"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
-	FlushEventCount *float64 `default:"1000" json:"flushEventCount"`
+	FlushEventCount *float64 `json:"flushEventCount,omitempty"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                               `default:"1" json:"flushPeriodSec"`
-	KafkaSchemaRegistry *OutputConfluentCloudKafkaSchemaRegistryAuthentication `json:"kafkaSchemaRegistry,omitempty"`
+	FlushPeriodSec      *float64                                `json:"flushPeriodSec,omitempty"`
+	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType1 `json:"kafkaSchemaRegistry,omitempty"`
 	// Maximum time to wait for a connection to complete successfully
-	ConnectionTimeout *float64 `default:"10000" json:"connectionTimeout"`
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitempty"`
 	// Maximum time to wait for Kafka to respond to a request
-	RequestTimeout *float64 `default:"60000" json:"requestTimeout"`
+	RequestTimeout *float64 `json:"requestTimeout,omitempty"`
 	// If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
-	MaxRetries *float64 `default:"5" json:"maxRetries"`
+	MaxRetries *float64 `json:"maxRetries,omitempty"`
 	// The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
-	MaxBackOff *float64 `default:"30000" json:"maxBackOff"`
+	MaxBackOff *float64 `json:"maxBackOff,omitempty"`
 	// Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
-	InitialBackoff *float64 `default:"300" json:"initialBackoff"`
+	InitialBackoff *float64 `json:"initialBackoff,omitempty"`
 	// Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
-	BackoffRate *float64 `default:"2" json:"backoffRate"`
+	BackoffRate *float64 `json:"backoffRate,omitempty"`
 	// Maximum time to wait for Kafka to respond to an authentication request
-	AuthenticationTimeout *float64 `default:"10000" json:"authenticationTimeout"`
+	AuthenticationTimeout *float64 `json:"authenticationTimeout,omitempty"`
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
-	ReauthenticationThreshold *float64 `default:"10000" json:"reauthenticationThreshold"`
+	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitempty"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *OutputConfluentCloudAuthentication `json:"sasl,omitempty"`
+	Sasl *AuthenticationType `json:"sasl,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputConfluentCloudBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                                   `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	Description    *string                      `json:"description,omitempty"`
 	// Select a set of Protobuf definitions for the events you want to send
 	ProtobufLibraryID *string `json:"protobufLibraryId,omitempty"`
 	// Select the type of object you want the Protobuf definitions to use for event encoding
 	ProtobufEncodingID *string `json:"protobufEncodingId,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputConfluentCloudMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputConfluentCloudPqCompressCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputConfluentCloudQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputConfluentCloudPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions       `json:"pqOnBackpressure,omitempty"`
+	PqControls       *OutputConfluentCloudPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -1062,7 +183,7 @@ func (o *OutputConfluentCloud) GetBrokers() []string {
 	return o.Brokers
 }
 
-func (o *OutputConfluentCloud) GetTLS() *OutputConfluentCloudTLSSettingsClientSide {
+func (o *OutputConfluentCloud) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
 	if o == nil {
 		return nil
 	}
@@ -1076,21 +197,21 @@ func (o *OutputConfluentCloud) GetTopic() string {
 	return o.Topic
 }
 
-func (o *OutputConfluentCloud) GetAck() *OutputConfluentCloudAcknowledgments {
+func (o *OutputConfluentCloud) GetAck() *AcknowledgmentsOptions1 {
 	if o == nil {
 		return nil
 	}
 	return o.Ack
 }
 
-func (o *OutputConfluentCloud) GetFormat() *OutputConfluentCloudRecordDataFormat {
+func (o *OutputConfluentCloud) GetFormat() *RecordDataFormatOptions1 {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputConfluentCloud) GetCompression() *OutputConfluentCloudCompression {
+func (o *OutputConfluentCloud) GetCompression() *CompressionOptions3 {
 	if o == nil {
 		return nil
 	}
@@ -1118,7 +239,7 @@ func (o *OutputConfluentCloud) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputConfluentCloud) GetKafkaSchemaRegistry() *OutputConfluentCloudKafkaSchemaRegistryAuthentication {
+func (o *OutputConfluentCloud) GetKafkaSchemaRegistry() *KafkaSchemaRegistryAuthenticationType1 {
 	if o == nil {
 		return nil
 	}
@@ -1181,14 +302,14 @@ func (o *OutputConfluentCloud) GetReauthenticationThreshold() *float64 {
 	return o.ReauthenticationThreshold
 }
 
-func (o *OutputConfluentCloud) GetSasl() *OutputConfluentCloudAuthentication {
+func (o *OutputConfluentCloud) GetSasl() *AuthenticationType {
 	if o == nil {
 		return nil
 	}
 	return o.Sasl
 }
 
-func (o *OutputConfluentCloud) GetOnBackpressure() *OutputConfluentCloudBackpressureBehavior {
+func (o *OutputConfluentCloud) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -1230,7 +351,7 @@ func (o *OutputConfluentCloud) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputConfluentCloud) GetPqMode() *OutputConfluentCloudMode {
+func (o *OutputConfluentCloud) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -1272,14 +393,14 @@ func (o *OutputConfluentCloud) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputConfluentCloud) GetPqCompress() *OutputConfluentCloudPqCompressCompression {
+func (o *OutputConfluentCloud) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputConfluentCloud) GetPqOnBackpressure() *OutputConfluentCloudQueueFullBehavior {
+func (o *OutputConfluentCloud) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

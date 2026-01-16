@@ -36,12 +36,12 @@ func newGroups(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 	}
 }
 
-// List all Worker Groups or Edge Fleets for the specified Cribl product
-// Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
+// List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+// Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
 func (s *Groups) List(ctx context.Context, product components.ProductsCore, fields *string, opts ...operations.Option) (*operations.ListConfigGroupByProductResponse, error) {
 	request := operations.ListConfigGroupByProductRequest{
-		Fields:  fields,
 		Product: product,
+		Fields:  fields,
 	}
 
 	o := operations.Options{}
@@ -112,6 +112,16 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -121,10 +131,6 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -214,12 +220,12 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 				return nil, err
 			}
 
-			var out operations.ListConfigGroupByProductResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -278,8 +284,8 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 
 }
 
-// Create a Worker Group or Edge Fleet for the specified Cribl product
-// Create a new Worker Group or Edge Fleet for the specified Cribl product.
+// Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+// Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
 func (s *Groups) Create(ctx context.Context, product components.ProductsCore, groupCreateRequest components.GroupCreateRequest, opts ...operations.Option) (*operations.CreateConfigGroupByProductResponse, error) {
 	request := operations.CreateConfigGroupByProductRequest{
 		Product:            product,
@@ -357,6 +363,16 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -366,10 +382,6 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -459,12 +471,12 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 				return nil, err
 			}
 
-			var out operations.CreateConfigGroupByProductResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -523,8 +535,8 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 
 }
 
-// Get a Worker Group or Edge Fleet
-// Get the specified Worker Group or Edge Fleet.
+// Get a Worker Group, Outpost Group, or Edge Fleet
+// Get the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id string, fields *string, opts ...operations.Option) (*operations.GetConfigGroupByProductAndIDResponse, error) {
 	request := operations.GetConfigGroupByProductAndIDRequest{
 		Product: product,
@@ -600,6 +612,16 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -609,10 +631,6 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -702,12 +720,12 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 				return nil, err
 			}
 
-			var out operations.GetConfigGroupByProductAndIDResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -766,8 +784,8 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 
 }
 
-// Update a Worker Group or Edge Fleet
-// Update the specified Worker Group or Edge Fleet.
+// Update a Worker Group, Outpost Group, or Edge Fleet
+// Update the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id string, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.UpdateConfigGroupByProductAndIDResponse, error) {
 	request := operations.UpdateConfigGroupByProductAndIDRequest{
 		Product:     product,
@@ -846,6 +864,16 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -855,10 +883,6 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -948,12 +972,12 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.UpdateConfigGroupByProductAndIDResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1012,8 +1036,8 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 
 }
 
-// Delete a Worker Group or Edge Fleet
-// Delete the specified Worker Group or Edge Fleet.
+// Delete a Worker Group, Outpost Group, or Edge Fleet
+// Delete the specified Worker Group, Outpost Group, or Edge Fleet.
 func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.DeleteConfigGroupByProductAndIDResponse, error) {
 	request := operations.DeleteConfigGroupByProductAndIDRequest{
 		Product: product,
@@ -1084,6 +1108,16 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -1093,10 +1127,6 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -1186,12 +1216,12 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.DeleteConfigGroupByProductAndIDResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1330,6 +1360,16 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -1339,10 +1379,6 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 			Config: retryConfig,
 			StatusCodes: []string{
 				"429",
-				"500",
-				"502",
-				"503",
-				"504",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -1432,12 +1468,12 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 				return nil, err
 			}
 
-			var out operations.UpdateConfigGroupDeployByProductAndIDResponseBody
+			var out components.CountedConfigGroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.Object = &out
+			res.CountedConfigGroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

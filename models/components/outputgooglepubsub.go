@@ -31,137 +31,6 @@ func (e *OutputGooglePubsubType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputGooglePubsubGoogleAuthenticationMethod - Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-type OutputGooglePubsubGoogleAuthenticationMethod string
-
-const (
-	// OutputGooglePubsubGoogleAuthenticationMethodAuto Auto
-	OutputGooglePubsubGoogleAuthenticationMethodAuto OutputGooglePubsubGoogleAuthenticationMethod = "auto"
-	// OutputGooglePubsubGoogleAuthenticationMethodManual Manual
-	OutputGooglePubsubGoogleAuthenticationMethodManual OutputGooglePubsubGoogleAuthenticationMethod = "manual"
-	// OutputGooglePubsubGoogleAuthenticationMethodSecret Secret
-	OutputGooglePubsubGoogleAuthenticationMethodSecret OutputGooglePubsubGoogleAuthenticationMethod = "secret"
-)
-
-func (e OutputGooglePubsubGoogleAuthenticationMethod) ToPointer() *OutputGooglePubsubGoogleAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGooglePubsubGoogleAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputGooglePubsubBackpressureBehavior - How to handle events when all receivers are exerting backpressure
-type OutputGooglePubsubBackpressureBehavior string
-
-const (
-	// OutputGooglePubsubBackpressureBehaviorBlock Block
-	OutputGooglePubsubBackpressureBehaviorBlock OutputGooglePubsubBackpressureBehavior = "block"
-	// OutputGooglePubsubBackpressureBehaviorDrop Drop
-	OutputGooglePubsubBackpressureBehaviorDrop OutputGooglePubsubBackpressureBehavior = "drop"
-	// OutputGooglePubsubBackpressureBehaviorQueue Persistent Queue
-	OutputGooglePubsubBackpressureBehaviorQueue OutputGooglePubsubBackpressureBehavior = "queue"
-)
-
-func (e OutputGooglePubsubBackpressureBehavior) ToPointer() *OutputGooglePubsubBackpressureBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGooglePubsubBackpressureBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop", "queue":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputGooglePubsubMode - In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-type OutputGooglePubsubMode string
-
-const (
-	// OutputGooglePubsubModeError Error
-	OutputGooglePubsubModeError OutputGooglePubsubMode = "error"
-	// OutputGooglePubsubModeAlways Backpressure
-	OutputGooglePubsubModeAlways OutputGooglePubsubMode = "always"
-	// OutputGooglePubsubModeBackpressure Always On
-	OutputGooglePubsubModeBackpressure OutputGooglePubsubMode = "backpressure"
-)
-
-func (e OutputGooglePubsubMode) ToPointer() *OutputGooglePubsubMode {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGooglePubsubMode) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "error", "always", "backpressure":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputGooglePubsubCompression - Codec to use to compress the persisted data
-type OutputGooglePubsubCompression string
-
-const (
-	// OutputGooglePubsubCompressionNone None
-	OutputGooglePubsubCompressionNone OutputGooglePubsubCompression = "none"
-	// OutputGooglePubsubCompressionGzip Gzip
-	OutputGooglePubsubCompressionGzip OutputGooglePubsubCompression = "gzip"
-)
-
-func (e OutputGooglePubsubCompression) ToPointer() *OutputGooglePubsubCompression {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGooglePubsubCompression) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "gzip":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputGooglePubsubQueueFullBehavior - How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-type OutputGooglePubsubQueueFullBehavior string
-
-const (
-	// OutputGooglePubsubQueueFullBehaviorBlock Block
-	OutputGooglePubsubQueueFullBehaviorBlock OutputGooglePubsubQueueFullBehavior = "block"
-	// OutputGooglePubsubQueueFullBehaviorDrop Drop new data
-	OutputGooglePubsubQueueFullBehaviorDrop OutputGooglePubsubQueueFullBehavior = "drop"
-)
-
-func (e OutputGooglePubsubQueueFullBehavior) ToPointer() *OutputGooglePubsubQueueFullBehavior {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputGooglePubsubQueueFullBehavior) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "block", "drop":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputGooglePubsubPqControls struct {
 }
 
@@ -191,53 +60,53 @@ type OutputGooglePubsub struct {
 	// ID of the topic to send events to.
 	TopicName string `json:"topicName"`
 	// If enabled, create topic if it does not exist.
-	CreateTopic *bool `default:"false" json:"createTopic"`
+	CreateTopic *bool `json:"createTopic,omitempty"`
 	// If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
-	OrderedDelivery *bool `default:"false" json:"orderedDelivery"`
+	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
 	// Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
 	Region *string `json:"region,omitempty"`
 	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
-	GoogleAuthMethod *OutputGooglePubsubGoogleAuthenticationMethod `default:"manual" json:"googleAuthMethod"`
+	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitempty"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitempty"`
 	// Select or create a stored text secret
 	Secret *string `json:"secret,omitempty"`
 	// The maximum number of items the Google API should batch before it sends them to the topic.
-	BatchSize *float64 `default:"1000" json:"batchSize"`
+	BatchSize *float64 `json:"batchSize,omitempty"`
 	// The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
-	BatchTimeout *float64 `default:"100" json:"batchTimeout"`
+	BatchTimeout *float64 `json:"batchTimeout,omitempty"`
 	// Maximum number of queued batches before blocking.
-	MaxQueueSize *float64 `default:"100" json:"maxQueueSize"`
+	MaxQueueSize *float64 `json:"maxQueueSize,omitempty"`
 	// Maximum size (KB) of batches to send.
-	MaxRecordSizeKB *float64 `default:"256" json:"maxRecordSizeKB"`
+	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitempty"`
 	// Maximum time to wait before sending a batch (when batch size limit is not reached)
-	FlushPeriod *float64 `default:"1" json:"flushPeriod"`
+	FlushPeriod *float64 `json:"flushPeriod,omitempty"`
 	// The maximum number of in-progress API requests before backpressure is applied.
-	MaxInProgress *float64 `default:"10" json:"maxInProgress"`
+	MaxInProgress *float64 `json:"maxInProgress,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *OutputGooglePubsubBackpressureBehavior `default:"block" json:"onBackpressure"`
-	Description    *string                                 `json:"description,omitempty"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
+	Description    *string                      `json:"description,omitempty"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `default:"true" json:"pqStrictOrdering"`
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitempty"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `default:"0" json:"pqRatePerSec"`
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitempty"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *OutputGooglePubsubMode `default:"error" json:"pqMode"`
+	PqMode *ModeOptions `json:"pqMode,omitempty"`
 	// The maximum number of events to hold in memory before writing the events to disk
-	PqMaxBufferSize *float64 `default:"42" json:"pqMaxBufferSize"`
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitempty"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `default:"30" json:"pqMaxBackpressureSec"`
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitempty"`
 	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `default:"1 MB" json:"pqMaxFileSize"`
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitempty"`
 	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `default:"5GB" json:"pqMaxSize"`
+	PqMaxSize *string `json:"pqMaxSize,omitempty"`
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `default:"$CRIBL_HOME/state/queues" json:"pqPath"`
+	PqPath *string `json:"pqPath,omitempty"`
 	// Codec to use to compress the persisted data
-	PqCompress *OutputGooglePubsubCompression `default:"none" json:"pqCompress"`
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitempty"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *OutputGooglePubsubQueueFullBehavior `default:"block" json:"pqOnBackpressure"`
-	PqControls       *OutputGooglePubsubPqControls        `json:"pqControls,omitempty"`
+	PqOnBackpressure *QueueFullBehaviorOptions     `json:"pqOnBackpressure,omitempty"`
+	PqControls       *OutputGooglePubsubPqControls `json:"pqControls,omitempty"`
 }
 
 func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -321,7 +190,7 @@ func (o *OutputGooglePubsub) GetRegion() *string {
 	return o.Region
 }
 
-func (o *OutputGooglePubsub) GetGoogleAuthMethod() *OutputGooglePubsubGoogleAuthenticationMethod {
+func (o *OutputGooglePubsub) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
 	if o == nil {
 		return nil
 	}
@@ -384,7 +253,7 @@ func (o *OutputGooglePubsub) GetMaxInProgress() *float64 {
 	return o.MaxInProgress
 }
 
-func (o *OutputGooglePubsub) GetOnBackpressure() *OutputGooglePubsubBackpressureBehavior {
+func (o *OutputGooglePubsub) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
@@ -412,7 +281,7 @@ func (o *OutputGooglePubsub) GetPqRatePerSec() *float64 {
 	return o.PqRatePerSec
 }
 
-func (o *OutputGooglePubsub) GetPqMode() *OutputGooglePubsubMode {
+func (o *OutputGooglePubsub) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
@@ -454,14 +323,14 @@ func (o *OutputGooglePubsub) GetPqPath() *string {
 	return o.PqPath
 }
 
-func (o *OutputGooglePubsub) GetPqCompress() *OutputGooglePubsubCompression {
+func (o *OutputGooglePubsub) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputGooglePubsub) GetPqOnBackpressure() *OutputGooglePubsubQueueFullBehavior {
+func (o *OutputGooglePubsub) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}

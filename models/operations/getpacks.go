@@ -18,31 +18,10 @@ func (g *GetPacksRequest) GetWith() *string {
 	return g.With
 }
 
-// GetPacksResponseBody - a list of PackInfo objects
-type GetPacksResponseBody struct {
-	// number of items present in the items array
-	Count *int64                `json:"count,omitempty"`
-	Items []components.PackInfo `json:"items,omitempty"`
-}
-
-func (g *GetPacksResponseBody) GetCount() *int64 {
-	if g == nil {
-		return nil
-	}
-	return g.Count
-}
-
-func (g *GetPacksResponseBody) GetItems() []components.PackInfo {
-	if g == nil {
-		return nil
-	}
-	return g.Items
-}
-
 type GetPacksResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of PackInfo objects
-	Object *GetPacksResponseBody
+	CountedPackInfo *components.CountedPackInfo
 }
 
 func (g *GetPacksResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +31,9 @@ func (g *GetPacksResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetPacksResponse) GetObject() *GetPacksResponseBody {
+func (g *GetPacksResponse) GetCountedPackInfo() *components.CountedPackInfo {
 	if g == nil {
 		return nil
 	}
-	return g.Object
+	return g.CountedPackInfo
 }

@@ -1,0 +1,8 @@
+# RestAuthenticationBasicDiscovery
+
+
+## Fields
+
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `DiscoverType`                                                                                                             | [components.RestAuthenticationBasicDiscoverType](../../models/components/restauthenticationbasicdiscovertype.md)           | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |

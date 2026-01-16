@@ -39,7 +39,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutputSamplesResponse != nil {
         // handle response
     }
 }
@@ -93,16 +93,16 @@ func main() {
     )
 
     res, err := s.Destinations.Samples.Create(ctx, "<id>", components.OutputTestRequest{
-        Events: []components.CriblEvent{
-            components.CriblEvent{
-                Raw: "<value>",
+        Events: []map[string]any{
+            map[string]any{
+                "_raw": "<value>",
             },
         },
     })
     if err != nil {
         log.Fatal(err)
     }
-    if res.Object != nil {
+    if res.CountedOutputTestResponse != nil {
         // handle response
     }
 }

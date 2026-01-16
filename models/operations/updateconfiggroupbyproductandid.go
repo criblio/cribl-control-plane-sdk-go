@@ -7,9 +7,9 @@ import (
 )
 
 type UpdateConfigGroupByProductAndIDRequest struct {
-	// Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+	// Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// The <code>id</code> of the Worker Group or Edge Fleet to update.
+	// The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// ConfigGroup object
 	ConfigGroup components.ConfigGroup `request:"mediaType=application/json"`
@@ -36,31 +36,10 @@ func (u *UpdateConfigGroupByProductAndIDRequest) GetConfigGroup() components.Con
 	return u.ConfigGroup
 }
 
-// UpdateConfigGroupByProductAndIDResponseBody - a list of ConfigGroup objects
-type UpdateConfigGroupByProductAndIDResponseBody struct {
-	// number of items present in the items array
-	Count *int64                   `json:"count,omitempty"`
-	Items []components.ConfigGroup `json:"items,omitempty"`
-}
-
-func (u *UpdateConfigGroupByProductAndIDResponseBody) GetCount() *int64 {
-	if u == nil {
-		return nil
-	}
-	return u.Count
-}
-
-func (u *UpdateConfigGroupByProductAndIDResponseBody) GetItems() []components.ConfigGroup {
-	if u == nil {
-		return nil
-	}
-	return u.Items
-}
-
 type UpdateConfigGroupByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of ConfigGroup objects
-	Object *UpdateConfigGroupByProductAndIDResponseBody
+	CountedConfigGroup *components.CountedConfigGroup
 }
 
 func (u *UpdateConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -70,9 +49,9 @@ func (u *UpdateConfigGroupByProductAndIDResponse) GetHTTPMeta() components.HTTPM
 	return u.HTTPMeta
 }
 
-func (u *UpdateConfigGroupByProductAndIDResponse) GetObject() *UpdateConfigGroupByProductAndIDResponseBody {
+func (u *UpdateConfigGroupByProductAndIDResponse) GetCountedConfigGroup() *components.CountedConfigGroup {
 	if u == nil {
 		return nil
 	}
-	return u.Object
+	return u.CountedConfigGroup
 }
