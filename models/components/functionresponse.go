@@ -66,6 +66,7 @@ const (
 	FunctionResponseTypeSerde                     FunctionResponseType = "serde"
 	FunctionResponseTypeSerialize                 FunctionResponseType = "serialize"
 	FunctionResponseTypeSidlookup                 FunctionResponseType = "sidlookup"
+	FunctionResponseTypeSignalFilter              FunctionResponseType = "signal_filter"
 	FunctionResponseTypeSnmpTrapSerialize         FunctionResponseType = "snmp_trap_serialize"
 	FunctionResponseTypeSort                      FunctionResponseType = "sort"
 	FunctionResponseTypeStore                     FunctionResponseType = "store"
@@ -133,6 +134,7 @@ type FunctionResponse struct {
 	FunctionSerde                     *FunctionSerde                     `queryParam:"inline" union:"member"`
 	FunctionSerialize                 *FunctionSerialize                 `queryParam:"inline" union:"member"`
 	FunctionSidlookup                 *FunctionSidlookup                 `queryParam:"inline" union:"member"`
+	FunctionSignalFilter              *FunctionSignalFilter              `queryParam:"inline" union:"member"`
 	FunctionSnmpTrapSerialize         *FunctionSnmpTrapSerialize         `queryParam:"inline" union:"member"`
 	FunctionSort                      *FunctionSort                      `queryParam:"inline" union:"member"`
 	FunctionStore                     *FunctionStore                     `queryParam:"inline" union:"member"`
@@ -795,6 +797,18 @@ func CreateFunctionResponseSidlookup(sidlookup FunctionSidlookup) FunctionRespon
 	}
 }
 
+func CreateFunctionResponseSignalFilter(signalFilter FunctionSignalFilter) FunctionResponse {
+	typ := FunctionResponseTypeSignalFilter
+
+	typStr := FunctionSignalFilterID(typ)
+	signalFilter.ID = typStr
+
+	return FunctionResponse{
+		FunctionSignalFilter: &signalFilter,
+		Type:                 typ,
+	}
+}
+
 func CreateFunctionResponseSnmpTrapSerialize(snmpTrapSerialize FunctionSnmpTrapSerialize) FunctionResponse {
 	typ := FunctionResponseTypeSnmpTrapSerialize
 
@@ -1413,6 +1427,15 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 		u.FunctionSidlookup = functionSidlookup
 		u.Type = FunctionResponseTypeSidlookup
 		return nil
+	case "signal_filter":
+		functionSignalFilter := new(FunctionSignalFilter)
+		if err := utils.UnmarshalJSON(data, &functionSignalFilter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == signal_filter) type FunctionSignalFilter within FunctionResponse: %w", string(data), err)
+		}
+
+		u.FunctionSignalFilter = functionSignalFilter
+		u.Type = FunctionResponseTypeSignalFilter
+		return nil
 	case "snmp_trap_serialize":
 		functionSnmpTrapSerialize := new(FunctionSnmpTrapSerialize)
 		if err := utils.UnmarshalJSON(data, &functionSnmpTrapSerialize, "", true, nil); err != nil {
@@ -1723,6 +1746,10 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 
 	if u.FunctionSidlookup != nil {
 		return utils.MarshalJSON(u.FunctionSidlookup, "", true)
+	}
+
+	if u.FunctionSignalFilter != nil {
+		return utils.MarshalJSON(u.FunctionSignalFilter, "", true)
 	}
 
 	if u.FunctionSnmpTrapSerialize != nil {
