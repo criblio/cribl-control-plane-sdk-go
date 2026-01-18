@@ -16,6 +16,7 @@ type RouteConf struct {
 	Output                 *string             `json:"output,omitempty"`
 	OutputExpression       *string             `json:"outputExpression,omitempty"`
 	Pipeline               string              `json:"pipeline"`
+	ToGroupContext         *bool               `json:"toGroupContext,omitempty"`
 }
 
 func (r *RouteConf) GetClones() []map[string]string {
@@ -107,4 +108,11 @@ func (r *RouteConf) GetPipeline() string {
 		return ""
 	}
 	return r.Pipeline
+}
+
+func (r *RouteConf) GetToGroupContext() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ToGroupContext
 }

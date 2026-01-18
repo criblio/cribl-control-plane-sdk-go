@@ -327,6 +327,12 @@ functionResponse := components.CreateFunctionResponseSerialize(components.Functi
 functionResponse := components.CreateFunctionResponseSidlookup(components.FunctionSidlookup{/* values here */})
 ```
 
+### FunctionSignalFilter
+
+```go
+functionResponse := components.CreateFunctionResponseSignalFilter(components.FunctionSignalFilter{/* values here */})
+```
+
 ### FunctionSnmpTrapSerialize
 
 ```go
