@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 794fe24aeca24d3c3afbc06d16ab060e
-  docVersion: 4.16.0-alpha.1768553599722-cf7e66a0
+  docChecksum: f765101762ff125e4593f09d2fcb7792
+  docVersion: 4.16.0-alpha.1768691071776-8e903b53
   speakeasyVersion: 1.686.0
   generationVersion: 2.796.1
-  releaseVersion: 0.5.0-alpha.5
-  configChecksum: 1913d00f53b519c00198bce98a79b7fd
+  releaseVersion: 0.5.0-alpha.6
+  configChecksum: 83cb394d7b4088c5df52e658fbd36abb
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: d96bc02b-5697-4722-b5e2-3501bc3de80a
-  pristine_commit_hash: bdb268869c68fc233bdcf71e7289c5242c83740d
-  pristine_tree_hash: 1fbe0378bb203163f30e0cca3e862fd496fde69f
+  generation_id: 2c7dcf65-5810-4263-8610-3f2619a1b6d2
+  pristine_commit_hash: a8a4567d34abae088e0bef92fdd99a438146a538
+  pristine_tree_hash: 1f0f590422d4e863d79da77f1e66f8df7400904b
 features:
   go:
     additionalDependencies: 0.1.0
@@ -89,8 +89,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:bc9a4f05e96892e005d0a31680dbaf64283eb1d2
-    pristine_git_object: 15f24fcbb3631ab18beb7670c0948022af495d14
+    last_write_checksum: sha1:fd863bfe6dce3a25973705736b01a5158f3537ec
+    pristine_git_object: 7808af7b20cdac9b1991dbb03387a451afd13774
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:fb9fb4234425ef1804e96656c03496b13175c97c
@@ -1155,6 +1155,10 @@ trackedFiles:
     id: 50f61d43ec24
     last_write_checksum: sha1:49ca4de44c0ab3364636c693646710c3e2a1c3a9
     pristine_git_object: 8ef1d21b6648541bca854bd7e738aef9a21f02e1
+  docs/models/components/functionconfschemasignalfilter.md:
+    id: 0054ba3fde2e
+    last_write_checksum: sha1:8d5e9e4d944237a7cfd8eb642aeb1df827ed8769
+    pristine_git_object: 11f163280271ba2a1d55856a8170d7d4d9edc4b0
   docs/models/components/functionconfschemasnmptrapserialize.md:
     id: ee3f72ad9710
     last_write_checksum: sha1:8888b452aeffe11661943a20a48f5cec7223b0cd
@@ -1481,8 +1485,8 @@ trackedFiles:
     pristine_git_object: f02131ffe71080c1ae1e1d9e2aba514b37f46a64
   docs/models/components/functionresponse.md:
     id: a4edd16b40f6
-    last_write_checksum: sha1:e99760a9bd71ceadd4bbfa10a4070a784a4eaea0
-    pristine_git_object: 94aeec667f2dbe5901620159350033fe1b3a1209
+    last_write_checksum: sha1:87f55cbd84ed839075d318844a708311a0f80a29
+    pristine_git_object: 8b21ba8e0c28c60437b2adf7825a96bacd058002
   docs/models/components/functionrollupmetrics.md:
     id: 6c783e0869b4
     last_write_checksum: sha1:9fabf484a8510073a0431e34529fcca0216d4f17
@@ -1539,6 +1543,14 @@ trackedFiles:
     id: eed339a18726
     last_write_checksum: sha1:4b84d09bc13826937a41b56d6dee66ca3d7cc297
     pristine_git_object: 8ff7bc3cd3122d8fc4e8eb41a05e694fcb2f9aff
+  docs/models/components/functionsignalfilter.md:
+    id: 15e4b8ee8380
+    last_write_checksum: sha1:34e8b854e3a0b3b20e4f182e7b67a237950eaa72
+    pristine_git_object: 4a2dc6387bbf3570d53aa3b833f779dff205d997
+  docs/models/components/functionsignalfilterid.md:
+    id: 71e7c10b1983
+    last_write_checksum: sha1:ed6193e186b1ab1274c306e8d2340fdfd5c7d83c
+    pristine_git_object: d2395e176cd4a10b8f850834b5a127e99da60853
   docs/models/components/functionsnmptrapserialize.md:
     id: bcff736e285c
     last_write_checksum: sha1:1049a941b77e13db5f91e88580a4a66822af7619
@@ -4121,16 +4133,12 @@ trackedFiles:
     pristine_git_object: 0c8cf374de9e0f52a63e0c0909c527522eb2083a
   docs/models/components/outputwizhec.md:
     id: 0408e0f40663
-    last_write_checksum: sha1:ea5288db256e1da99f4cb0ae1254245ac21a6657
-    pristine_git_object: dfdadc5e84cbcc27175b3d2b679f0ba8b23677d6
+    last_write_checksum: sha1:6293382b304650d42bae9c493ce79ca57d6e0a2b
+    pristine_git_object: 7e03c5d6449bda77e1ce1d7f00472674f3be2d40
   docs/models/components/outputwizhectype.md:
     id: d8bff5177107
     last_write_checksum: sha1:1c83c365103fbab1584c426098f77c494e9ddc71
     pristine_git_object: a654b68595f4782f09692bb7f59d55696a74b750
-  docs/models/components/outputwizhecurl.md:
-    id: ed4018291059
-    last_write_checksum: sha1:620654e7afea359ee703ec5179f68c758ce2bb57
-    pristine_git_object: f554eebb847aa425365083a9a2183020d863330a
   docs/models/components/outputxsiam.md:
     id: fd3141d90993
     last_write_checksum: sha1:c2109b36f7fb2693c8203f4b9a19edee5a35cfa0
@@ -4305,12 +4313,12 @@ trackedFiles:
     pristine_git_object: a2ecb3132887106871d8612fbe6c481232418d55
   docs/models/components/pipelinefunctionconf.md:
     id: 59b45550b5f7
-    last_write_checksum: sha1:fb7a5dd119c458468e0e5b199aa79f48bd66ca38
-    pristine_git_object: f1078f72ca10a1562892f8925239bf9f22a807c8
+    last_write_checksum: sha1:c30db89bbb2940fe864fe860b4ecb1e4ec3abadb
+    pristine_git_object: 0d82501ac5b3c60dc228e5f0ae35470f3d07dd77
   docs/models/components/pipelinefunctionconfinput.md:
     id: c5db3008fdec
-    last_write_checksum: sha1:05168cccb70320c34f8c83eb03759e326c7d3c9d
-    pristine_git_object: 38e57f6ac6175704d742961ca0f8eec477006476
+    last_write_checksum: sha1:a23556b89587d985147273515cbfeeeeeb36d70b
+    pristine_git_object: a4ee729e419ee84a6e7902ba64461831ebd35ad6
   docs/models/components/pipelinefunctiondistinct.md:
     id: 338d494af1ae
     last_write_checksum: sha1:190af07309a55b1cb4c12bdf654d5c4a092a85d7
@@ -4775,6 +4783,14 @@ trackedFiles:
     id: 42f12ff9687d
     last_write_checksum: sha1:09dd1e75f6f3821326bcc6d627ea2030d780171c
     pristine_git_object: f1b24c836285c603e3ca1ec51d724a7922cb2375
+  docs/models/components/pipelinefunctionsignalfilter.md:
+    id: 5fa29887fbe3
+    last_write_checksum: sha1:c59e1965b10f3a65a7cd837649ae42d600d34e0f
+    pristine_git_object: 603b2b1937178d2258a87bbabe7b23b9b86db9b0
+  docs/models/components/pipelinefunctionsignalfilterid.md:
+    id: e9bbc11af92d
+    last_write_checksum: sha1:f3a1475618b47879f3fb04391c6f8341978a6288
+    pristine_git_object: 1fdff038af7f1efe928945f66802f1bc0f2a5e17
   docs/models/components/pipelinefunctionsnmptrapserialize.md:
     id: 49749997f00f
     last_write_checksum: sha1:32390efabbf7a407b98d52d1fee291a89c991d8b
@@ -7949,8 +7965,8 @@ trackedFiles:
     pristine_git_object: 306f4d06a0f2834e62b693ac9bc1408f7e30b763
   docs/models/operations/outputwizhec.md:
     id: f60d65cd8f5b
-    last_write_checksum: sha1:5a9c17ee1940566ad04dcde50cd0950524db0ac3
-    pristine_git_object: d2f009eb28835866900c65a286c23fb7522adfcb
+    last_write_checksum: sha1:8e9aa888e5c48e6b0a01b0dcfc7e1c7db6f32a04
+    pristine_git_object: c1953bcd39e223b826cec82078b33b01a8c36810
   docs/models/operations/outputxsiam.md:
     id: 45959a42d89d
     last_write_checksum: sha1:449bcf09daa893c40912af2f0c2419c0ce215b29
@@ -8787,10 +8803,6 @@ trackedFiles:
     id: 6d61d899a055
     last_write_checksum: sha1:3983a2147be0a5a5770bf006232a9f29a20799c0
     pristine_git_object: cb628927aec94a4666cf8c4ba1933edb51a7dfcd
-  docs/models/operations/urlwizhec.md:
-    id: 80e04c919951
-    last_write_checksum: sha1:df8ac8da4fb2cfa4c3662861d9dff4792ed1133a
-    pristine_git_object: 1661cfb4e6809947ccd75ef6bbeeca2a6d000256
   docs/models/operations/urlxsiam.md:
     id: c17167a27223
     last_write_checksum: sha1:f06ccd5c4d4795bba1055b7d2e617b56db637454
@@ -9655,6 +9667,10 @@ trackedFiles:
     id: a197ec034176
     last_write_checksum: sha1:e8c993b8561216b908fc41f897358b75a27fce20
     pristine_git_object: e933ddd8f21fbe1c495fef8f57704051bd258d1f
+  models/components/functionconfschemasignalfilter.go:
+    id: 80b48d16291a
+    last_write_checksum: sha1:fb8005152201093963c96c650425d272e097686e
+    pristine_git_object: a7234177f91b12ea203874c5681f231a38057be9
   models/components/functionconfschemasnmptrapserialize.go:
     id: 9f9580aa5d97
     last_write_checksum: sha1:a135325984bd834087d7f3f0cb8146b8d239ced6
@@ -9821,8 +9837,8 @@ trackedFiles:
     pristine_git_object: 380aa008ced2a8914ede676668ec84f1334c24cb
   models/components/functionresponse.go:
     id: add1a9d0b762
-    last_write_checksum: sha1:94f499b2b869dde5dddbf67721cbadcc4822de84
-    pristine_git_object: 5658f14b43f07e2789d4bb31f46073b3ff665102
+    last_write_checksum: sha1:658b579649fa4a5671d5739954400f2a88295633
+    pristine_git_object: 38a9439c2448c283b6495ad3da2afb1fe9972435
   models/components/functionrollupmetrics.go:
     id: e912ab141258
     last_write_checksum: sha1:3d06d4635b0eac6c1ba71014f3f48a1f17d11d56
@@ -9851,6 +9867,10 @@ trackedFiles:
     id: 4940142f5884
     last_write_checksum: sha1:736e702c2218c4f777e3dabefc3d811a3b4cd151
     pristine_git_object: c1350c90fd953e425eec1114dff6dc3c12e9459a
+  models/components/functionsignalfilter.go:
+    id: "834672668156"
+    last_write_checksum: sha1:8ce5f7d0165554874b830289cf8da54c2a2bd90a
+    pristine_git_object: 8fca5930876f385cf7c752b39d9442802261ef0f
   models/components/functionsnmptrapserialize.go:
     id: 1bd7d541b05a
     last_write_checksum: sha1:f6b3be03843b911541992ab16f9d11ecefa81cc6
@@ -10777,8 +10797,8 @@ trackedFiles:
     pristine_git_object: cd1bdff9d6db073db4568c24f35917cfa6ba7b9e
   models/components/outputwizhec.go:
     id: dafb57053b88
-    last_write_checksum: sha1:fc64b16d7fdc6698177f1d56de05f99ca602c560
-    pristine_git_object: 1e44a740d13f5fd89f0474023941479745168c35
+    last_write_checksum: sha1:9df5d4cd948d17b50bf8229127187db3bf7ac307
+    pristine_git_object: 6709d2b3a58115f9ea18de41a831e407e4d86ff7
   models/components/outputxsiam.go:
     id: 85195f50ee4a
     last_write_checksum: sha1:a214c9f98f2b356bfdf59001ad9a9002eab77041
@@ -10853,12 +10873,12 @@ trackedFiles:
     pristine_git_object: d6bf82cb767f295407517d264283d89014f6c664
   models/components/pipelinefunctionconf.go:
     id: a052e70e6c22
-    last_write_checksum: sha1:14e4687a864ef5842a5297e95e01ccd0e3c87b26
-    pristine_git_object: 24e6786d9b29871d1d5bc635d2eadeb098d75d0c
+    last_write_checksum: sha1:3cd08b7ff17696826b50dbd44f034e3ad3feadb3
+    pristine_git_object: c59b88da426c448a1f342df11ee845a22302216e
   models/components/pipelinefunctionconfinput.go:
     id: b0e3f8ba3f14
-    last_write_checksum: sha1:a899057e6308d46e8efba52ecd7b97378e1cad1c
-    pristine_git_object: ab8911ea965bff9ea03744d7a5d7beedd94df7b8
+    last_write_checksum: sha1:45d91dfde8d1f3928ace88caca3c02876015dde4
+    pristine_git_object: 31bb478f217ada6fa1b81268b3375b342f757eb5
   models/components/pipelinefunctiondistinct.go:
     id: ee73bac434b4
     last_write_checksum: sha1:acd133ad56dcacaf8122ee45b79d5ac0e6c5d10f
@@ -11043,6 +11063,10 @@ trackedFiles:
     id: 96117cd5d698
     last_write_checksum: sha1:0e9c55539ba88a6086e412c594415a205310506c
     pristine_git_object: 997a554561dd73711b059938cb253f4c119ea2ed
+  models/components/pipelinefunctionsignalfilter.go:
+    id: b473f777b828
+    last_write_checksum: sha1:39d46e31384dbd0efa4cb9300a36b75da24f4324
+    pristine_git_object: 4dd941f10e7ff244199ec65e3484280d6fa3e5fc
   models/components/pipelinefunctionsnmptrapserialize.go:
     id: b61a01bb1924
     last_write_checksum: sha1:17ef77d7f421085f3f7170fbbc2169017b3eba3f
@@ -11449,8 +11473,8 @@ trackedFiles:
     pristine_git_object: 1a16a65bfb1bcaad581115d642956bdb8a05c401
   models/operations/createoutput.go:
     id: 60f055d92a1e
-    last_write_checksum: sha1:64e0207d3bd39297710da562b3606b92b246a266
-    pristine_git_object: de0b7f32ecca73cb4072eec74347c190db6eab79
+    last_write_checksum: sha1:552ca65bee28334db19a2f56c1ba41b87ea56fc9
+    pristine_git_object: 57b831b1c7d3a0c351d534c4ed6a13a7f2b17bad
   models/operations/createoutputtestbyid.go:
     id: 1f7d3ecc9fe0
     last_write_checksum: sha1:78111c8ddb3dae10d0ad23b5bb0490644d58f9b1
@@ -13485,7 +13509,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesWizHec:
       requestBody:
-        application/json: {"id": "wiz-hec-output", "type": "wiz_hec", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "loadBalanced": true, "nextQueue": "<value>", "tcpRouting": "<value>", "tls": {"disabled": false, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.1"}, "concurrency": 3435.49, "maxPayloadSizeKB": 3058.86, "maxPayloadEvents": 2063.99, "compress": false, "rejectUnauthorized": true, "timeoutSec": 3533.62, "flushPeriodSec": 373.83, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "payload", "safeHeaders": ["<value 1>", "<value 2>"], "enableMultiMetrics": false, "authType": "manual", "responseRetrySettings": [{"httpStatus": 5395.85, "initialBackoff": 5493.68, "backoffRate": 5815.97, "maxBackoff": 4757.68}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 483.81, "backoffRate": 7907.59, "maxBackoff": 37.91}, "responseHonorRetryAfterHeader": true, "onBackpressure": "queue", "description": "tuber if er kindheartedly gah", "url": "https://frugal-millet.biz/", "useRoundRobinDns": false, "excludeSelf": false, "urls": [{"url": "https://possible-cork.com/", "weight": 5010.29}], "dnsResolvePeriodSec": 4041.1, "loadBalanceStatsPeriodSec": 6084.71, "token": "<value>", "textSecret": "<value>"}
+        application/json: {"id": "wiz-hec-output", "type": "wiz_hec", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "loadBalanced": true, "nextQueue": "<value>", "tcpRouting": "<value>", "tls": {"disabled": false, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.1"}, "concurrency": 3435.49, "maxPayloadSizeKB": 3058.86, "maxPayloadEvents": 2063.99, "compress": false, "rejectUnauthorized": true, "timeoutSec": 3533.62, "flushPeriodSec": 373.83, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "payload", "safeHeaders": ["<value 1>", "<value 2>"], "enableMultiMetrics": false, "authType": "manual", "responseRetrySettings": [{"httpStatus": 5395.85, "initialBackoff": 5493.68, "backoffRate": 5815.97, "maxBackoff": 4757.68}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 483.81, "backoffRate": 7907.59, "maxBackoff": 37.91}, "responseHonorRetryAfterHeader": true, "onBackpressure": "queue", "wiz_connector_id": "00000000-0000-0000-0000-000000000000", "wiz_environment": "test", "data_center": "us1", "wiz_sourcetype": "placeholder", "description": "tuber if er kindheartedly gah", "token": "<value>", "textSecret": "<value>"}
       responses:
         "200":
           application/json: {"count": 432997, "items": [{"id": "<id>", "type": "signalfx", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "authType": "manual", "realm": "<value>", "concurrency": 2027.39, "maxPayloadSizeKB": 6327.02, "maxPayloadEvents": 1973.31, "compress": false, "rejectUnauthorized": false, "timeoutSec": 7162.37, "flushPeriodSec": 9284.86, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "useRoundRobinDns": true, "failedRequestLoggingMode": "payload", "safeHeaders": ["<value 1>", "<value 2>"], "responseRetrySettings": [{"httpStatus": 5395.85, "initialBackoff": 5493.68, "backoffRate": 5815.97, "maxBackoff": 4757.68}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 483.81, "backoffRate": 7907.59, "maxBackoff": 37.91}, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "description": "although while provision", "token": "<value>", "textSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 4000.34, "pqMode": "backpressure", "pqMaxBufferSize": 9297.08, "pqMaxBackpressureSec": 7175.4, "pqMaxFileSize": "<value>", "pqMaxSize": "<value>", "pqPath": "<value>", "pqCompress": "gzip", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -14215,7 +14239,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "wiz-hec-output", "type": "wiz_hec", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "loadBalanced": false, "nextQueue": "<value>", "tcpRouting": "<value>", "tls": {"disabled": false, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.3"}, "concurrency": 7233.72, "maxPayloadSizeKB": 8699.57, "maxPayloadEvents": 1501.04, "compress": false, "rejectUnauthorized": true, "timeoutSec": 7438.51, "flushPeriodSec": 9385.01, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "payload", "safeHeaders": ["<value 1>", "<value 2>"], "enableMultiMetrics": false, "authType": "manual", "responseRetrySettings": [{"httpStatus": 3612.5, "initialBackoff": 2452.56, "backoffRate": 1370.95, "maxBackoff": 434.99}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1512.93, "backoffRate": 7289.7, "maxBackoff": 7576.49}, "responseHonorRetryAfterHeader": true, "onBackpressure": "drop", "description": "rekindle for clear cassava overdue whoa cram incidentally", "url": "https://distant-omelet.com", "useRoundRobinDns": true, "excludeSelf": false, "urls": [{"url": "https://messy-ethyl.org", "weight": 2598.62}], "dnsResolvePeriodSec": 4913.57, "loadBalanceStatsPeriodSec": 6139.16, "token": "<value>", "textSecret": "<value>"}
+        application/json: {"id": "wiz-hec-output", "type": "wiz_hec", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "loadBalanced": false, "nextQueue": "<value>", "tcpRouting": "<value>", "tls": {"disabled": false, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.3"}, "concurrency": 7233.72, "maxPayloadSizeKB": 8699.57, "maxPayloadEvents": 1501.04, "compress": false, "rejectUnauthorized": true, "timeoutSec": 7438.51, "flushPeriodSec": 9385.01, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "payload", "safeHeaders": ["<value 1>", "<value 2>"], "enableMultiMetrics": false, "authType": "manual", "responseRetrySettings": [{"httpStatus": 3612.5, "initialBackoff": 2452.56, "backoffRate": 1370.95, "maxBackoff": 434.99}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1512.93, "backoffRate": 7289.7, "maxBackoff": 7576.49}, "responseHonorRetryAfterHeader": true, "onBackpressure": "drop", "wiz_connector_id": "00000000-0000-0000-0000-000000000000", "wiz_environment": "test", "data_center": "us1", "wiz_sourcetype": "placeholder", "description": "rekindle for clear cassava overdue whoa cram incidentally", "token": "<value>", "textSecret": "<value>"}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "secret", "responseRetrySettings": [{"httpStatus": 3612.5, "initialBackoff": 2452.56, "backoffRate": 1370.95, "maxBackoff": 434.99}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1512.93, "backoffRate": 7289.7, "maxBackoff": 7576.49}, "responseHonorRetryAfterHeader": true, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5935.1, "maxPayloadSizeKB": 5688.61, "maxPayloadEvents": 833.69, "compress": true, "rejectUnauthorized": true, "timeoutSec": 9152.37, "flushPeriodSec": 9177.1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "payload", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "queue", "totalMemoryLimitKB": 8499.78, "description": "tune-up obvious restfully yet because schlep eyeliner deploy", "extraLogTypes": [{"logType": "<value>", "description": "solder dull stay yet overcooked per debut attest"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 8914.94, "pqMode": "always", "pqMaxBufferSize": 3619.32, "pqMaxBackpressureSec": 1674.28, "pqMaxFileSize": "<value>", "pqMaxSize": "<value>", "pqPath": "<value>", "pqCompress": "none", "pqOnBackpressure": "drop", "pqControls": {}}]}
@@ -16445,6 +16469,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[wizHec]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[wizHec]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Pipelines.List()`:  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions.[].[signalFilter]` **Added**\n  *  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions.[].[signalFilter]` **Added**\n  *  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Functions.Get()`:  `response.Items.[].[signalFilter]` **Added**\n* `CriblControlPlane.Functions.List()`:  `response.Items.[].[signalFilter]` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
