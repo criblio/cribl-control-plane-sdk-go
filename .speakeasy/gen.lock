@@ -5,14 +5,14 @@ management:
   docVersion: 4.16.0-alpha.1768691071776-8e903b53
   speakeasyVersion: 1.686.0
   generationVersion: 2.796.1
-  releaseVersion: 0.5.0-alpha.6
-  configChecksum: 83cb394d7b4088c5df52e658fbd36abb
+  releaseVersion: 0.5.0-alpha.7
+  configChecksum: 8e5a576c9db0d940204f8836a86e928e
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 2c7dcf65-5810-4263-8610-3f2619a1b6d2
-  pristine_commit_hash: a8a4567d34abae088e0bef92fdd99a438146a538
-  pristine_tree_hash: 1f0f590422d4e863d79da77f1e66f8df7400904b
+  generation_id: 3bc5254c-56e9-4291-939b-3fbc4ba2bd71
+  pristine_commit_hash: 2bc13e5db75eeb05f3df8e1c879cb1392e0ff3ff
+  pristine_tree_hash: cc86f8f92d19e566d3fb073665ffa4cff5337218
 features:
   go:
     additionalDependencies: 0.1.0
@@ -89,8 +89,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:fd863bfe6dce3a25973705736b01a5158f3537ec
-    pristine_git_object: 7808af7b20cdac9b1991dbb03387a451afd13774
+    last_write_checksum: sha1:c4881ed82468cbcc860c51624ae711b08939ad4a
+    pristine_git_object: b2e6a5927e59c36f11cb0bc97dce29f471e34b00
   destinations.go:
     id: c850727f8555
     last_write_checksum: sha1:fb9fb4234425ef1804e96656c03496b13175c97c
@@ -16469,7 +16469,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[wizHec]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[wizHec]` **Changed** **Breaking** :warning:\n  *  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Pipelines.List()`:  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions.[].[signalFilter]` **Added**\n  *  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions.[].[signalFilter]` **Added**\n  *  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items.[].Conf.Functions.[].[signalFilter]` **Added**\n* `CriblControlPlane.Functions.Get()`:  `response.Items.[].[signalFilter]` **Added**\n* `CriblControlPlane.Functions.List()`:  `response.Items.[].[signalFilter]` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
