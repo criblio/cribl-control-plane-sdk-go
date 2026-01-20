@@ -127,6 +127,8 @@ type InputElasticProxyMode struct {
 	RemoveHeaders []string `json:"removeHeaders,omitempty"`
 	// Amount of time, in seconds, to wait for a proxy request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (i InputElasticProxyMode) MarshalJSON() ([]byte, error) {
@@ -203,6 +205,13 @@ func (i *InputElasticProxyMode) GetTimeoutSec() *float64 {
 	return i.TimeoutSec
 }
 
+func (i *InputElasticProxyMode) GetTemplateURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateURL
+}
+
 type InputElastic struct {
 	// Unique ID for this input
 	ID       *string          `json:"id,omitempty"`
@@ -267,6 +276,10 @@ type InputElastic struct {
 	AuthTokens []string `json:"authTokens,omitempty"`
 	// Custom version information to respond to requests
 	CustomAPIVersion *string `json:"customAPIVersion,omitempty"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitempty"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputElastic) MarshalJSON() ([]byte, error) {
@@ -530,4 +543,18 @@ func (i *InputElastic) GetCustomAPIVersion() *string {
 		return nil
 	}
 	return i.CustomAPIVersion
+}
+
+func (i *InputElastic) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputElastic) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
 }

@@ -121,6 +121,8 @@ type OutputKafka struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputKafkaPqControls    `json:"pqControls,omitempty"`
+	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
+	TemplateTopic *string `json:"__template_topic,omitempty"`
 }
 
 func (o OutputKafka) MarshalJSON() ([]byte, error) {
@@ -412,4 +414,11 @@ func (o *OutputKafka) GetPqControls() *OutputKafkaPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputKafka) GetTemplateTopic() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTopic
 }

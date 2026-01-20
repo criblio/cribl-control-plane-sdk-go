@@ -268,6 +268,12 @@ type OutputGoogleChronicle struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputGoogleChroniclePqControls `json:"pqControls,omitempty"`
+	// Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
+	TemplateAPIVersion *string `json:"__template_apiVersion,omitempty"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitempty"`
+	// Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
+	TemplateCustomerID *string `json:"__template_customerId,omitempty"`
 }
 
 func (o OutputGoogleChronicle) MarshalJSON() ([]byte, error) {
@@ -622,4 +628,25 @@ func (o *OutputGoogleChronicle) GetPqControls() *OutputGoogleChroniclePqControls
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputGoogleChronicle) GetTemplateAPIVersion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAPIVersion
+}
+
+func (o *OutputGoogleChronicle) GetTemplateRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRegion
+}
+
+func (o *OutputGoogleChronicle) GetTemplateCustomerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCustomerID
 }
