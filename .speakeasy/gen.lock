@@ -10920,7 +10920,30 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.LakeDatasets.List()`:  `request` **Changed** **Breaking** :warning:\n* `CriblControlPlane.Sources.HecTokens.Create()`: \n  *  `request.AddHecTokenRequest.AllowedIndexesAtToken` **Added**\n* `CriblControlPlane.Sources.HecTokens.Update()`: \n  *  `request.UpdateHecTokenRequest.AllowedIndexesAtToken` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.[criblHttp].ThrottleRatePerSec` **Added**\n  *  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.[criblHttp].ThrottleRatePerSec` **Added**\n  *  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[].[criblHttp].ThrottleRatePerSec` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes
+
+  This version of the SDK is generated for Cribl version 4.16.0.
+
+  ### Added new endpoints
+  * Functions:
+    * `CriblControlPlane.Functions.List()`
+    * `CriblControlPlane.Functions.Get()`
+  * System Settings:
+    * `CriblControlPlane.System.Settings.Cribl.List()`
+    * `CriblControlPlane.System.Settings.Cribl.Update()`
+  * Collectors:
+    * `CriblControlPlane.Collectors.List()`
+    * `CriblControlPlane.Collectors.Create()`
+    * `CriblControlPlane.Collectors.Get()`
+    * `CriblControlPlane.Collectors.Update()`
+    * `CriblControlPlane.Collectors.Delete()`
+
+  ### Added request body examples
+    * Sources
+    * Destinations
+    * Pipelines
+    * Collectors
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
