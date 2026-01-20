@@ -107,10 +107,6 @@ type OutputGooglePubsub struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions     `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputGooglePubsubPqControls `json:"pqControls,omitempty"`
-	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
-	TemplateTopicName *string `json:"__template_topicName,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
 }
 
 func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -346,18 +342,4 @@ func (o *OutputGooglePubsub) GetPqControls() *OutputGooglePubsubPqControls {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputGooglePubsub) GetTemplateTopicName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTopicName
-}
-
-func (o *OutputGooglePubsub) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
 }

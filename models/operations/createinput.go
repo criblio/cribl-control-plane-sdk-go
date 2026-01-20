@@ -194,10 +194,6 @@ type InputCloudflareHec struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
 	Description      *string `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputCloudflareHec) MarshalJSON() ([]byte, error) {
@@ -449,20 +445,6 @@ func (i *InputCloudflareHec) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputCloudflareHec) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputCloudflareHec) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type TypeZscalerHec string
 
 const (
@@ -622,12 +604,6 @@ type InputZscalerHec struct {
 	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
 	Description      *string `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
-	TemplateHecAPI *string `json:"__template_hecAPI,omitempty"`
 }
 
 func (i InputZscalerHec) MarshalJSON() ([]byte, error) {
@@ -872,27 +848,6 @@ func (i *InputZscalerHec) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputZscalerHec) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputZscalerHec) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
-func (i *InputZscalerHec) GetTemplateHecAPI() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHecAPI
-}
-
 type CreateInputTypeSecurityLake string
 
 const (
@@ -1000,20 +955,6 @@ type InputSecurityLake struct {
 	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
-	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-	TemplateQueueName *string `json:"__template_queueName,omitempty"`
-	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
-	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (i InputSecurityLake) MarshalJSON() ([]byte, error) {
@@ -1349,55 +1290,6 @@ func (i *InputSecurityLake) GetProcessedTagValue() *string {
 	return i.ProcessedTagValue
 }
 
-func (i *InputSecurityLake) GetTemplateQueueName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateQueueName
-}
-
-func (i *InputSecurityLake) GetTemplateAwsAccountID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAccountID
-}
-
-func (i *InputSecurityLake) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputSecurityLake) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputSecurityLake) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputSecurityLake) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
-func (i *InputSecurityLake) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
-}
-
 type CreateInputTypeNetflow string
 
 const (
@@ -1462,10 +1354,6 @@ type InputNetflow struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputNetflow) MarshalJSON() ([]byte, error) {
@@ -1633,20 +1521,6 @@ func (i *InputNetflow) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputNetflow) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputNetflow) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type TypeWizWebhook string
 
 const (
@@ -1730,10 +1604,6 @@ type InputWizWebhook struct {
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
 	Description   *string                             `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputWizWebhook) MarshalJSON() ([]byte, error) {
@@ -1969,20 +1839,6 @@ func (i *InputWizWebhook) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputWizWebhook) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputWizWebhook) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type TypeWiz string
@@ -2232,12 +2088,6 @@ type InputWiz struct {
 	ClientSecret *string `json:"clientSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
-	TemplateEndpoint *string `json:"__template_endpoint,omitempty"`
-	// Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
-	TemplateAuthURL *string `json:"__template_authUrl,omitempty"`
-	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-	TemplateClientID *string `json:"__template_clientId,omitempty"`
 }
 
 func (i InputWiz) MarshalJSON() ([]byte, error) {
@@ -2431,27 +2281,6 @@ func (i *InputWiz) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
-}
-
-func (i *InputWiz) GetTemplateEndpoint() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateEndpoint
-}
-
-func (i *InputWiz) GetTemplateAuthURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAuthURL
-}
-
-func (i *InputWiz) GetTemplateClientID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateClientID
 }
 
 type InputJournalFilesType string
@@ -2739,10 +2568,6 @@ type InputRawUDP struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputRawUDP) MarshalJSON() ([]byte, error) {
@@ -2887,20 +2712,6 @@ func (i *InputRawUDP) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputRawUDP) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputRawUDP) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type TypeWinEventLogs string
@@ -3640,10 +3451,6 @@ type InputWef struct {
 	Description *string                                    `json:"description,omitempty"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputWef) MarshalJSON() ([]byte, error) {
@@ -3874,20 +3681,6 @@ func (i *InputWef) GetLogFingerprintMismatch() *bool {
 	return i.LogFingerprintMismatch
 }
 
-func (i *InputWef) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputWef) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type TypeAppscope string
 
 const (
@@ -4107,10 +3900,6 @@ type InputAppscope struct {
 	AuthToken *string `json:"authToken,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputAppscope) MarshalJSON() ([]byte, error) {
@@ -4341,20 +4130,6 @@ func (i *InputAppscope) GetTextSecret() *string {
 	return i.TextSecret
 }
 
-func (i *InputAppscope) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputAppscope) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type TypeTCP string
 
 const (
@@ -4429,10 +4204,6 @@ type InputTCP struct {
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputTCP) MarshalJSON() ([]byte, error) {
@@ -4640,20 +4411,6 @@ func (i *InputTCP) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
-}
-
-func (i *InputTCP) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputTCP) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type InputFileType string
@@ -5077,12 +4834,6 @@ type InputSyslogSyslog2 struct {
 	Description         *string `json:"description,omitempty"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
-	TemplateUDPPort *string `json:"__template_udpPort,omitempty"`
-	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
-	TemplateTCPPort *string `json:"__template_tcpPort,omitempty"`
 }
 
 func (i InputSyslogSyslog2) MarshalJSON() ([]byte, error) {
@@ -5327,27 +5078,6 @@ func (i *InputSyslogSyslog2) GetEnableEnhancedProxyHeaderParsing() *bool {
 	return i.EnableEnhancedProxyHeaderParsing
 }
 
-func (i *InputSyslogSyslog2) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputSyslogSyslog2) GetTemplateUDPPort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateUDPPort
-}
-
-func (i *InputSyslogSyslog2) GetTemplateTCPPort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateTCPPort
-}
-
 type InputSyslogType1 string
 
 const (
@@ -5433,12 +5163,6 @@ type InputSyslogSyslog1 struct {
 	Description         *string `json:"description,omitempty"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
-	TemplateUDPPort *string `json:"__template_udpPort,omitempty"`
-	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
-	TemplateTCPPort *string `json:"__template_tcpPort,omitempty"`
 }
 
 func (i InputSyslogSyslog1) MarshalJSON() ([]byte, error) {
@@ -5683,27 +5407,6 @@ func (i *InputSyslogSyslog1) GetEnableEnhancedProxyHeaderParsing() *bool {
 	return i.EnableEnhancedProxyHeaderParsing
 }
 
-func (i *InputSyslogSyslog1) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputSyslogSyslog1) GetTemplateUDPPort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateUDPPort
-}
-
-func (i *InputSyslogSyslog1) GetTemplateTCPPort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateTCPPort
-}
-
 type InputSyslogType string
 
 const (
@@ -5876,20 +5579,6 @@ type InputSqs struct {
 	AwsSecret *string `json:"awsSecret,omitempty"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitempty"`
-	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-	TemplateQueueName *string `json:"__template_queueName,omitempty"`
-	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
-	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (i InputSqs) MarshalJSON() ([]byte, error) {
@@ -6134,55 +5823,6 @@ func (i *InputSqs) GetNumReceivers() *float64 {
 	return i.NumReceivers
 }
 
-func (i *InputSqs) GetTemplateQueueName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateQueueName
-}
-
-func (i *InputSqs) GetTemplateAwsAccountID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAccountID
-}
-
-func (i *InputSqs) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputSqs) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputSqs) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputSqs) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
-func (i *InputSqs) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
-}
-
 type TypeModelDrivenTelemetry string
 
 const (
@@ -6236,10 +5876,6 @@ type InputModelDrivenTelemetry struct {
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
 	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitempty"`
 	Description       *string  `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
@@ -6370,20 +6006,6 @@ func (i *InputModelDrivenTelemetry) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputModelDrivenTelemetry) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputModelDrivenTelemetry) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type CreateInputTypeOpenTelemetry string
@@ -6542,14 +6164,6 @@ type InputOpenTelemetry struct {
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Enable to extract each incoming log record to a separate event
 	ExtractLogs *bool `json:"extractLogs,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -6885,34 +6499,6 @@ func (i *InputOpenTelemetry) GetExtractLogs() *bool {
 	return i.ExtractLogs
 }
 
-func (i *InputOpenTelemetry) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputOpenTelemetry) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
-func (i *InputOpenTelemetry) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputOpenTelemetry) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
-}
-
 type CreateInputTypeSnmp string
 
 const (
@@ -7098,10 +6684,6 @@ type InputSnmp struct {
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
 	BestEffortParsing *bool   `json:"bestEffortParsing,omitempty"`
 	Description       *string `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputSnmp) MarshalJSON() ([]byte, error) {
@@ -7255,20 +6837,6 @@ func (i *InputSnmp) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputSnmp) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputSnmp) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type TypeS3Inventory string
 
 const (
@@ -7380,20 +6948,6 @@ type InputS3Inventory struct {
 	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
-	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-	TemplateQueueName *string `json:"__template_queueName,omitempty"`
-	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
-	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (i InputS3Inventory) MarshalJSON() ([]byte, error) {
@@ -7743,55 +7297,6 @@ func (i *InputS3Inventory) GetProcessedTagValue() *string {
 	return i.ProcessedTagValue
 }
 
-func (i *InputS3Inventory) GetTemplateQueueName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateQueueName
-}
-
-func (i *InputS3Inventory) GetTemplateAwsAccountID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAccountID
-}
-
-func (i *InputS3Inventory) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputS3Inventory) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputS3Inventory) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputS3Inventory) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
-func (i *InputS3Inventory) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
-}
-
 type CreateInputTypeS3 string
 
 const (
@@ -7900,20 +7405,6 @@ type InputS3 struct {
 	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
-	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-	TemplateQueueName *string `json:"__template_queueName,omitempty"`
-	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
-	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (i InputS3) MarshalJSON() ([]byte, error) {
@@ -8249,55 +7740,6 @@ func (i *InputS3) GetProcessedTagValue() *string {
 	return i.ProcessedTagValue
 }
 
-func (i *InputS3) GetTemplateQueueName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateQueueName
-}
-
-func (i *InputS3) GetTemplateAwsAccountID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAccountID
-}
-
-func (i *InputS3) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputS3) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputS3) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputS3) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
-func (i *InputS3) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
-}
-
 type TypeMetrics string
 
 const (
@@ -8357,12 +7799,6 @@ type InputMetrics struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitempty"`
 	Description        *string  `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
-	TemplateUDPPort *string `json:"__template_udpPort,omitempty"`
-	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
-	TemplateTCPPort *string `json:"__template_tcpPort,omitempty"`
 }
 
 func (i InputMetrics) MarshalJSON() ([]byte, error) {
@@ -8514,27 +7950,6 @@ func (i *InputMetrics) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputMetrics) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputMetrics) GetTemplateUDPPort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateUDPPort
-}
-
-func (i *InputMetrics) GetTemplateTCPPort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateTCPPort
 }
 
 type TypeCriblmetrics string
@@ -8863,18 +8278,6 @@ type InputKinesis struct {
 	AwsAPIKey   *string                                    `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
-	TemplateStreamName *string `json:"__template_streamName,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (i InputKinesis) MarshalJSON() ([]byte, error) {
@@ -9133,48 +8536,6 @@ func (i *InputKinesis) GetAwsSecret() *string {
 	return i.AwsSecret
 }
 
-func (i *InputKinesis) GetTemplateStreamName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateStreamName
-}
-
-func (i *InputKinesis) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputKinesis) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputKinesis) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputKinesis) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
-func (i *InputKinesis) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
-}
-
 type TypeHTTPRaw string
 
 const (
@@ -9258,10 +8619,6 @@ type InputHTTPRaw struct {
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
 	Description   *string                             `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputHTTPRaw) MarshalJSON() ([]byte, error) {
@@ -9497,20 +8854,6 @@ func (i *InputHTTPRaw) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputHTTPRaw) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputHTTPRaw) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type TypeDatagen string
@@ -9799,10 +9142,6 @@ type InputDatadogAgent struct {
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	ProxyMode   *ProxyModeDatadogAgent                     `json:"proxyMode,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputDatadogAgent) MarshalJSON() ([]byte, error) {
@@ -10012,20 +9351,6 @@ func (i *InputDatadogAgent) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputDatadogAgent) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputDatadogAgent) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type TypeCrowdstrike string
 
 const (
@@ -10129,20 +9454,6 @@ type InputCrowdstrike struct {
 	ProcessedTagKey *string `json:"processedTagKey,omitempty"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagValue *string `json:"processedTagValue,omitempty"`
-	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-	TemplateQueueName *string `json:"__template_queueName,omitempty"`
-	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
-	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (i InputCrowdstrike) MarshalJSON() ([]byte, error) {
@@ -10462,55 +9773,6 @@ func (i *InputCrowdstrike) GetProcessedTagValue() *string {
 		return nil
 	}
 	return i.ProcessedTagValue
-}
-
-func (i *InputCrowdstrike) GetTemplateQueueName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateQueueName
-}
-
-func (i *InputCrowdstrike) GetTemplateAwsAccountID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAccountID
-}
-
-func (i *InputCrowdstrike) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputCrowdstrike) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputCrowdstrike) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputCrowdstrike) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
-func (i *InputCrowdstrike) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
 }
 
 type TypeWindowsMetrics string
@@ -13378,10 +12640,6 @@ type InputTcpjson struct {
 	AuthToken *string `json:"authToken,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputTcpjson) MarshalJSON() ([]byte, error) {
@@ -13568,20 +12826,6 @@ func (i *InputTcpjson) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
-}
-
-func (i *InputTcpjson) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputTcpjson) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type TypeCriblLakeHTTP string
@@ -13788,12 +13032,6 @@ type InputCriblLakeHTTP struct {
 	Metadata      []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	AuthTokensExt []AuthTokensExt                            `json:"authTokensExt,omitempty"`
 	Description   *string                                    `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
-	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitempty"`
 }
 
 func (i InputCriblLakeHTTP) MarshalJSON() ([]byte, error) {
@@ -14031,27 +13269,6 @@ func (i *InputCriblLakeHTTP) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputCriblLakeHTTP) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputCriblLakeHTTP) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
-func (i *InputCriblLakeHTTP) GetTemplateSplunkHecAPI() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSplunkHecAPI
-}
-
 type CreateInputTypeCriblHTTP string
 
 const (
@@ -14125,10 +13342,6 @@ type InputCriblHTTP struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputCriblHTTP) MarshalJSON() ([]byte, error) {
@@ -14331,20 +13544,6 @@ func (i *InputCriblHTTP) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputCriblHTTP) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputCriblHTTP) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type CreateInputTypeCriblTCP string
 
 const (
@@ -14408,10 +13607,6 @@ type InputCriblTCP struct {
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
 	AuthTokens  []components.ItemsTypeAuthTokens `json:"authTokens,omitempty"`
 	Description *string                          `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputCriblTCP) MarshalJSON() ([]byte, error) {
@@ -14577,20 +13772,6 @@ func (i *InputCriblTCP) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputCriblTCP) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputCriblTCP) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type TypeCribl string
@@ -14812,12 +13993,6 @@ type InputGooglePubsub struct {
 	Description *string                                    `json:"description,omitempty"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitempty"`
-	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
-	TemplateTopicName *string `json:"__template_topicName,omitempty"`
-	// Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
-	TemplateSubscriptionName *string `json:"__template_subscriptionName,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
 }
 
 func (i InputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -15006,27 +14181,6 @@ func (i *InputGooglePubsub) GetOrderedDelivery() *bool {
 	return i.OrderedDelivery
 }
 
-func (i *InputGooglePubsub) GetTemplateTopicName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateTopicName
-}
-
-func (i *InputGooglePubsub) GetTemplateSubscriptionName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSubscriptionName
-}
-
-func (i *InputGooglePubsub) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
 type TypeFirehose string
 
 const (
@@ -15100,10 +14254,6 @@ type InputFirehose struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputFirehose) MarshalJSON() ([]byte, error) {
@@ -15304,20 +14454,6 @@ func (i *InputFirehose) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputFirehose) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputFirehose) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type InputExecType string
@@ -16097,14 +15233,6 @@ type InputOffice365MsgTrace struct {
 	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
 	TextSecret  *string      `json:"textSecret,omitempty"`
 	CertOptions *CertOptions `json:"certOptions,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
-	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
-	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-	TemplateClientID *string `json:"__template_clientId,omitempty"`
-	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
-	TemplateResource *string `json:"__template_resource,omitempty"`
 }
 
 func (i InputOffice365MsgTrace) MarshalJSON() ([]byte, error) {
@@ -16384,34 +15512,6 @@ func (i *InputOffice365MsgTrace) GetCertOptions() *CertOptions {
 	return i.CertOptions
 }
 
-func (i *InputOffice365MsgTrace) GetTemplateURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateURL
-}
-
-func (i *InputOffice365MsgTrace) GetTemplateTenantID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateTenantID
-}
-
-func (i *InputOffice365MsgTrace) GetTemplateClientID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateClientID
-}
-
-func (i *InputOffice365MsgTrace) GetTemplateResource() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateResource
-}
-
 type TypeOffice365Service string
 
 const (
@@ -16540,12 +15640,6 @@ type InputOffice365Service struct {
 	ClientSecret *string `json:"clientSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
-	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
-	TemplateAppID *string `json:"__template_appId,omitempty"`
-	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
-	TemplateClientSecret *string `json:"__template_clientSecret,omitempty"`
 }
 
 func (i InputOffice365Service) MarshalJSON() ([]byte, error) {
@@ -16741,27 +15835,6 @@ func (i *InputOffice365Service) GetTextSecret() *string {
 	return i.TextSecret
 }
 
-func (i *InputOffice365Service) GetTemplateTenantID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateTenantID
-}
-
-func (i *InputOffice365Service) GetTemplateAppID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAppID
-}
-
-func (i *InputOffice365Service) GetTemplateClientSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateClientSecret
-}
-
 type TypeOffice365Mgmt string
 
 const (
@@ -16894,14 +15967,6 @@ type InputOffice365Mgmt struct {
 	ClientSecret *string `json:"clientSecret,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
-	// Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
-	TemplateAppID *string `json:"__template_appId,omitempty"`
-	// Binds 'publisherIdentifier' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'publisherIdentifier' at runtime.
-	TemplatePublisherIdentifier *string `json:"__template_publisherIdentifier,omitempty"`
-	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
-	TemplateClientSecret *string `json:"__template_clientSecret,omitempty"`
 }
 
 func (i InputOffice365Mgmt) MarshalJSON() ([]byte, error) {
@@ -17109,34 +16174,6 @@ func (i *InputOffice365Mgmt) GetTextSecret() *string {
 		return nil
 	}
 	return i.TextSecret
-}
-
-func (i *InputOffice365Mgmt) GetTemplateTenantID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateTenantID
-}
-
-func (i *InputOffice365Mgmt) GetTemplateAppID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAppID
-}
-
-func (i *InputOffice365Mgmt) GetTemplatePublisherIdentifier() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePublisherIdentifier
-}
-
-func (i *InputOffice365Mgmt) GetTemplateClientSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateClientSecret
 }
 
 type TypeEdgePrometheus string
@@ -17387,16 +16424,6 @@ type InputEdgePrometheus struct {
 	Password *string `json:"password,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
 }
 
 func (i InputEdgePrometheus) MarshalJSON() ([]byte, error) {
@@ -17732,41 +16759,6 @@ func (i *InputEdgePrometheus) GetCredentialsSecret() *string {
 	return i.CredentialsSecret
 }
 
-func (i *InputEdgePrometheus) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
-}
-
-func (i *InputEdgePrometheus) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputEdgePrometheus) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputEdgePrometheus) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputEdgePrometheus) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
 type CreateInputTypePrometheus string
 
 const (
@@ -17954,18 +16946,6 @@ type InputPrometheus struct {
 	Password *string `json:"password,omitempty"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitempty"`
-	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
-	TemplateLogLevel *string `json:"__template_logLevel,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
 }
 
 func (i InputPrometheus) MarshalJSON() ([]byte, error) {
@@ -18308,48 +17288,6 @@ func (i *InputPrometheus) GetCredentialsSecret() *string {
 	return i.CredentialsSecret
 }
 
-func (i *InputPrometheus) GetTemplateLogLevel() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLogLevel
-}
-
-func (i *InputPrometheus) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
-}
-
-func (i *InputPrometheus) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputPrometheus) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputPrometheus) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputPrometheus) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
 type TypePrometheusRw string
 
 const (
@@ -18449,16 +17387,6 @@ type InputPrometheusRw struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
-	TemplatePrometheusAPI *string `json:"__template_prometheusAPI,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputPrometheusRw) MarshalJSON() ([]byte, error) {
@@ -18759,41 +17687,6 @@ func (i *InputPrometheusRw) GetOauthHeaders() []components.ItemsTypeOauthHeaders
 	return i.OauthHeaders
 }
 
-func (i *InputPrometheusRw) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputPrometheusRw) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
-func (i *InputPrometheusRw) GetTemplatePrometheusAPI() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePrometheusAPI
-}
-
-func (i *InputPrometheusRw) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputPrometheusRw) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
-}
-
 type CreateInputTypeLoki string
 
 const (
@@ -18893,14 +17786,6 @@ type InputLoki struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputLoki) MarshalJSON() ([]byte, error) {
@@ -19201,34 +18086,6 @@ func (i *InputLoki) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	return i.OauthHeaders
 }
 
-func (i *InputLoki) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputLoki) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
-func (i *InputLoki) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputLoki) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
-}
-
 type InputGrafanaType2 string
 
 const (
@@ -19279,10 +18136,6 @@ type PrometheusAuth2 struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (p PrometheusAuth2) MarshalJSON() ([]byte, error) {
@@ -19394,20 +18247,6 @@ func (p *PrometheusAuth2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	return p.OauthHeaders
 }
 
-func (p *PrometheusAuth2) GetTemplateLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateLoginURL
-}
-
-func (p *PrometheusAuth2) GetTemplateSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateSecret
-}
-
 type LokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
@@ -19435,10 +18274,6 @@ type LokiAuth2 struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (l LokiAuth2) MarshalJSON() ([]byte, error) {
@@ -19550,20 +18385,6 @@ func (l *LokiAuth2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	return l.OauthHeaders
 }
 
-func (l *LokiAuth2) GetTemplateLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateLoginURL
-}
-
-func (l *LokiAuth2) GetTemplateSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateSecret
-}
-
 type InputGrafanaGrafana2 struct {
 	// Unique ID for this input
 	ID       string            `json:"id"`
@@ -19618,10 +18439,6 @@ type InputGrafanaGrafana2 struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
@@ -19845,20 +18662,6 @@ func (i *InputGrafanaGrafana2) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputGrafanaGrafana2) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputGrafanaGrafana2) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type InputGrafanaType1 string
 
 const (
@@ -19909,10 +18712,6 @@ type PrometheusAuth1 struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (p PrometheusAuth1) MarshalJSON() ([]byte, error) {
@@ -20024,20 +18823,6 @@ func (p *PrometheusAuth1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	return p.OauthHeaders
 }
 
-func (p *PrometheusAuth1) GetTemplateLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateLoginURL
-}
-
-func (p *PrometheusAuth1) GetTemplateSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateSecret
-}
-
 type LokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
@@ -20065,10 +18850,6 @@ type LokiAuth1 struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (l LokiAuth1) MarshalJSON() ([]byte, error) {
@@ -20180,20 +18961,6 @@ func (l *LokiAuth1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	return l.OauthHeaders
 }
 
-func (l *LokiAuth1) GetTemplateLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateLoginURL
-}
-
-func (l *LokiAuth1) GetTemplateSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateSecret
-}
-
 type InputGrafanaGrafana1 struct {
 	// Unique ID for this input
 	ID       string            `json:"id"`
@@ -20248,10 +19015,6 @@ type InputGrafanaGrafana1 struct {
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                                    `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
@@ -20473,20 +19236,6 @@ func (i *InputGrafanaGrafana1) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputGrafanaGrafana1) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputGrafanaGrafana1) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type InputGrafanaType string
@@ -21025,8 +19774,6 @@ type ProxyModeElastic struct {
 	RemoveHeaders []string `json:"removeHeaders,omitempty"`
 	// Amount of time, in seconds, to wait for a proxy request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (p ProxyModeElastic) MarshalJSON() ([]byte, error) {
@@ -21103,13 +19850,6 @@ func (p *ProxyModeElastic) GetTimeoutSec() *float64 {
 	return p.TimeoutSec
 }
 
-func (p *ProxyModeElastic) GetTemplateURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateURL
-}
-
 type InputElastic struct {
 	// Unique ID for this input
 	ID       string                 `json:"id"`
@@ -21174,10 +19914,6 @@ type InputElastic struct {
 	AuthTokens []string `json:"authTokens,omitempty"`
 	// Custom version information to respond to requests
 	CustomAPIVersion *string `json:"customAPIVersion,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputElastic) MarshalJSON() ([]byte, error) {
@@ -21443,20 +20179,6 @@ func (i *InputElastic) GetCustomAPIVersion() *string {
 	return i.CustomAPIVersion
 }
 
-func (i *InputElastic) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputElastic) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type CreateInputTypeAzureBlob string
 
 const (
@@ -21541,14 +20263,6 @@ type InputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                                `json:"clientTextSecret,omitempty"`
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
-	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-	TemplateQueueName *string `json:"__template_queueName,omitempty"`
-	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
-	TemplateConnectionString *string `json:"__template_connectionString,omitempty"`
-	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
-	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-	TemplateClientID *string `json:"__template_clientId,omitempty"`
 }
 
 func (i InputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -21793,34 +20507,6 @@ func (i *InputAzureBlob) GetCertificate() *components.CertificateTypeAzureBlobAu
 	return i.Certificate
 }
 
-func (i *InputAzureBlob) GetTemplateQueueName() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateQueueName
-}
-
-func (i *InputAzureBlob) GetTemplateConnectionString() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateConnectionString
-}
-
-func (i *InputAzureBlob) GetTemplateTenantID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateTenantID
-}
-
-func (i *InputAzureBlob) GetTemplateClientID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateClientID
-}
-
 type CreateInputTypeSplunkHec string
 
 const (
@@ -21991,12 +20677,6 @@ type InputSplunkHec struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitempty"`
 	Description      *string `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
-	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitempty"`
 }
 
 func (i InputSplunkHec) MarshalJSON() ([]byte, error) {
@@ -22276,27 +20956,6 @@ func (i *InputSplunkHec) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputSplunkHec) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputSplunkHec) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
-func (i *InputSplunkHec) GetTemplateSplunkHecAPI() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSplunkHecAPI
-}
-
 type TypeSplunkSearch string
 
 const (
@@ -22524,10 +21183,6 @@ type InputSplunkSearch struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -22877,20 +21532,6 @@ func (i *InputSplunkSearch) GetOauthHeaders() []components.ItemsTypeOauthHeaders
 	return i.OauthHeaders
 }
 
-func (i *InputSplunkSearch) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputSplunkSearch) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
-}
-
 type CreateInputTypeSplunk string
 
 const (
@@ -23051,10 +21692,6 @@ type InputSplunk struct {
 	ExtractMetrics *bool `json:"extractMetrics,omitempty"`
 	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
 	Compress *CreateInputCompression `json:"compress,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputSplunk) MarshalJSON() ([]byte, error) {
@@ -23271,20 +21908,6 @@ func (i *InputSplunk) GetCompress() *CreateInputCompression {
 	return i.Compress
 }
 
-func (i *InputSplunk) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputSplunk) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type TypeHTTP string
 
 const (
@@ -23367,12 +21990,6 @@ type InputHTTP struct {
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitempty"`
 	Description   *string                             `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
-	// Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
-	TemplateSplunkHecAPI *string `json:"__template_splunkHecAPI,omitempty"`
 }
 
 func (i InputHTTP) MarshalJSON() ([]byte, error) {
@@ -23610,27 +22227,6 @@ func (i *InputHTTP) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputHTTP) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputHTTP) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
-func (i *InputHTTP) GetTemplateSplunkHecAPI() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSplunkHecAPI
-}
-
 type CreateInputTypeMsk string
 
 const (
@@ -23749,16 +22345,6 @@ type InputMsk struct {
 	AwsAPIKey       *string  `json:"awsApiKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (i InputMsk) MarshalJSON() ([]byte, error) {
@@ -24099,41 +22685,6 @@ func (i *InputMsk) GetAwsSecret() *string {
 		return nil
 	}
 	return i.AwsSecret
-}
-
-func (i *InputMsk) GetTemplateAwsSecretKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsSecretKey
-}
-
-func (i *InputMsk) GetTemplateRegion() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateRegion
-}
-
-func (i *InputMsk) GetTemplateAssumeRoleArn() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleArn
-}
-
-func (i *InputMsk) GetTemplateAssumeRoleExternalID() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAssumeRoleExternalID
-}
-
-func (i *InputMsk) GetTemplateAwsAPIKey() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateAwsAPIKey
 }
 
 type CreateInputTypeKafka string

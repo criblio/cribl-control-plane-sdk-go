@@ -169,12 +169,6 @@ type OutputCloudflareR2 struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputCloudflareR2) MarshalJSON() ([]byte, error) {
@@ -594,27 +588,6 @@ func (o *OutputCloudflareR2) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputCloudflareR2) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputCloudflareR2) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
-}
-
-func (o *OutputCloudflareR2) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type TypeMicrosoftFabric string
 
 const (
@@ -878,10 +851,6 @@ type OutputMicrosoftFabric struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsMicrosoftFabric           `json:"pqControls,omitempty"`
-	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-	TemplateTopic *string `json:"__template_topic,omitempty"`
-	// Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
-	TemplateBootstrapServer *string `json:"__template_bootstrap_server,omitempty"`
 }
 
 func (o OutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
@@ -1147,20 +1116,6 @@ func (o *OutputMicrosoftFabric) GetPqControls() *PqControlsMicrosoftFabric {
 	return o.PqControls
 }
 
-func (o *OutputMicrosoftFabric) GetTemplateTopic() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTopic
-}
-
-func (o *OutputMicrosoftFabric) GetTemplateBootstrapServer() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBootstrapServer
-}
-
 type TypeDatabricks string
 
 const (
@@ -1284,8 +1239,6 @@ type OutputDatabricks struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
 }
 
 func (o OutputDatabricks) MarshalJSON() ([]byte, error) {
@@ -1656,13 +1609,6 @@ func (o *OutputDatabricks) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputDatabricks) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
-}
-
 type TypeChronicle string
 
 const (
@@ -1849,8 +1795,6 @@ type OutputChronicle struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsChronicle                 `json:"pqControls,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
 }
 
 func (o OutputChronicle) MarshalJSON() ([]byte, error) {
@@ -2184,13 +2128,6 @@ func (o *OutputChronicle) GetPqControls() *PqControlsChronicle {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputChronicle) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
 }
 
 type TypeSentinelOneAiSiem string
@@ -3493,8 +3430,6 @@ type OutputDynatraceHTTP struct {
 	ActiveGateDomain *string `json:"activeGateDomain,omitempty"`
 	// URL to send events to. Can be overwritten by an event's __url field.
 	URL *string `json:"url,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputDynatraceHTTP) MarshalJSON() ([]byte, error) {
@@ -3823,13 +3758,6 @@ func (o *OutputDynatraceHTTP) GetURL() *string {
 	return o.URL
 }
 
-func (o *OutputDynatraceHTTP) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
 type CreateOutputTypeNetflow string
 
 const (
@@ -3858,10 +3786,6 @@ type HostNetflow struct {
 	Host string `json:"host"`
 	// Destination port, default is 2055
 	Port float64 `json:"port"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (h HostNetflow) MarshalJSON() ([]byte, error) {
@@ -3887,20 +3811,6 @@ func (h *HostNetflow) GetPort() float64 {
 		return 0.0
 	}
 	return h.Port
-}
-
-func (h *HostNetflow) GetTemplateHost() *string {
-	if h == nil {
-		return nil
-	}
-	return h.TemplateHost
-}
-
-func (h *HostNetflow) GetTemplatePort() *string {
-	if h == nil {
-		return nil
-	}
-	return h.TemplatePort
 }
 
 type OutputNetflow struct {
@@ -4189,8 +4099,6 @@ type OutputXsiam struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsXsiam                     `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputXsiam) MarshalJSON() ([]byte, error) {
@@ -4503,13 +4411,6 @@ func (o *OutputXsiam) GetPqControls() *PqControlsXsiam {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputXsiam) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
 }
 
 type TypeClickHouse string
@@ -4851,16 +4752,6 @@ type OutputClickHouse struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsClickHouse                `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
-	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
-	TemplateDatabase *string `json:"__template_database,omitempty"`
-	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
-	TemplateTableName *string `json:"__template_tableName,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
@@ -5301,41 +5192,6 @@ func (o *OutputClickHouse) GetPqControls() *PqControlsClickHouse {
 	return o.PqControls
 }
 
-func (o *OutputClickHouse) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
-func (o *OutputClickHouse) GetTemplateDatabase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateDatabase
-}
-
-func (o *OutputClickHouse) GetTemplateTableName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTableName
-}
-
-func (o *OutputClickHouse) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputClickHouse) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
-}
-
 type TypeDiskSpool string
 
 const (
@@ -5593,18 +5449,6 @@ type OutputCriblLake struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
-	TemplateDestPath *string `json:"__template_destPath,omitempty"`
 }
 
 func (o OutputCriblLake) MarshalJSON() ([]byte, error) {
@@ -5954,48 +5798,6 @@ func (o *OutputCriblLake) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputCriblLake) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputCriblLake) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputCriblLake) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputCriblLake) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputCriblLake) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputCriblLake) GetTemplateDestPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateDestPath
-}
-
 type CreateOutputTypeSecurityLake string
 
 const (
@@ -6158,18 +5960,6 @@ type OutputSecurityLake struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputSecurityLake) MarshalJSON() ([]byte, error) {
@@ -6603,48 +6393,6 @@ func (o *OutputSecurityLake) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputSecurityLake) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputSecurityLake) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputSecurityLake) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputSecurityLake) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputSecurityLake) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputSecurityLake) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type TypeDlS3 string
 
 const (
@@ -6793,20 +6541,6 @@ type OutputDlS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputDlS3) MarshalJSON() ([]byte, error) {
@@ -7268,55 +7002,6 @@ func (o *OutputDlS3) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputDlS3) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputDlS3) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputDlS3) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputDlS3) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputDlS3) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputDlS3) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
-}
-
-func (o *OutputDlS3) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type TypeCrowdstrikeNextGenSiem string
 
 const (
@@ -7429,8 +7114,6 @@ type OutputCrowdstrikeNextGenSiem struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsCrowdstrikeNextGenSiem    `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputCrowdstrikeNextGenSiem) MarshalJSON() ([]byte, error) {
@@ -7710,13 +7393,6 @@ func (o *OutputCrowdstrikeNextGenSiem) GetPqControls() *PqControlsCrowdstrikeNex
 	return o.PqControls
 }
 
-func (o *OutputCrowdstrikeNextGenSiem) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
 type TypeHumioHec string
 
 const (
@@ -7829,8 +7505,6 @@ type OutputHumioHec struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsHumioHec                  `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputHumioHec) MarshalJSON() ([]byte, error) {
@@ -8110,13 +7784,6 @@ func (o *OutputHumioHec) GetPqControls() *PqControlsHumioHec {
 	return o.PqControls
 }
 
-func (o *OutputHumioHec) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
 type TypeCriblSearchEngine string
 
 const (
@@ -8239,8 +7906,6 @@ type OutputCriblSearchEngine struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsCriblSearchEngine         `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputCriblSearchEngine) MarshalJSON() ([]byte, error) {
@@ -8562,13 +8227,6 @@ func (o *OutputCriblSearchEngine) GetPqControls() *PqControlsCriblSearchEngine {
 	return o.PqControls
 }
 
-func (o *OutputCriblSearchEngine) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
 type CreateOutputTypeCriblHTTP string
 
 const (
@@ -8691,8 +8349,6 @@ type OutputCriblHTTP struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsCriblHTTP                 `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputCriblHTTP) MarshalJSON() ([]byte, error) {
@@ -9014,13 +8670,6 @@ func (o *OutputCriblHTTP) GetPqControls() *PqControlsCriblHTTP {
 	return o.PqControls
 }
 
-func (o *OutputCriblHTTP) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
 type CreateOutputTypeCriblTCP string
 
 const (
@@ -9127,10 +8776,6 @@ type OutputCriblTCP struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsCriblTCP                  `json:"pqControls,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (o OutputCriblTCP) MarshalJSON() ([]byte, error) {
@@ -9396,20 +9041,6 @@ func (o *OutputCriblTCP) GetPqControls() *PqControlsCriblTCP {
 	return o.PqControls
 }
 
-func (o *OutputCriblTCP) GetTemplateHost() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateHost
-}
-
-func (o *OutputCriblTCP) GetTemplatePort() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplatePort
-}
-
 type TypeDataset string
 
 const (
@@ -9595,8 +9226,6 @@ type OutputDataset struct {
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
-	TemplateCustomURL *string `json:"__template_customUrl,omitempty"`
 }
 
 func (o OutputDataset) MarshalJSON() ([]byte, error) {
@@ -9916,13 +9545,6 @@ func (o *OutputDataset) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
-}
-
-func (o *OutputDataset) GetTemplateCustomURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateCustomURL
 }
 
 type TypeServiceNow string
@@ -10560,10 +10182,6 @@ type OutputOpenTelemetry struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsOpenTelemetry             `json:"pqControls,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -10983,20 +10601,6 @@ func (o *OutputOpenTelemetry) GetPqControls() *PqControlsOpenTelemetry {
 	return o.PqControls
 }
 
-func (o *OutputOpenTelemetry) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputOpenTelemetry) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
-}
-
 type TypeRing string
 
 const (
@@ -11314,12 +10918,6 @@ type OutputPrometheus struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputPrometheus) MarshalJSON() ([]byte, error) {
@@ -11681,27 +11279,6 @@ func (o *OutputPrometheus) GetOauthHeaders() []components.ItemsTypeOauthHeaders 
 		return nil
 	}
 	return o.OauthHeaders
-}
-
-func (o *OutputPrometheus) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
-func (o *OutputPrometheus) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputPrometheus) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
 }
 
 type CreateOutputTypeLoki string
@@ -12273,10 +11850,6 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputGrafanaCloudPqControls2       `json:"pqControls,omitempty"`
-	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
-	TemplateLokiURL *string `json:"__template_lokiUrl,omitempty"`
-	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
-	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitempty"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
@@ -12577,20 +12150,6 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetPqControls() *OutputGrafanaCloudPqC
 	return o.PqControls
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplateLokiURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLokiURL
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplatePrometheusURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplatePrometheusURL
-}
-
 type OutputGrafanaCloudType1 string
 
 const (
@@ -12707,10 +12266,6 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputGrafanaCloudPqControls1       `json:"pqControls,omitempty"`
-	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
-	TemplateLokiURL *string `json:"__template_lokiUrl,omitempty"`
-	// Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
-	TemplatePrometheusURL *string `json:"__template_prometheusUrl,omitempty"`
 }
 
 func (o OutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
@@ -13009,20 +12564,6 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetPqControls() *OutputGrafanaCloudPqC
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplateLokiURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLokiURL
-}
-
-func (o *OutputGrafanaCloudGrafanaCloud1) GetTemplatePrometheusURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplatePrometheusURL
 }
 
 type OutputGrafanaCloudType string
@@ -13811,8 +13352,6 @@ type OutputSumoLogic struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsSumoLogic                 `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputSumoLogic) MarshalJSON() ([]byte, error) {
@@ -14092,13 +13631,6 @@ func (o *OutputSumoLogic) GetPqControls() *PqControlsSumoLogic {
 	return o.PqControls
 }
 
-func (o *OutputSumoLogic) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
 type CreateOutputTypeSnmp string
 
 const (
@@ -14127,10 +13659,6 @@ type HostSnmp struct {
 	Host string `json:"host"`
 	// Destination port, default is 162
 	Port float64 `json:"port"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (h HostSnmp) MarshalJSON() ([]byte, error) {
@@ -14156,20 +13684,6 @@ func (h *HostSnmp) GetPort() float64 {
 		return 0.0
 	}
 	return h.Port
-}
-
-func (h *HostSnmp) GetTemplateHost() *string {
-	if h == nil {
-		return nil
-	}
-	return h.TemplateHost
-}
-
-func (h *HostSnmp) GetTemplatePort() *string {
-	if h == nil {
-		return nil
-	}
-	return h.TemplatePort
 }
 
 type OutputSnmp struct {
@@ -14405,20 +13919,6 @@ type OutputSqs struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsSqs                       `json:"pqControls,omitempty"`
-	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-	TemplateQueueName *string `json:"__template_queueName,omitempty"`
-	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
-	TemplateAwsAccountID *string `json:"__template_awsAccountId,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputSqs) MarshalJSON() ([]byte, error) {
@@ -14719,55 +14219,6 @@ func (o *OutputSqs) GetPqControls() *PqControlsSqs {
 	return o.PqControls
 }
 
-func (o *OutputSqs) GetTemplateQueueName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateQueueName
-}
-
-func (o *OutputSqs) GetTemplateAwsAccountID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAccountID
-}
-
-func (o *OutputSqs) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputSqs) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputSqs) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputSqs) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputSqs) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type TypeSns string
 
 const (
@@ -14894,16 +14345,6 @@ type OutputSns struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsSns                       `json:"pqControls,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputSns) MarshalJSON() ([]byte, error) {
@@ -15160,41 +14601,6 @@ func (o *OutputSns) GetPqControls() *PqControlsSns {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputSns) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputSns) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputSns) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputSns) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputSns) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }
 
 type TypeRouter string
@@ -16391,14 +15797,6 @@ type OutputMinio struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputMinio) MarshalJSON() ([]byte, error) {
@@ -16818,34 +16216,6 @@ func (o *OutputMinio) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputMinio) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputMinio) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputMinio) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
-}
-
-func (o *OutputMinio) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type TypeCloudwatch string
 
 const (
@@ -16951,16 +16321,6 @@ type OutputCloudwatch struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsCloudwatch                `json:"pqControls,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputCloudwatch) MarshalJSON() ([]byte, error) {
@@ -17226,41 +16586,6 @@ func (o *OutputCloudwatch) GetPqControls() *PqControlsCloudwatch {
 	return o.PqControls
 }
 
-func (o *OutputCloudwatch) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputCloudwatch) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputCloudwatch) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputCloudwatch) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputCloudwatch) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type TypeInfluxdb string
 
 const (
@@ -17465,16 +16790,6 @@ type OutputInfluxdb struct {
 	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
-	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
-	TemplateDatabase *string `json:"__template_database,omitempty"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputInfluxdb) MarshalJSON() ([]byte, error) {
@@ -17873,41 +17188,6 @@ func (o *OutputInfluxdb) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	return o.OauthHeaders
 }
 
-func (o *OutputInfluxdb) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
-func (o *OutputInfluxdb) GetTemplateDatabase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateDatabase
-}
-
-func (o *OutputInfluxdb) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputInfluxdb) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputInfluxdb) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
-}
-
 type TypeNewrelicEvents string
 
 const (
@@ -18023,14 +17303,6 @@ type OutputNewrelicEvents struct {
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
-	TemplateAccountID *string `json:"__template_accountId,omitempty"`
-	// Binds 'eventType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'eventType' at runtime.
-	TemplateEventType *string `json:"__template_eventType,omitempty"`
-	// Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
-	TemplateCustomURL *string `json:"__template_customUrl,omitempty"`
 }
 
 func (o OutputNewrelicEvents) MarshalJSON() ([]byte, error) {
@@ -18324,34 +17596,6 @@ func (o *OutputNewrelicEvents) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputNewrelicEvents) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputNewrelicEvents) GetTemplateAccountID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAccountID
-}
-
-func (o *OutputNewrelicEvents) GetTemplateEventType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateEventType
-}
-
-func (o *OutputNewrelicEvents) GetTemplateCustomURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateCustomURL
-}
-
 type TypeNewrelic string
 
 const (
@@ -18526,12 +17770,6 @@ type OutputNewrelic struct {
 	APIKey *string `json:"apiKey,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
-	TemplateLogType *string `json:"__template_logType,omitempty"`
-	// Binds 'messageField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageField' at runtime.
-	TemplateMessageField *string `json:"__template_messageField,omitempty"`
 }
 
 func (o OutputNewrelic) MarshalJSON() ([]byte, error) {
@@ -18837,27 +18075,6 @@ func (o *OutputNewrelic) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
-}
-
-func (o *OutputNewrelic) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputNewrelic) GetTemplateLogType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLogType
-}
-
-func (o *OutputNewrelic) GetTemplateMessageField() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateMessageField
 }
 
 type TypeElasticCloud string
@@ -19330,8 +18547,6 @@ type URLElastic struct {
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (u URLElastic) MarshalJSON() ([]byte, error) {
@@ -19357,13 +18572,6 @@ func (u *URLElastic) GetWeight() *float64 {
 		return nil
 	}
 	return u.Weight
-}
-
-func (u *URLElastic) GetTemplateURL() *string {
-	if u == nil {
-		return nil
-	}
-	return u.TemplateURL
 }
 
 type PqControlsElastic struct {
@@ -19472,8 +18680,6 @@ type OutputElastic struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsElastic                   `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputElastic) MarshalJSON() ([]byte, error) {
@@ -19823,13 +19029,6 @@ func (o *OutputElastic) GetPqControls() *PqControlsElastic {
 	return o.PqControls
 }
 
-func (o *OutputElastic) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
 type CreateOutputTypeMsk string
 
 const (
@@ -19965,18 +19164,6 @@ type OutputMsk struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsMsk                       `json:"pqControls,omitempty"`
-	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-	TemplateTopic *string `json:"__template_topic,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputMsk) MarshalJSON() ([]byte, error) {
@@ -20354,48 +19541,6 @@ func (o *OutputMsk) GetPqControls() *PqControlsMsk {
 	return o.PqControls
 }
 
-func (o *OutputMsk) GetTemplateTopic() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTopic
-}
-
-func (o *OutputMsk) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputMsk) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputMsk) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputMsk) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputMsk) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type CreateOutputTypeConfluentCloud string
 
 const (
@@ -20509,8 +19654,6 @@ type OutputConfluentCloud struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsConfluentCloud            `json:"pqControls,omitempty"`
-	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-	TemplateTopic *string `json:"__template_topic,omitempty"`
 }
 
 func (o OutputConfluentCloud) MarshalJSON() ([]byte, error) {
@@ -20804,13 +19947,6 @@ func (o *OutputConfluentCloud) GetPqControls() *PqControlsConfluentCloud {
 	return o.PqControls
 }
 
-func (o *OutputConfluentCloud) GetTemplateTopic() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTopic
-}
-
 type CreateOutputTypeKafka string
 
 const (
@@ -20924,8 +20060,6 @@ type OutputKafka struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsKafka                     `json:"pqControls,omitempty"`
-	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-	TemplateTopic *string `json:"__template_topic,omitempty"`
 }
 
 func (o OutputKafka) MarshalJSON() ([]byte, error) {
@@ -21219,13 +20353,6 @@ func (o *OutputKafka) GetPqControls() *PqControlsKafka {
 	return o.PqControls
 }
 
-func (o *OutputKafka) GetTemplateTopic() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTopic
-}
-
 type TypeExabeam string
 
 const (
@@ -21321,8 +20448,6 @@ type OutputExabeam struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
 }
 
 func (o OutputExabeam) MarshalJSON() ([]byte, error) {
@@ -21595,13 +20720,6 @@ func (o *OutputExabeam) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputExabeam) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
 type CreateOutputTypeGooglePubsub string
 
 const (
@@ -21701,10 +20819,6 @@ type OutputGooglePubsub struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsGooglePubsub              `json:"pqControls,omitempty"`
-	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
-	TemplateTopicName *string `json:"__template_topicName,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
 }
 
 func (o OutputGooglePubsub) MarshalJSON() ([]byte, error) {
@@ -21940,20 +21054,6 @@ func (o *OutputGooglePubsub) GetPqControls() *PqControlsGooglePubsub {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputGooglePubsub) GetTemplateTopicName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTopicName
-}
-
-func (o *OutputGooglePubsub) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
 }
 
 type TypeGoogleCloudLogging string
@@ -22834,12 +21934,6 @@ type OutputGoogleCloudStorage struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitempty"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
 }
 
 func (o OutputGoogleCloudStorage) MarshalJSON() ([]byte, error) {
@@ -23245,27 +22339,6 @@ func (o *OutputGoogleCloudStorage) GetAwsSecret() *string {
 	return o.AwsSecret
 }
 
-func (o *OutputGoogleCloudStorage) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputGoogleCloudStorage) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputGoogleCloudStorage) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
-}
-
 type TypeGoogleChronicle string
 
 const (
@@ -23526,12 +22599,6 @@ type OutputGoogleChronicle struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsGoogleChronicle           `json:"pqControls,omitempty"`
-	// Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
-	TemplateAPIVersion *string `json:"__template_apiVersion,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
-	TemplateCustomerID *string `json:"__template_customerId,omitempty"`
 }
 
 func (o OutputGoogleChronicle) MarshalJSON() ([]byte, error) {
@@ -23888,27 +22955,6 @@ func (o *OutputGoogleChronicle) GetPqControls() *PqControlsGoogleChronicle {
 	return o.PqControls
 }
 
-func (o *OutputGoogleChronicle) GetTemplateAPIVersion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAPIVersion
-}
-
-func (o *OutputGoogleChronicle) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputGoogleChronicle) GetTemplateCustomerID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateCustomerID
-}
-
 type TypeAzureEventhub string
 
 const (
@@ -24015,8 +23061,6 @@ type OutputAzureEventhub struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsAzureEventhub             `json:"pqControls,omitempty"`
-	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-	TemplateTopic *string `json:"__template_topic,omitempty"`
 }
 
 func (o OutputAzureEventhub) MarshalJSON() ([]byte, error) {
@@ -24280,13 +23324,6 @@ func (o *OutputAzureEventhub) GetPqControls() *PqControlsAzureEventhub {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputAzureEventhub) GetTemplateTopic() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTopic
 }
 
 type TypeHoneycomb string
@@ -24809,18 +23846,6 @@ type OutputKinesis struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsKinesis                   `json:"pqControls,omitempty"`
-	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
-	TemplateStreamName *string `json:"__template_streamName,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputKinesis) MarshalJSON() ([]byte, error) {
@@ -25114,48 +24139,6 @@ func (o *OutputKinesis) GetPqControls() *PqControlsKinesis {
 	return o.PqControls
 }
 
-func (o *OutputKinesis) GetTemplateStreamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateStreamName
-}
-
-func (o *OutputKinesis) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputKinesis) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputKinesis) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputKinesis) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputKinesis) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type TypeAzureLogs string
 
 const (
@@ -25294,10 +24277,6 @@ type OutputAzureLogs struct {
 	WorkspaceKey *string `json:"workspaceKey,omitempty"`
 	// Select or create a stored secret that references your access key and secret key
 	KeypairSecret *string `json:"keypairSecret,omitempty"`
-	// Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
-	TemplateWorkspaceID *string `json:"__template_workspaceId,omitempty"`
-	// Binds 'workspaceKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceKey' at runtime.
-	TemplateWorkspaceKey *string `json:"__template_workspaceKey,omitempty"`
 }
 
 func (o OutputAzureLogs) MarshalJSON() ([]byte, error) {
@@ -25589,20 +24568,6 @@ func (o *OutputAzureLogs) GetKeypairSecret() *string {
 		return nil
 	}
 	return o.KeypairSecret
-}
-
-func (o *OutputAzureLogs) GetTemplateWorkspaceID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateWorkspaceID
-}
-
-func (o *OutputAzureLogs) GetTemplateWorkspaceKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateWorkspaceKey
 }
 
 type TypeAzureDataExplorer string
@@ -26040,24 +25005,6 @@ type OutputAzureDataExplorer struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsAzureDataExplorer         `json:"pqControls,omitempty"`
-	// Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
-	TemplateClusterURL *string `json:"__template_clusterUrl,omitempty"`
-	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
-	TemplateDatabase *string `json:"__template_database,omitempty"`
-	// Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.
-	TemplateTable *string `json:"__template_table,omitempty"`
-	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
-	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-	TemplateClientID *string `json:"__template_clientId,omitempty"`
-	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
-	TemplateScope *string `json:"__template_scope,omitempty"`
-	// Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
-	TemplateClientSecret *string `json:"__template_clientSecret,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
-	// Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
-	TemplateIngestURL *string `json:"__template_ingestUrl,omitempty"`
 }
 
 func (o OutputAzureDataExplorer) MarshalJSON() ([]byte, error) {
@@ -26659,69 +25606,6 @@ func (o *OutputAzureDataExplorer) GetPqControls() *PqControlsAzureDataExplorer {
 	return o.PqControls
 }
 
-func (o *OutputAzureDataExplorer) GetTemplateClusterURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateClusterURL
-}
-
-func (o *OutputAzureDataExplorer) GetTemplateDatabase() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateDatabase
-}
-
-func (o *OutputAzureDataExplorer) GetTemplateTable() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTable
-}
-
-func (o *OutputAzureDataExplorer) GetTemplateTenantID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTenantID
-}
-
-func (o *OutputAzureDataExplorer) GetTemplateClientID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateClientID
-}
-
-func (o *OutputAzureDataExplorer) GetTemplateScope() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateScope
-}
-
-func (o *OutputAzureDataExplorer) GetTemplateClientSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateClientSecret
-}
-
-func (o *OutputAzureDataExplorer) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
-}
-
-func (o *OutputAzureDataExplorer) GetTemplateIngestURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateIngestURL
-}
-
 type CreateOutputTypeAzureBlob string
 
 const (
@@ -26884,16 +25768,6 @@ type OutputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                                `json:"clientTextSecret,omitempty"`
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitempty"`
-	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
-	TemplateContainerName *string `json:"__template_containerName,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
-	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
-	TemplateConnectionString *string `json:"__template_connectionString,omitempty"`
-	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-	TemplateTenantID *string `json:"__template_tenantId,omitempty"`
-	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-	TemplateClientID *string `json:"__template_clientId,omitempty"`
 }
 
 func (o OutputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -27306,41 +26180,6 @@ func (o *OutputAzureBlob) GetCertificate() *components.CertificateTypeAzureBlobA
 	return o.Certificate
 }
 
-func (o *OutputAzureBlob) GetTemplateContainerName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateContainerName
-}
-
-func (o *OutputAzureBlob) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
-}
-
-func (o *OutputAzureBlob) GetTemplateConnectionString() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateConnectionString
-}
-
-func (o *OutputAzureBlob) GetTemplateTenantID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateTenantID
-}
-
-func (o *OutputAzureBlob) GetTemplateClientID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateClientID
-}
-
 type CreateOutputTypeS3 string
 
 const (
@@ -27489,20 +26328,6 @@ type OutputS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputS3) MarshalJSON() ([]byte, error) {
@@ -27964,55 +26789,6 @@ func (o *OutputS3) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputS3) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputS3) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputS3) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputS3) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputS3) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputS3) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
-}
-
-func (o *OutputS3) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
-}
-
 type TypeFilesystem string
 
 const (
@@ -28120,8 +26896,6 @@ type OutputFilesystem struct {
 	DeadletterPath *string `json:"deadletterPath,omitempty"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitempty"`
-	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-	TemplateFormat *string `json:"__template_format,omitempty"`
 }
 
 func (o OutputFilesystem) MarshalJSON() ([]byte, error) {
@@ -28434,13 +27208,6 @@ func (o *OutputFilesystem) GetMaxRetryNum() *float64 {
 		return nil
 	}
 	return o.MaxRetryNum
-}
-
-func (o *OutputFilesystem) GetTemplateFormat() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateFormat
 }
 
 type TypeSignalfx string
@@ -29317,10 +28084,6 @@ type OutputTcpjson struct {
 	AuthToken *string `json:"authToken,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (o OutputTcpjson) MarshalJSON() ([]byte, error) {
@@ -29600,20 +28363,6 @@ func (o *OutputTcpjson) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputTcpjson) GetTemplateHost() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateHost
-}
-
-func (o *OutputTcpjson) GetTemplatePort() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplatePort
-}
-
 type TypeWizHec string
 
 const (
@@ -29637,47 +28386,6 @@ func (e *TypeWizHec) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type URLWizHec struct {
-	// URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
-	URL string `json:"url"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `json:"weight,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
-}
-
-func (u URLWizHec) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(u, "", false)
-}
-
-func (u *URLWizHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"url"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (u *URLWizHec) GetURL() string {
-	if u == nil {
-		return ""
-	}
-	return u.URL
-}
-
-func (u *URLWizHec) GetWeight() *float64 {
-	if u == nil {
-		return nil
-	}
-	return u.Weight
-}
-
-func (u *URLWizHec) GetTemplateURL() *string {
-	if u == nil {
-		return nil
-	}
-	return u.TemplateURL
-}
-
 type OutputWizHec struct {
 	// Unique ID for this output
 	ID   string     `json:"id"`
@@ -29689,9 +28397,8 @@ type OutputWizHec struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool `json:"loadBalanced,omitempty"`
+	Streamtags   []string `json:"streamtags,omitempty"`
+	LoadBalanced any      `json:"loadBalanced,omitempty"`
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
 	NextQueue *string `json:"nextQueue,omitempty"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
@@ -29718,9 +28425,8 @@ type OutputWizHec struct {
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
-	// Output metrics in multiple-metric format
-	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitempty"`
+	SafeHeaders        []string `json:"safeHeaders,omitempty"`
+	EnableMultiMetrics any      `json:"enableMultiMetrics,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
@@ -29730,24 +28436,18 @@ type OutputWizHec struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                                 `json:"description,omitempty"`
-	// URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
-	URL *string `json:"url,omitempty"`
-	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
-	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool       `json:"excludeSelf,omitempty"`
-	Urls        []URLWizHec `json:"urls,omitempty"`
-	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
-	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	// The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
+	WizConnectorID string `json:"wiz_connector_id"`
+	// Your Wiz deployment environment.
+	WizEnvironment string `json:"wiz_environment"`
+	// Your Wiz deployment data center (e.g., us1, us8, eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
+	DataCenter    string  `json:"data_center"`
+	WizSourcetype string  `json:"wiz_sourcetype"`
+	Description   *string `json:"description,omitempty"`
 	// Wiz Defender Auth token
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputWizHec) MarshalJSON() ([]byte, error) {
@@ -29755,7 +28455,7 @@ func (o OutputWizHec) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputWizHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"id", "type", "wiz_connector_id", "wiz_environment", "data_center", "wiz_sourcetype"}); err != nil {
 		return err
 	}
 	return nil
@@ -29803,7 +28503,7 @@ func (o *OutputWizHec) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputWizHec) GetLoadBalanced() *bool {
+func (o *OutputWizHec) GetLoadBalanced() any {
 	if o == nil {
 		return nil
 	}
@@ -29901,7 +28601,7 @@ func (o *OutputWizHec) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputWizHec) GetEnableMultiMetrics() *bool {
+func (o *OutputWizHec) GetEnableMultiMetrics() any {
 	if o == nil {
 		return nil
 	}
@@ -29943,53 +28643,39 @@ func (o *OutputWizHec) GetOnBackpressure() *components.BackpressureBehaviorOptio
 	return o.OnBackpressure
 }
 
+func (o *OutputWizHec) GetWizConnectorID() string {
+	if o == nil {
+		return ""
+	}
+	return o.WizConnectorID
+}
+
+func (o *OutputWizHec) GetWizEnvironment() string {
+	if o == nil {
+		return ""
+	}
+	return o.WizEnvironment
+}
+
+func (o *OutputWizHec) GetDataCenter() string {
+	if o == nil {
+		return ""
+	}
+	return o.DataCenter
+}
+
+func (o *OutputWizHec) GetWizSourcetype() string {
+	if o == nil {
+		return ""
+	}
+	return o.WizSourcetype
+}
+
 func (o *OutputWizHec) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
-}
-
-func (o *OutputWizHec) GetURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.URL
-}
-
-func (o *OutputWizHec) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputWizHec) GetExcludeSelf() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ExcludeSelf
-}
-
-func (o *OutputWizHec) GetUrls() []URLWizHec {
-	if o == nil {
-		return nil
-	}
-	return o.Urls
-}
-
-func (o *OutputWizHec) GetDNSResolvePeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DNSResolvePeriodSec
-}
-
-func (o *OutputWizHec) GetLoadBalanceStatsPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanceStatsPeriodSec
 }
 
 func (o *OutputWizHec) GetToken() *string {
@@ -30004,13 +28690,6 @@ func (o *OutputWizHec) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
-}
-
-func (o *OutputWizHec) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
 }
 
 type CreateOutputTypeSplunkHec string
@@ -30041,8 +28720,6 @@ type URLSplunkHec struct {
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (u URLSplunkHec) MarshalJSON() ([]byte, error) {
@@ -30068,13 +28745,6 @@ func (u *URLSplunkHec) GetWeight() *float64 {
 		return nil
 	}
 	return u.Weight
-}
-
-func (u *URLSplunkHec) GetTemplateURL() *string {
-	if u == nil {
-		return nil
-	}
-	return u.TemplateURL
 }
 
 type PqControlsSplunkHec struct {
@@ -30180,8 +28850,6 @@ type OutputSplunkHec struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsSplunkHec                 `json:"pqControls,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputSplunkHec) MarshalJSON() ([]byte, error) {
@@ -30515,13 +29183,6 @@ func (o *OutputSplunkHec) GetPqControls() *PqControlsSplunkHec {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputSplunkHec) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
 }
 
 type TypeSplunkLb string
@@ -31172,10 +29833,6 @@ type OutputSplunk struct {
 	AuthToken *string `json:"authToken,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (o OutputSplunk) MarshalJSON() ([]byte, error) {
@@ -31432,20 +30089,6 @@ func (o *OutputSplunk) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
-}
-
-func (o *OutputSplunk) GetTemplateHost() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateHost
-}
-
-func (o *OutputSplunk) GetTemplatePort() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplatePort
 }
 
 type CreateOutputTypeSyslog string
@@ -31721,10 +30364,6 @@ type OutputSyslog struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *PqControlsSyslog                    `json:"pqControls,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (o OutputSyslog) MarshalJSON() ([]byte, error) {
@@ -32032,20 +30671,6 @@ func (o *OutputSyslog) GetPqControls() *PqControlsSyslog {
 	return o.PqControls
 }
 
-func (o *OutputSyslog) GetTemplateHost() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateHost
-}
-
-func (o *OutputSyslog) GetTemplatePort() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplatePort
-}
-
 type TypeDevnull string
 
 const (
@@ -32348,22 +30973,6 @@ type OutputSentinel struct {
 	DceEndpoint *string `json:"dceEndpoint,omitempty"`
 	// The name of the stream (Sentinel table) in which to store the events
 	StreamName *string `json:"streamName,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
-	// Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.
-	TemplateClientID *string `json:"__template_client_id,omitempty"`
-	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
-	TemplateScope *string `json:"__template_scope,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
-	// Binds 'dcrID' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dcrID' at runtime.
-	TemplateDcrID *string `json:"__template_dcrID,omitempty"`
-	// Binds 'dceEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dceEndpoint' at runtime.
-	TemplateDceEndpoint *string `json:"__template_dceEndpoint,omitempty"`
-	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
-	TemplateStreamName *string `json:"__template_streamName,omitempty"`
 }
 
 func (o OutputSentinel) MarshalJSON() ([]byte, error) {
@@ -32755,62 +31364,6 @@ func (o *OutputSentinel) GetStreamName() *string {
 	return o.StreamName
 }
 
-func (o *OutputSentinel) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputSentinel) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
-}
-
-func (o *OutputSentinel) GetTemplateClientID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateClientID
-}
-
-func (o *OutputSentinel) GetTemplateScope() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateScope
-}
-
-func (o *OutputSentinel) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
-func (o *OutputSentinel) GetTemplateDcrID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateDcrID
-}
-
-func (o *OutputSentinel) GetTemplateDceEndpoint() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateDceEndpoint
-}
-
-func (o *OutputSentinel) GetTemplateStreamName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateStreamName
-}
-
 type TypeWebhook string
 
 const (
@@ -32915,8 +31468,6 @@ type URLWebhook struct {
 	URL string `json:"url"`
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (u URLWebhook) MarshalJSON() ([]byte, error) {
@@ -32942,13 +31493,6 @@ func (u *URLWebhook) GetWeight() *float64 {
 		return nil
 	}
 	return u.Weight
-}
-
-func (u *URLWebhook) GetTemplateURL() *string {
-	if u == nil {
-		return nil
-	}
-	return u.TemplateURL
 }
 
 type OutputWebhook struct {
@@ -33078,12 +31622,6 @@ type OutputWebhook struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputWebhook) MarshalJSON() ([]byte, error) {
@@ -33557,27 +32095,6 @@ func (o *OutputWebhook) GetLoadBalanceStatsPeriodSec() *float64 {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
-}
-
-func (o *OutputWebhook) GetTemplateLoginURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateLoginURL
-}
-
-func (o *OutputWebhook) GetTemplateSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateSecret
-}
-
-func (o *OutputWebhook) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
 }
 
 type TypeDefault string

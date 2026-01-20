@@ -134,16 +134,6 @@ type OutputSns struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputSnsPqControls      `json:"pqControls,omitempty"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitempty"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitempty"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitempty"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitempty"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitempty"`
 }
 
 func (o OutputSns) MarshalJSON() ([]byte, error) {
@@ -400,39 +390,4 @@ func (o *OutputSns) GetPqControls() *OutputSnsPqControls {
 		return nil
 	}
 	return o.PqControls
-}
-
-func (o *OutputSns) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
-func (o *OutputSns) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputSns) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputSns) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputSns) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }

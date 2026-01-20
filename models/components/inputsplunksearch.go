@@ -235,10 +235,6 @@ type InputSplunkSearch struct {
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputSplunkSearch) MarshalJSON() ([]byte, error) {
@@ -586,18 +582,4 @@ func (i *InputSplunkSearch) GetOauthHeaders() []ItemsTypeOauthHeaders {
 		return nil
 	}
 	return i.OauthHeaders
-}
-
-func (i *InputSplunkSearch) GetTemplateLoginURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateLoginURL
-}
-
-func (i *InputSplunkSearch) GetTemplateSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateSecret
 }

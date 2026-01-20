@@ -327,6 +327,12 @@ pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputSerialize
 pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputSidlookup(components.PipelineFunctionSidlookup{/* values here */})
 ```
 
+### PipelineFunctionSignalFilter
+
+```go
+pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputSignalFilter(components.PipelineFunctionSignalFilter{/* values here */})
+```
+
 ### PipelineFunctionSnmpTrapSerialize
 
 ```go

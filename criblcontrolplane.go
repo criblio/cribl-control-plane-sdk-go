@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.17.0-alpha.1768566978653-d089dcb3 and generator version 2.796.1
+// Generated from OpenAPI doc version 4.17.0-alpha.1768863791483-aeff4dcb and generator version 2.796.4
 
 import (
 	"context"
@@ -46,7 +46,8 @@ type CriblControlPlane struct {
 	SDKVersion   string
 	LakeDatasets *LakeDatasets
 	// Actions related to Collectors
-	Collectors *Collectors
+	Collectors          *Collectors
+	DatabaseConnections *DatabaseConnections
 	// Actions related to Sources
 	Sources *Sources
 	// Actions related to Destinations
@@ -113,9 +114,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.5.0-rc.27",
+		SDKVersion: "0.5.0-rc.28",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.5.0-rc.27 2.796.1 4.17.0-alpha.1768566978653-d089dcb3 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.5.0-rc.28 2.796.4 4.17.0-alpha.1768863791483-aeff4dcb github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
@@ -141,6 +142,7 @@ func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 
 	sdk.LakeDatasets = newLakeDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Collectors = newCollectors(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.DatabaseConnections = newDatabaseConnections(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Destinations = newDestinations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Pipelines = newPipelines(sdk, sdk.sdkConfiguration, sdk.hooks)
