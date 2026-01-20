@@ -182,6 +182,10 @@ type OutputOpenTelemetry struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputOpenTelemetryPqControls `json:"pqControls,omitempty"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
+	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -599,4 +603,18 @@ func (o *OutputOpenTelemetry) GetPqControls() *OutputOpenTelemetryPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputOpenTelemetry) GetTemplateLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLoginURL
+}
+
+func (o *OutputOpenTelemetry) GetTemplateSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateSecret
 }

@@ -271,6 +271,10 @@ type OutputMicrosoftFabric struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitempty"`
 	PqControls       *OutputMicrosoftFabricPqControls `json:"pqControls,omitempty"`
+	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
+	TemplateTopic *string `json:"__template_topic,omitempty"`
+	// Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
+	TemplateBootstrapServer *string `json:"__template_bootstrap_server,omitempty"`
 }
 
 func (o OutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
@@ -534,4 +538,18 @@ func (o *OutputMicrosoftFabric) GetPqControls() *OutputMicrosoftFabricPqControls
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputMicrosoftFabric) GetTemplateTopic() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTopic
+}
+
+func (o *OutputMicrosoftFabric) GetTemplateBootstrapServer() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBootstrapServer
 }
