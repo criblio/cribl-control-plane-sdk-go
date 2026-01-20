@@ -143,8 +143,6 @@ func main() {
                     TLS: components.TLSOptionsHostsItemsInherit.ToPointer(),
                     Servername: criblcontrolplanesdkgo.Pointer("<value>"),
                     Weight: criblcontrolplanesdkgo.Pointer[float64](1),
-                    TemplateHost: criblcontrolplanesdkgo.Pointer("<value>"),
-                    TemplatePort: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             },
             DNSResolvePeriodSec: criblcontrolplanesdkgo.Pointer[float64](600),
@@ -163,8 +161,6 @@ func main() {
             PqControls: &operations.PqControlsTcpjson{},
             AuthToken: criblcontrolplanesdkgo.Pointer(""),
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-            TemplateHost: criblcontrolplanesdkgo.Pointer("<value>"),
-            TemplatePort: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
     if err != nil {

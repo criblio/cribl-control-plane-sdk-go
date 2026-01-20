@@ -66,6 +66,7 @@ const (
 	PipelineFunctionConfTypeSerde                     PipelineFunctionConfType = "serde"
 	PipelineFunctionConfTypeSerialize                 PipelineFunctionConfType = "serialize"
 	PipelineFunctionConfTypeSidlookup                 PipelineFunctionConfType = "sidlookup"
+	PipelineFunctionConfTypeSignalFilter              PipelineFunctionConfType = "signal_filter"
 	PipelineFunctionConfTypeSnmpTrapSerialize         PipelineFunctionConfType = "snmp_trap_serialize"
 	PipelineFunctionConfTypeSort                      PipelineFunctionConfType = "sort"
 	PipelineFunctionConfTypeStore                     PipelineFunctionConfType = "store"
@@ -133,6 +134,7 @@ type PipelineFunctionConf struct {
 	PipelineFunctionSerde                     *PipelineFunctionSerde                     `queryParam:"inline" union:"member"`
 	PipelineFunctionSerialize                 *PipelineFunctionSerialize                 `queryParam:"inline" union:"member"`
 	PipelineFunctionSidlookup                 *PipelineFunctionSidlookup                 `queryParam:"inline" union:"member"`
+	PipelineFunctionSignalFilter              *PipelineFunctionSignalFilter              `queryParam:"inline" union:"member"`
 	PipelineFunctionSnmpTrapSerialize         *PipelineFunctionSnmpTrapSerialize         `queryParam:"inline" union:"member"`
 	PipelineFunctionSort                      *PipelineFunctionSort                      `queryParam:"inline" union:"member"`
 	PipelineFunctionStore                     *PipelineFunctionStore                     `queryParam:"inline" union:"member"`
@@ -795,6 +797,18 @@ func CreatePipelineFunctionConfSidlookup(sidlookup PipelineFunctionSidlookup) Pi
 	}
 }
 
+func CreatePipelineFunctionConfSignalFilter(signalFilter PipelineFunctionSignalFilter) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSignalFilter
+
+	typStr := PipelineFunctionSignalFilterID(typ)
+	signalFilter.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSignalFilter: &signalFilter,
+		Type:                         typ,
+	}
+}
+
 func CreatePipelineFunctionConfSnmpTrapSerialize(snmpTrapSerialize PipelineFunctionSnmpTrapSerialize) PipelineFunctionConf {
 	typ := PipelineFunctionConfTypeSnmpTrapSerialize
 
@@ -1413,6 +1427,15 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionSidlookup = pipelineFunctionSidlookup
 		u.Type = PipelineFunctionConfTypeSidlookup
 		return nil
+	case "signal_filter":
+		pipelineFunctionSignalFilter := new(PipelineFunctionSignalFilter)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSignalFilter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == signal_filter) type PipelineFunctionSignalFilter within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSignalFilter = pipelineFunctionSignalFilter
+		u.Type = PipelineFunctionConfTypeSignalFilter
+		return nil
 	case "snmp_trap_serialize":
 		pipelineFunctionSnmpTrapSerialize := new(PipelineFunctionSnmpTrapSerialize)
 		if err := utils.UnmarshalJSON(data, &pipelineFunctionSnmpTrapSerialize, "", true, nil); err != nil {
@@ -1723,6 +1746,10 @@ func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
 
 	if u.PipelineFunctionSidlookup != nil {
 		return utils.MarshalJSON(u.PipelineFunctionSidlookup, "", true)
+	}
+
+	if u.PipelineFunctionSignalFilter != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSignalFilter, "", true)
 	}
 
 	if u.PipelineFunctionSnmpTrapSerialize != nil {

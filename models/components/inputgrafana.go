@@ -59,10 +59,6 @@ type PrometheusAuth2 struct {
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (p PrometheusAuth2) MarshalJSON() ([]byte, error) {
@@ -174,20 +170,6 @@ func (p *PrometheusAuth2) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	return p.OauthHeaders
 }
 
-func (p *PrometheusAuth2) GetTemplateLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateLoginURL
-}
-
-func (p *PrometheusAuth2) GetTemplateSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateSecret
-}
-
 type LokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
@@ -215,10 +197,6 @@ type LokiAuth2 struct {
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (l LokiAuth2) MarshalJSON() ([]byte, error) {
@@ -330,20 +308,6 @@ func (l *LokiAuth2) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	return l.OauthHeaders
 }
 
-func (l *LokiAuth2) GetTemplateLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateLoginURL
-}
-
-func (l *LokiAuth2) GetTemplateSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateSecret
-}
-
 type InputGrafanaGrafana2 struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
@@ -398,10 +362,6 @@ type InputGrafanaGrafana2 struct {
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputGrafanaGrafana2) MarshalJSON() ([]byte, error) {
@@ -625,20 +585,6 @@ func (i *InputGrafanaGrafana2) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputGrafanaGrafana2) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputGrafanaGrafana2) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
-}
-
 type InputGrafanaType1 string
 
 const (
@@ -689,10 +635,6 @@ type PrometheusAuth1 struct {
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (p PrometheusAuth1) MarshalJSON() ([]byte, error) {
@@ -804,20 +746,6 @@ func (p *PrometheusAuth1) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	return p.OauthHeaders
 }
 
-func (p *PrometheusAuth1) GetTemplateLoginURL() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateLoginURL
-}
-
-func (p *PrometheusAuth1) GetTemplateSecret() *string {
-	if p == nil {
-		return nil
-	}
-	return p.TemplateSecret
-}
-
 type LokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitempty"`
@@ -845,10 +773,6 @@ type LokiAuth1 struct {
 	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitempty"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (l LokiAuth1) MarshalJSON() ([]byte, error) {
@@ -960,20 +884,6 @@ func (l *LokiAuth1) GetOauthHeaders() []ItemsTypeOauthHeaders {
 	return l.OauthHeaders
 }
 
-func (l *LokiAuth1) GetTemplateLoginURL() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateLoginURL
-}
-
-func (l *LokiAuth1) GetTemplateSecret() *string {
-	if l == nil {
-		return nil
-	}
-	return l.TemplateSecret
-}
-
 type InputGrafanaGrafana1 struct {
 	// Unique ID for this input
 	ID       *string           `json:"id,omitempty"`
@@ -1028,10 +938,6 @@ type InputGrafanaGrafana1 struct {
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeNotificationMetadata `json:"metadata,omitempty"`
 	Description *string                         `json:"description,omitempty"`
-	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-	TemplateHost *string `json:"__template_host,omitempty"`
-	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-	TemplatePort *string `json:"__template_port,omitempty"`
 }
 
 func (i InputGrafanaGrafana1) MarshalJSON() ([]byte, error) {
@@ -1253,20 +1159,6 @@ func (i *InputGrafanaGrafana1) GetDescription() *string {
 		return nil
 	}
 	return i.Description
-}
-
-func (i *InputGrafanaGrafana1) GetTemplateHost() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplateHost
-}
-
-func (i *InputGrafanaGrafana1) GetTemplatePort() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TemplatePort
 }
 
 type InputGrafanaType string

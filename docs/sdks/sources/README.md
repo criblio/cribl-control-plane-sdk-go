@@ -183,8 +183,6 @@ func main() {
             UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
             AuthToken: criblcontrolplanesdkgo.Pointer(""),
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-            TemplateHost: criblcontrolplanesdkgo.Pointer("<value>"),
-            TemplatePort: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
     if err != nil {
@@ -385,8 +383,6 @@ func main() {
             UnixSocketPerms: criblcontrolplanesdkgo.Pointer("<value>"),
             AuthToken: criblcontrolplanesdkgo.Pointer(""),
             TextSecret: criblcontrolplanesdkgo.Pointer("<value>"),
-            TemplateHost: criblcontrolplanesdkgo.Pointer("<value>"),
-            TemplatePort: criblcontrolplanesdkgo.Pointer("<value>"),
         },
     ))
     if err != nil {

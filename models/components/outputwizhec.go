@@ -31,47 +31,6 @@ func (e *OutputWizHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputWizHecURL struct {
-	// URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
-	URL string `json:"url"`
-	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-	Weight *float64 `json:"weight,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
-}
-
-func (o OutputWizHecURL) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputWizHecURL) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"url"}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputWizHecURL) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
-}
-
-func (o *OutputWizHecURL) GetWeight() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.Weight
-}
-
-func (o *OutputWizHecURL) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
-}
-
 type OutputWizHec struct {
 	// Unique ID for this output
 	ID   *string          `json:"id,omitempty"`
@@ -83,9 +42,8 @@ type OutputWizHec struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitempty"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitempty"`
-	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool `json:"loadBalanced,omitempty"`
+	Streamtags   []string `json:"streamtags,omitempty"`
+	LoadBalanced any      `json:"loadBalanced,omitempty"`
 	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
 	NextQueue *string `json:"nextQueue,omitempty"`
 	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
@@ -112,9 +70,8 @@ type OutputWizHec struct {
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitempty"`
 	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitempty"`
-	// Output metrics in multiple-metric format
-	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitempty"`
+	SafeHeaders        []string `json:"safeHeaders,omitempty"`
+	EnableMultiMetrics any      `json:"enableMultiMetrics,omitempty"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitempty"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
@@ -124,24 +81,18 @@ type OutputWizHec struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitempty"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitempty"`
-	Description    *string                      `json:"description,omitempty"`
-	// URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
-	URL *string `json:"url,omitempty"`
-	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitempty"`
-	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool             `json:"excludeSelf,omitempty"`
-	Urls        []OutputWizHecURL `json:"urls,omitempty"`
-	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitempty"`
-	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitempty"`
+	// The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
+	WizConnectorID string `json:"wiz_connector_id"`
+	// Your Wiz deployment environment.
+	WizEnvironment string `json:"wiz_environment"`
+	// Your Wiz deployment data center (e.g., us1, us8, eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
+	DataCenter    string  `json:"data_center"`
+	WizSourcetype string  `json:"wiz_sourcetype"`
+	Description   *string `json:"description,omitempty"`
 	// Wiz Defender Auth token
 	Token *string `json:"token,omitempty"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitempty"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitempty"`
 }
 
 func (o OutputWizHec) MarshalJSON() ([]byte, error) {
@@ -149,7 +100,7 @@ func (o OutputWizHec) MarshalJSON() ([]byte, error) {
 }
 
 func (o *OutputWizHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &o, "", false, []string{"type", "wiz_connector_id", "wiz_environment", "data_center", "wiz_sourcetype"}); err != nil {
 		return err
 	}
 	return nil
@@ -197,7 +148,7 @@ func (o *OutputWizHec) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputWizHec) GetLoadBalanced() *bool {
+func (o *OutputWizHec) GetLoadBalanced() any {
 	if o == nil {
 		return nil
 	}
@@ -295,7 +246,7 @@ func (o *OutputWizHec) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputWizHec) GetEnableMultiMetrics() *bool {
+func (o *OutputWizHec) GetEnableMultiMetrics() any {
 	if o == nil {
 		return nil
 	}
@@ -337,53 +288,39 @@ func (o *OutputWizHec) GetOnBackpressure() *BackpressureBehaviorOptions {
 	return o.OnBackpressure
 }
 
+func (o *OutputWizHec) GetWizConnectorID() string {
+	if o == nil {
+		return ""
+	}
+	return o.WizConnectorID
+}
+
+func (o *OutputWizHec) GetWizEnvironment() string {
+	if o == nil {
+		return ""
+	}
+	return o.WizEnvironment
+}
+
+func (o *OutputWizHec) GetDataCenter() string {
+	if o == nil {
+		return ""
+	}
+	return o.DataCenter
+}
+
+func (o *OutputWizHec) GetWizSourcetype() string {
+	if o == nil {
+		return ""
+	}
+	return o.WizSourcetype
+}
+
 func (o *OutputWizHec) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
-}
-
-func (o *OutputWizHec) GetURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.URL
-}
-
-func (o *OutputWizHec) GetUseRoundRobinDNS() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.UseRoundRobinDNS
-}
-
-func (o *OutputWizHec) GetExcludeSelf() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ExcludeSelf
-}
-
-func (o *OutputWizHec) GetUrls() []OutputWizHecURL {
-	if o == nil {
-		return nil
-	}
-	return o.Urls
-}
-
-func (o *OutputWizHec) GetDNSResolvePeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DNSResolvePeriodSec
-}
-
-func (o *OutputWizHec) GetLoadBalanceStatsPeriodSec() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.LoadBalanceStatsPeriodSec
 }
 
 func (o *OutputWizHec) GetToken() *string {
@@ -398,11 +335,4 @@ func (o *OutputWizHec) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
-}
-
-func (o *OutputWizHec) GetTemplateURL() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateURL
 }
