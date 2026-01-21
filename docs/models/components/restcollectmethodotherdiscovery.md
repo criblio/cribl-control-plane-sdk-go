@@ -1,8 +1,29 @@
 # RestCollectMethodOtherDiscovery
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `DiscoverType`                                                                                                             | [components.RestCollectMethodOtherDiscoverType](../../models/components/restcollectmethodotherdiscovertype.md)             | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+### RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP
+
+```go
+restCollectMethodOtherDiscovery := components.CreateRestCollectMethodOtherDiscoveryHTTP(components.RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON
+
+```go
+restCollectMethodOtherDiscovery := components.CreateRestCollectMethodOtherDiscoveryJSON(components.RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestCollectMethodOtherRestDiscoveryDiscoverTypeList
+
+```go
+restCollectMethodOtherDiscovery := components.CreateRestCollectMethodOtherDiscoveryList(components.RestCollectMethodOtherRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestCollectMethodOtherRestDiscoveryDiscoverTypeNone
+
+```go
+restCollectMethodOtherDiscovery := components.CreateRestCollectMethodOtherDiscoveryNone(components.RestCollectMethodOtherRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+

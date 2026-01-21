@@ -37,6 +37,10 @@ type CollectorSplunk struct {
 	// Collector type
 	Type CollectorSplunkType `json:"type"`
 	Conf SplunkCollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorSplunk) MarshalJSON() ([]byte, error) {
@@ -90,4 +94,18 @@ func (c *CollectorSplunk) GetConfLogin() *SplunkAuthenticationLogin {
 
 func (c *CollectorSplunk) GetConfLoginSecret() *SplunkAuthenticationLoginSecret {
 	return c.GetConf().SplunkAuthenticationLoginSecret
+}
+
+func (c *CollectorSplunk) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorSplunk) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }
