@@ -1,8 +1,29 @@
 # RestAuthenticationLoginDiscovery
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `DiscoverType`                                                                                                             | [components.RestAuthenticationLoginDiscoverType](../../models/components/restauthenticationlogindiscovertype.md)           | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+### RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP
+
+```go
+restAuthenticationLoginDiscovery := components.CreateRestAuthenticationLoginDiscoveryHTTP(components.RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON
+
+```go
+restAuthenticationLoginDiscovery := components.CreateRestAuthenticationLoginDiscoveryJSON(components.RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestAuthenticationLoginRestDiscoveryDiscoverTypeList
+
+```go
+restAuthenticationLoginDiscovery := components.CreateRestAuthenticationLoginDiscoveryList(components.RestAuthenticationLoginRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestAuthenticationLoginRestDiscoveryDiscoverTypeNone
+
+```go
+restAuthenticationLoginDiscovery := components.CreateRestAuthenticationLoginDiscoveryNone(components.RestAuthenticationLoginRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+

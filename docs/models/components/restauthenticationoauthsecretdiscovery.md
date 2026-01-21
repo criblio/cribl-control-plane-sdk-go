@@ -1,8 +1,29 @@
 # RestAuthenticationOauthSecretDiscovery
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `DiscoverType`                                                                                                               | [components.RestAuthenticationOauthSecretDiscoverType](../../models/components/restauthenticationoauthsecretdiscovertype.md) | :heavy_check_mark:                                                                                                           | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.   |
+### RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP
+
+```go
+restAuthenticationOauthSecretDiscovery := components.CreateRestAuthenticationOauthSecretDiscoveryHTTP(components.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON
+
+```go
+restAuthenticationOauthSecretDiscovery := components.CreateRestAuthenticationOauthSecretDiscoveryJSON(components.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList
+
+```go
+restAuthenticationOauthSecretDiscovery := components.CreateRestAuthenticationOauthSecretDiscoveryList(components.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone
+
+```go
+restAuthenticationOauthSecretDiscovery := components.CreateRestAuthenticationOauthSecretDiscoveryNone(components.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+

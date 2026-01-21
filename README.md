@@ -178,13 +178,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Get](docs/sdks/collectors/README.md#get) - Get a Collector
 * [Update](docs/sdks/collectors/README.md#update) - Update a Collector
 
-### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
-
-* [Create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
-* [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
-* [Get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
-* [Update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
-
 ### [Destinations](docs/sdks/destinations/README.md)
 
 * [List](docs/sdks/destinations/README.md#list) - List all Destinations

@@ -1,8 +1,29 @@
 # RestCollectMethodGetDiscovery
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `DiscoverType`                                                                                                             | [components.RestCollectMethodGetDiscoverType](../../models/components/restcollectmethodgetdiscovertype.md)                 | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+### RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP
+
+```go
+restCollectMethodGetDiscovery := components.CreateRestCollectMethodGetDiscoveryHTTP(components.RestCollectMethodGetRestDiscoveryDiscoverTypeHTTP{/* values here */})
+```
+
+### RestCollectMethodGetRestDiscoveryDiscoverTypeJSON
+
+```go
+restCollectMethodGetDiscovery := components.CreateRestCollectMethodGetDiscoveryJSON(components.RestCollectMethodGetRestDiscoveryDiscoverTypeJSON{/* values here */})
+```
+
+### RestCollectMethodGetRestDiscoveryDiscoverTypeList
+
+```go
+restCollectMethodGetDiscovery := components.CreateRestCollectMethodGetDiscoveryList(components.RestCollectMethodGetRestDiscoveryDiscoverTypeList{/* values here */})
+```
+
+### RestCollectMethodGetRestDiscoveryDiscoverTypeNone
+
+```go
+restCollectMethodGetDiscovery := components.CreateRestCollectMethodGetDiscoveryNone(components.RestCollectMethodGetRestDiscoveryDiscoverTypeNone{/* values here */})
+```
+

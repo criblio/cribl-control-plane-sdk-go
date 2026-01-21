@@ -37,6 +37,10 @@ type CollectorAzureBlob struct {
 	// Collector type
 	Type CollectorAzureBlobType `json:"type"`
 	Conf AzureBlobCollectorConf `json:"conf"`
+	// Delete any files collected (where applicable)
+	Destructive *bool `json:"destructive,omitempty"`
+	// Character encoding to use when parsing ingested data.
+	Encoding *string `json:"encoding,omitempty"`
 }
 
 func (c CollectorAzureBlob) MarshalJSON() ([]byte, error) {
@@ -78,4 +82,18 @@ func (c *CollectorAzureBlob) GetConfClientSecret() *AzureBlobAuthTypeClientSecre
 
 func (c *CollectorAzureBlob) GetConfClientCert() *AzureBlobAuthTypeClientCert {
 	return c.GetConf().AzureBlobAuthTypeClientCert
+}
+
+func (c *CollectorAzureBlob) GetDestructive() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Destructive
+}
+
+func (c *CollectorAzureBlob) GetEncoding() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Encoding
 }
