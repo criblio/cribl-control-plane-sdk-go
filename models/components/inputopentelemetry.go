@@ -164,6 +164,14 @@ type InputOpenTelemetry struct {
 	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitempty"`
 	// Enable to extract each incoming log record to a separate event
 	ExtractLogs *bool `json:"extractLogs,omitempty"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitempty"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitempty"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitempty"`
+	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+	TemplateSecret *string `json:"__template_secret,omitempty"`
 }
 
 func (i InputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -497,4 +505,32 @@ func (i *InputOpenTelemetry) GetExtractLogs() *bool {
 		return nil
 	}
 	return i.ExtractLogs
+}
+
+func (i *InputOpenTelemetry) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputOpenTelemetry) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+func (i *InputOpenTelemetry) GetTemplateLoginURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateLoginURL
+}
+
+func (i *InputOpenTelemetry) GetTemplateSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSecret
 }
