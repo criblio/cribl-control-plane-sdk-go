@@ -261,6 +261,7 @@ func main() {
             OutputExpression: criblcontrolplanesdkgo.Pointer("<value>"),
             Pipeline: "main",
             ToGroupContext: criblcontrolplanesdkgo.Pointer(true),
+            ToPackContext: criblcontrolplanesdkgo.Pointer(true),
         },
     })
     if err != nil {

@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: f590abfdf4ea677ac2cdff89af6f69c5
-  docVersion: 4.17.0-alpha.1768904115233-331f5715
+  docChecksum: 890ba50f663b54189c0c2735f43ae9fb
+  docVersion: 4.17.0-alpha.1768950205651-63783523
   speakeasyVersion: 1.690.0
   generationVersion: 2.797.1
-  releaseVersion: 0.5.0-beta.29
-  configChecksum: 5eb8358ef923aeb61baa79c74a34e33b
+  releaseVersion: 0.5.0-beta.30
+  configChecksum: f2fff8df7f4cdcacae916c7438cdb8bb
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: c2b2317b-f931-432d-982e-f5e990b095f0
-  pristine_commit_hash: 3ad780d82d9291547b249eaf3c13a1a4ff5d6296
-  pristine_tree_hash: 9aa340a1507a9b6f5df7c865e0d221f8072354f1
+  generation_id: 07f83f44-16d3-4564-9c22-095f9f8ac42a
+  pristine_commit_hash: 4dfa0671f597f859625fbc80f36cf1a34e4e402b
+  pristine_tree_hash: 57225b4b75cf05d0cdbb986d454e4a4c2e74daa0
 features:
   go:
     additionalDependencies: 0.1.0
@@ -89,8 +89,8 @@ trackedFiles:
     pristine_git_object: 235e960ef9f6fa66c506bde86f9939174c35ee56
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:972498782d1461b45b23423ea4dc682733dcf3f5
-    pristine_git_object: 803b41fd9129bf597972759976e20de3d8e32920
+    last_write_checksum: sha1:3913ebb00c61cd1bbf00b060789212d70752062c
+    pristine_git_object: 531940382d70147c1912161e48b0a684a6bf691d
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c0b82f2cfaaaa4881447c0c6e79c70bbe83b2150
@@ -5653,8 +5653,8 @@ trackedFiles:
     pristine_git_object: 820d6d9c575b1805fa34f992717ef9563f589429
   docs/models/components/routeconf.md:
     id: f24f50e64b9e
-    last_write_checksum: sha1:5a070ff99cc6412f5f059df5efee9e16fc526a38
-    pristine_git_object: d94a88e4f0e8c228a885bb896404e485e57321cc
+    last_write_checksum: sha1:7997fff8f8bf82307ec6f3e0c0e464b43a803fcf
+    pristine_git_object: 3ae44f8c611ef6b7bd781c113fcb521732d9861d
   docs/models/components/routes.md:
     id: 419f2a2307d0
     last_write_checksum: sha1:457dd6773239e7c46231f57e790182cc660cec07
@@ -8937,8 +8937,8 @@ trackedFiles:
     pristine_git_object: 191cdb263c1b1e5a03ca32a40048df7b95a666db
   docs/sdks/routes/README.md:
     id: 8eceb878c9af
-    last_write_checksum: sha1:a20d30c4fe8b91ca6c594a40f998c5b0c8d031be
-    pristine_git_object: da17fa51a8d6e923aff28fbccb96d4978ab65b24
+    last_write_checksum: sha1:445df001d06b33d0fb1beb9427592d8bfc7321a3
+    pristine_git_object: 17ac74f464b092b50dd6a2239d8e838fc1ec06ca
   docs/sdks/samples/README.md:
     id: 2b3e67e9f9a5
     last_write_checksum: sha1:fcdcfc856d535e129ef89b54366e4400dd720d57
@@ -11261,8 +11261,8 @@ trackedFiles:
     pristine_git_object: 2c28a6703608ac873d0d478ab1374cd6b56fa56e
   models/components/routeconf.go:
     id: aaad7e3e9c86
-    last_write_checksum: sha1:a228e77fc419a478aa6da5d5ad2a5beba4bfddae
-    pristine_git_object: 3a36ddc6c3c6d62d0c5a304457649c4fa1f33229
+    last_write_checksum: sha1:4533cc10a67fcb677ebacc97ff08c48fdca6d233
+    pristine_git_object: 68876833f4e2a78cfaa78e1d97253e94fdd8336e
   models/components/routes.go:
     id: 0bf1aa6a0d34
     last_write_checksum: sha1:df74e71bdd0b44cd2cebae0c75b69984b409b2f8
@@ -14641,7 +14641,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"clones": [{"key": "<value>"}, {}], "context": "<value>", "description": "Route new logs to main pipeline", "disabled": true, "enableOutputExpression": true, "filter": "source == \"new.log\"", "final": true, "groupId": "<id>", "id": "route-new", "name": "new-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "toGroupContext": true}]
+        application/json: [{"clones": [{"key": "<value>"}, {}], "context": "<value>", "description": "Route new logs to main pipeline", "disabled": true, "enableOutputExpression": true, "filter": "source == \"new.log\"", "final": true, "groupId": "<id>", "id": "route-new", "name": "new-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "toGroupContext": true, "toPackContext": true}]
       responses:
         "200":
           application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
@@ -14652,7 +14652,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route audit logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"audit.log\"", "final": false, "groupId": "<id>", "id": "route-audit", "name": "audit", "output": "default", "outputExpression": "<value>", "pipeline": "main", "toGroupContext": true}, {"clones": [{}, {}, {}], "context": "<value>", "description": "Route security logs", "disabled": true, "enableOutputExpression": false, "filter": "source == \"security.log\"", "final": false, "groupId": "<id>", "id": "route-security", "name": "security", "output": "devnull", "outputExpression": "<value>", "pipeline": "passthru", "toGroupContext": true}]
+        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route audit logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"audit.log\"", "final": false, "groupId": "<id>", "id": "route-audit", "name": "audit", "output": "default", "outputExpression": "<value>", "pipeline": "main", "toGroupContext": true, "toPackContext": true}, {"clones": [{}, {}, {}], "context": "<value>", "description": "Route security logs", "disabled": true, "enableOutputExpression": false, "filter": "source == \"security.log\"", "final": false, "groupId": "<id>", "id": "route-security", "name": "security", "output": "devnull", "outputExpression": "<value>", "pipeline": "passthru", "toGroupContext": true, "toPackContext": true}]
       responses:
         "200":
           application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
@@ -14663,7 +14663,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": false, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic-append", "name": "dynamic-append", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "toGroupContext": true}]
+        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": false, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic-append", "name": "dynamic-append", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "toGroupContext": true, "toPackContext": true}]
       responses:
         "200":
           application/json: {"count": 486469, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "dirty finally helpless", "disabled": false}}, "comments": [{"comment": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"}]}]}
@@ -16817,7 +16817,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items.[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items.[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Routes.Append()`: \n  *  `request.RequestBody.[].ToPackContext` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
